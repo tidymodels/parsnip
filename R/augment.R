@@ -27,14 +27,17 @@
 #'
 #' If survival predictions are created and `new_data` contains a
 #' [survival::Surv()] object, additional columns are added for inverse
-#' probability of censoring weights (IPCW) are also created. This enables the
-#' user to compute performance metrics in the \pkg{yardstick} package.
+#' probability of censoring weights (IPCW) are also created (see `tidymodels.org`
+#' page in the references below). This enables the user to compute performance
+#' metrics in the \pkg{yardstick} package.
 #'
 #' @param new_data A data frame or matrix.
 #' @param ... Not currently used.
 #' @rdname augment
+#' @references
+#' \url{https://www.tidymodels.org/learn/statistics/survival-metrics/}
 #' @export
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' car_trn <- mtcars[11:32,]
 #' car_tst <- mtcars[ 1:10,]
 #'
@@ -124,6 +127,16 @@ augment_censored <- function(x, new_data, eval_time = NULL) {
   }
 
   if (spec_has_pred_type(x, "survival")) {
+    if (is.null(eval_time)) {
+      cli::cli_abort(
+        c(
+          x = "The {.arg eval_time} argument is missing, with no default.",
+          i = "{.arg eval_time} is required to be able to calculate \\
+              predictions of survival probability."
+        ),
+        call = caller_env()
+      )
+    }
     .filter_eval_time(eval_time)
     ret <- dplyr::bind_cols(
       predict(x, new_data = new_data, type = "survival", eval_time = eval_time),

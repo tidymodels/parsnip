@@ -46,7 +46,7 @@
 #' section.
 #'
 #' @name extract-parsnip
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' lm_spec <- linear_reg() %>% set_engine("lm")
 #' lm_fit <- fit(lm_spec, mpg ~ ., data = mtcars)
 #'

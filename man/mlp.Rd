@@ -36,8 +36,8 @@ of model parameters randomly set to zero during model training.}
 \item{activation}{A single character string denoting the type of relationship
 between the original predictors and the hidden unit layer. The activation
 function between the hidden and output layers is automatically set to either
-"linear" or "softmax" depending on the type of outcome. Possible values are:
-"linear", "softmax", "relu", and "elu"}
+"linear" or "softmax" depending on the type of outcome. Possible values
+depend on the engine being used.}
 
 \item{learn_rate}{A number for the rate at which the boosting algorithm adapts
 from iteration-to-iteration (specific engines only). This is sometimes referred to
@@ -71,9 +71,11 @@ mlp(argument = !!value)
 }\if{html}{\out{</div>}}
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 show_engines("mlp")
 
 mlp(mode = "classification", penalty = 0.01)
+\dontshow{\}) # examplesIf}
 }
 \references{
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}

@@ -7,9 +7,7 @@
 null_model(mode = "classification")
 }
 \arguments{
-\item{mode}{A single character string for the prediction outcome mode.
-Possible values for this model are "unknown", "regression", or
-"classification".}
+\item{mode}{A single character string for the model mode (e.g. "regression").}
 }
 \description{
 \code{null_model()} defines a simple, non-informative model. It doesn't have any
@@ -58,7 +56,9 @@ call. For this type of model, the template of the fit calls are below:
 }
 
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 null_model(mode = "regression")
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=fit.model_spec]{fit.model_spec()}}

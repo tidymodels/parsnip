@@ -45,6 +45,10 @@
     rlang::abort("`composition` should be either 'data.frame' or 'matrix'.")
   }
 
+  if (remove_intercept) {
+    data <- data[, colnames(data) != "(Intercept)", drop = FALSE]
+  }
+
   ## Assemble model.frame call from call arguments
   mf_call <- quote(model.frame(formula, data))
   mf_call$na.action <- match.call()$na.action # TODO this should work better
@@ -230,7 +234,7 @@
   if (is.matrix(y)) {
     y <- as.data.frame(y)
   } else {
-    if (is.vector(y) | is.factor(y)) {
+    if (is.atomic(y)) {
       y <- data.frame(y)
       names(y) <- y_name
     }
@@ -324,7 +328,7 @@ make_formula <- function(x, y, short = TRUE) {
 
 
 will_make_matrix <- function(y) {
-  if (is.matrix(y) | is.vector(y) | is.factor(y))
+  if (is.matrix(y) | is.atomic(y))
     return(FALSE)
   cls <- unique(unlist(lapply(y, class)))
   if (length(cls) > 1)

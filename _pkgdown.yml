@@ -71,6 +71,7 @@ reference:
       - add_rowindex
       - augment.model_fit
       - case_weights
+      - case_weights_allowed
       - descriptors
       - extract-parsnip
       - fit.model_spec
@@ -78,6 +79,7 @@ reference:
       - control_parsnip
       - glance.model_fit
       - model_fit
+      - model_formula
       - model_spec
       - multi_predict
       - parsnip_addin
@@ -107,4 +109,3 @@ reference:
       - .extract_surv_status
       - .extract_surv_time
       - .model_param_name_key
-      - .time_as_binary_event

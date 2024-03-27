@@ -34,7 +34,7 @@ predict(fit, mtcars[1:3,])
 ```
 
 ```
-## # A tibble: 3 × 1
+## # A tibble: 3 x 1
 ##   .pred
 ##   <dbl>
 ## 1  22.2
@@ -51,12 +51,12 @@ multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01))
 ```
 
 ```
-## # A tibble: 3 × 1
+## # A tibble: 3 x 1
 ##   .pred           
 ##   <list>          
-## 1 <tibble [2 × 2]>
-## 2 <tibble [2 × 2]>
-## 3 <tibble [2 × 2]>
+## 1 <tibble [2 x 2]>
+## 2 <tibble [2 x 2]>
+## 3 <tibble [2 x 2]>
 ```
 
 ```r
@@ -67,7 +67,7 @@ multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01)) %>%
 ```
 
 ```
-## # A tibble: 6 × 3
+## # A tibble: 6 x 3
 ##   penalty .pred  .row
 ##     <dbl> <dbl> <int>
 ## 1    0     22.6     1
@@ -138,7 +138,7 @@ predict(fit_ridge, mtcars[1:3,])
 ```
 
 ```
-## # A tibble: 3 × 1
+## # A tibble: 3 x 1
 ##   .pred
 ##   <dbl>
 ## 1  22.1
@@ -160,7 +160,7 @@ tidy(fit)
 ```
 
 ```
-## # A tibble: 11 × 3
+## # A tibble: 11 x 3
 ##   term        estimate penalty
 ##   <chr>          <dbl>   <dbl>
 ## 1 (Intercept)  35.3          1
@@ -169,7 +169,7 @@ tidy(fit)
 ## 4 hp           -0.0101       1
 ## 5 drat          0            1
 ## 6 wt           -2.59         1
-## # … with 5 more rows
+## # i 5 more rows
 ```
 
 Note that there is a `tidy()` method for `glmnet` objects in the `broom` package. If this is used directly on the underlying `glmnet` object, it returns _all of coefficients on the path_:
@@ -182,7 +182,7 @@ all_tidy_coefs
 ```
 
 ```
-## # A tibble: 640 × 5
+## # A tibble: 640 x 5
 ##   term         step estimate lambda dev.ratio
 ##   <chr>       <dbl>    <dbl>  <dbl>     <dbl>
 ## 1 (Intercept)     1     20.1   5.15     0    
@@ -191,7 +191,7 @@ all_tidy_coefs
 ## 4 (Intercept)     4     24.7   3.89     0.347
 ## 5 (Intercept)     5     26.0   3.55     0.429
 ## 6 (Intercept)     6     27.2   3.23     0.497
-## # … with 634 more rows
+## # i 634 more rows
 ```
 
 ```r

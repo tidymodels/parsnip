@@ -3,6 +3,7 @@
 options(useFancyQuotes = FALSE)
 options(dplyr.print_min = 6, dplyr.print_max = 6)
 options(cli.width = 85)
+options(cli.unicode = FALSE)
 options(crayon.enabled = FALSE)
 options(pillar.min_title_chars = Inf)
 

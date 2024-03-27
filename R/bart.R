@@ -11,6 +11,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
+#' @inheritParams nearest_neighbor
 #' @inheritParams boost_tree
 #' @param prior_terminal_node_coef A coefficient for the prior probability that
 #' a node is a terminal node. Values are usually between 0 and one with
@@ -42,7 +43,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("bart")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("bart")
 #'
 #' bart(mode = "regression", trees = 5)

@@ -26,7 +26,7 @@
 #' @param ntree Number of trees to grow in a forest.
 #' @param ... Other options to pass to [partykit::ctree()] or [partykit::cforest()].
 #' @return An object of class `party` (for `ctree`) or `cforest`.
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' if (rlang::is_installed(c("modeldata", "partykit"))) {
 #'   data(bivariate, package = "modeldata")
 #'   ctree_train(Class ~ ., data = bivariate_train)
@@ -184,7 +184,7 @@ cforest_train <-
 #' @param formula A model formula.
 #' @param data The training set (data frame).
 #' @return A value for `mtry`.
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' # should be 9
 #' max_mtry_formula(200, cbind(wt, mpg) ~ ., data = mtcars)
 #' @export

@@ -19,15 +19,15 @@ boost_tree(
 }
 \arguments{
 \item{mode}{A single character string for the prediction outcome mode.
-Possible values for this model are "unknown", "regression", or
-"classification".}
+Possible values for this model are "unknown", "regression",
+"classification", or "censored regression".}
 
 \item{engine}{A single character string specifying what computational engine
 to use for fitting.}
 
 \item{mtry}{A number for the number (or proportion) of predictors that will
 be randomly sampled at each split when creating the tree models
-(specific engines only)}
+(specific engines only).}
 
 \item{trees}{An integer for the number of trees contained in
 the ensemble.}
@@ -81,9 +81,11 @@ boost_tree(argument = !!value)
 }\if{html}{\out{</div>}}
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 show_engines("boost_tree")
 
 boost_tree(mode = "classification", trees = 20)
+\dontshow{\}) # examplesIf}
 }
 \references{
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}

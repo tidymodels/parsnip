@@ -15,13 +15,13 @@
 #' \url{https://www.tidymodels.org/}.
 #'
 #' @param mode A single character string for the prediction outcome mode.
-#'  Possible values for this model are "unknown", "regression", or
-#'  "classification".
+#'  Possible values for this model are "unknown", "regression",
+#'  "classification", or "censored regression".
 #' @param engine A single character string specifying what computational engine
 #'  to use for fitting.
 #' @param mtry A number for the number (or proportion) of predictors that will
 #'  be randomly sampled at each split when creating the tree models
-#' (specific engines only)
+#' (specific engines only).
 #' @param trees An integer for the number of trees contained in
 #'  the ensemble.
 #' @param min_n An integer for the minimum number of data points
@@ -47,7 +47,7 @@
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("boost_tree")},
 #' [xgb_train()], [C5.0_train()]
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("boost_tree")
 #'
 #' boost_tree(mode = "classification", trees = 20)
@@ -163,6 +163,7 @@ translate.boost_tree <- function(x, engine = x$engine, ...) {
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.boost_tree <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)
@@ -435,15 +436,22 @@ as_xgb_data <- function(x, y, validation = 0, weights = NULL, event_level = "fir
       # Split data
       m <- floor(n * (1 - validation)) + 1
       trn_index <- sample(seq_len(n), size = max(m, 2))
-      val_data <- xgboost::xgb.DMatrix(x[-trn_index,], label = y[-trn_index], missing = NA)
+      val_data <- xgboost::xgb.DMatrix(
+        data = x[-trn_index, , drop = FALSE],
+        label = y[-trn_index],
+        missing = NA
+      )
       watch_list <- list(validation = val_data)
 
       info_list <- list(label = y[trn_index])
       if (!is.null(weights)) {
         info_list$weight <- weights[trn_index]
       }
-      dat <- xgboost::xgb.DMatrix(x[trn_index,], missing = NA, info = info_list)
-
+      dat <- xgboost::xgb.DMatrix(
+        data = x[trn_index, , drop = FALSE],
+        missing = NA,
+        info = info_list
+      )
 
     } else {
       info_list <- list(label = y)

@@ -10,7 +10,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
+#' @inheritParams nearest_neighbor
 #' @inheritParams linear_reg
 #' @param mode A single character string for the prediction outcome mode.
 #'  The only possible value for this model is "censored regression".
@@ -27,7 +27,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("proportional_hazards")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("proportional_hazards")
 #'
 #' proportional_hazards(mode = "censored regression")

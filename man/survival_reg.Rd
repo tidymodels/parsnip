@@ -47,9 +47,11 @@ Since survival models typically involve censoring (and require the use of
 survival model be specified via the formula interface.
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 show_engines("survival_reg")
 
 survival_reg(mode = "censored regression", dist = "weibull")
+\dontshow{\}) # examplesIf}
 }
 \references{
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}

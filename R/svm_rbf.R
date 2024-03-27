@@ -14,7 +14,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
+#' @inheritParams nearest_neighbor
 #' @param engine A single character string specifying what computational engine
 #'  to use for fitting. Possible engines are listed below. The default for this
 #'  model is `"kernlab"`.
@@ -31,7 +31,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("svm_rbf")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("svm_rbf")
 #'
 #' svm_rbf(mode = "classification", rbf_sigma = 0.2)
@@ -138,6 +138,7 @@ translate.svm_rbf <- function(x, engine = x$engine, ...) {
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.svm_rbf <- function(object) {
   invisible(object)
 }

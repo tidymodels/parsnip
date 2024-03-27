@@ -40,7 +40,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("multinom_reg")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("multinom_reg")
 #'
 #' multinom_reg()
@@ -99,6 +99,7 @@ update.multinom_reg <-
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.multinom_reg <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)

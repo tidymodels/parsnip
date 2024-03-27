@@ -93,10 +93,9 @@ The smoothness of the terms will need to be manually specified (e.g.,
 using \code{s(x, df = 10)}) in the formula. Tuning can be accomplished using
 the \code{adjust_deg_free} parameter.
 
-However, when using a workflow, the best approach is to avoid using
-\code{\link[workflows:add_formula]{workflows::add_formula()}} and use
-\code{\link[workflows:add_variables]{workflows::add_variables()}} in
-conjunction with a model formula:
+When using a workflow, pass the \emph{model formula} to
+\code{\link[workflows:add_model]{workflows::add_model()}}’s \code{formula} argument,
+and a simplified \emph{preprocessing formula} elsewhere.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{spec <- 
   gen_additive_mod() \%>\% 
@@ -104,8 +103,8 @@ conjunction with a model formula:
   set_mode("regression")
 
 workflow() \%>\% 
-  add_variables(outcomes = c(mpg), predictors = c(wt, gear, cyl, disp)) \%>\% 
   add_model(spec, formula = mpg ~ wt + gear + cyl + s(disp, k = 10)) \%>\% 
+  add_formula(mpg ~ wt + gear + cyl + disp) \%>\% 
   fit(data = mtcars) \%>\% 
   extract_fit_engine()
 }\if{html}{\out{</div>}}
@@ -123,9 +122,8 @@ workflow() \%>\%
 ## GCV score: 4.225228
 }\if{html}{\out{</div>}}
 
-The reason for this is that
-\code{\link[workflows:add_formula]{workflows::add_formula()}} will try to
-create the model matrix and fail to find/use \code{s()}.
+To learn more about the differences between these formulas, see
+\code{\link[=model_formula]{?model_formula}}.
 }
 
 \subsection{Preprocessing requirements}{

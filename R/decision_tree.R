@@ -26,7 +26,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("decision_tree")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("decision_tree")
 #'
 #' decision_tree(mode = "classification", tree_depth = 5)
@@ -127,6 +127,7 @@ translate.decision_tree <- function(x, engine = x$engine, ...) {
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.decision_tree <- function(object) {
   if (object$engine == "C5.0" && object$mode == "regression")
     rlang::abort("C5.0 is classification only.")
@@ -137,8 +138,11 @@ check_args.decision_tree <- function(object) {
 
 #' Decision trees via rpart
 #'
-#' `rpart_train` is a wrapper for `rpart()` tree-based models
+#' @description
+#' `rpart_train()` is a wrapper for `rpart()` tree-based models
 #'  where all of the model arguments are in the main function.
+#'
+#'  The function is now deprecated, as parsnip uses `rpart::rpart()` directly.
 #'
 #' @param formula A model formula.
 #' @param data A data frame.
@@ -165,6 +169,12 @@ check_args.decision_tree <- function(object) {
 #' @export
 rpart_train <-
   function(formula, data, weights = NULL, cp = 0.01, minsplit = 20, maxdepth = 30, ...) {
+    lifecycle::deprecate_warn(
+      "1.2.0",
+      "rpart_train()",
+      details = 'Instead, use `decision_tree(engine = "rpart")` or `rpart::rpart()` directly.'
+    )
+
     bitness <- 8 * .Machine$sizeof.pointer
     if (bitness == 32 & maxdepth > 30)
       maxdepth <- 30

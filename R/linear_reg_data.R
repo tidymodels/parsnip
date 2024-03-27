@@ -44,7 +44,8 @@ set_pred(
       list(
         object = expr(object$fit),
         newdata = expr(new_data),
-        type = "response"
+        type = "response",
+        rankdeficient = "simple"
       )
   )
 )
@@ -538,44 +539,6 @@ set_model_arg(
   func = list(pkg = "dials", fun = "mixture"),
   has_submodel = FALSE
 )
-
-set_model_arg(
-  model = "linear_reg",
-  eng = "brulee",
-  parsnip = "epochs",
-  original = "epochs",
-  func = list(pkg = "dials", fun = "epochs"),
-  has_submodel = FALSE
-)
-
-set_model_arg(
-  model = "linear_reg",
-  eng = "brulee",
-  parsnip = "learn_rate",
-  original = "learn_rate",
-  func = list(pkg = "dials", fun = "learn_rate"),
-  has_submodel = FALSE
-)
-
-set_model_arg(
-  model = "linear_reg",
-  eng = "brulee",
-  parsnip = "momentum",
-  original = "momentum",
-  func = list(pkg = "dials", fun = "momentum"),
-  has_submodel = FALSE
-)
-
-
-set_model_arg(
-  model = "linear_reg",
-  eng = "brulee",
-  parsnip = "stop_iter",
-  original = "stop_iter",
-  func = list(pkg = "dials", fun = "stop_iter"),
-  has_submodel = FALSE
-)
-
 
 set_fit(
   model = "linear_reg",

@@ -55,7 +55,7 @@
 #' a "reverse Kaplan-Meier" curve that models the probability of censoring. This
 #' may be used later to compute inverse probability censoring weights for
 #' performance measures.
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' # Although `glm()` only has a formula interface, different
 #' # methods for specifying the model can be used
 #'
@@ -267,7 +267,7 @@ fit_xy.model_spec <-
     }
     y_var <- colnames(y)
 
-    if (object$engine != "spark" & NCOL(y) == 1 & !(is.vector(y) | is.factor(y))) {
+    if (object$engine != "spark" & NCOL(y) == 1 & !(is.atomic(y))) {
       if (is.matrix(y)) {
         y <- y[, 1]
       } else {
@@ -411,10 +411,8 @@ check_xy_interface <- function(x, y, cl, model) {
     inher(x, c("data.frame", "matrix"), cl)
   }
 
-  # `y` can be a vector (which is not a class), or a factor or
-  # Surv object (which are not vectors)
-  if (!is.null(y) && !is.vector(y))
-    inher(y, c("data.frame", "matrix", "factor", "Surv"), cl)
+  if (!is.null(y) && !is.atomic(y))
+    inher(y, c("data.frame", "matrix"), cl)
 
   # rule out spark data sets that don't use the formula interface
   if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark"))
@@ -440,6 +438,9 @@ check_xy_interface <- function(x, y, cl, model) {
   if (df_interface) {
     return("data.frame")
   }
+
+  check_outcome(y, model)
+
   rlang::abort("Error when checking the interface")
 }
 

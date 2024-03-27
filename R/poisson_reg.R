@@ -10,7 +10,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
+#' @inheritParams nearest_neighbor
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "regression".
 #' @param penalty A non-negative number representing the total
@@ -100,6 +100,7 @@ translate.poisson_reg <- function(x, engine = x$engine, ...) {
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.poisson_reg <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)

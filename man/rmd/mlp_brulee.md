@@ -7,19 +7,17 @@ For this engine, there are multiple modes: classification and regression
 
 
 
-This model has 7 tuning parameters:
+This model has 6 tuning parameters:
 
 - `hidden_units`: # Hidden Units (type: integer, default: 3L)
 
 - `penalty`: Amount of Regularization (type: double, default: 0.0)
 
-- `mixture`: Proportion of Lasso Penalty (type: double, default: 0.0)
-
-- `epochs`: # Epochs (type: integer, default: 0.01)
+- `epochs`: # Epochs (type: integer, default: 100L)
 
 - `dropout`: Dropout Rate (type: double, default: 0.0)
 
-- `learn_rate`: Learning Rate (type: double, default: 100L)
+- `learn_rate`: Learning Rate (type: double, default: 0.01)
 
 - `activation`: Activation Function (type: character, default: 'relu')
 

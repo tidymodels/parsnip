@@ -27,7 +27,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rand_forest")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("rand_forest")
 #'
 #' rand_forest(mode = "classification", trees = 2000)
@@ -160,6 +160,7 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.rand_forest <- function(object) {
   # move translate checks here?
   invisible(object)

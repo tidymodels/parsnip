@@ -27,7 +27,7 @@
 #'  to understand what the underlying syntax would be. It should not be used
 #'  to modify the model specification.
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' lm_spec <- linear_reg(penalty = 0.01)
 #'
 #' # `penalty` is tranlsated to `lambda`
@@ -102,8 +102,6 @@ translate.default <- function(x, engine = x$engine, ...) {
 
 get_model_spec <- function(model, mode, engine) {
   m_env <- get_model_env()
-  env_obj <- rlang::env_names(m_env)
-  env_obj <- grep(model, env_obj, value = TRUE)
 
   res <- list()
 
@@ -177,7 +175,7 @@ add_methods <- function(x, engine) {
 #' or in a list that can facilitate renaming grid objects?
 #' @return A tibble with columns `user`, `parsnip`, and `engine`, or a list
 #' with named character vectors `user_to_parsnip` and `parsnip_to_engine`.
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' mod <-
 #'  linear_reg(penalty = tune("regularization"), mixture = tune()) %>%
 #'  set_engine("glmnet")

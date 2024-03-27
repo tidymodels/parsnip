@@ -15,16 +15,17 @@ bag_tree(
 }
 \arguments{
 \item{mode}{A single character string for the prediction outcome mode.
-Possible values for this model are "unknown", "regression", or
-"classification".}
+Possible values for this model are "unknown", "regression",
+"classification", or "censored regression".}
 
 \item{cost_complexity}{A positive number for the the cost/complexity
 parameter (a.k.a. \code{Cp}) used by CART models (specific engines only).}
 
-\item{tree_depth}{An integer for maximum depth of the tree.}
+\item{tree_depth}{An integer for the maximum depth of the tree (i.e. number
+of splits) (specific engines only).}
 
 \item{min_n}{An integer for the minimum number of data points
-in a node that are required for the node to be split further.}
+in a node that is required for the node to be split further.}
 
 \item{class_cost}{A non-negative scalar for a class cost (where a cost of 1
 means no extra cost). This is useful for when the first level of the outcome

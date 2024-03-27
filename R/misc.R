@@ -234,7 +234,7 @@ prompt_missing_implementation <- function(spec,
 
 #' Print the model call
 #'
-#' @param x A "model_spec" object.
+#' @param object A "model_spec" object.
 #' @return A character string.
 #' @keywords internal
 #' @export
@@ -260,7 +260,7 @@ levels_from_formula <- function(f, dat) {
   if (inherits(dat, "tbl_spark")) {
     res <- NULL
   } else {
-    res <- levels(eval_tidy(f[[2]], dat))
+    res <- levels(eval_tidy(rlang::f_lhs(f), dat))
   }
   res
 }
@@ -282,10 +282,14 @@ show_fit <- function(model, eng) {
 
 # Check non-translated core arguments
 # Each model has its own definition of this
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
 check_args <- function(object) {
   UseMethod("check_args")
 }
 
+#' @export
 check_args.default <- function(object) {
   invisible(object)
 }
@@ -352,6 +356,16 @@ new_model_spec <- function(cls, args, eng_args, mode, user_specified_mode = TRUE
 check_outcome <- function(y, spec) {
   if (spec$mode == "unknown") {
     return(invisible(NULL))
+  }
+
+  has_no_outcome <- if (is.atomic(y)) {is.null(y)} else {length(y) == 0}
+  if (isTRUE(has_no_outcome)) {
+    cli::cli_abort(
+      c("!" = "{.fun {class(spec)[1]}} was unable to find an outcome.",
+        "i" = "Ensure that you have specified an outcome column and that it \\
+               hasn't been removed in pre-processing."),
+      call = NULL
+    )
   }
 
   if (spec$mode == "regression") {
@@ -526,3 +540,20 @@ check_for_newdata <- function(..., call = rlang::caller_env()) {
     )
   }
 }
+
+
+# ------------------------------------------------------------------------------
+
+# driven by https://github.com/Rdatatable/data.table/issues/5658
+# nocov start
+# adapted from ps:::is_cran_check()
+is_cran_check <- function() {
+  if (identical(Sys.getenv("NOT_CRAN"), "true")) {
+    FALSE
+  }
+  else {
+    Sys.getenv("_R_CHECK_PACKAGE_NAME_", "") != ""
+  }
+}
+# nocov end
+

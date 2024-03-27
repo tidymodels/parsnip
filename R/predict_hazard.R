@@ -32,8 +32,7 @@ predict_hazard.model_fit <- function(object,
   if (!is.null(object$spec$method$pred$hazard$pre))
     new_data <- object$spec$method$pred$hazard$pre(new_data, object)
 
-  # Pass some extra arguments to be used in post-processor
-  object$spec$method$pred$hazard$args$eval_time <- eval_time
+  # create prediction call
   pred_call <- make_pred_call(object$spec$method$pred$hazard)
 
   res <- eval_tidy(pred_call)

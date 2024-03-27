@@ -55,6 +55,8 @@ An alternate method for using MARs for categorical outcomes can be found in [dis
 ```{r child = "template-uses-case-weights.Rmd"}
 ```
 
+Note that the `earth` package documentation has: "In the current implementation, _building models with weights can be slow_."
+
 ## Saving fitted model objects
 
 ```{r child = "template-butcher.Rmd"}

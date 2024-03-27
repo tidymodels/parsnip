@@ -23,8 +23,8 @@ predict_linear_pred.model_fit <- function(object, new_data, ...) {
   pred_call <- make_pred_call(object$spec$method$pred$linear_pred)
 
   res <- eval_tidy(pred_call)
-  # post-process the predictions
 
+  # post-process the predictions
   if (!is.null(object$spec$method$pred$linear_pred$post)) {
     res <- object$spec$method$pred$linear_pred$post(res, object)
   }

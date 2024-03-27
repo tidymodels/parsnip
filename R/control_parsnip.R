@@ -15,7 +15,7 @@
 #' @return An S3 object with class "control_parsnip" that is a named list
 #' with the results of the function call
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' control_parsnip(verbosity = 2L)
 #'
 #' @export

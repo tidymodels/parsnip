@@ -143,10 +143,73 @@
 ---
 
     Code
+      check_outcome(NULL, reg_spec)
+    Condition
+      Error:
+      ! `linear_reg()` was unable to find an outcome.
+      i Ensure that you have specified an outcome column and that it hasn't been removed in pre-processing.
+
+---
+
+    Code
+      check_outcome(tibble::new_tibble(list(), nrow = 10), reg_spec)
+    Condition
+      Error:
+      ! `linear_reg()` was unable to find an outcome.
+      i Ensure that you have specified an outcome column and that it hasn't been removed in pre-processing.
+
+---
+
+    Code
+      fit(reg_spec, ~mpg, mtcars)
+    Condition
+      Error:
+      ! `linear_reg()` was unable to find an outcome.
+      i Ensure that you have specified an outcome column and that it hasn't been removed in pre-processing.
+
+---
+
+    Code
+      fit_xy(reg_spec, data.frame(x = 1:5), y = NULL)
+    Condition
+      Error:
+      ! `linear_reg()` was unable to find an outcome.
+      i Ensure that you have specified an outcome column and that it hasn't been removed in pre-processing.
+
+---
+
+    Code
       check_outcome(1:2, class_spec)
     Condition
       Error in `check_outcome()`:
       ! For a classification model, the outcome should be a `factor`, not a `integer`.
+
+---
+
+    Code
+      check_outcome(NULL, class_spec)
+    Condition
+      Error:
+      ! `logistic_reg()` was unable to find an outcome.
+      i Ensure that you have specified an outcome column and that it hasn't been removed in pre-processing.
+
+---
+
+    Code
+      check_outcome(tibble::new_tibble(list(), nrow = 10), class_spec)
+    Condition
+      Error:
+      ! `logistic_reg()` was unable to find an outcome.
+      i Ensure that you have specified an outcome column and that it hasn't been removed in pre-processing.
+
+---
+
+    Code
+      fit(class_spec, ~mpg, mtcars)
+    Condition
+      Error:
+      ! `logistic_reg()` was unable to find an outcome.
+      i Ensure that you have specified an outcome column and that it hasn't been removed in pre-processing.
 
 ---
 

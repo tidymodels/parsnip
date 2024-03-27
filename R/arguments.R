@@ -40,7 +40,7 @@ check_eng_args <- function(args, obj, core_args) {
 #' @return An updated model object.
 #' @details `set_args()` will replace existing values of the arguments.
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' rand_forest()
 #'
 #' rand_forest() %>%
@@ -294,7 +294,7 @@ make_xy_call <- function(object, target, env) {
 #' @param offset A number subtracted off of the number of rows available in the
 #' data.
 #' @return An integer (and perhaps a warning).
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 
 #' nearest_neighbor(neighbors= 100) %>%
 #'   set_engine("kknn") %>%
@@ -328,7 +328,11 @@ min_cols <- function(num_cols, source) {
 #' @export
 #' @rdname min_cols
 min_rows <- function(num_rows, source, offset = 0) {
-  n <- nrow(source)
+  if (inherits(source, "tbl_spark")) {
+    n <- nrow_spark(source)
+  } else {
+    n <- nrow(source)
+  }
 
   if (num_rows > n - offset) {
     msg <- paste0(num_rows, " samples were requested but there were ", n,
@@ -340,3 +344,7 @@ min_rows <- function(num_rows, source, offset = 0) {
   as.integer(num_rows)
 }
 
+nrow_spark <- function(source) {
+  rlang::check_installed("sparklyr")
+  sparklyr::sdf_nrow(source)
+}

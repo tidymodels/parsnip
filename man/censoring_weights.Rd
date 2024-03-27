@@ -4,22 +4,12 @@
 \alias{censoring_weights}
 \alias{.censoring_weights_graf}
 \alias{.censoring_weights_graf.default}
-\alias{.censoring_weights_graf.workflow}
 \alias{.censoring_weights_graf.model_fit}
 \title{Calculations for inverse probability of censoring weights (IPCW)}
 \usage{
 .censoring_weights_graf(object, ...)
 
 \method{.censoring_weights_graf}{default}(object, ...)
-
-\method{.censoring_weights_graf}{workflow}(
-  object,
-  predictions,
-  cens_predictors = NULL,
-  trunc = 0.05,
-  eps = 10^-10,
-  ...
-)
 
 \method{.censoring_weights_graf}{model_fit}(
   object,

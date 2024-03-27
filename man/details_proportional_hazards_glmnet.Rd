@@ -72,9 +72,11 @@ The model does not fit an intercept.
 
 The model formula (which is required) can include \emph{special} terms, such
 as \code{\link[survival:strata]{survival::strata()}}. This allows the baseline
-hazard to differ between groups contained in the function. The column
-used inside \code{strata()} is treated as qualitative no matter its type.
-This is different than the syntax offered by the
+hazard to differ between groups contained in the function. (To learn
+more about using special terms in formulas with tidymodels, see
+\code{\link[=model_formula]{?model_formula}}.) The column used inside
+\code{strata()} is treated as qualitative no matter its type. This is
+different than the syntax offered by the
 \code{\link[glmnet:glmnet]{glmnet::glmnet()}} package (i.e.,
 \code{\link[glmnet:stratifySurv]{glmnet::stratifySurv()}}) which is not
 recommended here.
@@ -100,11 +102,11 @@ predict(mod, pred_data, type = "survival", time = 500) \%>\%
   unnest(.pred)
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 × 5
-##   .time .pred_survival   age ecog.ps    rx
-##   <dbl>          <dbl> <dbl>   <dbl> <dbl>
-## 1   500          0.666    50       1     1
-## 2   500          0.769    50       1     2
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 x 5
+##   .eval_time .pred_survival   age ecog.ps    rx
+##        <dbl>          <dbl> <dbl>   <dbl> <dbl>
+## 1        500          0.666    50       1     1
+## 2        500          0.769    50       1     2
 }\if{html}{\out{</div>}}
 
 Note that columns used in the \code{strata()} function \emph{will} also be

@@ -23,6 +23,7 @@ A character vector
 Determine required packages for a model
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 should_fail <- try(required_pkgs(linear_reg(engine = NULL)), silent = TRUE)
 should_fail
 
@@ -38,4 +39,5 @@ linear_reg() \%>\%
   set_engine("lm") \%>\%
   fit(mpg ~ ., data = mtcars) \%>\%
   required_pkgs()
+\dontshow{\}) # examplesIf}
 }

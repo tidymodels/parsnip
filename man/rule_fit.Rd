@@ -25,7 +25,7 @@ Possible values for this model are "unknown", "regression", or
 
 \item{mtry}{A number for the number (or proportion) of predictors that will
 be randomly sampled at each split when creating the tree models
-(specific engines only)}
+(specific engines only).}
 
 \item{trees}{An integer for the number of trees contained in
 the ensemble.}
@@ -89,10 +89,11 @@ rule_fit(argument = !!value)
 }\if{html}{\out{</div>}}
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 show_engines("rule_fit")
 
 rule_fit()
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 Friedman, J. H., and Popescu, B. E. (2008). "Predictive learning

@@ -205,6 +205,26 @@ test_that('check_outcome works as expected', {
     check_outcome(factor(1:2), reg_spec)
   )
 
+  expect_snapshot(
+    error = TRUE,
+    check_outcome(NULL, reg_spec)
+  )
+
+  expect_snapshot(
+    error = TRUE,
+    check_outcome(tibble::new_tibble(list(), nrow = 10), reg_spec)
+  )
+
+  expect_snapshot(
+    error = TRUE,
+    fit(reg_spec, ~ mpg, mtcars)
+  )
+
+  expect_snapshot(
+    error = TRUE,
+    fit_xy(reg_spec, data.frame(x = 1:5), y = NULL)
+  )
+
   class_spec <- logistic_reg()
 
   expect_no_error(
@@ -218,6 +238,21 @@ test_that('check_outcome works as expected', {
   expect_snapshot(
     error = TRUE,
     check_outcome(1:2, class_spec)
+  )
+
+  expect_snapshot(
+    error = TRUE,
+    check_outcome(NULL, class_spec)
+  )
+
+  expect_snapshot(
+    error = TRUE,
+    check_outcome(tibble::new_tibble(list(), nrow = 10), class_spec)
+  )
+
+  expect_snapshot(
+    error = TRUE,
+    fit(class_spec, ~ mpg, mtcars)
   )
 
   # Fake specification to avoid having to load {censored}

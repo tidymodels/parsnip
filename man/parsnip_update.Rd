@@ -370,7 +370,7 @@ on the logit scale). The default value is 2.}
 
 \item{mtry}{A number for the number (or proportion) of predictors that will
 be randomly sampled at each split when creating the tree models
-(specific engines only)}
+(specific engines only).}
 
 \item{learn_rate}{A number for the rate at which the boosting algorithm adapts
 from iteration-to-iteration (specific engines only). This is sometimes referred to
@@ -423,8 +423,8 @@ of model parameters randomly set to zero during model training.}
 \item{activation}{A single character string denoting the type of relationship
 between the original predictors and the hidden unit layer. The activation
 function between the hidden and output layers is automatically set to either
-"linear" or "softmax" depending on the type of outcome. Possible values are:
-"linear", "softmax", "relu", and "elu"}
+"linear" or "softmax" depending on the type of outcome. Possible values
+depend on the engine being used.}
 
 \item{smoothness}{An non-negative number representing the the relative
 smoothness of the class boundary. Smaller examples result in model flexible
@@ -471,6 +471,7 @@ If parameters of a model specification need to be modified, \code{update()} can
 be used in lieu of recreating the object from scratch.
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 # ------------------------------------------------------------------------------
 
@@ -478,6 +479,8 @@ model <- C5_rules(trees = 10, min_n = 2)
 model
 update(model, trees = 1)
 update(model, trees = 1, fresh = TRUE)
+\dontshow{\}) # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 # ------------------------------------------------------------------------------
 
@@ -485,16 +488,22 @@ model <- cubist_rules(committees = 10, neighbors = 2)
 model
 update(model, committees = 1)
 update(model, committees = 1, fresh = TRUE)
+\dontshow{\}) # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 model <- pls(predictor_prop =  0.1)
 model
 update(model, predictor_prop = 1)
 update(model, predictor_prop = 1, fresh = TRUE)
+\dontshow{\}) # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # ------------------------------------------------------------------------------
 
 model <- rule_fit(trees = 10, min_n = 2)
 model
 update(model, trees = 1)
 update(model, trees = 1, fresh = TRUE)
+\dontshow{\}) # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 model <- boost_tree(mtry = 10, min_n = 3)
 model
 update(model, mtry = 1)
@@ -513,5 +522,5 @@ model <- linear_reg(penalty = 10, mixture = 0.1)
 model
 update(model, penalty = 1)
 update(model, penalty = 1, fresh = TRUE)
-
+\dontshow{\}) # examplesIf}
 }

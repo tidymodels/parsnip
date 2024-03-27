@@ -11,7 +11,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
+#' @inheritParams nearest_neighbor
 #' @inheritParams discrim_linear
 #' @param num_terms The number of features that will be retained in the
 #'    final model, including the intercept.
@@ -84,6 +84,7 @@ update.discrim_flexible <-
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.discrim_flexible <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)

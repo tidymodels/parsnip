@@ -218,7 +218,7 @@ brulee_linear_engine_args <-
   brulee_mlp_engine_args %>%
   dplyr::filter(name %in% c("momentum", "batch_size", "stop_iter"))
 
-brulee_logistc_engine_args <-
+brulee_logistic_engine_args <-
   brulee_mlp_engine_args %>%
   dplyr::filter(name %in% c("momentum", "batch_size", "stop_iter", "class_weights"))
 
@@ -258,7 +258,7 @@ tunable.logistic_reg <- function(x, ...) {
     res$call_info[res$name == "mixture"] <-
       list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
   } else if (x$engine == "brulee") {
-    res <- add_engine_parameters(res, brulee_logistc_engine_args)
+    res <- add_engine_parameters(res, brulee_logistic_engine_args)
   }
   res
 }
@@ -270,7 +270,7 @@ tunable.multinomial_reg <- function(x, ...) {
     res$call_info[res$name == "mixture"] <-
       list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
   } else if (x$engine == "brulee") {
-    res <- add_engine_parameters(res, brulee_mlp_engine_args)
+    res <- add_engine_parameters(res, brulee_multinomial_engine_args)
   }
   res
 }

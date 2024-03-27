@@ -32,7 +32,7 @@
 #' `predict.nullmodel()` returns either a factor or numeric vector
 #' depending on the class of \code{y}. All predictions are always the same.
 #' @keywords models internal
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #'
 #' outcome <- factor(sample(letters[1:2],
 #'                          size = 100,
@@ -130,7 +130,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #' `null_model()` defines a simple, non-informative model. It doesn't have any
 #'  main arguments. This function can fit classification and regression models.
 #'
-#' @inheritParams boost_tree
+#' @inheritParams set_new_model
 #' @details The model can be created using the `fit()` function using the
 #'  following _engines_:
 #' \itemize{
@@ -140,7 +140,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #' @includeRmd man/rmd/null-model.md details
 #'
 #' @seealso [fit.model_spec()]
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' null_model(mode = "regression")
 #' @export
 null_model <-
@@ -178,7 +178,7 @@ null_model <-
 #' @return A tibble with column `value`.
 #' @export
 #' @keywords internal
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #'
 #' nullmodel(mtcars[,-1], mtcars$mpg) %>% tidy()
 

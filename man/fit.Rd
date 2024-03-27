@@ -105,6 +105,7 @@ may be used later to compute inverse probability censoring weights for
 performance measures.
 }
 \examples{
+\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Although `glm()` only has a formula interface, different
 # methods for specifying the model can be used
 
@@ -127,6 +128,7 @@ using_xy <-
 
 using_formula
 using_xy
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=set_engine]{set_engine()}}, \code{\link[=control_parsnip]{control_parsnip()}}, \code{model_spec}, \code{model_fit}

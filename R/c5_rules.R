@@ -13,7 +13,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
+#' @inheritParams nearest_neighbor
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "classification".
 #' @param trees A non-negative integer (no greater than 100) for the number
@@ -39,7 +39,7 @@
 #' @seealso [C50::C5.0()], [C50::C5.0Control()],
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("C5_rules")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("C5_rules")
 #'
 #' C5_rules()
@@ -73,7 +73,7 @@ C5_rules <-
 #'
 #' @param object A `C5_rules` model specification.
 #' @inheritParams update.boost_tree
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #'
 #' # ------------------------------------------------------------------------------
 #'
@@ -110,6 +110,7 @@ update.C5_rules <-
 
 # make work in different places
 
+#' @export
 check_args.C5_rules <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)

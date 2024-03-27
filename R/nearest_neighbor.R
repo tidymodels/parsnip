@@ -11,7 +11,11 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
+#' @param mode A single character string for the prediction outcome mode.
+#'  Possible values for this model are "unknown", "regression", or
+#'  "classification".
+#' @param engine A single character string specifying what computational engine
+#'  to use for fitting.
 #' @param neighbors A single integer for the number of neighbors
 #' to consider (often called `k`). For \pkg{kknn}, a value of 5
 #' is used if `neighbors` is not specified.
@@ -29,7 +33,7 @@
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("nearest_neighbor")}
 #'
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("nearest_neighbor")
 #'
 #' nearest_neighbor(neighbors = 11)
@@ -93,6 +97,7 @@ positive_int_scalar <- function(x) {
 
 # ------------------------------------------------------------------------------
 
+#' @export
 check_args.nearest_neighbor <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)

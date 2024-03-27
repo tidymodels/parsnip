@@ -1,14 +1,61 @@
 # parsnip (development version)
 
-* Fixed bug where sparse data was being coerced to non-sparse format doing `predict()`. 
+* New `extract_fit_time()` method has been added that returns the time it took to train the model (#853).
 
-* `augment()` now works for censored regression models. 
+# parsnip 1.2.1
+
+* Added a missing `tidy()` method for survival analysis glmnet models (#1086).
+
+* A few changes were made to achive more speed-ups (#1075) (#1073) (#1072)
+
+# parsnip 1.2.0
+
+## Bug Fixes
+
+* Tightened logic for outcome checking. This resolves issues—some errors and some silent failures—when atomic outcome variables have an attribute (#1060, #1061).
+
+* Fixed bug in fitting some model types with the `"spark"` engine (#1045).
+
+* Fixed issues in metadata for the `"brulee"` engine where several arguments were mistakenly protected. (#1050, #1054)
+
+* Fixed documentation for `mlp(engine = "brulee")`: the default values for `learn_rate` and `epochs` were swapped (#1018).
+
+* Fixed a bug in the integration with workflows where using a model formula with a formula preprocessor could result in a double intercept (#1033).
+
+## Other Changes
+
+* We no longer add `eval_time` arguments to the prediction specification for the engine (#1039).
+
+* parsnip now lets the engines for [mlp()] check for acceptable values of the activation function (#1019)
+
+* `rpart_train()` has been deprecated in favor of using `decision_tree()` with the `"rpart"` engine or `rpart::rpart()` directly (#1044).
+
+* `.filter_eval_time()` was moved to the survival standalone file. 
+
+* Improved errors and documentation related to special terms in formulas. See `?model_formula` to learn more. (#770, #1014)
+
+* Improved errors in cases where the outcome column is mis-specified. (#1003)
+
+* The `new_data` argument for the `predict()` method for `censoring_model_reverse_km` objects has been deprecated (#965).
+
+* When computing censoring weights, the resulting vectors are no longer named (#1023).
+
+* The `predict()` method for `censoring_model_reverse_km` objects now checks that `...` are empty (#1029).
+
+
+# parsnip 1.1.1
+
+* Fixed bug where prediction on rank deficient `lm()` models produced `.pred_res` instead of `.pred`. (#985)
+
+* Fixed bug where sparse data was being coerced to non-sparse format doing `predict()`. 
 
 * For BART models with the `dbarts` engine, `predict()` can now also return the standard error for confidence and prediction intervals (#976).
 
-* A few censored regression helper functions were exported: `.extract_surv_status()`, `.extract_surv_time()`, and `.time_as_binary_event()` (#973).
+* `augment()` now works for censored regression models. 
 
-* New `extract_fit_time()` method has been added that return the time it took to train the model. (#853)
+* A few censored regression helper functions were exported: `.extract_surv_status()` and `.extract_surv_time()` (#973, #980).
+
+* Fixed bug where `boost_tree()` models couldn't be fit with 1 predictor if `validation` argument was used. (#994)
 
 # parsnip 1.1.0
 

@@ -10,7 +10,7 @@
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
 #'
-#' @inheritParams boost_tree
+#' @inheritParams nearest_neighbor
 #' @param mode A single character string for the type of model.
 #'  The only possible value for this model is "regression".
 #' @param committees A non-negative integer (no greater than 100) for the number
@@ -95,7 +95,7 @@ cubist_rules <-
 # ------------------------------------------------------------------------------
 
 #' @param object A Cubist model specification.
-#' @examples
+#' @examplesIf !parsnip:::is_cran_check()
 #'
 #' # ------------------------------------------------------------------------------
 #'
@@ -134,6 +134,7 @@ update.cubist_rules <-
 
 # make work in different places
 
+#' @export
 check_args.cubist_rules <- function(object) {
 
   args <- lapply(object$args, rlang::eval_tidy)

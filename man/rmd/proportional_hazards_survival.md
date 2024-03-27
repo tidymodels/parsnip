@@ -37,7 +37,7 @@ The model does not fit an intercept.
 
 The main interface for this model uses the formula method since the model specification typically involved the use of [survival::Surv()]. 
 
-The model formula can include _special_ terms, such as [survival::strata()]. The allows the baseline hazard to differ between groups contained in the function. The column used inside `strata()` is treated as qualitative no matter its type. 
+The model formula can include _special_ terms, such as [survival::strata()]. The allows the baseline hazard to differ between groups contained in the function. The column used inside `strata()` is treated as qualitative no matter its type. To learn more about using special terms in formulas with tidymodels, see [`?model_formula`][parsnip::model_formula].
 
 For example, in this model, the numeric column `rx` is used to estimate two different baseline hazards for each value of the column:
 

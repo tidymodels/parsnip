@@ -7,7 +7,19 @@ form_form <-
   function(object, control, env, ...) {
 
     if (inherits(env$data, "data.frame")) {
-      check_outcome(eval_tidy(env$formula[[2]], env$data), object)
+      check_outcome(eval_tidy(rlang::f_lhs(env$formula), env$data), object)
+
+      encoding_info <- get_encoding(class(object)[1])
+      encoding_info <-
+        vctrs::vec_slice(
+          encoding_info,
+          encoding_info$mode == object$mode & encoding_info$engine == object$engine
+        )
+
+      remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
+      if (remove_intercept) {
+        env$data <- env$data[, colnames(env$data) != "(Intercept)", drop = FALSE]
+      }
     }
 
     # prob rewrite this as simple subset/levels
@@ -42,8 +54,9 @@ form_form <-
       ),
       gcFirst = FALSE
     )
-    res$preproc <- list(y_var = all.vars(env$formula[[2]]))
+    res$preproc <- list(y_var = all.vars(rlang::f_lhs(env$formula)))
     res$elapsed <- list(elapsed = elapsed, print = control$verbosity > 1L)
+
     res
   }
 
@@ -90,7 +103,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
     gcFirst = FALSE
   )
 
-  if (is.vector(env$y)) {
+  if (is.atomic(env$y)) {
     y_name <- character(0)
   } else {
     y_name <- colnames(env$y)
@@ -127,7 +140,7 @@ form_xy <- function(object, control, env,
     control = control,
     target = target
   )
-  data_obj$y_var <- all.vars(env$formula[[2]])
+  data_obj$y_var <- all.vars(rlang::f_lhs(env$formula))
   data_obj$x <- NULL
   data_obj$y <- NULL
   data_obj$weights <- NULL
@@ -141,11 +154,14 @@ xy_form <- function(object, env, control, ...) {
 
   check_outcome(env$y, object)
 
+  encoding_info <- get_encoding(class(object)[1])
   encoding_info <-
-    get_encoding(class(object)[1]) %>%
-    dplyr::filter(mode == object$mode, engine == object$engine)
+    vctrs::vec_slice(
+      encoding_info,
+      encoding_info$mode == object$mode & encoding_info$engine == object$engine
+    )
 
-  remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
+  remove_intercept <- encoding_info$remove_intercept
 
   data_obj <-
     .convert_xy_to_form_fit(
@@ -168,7 +184,7 @@ xy_form <- function(object, env, control, ...) {
   if (!is.null(env$y_var)) {
     data_obj$y_var <- env$y_var
   } else {
-    if (is.vector(env$y)) {
+    if (is.atomic(env$y)) {
       data_obj$y_var <- character(0)
     }
 

@@ -23,3 +23,28 @@ test_that("nnet_softmax", {
   expect_equal(res$b, 1 - res$a)
 })
 
+test_that("more activations for brulee", {
+  skip_if_not_installed("brulee", minimum_version = "0.3.0")
+  skip_on_cran()
+
+  data(ames, package = "modeldata")
+
+  ames$Sale_Price <- log10(ames$Sale_Price)
+
+  set.seed(122)
+  in_train <- sample(1:nrow(ames), 2000)
+  ames_train <- ames[ in_train,]
+  ames_test  <- ames[-in_train,]
+
+  set.seed(1)
+  fit <-
+    try(
+      mlp(penalty = 0.10, activation = "softplus") %>%
+        set_mode("regression") %>%
+        set_engine("brulee") %>%
+        fit_xy(x = as.matrix(ames_train[, c("Longitude", "Latitude")]),
+               y = ames_train$Sale_Price),
+      silent = TRUE)
+  expect_true(inherits(fit$fit, "brulee_mlp"))
+})
+

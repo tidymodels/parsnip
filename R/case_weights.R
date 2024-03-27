@@ -67,6 +67,17 @@ patch_formula_environment_with_case_weights <- function(formula,
 
 # ------------------------------------------------------------------------------
 
+#' Determine if case weights are used
+#'
+#' Not all modeling engines can incorporate case weights into their
+#' calculations. This function can determine whether they can be used.
+#'
+#' @param spec A parsnip model specification.
+#' @return A single logical.
+#' @examples
+#' case_weights_allowed(linear_reg())
+#' case_weights_allowed(linear_reg(engine = "keras"))
+#' @export
 case_weights_allowed <- function(spec) {
   mod_type <- class(spec)[1]
   mod_eng <- spec$engine
@@ -78,7 +89,7 @@ case_weights_allowed <- function(spec) {
   if (nrow(model_info) != 1) {
     rlang::abort(
       glue::glue(
-        "Error in geting model information for model {mod_type} with engine {mod_eng} and mode {mod_mode}."
+        "Error in getting model information for model {mod_type} with engine {mod_eng} and mode {mod_mode}."
       )
     )
   }
