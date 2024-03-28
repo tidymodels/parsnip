@@ -184,14 +184,14 @@ test_that('linear svm classification prediction: LiblineaR', {
     )
   expect_equal(extract_fit_engine(cls_form)$W, extract_fit_engine(cls_xy_form)$W)
 
-  expect_error(
-    predict(cls_form, hpc_no_m[ind, -5], type = "prob"),
-    "No prob prediction method available for this model"
+  expect_snapshot(
+    error = TRUE,
+    predict(cls_form, hpc_no_m[ind, -5], type = "prob")
   )
 
-  expect_error(
-    predict(cls_xy_form, hpc_no_m[ind, -5], type = "prob"),
-    "No prob prediction method available for this model"
+  expect_snapshot(
+    error = TRUE,
+    predict(cls_xy_form, hpc_no_m[ind, -5], type = "prob")
   )
 
 })
