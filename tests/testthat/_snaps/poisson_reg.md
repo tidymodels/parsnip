@@ -26,7 +26,7 @@
       poisson_reg(mode = "bogus")
     Condition
       Error in `poisson_reg()`:
-      ! 'bogus' is not a known mode for model `poisson_reg()`.
+      ! "bogus" is not a known mode for model `poisson_reg()`.
 
 ---
 
