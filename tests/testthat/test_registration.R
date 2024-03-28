@@ -71,9 +71,9 @@ test_that('adding a new engine', {
 
   expect_error(set_model_engine("sponge", eng = "gum"))
   expect_error(set_model_engine("sponge", mode = "classification"))
-  expect_error(
-    set_model_engine("sponge", mode = "regression", eng = "gum"),
-    "'regression' is not a known mode"
+  expect_snapshot(
+    error = TRUE,
+    set_model_engine("sponge", mode = "regression", eng = "gum")
   )
 })
 
