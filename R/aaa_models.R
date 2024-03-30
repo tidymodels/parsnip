@@ -325,11 +325,12 @@ check_arg_val <- function(arg) {
   invisible(NULL)
 }
 
-check_submodels_val <- function(has_submodel, call) {
+check_submodels_val <- function(has_submodel, call = caller_env()) {
   if (!is.logical(has_submodel) || length(has_submodel) != 1) {
     cli::cli_abort(
       "The {.arg submodels} argument should be a single logical. \\
-      not {.obj_type_friendly {has_submodel}}"
+      not {.obj_type_friendly {has_submodel}}",
+      call = call
     )
   }
   invisible(NULL)
