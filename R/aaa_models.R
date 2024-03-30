@@ -189,13 +189,7 @@ stop_incompatible_mode <- function(spec_modes, eng = NULL, cls = NULL, call) {
     msg <- "Available modes for model type {cls} with engine {eng} are:"
   }
 
-  cli::cli_abort(
-    c(
-      x = msg,
-      "*" = "{.val {spec_modes}}."
-    ),
-    call = call
-  )
+  cli::cli_abort(c(x = msg, "*" = "{.val {spec_modes}}."), call = call)
 }
 
 stop_incompatible_engine <- function(spec_engs, mode, call) {
