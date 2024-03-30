@@ -21,7 +21,7 @@
       predict(cls_form, hpc_no_m[ind, -5], type = "prob")
     Condition
       Error in `check_spec_pred_type()`:
-      ! No "prob" prediction method available for this model. Value for `type` should be one of: "class" and "raw".
+      ! No "prob" prediction method available for this model. `type` should be one of: "class" and "raw".
 
 ---
 
@@ -29,5 +29,5 @@
       predict(cls_xy_form, hpc_no_m[ind, -5], type = "prob")
     Condition
       Error in `check_spec_pred_type()`:
-      ! No "prob" prediction method available for this model. Value for `type` should be one of: "class" and "raw".
+      ! No "prob" prediction method available for this model. `type` should be one of: "class" and "raw".
 

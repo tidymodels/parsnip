@@ -12,8 +12,7 @@
       decision_tree() %>% set_mode("regression") %>% set_engine("C5.0")
     Condition
       Error in `set_engine()`:
-      x Available modes for engine C5.0 are:
-      * "unknown" and "classification".
+      ! Available modes for engine C5.0 are: "unknown" and "classification".
 
 ---
 
@@ -21,8 +20,7 @@
       decision_tree(mode = "regression", engine = "C5.0")
     Condition
       Error in `decision_tree()`:
-      x Available modes for engine C5.0 are:
-      * "unknown" and "classification".
+      ! Available modes for engine C5.0 are: "unknown" and "classification".
 
 ---
 
@@ -30,8 +28,7 @@
       decision_tree() %>% set_engine("C5.0") %>% set_mode("regression")
     Condition
       Error in `set_mode()`:
-      x Available modes for engine C5.0 are:
-      * "unknown" and "classification".
+      ! Available modes for engine C5.0 are: "unknown" and "classification".
 
 ---
 
@@ -39,8 +36,7 @@
       decision_tree(engine = NULL) %>% set_engine("C5.0") %>% set_mode("regression")
     Condition
       Error in `set_mode()`:
-      x Available modes for engine C5.0 are:
-      * "unknown" and "classification".
+      ! Available modes for engine C5.0 are: "unknown" and "classification".
 
 ---
 
@@ -48,8 +44,7 @@
       decision_tree(engine = NULL) %>% set_mode("regression") %>% set_engine("C5.0")
     Condition
       Error in `set_engine()`:
-      x Available modes for engine C5.0 are:
-      * "unknown" and "classification".
+      ! Available modes for engine C5.0 are: "unknown" and "classification".
 
 ---
 
@@ -65,8 +60,7 @@
       linear_reg() %>% set_mode()
     Condition
       Error in `set_mode()`:
-      x Available modes for model type linear_reg are:
-      * "unknown" and "regression".
+      ! Available modes for model type linear_reg are: "unknown" and "regression".
 
 ---
 
