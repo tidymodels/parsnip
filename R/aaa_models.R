@@ -331,8 +331,8 @@ check_mode_with_no_engine <- function(cls, mode, call) {
 check_arg_val <- function(arg) {
   if (rlang::is_missing(arg) || length(arg) != 1 || !is.character(arg))
     cli::cli_abort(
-      "Please supply a character string for the argument. \\
-      not {.obj_type_friendly {arg}}"
+      "Please supply a character string for the argument, \\
+      not {.obj_type_friendly {arg}}."
     )
   invisible(NULL)
 }
@@ -388,7 +388,7 @@ check_func_val <- function(func) {
 
 check_fit_info <- function(fit_obj) {
   if (is.null(fit_obj)) {
-    cli::cli_abort("The {.arg value} argument cannot be NULL.")
+    cli::cli_abort("The {.arg fit_obj} argument cannot be NULL.")
   }
 
   # check required data elements
@@ -407,7 +407,7 @@ check_fit_info <- function(fit_obj) {
   has_opt_nms <- other_nms %in% opt_nms
   if (any(!has_opt_nms)) {
     cli::cli_abort(
-      "The {.arg value} argumentcan only have optional elements: \\
+      "The {.arg value} argument can only have optional elements: \\
       {.field {exp_nms}}."
     )
   }
@@ -470,7 +470,7 @@ check_spec_pred_type <- function(object, type) {
     possible_preds <- names(object$spec$method$pred)
     cli::cli_abort(
       "No {.val {type}} prediction method available for this model. \\
-      Value for {.arg type} should be one of: {.val {possible_preds}}."
+      {.arg type} should be one of: {.val {possible_preds}}."
     )
   }
   invisible(NULL)
@@ -709,7 +709,7 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
 
   updated <- try(dplyr::bind_rows(old_args, new_arg), silent = TRUE)
   if (inherits(updated, "try-error")) {
-    cli::cli_abort("An error occured when adding the new argument.")
+    cli::cli_abort("An error occurred when adding the new argument.")
   }
 
   updated <- vctrs::vec_unique(updated)
@@ -891,7 +891,7 @@ set_fit <- function(model, mode, eng, value) {
   old_fits <- get_from_env(paste0(model, "_fit"))
   updated <- try(dplyr::bind_rows(old_fits, new_fit), silent = TRUE)
   if (inherits(updated, "try-error")) {
-    cli::cli_abort("An error occured when adding the new fit module.")
+    cli::cli_abort("An error occurred when adding the new fit module.")
   }
 
   set_env_val(
@@ -942,7 +942,7 @@ set_pred <- function(model, mode, eng, type, value) {
   old_pred <- get_from_env(paste0(model, "_predict"))
   updated <- try(dplyr::bind_rows(old_pred, new_pred), silent = TRUE)
   if (inherits(updated, "try-error")) {
-    cli::cli_abort("An error occured when adding the new fit module.")
+    cli::cli_abort("An error occurred when adding the new fit module.")
   }
 
   set_env_val(paste0(model, "_predict"), updated)
@@ -958,7 +958,7 @@ get_pred_type <- function(model, type) {
   pred_name <- paste0(model, "_predict")
   if (!any(pred_name != rlang::env_names(get_model_env()))) {
     cli::cli_abort(
-      "{.arg {model}} does not have any {.fn pred} methods in parsnip."
+      "{.arg {model}} does not have any {.arg pred} methods in parsnip."
     )
   }
   all_preds <- rlang::env_get(get_model_env(), pred_name)
@@ -1085,7 +1085,7 @@ show_model_info <- function(model) {
 pred_value_template <-  function(pre = NULL, post = NULL, func, ...) {
   if (rlang::is_missing(func)) {
     cli::cli_abort(
-      "Please supply a value to {.arg func}. See {.code ?set_pred}."
+      "Please supply a value to {.arg func}. See {.help [{.fun set_pred}](parsnip::set_pred)}."
     )
   }
   list(pre = pre, post = post, func = func, args = list(...))
