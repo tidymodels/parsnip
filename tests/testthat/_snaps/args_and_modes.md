@@ -4,7 +4,7 @@
       set_mode(linear_reg(), "classification")
     Condition
       Error in `set_mode()`:
-      ! 'classification' is not a known mode for model `linear_reg()`.
+      ! "classification" is not a known mode for model `linear_reg()`.
 
 # unavailable modes for an engine and vice-versa
 
@@ -12,7 +12,7 @@
       decision_tree() %>% set_mode("regression") %>% set_engine("C5.0")
     Condition
       Error in `set_engine()`:
-      ! Available modes for engine C5.0 are: 'unknown', 'classification'
+      ! Available modes for engine C5.0 are: "unknown" and "classification".
 
 ---
 
@@ -20,7 +20,7 @@
       decision_tree(mode = "regression", engine = "C5.0")
     Condition
       Error in `decision_tree()`:
-      ! Available modes for engine C5.0 are: 'unknown', 'classification'
+      ! Available modes for engine C5.0 are: "unknown" and "classification".
 
 ---
 
@@ -28,7 +28,7 @@
       decision_tree() %>% set_engine("C5.0") %>% set_mode("regression")
     Condition
       Error in `set_mode()`:
-      ! Available modes for engine C5.0 are: 'unknown', 'classification'
+      ! Available modes for engine C5.0 are: "unknown" and "classification".
 
 ---
 
@@ -36,7 +36,7 @@
       decision_tree(engine = NULL) %>% set_engine("C5.0") %>% set_mode("regression")
     Condition
       Error in `set_mode()`:
-      ! Available modes for engine C5.0 are: 'unknown', 'classification'
+      ! Available modes for engine C5.0 are: "unknown" and "classification".
 
 ---
 
@@ -44,7 +44,7 @@
       decision_tree(engine = NULL) %>% set_mode("regression") %>% set_engine("C5.0")
     Condition
       Error in `set_engine()`:
-      ! Available modes for engine C5.0 are: 'unknown', 'classification'
+      ! Available modes for engine C5.0 are: "unknown" and "classification".
 
 ---
 
@@ -52,7 +52,7 @@
       proportional_hazards() %>% set_mode("regression")
     Condition
       Error in `set_mode()`:
-      ! 'regression' is not a known mode for model `proportional_hazards()`.
+      ! "regression" is not a known mode for model `proportional_hazards()`.
 
 ---
 
@@ -60,7 +60,7 @@
       linear_reg() %>% set_mode()
     Condition
       Error in `set_mode()`:
-      ! Available modes for model type linear_reg are: 'unknown', 'regression'
+      ! Available modes for model type linear_reg are: "unknown" and "regression".
 
 ---
 
@@ -68,7 +68,8 @@
       linear_reg(engine = "boop")
     Condition
       Error in `linear_reg()`:
-      ! Engine 'boop' is not supported for `linear_reg()`. See `show_engines('linear_reg')`.
+      x Engine "boop" is not supported for `linear_reg()`
+      i See `show_engines("linear_reg")`.
 
 ---
 
@@ -76,7 +77,7 @@
       linear_reg() %>% set_engine()
     Condition
       Error in `set_engine()`:
-      ! Missing engine. Possible mode/engine combinations are: regression {lm, glm, glmnet, stan, spark, keras, brulee}
+      ! Missing engine. Possible mode/engine combinations are: regression {lm, glm, glmnet, stan, spark, keras, brulee}.
 
 ---
 

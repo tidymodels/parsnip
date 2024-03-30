@@ -31,7 +31,7 @@ Imports:
     pillar,
     prettyunits,
     purrr (>= 1.0.0),
-    rlang (>= 0.3.1),
+    rlang (>= 1.1.0),
     stats,
     tibble (>= 2.1.1),
     tidyr (>= 1.3.0),
