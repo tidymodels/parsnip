@@ -120,8 +120,7 @@ check_eng_val <- function(eng) {
   if (rlang::is_missing(eng) || length(eng) != 1 || !is.character(eng)) {
     cli::cli_abort(
       "Please supply a character string for an engine name (e.g. {.val lm}), \\
-      not {.obj_type_friendly {eng}}.",
-      call = call
+      not {.obj_type_friendly {eng}}."
     )
   }
   invisible(NULL)
@@ -131,8 +130,7 @@ check_model_exists <- function(model) {
   if (rlang::is_missing(model) || length(model) != 1 || !is.character(model)) {
     cli::cli_abort(
       "Please supply a character string for a model name \\
-      (e.g. {.val linear_reg}), not {.obj_type_friendly {model}}.",
-      call = call
+      (e.g. {.val linear_reg}), not {.obj_type_friendly {model}}."
     )
   }
 
@@ -140,8 +138,7 @@ check_model_exists <- function(model) {
 
   if (!any(current$models == model)) {
     cli::cli_abort(
-      "Model {.val {model}} has not been registered.",
-      call = call
+      "Model {.val {model}} has not been registered."
     )
   }
 
@@ -152,8 +149,7 @@ check_model_doesnt_exist <- function(model) {
   if (rlang::is_missing(model) || length(model) != 1 || !is.character(model)) {
     cli::cli_abort(
       "Please supply a character string for a model name \\
-      (e.g. {.val linear_reg}), not {.obj_type_friendly {model}}.",
-      call = call
+      (e.g. {.val linear_reg}), not {.obj_type_friendly {model}}."
     )
   }
 
@@ -161,8 +157,7 @@ check_model_doesnt_exist <- function(model) {
 
   if (any(current$models == model)) {
     cli::cli_abort(
-      "Model {.val {model}} already exists.",
-      call = call
+      "Model {.val {model}} already exists."
     )
   }
 
@@ -173,8 +168,7 @@ check_mode_val <- function(mode) {
   if (rlang::is_missing(mode) || length(mode) != 1 || !is.character(mode)) {
     cli::cli_abort(
       "Please supply a character string for a mode \\
-      (e.g. {.val regression}), not {.obj_type_friendly {mode}}.",
-      call = call
+      (e.g. {.val regression}), not {.obj_type_friendly {mode}}."
     )
   }
   invisible(NULL)
