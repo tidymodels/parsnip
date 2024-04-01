@@ -83,7 +83,7 @@ translate.surv_reg <- function(x, engine = x$engine, ...) {
 # ------------------------------------------------------------------------------
 
 #' @export
-check_args.surv_reg <- function(object) {
+check_args.surv_reg <- function(object, call = rlang::caller_env()) {
 
   if (object$engine == "flexsurv") {
 

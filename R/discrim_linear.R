@@ -80,7 +80,7 @@ update.discrim_linear <-
 # ------------------------------------------------------------------------------
 
 #' @export
-check_args.discrim_linear <- function(object) {
+check_args.discrim_linear <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
 

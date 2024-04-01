@@ -98,7 +98,7 @@ positive_int_scalar <- function(x) {
 # ------------------------------------------------------------------------------
 
 #' @export
-check_args.nearest_neighbor <- function(object) {
+check_args.nearest_neighbor <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
 

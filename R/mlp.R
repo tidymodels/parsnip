@@ -126,7 +126,7 @@ translate.mlp <- function(x, engine = x$engine, ...) {
 # ------------------------------------------------------------------------------
 
 #' @export
-check_args.mlp <- function(object) {
+check_args.mlp <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
 

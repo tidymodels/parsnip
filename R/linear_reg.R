@@ -106,7 +106,7 @@ update.linear_reg <-
 # ------------------------------------------------------------------------------
 
 #' @export
-check_args.linear_reg <- function(object) {
+check_args.linear_reg <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
 

@@ -101,7 +101,7 @@ translate.poisson_reg <- function(x, engine = x$engine, ...) {
 # ------------------------------------------------------------------------------
 
 #' @export
-check_args.poisson_reg <- function(object) {
+check_args.poisson_reg <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
 

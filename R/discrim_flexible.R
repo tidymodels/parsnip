@@ -85,7 +85,7 @@ update.discrim_flexible <-
 # ------------------------------------------------------------------------------
 
 #' @export
-check_args.discrim_flexible <- function(object) {
+check_args.discrim_flexible <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
 

@@ -164,7 +164,7 @@ translate.boost_tree <- function(x, engine = x$engine, ...) {
 # ------------------------------------------------------------------------------
 
 #' @export
-check_args.boost_tree <- function(object) {
+check_args.boost_tree <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
 

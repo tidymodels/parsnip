@@ -135,7 +135,7 @@ update.cubist_rules <-
 # make work in different places
 
 #' @export
-check_args.cubist_rules <- function(object) {
+check_args.cubist_rules <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
 
