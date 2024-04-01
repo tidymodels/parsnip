@@ -86,8 +86,13 @@ update.bag_tree <-
 
 #' @export
 check_args.bag_tree <- function(object, call = rlang::caller_env()) {
-  if (object$engine == "C5.0" && object$mode == "regression")
-    stop("C5.0 is classification only.", call. = FALSE)
+  if (object$engine == "C5.0" && object$mode != "classification") {
+    cli::cli_abort(
+      "The engine {.pkg C5.0} only supports the mode {.val classification}, \\
+      {.val {object$mode}} was requested.",
+      call = call
+    )
+  }
   invisible(object)
 }
 

@@ -108,17 +108,13 @@ translate.mars <- function(x, engine = x$engine, ...) {
 check_args.mars <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
+  prod_degree <- args$prod_degree
+  num_terms <- args$num_terms
+  prune_method <- args$prune_method
 
-  if (is.numeric(args$prod_degree) && args$prod_degree < 0)
-    rlang::abort("`prod_degree` should be >= 1.")
-
-  if (is.numeric(args$num_terms) && args$num_terms < 0)
-    rlang::abort("`num_terms` should be >= 1.")
-
-  if (!is_varying(args$prune_method) &&
-      !is.null(args$prune_method) &&
-      !is.character(args$prune_method))
-    rlang::abort("`prune_method` should be a single string value.")
+  check_number_whole(prod_degree, min = 1, allow_null = TRUE, call = call)
+  check_number_whole(num_terms, min = 1, allow_null = TRUE, call = call)
+  check_string(prune_method, allow_empty = FALSE, allow_null = TRUE, call = call)
 
   invisible(object)
 }

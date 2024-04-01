@@ -98,15 +98,12 @@ update.discrim_regularized <-
 check_args.discrim_regularized <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
+  frac_common_cov <- args$frac_common_cov
+  frac_identity <- args$frac_identity
 
-  if (is.numeric(args$frac_common_cov) &&
-      (args$frac_common_cov < 0 | args$frac_common_cov > 1)) {
-    stop("The common covariance fraction should be between zero and one", call. = FALSE)
-  }
-  if (is.numeric(args$frac_identity) &&
-      (args$frac_identity < 0 | args$frac_identity > 1)) {
-    stop("The identity matrix fraction should be between zero and one", call. = FALSE)
-  }
+  check_number_decimal(frac_common_cov, min = 0, max = 1, allow_null = TRUE, call = call)
+  check_number_decimal(frac_identity, min = 0, max = 1, allow_null = TRUE, call = call)
+  
   invisible(object)
 }
 

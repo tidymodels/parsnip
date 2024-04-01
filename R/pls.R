@@ -90,10 +90,9 @@ update.pls <-
 check_args.pls <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
+  num_comp <- args$num_comp
 
-  if (is.numeric(args$num_comp) && args$num_comp < 1) {
-    rlang::abort("`num_comp` should be >= 0.")
-  }
+  check_number_whole(num_comp, min = 0, allow_null = TRUE, call = call)
 
   invisible(object)
 }

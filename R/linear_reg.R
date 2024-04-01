@@ -109,13 +109,16 @@ update.linear_reg <-
 check_args.linear_reg <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
+  mixture <- args$mixture
 
-  if (all(is.numeric(args$penalty)) && any(args$penalty < 0))
-    rlang::abort("The amount of regularization should be >= 0.")
-  if (is.numeric(args$mixture) && (args$mixture < 0 | args$mixture > 1))
-    rlang::abort("The mixture proportion should be within [0,1].")
-  if (is.numeric(args$mixture) && length(args$mixture) > 1)
-    rlang::abort("Only one value of `mixture` is allowed.")
+  check_number_decimal(mixture, min = 0, max = 1, allow_null = TRUE, call = call)
+
+  if (all(is.numeric(args$penalty)) && any(args$penalty < 0)) {
+    cli::cli_abort(
+      "The amount of regularization, {.arg penalty}, should be {.code >= 0}.",
+      call = call
+    )
+  }
 
   invisible(object)
 }

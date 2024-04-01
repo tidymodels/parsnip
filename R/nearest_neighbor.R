@@ -90,26 +90,18 @@ update.nearest_neighbor <- function(object,
   )
 }
 
-
-positive_int_scalar <- function(x) {
-  (length(x) == 1) && (x > 0) && (x %% 1 == 0)
-}
-
 # ------------------------------------------------------------------------------
 
 #' @export
 check_args.nearest_neighbor <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
+  neighbors <- args$neighbors
+  weight_func <- args$weight_func
 
-  if (is.numeric(args$neighbors) && !positive_int_scalar(args$neighbors)) {
-    rlang::abort("`neighbors` must be a length 1 positive integer.")
-  }
-
-  if (is.character(args$weight_func) && length(args$weight_func) > 1) {
-    rlang::abort("The length of `weight_func` must be 1.")
-  }
-
+  check_number_whole(neighbors, min = 0, allow_null = TRUE, call = call)
+  check_string(weight_func, allow_null = TRUE, call = call)
+  
   invisible(object)
 }
 

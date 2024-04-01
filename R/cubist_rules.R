@@ -141,35 +141,41 @@ check_args.cubist_rules <- function(object, call = rlang::caller_env()) {
 
   if (is.numeric(args$committees)) {
     if (length(args$committees) > 1) {
-      rlang::abort("Only a single committee member is used.")
+      cli::cli_abort(
+        "Only a single value of {.arg committees} should be passed, \\
+        not {length(args$committees)}."
+      )
     }
-    msg <- "The number of committees should be >= 1 and <= 100. Truncating the value."
+    
+    msg <- "The number of committees should be {.code >= 1} and {.code <= 100}."
     if (args$committees > 100) {
       object$args$committees <-
         rlang::new_quosure(100L, env = rlang::empty_env())
-      rlang::warn(msg)
-    }
+        cli::cli_warn(c(msg, "Truncating to 100."))
+      }
     if (args$committees < 1) {
       object$args$committees <-
         rlang::new_quosure(1L, env = rlang::empty_env())
-      rlang::warn(msg)
-    }
+        cli::cli_warn(c(msg, "Truncating to 100."))
+      }
 
   }
   if (is.numeric(args$neighbors)) {
     if (length(args$neighbors) > 1) {
-      rlang::abort("Only a single neighbors value is used.")
+      cli::cli_abort(
+        "Only a single value of {.arg neighbors} should be passed, \\
+        not {length(args$neighbors)}."
+      )
     }
-    msg <- "The number of neighbors should be >= 0 and <= 9. Truncating the value."
+
+    msg <- "The number of neighbors should be {.code >= 0} and {.code <= 9}."
     if (args$neighbors > 9) {
-      object$args$neighbors <-
-        rlang::new_quosure(9L, env = rlang::empty_env())
-      rlang::warn(msg)
+      object$args$neighbors <- rlang::new_quosure(9L, env = rlang::empty_env())
+      cli::cli_warn(c(msg, "Truncating to 9."))
     }
     if (args$neighbors < 0) {
-      object$args$neighbors <-
-        rlang::new_quosure(0L, env = rlang::empty_env())
-      rlang::warn(msg)
+      object$args$neighbors <- rlang::new_quosure(0L, env = rlang::empty_env())
+      cli::cli_warn(c(msg, "Truncating to 0."))
     }
 
   }

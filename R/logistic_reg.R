@@ -138,22 +138,34 @@ update.logistic_reg <-
 check_args.logistic_reg <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
+  mixture <- args$mixture
+
+  check_number_decimal(mixture, min = 0, max = 1, allow_null = TRUE, call = call)
 
   if (all(is.numeric(args$penalty)) && any(args$penalty < 0))
-    rlang::abort("The amount of regularization should be >= 0.")
-  if (is.numeric(args$mixture) && (args$mixture < 0 | args$mixture > 1))
-    rlang::abort("The mixture proportion should be within [0,1].")
-  if (is.numeric(args$mixture) && length(args$mixture) > 1)
-    rlang::abort("Only one value of `mixture` is allowed.")
+    cli::cli_abort(
+      "The amount of regularization, {.arg penalty}, should be {.code >= 0}.",
+      call = call
+    )
 
   if (object$engine == "LiblineaR") {
-    if(is.numeric(args$mixture) && !args$mixture %in% 0:1)
-      rlang::abort(c("For the LiblineaR engine, mixture must be 0 or 1.",
-                     "Choose a pure ridge model with `mixture = 0`.",
-                     "Choose a pure lasso model with `mixture = 1`.",
-                     "The Liblinear engine does not support other values."))
-    if(all(is.numeric(args$penalty)) && !all(args$penalty > 0))
-      rlang::abort("For the LiblineaR engine, penalty must be > 0.")
+    if (is.numeric(args$mixture) && !args$mixture %in% 0:1) {
+      cli::cli_abort(
+        "For the {.pkg LiblineaR} engine, mixture must be 0 or 1,\\
+        not {arg$mixture}.\\
+        Choose a pure ridge model with {.code mixture = 0}.\\
+        Choose a pure lasso model with {.code mixture = 1}.\\
+        The {.pkg Liblinear} engine does not support other values.",
+        call = call
+      )
+    }
+    
+    if (all(is.numeric(args$penalty)) && !all(args$penalty > 0)) {
+      cli::cli_abort(
+        "For the {.pkg LiblineaR} engine, {.arg penalty} must be {.code > 0}.",
+        call = call
+      )
+    }
   }
 
   invisible(object)

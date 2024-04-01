@@ -88,18 +88,14 @@ update.discrim_flexible <-
 check_args.discrim_flexible <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
+  prod_degree <- args$prod_degree
+  num_terms <- args$num_terms
+  prune_method <- args$prune_method
 
-  if (is.numeric(args$prod_degree) && args$prod_degree < 0)
-    stop("`prod_degree` should be >= 1", call. = FALSE)
-
-  if (is.numeric(args$num_terms) && args$num_terms < 0)
-    stop("`num_terms` should be >= 1", call. = FALSE)
-
-  if (!is.character(args$prune_method) &&
-      !is.null(args$prune_method) &&
-      !is.character(args$prune_method))
-    stop("`prune_method` should be a single string value", call. = FALSE)
-
+  check_number_whole(prod_degree, min = 1, allow_null = TRUE, call = call)
+  check_number_whole(num_terms, min = 1, allow_null = TRUE, call = call)
+  check_string(prune_method, allow_empty = FALSE, allow_null = TRUE, call = call)
+  
   invisible(object)
 }
 
