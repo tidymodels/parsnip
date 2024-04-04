@@ -991,7 +991,7 @@ show_model_info <- function(model) {
       ) %>%
       dplyr::select(engine, mode, has_wts)
 
-      engines %>%
+      engine_weight_info <- engines %>%
         dplyr::left_join(weight_info, by = c("engine", "mode")) %>%
       dplyr::mutate(
         engine = paste0(engine, has_wts),
@@ -1005,9 +1005,15 @@ show_model_info <- function(model) {
         lab = paste0("   ", mode, engine, "\n")
       ) %>%
       dplyr::ungroup() %>%
-      dplyr::pull(lab) %>%
-      cat(sep = "")
-    cat("\n", cli::symbol$sup_1, "The model can use case weights.\n\n", sep = "")
+      dplyr::pull(lab)
+
+    cat(engine_weight_info, sep = "")
+
+    if (!all(weight_info$has_wts == "")) {
+      cat("\n", cli::symbol$sup_1, "The model can use case weights.", sep = "")
+    }
+
+    cat("\n\n")
   } else {
     cat(" no registered engines.\n\n")
   }
