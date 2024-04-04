@@ -496,21 +496,10 @@ test_that('adding a new predict method', {
 
 
 test_that('showing model info', {
-  expect_output(
-    show_model_info("rand_forest"),
-    "Information for `rand_forest`"
-  )
-  expect_output(
-    show_model_info("rand_forest"),
-    "trees --> ntree"
-  )
-  expect_output(
-    show_model_info("rand_forest"),
-    "fit modules:"
-  )
-  expect_output(
-    show_model_info("rand_forest"),
-    "prediction modules:"
-  )
+  expect_snapshot(show_model_info("rand_forest"))
+
+  # ensure that we don't mention case weight support when the
+  # notation would be ambiguous (#1000)
+  expect_snapshot(show_model_info("mlp"))
 })
 
