@@ -60,6 +60,11 @@ xgboost does not have a means to translate factor predictors to grouped splits. 
 
 For classification, non-numeric outcomes (i.e., factors) are internally converted to numeric. For binary classification, the `event_level` argument of `set_engine()` can be set to either `"first"` or `"second"` to specify which level should be used as the event. This can be helpful when a watchlist is used to monitor performance from with the xgboost training process.  
 
+## Case weights
+
+```{r child = "template-uses-case-weights.Rmd"}
+```
+
 ## Other details
 
 ### Interfacing with the `params` argument
