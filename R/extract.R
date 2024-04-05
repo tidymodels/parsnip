@@ -14,7 +14,9 @@
 #'
 #' - `extract_parameter_set_dials()` returns a set of dials parameter objects.
 #'
-#' - `extract_fit_time()` returns a tibble with fit times.
+#' - `extract_fit_time()` returns a tibble with fit times. The fit times correspond to
+#'    the time for the parsnip engine to fit and do not include other portions of the 
+#'    elapsed time in [parsnip::fit.model_spec()].
 #'
 #' @param x A parsnip `model_fit` object or a parsnip `model_spec` object.
 #' @param parameter A single string for the parameter ID.
