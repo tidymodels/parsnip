@@ -11,15 +11,43 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(boost_tree(mode = "bogus"))
-  expect_error({
-    bt <- boost_tree(trees = -1) %>% set_engine("xgboost")
-    fit(bt, class ~ ., hpc)
-  })
-  expect_error({
-    bt <- boost_tree(min_n = -10)  %>% set_engine("xgboost")
-    fit(bt, class ~ ., hpc)
-  })
+  expect_snapshot(error = TRUE, boost_tree(mode = "bogus"))
+  expect_snapshot(
+    error = TRUE,
+    {
+      bt <- boost_tree(trees = -1) %>% 
+        set_engine("xgboost") %>% 
+        set_mode("classification")
+      fit(bt, class ~ ., hpc)
+    }
+  )
+  expect_snapshot(
+    error = TRUE,
+    {
+      bt <- boost_tree(sample_size = -10) %>% 
+        set_engine("xgboost") %>%
+        set_mode("classification")
+      fit(bt, class ~ ., hpc)
+    }
+  )
+  expect_snapshot(
+    error = TRUE,
+    {
+      bt <- boost_tree(tree_depth = -10) %>% 
+        set_engine("xgboost") %>%
+        set_mode("classification")
+      fit(bt, class ~ ., hpc)
+    }
+  )
+  expect_snapshot(
+    error = TRUE,
+    {
+      bt <- boost_tree(min_n = -10) %>% 
+        set_engine("xgboost") %>%
+        set_mode("classification")
+      fit(bt, class ~ ., hpc)
+    }
+  )
   expect_message(translate(boost_tree(mode = "classification"), engine = NULL))
   expect_error(translate(boost_tree(formula = y ~ x)))
 })
