@@ -453,14 +453,15 @@ allow_sparse <- function(x) {
 #' @export
 print.model_fit <- function(x, ...) {
   cat("parsnip model object\n\n")
-  if (is.null(x$elapsed$print)) {
-    if (!is.na(x$elapsed[["elapsed"]])) {
-      cat("Fit time: ", prettyunits::pretty_sec(x$elapsed[["elapsed"]]), "\n")
-    }
-  } else {
-    if (x$elapsed$print) {
-      cat("Fit time: ", prettyunits::pretty_sec(x$elapsed$elapsed[["elapsed"]]), "\n")
-    }
+
+  if (is.null(x$elapsed$print) && !is.na(x$elapsed[["elapsed"]])) {
+    elapsed <- x$elapsed[["elapsed"]]
+    cat("Fit time: ", prettyunits::pretty_sec(elapsed), "\n")
+  }
+
+  if (isTRUE(x$elapsed$print)) {
+    elapsed <- x$elapsed$elapsed[["elapsed"]]
+    cat("Fit time: ", prettyunits::pretty_sec(elapsed), "\n")
   }
 
   if (inherits(x$fit, "try-error")) {
