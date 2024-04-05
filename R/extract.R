@@ -136,12 +136,6 @@ extract_parameter_dials.model_spec <- function(x, parameter, ...) {
 #' @export
 #' @rdname extract-parsnip
 extract_fit_time.model_fit <- function(x, summarize = TRUE, ...) {
-  if (summarize == FALSE) {
-    rlang::abort(
-      "`summarize = FALSE` is not supported for `model_fit` objects."
-    )
-  }
-
   elapsed <- x[["elapsed"]][["elapsed"]][["elapsed"]]
 
   if (is.na(elapsed) || is.null(elapsed)) {
