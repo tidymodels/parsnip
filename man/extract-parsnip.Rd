@@ -44,7 +44,9 @@ a parsnip model fit. For example, when using \code{\link[=linear_reg]{linear_reg
 with the \code{"lm"} engine, this returns the underlying \code{lm} object.
 \item \code{extract_parameter_dials()} returns a single dials parameter object.
 \item \code{extract_parameter_set_dials()} returns a set of dials parameter objects.
-\item \code{extract_fit_time()} returns a tibble with fit times.
+\item \code{extract_fit_time()} returns a tibble with fit times. The fit times
+correspond to the time for the parsnip engine to fit and do not include
+other portions of the elapsed time in \code{\link[=fit.model_spec]{fit.model_spec()}}.
 }
 }
 \details{
