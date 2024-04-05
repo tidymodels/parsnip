@@ -145,7 +145,7 @@ extract_fit_time.model_fit <- function(x, summarize = TRUE, ...) {
   }
 
   dplyr::tibble(
-    process_id = class(x$spec)[1],
+    stage_id = class(x$spec)[1],
     elapsed = elapsed
   )
 }

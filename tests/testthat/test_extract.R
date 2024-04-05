@@ -102,8 +102,8 @@ test_that("extract_fit_time() works", {
   res <- extract_fit_time(lm_fit)
 
   expect_true(is_tibble(res))
-  expect_identical(names(res), c("process_id", "elapsed"))
-  expect_identical(res$process_id, "linear_reg")
+  expect_identical(names(res), c("stage_id", "elapsed"))
+  expect_identical(res$stage_id, "linear_reg")
   expect_true(is.double(res$elapsed))
   expect_true(res$elapsed >= 0)
 
