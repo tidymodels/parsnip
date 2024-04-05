@@ -1,11 +1,6 @@
-test_that("updating", {
-  expect_snapshot(
-    proportional_hazards() %>%
-      update(penalty = tune())
-  )
-})
+test_that("testing", {
+  # Testing is done in {censored}
+  # https://github.com/tidymodels/censored
 
-
-test_that("bad input", {
-  expect_error(proportional_hazards(mode = ", classification"))
+  expect_true(TRUE)
 })
