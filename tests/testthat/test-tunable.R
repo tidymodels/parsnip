@@ -15,7 +15,8 @@ test_that("tunable.linear_reg()", {
   expect_snapshot(tunable(spec %>% set_engine("glmnet")))
   expect_snapshot(tunable(spec %>% set_engine("brulee")))
 
-  # tests for call_info in tidymodels/extratests
+  # don't include rows for non-tunable args marked with tune() (#1104)
+  expect_snapshot(tunable(spec %>% set_engine("glmnet", dfmax = tune())))
 })
 
 test_that("tunable.logistic_reg()", {
@@ -25,7 +26,8 @@ test_that("tunable.logistic_reg()", {
   expect_snapshot(tunable(spec %>% set_engine("glmnet")))
   expect_snapshot(tunable(spec %>% set_engine("brulee")))
 
-  # tests for call_info and additional engines in tidymodels/extratests
+  # don't include rows for non-tunable args marked with tune() (#1104)
+  expect_snapshot(tunable(spec %>% set_engine("glmnet", dfmax = tune())))
 })
 
 test_that("tunable.multinom_reg()", {
@@ -37,7 +39,8 @@ test_that("tunable.multinom_reg()", {
   expect_snapshot(tunable(spec %>% set_engine("nnet")))
   expect_snapshot(tunable(spec %>% set_engine("brulee")))
 
-  # tests for call_info and additional engines in tidymodels/extratests
+  # don't include rows for non-tunable args marked with tune() (#1104)
+  expect_snapshot(tunable(spec %>% set_engine("glmnet", dfmax = tune())))
 })
 
 test_that("tunable.boost_tree()", {
@@ -47,7 +50,8 @@ test_that("tunable.boost_tree()", {
   expect_snapshot(tunable(spec %>% set_engine("C5.0")))
   expect_snapshot(tunable(spec %>% set_engine("spark")))
 
-  # tests for call_info and additional engines in tidymodels/extratests
+  # don't include rows for non-tunable args marked with tune() (#1104)
+  expect_snapshot(tunable(spec %>% set_engine("xgboost", feval = tune())))
 })
 
 test_that("tunable.rand_forest()", {
@@ -57,7 +61,8 @@ test_that("tunable.rand_forest()", {
   expect_snapshot(tunable(spec %>% set_engine("randomForest")))
   expect_snapshot(tunable(spec %>% set_engine("spark")))
 
-  # tests for call_info and additional engines in tidymodels/extratests
+  # don't include rows for non-tunable args marked with tune() (#1104)
+  expect_snapshot(tunable(spec %>% set_engine("ranger", min.bucket = tune())))
 })
 
 test_that("tunable.mars()", {
@@ -65,7 +70,8 @@ test_that("tunable.mars()", {
   expect_snapshot(tunable(spec))
   expect_snapshot(tunable(spec %>% set_engine("earth")))
 
-  # tests for call_info and additional engines in tidymodels/extratests
+  # don't include rows for non-tunable args marked with tune() (#1104)
+  expect_snapshot(tunable(spec %>% set_engine("earth", minspan = tune())))
 })
 
 test_that("tunable.decision_tree()", {
@@ -75,7 +81,8 @@ test_that("tunable.decision_tree()", {
   expect_snapshot(tunable(spec %>% set_engine("C5.0")))
   expect_snapshot(tunable(spec %>% set_engine("spark")))
 
-  # tests for call_info and additional engines in tidymodels/extratests
+  # don't include rows for non-tunable args marked with tune() (#1104)
+  expect_snapshot(tunable(spec %>% set_engine("rpart", parms = tune())))
 })
 
 test_that("tunable.svm_poly()", {
@@ -83,7 +90,8 @@ test_that("tunable.svm_poly()", {
   expect_snapshot(tunable(spec))
   expect_snapshot(tunable(spec %>% set_engine("kernlab")))
 
-  # tests for call_info and additional engines in tidymodels/extratests
+  # don't include rows for non-tunable args marked with tune() (#1104)
+  expect_snapshot(tunable(spec %>% set_engine("kernlab", tol = tune())))
 })
 
 test_that("tunable.mlp()", {
@@ -93,13 +101,16 @@ test_that("tunable.mlp()", {
   expect_snapshot(tunable(spec %>% set_engine("nnet")))
   expect_snapshot(tunable(spec %>% set_engine("brulee")))
 
-  # tests for call_info and additional engines in tidymodels/extratests
+  # don't include rows for non-tunable args marked with tune() (#1104)
+  expect_snapshot(tunable(spec %>% set_engine("keras", ragged = tune())))
 })
 
 
 test_that("tunable.survival_reg()", {
   spec <- survival_reg()
   expect_snapshot(tunable(spec))
+  expect_snapshot(tunable(spec %>% set_engine("survival")))
 
-  # tests for call_info and additional engines in tidymodels/extratests
+  # don't include rows for non-tunable args marked with tune() (#1104)
+  expect_snapshot(tunable(spec %>% set_engine("survival", parms = tune())))
 })
