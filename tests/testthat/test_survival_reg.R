@@ -1,32 +1,6 @@
+test_that("testing", {
+  # Testing is done in {censored}
+  # https://github.com/tidymodels/censored
 
-test_that("primary argument", {
-
-  normal <- survival_reg(dist = "lnorm")
-
-  expect_snapshot(normal)
-
-  expect_equal(
-    normal$args,
-    list(dist = rlang::quo("lnorm"))
-  )
-
-  dist_v <- survival_reg(dist = tune())
-
-  expect_snapshot(dist_v)
-
-  expect_equal(
-    dist_v$args,
-    list(dist = rlang::quo(tune()))
-  )
-})
-
-test_that("updating", {
-  expect_snapshot(
-    survival_reg() %>%
-      update(dist = "lnorm")
-  )
-})
-
-test_that("bad input", {
-  expect_error(survival_reg(mode = ", classification"))
+  expect_true(TRUE)
 })
