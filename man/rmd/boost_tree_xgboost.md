@@ -109,6 +109,13 @@ xgboost does not have a means to translate factor predictors to grouped splits. 
 
 For classification, non-numeric outcomes (i.e., factors) are internally converted to numeric. For binary classification, the `event_level` argument of `set_engine()` can be set to either `"first"` or `"second"` to specify which level should be used as the event. This can be helpful when a watchlist is used to monitor performance from with the xgboost training process.  
 
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
 ## Other details
 
 ### Interfacing with the `params` argument

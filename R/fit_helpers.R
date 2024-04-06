@@ -44,29 +44,19 @@ form_form <-
       spec = object
     )
 
-    if (control$verbosity > 1L) {
-      elapsed <- system.time(
-        res$fit <- eval_mod(
-          fit_call,
-          capture = control$verbosity == 0,
-          catch = control$catch,
-          envir = env,
-          ...
-        ),
-        gcFirst = FALSE
-      )
-    } else {
+    elapsed <- system.time(
       res$fit <- eval_mod(
         fit_call,
         capture = control$verbosity == 0,
         catch = control$catch,
         envir = env,
         ...
-      )
-      elapsed <- list(elapsed = NA_real_)
-    }
+      ),
+      gcFirst = FALSE
+    )
     res$preproc <- list(y_var = all.vars(rlang::f_lhs(env$formula)))
-    res$elapsed <- elapsed
+    res$elapsed <- list(elapsed = elapsed, print = control$verbosity > 1L)
+
     res
   }
 
@@ -107,27 +97,16 @@ xy_xy <- function(object,
 
   res <- list(lvl = levels(env$y), spec = object)
 
-  if (control$verbosity > 1L) {
-    elapsed <- system.time(
-      res$fit <- eval_mod(
-        fit_call,
-        capture = control$verbosity == 0,
-        catch = control$catch,
-        envir = env,
-        ...
-      ),
-      gcFirst = FALSE
-    )
-  } else {
+  elapsed <- system.time(
     res$fit <- eval_mod(
       fit_call,
       capture = control$verbosity == 0,
       catch = control$catch,
       envir = env,
       ...
-    )
-    elapsed <- list(elapsed = NA_real_)
-  }
+    ),
+    gcFirst = FALSE
+  )
 
   if (is.atomic(env$y)) {
     y_name <- character(0)
@@ -135,7 +114,7 @@ xy_xy <- function(object,
     y_name <- colnames(env$y)
   }
   res$preproc <- list(y_var = y_name)
-  res$elapsed <- elapsed
+  res$elapsed <- list(elapsed = elapsed, print = control$verbosity > 1L)
   res
 }
 
@@ -181,9 +160,9 @@ xy_form <- function(object, env, control, ...) {
   check_outcome(env$y, object)
 
   encoding_info <- get_encoding(class(object)[1])
-  encoding_info <- 
+  encoding_info <-
     vctrs::vec_slice(
-      encoding_info, 
+      encoding_info,
       encoding_info$mode == object$mode & encoding_info$engine == object$engine
     )
 
