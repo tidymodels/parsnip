@@ -119,7 +119,8 @@ check_args.C5_rules <- function(object, call = rlang::caller_env()) {
     if (length(args$trees) > 1) {
       cli::cli_abort(
         "Only a single value of {.arg trees} should be passed, \\
-        not {length(args$trees)}."
+        not {length(args$trees)}.",
+        call = call
       )
     }
 
@@ -138,7 +139,8 @@ check_args.C5_rules <- function(object, call = rlang::caller_env()) {
     if (length(args$min_n) > 1) {
       cli::cli_abort(
         "Only a single value of {.arg min_n} should be passed, \\
-        not {length(args$min_n)}."
+        not {length(args$min_n)}.",
+        call = call
       )
     }
   }
