@@ -1,12 +1,4 @@
-library(parsnip)
-
-data(hpc_data, package = "modeldata")
-
-bt <- decision_tree(tree_depth = c(1, 5, 10)) %>% 
-  set_engine("rpart") %>%
-  set_mode("classification")
-
-fit(bt, class ~ ., hpc_data)
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
@@ -20,16 +12,10 @@ test_that('updating', {
 
 test_that('bad input', {
   expect_snapshot_error(decision_tree(mode = "bogus"))
-  expect_snapshot(
-    error = TRUE,
-    {
-      bt <- decision_tree(tree_depth = "six") %>% 
-        set_engine("rpart") %>%
-        set_mode("classification")
-
-      fit(bt, class ~ ., hpc)
-    }
-  )
+  expect_snapshot_error({
+    bt <- decision_tree(cost_complexity = -1) %>% set_engine("rpart")
+    fit(bt, class ~ ., hpc)
+  })
   expect_snapshot_error({
     bt <- decision_tree(min_n = 0)  %>% set_engine("rpart")
     fit(bt, class ~ ., hpc)
