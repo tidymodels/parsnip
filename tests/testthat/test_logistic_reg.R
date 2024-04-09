@@ -249,3 +249,42 @@ test_that('liblinear probabilities', {
 
 })
 
+test_that("check_args() works", {
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- logistic_reg(mixture = -1) %>% 
+        set_engine("glm") %>% 
+        set_mode("classification")
+      fit(spec, Class ~ ., lending_club)
+    }
+  )
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- logistic_reg(penalty = -1) %>% 
+        set_engine("glm") %>% 
+        set_mode("classification")
+      fit(spec, Class ~ ., lending_club)
+    }
+  )
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- logistic_reg(mixture = 0.5) %>% 
+        set_engine("LiblineaR") %>% 
+        set_mode("classification")
+      fit(spec, Class ~ ., lending_club)
+    }
+  )
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- logistic_reg(penalty = 0) %>% 
+        set_engine("LiblineaR") %>% 
+        set_mode("classification")
+      fit(spec, Class ~ ., lending_club)
+    }
+  )
+
+})

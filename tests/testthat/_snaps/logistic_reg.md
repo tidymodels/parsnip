@@ -29,3 +29,43 @@
       Warning:
       glm.fit: fitted probabilities numerically 0 or 1 occurred
 
+# check_args() works
+
+    Code
+      spec <- logistic_reg(mixture = -1) %>% set_engine("glm") %>% set_mode(
+        "classification")
+      fit(spec, Class ~ ., lending_club)
+    Condition
+      Error in `fit()`:
+      ! `mixture` must be a number between 0 and 1 or `NULL`, not the number -1.
+
+---
+
+    Code
+      spec <- logistic_reg(penalty = -1) %>% set_engine("glm") %>% set_mode(
+        "classification")
+      fit(spec, Class ~ ., lending_club)
+    Condition
+      Error in `fit()`:
+      ! The amount of regularization, `penalty`, should be `>= 0`.
+
+---
+
+    Code
+      spec <- logistic_reg(mixture = 0.5) %>% set_engine("LiblineaR") %>% set_mode(
+        "classification")
+      fit(spec, Class ~ ., lending_club)
+    Condition
+      Error in `fit()`:
+      ! For the LiblineaR engine, mixture must be 0 or 1,not 0.5.Choose a pure ridge model with `mixture = 0`.Choose a pure lasso model with `mixture = 1`.The Liblinear engine does not support other values.
+
+---
+
+    Code
+      spec <- logistic_reg(penalty = 0) %>% set_engine("LiblineaR") %>% set_mode(
+        "classification")
+      fit(spec, Class ~ ., lending_club)
+    Condition
+      Error in `fit()`:
+      ! For the LiblineaR engine, `penalty` must be `> 0`.
+

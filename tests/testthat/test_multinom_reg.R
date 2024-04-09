@@ -15,3 +15,24 @@ test_that('bad input', {
   expect_error(multinom_reg(penalty = 0.1) %>% set_engine())
   expect_warning(translate(multinom_reg(penalty = 0.1) %>% set_engine("glmnet", x = hpc[,1:3], y = hpc$class)))
 })
+
+test_that('check_args() works', {
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- multinom_reg(mixture = -1) %>% 
+        set_engine("nnet") %>%
+        set_mode("classification")
+      fit(spec, class ~ ., hpc)
+    }
+  )
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- multinom_reg(penalty = -1) %>% 
+        set_engine("nnet") %>%
+        set_mode("classification")
+      fit(spec, class ~ ., hpc)
+    }
+  )
+})

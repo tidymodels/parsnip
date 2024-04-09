@@ -23,3 +23,21 @@
       Error in `predict()`:
       ! Please use `new_data` instead of `newdata`.
 
+# check_args() works
+
+    Code
+      spec <- linear_reg(mixture = -1) %>% set_engine("lm") %>% set_mode("regression")
+      fit(spec, compounds ~ ., hpc)
+    Condition
+      Error in `fit()`:
+      ! `mixture` must be a number between 0 and 1 or `NULL`, not the number -1.
+
+---
+
+    Code
+      spec <- linear_reg(penalty = -1) %>% set_engine("lm") %>% set_mode("regression")
+      fit(spec, compounds ~ ., hpc)
+    Condition
+      Error in `fit()`:
+      ! The amount of regularization, `penalty`, should be `>= 0`.
+

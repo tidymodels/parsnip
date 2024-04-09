@@ -69,3 +69,8 @@ test_that('argument checks for data dimensions', {
   expect_equal(args$min_instances_per_node,  rlang::expr(min_rows(1000, x)))
 
 })
+
+test_that("check_args() works", {
+  # Here for completeness, no checking is done
+  expect_true(TRUE)
+})

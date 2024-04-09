@@ -12,8 +12,6 @@ test_that('updating', {
 
 test_that('bad input', {
   expect_error(linear_reg(mode = "classification"))
-  # expect_error(linear_reg(penalty = -1))
-  # expect_error(linear_reg(mixture = -1))
   expect_error(translate(linear_reg(), engine = "wat?"))
   expect_error(translate(linear_reg(), engine = NULL))
   expect_error(translate(linear_reg(formula = y ~ x)))
@@ -342,3 +340,23 @@ test_that('lm can handle rankdeficient predictions', {
   expect_identical(names(preds), ".pred")
 })
 
+test_that("check_args() works", {
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- linear_reg(mixture = -1) %>% 
+        set_engine("lm") %>% 
+        set_mode("regression")
+      fit(spec, compounds ~ ., hpc)
+    }
+  )
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- linear_reg(penalty = -1) %>% 
+        set_engine("lm") %>% 
+        set_mode("regression")
+      fit(spec, compounds ~ ., hpc)
+    }
+  )
+})

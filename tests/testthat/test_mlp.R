@@ -1,3 +1,4 @@
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 test_that('updating', {
   expect_snapshot(
@@ -48,3 +49,32 @@ test_that("more activations for brulee", {
   expect_true(inherits(fit$fit, "brulee_mlp"))
 })
 
+test_that("check_args() works", {
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- mlp(penalty = -1) %>% 
+        set_engine("nnet") %>% 
+        set_mode("classification")
+      fit(spec, class ~ ., hpc)
+    }
+  )
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- mlp(dropout = -1) %>% 
+        set_engine("nnet") %>% 
+        set_mode("classification")
+      fit(spec, class ~ ., hpc)
+    }
+  )
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- mlp(dropout = 1, penalty = 3) %>% 
+        set_engine("nnet") %>% 
+        set_mode("classification")
+      fit(spec, class ~ ., hpc)
+    }
+  )
+})
