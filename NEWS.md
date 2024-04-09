@@ -4,6 +4,14 @@
   engine argument that defaults to `"parsnip"` and is checked with the same
   machinery that checks other model types in the package (#1083).
 
+* New `extract_fit_time()` method has been added that returns the time it took to train the model (#853).
+
+# parsnip 1.2.1
+
+* Added a missing `tidy()` method for survival analysis glmnet models (#1086).
+
+* A few changes were made to achive more speed-ups (#1075) (#1073) (#1072)
+
 # parsnip 1.2.0
 
 ## Bug Fixes

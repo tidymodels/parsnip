@@ -5,6 +5,7 @@
 \alias{tidy._lognet}
 \alias{tidy._multnet}
 \alias{tidy._fishnet}
+\alias{tidy._coxnet}
 \title{tidy methods for glmnet models}
 \usage{
 \method{tidy}{`_elnet`}(x, penalty = NULL, ...)
@@ -14,6 +15,8 @@
 \method{tidy}{`_multnet`}(x, penalty = NULL, ...)
 
 \method{tidy}{`_fishnet`}(x, penalty = NULL, ...)
+
+\method{tidy}{`_coxnet`}(x, penalty = NULL, ...)
 }
 \arguments{
 \item{x}{A fitted \code{parsnip} model that used the \code{glmnet} engine.}

@@ -17,7 +17,7 @@
 
 # bad input
 
-    'bogus' is not a known mode for model `decision_tree()`.
+    "bogus" is not a known mode for model `decision_tree()`.
 
 ---
 

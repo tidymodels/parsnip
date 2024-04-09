@@ -32,6 +32,12 @@ tidy._fishnet <- function(x, penalty = NULL, ...) {
   tidy_glmnet(x, penalty)
 }
 
+#' @export
+#' @rdname tidy._elnet
+tidy._coxnet <- function(x, penalty = NULL, ...) {
+  tidy_glmnet(x, penalty)
+}
+
 ## -----------------------------------------------------------------------------
 
 get_glmn_coefs <- function(x, penalty = 0.01) {
