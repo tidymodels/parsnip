@@ -119,7 +119,7 @@ xy_xy <- function(object,
 }
 
 form_xy <- function(object, control, env,
-                    target = "none", ...) {
+                    target = "none", ..., call = rlang::caller_env()) {
 
   encoding_info <-
     get_encoding(class(object)[1]) %>%
@@ -143,7 +143,8 @@ form_xy <- function(object, control, env,
     object = object,
     env = env, #weights!
     control = control,
-    target = target
+    target = target,
+    call = call
   )
   data_obj$y_var <- all.vars(rlang::f_lhs(env$formula))
   data_obj$x <- NULL
