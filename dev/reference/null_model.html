@@ -72,20 +72,22 @@ main arguments. This function can fit classification and regression models.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">null_model</span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"classification"</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">null_model</span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"classification"</span>, engine <span class="op">=</span> <span class="st">"parsnip"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>mode</dt>
-<dd><p>A single character string for the model mode (e.g. "regression").</p></dd>
+<dd><p>A single character string for the type of model. The only
+possible values for this model are <code>"regression"</code> and <code>"classification"</code>.</p></dd>
+
+
+<dt>engine</dt>
+<dd><p>A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is <code>"parsnip"</code>.</p></dd>
 
 </dl></div>
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The model can be created using the <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> function using the
-following <em>engines</em>:</p><ul><li><p><span class="pkg">R</span>:  <code>"parsnip"</code></p></li>
-</ul></div>
     <div class="section level2">
     <h2 id="engine-details">Engine Details<a class="anchor" aria-label="anchor" href="#engine-details"></a></h2>
     <p>Engines may have pre-set default arguments when executing the model fit
@@ -125,6 +127,8 @@ call. For this type of model, the template of the fit calls are below:</p><div c
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">null_model</span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"regression"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Null Model Specification (regression)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Computational engine: parsnip </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
