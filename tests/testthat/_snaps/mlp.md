@@ -18,7 +18,7 @@
 # check_args() works
 
     Code
-      spec <- mlp(penalty = -1) %>% set_engine("nnet") %>% set_mode("classification")
+      spec <- mlp(penalty = -1) %>% set_engine("keras") %>% set_mode("classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:
@@ -27,7 +27,7 @@
 ---
 
     Code
-      spec <- mlp(dropout = -1) %>% set_engine("nnet") %>% set_mode("classification")
+      spec <- mlp(dropout = -1) %>% set_engine("keras") %>% set_mode("classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:
@@ -36,7 +36,7 @@
 ---
 
     Code
-      spec <- mlp(dropout = 1, penalty = 3) %>% set_engine("nnet") %>% set_mode(
+      spec <- mlp(dropout = 1, penalty = 3) %>% set_engine("keras") %>% set_mode(
         "classification")
       fit(spec, class ~ ., hpc)
     Condition

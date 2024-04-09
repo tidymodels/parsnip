@@ -218,6 +218,8 @@ test_that('classification', {
 })
 
 test_that("check_args() works", {
+  skip_if_not_installed("earth")
+  
   expect_snapshot(
     error = TRUE,
     {

@@ -14,6 +14,8 @@ test_that('bad input', {
 })
 
 test_that('check_args() works', {
+  skip_if_not_installed("kknn")
+  
   expect_snapshot(
     error = TRUE,
     {

@@ -18,7 +18,7 @@
 # check_args() works
 
     Code
-      spec <- multinom_reg(mixture = -1) %>% set_engine("nnet") %>% set_mode(
+      spec <- multinom_reg(mixture = -1) %>% set_engine("keras") %>% set_mode(
         "classification")
       fit(spec, class ~ ., hpc)
     Condition
@@ -28,7 +28,7 @@
 ---
 
     Code
-      spec <- multinom_reg(penalty = -1) %>% set_engine("nnet") %>% set_mode(
+      spec <- multinom_reg(penalty = -1) %>% set_engine("keras") %>% set_mode(
         "classification")
       fit(spec, class ~ ., hpc)
     Condition

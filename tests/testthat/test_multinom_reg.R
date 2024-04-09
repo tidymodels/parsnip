@@ -17,11 +17,13 @@ test_that('bad input', {
 })
 
 test_that('check_args() works', {
+  skip_if_not_installed("keras")
+  
   expect_snapshot(
     error = TRUE,
     {
       spec <- multinom_reg(mixture = -1) %>% 
-        set_engine("nnet") %>%
+        set_engine("keras") %>%
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }
@@ -30,7 +32,7 @@ test_that('check_args() works', {
     error = TRUE,
     {
       spec <- multinom_reg(penalty = -1) %>% 
-        set_engine("nnet") %>%
+        set_engine("keras") %>%
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }

@@ -48,6 +48,8 @@ test_that('boost_tree can be fit with 1 predictor if validation is used', {
 })
 
 test_that("check_args() works", {
+  skip_if_not_installed("xgboost")
+  
   expect_snapshot(
     error = TRUE,
     {

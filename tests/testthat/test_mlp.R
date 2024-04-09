@@ -50,11 +50,13 @@ test_that("more activations for brulee", {
 })
 
 test_that("check_args() works", {
+  skip_if_not_installed("keras")
+
   expect_snapshot(
     error = TRUE,
     {
       spec <- mlp(penalty = -1) %>% 
-        set_engine("nnet") %>% 
+        set_engine("keras") %>% 
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }
@@ -63,7 +65,7 @@ test_that("check_args() works", {
     error = TRUE,
     {
       spec <- mlp(dropout = -1) %>% 
-        set_engine("nnet") %>% 
+        set_engine("keras") %>% 
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }
@@ -72,7 +74,7 @@ test_that("check_args() works", {
     error = TRUE,
     {
       spec <- mlp(dropout = 1, penalty = 3) %>% 
-        set_engine("nnet") %>% 
+        set_engine("keras") %>% 
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }
