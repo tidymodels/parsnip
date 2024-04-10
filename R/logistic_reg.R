@@ -154,9 +154,10 @@ check_args.logistic_reg <- function(object, call = rlang::caller_env()) {
       )
     }
     
-    if (all(is.numeric(args$penalty)) && !all(args$penalty > 0)) {
+    if ((!is.null(args$penalty)) && args$penalty <= 0) {
       cli::cli_abort(
-        "For the {.pkg LiblineaR} engine, {.arg penalty} must be {.code > 0}.",
+        "For the {.pkg LiblineaR} engine, {.arg penalty} must be {.code > 0}, \\
+        not {args$penalty}.",
         call = call
       )
     }

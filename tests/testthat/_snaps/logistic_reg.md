@@ -69,5 +69,5 @@
       fit(spec, Class ~ ., lending_club)
     Condition
       Error in `fit()`:
-      ! For the LiblineaR engine, `penalty` must be `> 0`.
+      ! For the LiblineaR engine, `penalty` must be `> 0`, not 0.
 
