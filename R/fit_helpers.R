@@ -4,7 +4,7 @@
 # data to formula/data objects and so on.
 
 form_form <-
-  function(object, control, env, ...) {
+  function(object, control, env, ..., call = rlang::caller_env()) {
 
     if (inherits(env$data, "data.frame")) {
       check_outcome(eval_tidy(rlang::f_lhs(env$formula), env$data), object)
@@ -32,7 +32,7 @@ form_form <-
     }
 
     # evaluate quoted args once here to check them
-    object <- check_args(object)
+    object <- check_args(object, call = call)
 
     # sub in arguments to actual syntax for corresponding engine
     object <- translate(object, engine = object$engine)
@@ -60,7 +60,12 @@ form_form <-
     res
   }
 
-xy_xy <- function(object, env, control, target = "none", ...) {
+xy_xy <- function(object, 
+                  env, 
+                  control, 
+                  target = "none", 
+                  ..., 
+                  call = rlang::caller_env()) {
 
   if (inherits(env$x, "tbl_spark") | inherits(env$y, "tbl_spark"))
     rlang::abort("spark objects can only be used with the formula interface to `fit()`")
@@ -83,7 +88,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
   }
 
   # evaluate quoted args once here to check them
-  object <- check_args(object)
+  object <- check_args(object, call = call)
 
   # sub in arguments to actual syntax for corresponding engine
   object <- translate(object, engine = object$engine)
@@ -114,7 +119,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
 }
 
 form_xy <- function(object, control, env,
-                    target = "none", ...) {
+                    target = "none", ..., call = rlang::caller_env()) {
 
   encoding_info <-
     get_encoding(class(object)[1]) %>%
@@ -138,7 +143,8 @@ form_xy <- function(object, control, env,
     object = object,
     env = env, #weights!
     control = control,
-    target = target
+    target = target,
+    call = call
   )
   data_obj$y_var <- all.vars(rlang::f_lhs(env$formula))
   data_obj$x <- NULL

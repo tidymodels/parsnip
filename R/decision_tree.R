@@ -128,9 +128,7 @@ translate.decision_tree <- function(x, engine = x$engine, ...) {
 # ------------------------------------------------------------------------------
 
 #' @export
-check_args.decision_tree <- function(object) {
-  if (object$engine == "C5.0" && object$mode == "regression")
-    rlang::abort("C5.0 is classification only.")
+check_args.decision_tree <- function(object, call = rlang::caller_env()) {
   invisible(object)
 }
 

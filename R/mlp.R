@@ -126,21 +126,20 @@ translate.mlp <- function(x, engine = x$engine, ...) {
 # ------------------------------------------------------------------------------
 
 #' @export
-check_args.mlp <- function(object) {
+check_args.mlp <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
 
-  if (is.numeric(args$penalty))
-    if (args$penalty < 0)
-      rlang::abort("The amount of weight decay must be >= 0.")
+  check_number_decimal(args$penalty, min = 0, allow_null = TRUE, call = call, arg = "penalty")
+  check_number_decimal(args$dropout, min = 0, max = 1, allow_null = TRUE, call = call, arg = "dropout")
 
-  if (is.numeric(args$dropout))
-    if (args$dropout < 0 | args$dropout >= 1)
-      rlang::abort("The dropout proportion must be on [0, 1).")
-
-  if (is.numeric(args$penalty) & is.numeric(args$dropout))
-    if (args$dropout > 0 & args$penalty > 0)
-      rlang::abort("Both weight decay and dropout should not be specified.")
+  if (is.numeric(args$penalty) && is.numeric(args$dropout) &&
+      args$dropout > 0 && args$penalty > 0) {
+    cli::cli_abort(
+      "Both weight decay and dropout should not be specified.",
+      call = call
+    )
+  }
 
   invisible(object)
 }

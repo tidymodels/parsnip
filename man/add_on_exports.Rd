@@ -19,7 +19,7 @@ null_value(x)
 
 show_fit(model, eng)
 
-check_args(object)
+check_args(object, call = rlang::caller_env())
 
 update_dot_check(...)
 

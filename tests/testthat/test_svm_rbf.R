@@ -195,4 +195,7 @@ test_that('svm rbf classification probabilities', {
   expect_equal(as.data.frame(kern_probs), as.data.frame(parsnip_xy_probs))
 })
 
-
+test_that("check_args() works", {
+  # Here for completeness, no checking is done
+  expect_true(TRUE)
+})
