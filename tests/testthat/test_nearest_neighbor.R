@@ -1,5 +1,3 @@
-hpc <- hpc_data[1:150, c(2:5, 8)]
-
 test_that('updating', {
   expect_snapshot(
     nearest_neighbor(neighbors = 5) %>%
@@ -15,6 +13,8 @@ test_that('bad input', {
 
 test_that('check_args() works', {
   skip_if_not_installed("kknn")
+
+  hpc <- hpc_data[1:150, c(2:5, 8)]
   
   expect_snapshot(
     error = TRUE,
