@@ -145,7 +145,7 @@ check_args.logistic_reg <- function(object, call = rlang::caller_env()) {
   if (object$engine == "LiblineaR") {
     if (is.numeric(args$mixture) && !args$mixture %in% 0:1) {
       cli::cli_abort(
-        c("x" = "For the {.pkg LiblineaR} engine, mixture must be 0 or 1,\\
+        c("x" = "For the {.pkg LiblineaR} engine, mixture must be 0 or 1, \\
                 not {args$mixture}.",
           "i" = "Choose a pure ridge model with {.code mixture = 0} or \\
                 a pure lasso model with {.code mixture = 1}.",
@@ -157,7 +157,7 @@ check_args.logistic_reg <- function(object, call = rlang::caller_env()) {
     if ((!is.null(args$penalty)) && args$penalty == 0) {
       cli::cli_abort(
         "For the {.pkg LiblineaR} engine, {.arg penalty} must be {.code > 0}, \\
-        not 0.",
+         not 0.",
         call = call
       )
     }
