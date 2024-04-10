@@ -286,5 +286,4 @@ test_that("check_args() works", {
       fit(spec, Class ~ ., lending_club)
     }
   )
-
 })
