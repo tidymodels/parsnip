@@ -115,35 +115,19 @@ check_args.C5_rules <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
 
-  if (is.numeric(args$trees)) {
-    if (length(args$trees) > 1) {
-      cli::cli_abort(
-        "Only a single value of {.arg trees} should be passed, \\
-        not {length(args$trees)}.",
-        call = call
-      )
-    }
+  check_number_whole(args$min_n, allow_null = TRUE, call = call, arg = "min_n")
+  check_number_whole(args$tree, allow_null = TRUE, call = call, arg = "tree")
 
-    msg <- "The number of trees should be {.code >= 1} and {.code <= 100}"
-    if (args$trees > 100) {
-      object$args$trees <- rlang::new_quosure(100L, env = rlang::empty_env())
-      cli::cli_warn(c(msg, "Truncating to 100."))
-    }
-    if (args$trees < 1) {
-      object$args$trees <- rlang::new_quosure(1L, env = rlang::empty_env())
-      cli::cli_warn(c(msg, "Truncating to 1."))
-    }
+  msg <- "The number of trees should be {.code >= 1} and {.code <= 100}"
+  if (!(is.null(args$trees)) && args$trees > 100) {
+    object$args$trees <- rlang::new_quosure(100L, env = rlang::empty_env())
+    cli::cli_warn(c(msg, "Truncating to 100."))
+  }
+  if (!(is.null(args$trees)) && args$trees < 1) {
+    object$args$trees <- rlang::new_quosure(1L, env = rlang::empty_env())
+    cli::cli_warn(c(msg, "Truncating to 1."))
+  }
 
-  }
-  if (is.numeric(args$min_n)) {
-    if (length(args$min_n) > 1) {
-      cli::cli_abort(
-        "Only a single value of {.arg min_n} should be passed, \\
-        not {length(args$min_n)}.",
-        call = call
-      )
-    }
-  }
   invisible(object)
 }
 
