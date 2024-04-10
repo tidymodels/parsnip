@@ -57,7 +57,9 @@
       fit(spec, Class ~ ., lending_club)
     Condition
       Error in `fit()`:
-      ! For the LiblineaR engine, mixture must be 0 or 1,not 0.5.Choose a pure ridge model with `mixture = 0`.Choose a pure lasso model with `mixture = 1`.The Liblinear engine does not support other values.
+      x For the LiblineaR engine, mixture must be 0 or 1,not 0.5.
+      i Choose a pure ridge model with `mixture = 0` or a pure lasso model with `mixture = 1`.
+      ! The Liblinear engine does not support other values.
 
 ---
 
