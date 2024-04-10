@@ -96,11 +96,9 @@ update.nearest_neighbor <- function(object,
 check_args.nearest_neighbor <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
-  neighbors <- args$neighbors
-  weight_func <- args$weight_func
 
-  check_number_whole(neighbors, min = 0, allow_null = TRUE, call = call)
-  check_string(weight_func, allow_null = TRUE, call = call)
+  check_number_whole(args$neighbors, min = 0, allow_null = TRUE, call = call, arg = "neighbors")
+  check_string(args$weight_func, allow_null = TRUE, call = call, arg = "weight_func")
   
   invisible(object)
 }

@@ -88,13 +88,10 @@ update.discrim_flexible <-
 check_args.discrim_flexible <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
-  prod_degree <- args$prod_degree
-  num_terms <- args$num_terms
-  prune_method <- args$prune_method
 
-  check_number_whole(prod_degree, min = 1, allow_null = TRUE, call = call)
-  check_number_whole(num_terms, min = 1, allow_null = TRUE, call = call)
-  check_string(prune_method, allow_empty = FALSE, allow_null = TRUE, call = call)
+  check_number_whole(args$prod_degree, min = 1, allow_null = TRUE, call = call, arg = "prod_degree")
+  check_number_whole(args$num_terms, min = 1, allow_null = TRUE, call = call, arg = "num_terms")
+  check_string(args$prune_method, allow_empty = FALSE, allow_null = TRUE, call = call, arg = "prune_method")
   
   invisible(object)
 }

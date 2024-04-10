@@ -129,11 +129,9 @@ translate.mlp <- function(x, engine = x$engine, ...) {
 check_args.mlp <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
-  penalty <- args$penalty
-  dropout <- args$dropout
 
-  check_number_decimal(penalty, min = 0, allow_null = TRUE, call = call)
-  check_number_decimal(dropout, min = 0, max = 1, allow_null = TRUE, call = call)
+  check_number_decimal(args$penalty, min = 0, allow_null = TRUE, call = call, arg = "penalty")
+  check_number_decimal(args$dropout, min = 0, max = 1, allow_null = TRUE, call = call, arg = "dropout")
 
   if (is.numeric(args$penalty) && is.numeric(args$dropout) &&
       args$dropout > 0 && args$penalty > 0) {

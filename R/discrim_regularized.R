@@ -98,11 +98,9 @@ update.discrim_regularized <-
 check_args.discrim_regularized <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
-  frac_common_cov <- args$frac_common_cov
-  frac_identity <- args$frac_identity
 
-  check_number_decimal(frac_common_cov, min = 0, max = 1, allow_null = TRUE, call = call)
-  check_number_decimal(frac_identity, min = 0, max = 1, allow_null = TRUE, call = call)
+  check_number_decimal(args$frac_common_cov, min = 0, max = 1, allow_null = TRUE, call = call, arg = "frac_common_cov")
+  check_number_decimal(args$frac_identity, min = 0, max = 1, allow_null = TRUE, call = call, arg = "frac_identity")
   
   invisible(object)
 }

@@ -167,15 +167,11 @@ translate.boost_tree <- function(x, engine = x$engine, ...) {
 check_args.boost_tree <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
-  trees <- args$trees
-  sample_size <- args$sample_size
-  tree_depth <- args$tree_depth
-  min_n <- args$min_n
 
-  check_number_whole(trees, min = 0, allow_null = TRUE, call = call)
-  check_number_decimal(sample_size, min = 0, max = 1, allow_null = TRUE, call = call)
-  check_number_whole(tree_depth, min = 0, allow_null = TRUE, call = call)
-  check_number_whole(min_n, min = 0, allow_null = TRUE, call = call)
+  check_number_whole(args$trees, min = 0, allow_null = TRUE, call = call, arg = "trees")
+  check_number_decimal(args$sample_size, min = 0, max = 1, allow_null = TRUE, call = call, arg = "sample_size")
+  check_number_whole(args$tree_depth, min = 0, allow_null = TRUE, call = call, arg = "tree_depth")
+  check_number_whole(args$min_n, min = 0, allow_null = TRUE, call = call, arg = "min_n")
   
   invisible(object)
 }

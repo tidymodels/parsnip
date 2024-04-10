@@ -138,9 +138,8 @@ update.logistic_reg <-
 check_args.logistic_reg <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
-  mixture <- args$mixture
 
-  check_number_decimal(mixture, min = 0, max = 1, allow_null = TRUE, call = call)
+  check_number_decimal(args$mixture, min = 0, max = 1, allow_null = TRUE, call = call, arg = "mixture")
 
   if (all(is.numeric(args$penalty)) && any(args$penalty < 0))
     cli::cli_abort(

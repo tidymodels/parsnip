@@ -90,9 +90,8 @@ update.pls <-
 check_args.pls <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
-  num_comp <- args$num_comp
 
-  check_number_whole(num_comp, min = 0, allow_null = TRUE, call = call)
+  check_number_whole(args$num_comp, min = 0, allow_null = TRUE, call = call, arg = "num_comp")
 
   invisible(object)
 }
