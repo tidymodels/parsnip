@@ -98,3 +98,8 @@ test_that('classification', {
   expect_equal(f_ci[[".pred_lower_Class2"]], lower)
 
 })
+
+test_that("check_args() works", {
+  # Here for completeness, no checking is done
+  expect_true(TRUE)
+})
