@@ -143,7 +143,8 @@ check_args.cubist_rules <- function(object, call = rlang::caller_env()) {
     if (length(args$committees) > 1) {
       cli::cli_abort(
         "Only a single value of {.arg committees} should be passed, \\
-        not {length(args$committees)}."
+        not {length(args$committees)}.",
+        call = call
       )
     }
     
@@ -164,7 +165,8 @@ check_args.cubist_rules <- function(object, call = rlang::caller_env()) {
     if (length(args$neighbors) > 1) {
       cli::cli_abort(
         "Only a single value of {.arg neighbors} should be passed, \\
-        not {length(args$neighbors)}."
+        not {length(args$neighbors)}.",
+        call = call
       )
     }
 
