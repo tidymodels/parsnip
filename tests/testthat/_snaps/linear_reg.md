@@ -39,5 +39,5 @@
       fit(spec, compounds ~ ., hpc)
     Condition
       Error in `fit()`:
-      ! The amount of regularization, `penalty`, should be `>= 0`.
+      ! `penalty` must be a number larger than or equal to 0 or `NULL`, not the number -1.
 

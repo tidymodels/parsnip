@@ -84,12 +84,7 @@ check_args.discrim_linear <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
 
-  if (all(is.numeric(args$penalty)) && any(args$penalty < 0)) {
-    cli::cli_abort(
-      "The amount of regularization, {.arg penalty}, should be {.code >= 0}.",
-      call = call
-    )
-  }
+  check_number_decimal(args$penalty, min = 0, allow_null = TRUE, call = call, arg = "penalty")
 
   invisible(object)
 }

@@ -105,13 +105,8 @@ check_args.multinom_reg <- function(object, call = rlang::caller_env()) {
   args <- lapply(object$args, rlang::eval_tidy)
 
   check_number_decimal(args$mixture, min = 0, max = 1, allow_null = TRUE, call = call, arg = "mixture")
+  check_number_decimal(args$penalty, min = 0, allow_null = TRUE, call = call, arg = "penalty")
 
-  if (all(is.numeric(args$penalty)) && any(args$penalty < 0)) {
-    cli::cli_abort(
-      "The amount of regularization, {.arg penalty}, should be {.code >= 0}.",
-      call = call
-    )
-  }
   invisible(object)
 }
 
