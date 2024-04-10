@@ -157,7 +157,7 @@ check_args.cubist_rules <- function(object, call = rlang::caller_env()) {
     if (args$committees < 1) {
       object$args$committees <-
         rlang::new_quosure(1L, env = rlang::empty_env())
-        cli::cli_warn(c(msg, "Truncating to 100."))
+        cli::cli_warn(c(msg, "Truncating to 1."))
       }
 
   }
