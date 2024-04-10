@@ -40,7 +40,7 @@ combinations of model, mode, and engine.
     
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.1.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -146,7 +146,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr       </span> 1.1.4          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr       </span> 1.3.1     </span></span>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">infer       </span> 1.0.7          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tune        </span> 1.2.0     </span></span>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">modeldata   </span> 1.3.0          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflows   </span> 1.1.4     </span></span>
-<span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">parsnip     </span> 1.2.1.<span style="color: #BB0000;">9000</span>     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflowsets</span> 1.1.0     </span></span>
+<span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">parsnip     </span> 1.2.1.<span style="color: #BB0000;">9001</span>     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflowsets</span> 1.1.0     </span></span>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr       </span> 1.0.2          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">yardstick   </span> 1.3.1     </span></span>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">recipes     </span> 1.0.10</span></span></code></pre>
 <pre><code><span>  <span class="co">## ── <span style="font-weight: bold;">Conflicts</span> ─────────────────────────────────── tidymodels_conflicts() ──</span></span>
@@ -154,7 +154,7 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span>  masks <span style="color: #0000BB;">stats</span>::filter()</span></span>
 <span>  <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>     masks <span style="color: #0000BB;">stats</span>::lag()</span></span>
 <span>  <span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">recipes</span>::<span style="color: #00BB00;">step()</span>  masks <span style="color: #0000BB;">stats</span>::step()</span></span>
-<span>  <span class="co">## <span style="color: #0000BB;">•</span> Dig deeper into tidy modeling with R at <span style="color: #00BB00;">https://www.tmwr.org</span></span></span></code></pre>
+<span>  <span class="co">## <span style="color: #0000BB;">•</span> Use <span style="color: #00BB00;">tidymodels_prefer()</span> to resolve common conflicts.</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Chicago</span><span class="op">)</span></span>
@@ -1089,45 +1089,45 @@ last week will be predicted after the model is fit.</p>
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">linreg_reg_fit</span> <span class="op">&lt;-</span> <span class="va">linreg_reg_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## Epoch 1/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 37s - loss: 2.0803 71/178 [==========&gt;...................] - ETA: 0s - loss: 9.8605 139/178 [======================&gt;.......] - ETA: 0s - loss: 9.5399178/178 [==============================] - 0s 739us/step - loss: 10.0100</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 38s - loss: 4.6174 71/178 [==========&gt;...................] - ETA: 0s - loss: 9.4147 140/178 [======================&gt;.......] - ETA: 0s - loss: 9.9855178/178 [==============================] - 0s 735us/step - loss: 10.0198</span></span>
 <span>  <span class="co">## Epoch 2/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 6.9444 69/178 [==========&gt;...................] - ETA: 0s - loss: 9.4777138/178 [======================&gt;.......] - ETA: 0s - loss: 10.1124178/178 [==============================] - 0s 828us/step - loss: 9.9102</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 10.2820 70/178 [==========&gt;...................] - ETA: 0s - loss: 10.0038139/178 [======================&gt;.......] - ETA: 0s - loss: 9.8873 178/178 [==============================] - 0s 826us/step - loss: 9.9017</span></span>
 <span>  <span class="co">## Epoch 3/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 14.9533 69/178 [==========&gt;...................] - ETA: 0s - loss: 11.2041137/178 [======================&gt;.......] - ETA: 0s - loss: 9.7584 178/178 [==============================] - 0s 746us/step - loss: 9.8368</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 7.1198 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.5435139/178 [======================&gt;.......] - ETA: 0s - loss: 9.8172178/178 [==============================] - 0s 737us/step - loss: 9.8333</span></span>
 <span>  <span class="co">## Epoch 4/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 2.1970 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.3106139/178 [======================&gt;.......] - ETA: 0s - loss: 10.2225178/178 [==============================] - 0s 756us/step - loss: 9.7754</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 6.0177 70/178 [==========&gt;...................] - ETA: 0s - loss: 8.1583139/178 [======================&gt;.......] - ETA: 0s - loss: 9.6910178/178 [==============================] - 0s 739us/step - loss: 9.7742</span></span>
 <span>  <span class="co">## Epoch 5/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 1.5808 67/178 [==========&gt;...................] - ETA: 0s - loss: 10.0025136/178 [=====================&gt;........] - ETA: 0s - loss: 9.6958 178/178 [==============================] - 0s 754us/step - loss: 9.7254</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 13.1994 67/178 [==========&gt;...................] - ETA: 0s - loss: 9.0487 136/178 [=====================&gt;........] - ETA: 0s - loss: 9.8001178/178 [==============================] - 0s 752us/step - loss: 9.7285</span></span>
 <span>  <span class="co">## Epoch 6/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 3.7710 69/178 [==========&gt;...................] - ETA: 0s - loss: 8.5736138/178 [======================&gt;.......] - ETA: 0s - loss: 9.4096178/178 [==============================] - 0s 741us/step - loss: 9.6886</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 13.9060 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.0100 139/178 [======================&gt;.......] - ETA: 0s - loss: 9.6669178/178 [==============================] - 0s 737us/step - loss: 9.6884</span></span>
 <span>  <span class="co">## Epoch 7/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 2.1541 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.6253139/178 [======================&gt;.......] - ETA: 0s - loss: 9.7477178/178 [==============================] - 0s 737us/step - loss: 9.6642</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 6.5521 71/178 [==========&gt;...................] - ETA: 0s - loss: 10.1841140/178 [======================&gt;.......] - ETA: 0s - loss: 9.7578 178/178 [==============================] - 0s 735us/step - loss: 9.6535</span></span>
 <span>  <span class="co">## Epoch 8/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 8.3092 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.2713139/178 [======================&gt;.......] - ETA: 0s - loss: 9.3390178/178 [==============================] - 0s 735us/step - loss: 9.6283</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 9.4333 71/178 [==========&gt;...................] - ETA: 0s - loss: 9.4485140/178 [======================&gt;.......] - ETA: 0s - loss: 10.0269178/178 [==============================] - 0s 735us/step - loss: 9.6294</span></span>
 <span>  <span class="co">## Epoch 9/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 9.8620 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.3352139/178 [======================&gt;.......] - ETA: 0s - loss: 9.3858178/178 [==============================] - 0s 735us/step - loss: 9.6110</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 26.7788 71/178 [==========&gt;...................] - ETA: 0s - loss: 10.1423140/178 [======================&gt;.......] - ETA: 0s - loss: 9.6281 178/178 [==============================] - 0s 735us/step - loss: 9.6094</span></span>
 <span>  <span class="co">## Epoch 10/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 1.5876 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.7036139/178 [======================&gt;.......] - ETA: 0s - loss: 9.7020178/178 [==============================] - 0s 746us/step - loss: 9.5991</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 3.9400 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.9443139/178 [======================&gt;.......] - ETA: 0s - loss: 9.6793178/178 [==============================] - 0s 735us/step - loss: 9.6007</span></span>
 <span>  <span class="co">## Epoch 11/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 6.0623 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.0931139/178 [======================&gt;.......] - ETA: 0s - loss: 9.6390178/178 [==============================] - 0s 742us/step - loss: 9.5812</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 1.4166 70/178 [==========&gt;...................] - ETA: 0s - loss: 10.0296138/178 [======================&gt;.......] - ETA: 0s - loss: 9.9319 178/178 [==============================] - 0s 744us/step - loss: 9.5774</span></span>
 <span>  <span class="co">## Epoch 12/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 4.3596 70/178 [==========&gt;...................] - ETA: 0s - loss: 8.4841138/178 [======================&gt;.......] - ETA: 0s - loss: 9.2852178/178 [==============================] - 0s 747us/step - loss: 9.5649</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 20.9913 69/178 [==========&gt;...................] - ETA: 0s - loss: 9.8243 138/178 [======================&gt;.......] - ETA: 0s - loss: 9.6464178/178 [==============================] - 0s 756us/step - loss: 9.5681</span></span>
 <span>  <span class="co">## Epoch 13/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 8.4415 56/178 [========&gt;.....................] - ETA: 0s - loss: 10.0887125/178 [====================&gt;.........] - ETA: 0s - loss: 9.0260 178/178 [==============================] - 0s 795us/step - loss: 9.5609</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 3.2229 69/178 [==========&gt;...................] - ETA: 0s - loss: 10.2427122/178 [===================&gt;..........] - ETA: 0s - loss: 9.4439 178/178 [==============================] - 0s 811us/step - loss: 9.5609</span></span>
 <span>  <span class="co">## Epoch 14/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 9.9855 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.0425139/178 [======================&gt;.......] - ETA: 0s - loss: 9.1996178/178 [==============================] - 0s 736us/step - loss: 9.5544</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 7.3007 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.7037138/178 [======================&gt;.......] - ETA: 0s - loss: 9.7568178/178 [==============================] - 0s 746us/step - loss: 9.5499</span></span>
 <span>  <span class="co">## Epoch 15/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 8.7725 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.4432139/178 [======================&gt;.......] - ETA: 0s - loss: 9.6040178/178 [==============================] - 0s 735us/step - loss: 9.5442</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 6.6911 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.3445139/178 [======================&gt;.......] - ETA: 0s - loss: 9.7913178/178 [==============================] - 0s 740us/step - loss: 9.5461</span></span>
 <span>  <span class="co">## Epoch 16/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 3.7597 69/178 [==========&gt;...................] - ETA: 0s - loss: 8.9261136/178 [=====================&gt;........] - ETA: 0s - loss: 9.4759178/178 [==============================] - 0s 747us/step - loss: 9.5393</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 4.6811 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.0634138/178 [======================&gt;.......] - ETA: 0s - loss: 9.2396178/178 [==============================] - 0s 743us/step - loss: 9.5390</span></span>
 <span>  <span class="co">## Epoch 17/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 9.4466 71/178 [==========&gt;...................] - ETA: 0s - loss: 8.1463141/178 [======================&gt;.......] - ETA: 0s - loss: 9.5869178/178 [==============================] - 0s 731us/step - loss: 9.5320</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 8.3486 69/178 [==========&gt;...................] - ETA: 0s - loss: 9.7362138/178 [======================&gt;.......] - ETA: 0s - loss: 9.6216178/178 [==============================] - 0s 746us/step - loss: 9.5294</span></span>
 <span>  <span class="co">## Epoch 18/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 33.8539 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.9881 140/178 [======================&gt;.......] - ETA: 0s - loss: 9.6853178/178 [==============================] - 0s 734us/step - loss: 9.5302</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 6.9197 69/178 [==========&gt;...................] - ETA: 0s - loss: 9.6352137/178 [======================&gt;.......] - ETA: 0s - loss: 9.2915178/178 [==============================] - 0s 751us/step - loss: 9.5293</span></span>
 <span>  <span class="co">## Epoch 19/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 2.2988 70/178 [==========&gt;...................] - ETA: 0s - loss: 9.0716139/178 [======================&gt;.......] - ETA: 0s - loss: 9.3346178/178 [==============================] - 0s 738us/step - loss: 9.5251</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 3.1506 69/178 [==========&gt;...................] - ETA: 0s - loss: 10.4824137/178 [======================&gt;.......] - ETA: 0s - loss: 9.6785 178/178 [==============================] - 0s 743us/step - loss: 9.5259</span></span>
 <span>  <span class="co">## Epoch 20/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 11.2489 69/178 [==========&gt;...................] - ETA: 0s - loss: 9.2966 132/178 [=====================&gt;........] - ETA: 0s - loss: 9.6722178/178 [==============================] - 0s 763us/step - loss: 9.5190</span></span></code></pre>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 5.3939 69/178 [==========&gt;...................] - ETA: 0s - loss: 9.2451137/178 [======================&gt;.......] - ETA: 0s - loss: 9.5444178/178 [==============================] - 0s 748us/step - loss: 9.5211</span></span></code></pre>
 <div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">linreg_reg_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
@@ -1149,13 +1149,13 @@ last week will be predicted after the model is fit.</p>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span>  <span class="co">##   .pred</span></span>
 <span>  <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">1</span> 20.3 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">1</span> 20.4 </span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">2</span> 20.6 </span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">3</span> 20.9 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.6 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">5</span> 18.9 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.42</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.06</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.7 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">5</span> 19.0 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.45</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.09</span></span></code></pre>
 </details><details id="linear-reg-stan"><summary>
 With the <code>"stan"</code> engine
 </summary><h3>
@@ -1442,45 +1442,45 @@ Both predictors are in the same units.</p>
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">logreg_cls_fit</span> <span class="op">&lt;-</span> <span class="va">logreg_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## Epoch 1/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 6s - loss: 0.950325/25 [==============================] - 0s 857us/step - loss: 0.8996</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 6s - loss: 0.973025/25 [==============================] - 0s 850us/step - loss: 0.8997</span></span>
 <span>  <span class="co">## Epoch 2/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.911025/25 [==============================] - 0s 816us/step - loss: 0.8889</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.963725/25 [==============================] - 0s 811us/step - loss: 0.8892</span></span>
 <span>  <span class="co">## Epoch 3/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.913725/25 [==============================] - 0s 842us/step - loss: 0.8783</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.881125/25 [==============================] - 0s 816us/step - loss: 0.8790</span></span>
 <span>  <span class="co">## Epoch 4/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.891825/25 [==============================] - 0s 827us/step - loss: 0.8678</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.842025/25 [==============================] - 0s 835us/step - loss: 0.8689</span></span>
 <span>  <span class="co">## Epoch 5/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.873525/25 [==============================] - 0s 835us/step - loss: 0.8574</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.847625/25 [==============================] - 0s 830us/step - loss: 0.8588</span></span>
 <span>  <span class="co">## Epoch 6/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.931425/25 [==============================] - 0s 835us/step - loss: 0.8473</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.896325/25 [==============================] - 0s 851us/step - loss: 0.8491</span></span>
 <span>  <span class="co">## Epoch 7/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.880125/25 [==============================] - 0s 831us/step - loss: 0.8375</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.839725/25 [==============================] - 0s 835us/step - loss: 0.8395</span></span>
 <span>  <span class="co">## Epoch 8/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.903025/25 [==============================] - 0s 848us/step - loss: 0.8281</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.859725/25 [==============================] - 0s 842us/step - loss: 0.8299</span></span>
 <span>  <span class="co">## Epoch 9/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.778725/25 [==============================] - 0s 869us/step - loss: 0.8186</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.765525/25 [==============================] - 0s 838us/step - loss: 0.8206</span></span>
 <span>  <span class="co">## Epoch 10/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.846525/25 [==============================] - 0s 882us/step - loss: 0.8094</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.843125/25 [==============================] - 0s 838us/step - loss: 0.8112</span></span>
 <span>  <span class="co">## Epoch 11/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.848425/25 [==============================] - 0s 855us/step - loss: 0.8004</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.907025/25 [==============================] - 0s 844us/step - loss: 0.8021</span></span>
 <span>  <span class="co">## Epoch 12/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.803425/25 [==============================] - 0s 855us/step - loss: 0.7915</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.777525/25 [==============================] - 0s 848us/step - loss: 0.7931</span></span>
 <span>  <span class="co">## Epoch 13/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.715025/25 [==============================] - 0s 853us/step - loss: 0.7828</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.776725/25 [==============================] - 0s 840us/step - loss: 0.7844</span></span>
 <span>  <span class="co">## Epoch 14/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.761325/25 [==============================] - 0s 848us/step - loss: 0.7742</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.834425/25 [==============================] - 0s 846us/step - loss: 0.7759</span></span>
 <span>  <span class="co">## Epoch 15/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.835625/25 [==============================] - 0s 843us/step - loss: 0.7659</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.764925/25 [==============================] - 0s 869us/step - loss: 0.7675</span></span>
 <span>  <span class="co">## Epoch 16/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.743225/25 [==============================] - 0s 836us/step - loss: 0.7576</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.839725/25 [==============================] - 0s 838us/step - loss: 0.7592</span></span>
 <span>  <span class="co">## Epoch 17/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.765325/25 [==============================] - 0s 843us/step - loss: 0.7495</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.758025/25 [==============================] - 0s 839us/step - loss: 0.7511</span></span>
 <span>  <span class="co">## Epoch 18/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.746425/25 [==============================] - 0s 836us/step - loss: 0.7417</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.734825/25 [==============================] - 0s 840us/step - loss: 0.7432</span></span>
 <span>  <span class="co">## Epoch 19/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.697025/25 [==============================] - 0s 836us/step - loss: 0.7342</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.732725/25 [==============================] - 0s 845us/step - loss: 0.7354</span></span>
 <span>  <span class="co">## Epoch 20/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.793025/25 [==============================] - 0s 838us/step - loss: 0.7265</span></span></code></pre>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.703325/25 [==============================] - 0s 847us/step - loss: 0.7279</span></span></code></pre>
 <div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">logreg_cls_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
@@ -1506,16 +1506,16 @@ probabilities. We’ll bind these together into one tibble:</p>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span>  <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span></span>
 <span>  <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.513      0.487  </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.842      0.158  </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.524      0.476  </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.837      0.163  </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.646      0.354  </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.542      0.458  </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.745      0.255  </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.528      0.472  </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.990      0.009<span style="text-decoration: underline;">63</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class1             0.501      0.499</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.505       0.495 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.836       0.164 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.516       0.484 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1             0.830       0.170 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class1             0.637       0.363 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class1             0.533       0.467 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.736       0.264 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.520       0.480 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.990       0.010<span style="text-decoration: underline;">4</span></span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.492       0.508</span></span></code></pre>
 </details><details id="logistic-reg-LiblineaR"><summary>
 With the <code>"LiblineaR"</code> engine
 </summary><h3>
@@ -1953,45 +1953,45 @@ last week will be predicted after the model is fit.</p>
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">mlp_reg_fit</span> <span class="op">&lt;-</span> <span class="va">mlp_reg_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## Epoch 1/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 32s - loss: 264.5209 69/178 [==========&gt;...................] - ETA: 0s - loss: 216.4384 136/178 [=====================&gt;........] - ETA: 0s - loss: 213.6109178/178 [==============================] - 0s 757us/step - loss: 209.7168</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 32s - loss: 256.5402 71/178 [==========&gt;...................] - ETA: 0s - loss: 217.5327 139/178 [======================&gt;.......] - ETA: 0s - loss: 212.9478178/178 [==============================] - 0s 747us/step - loss: 209.7251</span></span>
 <span>  <span class="co">## Epoch 2/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 227.6779 68/178 [==========&gt;...................] - ETA: 0s - loss: 195.3620134/178 [=====================&gt;........] - ETA: 0s - loss: 191.6162178/178 [==============================] - 0s 767us/step - loss: 190.0472</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 189.0385 68/178 [==========&gt;...................] - ETA: 0s - loss: 193.6562135/178 [=====================&gt;........] - ETA: 0s - loss: 191.7406178/178 [==============================] - 0s 762us/step - loss: 190.0687</span></span>
 <span>  <span class="co">## Epoch 3/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 214.5814 67/178 [==========&gt;...................] - ETA: 0s - loss: 180.7917134/178 [=====================&gt;........] - ETA: 0s - loss: 181.9461178/178 [==============================] - 0s 766us/step - loss: 180.1416</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 167.1192 68/178 [==========&gt;...................] - ETA: 0s - loss: 182.8033134/178 [=====================&gt;........] - ETA: 0s - loss: 181.8652178/178 [==============================] - 0s 768us/step - loss: 180.1715</span></span>
 <span>  <span class="co">## Epoch 4/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 156.1060 67/178 [==========&gt;...................] - ETA: 0s - loss: 173.5228133/178 [=====================&gt;........] - ETA: 0s - loss: 171.2228178/178 [==============================] - 0s 766us/step - loss: 171.5464</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 158.8935 61/178 [=========&gt;....................] - ETA: 0s - loss: 174.7485110/178 [=================&gt;............] - ETA: 0s - loss: 173.7464177/178 [============================&gt;.] - ETA: 0s - loss: 171.5840178/178 [==============================] - 0s 866us/step - loss: 171.5806</span></span>
 <span>  <span class="co">## Epoch 5/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 199.5018 68/178 [==========&gt;...................] - ETA: 0s - loss: 161.4996135/178 [=====================&gt;........] - ETA: 0s - loss: 164.3125178/178 [==============================] - 0s 763us/step - loss: 163.5727</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 155.3984 68/178 [==========&gt;...................] - ETA: 0s - loss: 167.3387135/178 [=====================&gt;........] - ETA: 0s - loss: 164.9670178/178 [==============================] - 0s 767us/step - loss: 163.6186</span></span>
 <span>  <span class="co">## Epoch 6/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 158.4714 67/178 [==========&gt;...................] - ETA: 0s - loss: 156.5742123/178 [===================&gt;..........] - ETA: 0s - loss: 155.6271178/178 [==============================] - 0s 810us/step - loss: 156.0671</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 163.8038 67/178 [==========&gt;...................] - ETA: 0s - loss: 156.8384134/178 [=====================&gt;........] - ETA: 0s - loss: 157.2060178/178 [==============================] - 0s 763us/step - loss: 156.1173</span></span>
 <span>  <span class="co">## Epoch 7/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 151.7807 67/178 [==========&gt;...................] - ETA: 0s - loss: 149.8192133/178 [=====================&gt;........] - ETA: 0s - loss: 148.9335178/178 [==============================] - 0s 769us/step - loss: 148.9640</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 155.0829 57/178 [========&gt;.....................] - ETA: 0s - loss: 152.5358123/178 [===================&gt;..........] - ETA: 0s - loss: 152.7101178/178 [==============================] - 0s 811us/step - loss: 149.0156</span></span>
 <span>  <span class="co">## Epoch 8/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 157.6045 67/178 [==========&gt;...................] - ETA: 0s - loss: 145.7457133/178 [=====================&gt;........] - ETA: 0s - loss: 143.6228178/178 [==============================] - 0s 800us/step - loss: 142.2207</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 125.5253 67/178 [==========&gt;...................] - ETA: 0s - loss: 144.4305134/178 [=====================&gt;........] - ETA: 0s - loss: 143.8152178/178 [==============================] - 0s 763us/step - loss: 142.2720</span></span>
 <span>  <span class="co">## Epoch 9/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 111.2222 67/178 [==========&gt;...................] - ETA: 0s - loss: 138.0375134/178 [=====================&gt;........] - ETA: 0s - loss: 136.7738178/178 [==============================] - 0s 767us/step - loss: 135.8004</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 155.8228 68/178 [==========&gt;...................] - ETA: 0s - loss: 134.8432135/178 [=====================&gt;........] - ETA: 0s - loss: 135.6622178/178 [==============================] - 0s 758us/step - loss: 135.8480</span></span>
 <span>  <span class="co">## Epoch 10/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 129.2867 67/178 [==========&gt;...................] - ETA: 0s - loss: 132.4046134/178 [=====================&gt;........] - ETA: 0s - loss: 130.8205178/178 [==============================] - 0s 765us/step - loss: 129.6847</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 136.4646 68/178 [==========&gt;...................] - ETA: 0s - loss: 131.7321135/178 [=====================&gt;........] - ETA: 0s - loss: 130.4696178/178 [==============================] - 0s 766us/step - loss: 129.7266</span></span>
 <span>  <span class="co">## Epoch 11/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 151.6672 68/178 [==========&gt;...................] - ETA: 0s - loss: 125.5484135/178 [=====================&gt;........] - ETA: 0s - loss: 125.2508178/178 [==============================] - 0s 762us/step - loss: 123.8531</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 101.7156 66/178 [==========&gt;...................] - ETA: 0s - loss: 126.5050133/178 [=====================&gt;........] - ETA: 0s - loss: 125.0493178/178 [==============================] - 0s 770us/step - loss: 123.8921</span></span>
 <span>  <span class="co">## Epoch 12/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 121.6633 67/178 [==========&gt;...................] - ETA: 0s - loss: 119.4425133/178 [=====================&gt;........] - ETA: 0s - loss: 118.6038178/178 [==============================] - 0s 773us/step - loss: 118.2873</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 123.6403 68/178 [==========&gt;...................] - ETA: 0s - loss: 121.8818135/178 [=====================&gt;........] - ETA: 0s - loss: 118.8811178/178 [==============================] - 0s 764us/step - loss: 118.3270</span></span>
 <span>  <span class="co">## Epoch 13/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 137.1175 68/178 [==========&gt;...................] - ETA: 0s - loss: 115.3955135/178 [=====================&gt;........] - ETA: 0s - loss: 113.3635178/178 [==============================] - 0s 763us/step - loss: 112.9736</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 104.8385 68/178 [==========&gt;...................] - ETA: 0s - loss: 116.0214135/178 [=====================&gt;........] - ETA: 0s - loss: 113.3094178/178 [==============================] - 0s 759us/step - loss: 113.0119</span></span>
 <span>  <span class="co">## Epoch 14/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 115.0772 67/178 [==========&gt;...................] - ETA: 0s - loss: 109.6638134/178 [=====================&gt;........] - ETA: 0s - loss: 108.0296178/178 [==============================] - 0s 764us/step - loss: 107.8913</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 93.0809 68/178 [==========&gt;...................] - ETA: 0s - loss: 108.5157135/178 [=====================&gt;........] - ETA: 0s - loss: 108.6389178/178 [==============================] - 0s 759us/step - loss: 107.9295</span></span>
 <span>  <span class="co">## Epoch 15/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 107.5782 68/178 [==========&gt;...................] - ETA: 0s - loss: 103.2596135/178 [=====================&gt;........] - ETA: 0s - loss: 103.5276178/178 [==============================] - 0s 762us/step - loss: 103.0137</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 123.8805 69/178 [==========&gt;...................] - ETA: 0s - loss: 106.3919136/178 [=====================&gt;........] - ETA: 0s - loss: 103.8982178/178 [==============================] - 0s 757us/step - loss: 103.0578</span></span>
 <span>  <span class="co">## Epoch 16/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 94.4865 67/178 [==========&gt;...................] - ETA: 0s - loss: 99.8233128/178 [====================&gt;.........] - ETA: 0s - loss: 100.2067178/178 [==============================] - 0s 795us/step - loss: 98.3064</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 105.4323 68/178 [==========&gt;...................] - ETA: 0s - loss: 99.7766 135/178 [=====================&gt;........] - ETA: 0s - loss: 98.8701178/178 [==============================] - 0s 757us/step - loss: 98.3532</span></span>
 <span>  <span class="co">## Epoch 17/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 98.6027 67/178 [==========&gt;...................] - ETA: 0s - loss: 94.0181134/178 [=====================&gt;........] - ETA: 0s - loss: 93.7074178/178 [==============================] - 0s 763us/step - loss: 93.7187</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 91.8832 68/178 [==========&gt;...................] - ETA: 0s - loss: 93.9919135/178 [=====================&gt;........] - ETA: 0s - loss: 93.2244178/178 [==============================] - 0s 759us/step - loss: 93.7666</span></span>
 <span>  <span class="co">## Epoch 18/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 103.1704 68/178 [==========&gt;...................] - ETA: 0s - loss: 90.8919 135/178 [=====================&gt;........] - ETA: 0s - loss: 89.4007178/178 [==============================] - 0s 762us/step - loss: 89.2101</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 74.7114 68/178 [==========&gt;...................] - ETA: 0s - loss: 91.5352132/178 [=====================&gt;........] - ETA: 0s - loss: 89.7357178/178 [==============================] - 0s 773us/step - loss: 89.2596</span></span>
 <span>  <span class="co">## Epoch 19/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 72.5626 67/178 [==========&gt;...................] - ETA: 0s - loss: 84.5206134/178 [=====================&gt;........] - ETA: 0s - loss: 85.9072178/178 [==============================] - 0s 802us/step - loss: 84.8682</span></span>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 94.7960 67/178 [==========&gt;...................] - ETA: 0s - loss: 85.1931134/178 [=====================&gt;........] - ETA: 0s - loss: 85.0984178/178 [==============================] - 0s 765us/step - loss: 84.9210</span></span>
 <span>  <span class="co">## Epoch 20/20</span></span>
-<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 74.6955 66/178 [==========&gt;...................] - ETA: 0s - loss: 81.9583133/178 [=====================&gt;........] - ETA: 0s - loss: 81.3431178/178 [==============================] - 0s 767us/step - loss: 80.6706</span></span></code></pre>
+<span>  <span class="co">##   1/178 [..............................] - ETA: 0s - loss: 66.7770 68/178 [==========&gt;...................] - ETA: 0s - loss: 82.9834134/178 [=====================&gt;........] - ETA: 0s - loss: 81.4423178/178 [==============================] - 0s 808us/step - loss: 80.7273</span></span></code></pre>
 <div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">mlp_reg_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
@@ -2018,8 +2018,8 @@ last week will be predicted after the model is fit.</p>
 <span>  <span class="co">## <span style="color: #BCBCBC;">3</span>  7.50</span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">4</span>  7.50</span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">5</span>  7.50</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.88</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.71</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  6.85</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.68</span></span></code></pre>
 <h3>
 Classification Example (<code>keras</code>)
 </h3>
@@ -2052,45 +2052,45 @@ Both predictors are in the same units.</p>
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">mlp_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mlp_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## Epoch 1/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 5s - loss: 0.711825/25 [==============================] - 0s 860us/step - loss: 0.6995</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 5s - loss: 0.690325/25 [==============================] - 0s 848us/step - loss: 0.6987</span></span>
 <span>  <span class="co">## Epoch 2/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.689625/25 [==============================] - 0s 833us/step - loss: 0.6935</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.692525/25 [==============================] - 0s 849us/step - loss: 0.6924</span></span>
 <span>  <span class="co">## Epoch 3/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.686025/25 [==============================] - 0s 846us/step - loss: 0.6881</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.689925/25 [==============================] - 0s 829us/step - loss: 0.6869</span></span>
 <span>  <span class="co">## Epoch 4/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.682325/25 [==============================] - 0s 838us/step - loss: 0.6828</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.686525/25 [==============================] - 0s 838us/step - loss: 0.6820</span></span>
 <span>  <span class="co">## Epoch 5/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.684725/25 [==============================] - 0s 848us/step - loss: 0.6780</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.683225/25 [==============================] - 0s 850us/step - loss: 0.6773</span></span>
 <span>  <span class="co">## Epoch 6/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.680625/25 [==============================] - 0s 865us/step - loss: 0.6734</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.676525/25 [==============================] - 0s 864us/step - loss: 0.6727</span></span>
 <span>  <span class="co">## Epoch 7/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.674025/25 [==============================] - 0s 852us/step - loss: 0.6688</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.668325/25 [==============================] - 0s 852us/step - loss: 0.6683</span></span>
 <span>  <span class="co">## Epoch 8/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.662225/25 [==============================] - 0s 858us/step - loss: 0.6644</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.671425/25 [==============================] - 0s 865us/step - loss: 0.6640</span></span>
 <span>  <span class="co">## Epoch 9/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.667925/25 [==============================] - 0s 855us/step - loss: 0.6601</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.661825/25 [==============================] - 0s 853us/step - loss: 0.6600</span></span>
 <span>  <span class="co">## Epoch 10/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.650625/25 [==============================] - 0s 850us/step - loss: 0.6559</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.659225/25 [==============================] - 0s 863us/step - loss: 0.6560</span></span>
 <span>  <span class="co">## Epoch 11/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.647525/25 [==============================] - 0s 870us/step - loss: 0.6517</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.653625/25 [==============================] - 0s 853us/step - loss: 0.6517</span></span>
 <span>  <span class="co">## Epoch 12/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.644425/25 [==============================] - 0s 859us/step - loss: 0.6476</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.646725/25 [==============================] - 0s 862us/step - loss: 0.6479</span></span>
 <span>  <span class="co">## Epoch 13/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.656125/25 [==============================] - 0s 885us/step - loss: 0.6434</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.631225/25 [==============================] - 0s 852us/step - loss: 0.6438</span></span>
 <span>  <span class="co">## Epoch 14/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.666925/25 [==============================] - 0s 866us/step - loss: 0.6393</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.631225/25 [==============================] - 0s 857us/step - loss: 0.6396</span></span>
 <span>  <span class="co">## Epoch 15/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.627325/25 [==============================] - 0s 859us/step - loss: 0.6350</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.647525/25 [==============================] - 0s 846us/step - loss: 0.6355</span></span>
 <span>  <span class="co">## Epoch 16/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.620425/25 [==============================] - 0s 868us/step - loss: 0.6307</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.644825/25 [==============================] - 0s 852us/step - loss: 0.6316</span></span>
 <span>  <span class="co">## Epoch 17/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.630025/25 [==============================] - 0s 870us/step - loss: 0.6264</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.616225/25 [==============================] - 0s 858us/step - loss: 0.6274</span></span>
 <span>  <span class="co">## Epoch 18/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.626125/25 [==============================] - 0s 860us/step - loss: 0.6220</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.613325/25 [==============================] - 0s 855us/step - loss: 0.6231</span></span>
 <span>  <span class="co">## Epoch 19/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.593125/25 [==============================] - 0s 872us/step - loss: 0.6175</span></span>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.646325/25 [==============================] - 0s 856us/step - loss: 0.6188</span></span>
 <span>  <span class="co">## Epoch 20/20</span></span>
-<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.624125/25 [==============================] - 0s 890us/step - loss: 0.6131</span></span></code></pre>
+<span>  <span class="co">##  1/25 [&gt;.............................] - ETA: 0s - loss: 0.618425/25 [==============================] - 0s 848us/step - loss: 0.6147</span></span></code></pre>
 <div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">mlp_cls_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
@@ -2116,16 +2116,16 @@ probabilities. We’ll bind these together into one tibble:</p>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span>  <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span></span>
 <span>  <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.536        0.464</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.661        0.339</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.593        0.407</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.475        0.525</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.472        0.528</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.409        0.591</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.550        0.450</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.553        0.447</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.743        0.257</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.372        0.628</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.539        0.461</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.660        0.340</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.594        0.406</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.480        0.520</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.477        0.523</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.415        0.585</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.552        0.448</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.555        0.445</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.741        0.259</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.379        0.621</span></span></code></pre>
 </details>
 </div>
 <div class="section level2">
@@ -2277,45 +2277,45 @@ variables in the same unit (mm): bill length and bill depth.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">mr_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mr_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">island</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">penguins_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Epoch 1/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 2s - loss: 4.044211/11 [==============================] - 0s 937us/step - loss: 4.0311</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 2s - loss: 3.320611/11 [==============================] - 0s 927us/step - loss: 4.0393</span></span>
 <span><span class="co">## Epoch 2/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 4.426911/11 [==============================] - 0s 879us/step - loss: 3.7892</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 3.799311/11 [==============================] - 0s 888us/step - loss: 3.7942</span></span>
 <span><span class="co">## Epoch 3/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 4.289711/11 [==============================] - 0s 879us/step - loss: 3.5580</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 3.385411/11 [==============================] - 0s 874us/step - loss: 3.5614</span></span>
 <span><span class="co">## Epoch 4/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 3.472011/11 [==============================] - 0s 880us/step - loss: 3.3345</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 3.242511/11 [==============================] - 0s 898us/step - loss: 3.3452</span></span>
 <span><span class="co">## Epoch 5/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 2.870211/11 [==============================] - 0s 884us/step - loss: 3.1304</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 4.022911/11 [==============================] - 0s 915us/step - loss: 3.1356</span></span>
 <span><span class="co">## Epoch 6/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 3.226711/11 [==============================] - 0s 890us/step - loss: 2.9361</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 3.437211/11 [==============================] - 0s 901us/step - loss: 2.9419</span></span>
 <span><span class="co">## Epoch 7/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 3.551611/11 [==============================] - 0s 886us/step - loss: 2.7621</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 3.819611/11 [==============================] - 0s 909us/step - loss: 2.7665</span></span>
 <span><span class="co">## Epoch 8/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 2.896111/11 [==============================] - 0s 882us/step - loss: 2.5972</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 2.523411/11 [==============================] - 0s 909us/step - loss: 2.6022</span></span>
 <span><span class="co">## Epoch 9/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 2.587611/11 [==============================] - 0s 893us/step - loss: 2.4504</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 2.430311/11 [==============================] - 0s 918us/step - loss: 2.4581</span></span>
 <span><span class="co">## Epoch 10/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 2.496011/11 [==============================] - 0s 915us/step - loss: 2.3213</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 2.778211/11 [==============================] - 0s 918us/step - loss: 2.3288</span></span>
 <span><span class="co">## Epoch 11/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 2.271311/11 [==============================] - 0s 905us/step - loss: 2.2070</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 1.735111/11 [==============================] - 0s 917us/step - loss: 2.2106</span></span>
 <span><span class="co">## Epoch 12/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 2.052011/11 [==============================] - 0s 898us/step - loss: 2.1083</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 2.203911/11 [==============================] - 0s 924us/step - loss: 2.1143</span></span>
 <span><span class="co">## Epoch 13/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 2.390211/11 [==============================] - 0s 903us/step - loss: 2.0239</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 2.037811/11 [==============================] - 0s 929us/step - loss: 2.0299</span></span>
 <span><span class="co">## Epoch 14/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 1.726811/11 [==============================] - 0s 916us/step - loss: 1.9485</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 2.014911/11 [==============================] - 0s 1ms/step - loss: 1.9547</span></span>
 <span><span class="co">## Epoch 15/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 1.842711/11 [==============================] - 0s 903us/step - loss: 1.8887</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 1.940911/11 [==============================] - 0s 921us/step - loss: 1.8936</span></span>
 <span><span class="co">## Epoch 16/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 1.932411/11 [==============================] - 0s 931us/step - loss: 1.8347</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 1.680911/11 [==============================] - 0s 912us/step - loss: 1.8369</span></span>
 <span><span class="co">## Epoch 17/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 1.775711/11 [==============================] - 0s 909us/step - loss: 1.7895</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 2.063611/11 [==============================] - 0s 920us/step - loss: 1.7936</span></span>
 <span><span class="co">## Epoch 18/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 1.835511/11 [==============================] - 0s 911us/step - loss: 1.7503</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 1.802511/11 [==============================] - 0s 914us/step - loss: 1.7524</span></span>
 <span><span class="co">## Epoch 19/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 1.714411/11 [==============================] - 0s 905us/step - loss: 1.7161</span></span>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 1.572011/11 [==============================] - 0s 919us/step - loss: 1.7171</span></span>
 <span><span class="co">## Epoch 20/20</span></span>
-<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 1.385511/11 [==============================] - 0s 889us/step - loss: 1.6845</span></span></code></pre>
+<span><span class="co">##  1/11 [=&gt;............................] - ETA: 0s - loss: 1.375311/11 [==============================] - 0s 913us/step - loss: 1.6866</span></span></code></pre>
 <div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mr_cls_fit</span></span></code></pre></div>
 <pre><code><span><span class="co">## parsnip model object</span></span>
@@ -2341,11 +2341,11 @@ probabilities. We’ll bind these together into one tibble:</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 4</span></span></span>
 <span><span class="co">##   .pred_class .pred_Biscoe .pred_Dream .pred_Torgersen</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.286         0.017<span style="text-decoration: underline;">4</span>      0.696     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">113</span>      1.00        0.000<span style="text-decoration: underline;">002</span>04</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.319         0.472       0.209     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.049<span style="text-decoration: underline;">9</span>        0.939       0.011<span style="text-decoration: underline;">4</span>    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.304         0.023<span style="text-decoration: underline;">3</span>      0.672</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Torgersen       0.284         0.017<span style="text-decoration: underline;">1</span>      0.699     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Dream           0.000<span style="text-decoration: underline;">113</span>      1.00        0.000<span style="text-decoration: underline;">001</span>98</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> Dream           0.321         0.470       0.209     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> Dream           0.050<span style="text-decoration: underline;">3</span>        0.938       0.011<span style="text-decoration: underline;">4</span>    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> Torgersen       0.302         0.022<span style="text-decoration: underline;">9</span>      0.675</span></span></code></pre>
 </details><details id="multinom-reg-nnet"><summary>
 With the <code>"nnet"</code> engine
 </summary><h3>
