@@ -1,11 +1,11 @@
 pandoc: 3.1.11
-pkgdown: 2.0.7
+pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   Examples: Examples.html
-  Submodels: Submodels.html
   parsnip: parsnip.html
-last_built: 2024-04-11T01:42Z
+  Submodels: Submodels.html
+last_built: 2024-05-08T18:28Z
 urls:
   reference: https://parsnip.tidymodels.org/reference
   article: https://parsnip.tidymodels.org/articles
