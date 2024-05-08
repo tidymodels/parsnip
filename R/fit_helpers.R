@@ -44,27 +44,26 @@ form_form <-
       spec = object
     )
 
-    elapsed <- system.time(
-      res$fit <- eval_mod(
-        fit_call,
-        capture = control$verbosity == 0,
-        catch = control$catch,
-        envir = env,
-        ...
-      ),
-      gcFirst = FALSE
+    time <- proc.time()
+    res$fit <- eval_mod(
+      fit_call,
+      capture = control$verbosity == 0,
+      catch = control$catch,
+      envir = env,
+      ...
     )
+    elapsed <- proc.time() - time
     res$preproc <- list(y_var = all.vars(rlang::f_lhs(env$formula)))
     res$elapsed <- list(elapsed = elapsed, print = control$verbosity > 1L)
 
     res
   }
 
-xy_xy <- function(object, 
-                  env, 
-                  control, 
-                  target = "none", 
-                  ..., 
+xy_xy <- function(object,
+                  env,
+                  control,
+                  target = "none",
+                  ...,
                   call = rlang::caller_env()) {
 
   if (inherits(env$x, "tbl_spark") | inherits(env$y, "tbl_spark"))
@@ -97,16 +96,15 @@ xy_xy <- function(object,
 
   res <- list(lvl = levels(env$y), spec = object)
 
-  elapsed <- system.time(
-    res$fit <- eval_mod(
-      fit_call,
-      capture = control$verbosity == 0,
-      catch = control$catch,
-      envir = env,
-      ...
-    ),
-    gcFirst = FALSE
+  time <- proc.time()
+  res$fit <- eval_mod(
+    fit_call,
+    capture = control$verbosity == 0,
+    catch = control$catch,
+    envir = env,
+    ...
   )
+  elapsed <- proc.time() - time
 
   if (is.atomic(env$y)) {
     y_name <- character(0)
