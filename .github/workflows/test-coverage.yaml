@@ -39,7 +39,7 @@ jobs:
 
       - name: Install TensorFlow
         run: |
-          tensorflow::install_tensorflow(version='2.7', conda_python_version = NULL)
+          tensorflow::install_tensorflow(version='2.13', conda_python_version = NULL)
         shell: Rscript {0}
 
       - name: Test coverage
