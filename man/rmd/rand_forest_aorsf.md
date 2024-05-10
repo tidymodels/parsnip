@@ -1,7 +1,7 @@
 
 
 
-For this engine, there is a single mode: censored regression
+For this engine, there are multiple modes: classification, regression, and censored regression
 
 ## Tuning Parameters
 
@@ -17,12 +17,12 @@ This model has 3 tuning parameters:
 
 Additionally, this model has one engine-specific tuning parameter:
 
- * `split_min_stat`: Minimum test statistic required to split a node. Default is `3.841459` for the log-rank test, which is roughly a p-value of 0.05.
+ * `split_min_stat`: Minimum test statistic required to split a node. Defaults are `3.841459` for censored regression and `0` for classification and regression. For classification, this tuning parameter should be between 0 and 1, and for regression it should be greater than or equal to 0. Higher values of this parameter cause trees grown by `aorsf` to have less depth.
 
 
-# Translation from parsnip to the original package (censored regression)
+# Translation from parsnip to the original package
 
-The **censored** extension package is required to fit this model.
+The **censored** extension package is required to fit this model with the censored regression engine, and **bonsai** is required for classification and regression engines.
 
 
 ```r
@@ -43,6 +43,41 @@ rand_forest() %>%
 ## aorsf::orsf(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
 ```
 
+```r
+library(bonsai)
+
+rand_forest() %>%
+  set_engine("aorsf") %>%
+  set_mode("regression") %>%
+  translate()
+```
+
+```
+## Random Forest Model Specification (regression)
+## 
+## Computational engine: aorsf 
+## 
+## Model fit template:
+## aorsf::orsf(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), n_thread = 1, verbose_progress = FALSE)
+```
+
+```r
+library(bonsai)
+
+rand_forest() %>%
+  set_engine("aorsf") %>%
+  set_mode("classification") %>%
+  translate()
+```
+
+```
+## Random Forest Model Specification (classification)
+## 
+## Computational engine: aorsf 
+## 
+## Model fit template:
+## aorsf::orsf(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), n_thread = 1, verbose_progress = FALSE)
+```
 ## Preprocessing requirements
 
 
