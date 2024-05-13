@@ -20,10 +20,9 @@ Additionally, this model has one engine-specific tuning parameter:
  * `split_min_stat`: Minimum test statistic required to split a node. Defaults are `3.841459` for censored regression and `0` for classification and regression. For classification, this tuning parameter should be between 0 and 1, and for regression it should be greater than or equal to 0. Higher values of this parameter cause trees grown by `aorsf` to have less depth.
 
 
-# Translation from parsnip to the original package
+## Translation from parsnip to the original package (censored regression)
 
-The **censored** extension package is required to fit this model with the censored regression engine, and **bonsai** is required for classification and regression engines.
-
+The **censored** extension package is required to fit this model with the censored regression engine
 
 ```r
 library(censored)
@@ -42,6 +41,9 @@ rand_forest() %>%
 ## Model fit template:
 ## aorsf::orsf(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
 ```
+## Translation from parsnip to the original package (regression)
+
+The **bonsai** extension package is required to fit this model with the regression engine
 
 ```r
 library(bonsai)
@@ -60,6 +62,10 @@ rand_forest() %>%
 ## Model fit template:
 ## aorsf::orsf(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), n_thread = 1, verbose_progress = FALSE)
 ```
+
+## Translation from parsnip to the original package (classification)
+
+The **bonsai** extension package is required to fit this model with the classification engine
 
 ```r
 library(bonsai)
