@@ -100,6 +100,8 @@ The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that e
 
 Predictions of survival probability at a time exceeding the maximum observed event time are the predicted survival probability at the maximum observed time in the training data.
 
+The class predict method in `aorsf` uses the standard 'each tree gets one vote' approach, which is usually but not always consistent with the picking the class that has highest predicted probability. It is okay for this inconsistency to occur in `aorsf` because it is intentionally applying the traditional class prediction method for random forests, but in `tidymodels` it is preferable to embrace consistency. Thus, we opted to make predicted probability consistent with predicted class all the time by making the predicted class a function of predicted probability (see https://github.com/tidymodels/bonsai/pull/78).
+
 ## References
 
 - Jaeger BC, Long DL, Long DM, Sims M, Szychowski JM, Min YI, Mcclure LA, Howard G, Simon N. Oblique random survival forests. Annals of applied statistics 2019 Sep; 13(3):1847-83. DOI: 10.1214/19-AOAS1261
