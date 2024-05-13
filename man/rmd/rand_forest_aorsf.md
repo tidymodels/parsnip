@@ -17,7 +17,7 @@ This model has 3 tuning parameters:
 
 Additionally, this model has one engine-specific tuning parameter:
 
- * `split_min_stat`: Minimum test statistic required to split a node. Defaults are `3.841459` for censored regression and `0` for classification and regression. For classification, this tuning parameter should be between 0 and 1, and for regression it should be greater than or equal to 0. Higher values of this parameter cause trees grown by `aorsf` to have less depth.
+ * `split_min_stat`: Minimum test statistic required to split a node. Defaults are `3.841459` for censored regression (which is roughly a p-value of 0.05) and `0` for classification and regression. For classification, this tuning parameter should be between 0 and 1, and for regression it should be greater than or equal to 0. Higher values of this parameter cause trees grown by `aorsf` to have less depth.
 
 
 # Translation from parsnip to the original package
