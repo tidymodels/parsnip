@@ -107,11 +107,13 @@
 "proportional_hazards"	"censored regression"	"survival"	"censored"
 "rand_forest"	"censored regression"	"aorsf"	"censored"
 "rand_forest"	"censored regression"	"partykit"	"censored"
+"rand_forest"	"classification"	"aorsf"	"bonsai"
 "rand_forest"	"classification"	"h2o"	"agua"
 "rand_forest"	"classification"	"partykit"	"bonsai"
 "rand_forest"	"classification"	"randomForest"	NA
 "rand_forest"	"classification"	"ranger"	NA
 "rand_forest"	"classification"	"spark"	NA
+"rand_forest"	"regression"	"aorsf"	"bonsai"
 "rand_forest"	"regression"	"h2o"	"agua"
 "rand_forest"	"regression"	"partykit"	"bonsai"
 "rand_forest"	"regression"	"randomForest"	NA

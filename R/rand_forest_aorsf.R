@@ -1,6 +1,6 @@
 #' Oblique random survival forests via aorsf
 #'
-#' [aorsf::orsf()] fits a model that creates a large number of decision
+#' [aorsf::orsf()] fits a model that creates a large number of oblique decision
 #' trees, each de-correlated from the others. The final prediction uses all
 #' predictions from the individual trees and combines them.
 #'
