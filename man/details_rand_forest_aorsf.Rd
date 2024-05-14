@@ -4,12 +4,13 @@
 \alias{details_rand_forest_aorsf}
 \title{Oblique random survival forests via aorsf}
 \description{
-\code{\link[aorsf:orsf]{aorsf::orsf()}} fits a model that creates a large number of decision
+\code{\link[aorsf:orsf]{aorsf::orsf()}} fits a model that creates a large number of oblique decision
 trees, each de-correlated from the others. The final prediction uses all
 predictions from the individual trees and combines them.
 }
 \details{
-For this engine, there is a single mode: censored regression
+For this engine, there are multiple modes: censored regression,
+classification, and regression
 \subsection{Tuning Parameters}{
 
 This model has 3 tuning parameters:
@@ -23,12 +24,16 @@ ceiling(sqrt(n_predictors)))
 Additionally, this model has one engine-specific tuning parameter:
 \itemize{
 \item \code{split_min_stat}: Minimum test statistic required to split a node.
-Default is \code{3.841459} for the log-rank test, which is roughly a
-p-value of 0.05.
+Defaults are \code{3.841459} for censored regression (which is roughly a
+p-value of 0.05) and \code{0} for classification and regression. For
+classification, this tuning parameter should be between 0 and 1, and
+for regression it should be greater than or equal to 0. Higher values
+of this parameter cause trees grown by \code{aorsf} to have less depth.
 }
 }
-}
-\section{Translation from parsnip to the original package (censored regression)}{
+
+\subsection{Translation from parsnip to the original package (censored regression)}{
+
 The \strong{censored} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
@@ -46,6 +51,52 @@ rand_forest() \%>\%
 ## Model fit template:
 ## aorsf::orsf(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
 }\if{html}{\out{</div>}}
+}
+
+\subsection{Translation from parsnip to the original package (regression)}{
+
+The \strong{bonsai} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(bonsai)
+
+rand_forest() \%>\%
+  set_engine("aorsf") \%>\%
+  set_mode("regression") \%>\%
+  translate()
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Random Forest Model Specification (regression)
+## 
+## Computational engine: aorsf 
+## 
+## Model fit template:
+## aorsf::orsf(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     n_thread = 1, verbose_progress = FALSE)
+}\if{html}{\out{</div>}}
+}
+
+\subsection{Translation from parsnip to the original package (classification)}{
+
+The \strong{bonsai} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(bonsai)
+
+rand_forest() \%>\%
+  set_engine("aorsf") \%>\%
+  set_mode("classification") \%>\%
+  translate()
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Random Forest Model Specification (classification)
+## 
+## Computational engine: aorsf 
+## 
+## Model fit template:
+## aorsf::orsf(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     n_thread = 1, verbose_progress = FALSE)
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Preprocessing requirements}{
 
 This engine does not require any special encoding of the predictors.
@@ -69,6 +120,17 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 Predictions of survival probability at a time exceeding the maximum
 observed event time are the predicted survival probability at the
 maximum observed time in the training data.
+
+The class predict method in \code{aorsf} uses the standard ‘each tree gets
+one vote’ approach, which is usually but not always consistent with the
+picking the class that has highest predicted probability. It is okay for
+this inconsistency to occur in \code{aorsf} because it is intentionally
+applying the traditional class prediction method for random forests, but
+in \code{tidymodels} it is preferable to embrace consistency. Thus, we opted
+to make predicted probability consistent with predicted class all the
+time by making the predicted class a function of predicted probability
+(see
+\href{https://github.com/tidymodels/bonsai/pull/78}{tidymodels/bonsai#78}).
 }
 
 \subsection{References}{
@@ -86,5 +148,4 @@ forests. arXiv e-prints 2022 Aug; arXiv-2208. URL:
 }
 }
 }
-
 \keyword{internal}

@@ -1,7 +1,7 @@
 
 
 
-For this engine, there are multiple modes: classification, regression, and censored regression
+For this engine, there are multiple modes: censored regression, classification, and regression
 
 ## Tuning Parameters
 
@@ -19,10 +19,10 @@ Additionally, this model has one engine-specific tuning parameter:
 
  * `split_min_stat`: Minimum test statistic required to split a node. Defaults are `3.841459` for censored regression (which is roughly a p-value of 0.05) and `0` for classification and regression. For classification, this tuning parameter should be between 0 and 1, and for regression it should be greater than or equal to 0. Higher values of this parameter cause trees grown by `aorsf` to have less depth.
 
-
 ## Translation from parsnip to the original package (censored regression)
 
-The **censored** extension package is required to fit this model with the censored regression engine
+The **censored** extension package is required to fit this model.
+
 
 ```r
 library(censored)
@@ -41,9 +41,11 @@ rand_forest() %>%
 ## Model fit template:
 ## aorsf::orsf(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
 ```
+
 ## Translation from parsnip to the original package (regression)
 
-The **bonsai** extension package is required to fit this model with the regression engine
+The **bonsai** extension package is required to fit this model.
+
 
 ```r
 library(bonsai)
@@ -60,12 +62,14 @@ rand_forest() %>%
 ## Computational engine: aorsf 
 ## 
 ## Model fit template:
-## aorsf::orsf(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), n_thread = 1, verbose_progress = FALSE)
+## aorsf::orsf(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     n_thread = 1, verbose_progress = FALSE)
 ```
 
 ## Translation from parsnip to the original package (classification)
 
-The **bonsai** extension package is required to fit this model with the classification engine
+The **bonsai** extension package is required to fit this model.
+
 
 ```r
 library(bonsai)
@@ -82,8 +86,10 @@ rand_forest() %>%
 ## Computational engine: aorsf 
 ## 
 ## Model fit template:
-## aorsf::orsf(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), n_thread = 1, verbose_progress = FALSE)
+## aorsf::orsf(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     n_thread = 1, verbose_progress = FALSE)
 ```
+
 ## Preprocessing requirements
 
 
@@ -100,7 +106,7 @@ The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that e
 
 Predictions of survival probability at a time exceeding the maximum observed event time are the predicted survival probability at the maximum observed time in the training data.
 
-The class predict method in `aorsf` uses the standard 'each tree gets one vote' approach, which is usually but not always consistent with the picking the class that has highest predicted probability. It is okay for this inconsistency to occur in `aorsf` because it is intentionally applying the traditional class prediction method for random forests, but in `tidymodels` it is preferable to embrace consistency. Thus, we opted to make predicted probability consistent with predicted class all the time by making the predicted class a function of predicted probability (see https://github.com/tidymodels/bonsai/pull/78).
+The class predict method in `aorsf` uses the standard 'each tree gets one vote' approach, which is usually but not always consistent with the picking the class that has highest predicted probability. It is okay for this inconsistency to occur in `aorsf` because it is intentionally applying the traditional class prediction method for random forests, but in `tidymodels` it is preferable to embrace consistency. Thus, we opted to make predicted probability consistent with predicted class all the time by making the predicted class a function of predicted probability (see [tidymodels/bonsai#78](https://github.com/tidymodels/bonsai/pull/78)).
 
 ## References
 
