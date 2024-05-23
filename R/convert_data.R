@@ -374,7 +374,11 @@ maybe_matrix <- function(x) {
                         "converted to numeric matrix: {non_num_cols}.")
       rlang::abort(msg)
     }
-    x <- as.matrix(x)
+    if (any(vapply(x, sparsevctrs::is_sparse_vector, logical(1)))) {
+      x <- sparsevctrs::coerce_to_sparse_matrix(x)
+    } else {
+      x <- as.matrix(x)
+    }
   }
   # leave alone if matrix or sparse matrix
   x

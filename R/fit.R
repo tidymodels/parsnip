@@ -275,6 +275,10 @@ fit_xy.model_spec <-
       }
     }
 
+    if (allow_sparse(object) && methods::is(x, "sparseMatrix")) {
+      x <- sparsevctrs::coerce_to_sparse_data_frame(x)
+    }
+
     cl <- match.call(expand.dots = TRUE)
     eval_env <- rlang::env()
     eval_env$x <- x
@@ -387,7 +391,7 @@ inher <- function(x, cls, cl) {
 
 check_interface <- function(formula, data, cl, model) {
   inher(formula, "formula", cl)
-  inher(data, c("data.frame", "tbl_spark"), cl)
+  inher(data, c("data.frame", "dgCMatrix", "tbl_spark"), cl)
 
   # Determine the `fit()` interface
   form_interface <- !is.null(formula) & !is.null(data)
