@@ -32,6 +32,7 @@ Imports:
     prettyunits,
     purrr (>= 1.0.0),
     rlang (>= 1.1.0),
+    sparsevctrs (>= 0.1.0),
     stats,
     tibble (>= 2.1.1),
     tidyr (>= 1.3.0),
@@ -78,5 +79,6 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 Remotes:  
-    tidymodels/hardhat
+    tidymodels/hardhat,
+    r-lib/sparsevctrs
 RoxygenNote: 7.3.1
