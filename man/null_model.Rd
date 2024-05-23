@@ -4,21 +4,19 @@
 \alias{null_model}
 \title{Null model}
 \usage{
-null_model(mode = "classification")
+null_model(mode = "classification", engine = "parsnip")
 }
 \arguments{
-\item{mode}{A single character string for the model mode (e.g. "regression").}
+\item{mode}{A single character string for the type of model. The only
+possible values for this model are \code{"regression"} and \code{"classification"}.}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is \code{"parsnip"}.}
 }
 \description{
 \code{null_model()} defines a simple, non-informative model. It doesn't have any
 main arguments. This function can fit classification and regression models.
-}
-\details{
-The model can be created using the \code{fit()} function using the
-following \emph{engines}:
-\itemize{
-\item \pkg{R}:  \code{"parsnip"}
-}
 }
 \section{Engine Details}{
 Engines may have pre-set default arguments when executing the model fit

@@ -140,7 +140,7 @@ translate.svm_linear <- function(x, engine = x$engine, ...) {
 # ------------------------------------------------------------------------------
 
 #' @export
-check_args.svm_linear <- function(object) {
+check_args.svm_linear <- function(object, call = rlang::caller_env()) {
   invisible(object)
 }
 

@@ -4,7 +4,7 @@
 # data to formula/data objects and so on.
 
 form_form <-
-  function(object, control, env, ...) {
+  function(object, control, env, ..., call = rlang::caller_env()) {
 
     if (inherits(env$data, "data.frame")) {
       check_outcome(eval_tidy(rlang::f_lhs(env$formula), env$data), object)
@@ -32,7 +32,7 @@ form_form <-
     }
 
     # evaluate quoted args once here to check them
-    object <- check_args(object)
+    object <- check_args(object, call = call)
 
     # sub in arguments to actual syntax for corresponding engine
     object <- translate(object, engine = object$engine)
@@ -44,33 +44,27 @@ form_form <-
       spec = object
     )
 
-    if (control$verbosity > 1L) {
-      elapsed <- system.time(
-        res$fit <- eval_mod(
-          fit_call,
-          capture = control$verbosity == 0,
-          catch = control$catch,
-          envir = env,
-          ...
-        ),
-        gcFirst = FALSE
-      )
-    } else {
-      res$fit <- eval_mod(
-        fit_call,
-        capture = control$verbosity == 0,
-        catch = control$catch,
-        envir = env,
-        ...
-      )
-      elapsed <- list(elapsed = NA_real_)
-    }
+    time <- proc.time()
+    res$fit <- eval_mod(
+      fit_call,
+      capture = control$verbosity == 0,
+      catch = control$catch,
+      envir = env,
+      ...
+    )
+    elapsed <- proc.time() - time
     res$preproc <- list(y_var = all.vars(rlang::f_lhs(env$formula)))
-    res$elapsed <- elapsed
+    res$elapsed <- list(elapsed = elapsed, print = control$verbosity > 1L)
+
     res
   }
 
-xy_xy <- function(object, env, control, target = "none", ...) {
+xy_xy <- function(object,
+                  env,
+                  control,
+                  target = "none",
+                  ...,
+                  call = rlang::caller_env()) {
 
   if (inherits(env$x, "tbl_spark") | inherits(env$y, "tbl_spark"))
     rlang::abort("spark objects can only be used with the formula interface to `fit()`")
@@ -93,7 +87,7 @@ xy_xy <- function(object, env, control, target = "none", ...) {
   }
 
   # evaluate quoted args once here to check them
-  object <- check_args(object)
+  object <- check_args(object, call = call)
 
   # sub in arguments to actual syntax for corresponding engine
   object <- translate(object, engine = object$engine)
@@ -102,27 +96,15 @@ xy_xy <- function(object, env, control, target = "none", ...) {
 
   res <- list(lvl = levels(env$y), spec = object)
 
-  if (control$verbosity > 1L) {
-    elapsed <- system.time(
-      res$fit <- eval_mod(
-        fit_call,
-        capture = control$verbosity == 0,
-        catch = control$catch,
-        envir = env,
-        ...
-      ),
-      gcFirst = FALSE
-    )
-  } else {
-    res$fit <- eval_mod(
-      fit_call,
-      capture = control$verbosity == 0,
-      catch = control$catch,
-      envir = env,
-      ...
-    )
-    elapsed <- list(elapsed = NA_real_)
-  }
+  time <- proc.time()
+  res$fit <- eval_mod(
+    fit_call,
+    capture = control$verbosity == 0,
+    catch = control$catch,
+    envir = env,
+    ...
+  )
+  elapsed <- proc.time() - time
 
   if (is.atomic(env$y)) {
     y_name <- character(0)
@@ -130,12 +112,12 @@ xy_xy <- function(object, env, control, target = "none", ...) {
     y_name <- colnames(env$y)
   }
   res$preproc <- list(y_var = y_name)
-  res$elapsed <- elapsed
+  res$elapsed <- list(elapsed = elapsed, print = control$verbosity > 1L)
   res
 }
 
 form_xy <- function(object, control, env,
-                    target = "none", ...) {
+                    target = "none", ..., call = rlang::caller_env()) {
 
   encoding_info <-
     get_encoding(class(object)[1]) %>%
@@ -159,7 +141,8 @@ form_xy <- function(object, control, env,
     object = object,
     env = env, #weights!
     control = control,
-    target = target
+    target = target,
+    call = call
   )
   data_obj$y_var <- all.vars(rlang::f_lhs(env$formula))
   data_obj$x <- NULL
@@ -176,9 +159,9 @@ xy_form <- function(object, env, control, ...) {
   check_outcome(env$y, object)
 
   encoding_info <- get_encoding(class(object)[1])
-  encoding_info <- 
+  encoding_info <-
     vctrs::vec_slice(
-      encoding_info, 
+      encoding_info,
       encoding_info$mode == object$mode & encoding_info$engine == object$engine
     )
 

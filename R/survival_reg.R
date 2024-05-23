@@ -82,7 +82,7 @@ translate.survival_reg <- function(x, engine = x$engine, ...) {
 }
 
 #' @export
-check_args.survival_reg <- function(object) {
+check_args.survival_reg <- function(object, call = rlang::caller_env()) {
 
   if (object$engine == "flexsurv") {
 

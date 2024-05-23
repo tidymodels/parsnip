@@ -130,12 +130,11 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #' `null_model()` defines a simple, non-informative model. It doesn't have any
 #'  main arguments. This function can fit classification and regression models.
 #'
-#' @inheritParams set_new_model
-#' @details The model can be created using the `fit()` function using the
-#'  following _engines_:
-#' \itemize{
-#' \item \pkg{R}:  `"parsnip"`
-#' }
+#' @param mode A single character string for the type of model. The only
+#' possible values for this model are `"regression"` and `"classification"`.
+#' @param engine A single character string specifying what computational engine
+#' to use for fitting. Possible engines are listed below. The default for this
+#' model is `"parsnip"`.
 #'
 #' @includeRmd man/rmd/null-model.md details
 #'
@@ -144,28 +143,20 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
 #' null_model(mode = "regression")
 #' @export
 null_model <-
-  function(mode = "classification") {
-    null_model_modes <- unique(get_model_env()$null_model$mode)
-    # Check for correct mode
-    if (!(mode %in% null_model_modes))
-      rlang::abort(
-        glue::glue(
-          "`mode` should be one of: ",
-          glue::glue_collapse(glue::glue("'{null_model_modes}'"), sep = ", ")
-          )
-        )
-
-    # Capture the arguments in quosures
+  function(mode = "classification", engine = "parsnip") {
     args <- list()
 
-    # Save some empty slots for future parts of the specification
-    out <- list(args = args, eng_args = NULL,
-                mode = mode, method = NULL, engine = NULL)
-
-    # set classes in the correct order
-    class(out) <- make_classes("null_model")
-    out
-  }
+    new_model_spec(
+      "null_model",
+      args = args,
+      eng_args = NULL,
+      mode = mode,
+      user_specified_mode = !missing(mode),
+      method = NULL,
+      engine = engine,
+      user_specified_engine = !missing(engine)
+    )
+}
 
 
 

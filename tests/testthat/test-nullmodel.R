@@ -15,32 +15,43 @@ test_that('bad input', {
 
 num_pred <- names(hpc)[1:3]
 hpc_bad_form <- as.formula(class ~ term)
-hpc_basic <- null_model(mode = "regression") %>% set_engine("parsnip")
 
 # ------------------------------------------------------------------------------
 
 test_that('nullmodel execution', {
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
-      hpc_basic,
+      null_model(mode = "regression") %>% set_engine("parsnip"),
       compounds ~ log(input_fields) + class,
       data = hpc
-    ),
-    regexp = NA
+    )
   )
-  expect_error(
+  expect_no_condition(
+    res <- fit(
+      null_model(mode = "regression"),
+      compounds ~ log(input_fields) + class,
+      data = hpc
+    )
+  )
+  expect_no_condition(
     res <- fit_xy(
-      hpc_basic,
+      null_model(mode = "regression") %>% set_engine("parsnip"),
       x = hpc[, num_pred],
       y = hpc$num_pending
-    ),
-    regexp = NA
+    )
+  )
+  expect_no_condition(
+    res <- fit_xy(
+      null_model(mode = "regression"),
+      x = hpc[, num_pred],
+      y = hpc$num_pending
+    )
   )
 
   expect_error(
     res <- fit(
-      hpc_basic,
+      null_model(mode = "regression") %>% set_engine("parsnip"),
       hpc_bad_form,
       data = hpc
     )
@@ -48,13 +59,19 @@ test_that('nullmodel execution', {
 
   ## multivariate y
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
-      hpc_basic,
+      null_model(mode = "regression") %>% set_engine("parsnip"),
       cbind(compounds, input_fields) ~ .,
       data = hpc
-    ),
-    regexp = NA
+    )
+  )
+  expect_no_condition(
+    res <- fit(
+      null_model(mode = "regression"),
+      cbind(compounds, input_fields) ~ .,
+      data = hpc
+    )
   )
 
 })
@@ -67,7 +84,7 @@ test_that('nullmodel prediction', {
                     carb = rep(2.8125, 5))
 
   res_xy <- fit_xy(
-    hpc_basic,
+    null_model(mode = "regression") %>% set_engine("parsnip"),
     x = hpc[, num_pred],
     y = hpc$num_pending
   )
@@ -77,7 +94,7 @@ test_that('nullmodel prediction', {
                tolerance = .01)
 
   res_form <- fit(
-    hpc_basic,
+    null_model(mode = "regression") %>% set_engine("parsnip"),
     num_pending ~ log(compounds) + class,
     data = hpc
   )
@@ -87,7 +104,7 @@ test_that('nullmodel prediction', {
 
   # Multivariate y
   res <- fit(
-    hpc_basic,
+    null_model(mode = "regression") %>% set_engine("parsnip"),
     cbind(gear, carb) ~ .,
     data = mtcars
   )
@@ -124,5 +141,7 @@ test_that('null_model printing', {
   )
 })
 
-
-
+test_that("check_args() works", {
+  # Here for completeness, no checking is done
+  expect_true(TRUE)
+})

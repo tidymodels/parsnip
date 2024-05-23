@@ -6,6 +6,7 @@
 \alias{extract_fit_engine.model_fit}
 \alias{extract_parameter_set_dials.model_spec}
 \alias{extract_parameter_dials.model_spec}
+\alias{extract_fit_time.model_fit}
 \title{Extract elements of a parsnip model object}
 \usage{
 \method{extract_spec_parsnip}{model_fit}(x, ...)
@@ -15,6 +16,8 @@
 \method{extract_parameter_set_dials}{model_spec}(x, ...)
 
 \method{extract_parameter_dials}{model_spec}(x, parameter, ...)
+
+\method{extract_fit_time}{model_fit}(x, summarize = TRUE, ...)
 }
 \arguments{
 \item{x}{A parsnip \code{model_fit} object or a parsnip \code{model_spec} object.}
@@ -22,6 +25,10 @@
 \item{...}{Not currently used.}
 
 \item{parameter}{A single string for the parameter ID.}
+
+\item{summarize}{A logical for whether the elapsed fit time should be
+returned as a single row or multiple rows. Doesn't support \code{FALSE} for
+parsnip models.}
 }
 \value{
 The extracted value from the parsnip object, \code{x}, as described in the description
@@ -37,6 +44,9 @@ a parsnip model fit. For example, when using \code{\link[=linear_reg]{linear_reg
 with the \code{"lm"} engine, this returns the underlying \code{lm} object.
 \item \code{extract_parameter_dials()} returns a single dials parameter object.
 \item \code{extract_parameter_set_dials()} returns a set of dials parameter objects.
+\item \code{extract_fit_time()} returns a tibble with fit times. The fit times
+correspond to the time for the parsnip engine to fit and do not include
+other portions of the elapsed time in \code{\link[=fit.model_spec]{fit.model_spec()}}.
 }
 }
 \details{

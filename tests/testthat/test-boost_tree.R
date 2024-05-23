@@ -11,15 +11,7 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(boost_tree(mode = "bogus"))
-  expect_error({
-    bt <- boost_tree(trees = -1) %>% set_engine("xgboost")
-    fit(bt, class ~ ., hpc)
-  })
-  expect_error({
-    bt <- boost_tree(min_n = -10)  %>% set_engine("xgboost")
-    fit(bt, class ~ ., hpc)
-  })
+  expect_snapshot(error = TRUE, boost_tree(mode = "bogus"))
   expect_message(translate(boost_tree(mode = "classification"), engine = NULL))
   expect_error(translate(boost_tree(formula = y ~ x)))
 })
@@ -52,5 +44,46 @@ test_that('boost_tree can be fit with 1 predictor if validation is used', {
 
   expect_no_error(
     fit(spec, mpg ~ disp, data = mtcars)
+  )
+})
+
+test_that("check_args() works", {
+  skip_if_not_installed("xgboost")
+  
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- boost_tree(trees = -1) %>% 
+        set_engine("xgboost") %>% 
+        set_mode("classification")
+      fit(spec, class ~ ., hpc)
+    }
+  )
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- boost_tree(sample_size = -10) %>% 
+        set_engine("xgboost") %>%
+        set_mode("classification")
+      fit(spec, class ~ ., hpc)
+    }
+  )
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- boost_tree(tree_depth = -10) %>% 
+        set_engine("xgboost") %>%
+        set_mode("classification")
+      fit(spec, class ~ ., hpc)
+    }
+  )
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- boost_tree(min_n = -10) %>% 
+        set_engine("xgboost") %>%
+        set_mode("classification")
+      fit(spec, class ~ ., hpc)
+    }
   )
 })

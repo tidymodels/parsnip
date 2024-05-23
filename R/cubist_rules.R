@@ -135,44 +135,36 @@ update.cubist_rules <-
 # make work in different places
 
 #' @export
-check_args.cubist_rules <- function(object) {
+check_args.cubist_rules <- function(object, call = rlang::caller_env()) {
 
   args <- lapply(object$args, rlang::eval_tidy)
 
-  if (is.numeric(args$committees)) {
-    if (length(args$committees) > 1) {
-      rlang::abort("Only a single committee member is used.")
-    }
-    msg <- "The number of committees should be >= 1 and <= 100. Truncating the value."
-    if (args$committees > 100) {
-      object$args$committees <-
-        rlang::new_quosure(100L, env = rlang::empty_env())
-      rlang::warn(msg)
-    }
-    if (args$committees < 1) {
-      object$args$committees <-
-        rlang::new_quosure(1L, env = rlang::empty_env())
-      rlang::warn(msg)
-    }
+  check_number_whole(args$committees, allow_null = TRUE, call = call, arg = "committees")
 
+  msg <- "The number of committees should be {.code >= 1} and {.code <= 100}."
+  if (!(is.null(args$committees)) && args$committees > 100) {
+    object$args$committees <-
+      rlang::new_quosure(100L, env = rlang::empty_env())
+      cli::cli_warn(c(msg, "Truncating to 100."))
+    }
+  if (!(is.null(args$committees)) && args$committees < 1) {
+    object$args$committees <-
+      rlang::new_quosure(1L, env = rlang::empty_env())
+      cli::cli_warn(c(msg, "Truncating to 1."))
   }
-  if (is.numeric(args$neighbors)) {
-    if (length(args$neighbors) > 1) {
-      rlang::abort("Only a single neighbors value is used.")
-    }
-    msg <- "The number of neighbors should be >= 0 and <= 9. Truncating the value."
-    if (args$neighbors > 9) {
-      object$args$neighbors <-
-        rlang::new_quosure(9L, env = rlang::empty_env())
-      rlang::warn(msg)
-    }
-    if (args$neighbors < 0) {
-      object$args$neighbors <-
-        rlang::new_quosure(0L, env = rlang::empty_env())
-      rlang::warn(msg)
-    }
 
+  check_number_whole(args$neighbors, allow_null = TRUE, call = call, arg = "neighbors")
+
+  msg <- "The number of neighbors should be {.code >= 0} and {.code <= 9}."
+  if (!(is.null(args$neighbors)) && args$neighbors > 9) {
+    object$args$neighbors <- rlang::new_quosure(9L, env = rlang::empty_env())
+    cli::cli_warn(c(msg, "Truncating to 9."))
   }
+  if (!(is.null(args$neighbors)) && args$neighbors < 0) {
+    object$args$neighbors <- rlang::new_quosure(0L, env = rlang::empty_env())
+    cli::cli_warn(c(msg, "Truncating to 0."))
+  }
+
   invisible(object)
 }
 

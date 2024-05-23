@@ -216,3 +216,35 @@ test_that('classification', {
 
   expect_equal(parsnip_pred$.pred_good, earth_pred)
 })
+
+test_that("check_args() works", {
+  skip_if_not_installed("earth")
+  
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- mars(prod_degree = 0) %>% 
+        set_engine("earth") %>% 
+        set_mode("classification")
+      fit(spec, class ~ ., hpc)
+    }
+  )
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- mars(num_terms = 0) %>% 
+        set_engine("earth") %>% 
+        set_mode("classification")
+      fit(spec, class ~ ., hpc)
+    }
+  )
+  expect_snapshot(
+    error = TRUE,
+    {
+      spec <- mars(prune_method = 2) %>% 
+        set_engine("earth") %>% 
+        set_mode("classification")
+      fit(spec, class ~ ., hpc)
+    }
+  )
+})
