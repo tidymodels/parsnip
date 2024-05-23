@@ -275,8 +275,16 @@ fit_xy.model_spec <-
       }
     }
 
-    if (allow_sparse(object) && methods::is(x, "sparseMatrix")) {
-      x <- sparsevctrs::coerce_to_sparse_data_frame(x)
+    if (methods::is(x, "sparseMatrix")) {
+      if (allow_sparse(object)) {
+        x <- sparsevctrs::coerce_to_sparse_data_frame(x)
+      } else {
+        cli::cli_warn(c(
+          "!" = "{.arg x} is a sparse matrix, but model doesn't accept that.",
+          "i" = "Converted {.arg x} to data.frame."
+        ))
+        x <- as.data.frame(x)
+      }
     }
 
     cl <- match.call(expand.dots = TRUE)
