@@ -11,7 +11,7 @@ This model has 6 tuning parameters:
 
 - `hidden_units`: # Hidden Units (type: integer, default: 3L)
 
-- `penalty`: Amount of Regularization (type: double, default: 0.0)
+- `penalty`: Amount of Regularization (type: double, default: 0.001)
 
 - `epochs`: # Epochs (type: integer, default: 100L)
 
