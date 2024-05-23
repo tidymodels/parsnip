@@ -13,7 +13,7 @@ For this engine, there are multiple modes: classification and regression
 This model has 6 tuning parameters:
 \itemize{
 \item \code{hidden_units}: # Hidden Units (type: integer, default: 3L)
-\item \code{penalty}: Amount of Regularization (type: double, default: 0.0)
+\item \code{penalty}: Amount of Regularization (type: double, default: 0.001)
 \item \code{epochs}: # Epochs (type: integer, default: 100L)
 \item \code{dropout}: Dropout Rate (type: double, default: 0.0)
 \item \code{learn_rate}: Learning Rate (type: double, default: 0.01)
