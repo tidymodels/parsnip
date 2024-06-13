@@ -53,6 +53,7 @@ Suggests:
     LiblineaR,
     MASS,
     Matrix,
+    methods,
     mgcv,
     modeldata,
     nlme,
