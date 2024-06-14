@@ -134,11 +134,10 @@ translate.boost_tree <- function(x, engine = x$engine, ...) {
 
   if (engine == "spark") {
     if (x$mode == "unknown") {
-      rlang::abort(
-        glue::glue(
-          "For spark boosted trees models, the mode cannot be 'unknown' ",
-          "if the specification is to be translated."
-        )
+      cli::cli_abort(
+        "For {.pkg spark} boosted trees models, the {.arg mode} cannot be \\
+        {.val unknown} if the specification is to be translated with 
+        {.fn parsnip::translate}."
       )
     } else {
       arg_vals$type <- x$mode
