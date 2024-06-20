@@ -113,7 +113,7 @@ extract_parameter_set_dials.model_spec <- function(x, ...) {
 eval_call_info <-  function(x) {
   if (!is.null(x)) {
     # Look for other options
-    allowed_opts <- c("range", "trans", "values")
+    allowed_opts <- c("range", "trans", "values", "label")
     if (any(names(x) %in% allowed_opts)) {
       opts <- x[names(x) %in% allowed_opts]
     } else {
