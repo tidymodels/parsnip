@@ -199,6 +199,8 @@ brulee_mlp_engine_args <-
     ~name,                                                  ~call_info,
     "momentum",      list(pkg = "dials", fun = "momentum", range = c(0.5, 0.95)),
     "batch_size",      list(pkg = "dials", fun = "batch_size", range = c(3, 10)),
+    "hidden_units_2",                  list(pkg = "dials", fun = "hidden_units"),
+    "activation_2",                      list(pkg = "dials", fun = "activation"),
     "stop_iter",                          list(pkg = "dials", fun = "stop_iter"),
     "class_weights",                  list(pkg = "dials", fun = "class_weights"),
     "decay",                             list(pkg = "dials", fun = "rate_decay"),
@@ -225,6 +227,11 @@ brulee_logistic_engine_args <-
 brulee_multinomial_engine_args <-
   brulee_mlp_engine_args %>%
   dplyr::filter(name %in% c("momentum", "batch_size", "stop_iter", "class_weights"))
+
+
+
+
+
 
 flexsurvspline_engine_args <-
   tibble::tibble(
@@ -346,11 +353,17 @@ tunable.svm_poly <- function(x, ...) {
   res
 }
 
-
 #' @export
 tunable.mlp <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "brulee") {
+    one_layer_args <- brulee_mlp_engine_args[!grepl("_2", brulee_mlp_engine_args$name),]
+    res <- add_engine_parameters(res, one_layer_args)
+    res$call_info[res$name == "learn_rate"] <-
+      list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/2)))
+    res$call_info[res$name == "epochs"] <-
+      list(list(pkg = "dials", fun = "epochs", range = c(5L, 500L)))
+  } else if (x$engine == "brulee_two_layer") {
     res <- add_engine_parameters(res, brulee_mlp_engine_args)
     res$call_info[res$name == "learn_rate"] <-
       list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/2)))
