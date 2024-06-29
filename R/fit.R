@@ -275,6 +275,8 @@ fit_xy.model_spec <-
       }
     }
 
+    x <- to_sparse_data_frame(x, object)
+
     cl <- match.call(expand.dots = TRUE)
     eval_env <- rlang::env()
     eval_env$x <- x
@@ -387,7 +389,7 @@ inher <- function(x, cls, cl) {
 
 check_interface <- function(formula, data, cl, model) {
   inher(formula, "formula", cl)
-  inher(data, c("data.frame", "tbl_spark"), cl)
+  inher(data, c("data.frame", "dgCMatrix", "tbl_spark"), cl)
 
   # Determine the `fit()` interface
   form_interface <- !is.null(formula) & !is.null(data)
