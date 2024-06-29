@@ -1,15 +1,20 @@
 test_that("sparse matrices can be passed to `fit_xy()", {
+  skip_if_not_installed("LiblineaR")
+
   hotel_data <- sparse_hotel_rates()
 
-  lm_spec <- linear_reg(penalty = 0) %>%
-    set_engine("glmnet")
+  spec <- svm_linear() %>%
+    set_mode("regression") %>%
+    set_engine("LiblineaR")
 
   expect_no_error(
-    lm_fit <- fit_xy(lm_spec, x = hotel_data[, -1], y = hotel_data[, 1])
+    lm_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
 })
 
 test_that("to_sparse_data_frame() is used correctly", {
+  skip_if_not_installed("LiblineaR")
+  
   local_mocked_bindings(
     to_sparse_data_frame = function(x, object) {
       if (methods::is(x, "sparseMatrix")) {
@@ -25,28 +30,31 @@ test_that("to_sparse_data_frame() is used correctly", {
 
   hotel_data <- sparse_hotel_rates()
 
-  lm_spec <- linear_reg(penalty = 0) %>%
+  spec <- linear_reg() %>%
     set_engine("lm")
 
   expect_snapshot(
     error = TRUE,
-    fit_xy(lm_spec, x = mtcars[, -1], y = mtcars[, 1])
+    fit_xy(spec, x = mtcars[, -1], y = mtcars[, 1])
   )
   expect_snapshot(
     error = TRUE,
-    fit_xy(lm_spec, x = hotel_data[, -1], y = hotel_data[, 1])
+    fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
   
-  lm_spec <- linear_reg(penalty = 0) %>%
-    set_engine("glmnet")
+  spec <- svm_linear() %>%
+    set_mode("regression") %>%
+    set_engine("LiblineaR")
 
   expect_snapshot(
     error = TRUE,
-    fit_xy(lm_spec, x = hotel_data[, -1], y = hotel_data[, 1])
+    fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
 })
 
 test_that("maybe_sparse_matrix() is used correctly", {
+  skip_if_not_installed("LiblineaR")
+  
   local_mocked_bindings(
     maybe_sparse_matrix = function(x) {
       if (any(vapply(x, sparsevctrs::is_sparse_vector, logical(1)))) {
@@ -59,23 +67,24 @@ test_that("maybe_sparse_matrix() is used correctly", {
 
   hotel_data <- sparse_hotel_rates()
 
-  lm_spec <- linear_reg(penalty = 0) %>%
-    set_engine("glmnet")
+  spec <- svm_linear() %>%
+    set_mode("regression") %>%
+    set_engine("LiblineaR")
 
   expect_snapshot(
     error = TRUE,
-    fit_xy(lm_spec, x = hotel_data[, -1], y = hotel_data[, 1])
+    fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
   expect_snapshot(
     error = TRUE,
-    fit_xy(lm_spec, x = mtcars[, -1], y = mtcars[, 1])
+    fit_xy(spec, x = mtcars[, -1], y = mtcars[, 1])
   )
   expect_snapshot(
     error = TRUE,
-    fit_xy(lm_spec, x = as.data.frame(mtcars)[, -1], y = as.data.frame(mtcars)[, 1])
+    fit_xy(spec, x = as.data.frame(mtcars)[, -1], y = as.data.frame(mtcars)[, 1])
   )
   expect_snapshot(
     error = TRUE,
-    fit_xy(lm_spec, x = tibble::as_tibble(mtcars)[, -1], y = tibble::as_tibble(mtcars)[, 1])
+    fit_xy(spec, x = tibble::as_tibble(mtcars)[, -1], y = tibble::as_tibble(mtcars)[, 1])
   )
 })
