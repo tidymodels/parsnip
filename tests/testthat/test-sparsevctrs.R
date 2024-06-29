@@ -10,6 +10,14 @@ test_that("sparse matrices can be passed to `fit_xy()", {
   expect_no_error(
     lm_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
+
+  spec <- linear_reg() %>%
+    set_mode("regression") %>%
+    set_engine("lm")
+
+  expect_snapshot(
+    lm_fit <- fit_xy(spec, x = hotel_data[1:100, -1], y = hotel_data[1:100, 1])
+  )
 })
 
 test_that("to_sparse_data_frame() is used correctly", {

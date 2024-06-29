@@ -1,3 +1,12 @@
+# sparse matrices can be passed to `fit_xy()
+
+    Code
+      lm_fit <- fit_xy(spec, x = hotel_data[1:100, -1], y = hotel_data[1:100, 1])
+    Condition
+      Warning:
+      ! `x` is a sparse matrix, but model doesn't accept that.
+      i Converted `x` to data.frame.
+
 # to_sparse_data_frame() is used correctly
 
     Code

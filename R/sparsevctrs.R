@@ -7,7 +7,7 @@ to_sparse_data_frame <- function(x, object) {
         "!" = "{.arg x} is a sparse matrix, but model doesn't accept that.",
         "i" = "Converted {.arg x} to data.frame."
       ))
-      x <- as.data.frame(x)
+      x <- as.data.frame(as.matrix(x))
     }
   }
   x
