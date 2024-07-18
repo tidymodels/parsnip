@@ -27,7 +27,7 @@ predict_quantile.model_fit <- function(object,
       new_data <- object$spec$method$pred$quantile$pre(new_data, object)
 
     # Pass some extra arguments to be used in post-processor
-    object$spec$method$pred$quantile$args$p <- quantile
+    object$spec$method$pred$quantile$args$quantile <- quantile
     pred_call <- make_pred_call(object$spec$method$pred$quantile)
 
     res <- eval_tidy(pred_call)

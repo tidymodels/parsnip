@@ -86,9 +86,9 @@
 #' produces for class probabilities (or other non-scalar outputs),
 #' the columns are named `.pred_lower_classlevel` and so on.
 #'
-#' For `type = "quantile"`, the tibble has a `.pred` column, which is
+#' For `type = "quantile"`, the tibble has a `.pred_quantile` column, which is
 #'  a list-column. Each list element contains a tibble with columns
-#'  `.pred` and `.quantile` (and perhaps other columns).
+#'  `.pred_quantile` and `.quantile`.
 #'
 #' For `type = "time"`, the tibble has a `.pred_time` column.
 #'

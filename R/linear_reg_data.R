@@ -73,6 +73,7 @@ set_pred(
       )
   )
 )
+
 set_pred(
   model = "linear_reg",
   eng = "lm",
@@ -93,6 +94,24 @@ set_pred(
         interval = "prediction",
         level = expr(level),
         type = "response"
+      )
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "lm",
+  mode = "regression",
+  type = "quantile",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "lm_quantile"),
+    args =
+      list(
+        object = expr(object$fit),
+        new_data = expr(new_data),
+        quantile = expr(quantile)
       )
   )
 )
@@ -581,4 +600,61 @@ set_pred(
       )
   )
 )
+
+# ------------------------------------------------------------------------------
+# Helper functions
+
+lm_quantile <- function(object, new_data, quantile = (1:9)/10) {
+  quantile <- sort(unique(quantile))
+
+  .row <- 1:nrow(new_data)
+
+  if ( any(quantile == 0.5) ) {
+    preds <-
+      tibble::tibble(.quantile = 1/2,
+                     .pred_quantile =predict(object, new_data),
+                     .row = .row)
+  } else {
+    preds <- NULL
+  }
+
+  upper_quantile <- quantile[quantile > .5]
+  lower_quantile <- quantile[quantile < .5]
+
+  if ( length(upper_quantile) > 0 ) {
+    # Convert (1 - level) / 2 to actual quantile
+    # so using level = 0.95 will give you the 0.975 value; to actually get 0.95
+    # we need to decrease it a bit
+    rev_quant = 1 - upper_quantile
+    upper_adjusted <- 1 + -2 * rev_quant
+  }
+  if ( length(lower_quantile) > 0 ) {
+    upper_adjusted <- 2 * lower_quantile
+  }
+  not_center <- c(lower_quantile, upper_quantile)
+  adjusted <- c(upper_adjusted, upper_adjusted)
+
+  for ( i in seq_along(not_center) ) {
+    tmp_pred <- predict(object, new_data, interval = "prediction", level = adjusted[i])
+    if ( not_center[i] > 0.5) {
+      tmp_pred <- tmp_pred[, "upr"]
+    } else {
+      tmp_pred <- tmp_pred[, "lwr"]
+    }
+    tmp_pred <-
+      tibble::tibble(.quantile = not_center[i],
+                     .pred_quantile = tmp_pred,
+                     .row = .row)
+    preds <- dplyr::bind_rows(preds, tmp_pred)
+  }
+
+  preds <- preds[order(preds$.row, preds$.quantile), ]
+  preds <-
+    vctrs::vec_split(
+      x = preds[setdiff(colnames(preds), ".row")],
+      by = preds$.row
+    )
+  tibble::new_tibble(list(.pred_quantile = preds$val))
+}
+
 

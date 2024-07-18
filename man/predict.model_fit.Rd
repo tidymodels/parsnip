@@ -70,9 +70,9 @@ the confidence level. In the case where intervals can be
 produces for class probabilities (or other non-scalar outputs),
 the columns are named \code{.pred_lower_classlevel} and so on.
 
-For \code{type = "quantile"}, the tibble has a \code{.pred} column, which is
+For \code{type = "quantile"}, the tibble has a \code{.pred_quantile} column, which is
 a list-column. Each list element contains a tibble with columns
-\code{.pred} and \code{.quantile} (and perhaps other columns).
+\code{.pred_quantile} and \code{.quantile}.
 
 For \code{type = "time"}, the tibble has a \code{.pred_time} column.
 
