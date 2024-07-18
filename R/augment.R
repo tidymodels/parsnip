@@ -78,12 +78,12 @@
 #' augment(cls_xy, cls_tst)
 #' augment(cls_xy, cls_tst[, -3])
 #'
-augment.model_fit <- function(x, new_data, eval_time = NULL, ...) {
+augment.model_fit <- function(x, new_data, eval_time = NULL, quantile = NULL, ...) {
   new_data <- tibble::new_tibble(new_data)
   res <-
     switch(
       x$spec$mode,
-      "regression"          = augment_regression(x, new_data),
+      "regression"          = augment_regression(x, new_data, quantile = quantile),
       "classification"      = augment_classification(x, new_data),
       "censored regression" = augment_censored(x, new_data, eval_time = eval_time),
       rlang::abort(paste("Unknown mode:", x$spec$mode))
@@ -91,9 +91,17 @@ augment.model_fit <- function(x, new_data, eval_time = NULL, ...) {
   tibble::new_tibble(res)
 }
 
-augment_regression <- function(x, new_data) {
+augment_regression <- function(x, new_data, quantile = NULL) {
   ret <- new_data
   check_spec_pred_type(x, "numeric")
+
+  if (spec_has_pred_type(x, "quantile") & !is.null(quantile)) {
+    ret <-
+      dplyr::bind_cols(
+        predict(x, new_data = new_data, type = "quantile", quantile = quantile),
+        ret)
+  }
+
   ret <- dplyr::bind_cols(predict(x, new_data = new_data), ret)
   if (length(x$preproc$y_var) > 0) {
     y_nm <- x$preproc$y_var
@@ -101,6 +109,7 @@ augment_regression <- function(x, new_data) {
       ret <- dplyr::mutate(ret, .resid = !!rlang::sym(y_nm) - .pred)
     }
   }
+
   dplyr::relocate(ret, dplyr::starts_with(".pred"), dplyr::starts_with(".resid"))
 }
 
