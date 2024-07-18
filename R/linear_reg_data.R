@@ -612,31 +612,33 @@ lm_quantile <- function(object, new_data, quantile = (1:9)/10) {
   if ( any(quantile == 0.5) ) {
     preds <-
       tibble::tibble(.quantile = 1/2,
-                     .pred_quantile =predict(object, new_data),
+                     .pred_quantile = predict(object, new_data),
                      .row = .row)
   } else {
     preds <- NULL
   }
 
+  # Convert (1 - level) / 2 to actual quantile since predict.lm() does two-sided
+  # intervals. For example, using level = 0.95 will give you the intervals
+  # based on c(0.25, 0.975). To actually get c(0,05, 0.95), we need to make
+  # an adjustment.
+
   upper_quantile <- quantile[quantile > .5]
   lower_quantile <- quantile[quantile < .5]
 
   if ( length(upper_quantile) > 0 ) {
-    # Convert (1 - level) / 2 to actual quantile
-    # so using level = 0.95 will give you the 0.975 value; to actually get 0.95
-    # we need to decrease it a bit
     rev_quant = 1 - upper_quantile
     upper_adjusted <- 1 + -2 * rev_quant
   }
   if ( length(lower_quantile) > 0 ) {
-    upper_adjusted <- 2 * lower_quantile
+    lower_adjusted <- 2 * lower_quantile
   }
   not_center <- c(lower_quantile, upper_quantile)
-  adjusted <- c(upper_adjusted, upper_adjusted)
+  adjusted <- c(lower_adjusted, upper_adjusted)
 
   for ( i in seq_along(not_center) ) {
     tmp_pred <- predict(object, new_data, interval = "prediction", level = adjusted[i])
-    if ( not_center[i] > 0.5) {
+    if ( not_center[i] > 0.5 ) {
       tmp_pred <- tmp_pred[, "upr"]
     } else {
       tmp_pred <- tmp_pred[, "lwr"]
@@ -648,13 +650,18 @@ lm_quantile <- function(object, new_data, quantile = (1:9)/10) {
     preds <- dplyr::bind_rows(preds, tmp_pred)
   }
 
-  preds <- preds[order(preds$.row, preds$.quantile), ]
-  preds <-
+  # Now convert to list columns
+  quant_to_list(preds)
+}
+
+quant_to_list <- function(x) {
+  x <- x[order(x$.row, x$.quantile), ]
+  x <-
     vctrs::vec_split(
-      x = preds[setdiff(colnames(preds), ".row")],
-      by = preds$.row
+      x = x[setdiff(colnames(x), ".row")],
+      by = x$.row
     )
-  tibble::new_tibble(list(.pred_quantile = preds$val))
+  tibble::new_tibble(list(.pred_quantile = x$val))
 }
 
 
