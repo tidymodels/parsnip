@@ -7,6 +7,7 @@
 
 * New `extract_fit_time()` method has been added that returns the time it took to train the model (#853).
 
+* Adding `"quantile"` prediction methods for engines using `lm`, `stan`, and `dbarts`. 
 
 # parsnip 1.2.1
 
