@@ -69,10 +69,11 @@ The \strong{bonsai} extension package is required to fit this model.
 ## 
 ## Model fit template:
 ## bonsai::train_lightgbm(x = missing_arg(), y = missing_arg(), 
-##     feature_fraction_bynode = integer(), num_iterations = integer(), 
-##     min_data_in_leaf = integer(), max_depth = integer(), learning_rate = numeric(), 
-##     min_gain_to_split = numeric(), verbose = -1, num_threads = 0, 
-##     seed = sample.int(10^5, 1), deterministic = TRUE)
+##     weights = missing_arg(), feature_fraction_bynode = integer(), 
+##     num_iterations = integer(), min_data_in_leaf = integer(), 
+##     max_depth = integer(), learning_rate = numeric(), min_gain_to_split = numeric(), 
+##     verbose = -1, num_threads = 0, seed = sample.int(10^5, 1), 
+##     deterministic = TRUE)
 }\if{html}{\out{</div>}}
 }
 
@@ -103,10 +104,11 @@ The \strong{bonsai} extension package is required to fit this model.
 ## 
 ## Model fit template:
 ## bonsai::train_lightgbm(x = missing_arg(), y = missing_arg(), 
-##     feature_fraction_bynode = integer(), num_iterations = integer(), 
-##     min_data_in_leaf = integer(), max_depth = integer(), learning_rate = numeric(), 
-##     min_gain_to_split = numeric(), verbose = -1, num_threads = 0, 
-##     seed = sample.int(10^5, 1), deterministic = TRUE)
+##     weights = missing_arg(), feature_fraction_bynode = integer(), 
+##     num_iterations = integer(), min_data_in_leaf = integer(), 
+##     max_depth = integer(), learning_rate = numeric(), min_gain_to_split = numeric(), 
+##     verbose = -1, num_threads = 0, seed = sample.int(10^5, 1), 
+##     deterministic = TRUE)
 }\if{html}{\out{</div>}}
 
 \code{\link[bonsai:train_lightgbm]{bonsai::train_lightgbm()}} is a wrapper
@@ -156,13 +158,6 @@ to \code{TRUE}. For engines that support the proportion interpretation
 \code{"lightgbm"} via the bonsai package) the user can pass the
 \code{counts = FALSE} argument to \code{set_engine()} to supply \code{mtry} values
 within \verb{[0, 1]}.
-}
-
-\subsection{Saving fitted model objects}{
-
-Models fitted with this engine may require native serialization methods
-to be properly saved and/or passed between R sessions. To learn more
-about preparing fitted models for serialization, see the bundle package.
 }
 
 \subsection{Bagging}{
