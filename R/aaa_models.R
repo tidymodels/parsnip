@@ -1,6 +1,6 @@
 # Initialize model environments
 
-all_modes <- c("classification", "regression", "censored regression")
+all_modes <- c("classification", "regression", "censored regression", "quantile regression")
 
 # ------------------------------------------------------------------------------
 

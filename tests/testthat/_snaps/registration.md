@@ -1,3 +1,11 @@
+# existing modes
+
+    Code
+      get_from_env("modes")
+    Output
+      [1] "classification"      "regression"          "censored regression"
+      [4] "quantile regression" "unknown"            
+
 # adding a new engine
 
     Code
