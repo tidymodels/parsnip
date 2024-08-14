@@ -7,8 +7,9 @@
 
 ```{r earth-param-info, echo = FALSE}
 defaults <- 
-  tibble::tibble(parsnip = c("num_terms", "prod_degree", "prune_method"),
-                 default = c("see below", "1L", "'backward'"))
+  tibble::tibble(parsnip = c("num_terms", "prod_degree", "prune_method",
+                             "max_num_terms", "loss_reduction"),
+                 default = c("NULL", "1L", "'backward'", "see below", "0.001"))
 
 param <-
   mars() %>% 
@@ -22,12 +23,16 @@ This model has `r nrow(param)` tuning parameters:
 param$item
 ```
 
-The default value of `num_terms` depends on the number of predictor columns. For a data frame `x`, the default is `min(200, max(20, 2 * ncol(x))) + 1` (see [earth::earth()] and the reference below). 
+The default value of `max_num_terms` depends on the number of predictor columns. For a data frame `x`, the default is `min(200, max(20, 2 * ncol(x))) + 1` (see [earth::earth()] and the reference below). 
+
+Unless the user sets a specific value for max_terms, the model pruning process will determine how many model terms to retain. 
 
 ## Translation from parsnip to the original package (regression)
 
 ```{r earth-reg}
-mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) %>% 
+mars(num_terms = integer(1), prod_degree = integer(1), 
+     prune_method = character(1), max_num_terms = integer(1), 
+     loss_reduction = double(1)) %>% 
   set_engine("earth") %>% 
   set_mode("regression") %>% 
   translate()
@@ -36,13 +41,15 @@ mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(
 ## Translation from parsnip to the original package (classification)
 
 ```{r earth-cls}
-mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) %>% 
+mars(num_terms = integer(1), prod_degree = integer(1), 
+     prune_method = character(1), max_num_terms = integer(1), 
+     loss_reduction = double(1)) %>% 
   set_engine("earth") %>% 
   set_mode("classification") %>% 
   translate()
 ```
 
-An alternate method for using MARs for categorical outcomes can be found in [discrim_flexible()].
+An alternate method for using MARS for categorical outcomes can be found in [discrim_flexible()].
 
 
 ## Preprocessing requirements

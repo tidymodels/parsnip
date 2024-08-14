@@ -17,6 +17,10 @@
 #'    final model, including the intercept.
 #' @param prod_degree The highest possible interaction degree.
 #' @param prune_method The pruning method.
+#' @param max_num_terms The maximum number of model terms before MARS starts
+#' pruning.
+#' @param loss_reduction The change in the objective function (R-squared)
+#' required to continue to add terms (in the growing phase of the model).
 #'
 #' @templateVar modeltype mars
 #' @template spec-details
@@ -33,13 +37,14 @@
 mars <-
   function(mode = "unknown", engine = "earth",
            num_terms = NULL, prod_degree = NULL, prune_method = NULL,
-           max_num_terms = NULL) {
+           max_num_terms = NULL, loss_reduction = NULL) {
 
     args <- list(
       num_terms     = enquo(num_terms),
       prod_degree   = enquo(prod_degree),
       prune_method  = enquo(prune_method),
-      max_num_terms = enquo(max_num_terms)
+      max_num_terms = enquo(max_num_terms),
+      loss_reduction = enquo(loss_reduction)
     )
 
     new_model_spec(
@@ -69,7 +74,8 @@ update.mars <-
       num_terms    = enquo(num_terms),
       prod_degree  = enquo(prod_degree),
       prune_method = enquo(prune_method),
-      max_num_terms = enquo(max_num_terms)
+      max_num_terms = enquo(max_num_terms),
+      loss_reduction = enquo(loss_reduction)
     )
 
     update_spec(
@@ -115,6 +121,7 @@ check_args.mars <- function(object, call = rlang::caller_env()) {
   check_number_whole(args$prod_degree, min = 1, allow_null = TRUE, call = call, arg = "prod_degree")
   check_number_whole(args$num_terms, min = 1, allow_null = TRUE, call = call, arg = "num_terms")
   check_number_whole(args$max_num_terms, min = 1, allow_null = TRUE, call = call, arg = "max_num_terms")
+  check_number_decimal(args$loss_reduction, min = 0, allow_null = TRUE, call = call, arg = "loss_reduction")
   check_string(args$prune_method, allow_empty = FALSE, allow_null = TRUE, call = call, arg = "prune_method")
 
   invisible(object)

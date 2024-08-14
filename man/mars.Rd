@@ -10,7 +10,8 @@ mars(
   num_terms = NULL,
   prod_degree = NULL,
   prune_method = NULL,
-  max_num_terms = NULL
+  max_num_terms = NULL,
+  loss_reduction = NULL
 )
 }
 \arguments{
@@ -27,6 +28,12 @@ final model, including the intercept.}
 \item{prod_degree}{The highest possible interaction degree.}
 
 \item{prune_method}{The pruning method.}
+
+\item{max_num_terms}{The maximum number of model terms before MARS starts
+pruning.}
+
+\item{loss_reduction}{The change in the objective function (R-squared)
+required to continue to add terms (in the growing phase of the model).}
 }
 \description{
 \code{mars()} defines a generalized linear model that uses artificial features for

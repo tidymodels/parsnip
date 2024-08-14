@@ -376,8 +376,8 @@ be randomly sampled at each split when creating the tree models
 from iteration-to-iteration (specific engines only). This is sometimes referred to
 as the shrinkage parameter.}
 
-\item{loss_reduction}{A number for the reduction in the loss function required
-to split further (specific engines only).}
+\item{loss_reduction}{The change in the objective function (R-squared)
+required to continue to add terms (in the growing phase of the model).}
 
 \item{sample_size}{A number for the number (or proportion) of data that is
 exposed to the fitting routine. For \code{xgboost}, the sampling is done at

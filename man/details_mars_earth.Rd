@@ -12,22 +12,31 @@ a model that is a segmented regression in small dimensions.
 For this engine, there are multiple modes: classification and regression
 \subsection{Tuning Parameters}{
 
-This model has 3 tuning parameters:
+This model has 5 tuning parameters:
 \itemize{
-\item \code{num_terms}: # Model Terms (type: integer, default: see below)
+\item \code{num_terms}: # Model Terms (type: integer, default: NULL)
+\item \code{max_num_terms}: Maximum Number of Terms (type: integer, default: see
+below)
 \item \code{prod_degree}: Degree of Interaction (type: integer, default: 1L)
 \item \code{prune_method}: Pruning Method (type: character, default: ‘backward’)
+\item \code{loss_reduction}: Minimum Loss Reduction (type: double, default:
+0.001)
 }
 
-The default value of \code{num_terms} depends on the number of predictor
+The default value of \code{max_num_terms} depends on the number of predictor
 columns. For a data frame \code{x}, the default is
 \code{min(200, max(20, 2 * ncol(x))) + 1} (see
 \code{\link[earth:earth]{earth::earth()}} and the reference below).
+
+Unless the user sets a specific value for max_terms, the model pruning
+process will determine how many model terms to retain.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), 
+     prune_method = character(1), max_num_terms = integer(1), 
+     loss_reduction = double(1)) \%>\% 
   set_engine("earth") \%>\% 
   set_mode("regression") \%>\% 
   translate()
@@ -39,19 +48,23 @@ columns. For a data frame \code{x}, the default is
 ##   num_terms = integer(1)
 ##   prod_degree = integer(1)
 ##   prune_method = character(1)
+##   max_num_terms = integer(1)
+##   loss_reduction = double(1)
 ## 
 ## Computational engine: earth 
 ## 
 ## Model fit template:
 ## earth::earth(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
 ##     nprune = integer(1), degree = integer(1), pmethod = character(1), 
-##     keepxy = TRUE)
+##     nk = integer(1), thresh = double(1), keepxy = TRUE)
 }\if{html}{\out{</div>}}
 }
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), 
+     prune_method = character(1), max_num_terms = integer(1), 
+     loss_reduction = double(1)) \%>\% 
   set_engine("earth") \%>\% 
   set_mode("classification") \%>\% 
   translate()
@@ -63,6 +76,8 @@ columns. For a data frame \code{x}, the default is
 ##   num_terms = integer(1)
 ##   prod_degree = integer(1)
 ##   prune_method = character(1)
+##   max_num_terms = integer(1)
+##   loss_reduction = double(1)
 ## 
 ## Engine-Specific Arguments:
 ##   glm = list(family = stats::binomial)
@@ -72,10 +87,11 @@ columns. For a data frame \code{x}, the default is
 ## Model fit template:
 ## earth::earth(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
 ##     nprune = integer(1), degree = integer(1), pmethod = character(1), 
-##     glm = list(family = stats::binomial), keepxy = TRUE)
+##     nk = integer(1), thresh = double(1), glm = list(family = stats::binomial), 
+##     keepxy = TRUE)
 }\if{html}{\out{</div>}}
 
-An alternate method for using MARs for categorical outcomes can be found
+An alternate method for using MARS for categorical outcomes can be found
 in \code{\link[=discrim_flexible]{discrim_flexible()}}.
 }
 

@@ -36,6 +36,7 @@ set_model_arg(
   func = list(pkg = "dials", fun = "prod_degree"),
   has_submodel = FALSE
 )
+
 set_model_arg(
   model = "mars",
   eng = "earth",
@@ -43,6 +44,15 @@ set_model_arg(
   original = "pmethod",
   func = list(pkg = "dials", fun = "prune_method"),
   has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mars",
+  eng = "earth",
+  parsnip = "loss_reduction",
+  original = "thresh",
+  func = list(pkg = "dials", fun = "loss_reduction"),
+  has_submodel = TRUE
 )
 
 set_fit(

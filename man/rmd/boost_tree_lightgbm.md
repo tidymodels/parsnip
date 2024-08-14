@@ -57,10 +57,11 @@ boost_tree(
 ## 
 ## Model fit template:
 ## bonsai::train_lightgbm(x = missing_arg(), y = missing_arg(), 
-##     feature_fraction_bynode = integer(), num_iterations = integer(), 
-##     min_data_in_leaf = integer(), max_depth = integer(), learning_rate = numeric(), 
-##     min_gain_to_split = numeric(), verbose = -1, num_threads = 0, 
-##     seed = sample.int(10^5, 1), deterministic = TRUE)
+##     weights = missing_arg(), feature_fraction_bynode = integer(), 
+##     num_iterations = integer(), min_data_in_leaf = integer(), 
+##     max_depth = integer(), learning_rate = numeric(), min_gain_to_split = numeric(), 
+##     verbose = -1, num_threads = 0, seed = sample.int(10^5, 1), 
+##     deterministic = TRUE)
 ```
 
 ## Translation from parsnip to the original package (classification)
@@ -93,10 +94,11 @@ boost_tree(
 ## 
 ## Model fit template:
 ## bonsai::train_lightgbm(x = missing_arg(), y = missing_arg(), 
-##     feature_fraction_bynode = integer(), num_iterations = integer(), 
-##     min_data_in_leaf = integer(), max_depth = integer(), learning_rate = numeric(), 
-##     min_gain_to_split = numeric(), verbose = -1, num_threads = 0, 
-##     seed = sample.int(10^5, 1), deterministic = TRUE)
+##     weights = missing_arg(), feature_fraction_bynode = integer(), 
+##     num_iterations = integer(), min_data_in_leaf = integer(), 
+##     max_depth = integer(), learning_rate = numeric(), min_gain_to_split = numeric(), 
+##     verbose = -1, num_threads = 0, seed = sample.int(10^5, 1), 
+##     deterministic = TRUE)
 ```
 
 [bonsai::train_lightgbm()] is a wrapper around [lightgbm::lgb.train()] (and other functions) that make it easier to run this model. 
