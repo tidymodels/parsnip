@@ -32,12 +32,14 @@
 #' @export
 mars <-
   function(mode = "unknown", engine = "earth",
-           num_terms = NULL, prod_degree = NULL, prune_method = NULL) {
+           num_terms = NULL, prod_degree = NULL, prune_method = NULL,
+           max_num_terms = NULL) {
 
     args <- list(
-      num_terms    = enquo(num_terms),
-      prod_degree  = enquo(prod_degree),
-      prune_method = enquo(prune_method)
+      num_terms     = enquo(num_terms),
+      prod_degree   = enquo(prod_degree),
+      prune_method  = enquo(prune_method),
+      max_num_terms = enquo(max_num_terms)
     )
 
     new_model_spec(
@@ -66,7 +68,8 @@ update.mars <-
     args <- list(
       num_terms    = enquo(num_terms),
       prod_degree  = enquo(prod_degree),
-      prune_method = enquo(prune_method)
+      prune_method = enquo(prune_method),
+      max_num_terms = enquo(max_num_terms)
     )
 
     update_spec(
@@ -111,6 +114,7 @@ check_args.mars <- function(object, call = rlang::caller_env()) {
 
   check_number_whole(args$prod_degree, min = 1, allow_null = TRUE, call = call, arg = "prod_degree")
   check_number_whole(args$num_terms, min = 1, allow_null = TRUE, call = call, arg = "num_terms")
+  check_number_whole(args$max_num_terms, min = 1, allow_null = TRUE, call = call, arg = "max_num_terms")
   check_string(args$prune_method, allow_empty = FALSE, allow_null = TRUE, call = call, arg = "prune_method")
 
   invisible(object)

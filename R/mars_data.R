@@ -18,6 +18,16 @@ set_model_arg(
   func = list(pkg = "dials", fun = "num_terms", range = c(2, 5)),
   has_submodel = TRUE
 )
+
+set_model_arg(
+  model = "mars",
+  eng = "earth",
+  parsnip = "max_num_terms",
+  original = "nk",
+  func = list(pkg = "dials", fun = "max_num_terms"),
+  has_submodel = TRUE
+)
+
 set_model_arg(
   model = "mars",
   eng = "earth",

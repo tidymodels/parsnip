@@ -9,7 +9,8 @@ mars(
   engine = "earth",
   num_terms = NULL,
   prod_degree = NULL,
-  prune_method = NULL
+  prune_method = NULL,
+  max_num_terms = NULL
 )
 }
 \arguments{
