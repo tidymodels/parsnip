@@ -98,7 +98,7 @@ translate.logistic_reg <- function(x, engine = x$engine, ...) {
         } else if (quo_get_expr(x$args$mixture) == 1) {
           arg_vals$type <- 6      ## lasso
         } else {
-          rlang::abort("For the LiblineaR engine, mixture must be 0 or 1.")
+          cli::cli_abort(c("x" = "For the LiblineaR engine, {.var mixture} must be 0 or 1."))
         }
     }
     x$method$fit$args <- arg_vals
@@ -153,7 +153,7 @@ check_args.logistic_reg <- function(object, call = rlang::caller_env()) {
         call = call
       )
     }
-    
+
     if ((!is.null(args$penalty)) && args$penalty == 0) {
       cli::cli_abort(
         "For the {.pkg LiblineaR} engine, {.arg penalty} must be {.code > 0}, \\

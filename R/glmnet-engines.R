@@ -361,12 +361,13 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
   pen <- rlang::eval_tidy(x$args$penalty)
 
   if (length(pen) != 1) {
-    rlang::abort(c(
-      "For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).",
-      glue::glue("There are {length(pen)} values for `penalty`."),
-      "To try multiple values for total regularization, use the tune package.",
-      "To predict multiple penalties, use `multi_predict()`"
-    ))
+    cli::cli_abort(c(
+      "x" = "For the glmnet engine, {.var penalty} must be a single number
+      (or a value of {.fn tune}).",
+      "!" = "There are {length(pen)} value{?s} for {.var penalty}.",
+      "i" = "To try multiple values for total regularization, use the
+      {.pkg tune} package.",
+      "i" = "To predict multiple penalties, use {.fn multi_predict}."))
   }
 }
 
@@ -385,23 +386,19 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
   # when using `predict()`, allow for a single lambda
   if (!multi) {
     if (length(penalty) != 1) {
-      rlang::abort(
-        glue::glue(
-          "`penalty` should be a single numeric value. `multi_predict()` ",
-          "can be used to get multiple predictions per row of data."
-        )
-      )
+      cli::cli_abort(c(
+        "{.var penalty} should be a single numeric value. {.fn multi_predict}
+        can be used to get multiple predictions per row of data."
+      ))
     }
   }
 
   if (length(object$fit$lambda) == 1 && penalty != object$fit$lambda) {
-    rlang::abort(
-      glue::glue(
-        "The glmnet model was fit with a single penalty value of ",
-        "{object$fit$lambda}. Predicting with a value of {penalty} ",
-        "will give incorrect results from `glmnet()`."
-      )
-    )
+    cli::cli_abort(c(
+      "The glmnet model was fit with a single penalty value of
+      {.var object$fit$lambda}. Predicting with a value of {.envar penalty}
+      will give incorrect results from `glmnet()`."
+    ))
   }
 
   penalty
