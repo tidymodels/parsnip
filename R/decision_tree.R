@@ -97,12 +97,11 @@ translate.decision_tree <- function(x, engine = x$engine, ...) {
 
   if (x$engine == "spark") {
     if (x$mode == "unknown") {
-      rlang::abort(
-        glue::glue(
-          "For spark decision tree models, the mode cannot be 'unknown' ",
-          "if the specification is to be translated."
+      cli::cli_abort(
+          "For spark decision tree models, the mode cannot be 'unknown'
+          if the specification is to be translated."
         )
-      )
+
     }
   }
 
