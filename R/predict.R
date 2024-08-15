@@ -198,7 +198,8 @@ check_pred_type <- function(object, type, ...) {
              regression = "numeric",
              classification = "class",
              "censored regression" = "time",
-             rlang::abort("`type` should be 'regression', 'censored regression', or 'classification'."))
+             "quantile regression" = "quantile",
+             rlang::abort("`type` should be 'regression', 'censored regression', 'quantile regression', or 'classification'."))
   }
   if (!(type %in% pred_types))
     rlang::abort(
