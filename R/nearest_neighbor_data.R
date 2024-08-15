@@ -93,7 +93,7 @@ set_pred(
     # model mode
     pre = function(x, object) {
       if (object$fit$response != "continuous") {
-        rlang::abort(
+        cli::cli_abort(
           glue::glue("`kknn` model does not appear to use numeric predictions.",
                      " Was the model fit with a continuous response variable?")
         )
@@ -136,7 +136,7 @@ set_pred(
   value = list(
     pre = function(x, object) {
       if (!(object$fit$response %in% c("ordinal", "nominal"))) {
-        rlang::abort(
+        cli::cli_abort(
           glue::glue("`kknn` model does not appear to use class predictions.",
                      " Was the model fit with a factor response variable?")
         )
@@ -162,7 +162,7 @@ set_pred(
   value = list(
     pre = function(x, object) {
       if (!(object$fit$response %in% c("ordinal", "nominal"))) {
-        rlang::abort(
+        cli::cli_abort(
           glue::glue("`kknn` model does not appear to use class predictions.",
                      " Was the model fit with a factor response variable?")
         )
