@@ -76,7 +76,7 @@ test_that('predict(type = "prob") with level "class" (see #720)', {
   )
 
   expect_error(
-    regexp = "variable `boop` has a level called 'class'",
+    regexp = 'variable `boop` has a level called "class"',
     predict(mod, type = "prob", new_data = x)
   )
 })

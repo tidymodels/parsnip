@@ -9,21 +9,23 @@
 #' @export predict_class.model_fit
 #' @export
 predict_class.model_fit <- function(object, new_data, ...) {
-  if (object$spec$mode != "classification")
-    rlang::abort("`predict.model_fit()` is for predicting factor outcomes.")
+  if (object$spec$mode != "classification") {
+    cli::cli_abort("{.code predict.model_fit()} is for predicting factor outcomes.")
+  }
 
   check_spec_pred_type(object, "class")
 
   if (inherits(object$fit, "try-error")) {
-    rlang::warn("Model fit failed; cannot make predictions.")
+    cli::cli_warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
 
   new_data <- prepare_data(object, new_data)
 
   # preprocess data
-  if (!is.null(object$spec$method$pred$class$pre))
+  if (!is.null(object$spec$method$pred$class$pre)) {
     new_data <- object$spec$method$pred$class$pre(new_data, object)
+  }
 
   # create prediction call
   pred_call <- make_pred_call(object$spec$method$pred$class)
@@ -56,6 +58,6 @@ predict_class.model_fit <- function(object, new_data, ...) {
 # @keywords internal
 # @rdname other_predict
 # @inheritParams predict.model_fit
-predict_class <- function(object, ...)
+predict_class <- function(object, ...) {
   UseMethod("predict_class")
-
+}
