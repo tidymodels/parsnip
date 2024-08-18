@@ -4,9 +4,15 @@
 #' @return A tibble with column `file` for the file name and `result` (a
 #' character vector that echos the output file name or, when there is
 #' a failure, the error message).
+#' @details
+#' This function will check whether the known parsnip extension packages and a
+#' few other ancillary packages are installed. Users will be prompted to install
+#' anything required to make the engine documentation.
+#'
 #' @keywords internal
 #' @export
 knit_engine_docs <- function(pattern = NULL) {
+  install_engine_packages()
   old_cli_opt <- options()$cli.unicode
   on.exit(options(cli.unicode = old_cli_opt))
   options(cli.unicode = FALSE)

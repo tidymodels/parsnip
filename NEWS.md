@@ -7,6 +7,8 @@
 
 * New `extract_fit_time()` method has been added that returns the time it took to train the model (#853).
 
+* Ensure that `knit_engine_docs()` has the required packages installed (#1156).
+
 
 # parsnip 1.2.1
 
