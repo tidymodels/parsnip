@@ -5,9 +5,10 @@
 #' character vector that echos the output file name or, when there is
 #' a failure, the error message).
 #' @details
-#' This function will check whether the known parsnip extension packages and a
-#' few other ancillary packages are installed. Users will be prompted to install
-#' anything required to make the engine documentation.
+#' This function will check whether the known parsnip extension packages,
+#' engine specific packages, and a few other ancillary packages are installed.
+#' Users will be prompted to install anything required to create the engine
+#' documentation.
 #'
 #' @keywords internal
 #' @export
