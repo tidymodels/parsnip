@@ -367,7 +367,8 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
       "!" = "There are {length(pen)} value{?s} for {.var penalty}.",
       "i" = "To try multiple values for total regularization, use the
       {.pkg tune} package.",
-      "i" = "To predict multiple penalties, use {.fn multi_predict}."))
+      "i" = "To predict multiple penalties, use {.fn multi_predict}."
+    ))
   }
 }
 
