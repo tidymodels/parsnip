@@ -161,9 +161,9 @@ multi_predict._earth <-
         object$fit$call[[i]] <- eval_tidy(object$fit$call[[i]])
     }
 
-    msg <- c("x" = "Please use {.code keepxy = TRUE} as an
-                            option to enable submodel predictions with
-                            {.var earth}.")
+    msg <- 
+      c("x" = "Please use {.code keepxy = TRUE} as an option to enable submodel 
+                     predictions with earth.")
     if (any(names(object$fit$call) == "keepxy")) {
        if (!isTRUE(object$fit$call$keepxy))
          cli::cli_abort(msg)
