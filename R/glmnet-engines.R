@@ -364,7 +364,7 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
     cli::cli_abort(c(
       "x" = "For the glmnet engine, {.arg penalty} must be a single number
       (or a value of {.fn tune}).",
-      "!" = "There are {length(pen)} value{?s} for {.var penalty}.",
+      "!" = "There are {length(pen)} value{?s} for {.arg penalty}.",
       "i" = "To try multiple values for total regularization, use the
       {.pkg tune} package.",
       "i" = "To predict multiple penalties, use {.fn multi_predict}."
