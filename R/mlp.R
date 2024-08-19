@@ -195,8 +195,7 @@ keras_mlp <-
     rlang::arg_match(activation, act_funs,)
 
     if (penalty > 0 & dropout > 0) {
-      cli::cli_abort(c("x" = "Please use either dropout or weight decay",
-                       call = NULL))
+      cli::cli_abort("Please use either dropout or weight decay.", call = NULL)
       }
     if (!is.matrix(x)) {
       x <- as.matrix(x)
