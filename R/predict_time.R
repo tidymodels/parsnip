@@ -7,9 +7,11 @@
 predict_time.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "censored regression") {
     cli::cli_abort(
-      "{.code predict_time()} is for predicting time outcomes.
-      Use {.code predict_class()} or {.code predict_classprob()} for
-      classification models."
+      c(
+        "{.fun predict_time} is for predicting time outcomes.",
+        "i" = "Use {.fun predict_class} or {.fun predict_classprob} for
+               classification models."
+      )
     )
   }
 

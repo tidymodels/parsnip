@@ -6,7 +6,7 @@
 #' @export
 predict_classprob.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "classification") {
-    cli::cli_abort("{.code predict.model_fit()} is for predicting factor outcomes.")
+    cli::cli_abort("{.fun predict.model_fit()} is for predicting factor outcomes.")
   }
 
   check_spec_pred_type(object, "prob")
@@ -57,10 +57,12 @@ predict_classprob <- function(object, ...) {
 check_spec_levels <- function(spec) {
   if ("class" %in% spec$lvl) {
     cli::cli_abort(
-      "The outcome variable {.var {spec$preproc$y_var}} has a level called {.val class}.
-      This value is reserved for parsnip's classification internals; please
-      change the levels, perhaps with {.fn forcats::fct_relevel}.",
-      call = NULL
+      c(
+        "The outcome variable {.var {spec$preproc$y_var}} has a level called {.val class}.",
+        "i" = "This value is reserved for parsnip's classification internals; please
+               change the levels, perhaps with {.fn forcats::fct_relevel}.",
+        call = NULL
+      )
     )
   }
 }

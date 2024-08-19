@@ -7,9 +7,11 @@
 predict_numeric.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "regression") {
     cli::cli_abort(
-      "{.code predict_numeric()} is for predicting numeric outcomes.
-      Use {.code predict_class()} or {.code predict_classprob()} for
-      classification models."
+      c(
+        "{.fun predict_numeric} is for predicting numeric outcomes.",
+        "i" = "Use {.fun predict_class} or {.fun predict_classprob} for
+               classification models."
+      )
     )
   }
 

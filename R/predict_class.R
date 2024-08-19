@@ -10,7 +10,7 @@
 #' @export
 predict_class.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "classification") {
-    cli::cli_abort("{.code predict.model_fit()} is for predicting factor outcomes.")
+    cli::cli_abort("{.fun predict.model_fit} is for predicting factor outcomes.")
   }
 
   check_spec_pred_type(object, "class")
