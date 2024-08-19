@@ -148,7 +148,7 @@ check_args.mlp <- function(object, call = rlang::caller_env()) {
 
 class2ind <- function (x, drop2nd = FALSE) {
   if (!is.factor(x))
-    cli::cli_abort(c("x" = "{.var x} should be a factor."))
+    cli::cli_abort(c("x" = "{.arg x} should be a factor."))
   y <- model.matrix( ~ x - 1)
   colnames(y) <- gsub("^x", "", colnames(y))
   attributes(y)$assign <- NULL
