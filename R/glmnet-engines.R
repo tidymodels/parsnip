@@ -362,7 +362,7 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
 
   if (length(pen) != 1) {
     cli::cli_abort(c(
-      "x" = "For the glmnet engine, {.var penalty} must be a single number
+      "x" = "For the glmnet engine, {.arg penalty} must be a single number
       (or a value of {.fn tune}).",
       "!" = "There are {length(pen)} value{?s} for {.var penalty}.",
       "i" = "To try multiple values for total regularization, use the
