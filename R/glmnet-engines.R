@@ -397,7 +397,7 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
   if (length(object$fit$lambda) == 1 && penalty != object$fit$lambda) {
     cli::cli_abort(c(
       "The glmnet model was fit with a single penalty value of
-      {.var object$fit$lambda}. Predicting with a value of {.envar penalty}
+      {.arg object$fit$lambda}. Predicting with a value of {.arg penalty}
       will give incorrect results from `glmnet()`."
     ))
   }
