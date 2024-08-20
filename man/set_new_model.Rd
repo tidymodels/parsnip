@@ -54,7 +54,7 @@ get_encoding(model)
 \item{eng}{A single character string for the model engine.}
 
 \item{parsnip}{A single character string for the "harmonized" argument name
-that \code{parsnip} exposes.}
+that parsnip exposes.}
 
 \item{original}{A single character string for the argument name that
 underlying model function uses.}
@@ -96,7 +96,7 @@ package.
 \details{
 These functions are available for users to add their
 own models or engines (in a package or otherwise) so that they can
-be accessed using \code{parsnip}. This is more thoroughly documented
+be accessed using parsnip. This is more thoroughly documented
 on the package web site (see references below).
 
 In short, \code{parsnip} stores an environment object that contains

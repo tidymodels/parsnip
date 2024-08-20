@@ -3,7 +3,7 @@
 
 * `fit_xy()` currently raises an error for `gen_additive_mod()` model specifications as the default engine (`"mgcv"`) specifies smoothing terms in model formulas. However, some engines specify smooths via additional arguments, in which case the restriction on `fit_xy()` is excessive. parsnip will now only raise an error when fitting a `gen_additive_mod()` with `fit_xy()` when using the `"mgcv"` engine (#775).
 
-* Aligned `null_model()` with other model types; the model type now has an engine argument that defaults to `"parsnip"` and is checked with the same machinery that checks other model types in the package (#1083).
+* Aligned `null_model()` with other model types; the model type now has an engine argument that defaults to parsnip and is checked with the same machinery that checks other model types in the package (#1083).
 
 * New `extract_fit_time()` method has been added that returns the time it took to train the model (#853).
 
@@ -121,7 +121,7 @@ This release of parsnip contains a number of new features and bug fixes, accompa
 
 # parsnip 1.0.3
 
-* Adds documentation and tuning infrastructure for the new `flexsurvspline` engine for the `survival_reg()` model specification from the `censored` package (@mattwarkentin, #831).
+* Adds documentation and tuning infrastructure for the new `flexsurvspline` engine for the `survival_reg()` model specification from the censored package (@mattwarkentin, #831).
 
 * The matrix interface for fitting `fit_xy()` now works for the `"censored regression"` mode (#829).
 
@@ -282,7 +282,7 @@ This release of parsnip contains a number of new features and bug fixes, accompa
   
 * The `liquidSVM` engine for `svm_rbf()` was deprecated due to that package's removal from CRAN. (#425)
 
-* The xgboost engine for boosted trees was translating `mtry` to xgboost's `colsample_bytree`. We now map `mtry` to `colsample_bynode` since that is more consistent with how random forest works. `colsample_bytree` can still be optimized by passing it in as an engine argument. `colsample_bynode` was added to xgboost after the `parsnip` package code was written. (#495)
+* The xgboost engine for boosted trees was translating `mtry` to xgboost's `colsample_bytree`. We now map `mtry` to `colsample_bynode` since that is more consistent with how random forest works. `colsample_bytree` can still be optimized by passing it in as an engine argument. `colsample_bynode` was added to xgboost after the parsnip package code was written. (#495)
 
 * For xgboost, `mtry` and `colsample_bytree` can be passed as integer counts or proportions, while `subsample` and `validation` should always be proportions. `xgb_train()` now has a new option `counts` (`TRUE` or `FALSE`) that states which scale for `mtry` and `colsample_bytree` is being used. (#461)  
 
@@ -298,7 +298,7 @@ This release of parsnip contains a number of new features and bug fixes, accompa
    * Each model/engine combination has its own help page. 
    * The model help page has a dynamic bulleted list of the engines with links to the individual help pages. 
 
-* `generics::required_pkgs()` was extended for `parsnip` objects. 
+* `generics::required_pkgs()` was extended for parsnip objects. 
 
 * Prediction functions now give a consistent error when a user uses an unavailable value of `type` (#489)
 
@@ -333,13 +333,13 @@ This release of parsnip contains a number of new features and bug fixes, accompa
 
 * Some added protections were added for function arguments that are dependent on the data dimensions (e.g., `mtry`, `neighbors`, `min_n`, etc). (#184)
 
-* Infrastructure was improved for running `parsnip` models in parallel using PSOCK clusters on Windows. 
+* Infrastructure was improved for running parsnip models in parallel using PSOCK clusters on Windows. 
 
 # parsnip 0.1.3
 
  * A `glance()` method for `model_fit` objects was added (#325)
 
- * Specific `tidy()` methods for `glmnet` models fit via `parsnip` were created so that the coefficients for the specific fitted `parsnip` model are returned.
+ * Specific `tidy()` methods for `glmnet` models fit via parsnip were created so that the coefficients for the specific fitted parsnip model are returned.
 
 ## Fixes
 
@@ -351,11 +351,11 @@ This release of parsnip contains a number of new features and bug fixes, accompa
 
 ## Breaking Changes
 
- * `parsnip` now has options to set specific types of predictor encodings for different models. For example, `ranger` models run using `parsnip` and `workflows` do the same thing by _not_ creating indicator variables. These encodings can be overridden using the `blueprint` options in `workflows`. As a consequence, it is possible to get a different model fit that previous versions of `parsnip`. More details about specific encoding changes are below. (#326)
+ * parsnip now has options to set specific types of predictor encodings for different models. For example, `ranger` models run using parsnip and the workflows package do the same thing by _not_ creating indicator variables. These encodings can be overridden using the `blueprint` options in the workflows package. As a consequence, it is possible to get a different model fit that previous versions of parsnip. More details about specific encoding changes are below. (#326)
 
 ## Other Changes
 
- * `tidyr` >= 1.0.0 is now required. 
+ * tidyr >= 1.0.0 is now required. 
  
  * SVM models produced by `kernlab` now use the formula method (see breaking change notice above). This change was due to how `ksvm()` made indicator variables for factor predictors (with one-hot encodings). Since the ordinary formula method did not do this, the data are passed as-is to `ksvm()` so that the results are closer to what one would get if `ksmv()` were called directly. 
  
@@ -371,7 +371,7 @@ This release of parsnip contains a number of new features and bug fixes, accompa
  
  * If `fit()` is used and the underlying model uses a formula, the _actual_ formula is pass to the model (instead of a placeholder). This makes the model call better. 
  
- * A function named `repair_call()` was added. This can help change the underlying models `call` object to better reflect what they would have obtained if the model function had been used directly (instead of via `parsnip`). This is only useful when the user chooses a formula interface and the model uses a formula interface. It will also be of limited use when a recipes is used to construct the feature set in `workflows` or `tune`. 
+ * A function named `repair_call()` was added. This can help change the underlying models `call` object to better reflect what they would have obtained if the model function had been used directly (instead of via parsnip). This is only useful when the user chooses a formula interface and the model uses a formula interface. It will also be of limited use when a recipes is used to construct the feature set in the workflows or tune packages. 
  
  * The `predict()` function now checks to see if required modeling packages are installed. The packages are loaded (but not attached). (#249) (#308) (tidymodels/workflows#45)
  
@@ -411,7 +411,7 @@ This release of parsnip contains a number of new features and bug fixes, accompa
 
 ## Breaking Changes
 
- * There were some mis-mapped parameters (going between `parsnip` and the underlying model function) for `spark` boosted trees and some `keras` models. See [897c927](https://github.com/tidymodels/parsnip/commit/897c92719332caf7344e7c9c8895ac673517d2c8).
+ * There were some mis-mapped parameters (going between parsnip and the underlying model function) for `spark` boosted trees and some `keras` models. See [897c927](https://github.com/tidymodels/parsnip/commit/897c92719332caf7344e7c9c8895ac673517d2c8).
 
 
 # parsnip 0.0.4
@@ -448,11 +448,11 @@ Unplanned release based on CRAN requirements for Solaris.
 
 ## Breaking Changes
 
- * The method that `parsnip` stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in `?get_model_env` and the [package vignette for adding models](https://parsnip.tidymodels.org/articles/articles/Scratch.html).
+ * The method that parsnip stores the model information has changed. Any custom models from previous versions will need to use the new method for registering models. The methods are detailed in `?get_model_env` and the [package vignette for adding models](https://parsnip.tidymodels.org/articles/articles/Scratch.html).
 
  * The mode needs to be declared for models that can be used for more than one mode prior to fitting and/or translation. 
 
- * For `surv_reg()`, the engine that uses the `survival` package is now called `survival` instead of `survreg`.  
+ * For `surv_reg()`, the engine that uses the survival package is now called `survival` instead of `survreg`.  
 
  * For `glmnet` models, the full regularization path is always fit regardless of the value given to `penalty`. Previously, the model was fit with passing `penalty` to `glmnet`'s `lambda` argument and the model could only make predictions at those specific values. [(#195)](https://github.com/tidymodels/parsnip/issues/195)
 
@@ -466,7 +466,7 @@ Unplanned release based on CRAN requirements for Solaris.
  
  * A suite of internal functions were added to help with upcoming model tuning features.  
 
- * A `parsnip` object always saved the name(s) of the outcome variable(s) for proper naming of the predicted values. 
+ * A parsnip object always saved the name(s) of the outcome variable(s) for proper naming of the predicted values. 
 
 
 # parsnip 0.0.2

@@ -7,7 +7,7 @@
 \method{tidy}{`_LiblineaR`}(x, ...)
 }
 \arguments{
-\item{x}{A fitted \code{parsnip} model that used the \code{LiblineaR} engine.}
+\item{x}{A fitted parsnip model that used the \code{LiblineaR} engine.}
 
 \item{...}{Not used}
 }
@@ -16,6 +16,6 @@ A tibble with columns \code{term} and \code{estimate}.
 }
 \description{
 \code{tidy()} methods for the various \code{LiblineaR} models that return the
-coefficients from the \code{parsnip} model fit.
+coefficients from the parsnip model fit.
 }
 \keyword{internal}

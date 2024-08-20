@@ -34,7 +34,7 @@ It does contain the resolved argument names that are specific to
 the model fitting function/engine.
 
 This function can be useful when you need to understand how
-\code{parsnip} goes from a generic model specific to a model fitting
+parsnip goes from a generic model specific to a model fitting
 function.
 
 \strong{Note}: this function is used internally and users should only use it
