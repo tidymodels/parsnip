@@ -98,7 +98,7 @@ translate.logistic_reg <- function(x, engine = x$engine, ...) {
         } else if (quo_get_expr(x$args$mixture) == 1) {
           arg_vals$type <- 6      ## lasso
         } else {
-          cli::cli_abort("For the LiblineaR engine, {.var mixture} must be 0 or 1.")
+          cli::cli_abort("For the LiblineaR engine, {.arg mixture} must be 0 or 1.")
         }
     }
     x$method$fit$args <- arg_vals
