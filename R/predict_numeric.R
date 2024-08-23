@@ -5,29 +5,35 @@
 #' @export predict_numeric.model_fit
 #' @export
 predict_numeric.model_fit <- function(object, new_data, ...) {
-  if (object$spec$mode != "regression")
-    rlang::abort(glue::glue("`predict_numeric()` is for predicting numeric outcomes. ",
-                            "Use `predict_class()` or `predict_classprob()` for ",
-                            "classification models."))
+  if (object$spec$mode != "regression") {
+    cli::cli_abort(
+      c(
+        "{.fun predict_numeric} is for predicting numeric outcomes.",
+        "i" = "Use {.fun predict_class} or {.fun predict_classprob} for
+               classification models."
+      )
+    )
+  }
 
   check_spec_pred_type(object, "numeric")
 
   if (inherits(object$fit, "try-error")) {
-    rlang::warn("Model fit failed; cannot make predictions.")
+    cli::cli_warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
 
   new_data <- prepare_data(object, new_data)
 
   # preprocess data
-  if (!is.null(object$spec$method$pred$numeric$pre))
+  if (!is.null(object$spec$method$pred$numeric$pre)) {
     new_data <- object$spec$method$pred$numeric$pre(new_data, object)
+  }
 
   # create prediction call
   pred_call <- make_pred_call(object$spec$method$pred$numeric)
 
   res <- eval_tidy(pred_call)
-  
+
   # post-process the predictions
   if (!is.null(object$spec$method$pred$numeric$post)) {
     res <- object$spec$method$pred$numeric$post(res, object)
@@ -36,8 +42,9 @@ predict_numeric.model_fit <- function(object, new_data, ...) {
   if (is.vector(res)) {
     res <- unname(res)
   } else {
-    if (!inherits(res, "tbl_spark"))
+    if (!inherits(res, "tbl_spark")) {
       res <- as.data.frame(res)
+    }
   }
   res
 }
@@ -47,5 +54,6 @@ predict_numeric.model_fit <- function(object, new_data, ...) {
 #' @keywords internal
 #' @rdname other_predict
 #' @inheritParams predict_numeric.model_fit
-predict_numeric <- function(object, ...)
+predict_numeric <- function(object, ...) {
   UseMethod("predict_numeric")
+}
