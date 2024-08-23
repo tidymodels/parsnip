@@ -42,7 +42,7 @@ Modeling functions in parsnip separate model arguments into two categories:
 \itemize{
 \item \emph{Main arguments} are more commonly used and tend to be available across
 engines. These names are standardized to work with different engines in a
-consistent way, so you can use the \pkg{parsnip} main argument \code{trees},
+consistent way, so you can use the parsnip main argument \code{trees},
 instead of the heterogeneous arguments for this parameter from \pkg{ranger}
 and  \pkg{randomForest} packages (\code{num.trees} and \code{ntree}, respectively). Set
 these in your model type function, like \code{rand_forest(trees = 2000)}.

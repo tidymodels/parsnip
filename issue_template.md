@@ -3,7 +3,7 @@ name: Bug report or feature request
 about: Describe a bug you've seen or make a case for a new feature
 ---
 
-# PLEASE READ: Making a new issue for `parsnip`
+# PLEASE READ: Making a new issue for parsnip
 
 
 Please follow the template below. 

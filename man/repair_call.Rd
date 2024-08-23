@@ -7,11 +7,11 @@
 repair_call(x, data)
 }
 \arguments{
-\item{x}{A fitted \code{parsnip} model. An error will occur if the underlying model
+\item{x}{A fitted parsnip model. An error will occur if the underlying model
 does not have a \code{call} element.}
 
 \item{data}{A data object that is relevant to the call. In most cases, this
-is the data frame that was given to \code{parsnip} for the model fit (i.e., the
+is the data frame that was given to parsnip for the model fit (i.e., the
 training set data). The name of this data object is inserted into the call.}
 }
 \value{
@@ -36,7 +36,7 @@ fitted_model <-
   fit(mpg ~ ., data = mtcars)
 
 # In this call, note that `data` is not `mtcars` and the `model = ~TRUE`
-# indicates that the `model` argument is an `rlang` quosure.
+# indicates that the `model` argument is an rlang quosure.
 fitted_model$fit$call
 
 # All better:

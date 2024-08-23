@@ -55,7 +55,7 @@ model (via \code{print()}, \code{summary()}, \code{plot()}, etc.) or for variabl
 importance/explainers.
 
 However, users should not invoke the \code{predict()} method on an extracted
-model. There may be preprocessing operations that \code{parsnip} has executed on
+model. There may be preprocessing operations that parsnip has executed on
 the data prior to giving it to the model. Bypassing these can lead to errors
 or silently generating incorrect predictions.
 

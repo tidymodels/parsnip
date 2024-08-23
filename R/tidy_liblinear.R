@@ -1,8 +1,8 @@
 #' tidy methods for LiblineaR models
 #'
 #' `tidy()` methods for the various `LiblineaR` models that return the
-#' coefficients from the `parsnip` model fit.
-#' @param x A fitted `parsnip` model that used the `LiblineaR` engine.
+#' coefficients from the parsnip model fit.
+#' @param x A fitted parsnip model that used the `LiblineaR` engine.
 #' @param ... Not used
 #' @return A tibble with columns `term` and `estimate`.
 #' @keywords internal

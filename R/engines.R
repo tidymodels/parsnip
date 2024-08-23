@@ -72,7 +72,7 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #'
 #' - _Main arguments_ are more commonly used and tend to be available across
 #' engines. These names are standardized to work with different engines in a
-#' consistent way, so you can use the \pkg{parsnip} main argument `trees`,
+#' consistent way, so you can use the parsnip main argument `trees`,
 #' instead of the heterogeneous arguments for this parameter from \pkg{ranger}
 #' and  \pkg{randomForest} packages (`num.trees` and `ntree`, respectively). Set
 #' these in your model type function, like `rand_forest(trees = 2000)`.
@@ -154,10 +154,10 @@ set_engine.default <- function(object, engine, ...) {
 #' Display currently available engines for a model
 #'
 #' The possible engines for a model can depend on what packages are loaded.
-#' Some \pkg{parsnip} extension add engines to existing models. For example,
+#' Some parsnip extension add engines to existing models. For example,
 #' the \pkg{poissonreg} package adds additional engines for the [poisson_reg()]
 #' model and these are not available unless \pkg{poissonreg} is loaded.
-#' @param x The name of a `parsnip` model (e.g., "linear_reg", "mars", etc.)
+#' @param x The name of a parsnip model (e.g., "linear_reg", "mars", etc.)
 #' @return A tibble.
 #'
 #' @examplesIf !parsnip:::is_cran_check()
