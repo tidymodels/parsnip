@@ -97,10 +97,10 @@ different interfaces. If you would like to try different approaches,
 there is a lot of syntactical minutiae to remember. The problem worsens
 when you move in-between platforms (e.g. doing a logistic regression in
 R’s <code>glm</code> versus Spark’s implementation).</p>
-<p><code>parsnip</code> tries to solve this by providing similar
-interfaces to models. For example, if you are fitting a random forest
-model and would like to adjust the number of trees in the forest there
-are different argument names to remember:</p>
+<p>parsnip tries to solve this by providing similar interfaces to
+models. For example, if you are fitting a random forest model and would
+like to adjust the number of trees in the forest there are different
+argument names to remember:</p>
 <ul>
 <li>
 <code><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html" class="external-link">randomForest::randomForest</a></code> uses
@@ -133,10 +133,9 @@ model might be fit. These are often R packages (such as
 <code>randomForest</code> or <code>ranger</code>) but might also be
 methods outside of R (e.g. Stan, Spark, and others).</li>
 </ul>
-<p><code>parsnip</code>, similar to <code>ggplot2</code>,
-<code>dplyr</code> and <code>recipes</code>, separates the specification
-of what you want to do from the actual doing. This allows us to create
-broader functionality for modeling.</p>
+<p>The parsnip package, similar to ggplot2, dplyr and recipes, separates
+the specification of what you want to do from the actual doing. This
+allows us to create broader functionality for modeling.</p>
 </div>
 <div class="section level3">
 <h3 id="placeholders-for-parameters">Placeholders for Parameters<a class="anchor" aria-label="anchor" href="#placeholders-for-parameters"></a>
@@ -185,8 +184,9 @@ are required for the node to be split further.</li>
 <span><span class="co">#&gt; NULL</span></span></code></pre></div>
 <p>However, there might be other arguments that you would like to change
 or allow to vary. These are accessible using <code>set_engine</code>.
-For example, <code>ranger</code> has an option to set the internal
-random number seed. To set this to a specific value:</p>
+For example, <code><a href="http://imbs-hl.github.io/ranger/reference/ranger.html" class="external-link">ranger()</a></code> from the ranger package has an option
+to set the internal random number seed. To set this to a specific
+value:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rf_with_seed</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>trees <span class="op">=</span> <span class="fl">2000</span>, mtry <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>, mode <span class="op">=</span> <span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -259,13 +259,13 @@ and then create the model fit:</p>
 tilde is the consequence of <code>parsnip</code> using <a href="https://adv-r.hadley.nz/evaluation.html#quosures" class="external-link">quosures</a> to
 process the model specification’s arguments.</p>
 <p>Normally, when a function is executed, the function’s arguments are
-immediately evaluated. In the case of <code>parsnip</code>, the model
-specification’s arguments are <em>not</em>; the <a href="https://www.tidyverse.org/blog/2019/04/parsnip-internals/" class="external-link">expression
+immediately evaluated. In the case of parsnip, the model specification’s
+arguments are <em>not</em>; the <a href="https://www.tidyverse.org/blog/2019/04/parsnip-internals/" class="external-link">expression
 is captured</a> along with the environment where it should be evaluated.
 That is what a quosure does.</p>
-<p><code>parsnip</code> uses these expressions to make a model fit call
-that is evaluated. The tilde in the call above reflects that the
-argument was captured using a quosure.</p>
+<p>parsnip uses these expressions to make a model fit call that is
+evaluated. The tilde in the call above reflects that the argument was
+captured using a quosure.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

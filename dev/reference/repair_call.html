@@ -67,13 +67,13 @@ other functions. For example, some arguments may still be quosures and the
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>A fitted <code>parsnip</code> model. An error will occur if the underlying model
+<dd><p>A fitted parsnip model. An error will occur if the underlying model
 does not have a <code>call</code> element.</p></dd>
 
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>A data object that is relevant to the call. In most cases, this
-is the data frame that was given to <code>parsnip</code> for the model fit (i.e., the
+is the data frame that was given to parsnip for the model fit (i.e., the
 training set data). The name of this data object is inserted into the call.</p></dd>
 
 </dl></div>
@@ -96,7 +96,7 @@ functions and methods.</p>
 <span class="r-in"><span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># In this call, note that `data` is not `mtcars` and the `model = ~TRUE`</span></span></span>
-<span class="r-in"><span><span class="co"># indicates that the `model` argument is an `rlang` quosure.</span></span></span>
+<span class="r-in"><span><span class="co"># indicates that the `model` argument is an rlang quosure.</span></span></span>
 <span class="r-in"><span><span class="va">fitted_model</span><span class="op">$</span><span class="va">fit</span><span class="op">$</span><span class="va">call</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> stats::lm(formula = mpg ~ ., data = data, model = ~TRUE)</span>
 <span class="r-in"><span></span></span>

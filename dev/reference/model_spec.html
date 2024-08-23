@@ -81,7 +81,7 @@ as well as required packages and similar data.</p></li>
 <li><p><code>engine</code>: This character string declares exactly what
 software will be used. It can be a package name or a technology
 type.</p></li>
-</ul><p>This class and structure is the basis for how <span class="pkg">parsnip</span>
+</ul><p>This class and structure is the basis for how parsnip
 stores model objects prior to seeing the data.</p>
     </div>
     <div class="section level2">
@@ -97,7 +97,7 @@ not interact with the data at all.</p>
 <p>For example, most R functions immediately evaluate their
 arguments. For example, when calling <code>mean(dat_vec)</code>, the object
 <code>dat_vec</code> is immediately evaluated inside of the function.</p>
-<p><code>parsnip</code> model functions do not do this. For example, using</p>
+<p>parsnip model functions do not do this. For example, using</p>
 <div class="sourceCode"><pre><code><span></span>
 <span> <span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>mtry <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 
