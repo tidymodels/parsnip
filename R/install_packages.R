@@ -1,4 +1,4 @@
-# Installs packed needed to run `knit_engine_docs()`.
+# Installs packages needed to run `knit_engine_docs()`.
 install_engine_packages <- function(extension = TRUE, extras = TRUE,
                                     ignore_pkgs = c("stats", "liquidSVM",
                                                     "parsnip")) {
