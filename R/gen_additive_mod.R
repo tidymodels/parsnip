@@ -94,7 +94,7 @@ translate.gen_additive_mod <- function(x, engine = x$engine, ...) {
 fit_xy.gen_additive_mod <- function(object, ...) {
   trace <- rlang::trace_back()
 
-  if ("workflows" %in% trace$namespace) {
+  if ("workflows" %in% trace$namespace & identical(object$engine, "mgcv")) {
     cli::cli_abort(
       c("!" = "When working with generalized additive models, please supply the
                model specification to {.fun workflows::add_model} along with a \\
@@ -104,9 +104,15 @@ fit_xy.gen_additive_mod <- function(object, ...) {
     )
   }
 
-  cli::cli_abort(c(
-    "!" = "Please use {.fun fit} rather than {.fun fit_xy} to train \\
-           generalized additive models.",
-    "i" = "See {.help model_formula} to learn more."
-  ))
+  if (identical(object$engine, "mgcv")) {
+    cli::cli_abort(c(
+      "!" = "Please use {.fun fit} rather than {.fun fit_xy} to train \\
+           generalized additive models with the {.val mgcv} engine.",
+      "i" = "See {.help model_formula} to learn more."
+    ))
+  }
+
+  # allow fitting GAMs that specify smooths via other arguments to use
+  # `fit_xy()` (#775)
+  NextMethod()
 }

@@ -7,10 +7,10 @@
 #'
 #' `repair_call()` call can adjust the model objects call to be usable by other
 #' functions and methods.
-#' @param x A fitted `parsnip` model. An error will occur if the underlying model
+#' @param x A fitted parsnip model. An error will occur if the underlying model
 #'  does not have a `call` element.
 #' @param data A data object that is relevant to the call. In most cases, this
-#'  is the data frame that was given to `parsnip` for the model fit (i.e., the
+#'  is the data frame that was given to parsnip for the model fit (i.e., the
 #'  training set data). The name of this data object is inserted into the call.
 #' @return A modified `parsnip` fitted model.
 #' @examplesIf !parsnip:::is_cran_check()
@@ -21,7 +21,7 @@
 #'   fit(mpg ~ ., data = mtcars)
 #'
 #' # In this call, note that `data` is not `mtcars` and the `model = ~TRUE`
-#' # indicates that the `model` argument is an `rlang` quosure.
+#' # indicates that the `model` argument is an rlang quosure.
 #' fitted_model$fit$call
 #'
 #' # All better:

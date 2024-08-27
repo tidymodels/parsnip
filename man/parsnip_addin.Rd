@@ -8,7 +8,7 @@ parsnip_addin()
 }
 \description{
 \code{parsnip_addin()} starts a process in the RStudio IDE Viewer window
-that allows users to write code for \code{parsnip} model specifications from
+that allows users to write code for parsnip model specifications from
 various R packages. The new code is written to the current document at the
 location of the cursor.
 }

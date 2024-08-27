@@ -1,6 +1,6 @@
-# Some Notes on the Design of `parsnip`
+# Some Notes on the Design of parsnip
 
-`parsnip` is trying to solve the issues of unified interfaces for the myriad R modeling functions that have very heterogeneous interfaces and return values. It defines a set of modules, which are specific tasks, such as 
+The parsnip package is trying to solve the issues of unified interfaces for the myriad R modeling functions that have very heterogeneous interfaces and return values. It defines a set of modules, which are specific tasks, such as 
 
  * fitting the model
  * obtaining numeric predictions for regression models
@@ -8,17 +8,17 @@
 
 and so on. The list of modules is likely to grow over time to include variable importance scores and so on,. 
 
-`caret` was written for the same purpose. The approach there was to encapsulate the modules as functions (see [this directory](https://github.com/topepo/caret/tree/master/models/files) for examples). The issue with having these modules as functions are:
+The caret package was written for the same purpose. The approach there was to encapsulate the modules as functions (see [this directory](https://github.com/topepo/caret/tree/master/models/files) for examples). The issue with having these modules as functions are:
 
  * A lot of code duplication.
  * More difficult to maintain.
  * Any functions in open code had to be a dependency of some sort. This led to a long ago version having about 200 package dependencies which was problematic. 
 
-To get around the last point, `caret` _compiles_ these modules into a large list and saves it in the package as an RData file. This avoids `R CMD check` from noticing that code and triggering warnings about dependencies. 
+To get around the last point, caret _compiles_ these modules into a large list and saves it in the package as an RData file. This avoids `R CMD check` from noticing that code and triggering warnings about dependencies. 
 
 ## Model Fitting Modules
 
-`parsnip` approaches the problem differently and relies more on using `call` objects for the modules. In the simple cases, the fit module is a list that contains information about the module including the package and function name for the call as well as any default options. For example, for logistic regression using `glm`, the module may look like:
+parsnip approaches the problem differently and relies more on using `call` objects for the modules. In the simple cases, the fit module is a list that contains information about the module including the package and function name for the call as well as any default options. For example, for logistic regression using `glm`, the module may look like:
 
 ```r
 list(
@@ -77,9 +77,9 @@ The same is true for quosures.
 
 Making predictions is done in a manner similar to fitting models; a call is created in the same way. However, there are additional complexities. 
 
-First, the data or model fit object may require some preprocessing to make the predict function work. This does _not_ include executing a formula method on the data but may include coercing the new data into an appropriate format. It can also be used to check for specific fit object requirements. For example, an additional option is required for the `ranger` package to compute class probabilities. The `pre` element of a prediction module can be used to check that the relevant option is set correctly. 
+First, the data or model fit object may require some preprocessing to make the predict function work. This does _not_ include executing a formula method on the data but may include coercing the new data into an appropriate format. It can also be used to check for specific fit object requirements. For example, an additional option is required for the ranger package to compute class probabilities. The `pre` element of a prediction module can be used to check that the relevant option is set correctly. 
 
-Second, there is a high likelihood that the results of executing the prediction code will require post-processing to put the results into a usable format. `ranger`, for example, returns an object of specific class that contains the predicted values for the new data. The `post` element of the prediction module would extract this value and put it into a more consistent format. 
+Second, there is a high likelihood that the results of executing the prediction code will require post-processing to put the results into a usable format. ranger, for example, returns an object of specific class that contains the predicted values for the new data. The `post` element of the prediction module would extract this value and put it into a more consistent format. 
 
 The postprocessor can also be used to coerce the results into a [_tidy format_](https://tidymodels.github.io/model-implementation-principles/model-predictions.html#return-values). 
 

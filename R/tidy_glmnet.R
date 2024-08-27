@@ -1,8 +1,8 @@
 #' tidy methods for glmnet models
 #'
 #' `tidy()` methods for the various `glmnet` models that return the coefficients
-#' for the specific penalty value used by the `parsnip` model fit.
-#' @param x A fitted `parsnip` model that used the `glmnet` engine.
+#' for the specific penalty value used by the parsnip model fit.
+#' @param x A fitted parsnip model that used the `glmnet` engine.
 #' @param penalty A _single_ numeric value. If none is given, the value specified
 #' in the model specification is used.
 #' @param ... Not used

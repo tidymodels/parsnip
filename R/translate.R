@@ -20,7 +20,7 @@
 #'  the model fitting function/engine.
 #'
 #' This function can be useful when you need to understand how
-#'  `parsnip` goes from a generic model specific to a model fitting
+#'  parsnip goes from a generic model specific to a model fitting
 #'  function.
 #'
 #' **Note**: this function is used internally and users should only use it

@@ -7,14 +7,14 @@
 show_engines(x)
 }
 \arguments{
-\item{x}{The name of a \code{parsnip} model (e.g., "linear_reg", "mars", etc.)}
+\item{x}{The name of a parsnip model (e.g., "linear_reg", "mars", etc.)}
 }
 \value{
 A tibble.
 }
 \description{
 The possible engines for a model can depend on what packages are loaded.
-Some \pkg{parsnip} extension add engines to existing models. For example,
+Some parsnip extension add engines to existing models. For example,
 the \pkg{poissonreg} package adds additional engines for the \code{\link[=poisson_reg]{poisson_reg()}}
 model and these are not available unless \pkg{poissonreg} is loaded.
 }
