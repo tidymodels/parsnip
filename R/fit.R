@@ -55,6 +55,11 @@
 #' a "reverse Kaplan-Meier" curve that models the probability of censoring. This
 #' may be used later to compute inverse probability censoring weights for
 #' performance measures.
+#' 
+#' Sparse data is supported, with the use of the `x` argument in `fit_xy()`. See
+#' `allow_sparse_x` column of [parsnip::get_encoding()] for sparse input 
+#' compatibility.
+#' 
 #' @examplesIf !parsnip:::is_cran_check()
 #' # Although `glm()` only has a formula interface, different
 #' # methods for specifying the model can be used
