@@ -3,9 +3,9 @@ install_engine_packages <- function(extension = TRUE, extras = TRUE,
                                     ignore_pkgs = c("stats", "liquidSVM",
                                                     "parsnip")) {
   bio_pkgs <- c()
-  extensions_packages <- extensions()
 
   if (extension) {
+    extensions_packages <- extensions()
     rlang::check_installed(extensions_packages)
     bio_pkgs <- c(bio_pkgs, "mixOmics")
   }
