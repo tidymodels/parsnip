@@ -367,7 +367,7 @@ check_dup_names <- function(x, y, call = rlang::caller_env()) {
 #' @param x A data frame, matrix, or sparse matrix.
 #' @return A data frame, matrix, or sparse matrix.
 #' @export
-maybe_matrix <- function(x, call = rlang::caller_env()) {
+maybe_matrix <- function(x) {
   inher(x, c("data.frame", "matrix", "dgCMatrix"), cl = match.call())
   if (is.data.frame(x)) {
     non_num_cols <- vapply(x, function(x) !is.numeric(x), logical(1))
@@ -376,8 +376,7 @@ maybe_matrix <- function(x, call = rlang::caller_env()) {
 
       cli::cli_abort(
         "The column{?s} {.val {non_num_cols}} {?is/are} non-numeric, so the
-         data cannot be converted to a numeric matrix.",
-        call = call
+         data cannot be converted to a numeric matrix."
       )
     }
     x <- as.matrix(x)
