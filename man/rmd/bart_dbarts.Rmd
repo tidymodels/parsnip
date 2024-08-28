@@ -25,6 +25,8 @@ This model has `r nrow(param)` tuning parameters:
 param$item
 ```
 
+Parsnip changes the default range for `trees` to `c(50, 500)`.
+
 ## Important engine-specific options
 
 Some relevant arguments that can be passed to `set_engine()`: 

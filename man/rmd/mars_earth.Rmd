@@ -22,7 +22,7 @@ This model has `r nrow(param)` tuning parameters:
 param$item
 ```
 
-The default value of `num_terms` depends on the number of predictor columns. For a data frame `x`, the default is `min(200, max(20, 2 * ncol(x))) + 1` (see [earth::earth()] and the reference below). 
+Parsnip changes the default range for `num_terms` to `c(50, 500)`.
 
 ## Translation from parsnip to the original package (regression)
 
