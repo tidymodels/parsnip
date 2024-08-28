@@ -105,10 +105,9 @@ translate.svm_linear <- function(x, engine = x$engine, ...) {
         arg_vals$svr_eps <- 0.1
       if (!is_null(liblinear_type))
         if(!liblinear_type %in% 11:13)
-          rlang::abort(
-            paste0("The LiblineaR engine argument of `type` = ",
-                   liblinear_type,
-                   " does not correspond to an SVM regression model.")
+          cli::cli_abort(
+            "The LiblineaR engine argument {.code type = {liblinear_type}}
+             does not correspond to an SVM regression model."
           )
     } else if (x$mode == "classification") {
       if (!is_null(liblinear_type))
