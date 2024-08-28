@@ -142,7 +142,9 @@ update.bart <-
 #' @param std_err Attach column for standard error of prediction or not.
 bartMachine_interval_calc <- function(new_data, obj, ci = TRUE, level = 0.95) {
   if (obj$spec$mode == "classification") {
-    rlang::abort("In bartMachine: Prediction intervals are not possible for classification")
+    cli::cli_abort(
+      "Prediction intervals are not possible for classification"
+    )
   }
   get_std_err <- obj$spec$method$pred$pred_int$extras$std_error
 
