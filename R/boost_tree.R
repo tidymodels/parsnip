@@ -134,11 +134,9 @@ translate.boost_tree <- function(x, engine = x$engine, ...) {
 
   if (engine == "spark") {
     if (x$mode == "unknown") {
-      rlang::abort(
-        glue::glue(
-          "For spark boosted trees models, the mode cannot be 'unknown' ",
-          "if the specification is to be translated."
-        )
+      cli::cli_abort(
+        "For spark boosted tree models, the mode cannot be {.val unknown}
+         if the specification is to be translated."
       )
     } else {
       arg_vals$type <- x$mode
@@ -172,7 +170,7 @@ check_args.boost_tree <- function(object, call = rlang::caller_env()) {
   check_number_decimal(args$sample_size, min = 0, max = 1, allow_null = TRUE, call = call, arg = "sample_size")
   check_number_whole(args$tree_depth, min = 0, allow_null = TRUE, call = call, arg = "tree_depth")
   check_number_whole(args$min_n, min = 0, allow_null = TRUE, call = call, arg = "min_n")
-  
+
   invisible(object)
 }
 
@@ -229,15 +227,15 @@ xgb_train <- function(
   num_class <- length(levels(y))
 
   if (!is.numeric(validation) || validation < 0 || validation >= 1) {
-    rlang::abort("`validation` should be on [0, 1).")
+    cli::cli_abort("{.arg validation} should be on [0, 1).")
   }
 
   if (!is.null(early_stop)) {
     if (early_stop <= 1) {
-      rlang::abort(paste0("`early_stop` should be on [2, ",  nrounds, ")."))
+      cli::cli_abort("{.arg early_stop} should be on [2, {nrounds}).")
     } else if (early_stop >= nrounds) {
       early_stop <- nrounds - 1
-      rlang::warn(paste0("`early_stop` was reduced to ", early_stop, "."))
+      cli::cli_warn("{.arg early_stop} was reduced to {early_stop}.")
     }
   }
 
@@ -252,7 +250,7 @@ xgb_train <- function(
 
 
   if (!is.numeric(subsample) || subsample < 0 || subsample > 1) {
-    rlang::abort("`subsample` should be on [0, 1].")
+    cli::cli_abort("{.arg subsample} should be on [0, 1].")
   }
 
   # initialize
@@ -268,9 +266,13 @@ xgb_train <- function(
   }
 
   if (min_child_weight > n) {
-    msg <- paste0(min_child_weight, " samples were requested but there were ",
-                  n, " rows in the data. ", n, " will be used.")
-    rlang::warn(msg)
+    cli::cli_warn(
+      c(
+       "!" = "{min_child_weight} samples were requested but there were {n} rows
+              in the data.",
+       "i" = "{n} will be used."
+      )
+    )
     min_child_weight <- min(min_child_weight, n)
   }
 
@@ -369,14 +371,16 @@ recalc_param <- function(x, counts, denom) {
   x
 }
 
-maybe_proportion <- function(x, nm) {
+maybe_proportion <- function(x, nm, call = rlang::caller_env()) {
   if (x < 1) {
-    msg <- paste0(
-      "The option `counts = TRUE` was used but parameter `", nm,
-      "` was given as ", signif(x, 3), ". Please use a value >= 1 or use ",
-      "`counts = FALSE`."
+    cli::cli_abort(
+      c(
+        "The option `counts = TRUE` was used but {.arg {nm}} was given
+         as {signif(x, 3)}.",
+        "i" = "Please use a value >= 1 or use {.code counts = FALSE}."
+      ),
+      call = call
     )
-    rlang::abort(msg)
   }
 }
 
@@ -418,7 +422,9 @@ as_xgb_data <- function(x, y, validation = 0, weights = NULL, event_level = "fir
         y <- as.numeric(y) - 1
       }
     } else {
-      if (event_level == "second") rlang::warn("`event_level` can only be set for binary variables.")
+      if (event_level == "second") {
+        cli::cli_warn("{.arg event_level} can only be set for binary outcomes.")
+      }
       y <- as.numeric(y) - 1
     }
   }
@@ -573,15 +579,19 @@ C5.0_train <-
 
     n <- nrow(x)
     if (n == 0) {
-      rlang::abort("There are zero rows in the predictor set.")
+      cli::cli_abort("There are zero rows in the predictor set.")
     }
 
 
     ctrl <- call2("C5.0Control", .ns = "C50")
     if (minCases > n) {
-      msg <- paste0(minCases, " samples were requested but there were ",
-                    n, " rows in the data. ", n, " will be used.")
-      rlang::warn(msg)
+
+      cli::cli_warn(
+        c(
+          "!" = "{minCases} samples were requested but there were {n} rows in the data.",
+          "i" = "{n} will be used."
+        )
+      )
       minCases <- n
     }
     ctrl$minCases <- minCases
