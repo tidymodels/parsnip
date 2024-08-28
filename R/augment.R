@@ -86,7 +86,12 @@ augment.model_fit <- function(x, new_data, eval_time = NULL, ...) {
       "regression"          = augment_regression(x, new_data),
       "classification"      = augment_classification(x, new_data),
       "censored regression" = augment_censored(x, new_data, eval_time = eval_time),
-      cli::cli_abort("Unknown mode: {x$spec$mode}.")
+      cli::cli_abort(
+        c(
+          "Unknown mode {.val {x$spec$mode}}.",
+          "i" = "Model mode should be one of {.or {.val {all_modes}}}."
+        )
+      )
     )
   tibble::new_tibble(res)
 }

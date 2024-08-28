@@ -350,7 +350,10 @@ check_dup_names <- function(x, y, call = rlang::caller_env()) {
   common_names <- intersect(colnames(x), colnames(y))
   if (length(common_names) > 0) {
     cli::cli_abort(
-      "{.arg x} and {.arg y} have the name{?s} {.val {common_names}} in common.",
+      c(
+        "{.arg x} and {.arg y} have the name{?s} {.val {common_names}} in common.",
+        "i" = "Please ensure that {.arg x} and {.arg y} don't share any column names."
+      ),
       call = call
     )
   }

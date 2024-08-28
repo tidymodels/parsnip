@@ -207,7 +207,7 @@ check_pred_type <- function(object, type, ..., call = rlang::caller_env()) {
   }
   if (!(type %in% pred_types))
     cli::cli_abort(
-      "{.arg type} should be one of:{.arg {pred_types}}",
+      "{.arg type} should be one of {.or {.arg {pred_types}}}.",
       call = call
     )
 
