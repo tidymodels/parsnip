@@ -24,8 +24,6 @@ test_that("sparse matrices can be passed to `fit_xy()", {
 test_that("to_sparse_data_frame() is used correctly", {
   skip_if_not_installed("xgboost")
   
-  skip_if_not_installed("LiblineaR")
-
   local_mocked_bindings(
     to_sparse_data_frame = function(x, object) {
       if (methods::is(x, "sparseMatrix")) {
@@ -68,8 +66,6 @@ test_that("to_sparse_data_frame() is used correctly", {
 test_that("maybe_sparse_matrix() is used correctly", {
   skip_if_not_installed("xgboost")
   
-  skip_if_not_installed("LiblineaR")
-
   local_mocked_bindings(
     maybe_sparse_matrix = function(x) {
       if (any(vapply(x, sparsevctrs::is_sparse_vector, logical(1)))) {
