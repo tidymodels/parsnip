@@ -55,6 +55,11 @@
 #' a "reverse Kaplan-Meier" curve that models the probability of censoring. This
 #' may be used later to compute inverse probability censoring weights for
 #' performance measures.
+#' 
+#' Sparse data is supported, with the use of the `x` argument in `fit_xy()`. See
+#' `allow_sparse_x` column of [parsnip::get_encoding()] for sparse input 
+#' compatibility.
+#' 
 #' @examplesIf !parsnip:::is_cran_check()
 #' # Although `glm()` only has a formula interface, different
 #' # methods for specifying the model can be used
@@ -274,6 +279,8 @@ fit_xy.model_spec <-
       }
     }
 
+    x <- to_sparse_data_frame(x, object)
+
     cl <- match.call(expand.dots = TRUE)
     eval_env <- rlang::env()
     eval_env$x <- x
@@ -380,7 +387,7 @@ inher <- function(x, cls, cl) {
 
 check_interface <- function(formula, data, cl, model) {
   inher(formula, "formula", cl)
-  inher(data, c("data.frame", "tbl_spark"), cl)
+  inher(data, c("data.frame", "dgCMatrix", "tbl_spark"), cl)
 
   # Determine the `fit()` interface
   form_interface <- !is.null(formula) & !is.null(data)

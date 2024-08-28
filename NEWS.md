@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* `fit_xy()` can now take dgCMatrix input for `x` argument (#1121).
+
 * Transitioned package errors and warnings to use cli (#1147 and #1148 by
   @shum461, #1153 by @RobLBaker and @wright13, #1154 by @JamesHWade, #1160, 
   #1161).
