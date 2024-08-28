@@ -345,7 +345,7 @@ min_rows <- function(num_rows, source, offset = 0) {
       c(
         "!" = "{num_rows} sample{?s} {?was/were} requested but there were
                {n} rows in the data.",
-        "i" = "{n - offset} will be used."
+        "i" = "{n - offset} sample{?s} will be used."
       )
     )
 
