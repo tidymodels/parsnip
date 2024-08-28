@@ -156,7 +156,7 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
 
   type <- check_pred_type(object, type)
   if (type != "raw" && length(opts) > 0) {
-    cli::cli_warn("{.arg opts} is only used with type = 'raw' and was ignored.")
+    cli::cli_warn("{.arg opts} is only used with `type = 'raw'` and was ignored.")
   }
   check_pred_type_dots(object, type, ...)
 
@@ -173,7 +173,7 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
     linear_pred = predict_linear_pred(object = object, new_data = new_data, ...),
     hazard      = predict_hazard(object = object, new_data = new_data, ...),
     raw         = predict_raw(object = object, new_data = new_data, opts = opts, ...),
-    cli::cli_abort("I don't know about type = {.arg {type}}")
+    cli::cli_abort("Unknown prediction {.arg type} '{type}'.")
   )
   if (!inherits(res, "tbl_spark")) {
     res <- switch(
@@ -355,14 +355,18 @@ check_pred_type_dots <- function(object, type, ..., call = rlang::caller_env()) 
     cli::cli_abort(
         "The ellipses are not used to pass args to the model function's
          predict function. These arguments cannot be used: {.val bad_args}",
+         call = call
     )
   }
 
   # ----------------------------------------------------------------------------
   # places where eval_time should not be given
   if (any(nms == "eval_time") & !type %in% c("survival", "hazard")) {
-    cli::cli_abort("{.arg eval_time} should only be passed to {.fn predict} when {.arg type} is one of:
-       {.val {eval_time_types}}")
+    cli::cli_abort(
+      "{.arg eval_time} should only be passed to {.fn predict} when \\ 
+       {.arg type} is one of {.or {.val {eval_time_types}}}",
+       call = call
+     )
 
 
   }
@@ -372,9 +376,11 @@ check_pred_type_dots <- function(object, type, ..., call = rlang::caller_env()) 
   }
   # when eval_time should be passed
   if (!any(nms %in% c("eval_time", "time")) & type %in% c("survival", "hazard")) {
-    cli::cli_abort(
-        "When using `type` values of 'survival' or 'hazard' a numeric vector `eval_time` should also be given.")
-
+  cli::cli_abort(
+    "When using {.arg type} values of {.or {.val {eval_time_types}}} a numeric
+     vector {.arg eval_time} should also be given.",
+    call = call
+  )
   }
 
   # `increasing` only applies to linear_pred for censored regression
@@ -382,8 +388,9 @@ check_pred_type_dots <- function(object, type, ..., call = rlang::caller_env()) 
       !(type == "linear_pred" &
         object$spec$mode == "censored regression")) {
     cli::cli_abort(
-        "The {.arg increasing} argument only applies to predictions of
-         type 'linear_pred' for the mode censored regression."
+        "{.arg increasing} only applies to predictions of
+         type 'linear_pred' for the mode censored regression.",
+         call = call
       )
 
   }
