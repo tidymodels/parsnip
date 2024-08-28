@@ -87,10 +87,9 @@ case_weights_allowed <- function(spec) {
     get_from_env(paste0(mod_type, "_fit")) %>%
     dplyr::filter(engine == mod_eng & mode == mod_mode)
   if (nrow(model_info) != 1) {
-    rlang::abort(
-      glue::glue(
-        "Error in getting model information for model {mod_type} with engine {mod_eng} and mode {mod_mode}."
-      )
+    cli::cli_abort(
+      "Error in getting model information for model {mod_type} with
+       engine {mod_eng} and mode {mod_mode}."
     )
   }
   # If weights are used, they are protected data arguments with the canonical

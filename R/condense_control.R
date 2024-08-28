@@ -23,17 +23,12 @@
 condense_control <- function(x, ref) {
   mismatch <- setdiff(names(ref), names(x))
   if (length(mismatch)) {
-    rlang::abort(
+    cli::cli_abort(
       c(
-        glue::glue(
-          "Object of class `{class(x)[1]}` cannot be coerced to ",
-          "object of class `{class(ref)[1]}`."
-        ),
-        "The following arguments are missing:",
-        glue::glue_collapse(
-          glue::single_quote(mismatch),
-          sep = ", ", last = ", and "
-        )
+        "Object of class {.cls class(x)[1]} cannot be coerced to
+         object of class {.cls class(ref)[1]}.",
+        "i" = "{cli::qty(mismatch)} The argument{?s} {.arg {mismatch}}
+               {?is/are} missing."
       )
     )
   }

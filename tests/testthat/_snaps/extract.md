@@ -1,3 +1,23 @@
+# extract
+
+    Code
+      extract_spec_parsnip(x_no_spec)
+    Condition
+      Error in `extract_spec_parsnip()`:
+      ! The model fit does not have a model spec.
+      i This is an internal error that was detected in the parsnip package.
+        Please report it at <https://github.com/tidymodels/parsnip/issues> with a reprex (<https://tidyverse.org/help/>) and the full backtrace.
+
+---
+
+    Code
+      extract_fit_engine(x_no_fit)
+    Condition
+      Error in `extract_fit_engine()`:
+      ! The model fit does not have an engine fit.
+      i This is an internal error that was detected in the parsnip package.
+        Please report it at <https://github.com/tidymodels/parsnip/issues> with a reprex (<https://tidyverse.org/help/>) and the full backtrace.
+
 # extract parameter set from model with no loaded implementation
 
     Code

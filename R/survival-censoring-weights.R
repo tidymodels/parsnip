@@ -23,29 +23,40 @@ trunc_probs <- function(probs, trunc = 0.01) {
 
 .check_pred_col <- function(x, call = rlang::env_parent()) {
   if (!any(names(x) == ".pred")) {
-    rlang::abort("The input should have a list column called `.pred`.", call = call)
+    cli::cli_abort(
+      "The input should have a list column called {.val .pred}.",
+      call = call
+    )
   }
   if (!is.list(x$.pred)) {
-    rlang::abort("The input should have a list column called `.pred`.", call = call)
+    cli::cli_abort(
+      "The input should have a list column called {.val .pred}.",
+      call = call
+    )
   }
   req_cols <- c(".eval_time", ".pred_survival")
   if (!all(req_cols %in% names(x$.pred[[1]]))) {
-    msg <- paste0("The `.pred` tibbles should have columns: ",
-                  paste0("'", req_cols, "'", collapse = ", "))
-    rlang::abort(msg, call = call)
+    cli::cli_abort(
+      "The `.pred` tibbles should have columns {.val req_cols}.",
+      call = call
+    )
   }
   invisible(NULL)
 }
 
-.check_censor_model <- function(x) {
+.check_censor_model <- function(x, call = rlang::caller_env()) {
   if (x$spec$mode != "censored regression") {
     cli::cli_abort(
-      "The model needs to be for mode 'censored regression', not for mode '{x$spec$mode}'."
+      "The model needs to be for mode 'censored regression', not for mode '{x$spec$mode}'.",
+      call = call
     )
   }
   nms <- names(x)
   if (!any(nms == "censor_probs")) {
-    rlang::abort("Please refit the model with parsnip version 1.0.4 or greater.")
+    cli::cli_abort(
+      "Please refit the model with {.pkg parsnip} version 1.0.4 or greater.",
+      call = call
+    )
   }
   invisible(NULL)
 }
@@ -172,10 +183,10 @@ graf_weight_time_vec <- function(surv_obj, eval_time, eps = 10^-10) {
 #' @export
 #' @rdname censoring_weights
 .censoring_weights_graf.default <- function(object, ...) {
-  cls <- paste0("'", class(object), "'", collapse = ", ")
-  msg <- paste("There is no `.censoring_weights_graf()` method for objects with class(es):",
-               cls)
-  rlang::abort(msg)
+  cli::cli_abort(
+    "There is no `.censoring_weights_graf()` method for objects with class{?es}
+     {.cls {class(object)}}."
+  )
 }
 
 #' @export
@@ -233,7 +244,7 @@ add_graf_weights_vec <- function(object, .pred, surv_obj, trunc = 0.05, eps = 10
   is_surv <- purrr::map_lgl(x[!is_lst_col], .is_surv, fail = FALSE)
   num_surv <- sum(is_surv)
   if (fail && num_surv != 1) {
-    rlang::abort("There should be a single column of class `Surv`", call = call)
+    cli::cli_abort("There should be a single column of class {.cls Surv}.", call = call)
   }
   names(is_surv)[is_surv]
 }

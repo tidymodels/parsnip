@@ -44,7 +44,9 @@ map_glmnet_coefs <- function(x) {
   # work. If an object is loaded from a new session, they will need to load the
   # package.
   if (is.null(coefs)) {
-    rlang::abort("Please load the glmnet package before running `autoplot()`.")
+    cli::cli_abort(
+      "Please load the glmnet package before running {.fun autoplot}."
+    )
   }
   p <- x$dim[1]
   if (is.list(coefs)) {
@@ -161,8 +163,7 @@ check_penalty_value <- function(x) {
   cl <- match.call()
   arg_val <- as.character(cl$x)
   if (!is.vector(x) || length(x) != 1 || !is.numeric(x) || x < 0) {
-    msg <- paste0("Argument '", arg_val, "' should be a single, non-negative value.")
-    rlang::abort(msg)
+    cli::cli_abort("{.arg {arg_val}} should be a single, non-negative value.")
   }
   invisible(x)
 }

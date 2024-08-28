@@ -184,10 +184,10 @@ validate_only_allowed_step_args <- function(x, step_type) {
       return(invisible(x))
     }
 
-    rlang::abort(glue::glue(
-      "The following argument for a recipe step of type ",
-      "'{step_type}' is not allowed to vary: '{nm}'."
-    ))
+    cli::cli_abort(
+      "The argument {nm} for a recipe step of type
+       {.val step_type} is not allowed to vary."
+    )
   }
 
   purrr::iwalk(x, check_allowed_arg)

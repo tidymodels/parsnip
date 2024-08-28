@@ -30,12 +30,12 @@ contr_one_hot <- function(n, contrasts = TRUE, sparse = FALSE) {
     n <- as.integer(n)
 
     if (length(n) != 1L) {
-      rlang::abort("`n` must have length 1 when an integer is provided.")
+      cli::cli_abort("{.arg n} must have length 1 when an integer is provided.")
     }
 
     names <- as.character(seq_len(n))
   } else {
-    rlang::abort("`n` must be a character vector or an integer of size 1.")
+    cli::cli_abort("{.arg n} must be a character vector or an integer of size 1.")
   }
 
   out <- diag(n)

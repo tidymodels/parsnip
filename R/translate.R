@@ -52,14 +52,15 @@ translate <- function(x, ...)
 #' @export translate.default
 translate.default <- function(x, engine = x$engine, ...) {
   check_empty_ellipse(...)
-  if (is.null(engine))
-    rlang::abort("Please set an engine.")
+  if (is.null(engine)) {
+    cli::cli_abort("Please set an engine.")
+  }
 
   mod_name <- specific_model(x)
 
   x$engine <- engine
   if (x$mode == "unknown") {
-    rlang::abort("Model code depends on the mode; please specify one.")
+    cli::cli_abort("Model code depends on the mode; please specify one.")
   }
 
   check_spec_mode_engine_val(class(x)[1], x$engine, x$mode)
@@ -196,7 +197,7 @@ add_methods <- function(x, engine) {
 #' @export
 .model_param_name_key <- function(object, as_tibble = TRUE) {
   if (!inherits(object, c("model_spec", "workflow"))) {
-    rlang::abort("'object' should be a model specification or workflow.")
+    cli::cli_abort("{.arg object} should be a model specification or workflow.")
   }
   if (inherits(object, "workflow")) {
     object <- hardhat::extract_spec_parsnip(object)

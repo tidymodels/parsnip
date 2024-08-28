@@ -56,7 +56,7 @@ set_args <- function(object, ...) {
 set_args.model_spec <- function(object, ...) {
   the_dots <- enquos(...)
   if (length(the_dots) == 0)
-    rlang::abort("Please pass at least one named argument.")
+    cli::cli_abort("Please pass at least one named argument.")
   main_args <- names(object$args)
   new_args <- names(the_dots)
   for (i in new_args) {
@@ -262,7 +262,7 @@ make_xy_call <- function(object, target, env) {
       none = rlang::expr(x),
       data.frame = rlang::expr(maybe_data_frame(x)),
       matrix = rlang::expr(maybe_matrix(x)),
-      rlang::abort(glue::glue("Invalid data type target: {target}."))
+      cli::cli_abort("Invalid data type target: {target}.")
     )
   if (uses_weights) {
     object$method$fit$args[[ unname(data_args["weights"]) ]] <- rlang::expr(weights)

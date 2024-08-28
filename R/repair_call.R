@@ -30,10 +30,10 @@
 repair_call <- function(x, data) {
   cl <- match.call()
   if (!any(names(x$fit) == "call")) {
-    rlang::abort("No `call` object to modify.")
+    cli::cli_abort("No `call` object to modify.")
   }
   if (rlang::is_missing(data)) {
-    rlang::abort("Please supply a data object to `data`.")
+    cli::cli_abort("Please supply a data object to {.arg data}.")
   }
   fit_call <- x$fit$call
   needs_eval <- purrr::map_lgl(fit_call, rlang::is_quosure)
