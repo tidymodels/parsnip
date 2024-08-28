@@ -320,9 +320,9 @@ min_cols <- function(num_cols, source) {
   if (num_cols > p) {
     cli::cli_warn(
       c(
-        "!" = "{num_cols} column{?s} {?was/were} requested but there were
-               {p} predictors in the data.",
-        "i" = "{p} will be used."
+        "!" = "{num_cols} column{?s} {?was/were} requested but there {cli::qty(p)} {?was/were}
+               {p} predictor{?s} in the data.",
+        "i" = "{p} predictor{?s} will be used."
       )
     )
     num_cols <- p

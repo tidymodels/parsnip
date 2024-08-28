@@ -30,7 +30,7 @@
 repair_call <- function(x, data) {
   cl <- match.call()
   if (!any(names(x$fit) == "call")) {
-    cli::cli_abort("No `call` object to modify.")
+    cli::cli_abort("No {.field call} object to modify.")
   }
   if (rlang::is_missing(data)) {
     cli::cli_abort("Please supply a data object to {.arg data}.")

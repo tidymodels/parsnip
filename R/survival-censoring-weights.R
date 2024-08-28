@@ -37,7 +37,7 @@ trunc_probs <- function(probs, trunc = 0.01) {
   req_cols <- c(".eval_time", ".pred_survival")
   if (!all(req_cols %in% names(x$.pred[[1]]))) {
     cli::cli_abort(
-      "The `.pred` tibbles should have columns {.val req_cols}.",
+      "The {.field .pred} tibbles should have columns {.val req_cols}.",
       call = call
     )
   }
@@ -47,7 +47,7 @@ trunc_probs <- function(probs, trunc = 0.01) {
 .check_censor_model <- function(x, call = rlang::caller_env()) {
   if (x$spec$mode != "censored regression") {
     cli::cli_abort(
-      "The model needs to be for mode 'censored regression', not for mode '{x$spec$mode}'.",
+      "The model needs to be for mode {.val censored regression}, not for mode '{x$spec$mode}'.",
       call = call
     )
   }
@@ -184,7 +184,7 @@ graf_weight_time_vec <- function(surv_obj, eval_time, eps = 10^-10) {
 #' @rdname censoring_weights
 .censoring_weights_graf.default <- function(object, ...) {
   cli::cli_abort(
-    "There is no `.censoring_weights_graf()` method for objects with class{?es}
+    "There is no {.fun .censoring_weights_graf} method for objects with class{?es}
      {.cls {class(object)}}."
   )
 }

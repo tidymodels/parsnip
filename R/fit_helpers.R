@@ -68,7 +68,7 @@ xy_xy <- function(object,
 
   if (inherits(env$x, "tbl_spark") | inherits(env$y, "tbl_spark")) {
     cli::cli_abort(
-      "spark objects can only be used with the formula interface to {.fun fit}",
+      "spark objects can only be used with the formula interface to {.fun fit}.",
       call = call
     )
   }

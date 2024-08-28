@@ -258,7 +258,7 @@
       cli::cli_abort("{.arg weights} must be a numeric vector.")
     }
     if (length(weights) != nrow(x)) {
-      cli::cli_abort("{.arg weights} should have {nrow(x)} elements")
+      cli::cli_abort("{.arg weights} should have {nrow(x)} elements.")
     }
 
     form <- patch_formula_environment_with_case_weights(

@@ -45,7 +45,7 @@ map_glmnet_coefs <- function(x) {
   # package.
   if (is.null(coefs)) {
     cli::cli_abort(
-      "Please load the glmnet package before running {.fun autoplot}."
+      "Please load the {.pkg glmnet} package before running {.fun autoplot}."
     )
   }
   p <- x$dim[1]
