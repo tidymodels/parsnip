@@ -6,6 +6,14 @@
       Error in `multi_predict()`:
       ! Please use `new_data` instead of `newdata`.
 
+# xgboost data conversion
+
+    Code
+      from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second")
+    Condition
+      Warning:
+      `event_level` can only be set for binary outcomes.
+
 # interface to param arguments
 
     ! Please supply elements of the `params` list argument as main arguments to `set_engine()` rather than as part of `params`.
