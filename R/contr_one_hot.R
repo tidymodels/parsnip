@@ -16,11 +16,11 @@
 #' @export
 contr_one_hot <- function(n, contrasts = TRUE, sparse = FALSE) {
   if (sparse) {
-    rlang::warn("`sparse = TRUE` not implemented for `contr_one_hot()`.")
+    cli::cli_warn("{.code sparse = TRUE} not implemented for {.fun contr_one_hot}.")
   }
 
   if (!contrasts) {
-    rlang::warn("`contrasts = FALSE` not implemented for `contr_one_hot()`.")
+    cli::cli_warn("{.code contrasts = FALSE} not implemented for {.fun contr_one_hot}.")
   }
 
   if (is.character(n)) {

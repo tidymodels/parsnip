@@ -22,8 +22,10 @@ check_eng_args <- function(args, obj, core_args) {
   if (length(common_args) > 0) {
     args <- args[!(names(args) %in% common_args)]
     common_args <- paste0(common_args, collapse = ", ")
-    rlang::warn(glue::glue("The following arguments cannot be manually modified ",
-                           "and were removed: {common_args}."))
+    cli::cli_warn(
+      "The argument{?s} {.arg {common_args}} cannot be manually
+       modified and {?was/were} removed."
+    )
   }
   args
 }
@@ -316,9 +318,13 @@ min_cols <- function(num_cols, source) {
     p <- ncol(source)
   }
   if (num_cols > p) {
-    msg <- paste0(num_cols, " columns were requested but there were ", p,
-                 " predictors in the data. ", p, " will be used.")
-    rlang::warn(msg)
+    cli::cli_warn(
+      c(
+        "!" = "{num_cols} column{?s} {?was/were} requested but there were
+               {p} predictors in the data.",
+        "i" = "{p} will be used."
+      )
+    )
     num_cols <- p
   }
 
@@ -335,9 +341,14 @@ min_rows <- function(num_rows, source, offset = 0) {
   }
 
   if (num_rows > n - offset) {
-    msg <- paste0(num_rows, " samples were requested but there were ", n,
-                  " rows in the data. ", n - offset, " will be used.")
-    rlang::warn(msg)
+    cli::cli_warn(
+      c(
+        "!" = "{num_rows} sample{?s} {?was/were} requested but there were
+               {n} rows in the data.",
+        "i" = "{n - offset} will be used."
+      )
+    )
+
     num_rows <- n - offset
   }
 

@@ -202,8 +202,7 @@ graf_weight_time_vec <- function(surv_obj, eval_time, eps = 10^-10) {
   .check_pred_col(predictions)
 
   if (!is.null(cens_predictors)) {
-    msg <- "The 'cens_predictors' argument to the survival weighting function is not currently used."
-    rlang::warn(msg)
+    cli::cli_warn("{.arg cens_predictors} is not currently used.")
   }
   predictions$.pred <-
     add_graf_weights_vec(object,

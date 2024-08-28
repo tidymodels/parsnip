@@ -19,7 +19,7 @@
 #' @export
 multi_predict <- function(object, ...) {
   if (inherits(object$fit, "try-error")) {
-    rlang::warn("Model fit failed; cannot make predictions.")
+    cli::cli_warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
   check_for_newdata(...)

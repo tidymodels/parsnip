@@ -86,7 +86,7 @@ glm_grouped <- function(formula, data, weights, ...) {
   }
   if (!is.integer(weights)) {
     weights <- as.integer(weights)
-    rlang::warn(glue::glue("converting case weights from numeric to integer."))
+    cli::cli_warn("Converting case weights from numeric to integer.")
   }
 
   terms <- terms(formula)
