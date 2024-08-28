@@ -166,6 +166,9 @@ executed and saved in the parsnip object. The <code>censor_probs</code> element 
 a "reverse Kaplan-Meier" curve that models the probability of censoring. This
 may be used later to compute inverse probability censoring weights for
 performance measures.</p>
+<p>Sparse data is supported, with the use of the <code>x</code> argument in <code><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy()</a></code>. See
+<code>allow_sparse_x</code> column of <code><a href="set_new_model.html">get_encoding()</a></code> for sparse input
+compatibility.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
