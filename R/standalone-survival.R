@@ -72,7 +72,8 @@
     good_type <- all(obj_type %in% type)
     if (!good_type && fail) {
       cli::cli_abort(
-        "For this usage, the allowed censoring type{?s} {?is/are} {.or {type}}.",
+        "For this usage, the allowed censoring
+         type{?s} {?is/are} {.or {.val {type}}}.",
         call = call
       )
     }
