@@ -52,8 +52,6 @@ test_that("to_sparse_data_frame() is used correctly", {
   )
   
   spec <- boost_tree() %>%
-
-  spec <- svm_linear() %>%
     set_mode("regression") %>%
     set_engine("xgboost")
 
