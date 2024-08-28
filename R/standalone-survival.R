@@ -9,6 +9,9 @@
 #
 
 # ## Changelog
+# 2024-08-28
+# * .check_cens_type() and .is_surv now use cli error formats.
+#
 # 2024-01-10
 # * .filter_eval_time() gives more informative warning.
 #
@@ -68,7 +71,7 @@
     obj_type <- .extract_surv_type(surv)
     good_type <- all(obj_type %in% type)
     if (!good_type && fail) {
-      rlang::abort(
+      cli::cli_abort(
         "For this usage, the allowed censoring type{?s} {?is/are} {.or {type}}.",
         call = call
       )
