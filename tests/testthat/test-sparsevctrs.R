@@ -1,11 +1,11 @@
 test_that("sparse matrices can be passed to `fit_xy()", {
-  skip_if_not_installed("LiblineaR")
+  skip_if_not_installed("xgboost")
 
   hotel_data <- sparse_hotel_rates()
 
-  spec <- svm_linear() %>%
+  spec <- boost_tree() %>%
     set_mode("regression") %>%
-    set_engine("LiblineaR")
+    set_engine("xgboost")
 
   expect_no_error(
     lm_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
@@ -21,7 +21,7 @@ test_that("sparse matrices can be passed to `fit_xy()", {
 })
 
 test_that("to_sparse_data_frame() is used correctly", {
-  skip_if_not_installed("LiblineaR")
+  skip_if_not_installed("xgboost")
   
   local_mocked_bindings(
     to_sparse_data_frame = function(x, object) {
@@ -50,9 +50,9 @@ test_that("to_sparse_data_frame() is used correctly", {
     fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
   
-  spec <- svm_linear() %>%
+  spec <- boost_tree() %>%
     set_mode("regression") %>%
-    set_engine("LiblineaR")
+    set_engine("xgboost")
 
   expect_snapshot(
     error = TRUE,
@@ -61,7 +61,7 @@ test_that("to_sparse_data_frame() is used correctly", {
 })
 
 test_that("maybe_sparse_matrix() is used correctly", {
-  skip_if_not_installed("LiblineaR")
+  skip_if_not_installed("xgboost")
   
   local_mocked_bindings(
     maybe_sparse_matrix = function(x) {
@@ -75,9 +75,9 @@ test_that("maybe_sparse_matrix() is used correctly", {
 
   hotel_data <- sparse_hotel_rates()
 
-  spec <- svm_linear() %>%
+  spec <- boost_tree() %>%
     set_mode("regression") %>%
-    set_engine("LiblineaR")
+    set_engine("xgboost")
 
   expect_snapshot(
     error = TRUE,
