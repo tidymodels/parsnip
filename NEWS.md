@@ -2,6 +2,10 @@
 
 * `fit_xy()` can now take dgCMatrix input for `x` argument (#1121).
 
+* Transitioned package errors and warnings to use cli (#1147 and #1148 by
+  @shum461, #1153 by @RobLBaker and @wright13, #1154 by @JamesHWade, #1160, 
+  #1161).
+
 * `fit_xy()` currently raises an error for `gen_additive_mod()` model specifications as the default engine (`"mgcv"`) specifies smoothing terms in model formulas. However, some engines specify smooths via additional arguments, in which case the restriction on `fit_xy()` is excessive. parsnip will now only raise an error when fitting a `gen_additive_mod()` with `fit_xy()` when using the `"mgcv"` engine (#775).
 
 * Aligned `null_model()` with other model types; the model type now has an engine argument that defaults to `"parsnip"` and is checked with the same machinery that checks other model types in the package (#1083).

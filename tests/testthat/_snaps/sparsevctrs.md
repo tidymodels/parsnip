@@ -3,9 +3,8 @@
     Code
       lm_fit <- fit_xy(spec, x = hotel_data[1:100, -1], y = hotel_data[1:100, 1])
     Condition
-      Warning:
-      ! `x` is a sparse matrix, but model doesn't accept that.
-      i Converted `x` to data.frame.
+      Error in `to_sparse_data_frame()`:
+      ! `x` is a sparse matrix, but `linear_reg()` with engine `lm` doesn't accept that.
 
 # to_sparse_data_frame() is used correctly
 
