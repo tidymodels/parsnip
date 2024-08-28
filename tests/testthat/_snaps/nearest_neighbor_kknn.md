@@ -5,7 +5,7 @@
     Condition
       Warning:
       ! 1000 samples were requested but there were 333 rows in the data.
-      i 328 will be used.
+      i 328 samples will be used.
 
 ---
 
@@ -14,5 +14,5 @@
     Condition
       Warning:
       ! 1000 samples were requested but there were 333 rows in the data.
-      i 328 will be used.
+      i 328 samples will be used.
 
