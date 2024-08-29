@@ -406,7 +406,7 @@ maybe_sparse_matrix <- function(x) {
     return(x)
   }
 
-  if (any(vapply(x, sparsevctrs::is_sparse_vector, logical(1)))) {
+  if (is_sparse_tibble(x)) {
     res <- sparsevctrs::coerce_to_sparse_matrix(x)
   } else {
     res <- as.matrix(x)

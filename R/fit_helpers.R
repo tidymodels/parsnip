@@ -131,7 +131,7 @@ form_xy <- function(object, control, env,
   remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
   allow_sparse_x <- encoding_info %>% dplyr::pull(allow_sparse_x)
 
-  if (allow_sparse_x && any(vapply(env$data, sparsevctrs::is_sparse_vector, logical(1)))) {
+  if (allow_sparse_x && is_sparse_tibble(env$data)) {
     target <- "dgCMatrix"
   }
 
