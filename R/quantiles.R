@@ -9,6 +9,8 @@ check_quantile_level <- function(x, object, call) {
       {.arg quantile_level} must be specified for quantile regression models.")
     }
   }
+  # TODO we need better vectorization here, otherwise we get things like:
+  # "Error during wrapup: i In index: 2." in the traceback.
   res <-
     purrr::map(x,
                ~ check_number_decimal(.x, min = 0, max = 1,
