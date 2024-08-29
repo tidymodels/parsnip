@@ -174,18 +174,8 @@ fit.model_spec <-
     eval_env$formula <- formula
     eval_env$weights <- wts
 
-    if ((!allow_sparse(object)) && is_sparse_tibble(data)) {
-      cli::cli_warn(
-        "{.arg data} is a sparse tibble, but {.fn {class(object)[1]}} with
-        engine {.code {object$engine}} doesn't accept that. Converting to 
-        non-sparse."
-      )
-      for (i in seq_along(ncol(data))) {
-        # materialize with []
-        data[[i]] <- data[[i]][]
-      }
-    }
-
+    data <- materialize_sparse_tibble(data, object, "data")
+    
     fit_interface <-
       check_interface(eval_env$formula, eval_env$data, cl, object)
 
