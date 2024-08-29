@@ -20,17 +20,16 @@ is_installed <- function(pkg) {
   res
 }
 
-check_installs <- function(x) {
+check_installs <- function(x, call = rlang::caller_env()) {
   if (length(x$method$libs) > 0) {
     is_inst <- map_lgl(x$method$libs, is_installed)
     if (any(!is_inst)) {
       missing_pkg <- x$method$libs[!is_inst]
       missing_pkg <- paste0(missing_pkg, collapse = ", ")
-      rlang::abort(
-        glue::glue(
-          "This engine requires some package installs: ",
-          glue::glue_collapse(glue::glue("'{missing_pkg}'"), sep = ", ")
-        )
+
+      cli::cli_abort(
+        "Please install the {.pkg {missing_pkg}} package{?s} to use this engine.",
+        call = call
       )
     }
   }
@@ -165,13 +164,11 @@ set_engine.default <- function(object, engine, ...) {
 #' @export
 show_engines <- function(x) {
   if (!is.character(x) || length(x) > 1) {
-    rlang::abort("`show_engines()` takes a single character string as input.")
+    cli::cli_abort("{.arg x} must be a single character string.")
   }
   res <- try(get_from_env(x), silent = TRUE)
   if (inherits(res, "try-error") | is.null(res)) {
-    rlang::abort(
-      paste0("No results found for model function '", x, "'.")
-    )
+    cli::cli_abort("No results found for model function {.val x}.")
   }
   res
 }

@@ -9,7 +9,7 @@ predict_linear_pred.model_fit <- function(object, new_data, ...) {
   check_spec_pred_type(object, "linear_pred")
 
   if (inherits(object$fit, "try-error")) {
-    rlang::warn("Model fit failed; cannot make predictions.")
+    cli::cli_warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
 

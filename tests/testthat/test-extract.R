@@ -8,8 +8,8 @@ test_that('extract', {
   expect_true(inherits(extract_spec_parsnip(x), "model_spec"))
   expect_true(inherits(extract_fit_engine(x), "lm"))
 
-  expect_error(extract_spec_parsnip(x_no_spec), "Internal error")
-  expect_error(extract_fit_engine(x_no_fit), "Internal error")
+  expect_snapshot(error = TRUE, extract_spec_parsnip(x_no_spec))
+  expect_snapshot(error = TRUE, extract_fit_engine(x_no_fit))
 })
 
 # ------------------------------------------------------------------------------

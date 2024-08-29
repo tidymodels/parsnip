@@ -6,12 +6,9 @@ parsnip_spec_add_in <- function() {
   is_inst <- rlang::is_installed(libs)
   if (any(!is_inst)) {
     missing_pkg <- libs[!is_inst]
-    missing_pkg <- paste0(missing_pkg, collapse = ", ")
-    rlang::abort(
-      glue::glue(
-        "The add-in requires some CRAN package installs: ",
-        glue::glue_collapse(glue::glue("'{missing_pkg}'"), sep = ", ")
-      )
+
+    cli::cli_abort(
+      "Please install package{s} {.pkg {missing_pkg}} to use the add-in."
     )
   }
 

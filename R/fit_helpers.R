@@ -66,8 +66,12 @@ xy_xy <- function(object,
                   ...,
                   call = rlang::caller_env()) {
 
-  if (inherits(env$x, "tbl_spark") | inherits(env$y, "tbl_spark"))
-    rlang::abort("spark objects can only be used with the formula interface to `fit()`")
+  if (inherits(env$x, "tbl_spark") | inherits(env$y, "tbl_spark")) {
+    cli::cli_abort(
+      "spark objects can only be used with the formula interface to {.fun fit}.",
+      call = call
+    )
+  }
 
   check_outcome(env$y, object)
 

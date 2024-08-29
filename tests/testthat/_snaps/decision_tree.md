@@ -38,3 +38,21 @@
 
     unused argument (formula = y ~ x)
 
+# argument checks for data dimensions
+
+    Code
+      f_fit <- spec %>% fit(body_mass_g ~ ., data = penguins)
+    Condition
+      Warning:
+      ! 1000 samples were requested but there were 333 rows in the data.
+      i 333 samples will be used.
+
+---
+
+    Code
+      xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g)
+    Condition
+      Warning:
+      ! 1000 samples were requested but there were 333 rows in the data.
+      i 333 samples will be used.
+
