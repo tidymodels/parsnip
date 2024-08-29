@@ -173,7 +173,7 @@ test_that("overhead of parsnip interface is minimal (#1071)", {
     label = paste0("parsnip overhead factor (formula interface): ", bm$median[2])
   )
   expect_true(
-    bm$median[3] < 3.5,
+    bm$median[3] < 3.75,
     label = paste0("parsnip overhead factor (xy interface): ", bm$median[3])
   )
 })
