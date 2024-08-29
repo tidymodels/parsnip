@@ -1,3 +1,26 @@
+test_that("sparse tibble can be passed to `fit()", {
+  skip_if_not_installed("xgboost")
+
+  hotel_data <- sparse_hotel_rates()
+  hotel_data <- sparsevctrs::coerce_to_sparse_tibble(hotel_data)
+
+  spec <- boost_tree() %>%
+    set_mode("regression") %>%
+    set_engine("xgboost")
+
+  expect_no_error(
+    lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
+  )
+
+  spec <- linear_reg() %>%
+    set_mode("regression") %>%
+    set_engine("lm")
+
+  expect_snapshot(
+    lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data[1:100, ])
+  )
+})
+
 test_that("sparse tibble can be passed to `fit_xy()", {
   skip_if_not_installed("xgboost")
 

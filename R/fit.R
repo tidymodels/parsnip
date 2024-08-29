@@ -174,6 +174,19 @@ fit.model_spec <-
     eval_env$formula <- formula
     eval_env$weights <- wts
 
+    if ((!allow_sparse(object)) &&
+        any(vapply(data, sparsevctrs::is_sparse_vector, logical(1)))) {
+      cli::cli_warn(
+        "{.arg data} is a sparse tibble, but {.fn {class(object)[1]}} with
+        engine {.code {object$engine}} doesn't accept that. Converting to 
+        non-sparse."
+      )
+      for (i in seq_along(ncol(data))) {
+        # materialize with []
+        data[[i]] <- data[[i]][]
+      }
+    }
+
     fit_interface <-
       check_interface(eval_env$formula, eval_env$data, cl, object)
 
