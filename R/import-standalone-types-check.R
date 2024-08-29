@@ -1,7 +1,3 @@
-# Standalone file: do not edit by hand
-# Source: <https://github.com/r-lib/rlang/blob/main/R/standalone-types-check.R>
-# ----------------------------------------------------------------------
-#
 # ---
 # repo: r-lib/rlang
 # file: standalone-types-check.R
@@ -12,6 +8,9 @@
 # ---
 #
 # ## Changelog
+#
+# 2024-08-15:
+# - `check_character()` gains an `allow_na` argument (@martaalcalde, #1724)
 #
 # 2023-03-13:
 # - Improved error messages of number checkers (@teunbrand)
@@ -461,15 +460,28 @@ check_formula <- function(x,
 
 # Vectors -----------------------------------------------------------------
 
+# TODO: Figure out what to do with logical `NA` and `allow_na = TRUE`
+
 check_character <- function(x,
                             ...,
+                            allow_na = TRUE,
                             allow_null = FALSE,
                             arg = caller_arg(x),
                             call = caller_env()) {
+
   if (!missing(x)) {
     if (is_character(x)) {
+      if (!allow_na && any(is.na(x))) {
+        abort(
+          sprintf("`%s` can't contain NA values.", arg),
+          arg = arg,
+          call = call
+        )
+      }
+
       return(invisible(NULL))
     }
+
     if (allow_null && is_null(x)) {
       return(invisible(NULL))
     }
@@ -479,7 +491,6 @@ check_character <- function(x,
     x,
     "a character vector",
     ...,
-    allow_na = FALSE,
     allow_null = allow_null,
     arg = arg,
     call = call
