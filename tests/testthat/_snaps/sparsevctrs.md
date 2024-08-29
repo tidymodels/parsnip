@@ -1,3 +1,11 @@
+# sparse tibble can be passed to `fit_xy()
+
+    Code
+      lm_fit <- fit_xy(spec, x = hotel_data[1:100, -1], y = hotel_data[1:100, 1])
+    Condition
+      Warning:
+      `x` is a sparse tibble, but `linear_reg()` with engine `lm` doesn't accept that. Converting to non-sparse.
+
 # sparse matrices can be passed to `fit_xy()
 
     Code

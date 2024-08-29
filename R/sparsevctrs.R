@@ -7,6 +7,19 @@ to_sparse_data_frame <- function(x, object) {
       "{.arg x} is a sparse matrix, but {.fn {class(object)[1]}} with
        engine {.code {object$engine}} doesn't accept that.")
     }
+  } else if (is.data.frame(x)) {
+    if ((!allow_sparse(object)) &&
+        any(vapply(x, sparsevctrs::is_sparse_vector, logical(1)))) {
+       for (i in seq_along(ncol(x))) {
+         cli::cli_warn(
+          "{.arg x} is a sparse tibble, but {.fn {class(object)[1]}} with
+          engine {.code {object$engine}} doesn't accept that. Converting to 
+          non-sparse."
+         )
+         # materialize with []
+         x[[i]] <- x[[i]][]
+       }
+    }
   }
   x
 }
