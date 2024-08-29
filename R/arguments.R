@@ -109,7 +109,8 @@ set_mode.model_spec <- function(object, mode, quantile_level = NULL, ...) {
 
   object$mode <- mode
   object$user_specified_mode <- TRUE
-  check_quantile_level(quantile_level, object, call = caller_env(0))
+  quantile_level <-
+    check_quantile_level(quantile_level, object, call = caller_env(0))
   object$quantile_level <- quantile_level
   object
 }

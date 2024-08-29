@@ -596,7 +596,7 @@ set_fit(
     interface = "formula",
     protect = c("formula", "data", "weights"),
     func = c(pkg = "quantreg", fun = "rq"),
-    defaults = list()
+    defaults = list(tau = expr(quantile_level))
   )
 )
 
@@ -635,22 +635,15 @@ set_pred(
   model = "linear_reg",
   eng = "quantreg",
   mode = "quantile regression",
-  type = "conf_int",
+  type = "quantile",
   value = list(
     pre = NULL,
-    post = function(results, object) {
-      tibble::as_tibble(results) %>%
-        dplyr::select(-fit) %>%
-        setNames(c(".pred_lower", ".pred_upper"))
-    },
+    post = restructure_rq_pred,
     func = c(fun = "predict"),
     args =
       list(
         object = expr(object$fit),
-        newdata = expr(new_data),
-        interval = "confidence",
-        level = expr(level)
+        newdata = expr(new_data)
       )
   )
 )
-
