@@ -79,7 +79,10 @@ ctree_train <-
       if (!is.vector(weights) ||
           !is.integer(weights) ||
           length(weights) != nrow(data)) {
-        rlang::abort("'weights' should be an integer vector with size the same as the number of rows of 'data'.")
+        cli::cli_abort(
+          "{.arg weights} should be an integer vector with size the same
+           as the number of rows of {.arg data}."
+        )
       }
       tree_call$weights <- rlang::expr(weights)
     }
@@ -156,7 +159,10 @@ cforest_train <-
       if (!is.vector(weights) ||
           !is.numeric(weights) ||
           length(weights) != nrow(data)) {
-        rlang::abort("'weights' should be a numeric vector with size the same as the number of rows of 'data'.")
+        cli::cli_abort(
+          "{.arg weights} should be a numeric vector with size the same as
+           the number of rows of {.arg data}."
+        )
       }
       forest_call$weights <- rlang::expr(weights)
     }

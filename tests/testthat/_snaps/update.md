@@ -197,7 +197,7 @@
       expr1 %>% update(param_tibb)
     Condition
       Error in `update_main_parameters()`:
-      ! At least one argument is not a main argument: `nlambda`
+      ! Argument `nlambda` is not a main argument.
 
 ---
 
@@ -205,7 +205,7 @@
       expr1 %>% update(param_list)
     Condition
       Error in `update_main_parameters()`:
-      ! At least one argument is not a main argument: `nlambda`
+      ! Argument `nlambda` is not a main argument.
 
 ---
 
@@ -213,7 +213,7 @@
       expr1 %>% update(parameters = "wat")
     Condition
       Error in `check_final_param()`:
-      ! The parameter object should be a list or tibble
+      ! The parameter object should be a list or tibble.
 
 ---
 
@@ -221,7 +221,7 @@
       expr1 %>% update(parameters = tibble::tibble(wat = "wat"))
     Condition
       Error in `update_main_parameters()`:
-      ! At least one argument is not a main argument: `wat`
+      ! Argument `wat` is not a main argument.
 
 ---
 
@@ -229,5 +229,5 @@
       linear_reg() %>% update(boop = 0)
     Condition
       Error in `update_dot_check()`:
-      ! Extra arguments will be ignored: `boop`
+      ! The extra argument `boop` will be ignored.
 

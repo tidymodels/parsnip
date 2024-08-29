@@ -24,7 +24,7 @@
 #' @export
 required_pkgs.model_spec <- function(x, infra = TRUE, ...) {
   if (is.null(x$engine)) {
-    rlang::abort("Please set an engine.")
+    cli::cli_abort("Please set an engine.")
   }
   get_pkgs(x, infra)
 }

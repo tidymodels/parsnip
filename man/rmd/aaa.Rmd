@@ -137,8 +137,10 @@ uses_extension <- function(mod, eng, mod_mode) {
   
   num_ext <- length(exts)
   if (num_ext > 1) {
-    rlang::abort(c("There are more than one extension packages for:",
-                   mod, eng, mod_mode))
+    cli::cli_abort(
+      "There is more than one extension package for model {.fun {mod}},
+       engine {.val {eng}}, and mode {.val {mod_mode}}."
+    )
   }
   if (num_ext > 0) {
     res <- paste0("The **", 
