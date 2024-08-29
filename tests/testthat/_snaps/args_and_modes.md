@@ -60,7 +60,7 @@
       linear_reg() %>% set_mode()
     Condition
       Error in `set_mode()`:
-      ! Available modes for model type linear_reg are: "unknown" and "regression".
+      ! Available modes for model type linear_reg are: "unknown", "regression", and "quantile regression".
 
 ---
 
@@ -77,7 +77,7 @@
       linear_reg() %>% set_engine()
     Condition
       Error in `set_engine()`:
-      ! Missing engine. Possible mode/engine combinations are: regression {lm, glm, glmnet, stan, spark, keras, brulee}.
+      ! Missing engine. Possible mode/engine combinations are: quantile regression {quantreg} and regression {lm, glm, glmnet, stan, spark, keras, brulee}.
 
 ---
 

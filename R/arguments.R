@@ -92,7 +92,7 @@ set_mode <- function(object, mode, ...) {
 }
 
 #' @export
-set_mode.model_spec <- function(object, mode, quantile_level = NULL) {
+set_mode.model_spec <- function(object, mode, quantile_level = NULL, ...) {
   cls <- class(object)[1]
   if (rlang::is_missing(mode)) {
     spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
@@ -115,7 +115,7 @@ set_mode.model_spec <- function(object, mode, quantile_level = NULL) {
 }
 
 #' @export
-set_mode.default <- function(object, mode) {
+set_mode.default <- function(object, mode, ...) {
   error_set_object(object, func = "set_mode")
 
   invisible(FALSE)
