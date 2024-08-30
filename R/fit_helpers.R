@@ -115,7 +115,7 @@ xy_xy <- function(object,
   } else {
     y_name <- colnames(env$y)
   }
-  res$preproc <- list(y_var = y_name)
+  res$preproc <- list(y_var = y_name, x_names = colnames(env$x))
   res$elapsed <- list(elapsed = elapsed, print = control$verbosity > 1L)
   res
 }
