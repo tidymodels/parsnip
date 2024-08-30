@@ -21,6 +21,21 @@ test_that("sparse matrices can be passed to `fit_xy()", {
   )
 })
 
+test_that("sparse matrices can be passed to `predict()", {
+  skip_if_not_installed("ranger")
+
+  hotel_data <- sparse_hotel_rates()
+
+  spec <- rand_forest(trees = 10) %>%
+    set_mode("regression") %>%
+    set_engine("ranger")
+
+  tree_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
+
+  predict(tree_fit, hotel_data)
+})
+
+
 test_that("to_sparse_data_frame() is used correctly", {
   skip_if_not_installed("xgboost")
   
