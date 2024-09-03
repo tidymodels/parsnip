@@ -38,7 +38,7 @@ new_vec_quantiles <- function(values = list(), quantile_levels = double()) {
   if (length(quantile_levels) != n) {
     cli::cli_abort(c(
       "`quantile_levels` must have the same length as `values`.",
-      "`quantile_levels` has length {.val length(quantile_levels)} not {.val n}."
+      "`quantile_levels` has length {.val {length(quantile_levels)}} not {.val {n}}."
     ))
   }
   purrr::walk(
@@ -46,7 +46,7 @@ new_vec_quantiles <- function(values = list(), quantile_levels = double()) {
     ~ check_number_decimal(.x, min = 0, max = 1, arg = "quantile_levels")
   )
   vctrs::new_vctr(
-    values, levels = quantile_levels, class = "vctrs_quantiles"
+    values, quantile_levels = quantile_levels, class = "vctrs_quantiles"
   )
 }
 
@@ -75,12 +75,13 @@ vec_quantiles <- function(values, quantile_levels = NULL) {
     }
   }
   quantile_levels <- vctrs::vec_cast(quantile_levels, double())
-  if (is.data.frame(values) || (is.matrix(values) && dim(values) == 2)) {
+  n <- length(quantile_levels)
+  if (is.data.frame(values) || (is.matrix(values) && length(dim(values)) == 2)) {
     values <- lapply(vctrs::vec_chop(values), function(v) sort(drop(v)))
   } else if (is.list(values)) {
     values <- values
   } else if (is.null(dim(values))) {
-    values <- list(values)
+    values <- if (length(values) == n) values else vctrs::vec_chop(values)
   } else {
     cli::cli_abort(c(
       "`values` must be a {.cls list}, {.cls matrix}, or {.cls data.frame},",
@@ -95,7 +96,7 @@ format.vctrs_quantiles <- function(x, ...) {
   quantile_levels <- attr(x, "levels")
   if (length(quantile_levels) == 1L) {
     x <- unlist(x)
-    out <- paste0(round(quantile_levels, 2L), ": ", round(unlist(x)))
+    out <- round(x, 3L)
     out[is.na(x)] <- NA
   } else {
     rng <- sapply(x, range)
@@ -104,6 +105,10 @@ format.vctrs_quantiles <- function(x, ...) {
   }
   out
 }
+
+#' @importFrom vctrs obj_print_footer
+#' @export
+vctrs::obj_print_footer
 
 #' @export
 obj_print_footer.vctrs_quantiles <- function(x, ...) {

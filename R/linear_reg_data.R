@@ -612,24 +612,6 @@ set_encoding(
   )
 )
 
-set_pred(
-  model = "linear_reg",
-  eng = "quantreg",
-  mode = "quantile regression",
-  type = "numeric",
-  value = list(
-    pre = NULL,
-    post = NULL,
-    func = c(fun = "predict"),
-    args =
-      list(
-        object = expr(object$fit),
-        newdata = expr(new_data),
-        type = "response",
-        rankdeficient = "simple"
-      )
-  )
-)
 
 set_pred(
   model = "linear_reg",

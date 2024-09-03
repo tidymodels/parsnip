@@ -615,9 +615,8 @@ set_pred(
 # wrappers for grf
 process_quantile_forest_preds <- function(x, object) {
   quantile_levels <- extract_fit_engine(object)$quantiles.orig
-  out <- lapply(vec_chop(x$predictions), function(x) sort(drop(x)))
-  out <- vec_quantiles(out, quantile_levels)
-  out
+  out <- lapply(vctrs::vec_chop(x$predictions), function(x) sort(drop(x)))
+  tibble(.pred_quantile = vec_quantiles(out, quantile_levels))
 }
 process_regression_forest_preds <- function(x, object) {
   tibble(.pred = x$predictions)
