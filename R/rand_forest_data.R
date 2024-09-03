@@ -608,3 +608,202 @@ set_pred(
            dataset = quote(new_data))
   )
 )
+
+
+# -------------------------------------------------------------------------
+# wrappers for grf
+process_quantile_forest_preds <- function(x, object) {
+  quantile_levels <- extract_fit_engine(object)$quantiles.orig
+  out <- lapply(vec_chop(x$predictions), function(x) sort(drop(x)))
+  out <- vec_quantiles(out, quantile_levels)
+  tibble(.pred_quantile = out)
+}
+process_regression_forest_preds <- function(x, object) {
+  tibble(.pred = x$predictions)
+}
+process_probability_forest_class <- function(x, object) {
+  x <- x$predictions
+  max_class <- factor(
+    colnames(x)[apply(x, 1, which.max)],
+    levels = colnames(x)
+  )
+  tibble(.pred_class = max_class)
+}
+process_probability_forest_prob <- function(x, object) {
+  as_tibble(x$predictions)
+}
+
+# grf components
+
+set_model_engine("rand_forest", "quantile regression", "grf")
+set_model_engine("rand_forest", "regression", "grf")
+set_model_engine("rand_forest", "classification", "grf")
+set_dependency(
+  model = "rand_forest",
+  eng = "grf",
+  pkg = "grf"
+)
+set_model_arg(
+  model = "rand_forest",
+  eng = "grf",
+  parsnip = "mtry",
+  original = "mtry",
+  func = list(pkg = "dials", fun = "mtry"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "rand_forest",
+  eng = "grf",
+  parsnip = "trees",
+  original = "num.trees",
+  func = list(pkg = "dials", fun = "trees"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "rand_forest",
+  eng = "grf",
+  parsnip = "min_n",
+  original = "min.node.size",
+  func = list(pkg = "dials", fun = "min_n"),
+  has_submodel = FALSE
+)
+
+
+set_fit(
+  model = "rand_forest",
+  eng = "grf",
+  mode = "quantile regression",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    data = c(x = "X", y = "Y"),
+    func = c(pkg = "grf", fun = "quantile_forest"),
+    defaults = list(
+      quantiles = expr(quantile_level),
+      num.threads = 1L,
+      seed = expr(runif(1, 0, .Machine$integer.max))
+    )
+  )
+)
+set_encoding(
+  model = "rand_forest",
+  eng = "grf",
+  mode = "quantile regression",
+  options = list(
+    predictor_indicators = "one_hot",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_fit(
+  model = "rand_forest",
+  eng = "grf",
+  mode = "regression",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y", "weights"),
+    data = c(x = "X", y = "Y", weights = "sample.weights"),
+    func = c(pkg = "grf", fun = "regression_forest"),
+    defaults = list(
+      num.threads = 1L,
+      seed = rlang::expr(stats::runif(1, 0, .Machine$integer.max))
+    )
+  )
+)
+set_encoding(
+  model = "rand_forest",
+  eng = "grf",
+  mode = "regression",
+  options = list(
+    predictor_indicators = "one_hot",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_fit(
+  model = "rand_forest",
+  eng = "grf",
+  mode = "classification",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y", "weights"),
+    data = c(x = "X", y = "Y", weights = "sample.weights"),
+    func = c(pkg = "grf", fun = "probability_forest"),
+    defaults = list(
+      num.threads = 1L,
+      seed = rlang::expr(stats::runif(1, 0, .Machine$integer.max))
+    )
+  )
+)
+set_encoding(
+  model = "rand_forest",
+  eng = "grf",
+  mode = "classification",
+  options = list(
+    predictor_indicators = "one_hot",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_pred(
+  model = "rand_forest",
+  eng = "grf",
+  mode = "quantile regression",
+  type = "quantile",
+  value = pred_value_template(
+    pre = NULL,
+    post = process_quantile_forest_preds,
+    func = c(fun = "predict"),
+    object = expr(object$fit),
+    newdata = expr(new_data),
+    seed = expr(sample.int(10^5, 1)),
+    verbose = FALSE
+  )
+)
+set_pred(
+  model = "rand_forest",
+  eng = "grf",
+  mode = "regression",
+  type = "numeric",
+  value = parsnip::pred_value_template(
+    pre = NULL,
+    post = process_regression_forest_preds,
+    func = c(fun = "predict"),
+    object = quote(object$fit),
+    newdata = quote(new_data)
+  )
+)
+set_pred(
+  model = "rand_forest",
+  eng = "grf",
+  mode = "classification",
+  type = "class",
+  value = parsnip::pred_value_template(
+    pre = NULL,
+    post = process_probability_forest_class,
+    func = c(fun = "predict"),
+    object = quote(object$fit),
+    newdata = quote(new_data)
+  )
+)
+set_pred(
+  model = "rand_forest",
+  eng = "grf",
+  mode = "classification",
+  type = "prob",
+  value = parsnip::pred_value_template(
+    pre = NULL,
+    post = process_probability_forest_prob,
+    func = c(fun = "predict"),
+    object = quote(object$fit),
+    newdata = quote(new_data)
+  )
+)
+
+
