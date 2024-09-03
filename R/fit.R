@@ -169,6 +169,10 @@ fit.model_spec <-
     eval_env$formula <- formula
     eval_env$weights <- wts
 
+    if ( !is.null(object$quantile_level) ) {
+      eval_env$quantile_level <- object$quantile_level
+    }
+
     fit_interface <-
       check_interface(eval_env$formula, eval_env$data, cl, object)
 
@@ -281,6 +285,10 @@ fit_xy.model_spec <-
     eval_env$y <- y
     eval_env$y_var <- y_var
     eval_env$weights <- weights_to_numeric(case_weights, object)
+
+    if ( !is.null(object$quantile_level) ) {
+      eval_env$quantile_level <- object$quantile_level
+    }
 
     # TODO case weights: pass in eval_env not individual elements
     fit_interface <- check_xy_interface(eval_env$x, eval_env$y, cl, object)

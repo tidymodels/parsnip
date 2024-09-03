@@ -87,12 +87,12 @@ set_args.default <- function(object,...) {
 
 #' @rdname set_args
 #' @export
-set_mode <- function(object, mode) {
+set_mode <- function(object, mode, ...) {
   UseMethod("set_mode")
 }
 
 #' @export
-set_mode.model_spec <- function(object, mode) {
+set_mode.model_spec <- function(object, mode, quantile_level = NULL, ...) {
   cls <- class(object)[1]
   if (rlang::is_missing(mode)) {
     spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
@@ -109,11 +109,14 @@ set_mode.model_spec <- function(object, mode) {
 
   object$mode <- mode
   object$user_specified_mode <- TRUE
+  quantile_level <-
+    check_quantile_level(quantile_level, object, call = caller_env(0))
+  object$quantile_level <- quantile_level
   object
 }
 
 #' @export
-set_mode.default <- function(object, mode) {
+set_mode.default <- function(object, mode, ...) {
   error_set_object(object, func = "set_mode")
 
   invisible(FALSE)
