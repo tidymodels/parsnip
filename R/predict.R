@@ -199,15 +199,11 @@ check_pred_type <- function(object, type, ...) {
              classification = "class",
              "censored regression" = "time",
              "quantile regression" = "quantile",
-             rlang::abort("`type` should be 'regression', 'censored regression', 'quantile regression', or 'classification'."))
+             cli::cli_abort("{.arg type} should be one of {.val {all_modes}}."))
   }
-  if (!(type %in% pred_types))
-    rlang::abort(
-      glue::glue(
-        "`type` should be one of: ",
-        glue_collapse(pred_types, sep = ", ", last = " and ")
-      )
-    )
+  if (!(type %in% pred_types)) {
+    cli::cli_abort("{.arg type} should be one of {.val {pred_types}}.")
+  }
 
   switch(
     type,

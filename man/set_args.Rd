@@ -7,7 +7,7 @@
 \usage{
 set_args(object, ...)
 
-set_mode(object, mode)
+set_mode(object, mode, ...)
 }
 \arguments{
 \item{object}{A model specification.}
