@@ -82,6 +82,7 @@ set_new_model("rand_forest")
 set_model_mode("rand_forest", "classification")
 set_model_mode("rand_forest", "regression")
 set_model_mode("rand_forest", "censored regression")
+set_model_mode("rand_forest", "quantile regression")
 
 # ------------------------------------------------------------------------------
 # ranger components
@@ -616,7 +617,7 @@ process_quantile_forest_preds <- function(x, object) {
   quantile_levels <- extract_fit_engine(object)$quantiles.orig
   out <- lapply(vec_chop(x$predictions), function(x) sort(drop(x)))
   out <- vec_quantiles(out, quantile_levels)
-  tibble(.pred_quantile = out)
+  out
 }
 process_regression_forest_preds <- function(x, object) {
   tibble(.pred = x$predictions)
@@ -771,7 +772,7 @@ set_pred(
   eng = "grf",
   mode = "regression",
   type = "numeric",
-  value = parsnip::pred_value_template(
+  value = pred_value_template(
     pre = NULL,
     post = process_regression_forest_preds,
     func = c(fun = "predict"),
@@ -784,7 +785,7 @@ set_pred(
   eng = "grf",
   mode = "classification",
   type = "class",
-  value = parsnip::pred_value_template(
+  value = pred_value_template(
     pre = NULL,
     post = process_probability_forest_class,
     func = c(fun = "predict"),
@@ -797,7 +798,7 @@ set_pred(
   eng = "grf",
   mode = "classification",
   type = "prob",
-  value = parsnip::pred_value_template(
+  value = pred_value_template(
     pre = NULL,
     post = process_probability_forest_prob,
     func = c(fun = "predict"),
