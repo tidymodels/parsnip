@@ -106,4 +106,20 @@ test_that('non-factor classification', {
   )
 })
 
+test_that("predict() works for model fit with fit_xy() (#1166)", {
+  skip_if_not_installed("xgboost")
 
+  spec <- boost_tree() %>%
+    set_mode("regression") %>%
+    set_engine("xgboost")
+
+  tree_fit <- fit(spec, mpg ~ ., data = mtcars)
+
+  exp <- predict(tree_fit, mtcars)
+
+  tree_fit <- fit_xy(spec, x = mtcars[, -1], y = mtcars[, 1])
+
+  res <- predict(tree_fit, mtcars)
+  
+  expect_identical(exp, res)
+})
