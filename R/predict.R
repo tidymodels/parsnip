@@ -160,6 +160,8 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
   }
   check_pred_type_dots(object, type, ...)
 
+  new_data <- to_sparse_data_frame(new_data, object)
+
   res <- switch(
     type,
     numeric     = predict_numeric(object = object, new_data = new_data, ...),

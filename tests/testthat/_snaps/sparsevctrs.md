@@ -22,6 +22,14 @@
       Error in `to_sparse_data_frame()`:
       ! `x` is a sparse matrix, but `linear_reg()` with engine `lm` doesn't accept that.
 
+# sparse matrices can be passed to `predict()
+
+    Code
+      predict(lm_fit, sparse_mtcars)
+    Condition
+      Error in `to_sparse_data_frame()`:
+      ! `x` is a sparse matrix, but `linear_reg()` with engine `lm` doesn't accept that.
+
 # to_sparse_data_frame() is used correctly
 
     Code

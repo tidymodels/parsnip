@@ -78,9 +78,23 @@ test_that("sparse matrices can be passed to `predict()", {
 
   tree_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
 
-  predict(tree_fit, hotel_data)
-})
+  expect_no_error(
+    predict(tree_fit, hotel_data)
+  )
 
+  spec <- linear_reg() %>%
+    set_mode("regression") %>%
+    set_engine("lm")
+
+  lm_fit <- fit(spec, mpg ~ ., data = mtcars)
+
+  sparse_mtcars <- sparsevctrs::coerce_to_sparse_matrix(mtcars)
+
+  expect_snapshot(
+    error = TRUE,
+    predict(lm_fit, sparse_mtcars)
+  )
+})
 
 test_that("to_sparse_data_frame() is used correctly", {
   skip_if_not_installed("xgboost")
