@@ -264,6 +264,7 @@ make_xy_call <- function(object, target, env) {
       none = rlang::expr(x),
       data.frame = rlang::expr(maybe_data_frame(x)),
       matrix = rlang::expr(maybe_matrix(x)),
+      dgCMatrix = rlang::expr(maybe_sparse_matrix(x)),
       cli::cli_abort("Invalid data type target: {target}.")
     )
   if (uses_weights) {

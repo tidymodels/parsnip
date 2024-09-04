@@ -174,6 +174,8 @@ fit.model_spec <-
     eval_env$formula <- formula
     eval_env$weights <- wts
 
+    data <- materialize_sparse_tibble(data, object, "data")
+    
     fit_interface <-
       check_interface(eval_env$formula, eval_env$data, cl, object)
 

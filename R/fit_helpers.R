@@ -115,7 +115,7 @@ xy_xy <- function(object,
   } else {
     y_name <- colnames(env$y)
   }
-  res$preproc <- list(y_var = y_name)
+  res$preproc <- list(y_var = y_name, x_names = colnames(env$x))
   res$elapsed <- list(elapsed = elapsed, print = control$verbosity > 1L)
   res
 }
@@ -129,6 +129,11 @@ form_xy <- function(object, control, env,
 
   indicators <- encoding_info %>% dplyr::pull(predictor_indicators)
   remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
+  allow_sparse_x <- encoding_info %>% dplyr::pull(allow_sparse_x)
+
+  if (allow_sparse_x && is_sparse_tibble(env$data)) {
+    target <- "dgCMatrix"
+  }
 
   data_obj <- .convert_form_to_xy_fit(
     formula = env$formula,

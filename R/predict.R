@@ -440,11 +440,17 @@ prepare_data <- function(object, new_data) {
   preproc_names <- names(object$preproc)
   translate_from_formula_to_xy <- any(preproc_names == "terms", na.rm = TRUE)
   translate_from_xy_to_formula <- any(preproc_names == "x_var", na.rm = TRUE)
+  # For backwards compatibility, only do this if `y_var` is missing and
+  # `x_names` is present
+  translate_from_xy_to_xy <- any(preproc_names == "x_names", na.rm = TRUE) &&
+    identical(object$preproc$y_var, character(0))
 
   if (translate_from_formula_to_xy) {
     new_data <- .convert_form_to_xy_new(object$preproc, new_data)$x
   } else if (translate_from_xy_to_formula) {
     new_data <- .convert_xy_to_form_new(object$preproc, new_data)
+  } else if (translate_from_xy_to_xy) {
+    new_data <- new_data[, object$preproc$x_names]
   }
 
   encodings <- get_encoding(class(object$spec)[1])
