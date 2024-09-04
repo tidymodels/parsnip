@@ -34,12 +34,12 @@ vec_ptype_full.vctrs_quantiles <- function(x, ...) "quantiles"
 #' @importFrom rlang is_list is_double !!!
 new_vec_quantiles <- function(values = list(), quantile_levels = double()) {
   quantile_levels <- vctrs::vec_cast(quantile_levels, double())
-  n <- vctrs::vec_size_common(!!!values)
-  if (length(quantile_levels) != n) {
-    cli::cli_abort(c(
-      "`quantile_levels` must have the same length as `values`.",
-      "`quantile_levels` has length {.val {length(quantile_levels)}} not {.val {n}}."
-    ))
+  num_values <- vctrs::vec_size_common(!!!values)
+  if (length(quantile_levels) != num_values) {
+    cli::cli_abort(
+      "{.arg quantile_levels} must have the same length as {.arg values}. It has
+      length {.val {length(quantile_levels)}} not {.val {num_values}}."
+    )
   }
   purrr::walk(
     quantile_levels,
@@ -65,30 +65,42 @@ new_vec_quantiles <- function(values = list(), quantile_levels = double()) {
 #'
 #' vec_quantiles(1:4, 1:4 / 5)
 vec_quantiles <- function(values, quantile_levels = NULL) {
-  if (is.null(quantile_levels)) {
-    if (!is.data.frame(values)) {
-      cli::cli_abort("If `quantile_levels` is `NULL`, `values` must be a data.frame.")
-    }
-    quantile_levels <- as.numeric(names(values))
-    if (any(is.na(quantile_levels))) {
-      cli::cli_abort("If `quantile_levels` is `NULL`, `values` must be a data.frame with numeric names.")
-    }
-  }
+  check_vec_quantiles_inputs(values, quantile_levels)
+# TODO save call reference
   quantile_levels <- vctrs::vec_cast(quantile_levels, double())
-  n <- length(quantile_levels)
+
+  num_lvls <- length(quantile_levels)
+
   if (is.data.frame(values) || (is.matrix(values) && length(dim(values)) == 2)) {
     values <- lapply(vctrs::vec_chop(values), function(v) sort(drop(v)))
   } else if (is.list(values)) {
     values <- values
   } else if (is.null(dim(values))) {
-    values <- if (length(values) == n) values else vctrs::vec_chop(values)
+    if (length(values) != num_lvls) {
+      values <- vctrs::vec_chop(values)
+    }
   } else {
-    cli::cli_abort(c(
-      "`values` must be a {.cls list}, {.cls matrix}, or {.cls data.frame},",
-      "not a {.cls {class(values)}}."
-    ))
+    cli::cli_abort(
+      "{.arg values} must be a {.cls list}, {.cls matrix}, or {.cls data.frame},
+      not a {.cls {class(values)}}."
+    )
   }
   new_vec_quantiles(values, quantile_levels)
+}
+
+check_vec_quantiles_inputs <- function(values, levels) {
+  if (is.null(levels)) {
+    if (!is.data.frame(values)) {
+      cli::cli_abort("If {.arg quantile_levels} is `NULL`, {.arg values} must
+                     be a data.frame.")
+    }
+    levels <- as.numeric(names(values))
+    if (any(is.na(levels))) {
+      cli::cli_abort("If {.arg quantile_levels} is `NULL`, {.arg values} must
+                     be a data.frame with numeric names.")
+    }
+  }
+  invisible(NULL)
 }
 
 #' @export
@@ -112,17 +124,12 @@ vctrs::obj_print_footer
 
 #' @export
 obj_print_footer.vctrs_quantiles <- function(x, ...) {
-  lvls <- attr(x, "levels")
-  cat("# Qntl levels: ", format(lvls, digits = 3), "\n", sep = " ")
+  lvls <- attr(x, "quantile_levels")
+  cat("# Quantile levels: ", format(lvls, digits = 3), "\n", sep = " ")
 }
-
-
 
 # Assumes the columns have the same order as quantile_level
 restructure_rq_pred <- function(x, object) {
-  # p <- ncol(x)
-  # TODO check p = length(quantile_level)
-  # check p = 1 case
   quantile_level <- object$spec$quantile_level
   res <- tibble(.pred_quantile = vec_quantiles(x, quantile_level))
   res
