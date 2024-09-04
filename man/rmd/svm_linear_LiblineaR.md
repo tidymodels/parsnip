@@ -85,6 +85,11 @@ scale each so that each predictor has mean zero and a variance of one.
 
 The underlying model implementation does not allow for case weights. 
 
+## Sparse Data
+
+
+This model can utilize sparse data during model fitting and prediction. Both sparse matrices such as dgCMatrix from the `Matrix` package and sparse tibbles from the `sparsevctrs` package are supported. See [sparse_data] for more information.
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-linear-LiblineaR) for `svm_linear()` with the `"LiblineaR"` engine.

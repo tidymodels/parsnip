@@ -65,6 +65,11 @@ For classification, non-numeric outcomes (i.e., factors) are internally converte
 ```{r child = "template-uses-case-weights.Rmd"}
 ```
 
+## Sparse Data
+
+```{r child = "template-uses-sparse-data.Rmd"}
+```
+
 ## Other details
 
 ### Interfacing with the `params` argument
