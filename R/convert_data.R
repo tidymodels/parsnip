@@ -41,9 +41,10 @@
                                     indicators = "traditional",
                                     composition = "data.frame",
                                     remove_intercept = TRUE) {
-  if (!(composition %in% c("data.frame", "matrix"))) {
+  if (!(composition %in% c("data.frame", "matrix", "dgCMatrix"))) {
     cli::cli_abort(
-      "{.arg composition} should be either {.val data.frame} or {.val matrix}."
+      "{.arg composition} should be either {.val data.frame}, {.val matrix}, or
+      {.val dgCMatrix}."
     )
   }
 
@@ -115,6 +116,18 @@
     res <-
       list(
         x = as.data.frame(x),
+        y = y,
+        weights = w,
+        offset = offset,
+        terms = mod_terms,
+        xlevels = .getXlevels(mod_terms, mod_frame),
+        options = options
+      )
+  } else if (composition == "dgCMatrix") {
+    x <- sparsevctrs::coerce_to_sparse_matrix(data)
+    res <-
+      list(
+        x = x,
         y = y,
         weights = w,
         offset = offset,
@@ -389,7 +402,11 @@ maybe_matrix <- function(x) {
 }
 
 maybe_sparse_matrix <- function(x) {
-  if (any(vapply(x, sparsevctrs::is_sparse_vector, logical(1)))) {
+  if (methods::is(x, "sparseMatrix")) {
+    return(x)
+  }
+
+  if (is_sparse_tibble(x)) {
     res <- sparsevctrs::coerce_to_sparse_matrix(x)
   } else {
     res <- as.matrix(x)

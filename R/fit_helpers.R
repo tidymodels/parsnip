@@ -129,6 +129,11 @@ form_xy <- function(object, control, env,
 
   indicators <- encoding_info %>% dplyr::pull(predictor_indicators)
   remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
+  allow_sparse_x <- encoding_info %>% dplyr::pull(allow_sparse_x)
+
+  if (allow_sparse_x && is_sparse_tibble(env$data)) {
+    target <- "dgCMatrix"
+  }
 
   data_obj <- .convert_form_to_xy_fit(
     formula = env$formula,
