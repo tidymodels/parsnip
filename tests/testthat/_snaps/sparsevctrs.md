@@ -22,6 +22,14 @@
       Error in `to_sparse_data_frame()`:
       ! `x` is a sparse matrix, but `linear_reg()` with engine `lm` doesn't accept that.
 
+# sparse tibble can be passed to `predict()
+
+    Code
+      preds <- predict(lm_fit, sparse_mtcars)
+    Condition
+      Warning:
+      `x` is a sparse tibble, but `linear_reg()` with engine `lm` doesn't accept that. Converting to non-sparse.
+
 # sparse matrices can be passed to `predict()
 
     Code

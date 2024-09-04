@@ -23,6 +23,10 @@ is_sparse_tibble <- function(x) {
 
 materialize_sparse_tibble <- function(x, object, input) {
   if ((!allow_sparse(object)) && is_sparse_tibble(x)) {
+    if (inherits(object, "model_fit")) {
+      object <- object$spec
+    }
+    
     cli::cli_warn(
       "{.arg {input}} is a sparse tibble, but {.fn {class(object)[1]}} with
       engine {.code {object$engine}} doesn't accept that. Converting to 
