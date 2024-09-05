@@ -444,6 +444,10 @@ check_xy_interface <- function(x, y, cl, model) {
 }
 
 allow_sparse <- function(x) {
+  if (inherits(x, "model_fit")) {
+    x <- x$spec
+  }
+
   res <- get_from_env(paste0(class(x)[1], "_encoding"))
   all(res$allow_sparse_x[res$engine == x$engine])
 }

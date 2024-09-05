@@ -3,6 +3,10 @@ to_sparse_data_frame <- function(x, object) {
     if (allow_sparse(object)) {
       x <- sparsevctrs::coerce_to_sparse_data_frame(x)
     } else {
+      if (inherits(object, "model_fit")) {
+        object <- object$spec
+      }
+    
       cli::cli_abort(
       "{.arg x} is a sparse matrix, but {.fn {class(object)[1]}} with
        engine {.code {object$engine}} doesn't accept that.")
@@ -19,6 +23,10 @@ is_sparse_tibble <- function(x) {
 
 materialize_sparse_tibble <- function(x, object, input) {
   if (is_sparse_tibble(x) && (!allow_sparse(object))) {
+    if (inherits(object, "model_fit")) {
+      object <- object$spec
+    }
+    
     cli::cli_warn(
       "{.arg {input}} is a sparse tibble, but {.fn {class(object)[1]}} with
       engine {.code {object$engine}} doesn't accept that. Converting to 

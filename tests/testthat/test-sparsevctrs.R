@@ -67,6 +67,66 @@ test_that("sparse matrices can be passed to `fit_xy()", {
   )
 })
 
+test_that("sparse tibble can be passed to `predict()", {
+  skip_if_not_installed("ranger")
+
+  hotel_data <- sparse_hotel_rates()
+  hotel_data <- sparsevctrs::coerce_to_sparse_tibble(hotel_data)
+
+  spec <- rand_forest(trees = 10) %>%
+    set_mode("regression") %>%
+    set_engine("ranger")
+
+  tree_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
+
+  expect_no_error(
+    predict(tree_fit, hotel_data)
+  )
+
+  spec <- linear_reg() %>%
+    set_mode("regression") %>%
+    set_engine("lm")
+
+  lm_fit <- fit(spec, mpg ~ ., data = mtcars)
+
+  sparse_mtcars <- mtcars %>%
+    sparsevctrs::coerce_to_sparse_matrix() %>%
+    sparsevctrs::coerce_to_sparse_tibble()
+
+  expect_snapshot(
+    preds <- predict(lm_fit, sparse_mtcars)
+  )
+})
+
+test_that("sparse matrices can be passed to `predict()", {
+  skip_if_not_installed("ranger")
+
+  hotel_data <- sparse_hotel_rates()
+
+  spec <- rand_forest(trees = 10) %>%
+    set_mode("regression") %>%
+    set_engine("ranger")
+
+  tree_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
+
+  expect_no_error(
+    predict(tree_fit, hotel_data)
+  )
+
+  spec <- linear_reg() %>%
+    set_mode("regression") %>%
+    set_engine("lm")
+
+  lm_fit <- fit(spec, mpg ~ ., data = mtcars)
+
+  sparse_mtcars <- sparsevctrs::coerce_to_sparse_matrix(mtcars)
+
+  expect_snapshot(
+    error = TRUE,
+    predict(lm_fit, sparse_mtcars)
+  )
+})
+
 test_that("to_sparse_data_frame() is used correctly", {
   skip_if_not_installed("xgboost")
   
