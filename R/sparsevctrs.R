@@ -9,7 +9,7 @@ to_sparse_data_frame <- function(x, object, call = rlang::caller_env()) {
     
       cli::cli_abort(
         "{.arg x} is a sparse matrix, but {.fn {class(object)[1]}} with
-        engine {.code {object$engine}} doesn't accept that.",
+        engine {.val {object$engine}} doesn't accept that.",
         call = call
       )
     }
@@ -35,7 +35,7 @@ materialize_sparse_tibble <- function(x, object, input) {
     
     cli::cli_warn(
       "{.arg {input}} is a sparse tibble, but {.fn {class(object)[1]}} with
-      engine {.code {object$engine}} doesn't accept that. Converting to 
+      engine {.val {object$engine}} doesn't accept that. Converting to 
       non-sparse."
     )
     for (i in seq_along(ncol(x))) {

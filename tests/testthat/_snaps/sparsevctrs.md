@@ -4,7 +4,7 @@
       lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data[1:100, ])
     Condition
       Warning:
-      `data` is a sparse tibble, but `linear_reg()` with engine `lm` doesn't accept that. Converting to non-sparse.
+      `data` is a sparse tibble, but `linear_reg()` with engine "lm" doesn't accept that. Converting to non-sparse.
 
 # sparse tibble can be passed to `fit_xy()
 
@@ -12,7 +12,7 @@
       lm_fit <- fit_xy(spec, x = hotel_data[1:100, -1], y = hotel_data[1:100, 1])
     Condition
       Warning:
-      `x` is a sparse tibble, but `linear_reg()` with engine `lm` doesn't accept that. Converting to non-sparse.
+      `x` is a sparse tibble, but `linear_reg()` with engine "lm" doesn't accept that. Converting to non-sparse.
 
 # sparse matrices can be passed to `fit_xy()
 
@@ -20,7 +20,7 @@
       lm_fit <- fit_xy(spec, x = hotel_data[1:100, -1], y = hotel_data[1:100, 1])
     Condition
       Error in `fit_xy()`:
-      ! `x` is a sparse matrix, but `linear_reg()` with engine `lm` doesn't accept that.
+      ! `x` is a sparse matrix, but `linear_reg()` with engine "lm" doesn't accept that.
 
 # sparse matrices can not be passed to `fit()
 
@@ -37,7 +37,7 @@
       preds <- predict(lm_fit, sparse_mtcars)
     Condition
       Warning:
-      `x` is a sparse tibble, but `linear_reg()` with engine `lm` doesn't accept that. Converting to non-sparse.
+      `x` is a sparse tibble, but `linear_reg()` with engine "lm" doesn't accept that. Converting to non-sparse.
 
 # sparse matrices can be passed to `predict()
 
@@ -45,7 +45,7 @@
       predict(lm_fit, sparse_mtcars)
     Condition
       Error in `predict()`:
-      ! `x` is a sparse matrix, but `linear_reg()` with engine `lm` doesn't accept that.
+      ! `x` is a sparse matrix, but `linear_reg()` with engine "lm" doesn't accept that.
 
 # to_sparse_data_frame() is used correctly
 
