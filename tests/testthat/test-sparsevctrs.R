@@ -127,6 +127,43 @@ test_that("sparse matrices can be passed to `predict()", {
   )
 })
 
+test_that("sparse data work with xgboost engine", {
+  skip_if_not_installed("xgboost")
+
+  spec <- boost_tree() %>%
+    set_mode("regression") %>%
+    set_engine("xgboost")
+
+  hotel_data <- sparse_hotel_rates()
+
+  expect_no_error(
+    tree_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
+   )
+ 
+   expect_no_error(
+     predict(tree_fit, hotel_data)
+   )
+
+  hotel_data <- sparsevctrs::coerce_to_sparse_tibble(hotel_data)
+
+
+  expect_no_error(
+    tree_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
+  )
+
+  expect_no_error(
+    predict(tree_fit, hotel_data)
+  )
+  
+  expect_no_error(
+   tree_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
+  )
+
+  expect_no_error(
+    predict(tree_fit, hotel_data)
+  )
+})
+
 test_that("to_sparse_data_frame() is used correctly", {
   skip_if_not_installed("xgboost")
   
