@@ -452,7 +452,7 @@ prepare_data <- function(object, new_data) {
   } else if (translate_from_xy_to_formula) {
     new_data <- .convert_xy_to_form_new(object$preproc, new_data)
   } else if (translate_from_xy_to_xy) {
-    new_data <- new_data[, object$preproc$x_names]
+    new_data <- new_data[, object$preproc$x_names, drop = FALSE]
   }
 
   encodings <- get_encoding(class(object$spec)[1])
