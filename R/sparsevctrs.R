@@ -22,7 +22,7 @@ is_sparse_tibble <- function(x) {
 }
 
 materialize_sparse_tibble <- function(x, object, input) {
-  if ((!allow_sparse(object)) && is_sparse_tibble(x)) {
+  if (is_sparse_tibble(x) && (!allow_sparse(object))) {
     if (inherits(object, "model_fit")) {
       object <- object$spec
     }
