@@ -1,4 +1,4 @@
-to_sparse_data_frame <- function(x, object) {
+to_sparse_data_frame <- function(x, object, call = rlang::caller_env()) {
   if (is_sparse_matrix(x)) {
     if (allow_sparse(object)) {
       x <- sparsevctrs::coerce_to_sparse_data_frame(x)
@@ -8,8 +8,10 @@ to_sparse_data_frame <- function(x, object) {
       }
     
       cli::cli_abort(
-      "{.arg x} is a sparse matrix, but {.fn {class(object)[1]}} with
-       engine {.code {object$engine}} doesn't accept that.")
+        "{.arg x} is a sparse matrix, but {.fn {class(object)[1]}} with
+        engine {.code {object$engine}} doesn't accept that.",
+        call = call
+      )
     }
   } else if (is.data.frame(x)) {
     x <- materialize_sparse_tibble(x, object, "x")
