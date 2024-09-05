@@ -175,10 +175,13 @@ fit.model_spec <-
     eval_env$weights <- wts
 
     if (is_sparse_matrix(data)) {
-      cli::cli_abort(c(
-        x = "Sparse matrices cannot be used with {.fn fit}.",
-        i = "Please use {.fn fit_xy} interface instead."
-      ))
+      outcome_names <- all.names(rlang::f_lhs(formula))
+      outcome_ind <- match(outcome_names, colnames(data))
+
+      y <- data[, outcome_ind]
+      x <- data[, -outcome_ind, drop = TRUE]
+
+      return(fit_xy(object, x, y, case_weights, control, ...))
     }
 
     data <- materialize_sparse_tibble(data, object, "data")
