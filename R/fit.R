@@ -174,6 +174,13 @@ fit.model_spec <-
     eval_env$formula <- formula
     eval_env$weights <- wts
 
+    if (is_sparse_matrix(data)) {
+      cli::cli_abort(c(
+        x = "Sparse matrices cannot be used with {.fn fit}.",
+        i = "Please use {.fn fit_xy} interface instead."
+      ))
+    }
+
     data <- materialize_sparse_tibble(data, object, "data")
     
     fit_interface <-

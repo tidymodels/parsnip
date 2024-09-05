@@ -1,5 +1,5 @@
 to_sparse_data_frame <- function(x, object) {
-  if (methods::is(x, "sparseMatrix")) {
+  if (is_sparse_matrix(x)) {
     if (allow_sparse(object)) {
       x <- sparsevctrs::coerce_to_sparse_data_frame(x)
     } else {
@@ -19,6 +19,10 @@ to_sparse_data_frame <- function(x, object) {
 
 is_sparse_tibble <- function(x) {
   any(vapply(x, sparsevctrs::is_sparse_vector, logical(1)))
+}
+
+is_sparse_matrix <- function(x) {
+  methods::is(x, "sparseMatrix")
 }
 
 materialize_sparse_tibble <- function(x, object, input) {

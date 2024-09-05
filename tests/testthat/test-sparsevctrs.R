@@ -67,6 +67,21 @@ test_that("sparse matrices can be passed to `fit_xy()", {
   )
 })
 
+test_that("sparse matrices can not be passed to `fit()", {
+  skip_if_not_installed("xgboost")
+
+  hotel_data <- sparse_hotel_rates()
+
+  spec <- boost_tree() %>%
+    set_mode("regression") %>%
+    set_engine("xgboost")
+
+  expect_snapshot(
+    error = TRUE,
+    hotel_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
+  )
+})
+
 test_that("sparse tibble can be passed to `predict()", {
   skip_if_not_installed("ranger")
 

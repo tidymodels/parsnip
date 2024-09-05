@@ -22,6 +22,15 @@
       Error in `to_sparse_data_frame()`:
       ! `x` is a sparse matrix, but `linear_reg()` with engine `lm` doesn't accept that.
 
+# sparse matrices can not be passed to `fit()
+
+    Code
+      hotel_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
+    Condition
+      Error in `fit()`:
+      x Sparse matrices cannot be used with `fit()`.
+      i Please use `fit_xy()` interface instead.
+
 # sparse tibble can be passed to `predict()
 
     Code
