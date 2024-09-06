@@ -137,6 +137,10 @@ fit.model_spec <-
       cli::cli_abort(msg)
     }
 
+    if (is_sparse_matrix(data)) {
+      data <- sparsevctrs::coerce_to_sparse_tibble(data)
+    }
+
     dots <- quos(...)
 
     if (length(possible_engines(object)) == 0) {
