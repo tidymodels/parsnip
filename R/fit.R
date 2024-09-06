@@ -137,6 +137,16 @@ fit.model_spec <-
       cli::cli_abort(msg)
     }
 
+    if (is_sparse_matrix(data)) {
+      outcome_names <- all.names(rlang::f_lhs(formula))
+      outcome_ind <- match(outcome_names, colnames(data))
+
+      y <- data[, outcome_ind]
+      x <- data[, -outcome_ind, drop = TRUE]
+
+      return(fit_xy(object, x, y, case_weights, control, ...))
+    }
+
     dots <- quos(...)
 
     if (length(possible_engines(object)) == 0) {
@@ -173,16 +183,6 @@ fit.model_spec <-
     eval_env$data <- data
     eval_env$formula <- formula
     eval_env$weights <- wts
-
-    if (is_sparse_matrix(data)) {
-      outcome_names <- all.names(rlang::f_lhs(formula))
-      outcome_ind <- match(outcome_names, colnames(data))
-
-      y <- data[, outcome_ind]
-      x <- data[, -outcome_ind, drop = TRUE]
-
-      return(fit_xy(object, x, y, case_weights, control, ...))
-    }
 
     data <- materialize_sparse_tibble(data, object, "data")
     
