@@ -11,8 +11,8 @@
     Code
       lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data[1:100, ])
     Condition
-      Error in `fit_xy()`:
-      ! `x` is a sparse matrix, but `linear_reg()` with engine "lm" doesn't accept that.
+      Warning:
+      `data` is a sparse tibble, but `linear_reg()` with engine "lm" doesn't accept that. Converting to non-sparse.
 
 # sparse tibble can be passed to `fit_xy()
 

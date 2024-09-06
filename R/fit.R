@@ -138,13 +138,7 @@ fit.model_spec <-
     }
 
     if (is_sparse_matrix(data)) {
-      outcome_names <- all.names(rlang::f_lhs(formula))
-      outcome_ind <- match(outcome_names, colnames(data))
-
-      y <- data[, outcome_ind]
-      x <- data[, -outcome_ind, drop = TRUE]
-
-      return(fit_xy(object, x, y, case_weights, control, ...))
+      data <- sparsevctrs::coerce_to_sparse_tibble(data)
     }
 
     dots <- quos(...)

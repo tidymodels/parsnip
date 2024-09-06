@@ -39,7 +39,6 @@ test_that("sparse matrix can be passed to `fit()", {
     set_engine("lm")
 
   expect_snapshot(
-    error = TRUE,
     lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data[1:100, ])
   )
 })
