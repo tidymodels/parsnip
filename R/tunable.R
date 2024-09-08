@@ -353,22 +353,37 @@ tunable.svm_poly <- function(x, ...) {
   res
 }
 
+tune_activations <- c("relu", "tanh", "elu", "log_sigmoid", "tanhshrink")
+
+brulee_mlp_args <-
+  tibble::tibble(
+    name = c('epochs', 'hidden_units', 'hidden_units_2', 'activation', 'activation_2',
+             'penalty', 'dropout', 'learn_rate', 'momentum', 'batch_size',
+             'class_weights', 'stop_iter'),
+    call_info = list(
+      list(pkg = "dials", fun = "epochs", range = c(5L, 500L)),
+      list(pkg = "dials", fun = "hidden_units", range = c(2L, 50L)),
+      list(pkg = "dials", fun = "hidden_units_2", range = c(2L, 50L)),
+      list(pkg = "dials", fun = "activation", values = tune_activations),
+      list(pkg = "dials", fun = "activation_2", values = tune_activations),
+      list(pkg = "dials", fun = "penalty"),
+      list(pkg = "dials", fun = "dropout"),
+      list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/5)),
+      list(pkg = "dials", fun = "momentum", range = c(0.50, 0.95)),
+      list(pkg = "dials", fun = "batch_size"),
+      list(pkg = "dials", fun = "stop_iter"),
+      list(pkg = "dials", fun = "class_weights")
+    )
+  )
+
 #' @export
 tunable.mlp <- function(x, ...) {
   res <- NextMethod()
-  if (x$engine == "brulee") {
-    one_layer_args <- brulee_mlp_engine_args[!grepl("_2", brulee_mlp_engine_args$name),]
-    res <- add_engine_parameters(res, one_layer_args)
-    res$call_info[res$name == "learn_rate"] <-
-      list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/2)))
-    res$call_info[res$name == "epochs"] <-
-      list(list(pkg = "dials", fun = "epochs", range = c(5L, 500L)))
-  } else if (x$engine == "brulee_two_layer") {
-    res <- add_engine_parameters(res, brulee_mlp_engine_args)
-    res$call_info[res$name == "learn_rate"] <-
-      list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/2)))
-    res$call_info[res$name == "epochs"] <-
-      list(list(pkg = "dials", fun = "epochs", range = c(5L, 500L)))
+  if (grepl("brulee", x$engine)) {
+    res <-
+      brulee_mlp_args %>%
+      dplyr::filter(name %in% tune_args(x)$name) %>%
+      dplyr::full_join(res %>% dplyr::select(-call_info), by = "name")
   }
   res
 }
