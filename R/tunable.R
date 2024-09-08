@@ -194,45 +194,6 @@ earth_engine_args <-
     component_id = "engine"
   )
 
-brulee_mlp_engine_args <-
-  tibble::tribble(
-    ~name,                                                  ~call_info,
-    "momentum",      list(pkg = "dials", fun = "momentum", range = c(0.5, 0.95)),
-    "batch_size",      list(pkg = "dials", fun = "batch_size", range = c(3, 10)),
-    "hidden_units_2",                  list(pkg = "dials", fun = "hidden_units"),
-    "activation_2",                      list(pkg = "dials", fun = "activation"),
-    "stop_iter",                          list(pkg = "dials", fun = "stop_iter"),
-    "class_weights",                  list(pkg = "dials", fun = "class_weights"),
-    "decay",                             list(pkg = "dials", fun = "rate_decay"),
-    "initial",                         list(pkg = "dials", fun = "rate_initial"),
-    "largest",                         list(pkg = "dials", fun = "rate_largest"),
-    "rate_schedule",                  list(pkg = "dials", fun = "rate_schedule"),
-    "step_size",                     list(pkg = "dials", fun = "rate_step_size"),
-    "steps",                             list(pkg = "dials", fun = "rate_steps")
-  ) %>%
-  dplyr::mutate(,
-                source = "model_spec",
-                component = "mlp",
-                component_id = "engine"
-  )
-
-brulee_linear_engine_args <-
-  brulee_mlp_engine_args %>%
-  dplyr::filter(name %in% c("momentum", "batch_size", "stop_iter"))
-
-brulee_logistic_engine_args <-
-  brulee_mlp_engine_args %>%
-  dplyr::filter(name %in% c("momentum", "batch_size", "stop_iter", "class_weights"))
-
-brulee_multinomial_engine_args <-
-  brulee_mlp_engine_args %>%
-  dplyr::filter(name %in% c("momentum", "batch_size", "stop_iter", "class_weights"))
-
-
-
-
-
-
 flexsurvspline_engine_args <-
   tibble::tibble(
     name = c("k"),
@@ -245,6 +206,34 @@ flexsurvspline_engine_args <-
   )
 
 # ------------------------------------------------------------------------------
+# used for brulee engines:
+
+tune_activations <- c("relu", "tanh", "elu", "log_sigmoid", "tanhshrink")
+
+brulee_args <-
+  tibble::tibble(
+    name = c('epochs', 'hidden_units', 'hidden_units_2', 'activation', 'activation_2',
+             'penalty', 'dropout', 'learn_rate', 'momentum', 'batch_size',
+             'class_weights', 'stop_iter'),
+    call_info = list(
+      list(pkg = "dials", fun = "epochs", range = c(5L, 500L)),
+      list(pkg = "dials", fun = "hidden_units", range = c(2L, 50L)),
+      list(pkg = "dials", fun = "hidden_units_2", range = c(2L, 50L)),
+      list(pkg = "dials", fun = "activation", values = tune_activations),
+      list(pkg = "dials", fun = "activation_2", values = tune_activations),
+      list(pkg = "dials", fun = "penalty"),
+      list(pkg = "dials", fun = "dropout"),
+      list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/5)),
+      list(pkg = "dials", fun = "momentum", range = c(0.50, 0.95)),
+      list(pkg = "dials", fun = "batch_size"),
+      list(pkg = "dials", fun = "stop_iter"),
+      list(pkg = "dials", fun = "class_weights")
+    )
+  )
+
+# ------------------------------------------------------------------------------
+
+
 
 #' @export
 tunable.linear_reg <- function(x, ...) {
@@ -253,7 +242,10 @@ tunable.linear_reg <- function(x, ...) {
     res$call_info[res$name == "mixture"] <-
       list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
   } else if (x$engine == "brulee") {
-    res <- add_engine_parameters(res, brulee_linear_engine_args)
+    res <-
+      brulee_args %>%
+      dplyr::filter(name %in% tune_args(x)$name) %>%
+      dplyr::full_join(res %>% dplyr::select(-call_info), by = "name")
   }
   res
 }
@@ -265,7 +257,10 @@ tunable.logistic_reg <- function(x, ...) {
     res$call_info[res$name == "mixture"] <-
       list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
   } else if (x$engine == "brulee") {
-    res <- add_engine_parameters(res, brulee_logistic_engine_args)
+    res <-
+      brulee_args %>%
+      dplyr::filter(name %in% tune_args(x)$name) %>%
+      dplyr::full_join(res %>% dplyr::select(-call_info), by = "name")
   }
   res
 }
@@ -277,7 +272,10 @@ tunable.multinomial_reg <- function(x, ...) {
     res$call_info[res$name == "mixture"] <-
       list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
   } else if (x$engine == "brulee") {
-    res <- add_engine_parameters(res, brulee_multinomial_engine_args)
+    res <-
+      brulee_args %>%
+      dplyr::filter(name %in% tune_args(x)$name) %>%
+      dplyr::full_join(res %>% dplyr::select(-call_info), by = "name")
   }
   res
 }
@@ -353,35 +351,12 @@ tunable.svm_poly <- function(x, ...) {
   res
 }
 
-tune_activations <- c("relu", "tanh", "elu", "log_sigmoid", "tanhshrink")
-
-brulee_mlp_args <-
-  tibble::tibble(
-    name = c('epochs', 'hidden_units', 'hidden_units_2', 'activation', 'activation_2',
-             'penalty', 'dropout', 'learn_rate', 'momentum', 'batch_size',
-             'class_weights', 'stop_iter'),
-    call_info = list(
-      list(pkg = "dials", fun = "epochs", range = c(5L, 500L)),
-      list(pkg = "dials", fun = "hidden_units", range = c(2L, 50L)),
-      list(pkg = "dials", fun = "hidden_units_2", range = c(2L, 50L)),
-      list(pkg = "dials", fun = "activation", values = tune_activations),
-      list(pkg = "dials", fun = "activation_2", values = tune_activations),
-      list(pkg = "dials", fun = "penalty"),
-      list(pkg = "dials", fun = "dropout"),
-      list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/5)),
-      list(pkg = "dials", fun = "momentum", range = c(0.50, 0.95)),
-      list(pkg = "dials", fun = "batch_size"),
-      list(pkg = "dials", fun = "stop_iter"),
-      list(pkg = "dials", fun = "class_weights")
-    )
-  )
-
 #' @export
 tunable.mlp <- function(x, ...) {
   res <- NextMethod()
   if (grepl("brulee", x$engine)) {
     res <-
-      brulee_mlp_args %>%
+      brulee_args %>%
       dplyr::filter(name %in% tune_args(x)$name) %>%
       dplyr::full_join(res %>% dplyr::select(-call_info), by = "name")
   }
