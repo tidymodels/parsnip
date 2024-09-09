@@ -1,5 +1,8 @@
 test_that("vec_quantiles error types", {
-  expect_error(vec_quantiles(1:10, 1:4 / 5), "matrix")
+  expect_snapshot(
+    error = TRUE,
+    vec_quantiles(1:10, 1:4 / 5)
+  )
   expect_snapshot(
     error = TRUE,
     vec_quantiles(matrix(1:20, 5), -1:4 / 5)
