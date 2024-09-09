@@ -209,12 +209,13 @@ flexsurvspline_engine_args <-
 # used for brulee engines:
 
 tune_activations <- c("relu", "tanh", "elu", "log_sigmoid", "tanhshrink")
+tune_sched <- c("none", "decay_time", "decay_expo", "cyclic", "step")
 
 brulee_args <-
   tibble::tibble(
     name = c('epochs', 'hidden_units', 'hidden_units_2', 'activation', 'activation_2',
              'penalty', 'dropout', 'learn_rate', 'momentum', 'batch_size',
-             'class_weights', 'stop_iter'),
+             'class_weights', 'stop_iter', 'rate_schedule'),
     call_info = list(
       list(pkg = "dials", fun = "epochs", range = c(5L, 500L)),
       list(pkg = "dials", fun = "hidden_units", range = c(2L, 50L)),
@@ -227,7 +228,8 @@ brulee_args <-
       list(pkg = "dials", fun = "momentum", range = c(0.50, 0.95)),
       list(pkg = "dials", fun = "batch_size"),
       list(pkg = "dials", fun = "stop_iter"),
-      list(pkg = "dials", fun = "class_weights")
+      list(pkg = "dials", fun = "class_weights"),
+      list(pkg = "dials", fun = "rate_schedule", values = tune_sched)
     )
   )
 
