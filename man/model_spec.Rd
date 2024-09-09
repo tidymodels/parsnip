@@ -39,7 +39,7 @@ software will be used. It can be a package name or a technology
 type.
 }
 
-This class and structure is the basis for how \pkg{parsnip}
+This class and structure is the basis for how parsnip
 stores model objects prior to seeing the data.
 }
 \section{Argument Details}{
@@ -55,7 +55,7 @@ For example, most R functions immediately evaluate their
 arguments. For example, when calling \code{mean(dat_vec)}, the object
 \code{dat_vec} is immediately evaluated inside of the function.
 
-\code{parsnip} model functions do not do this. For example, using
+parsnip model functions do not do this. For example, using
 
 \preformatted{
  rand_forest(mtry = ncol(mtcars) - 1)

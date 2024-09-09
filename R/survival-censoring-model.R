@@ -54,8 +54,8 @@ print.censoring_model <- function(x, ...) {
 
 #' @export
 predict.censoring_model <- function(object, ...) {
-  rlang::abort(
-    paste("Don't know how to predict with a censoring model of type:", object$label)
+  cli::cli_abort(
+    "Don't know how to predict with a censoring model of type {object$label}."
   )
   invisible(NULL)
 }

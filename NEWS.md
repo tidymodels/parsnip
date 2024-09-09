@@ -1,10 +1,24 @@
 # parsnip (development version)
 
-* Aligned `null_model()` with other model types; the model type now has an
-  engine argument that defaults to `"parsnip"` and is checked with the same
-  machinery that checks other model types in the package (#1083).
+* `fit_xy()` can now take dgCMatrix input for `x` argument (#1121).
+
+* `fit()` and `fit_xy()` can now take sparse tibbles as data values (#1165).
+
+* `predict()` can now take dgCMatrix and sparse tibble input for `new_data` argument, and error informatively when model doesn't support it (#1167).
+
+* Transitioned package errors and warnings to use cli (#1147 and #1148 by
+  @shum461, #1153 by @RobLBaker and @wright13, #1154 by @JamesHWade, #1160, 
+  #1161, #1081).
+
+* `fit_xy()` currently raises an error for `gen_additive_mod()` model specifications as the default engine (`"mgcv"`) specifies smoothing terms in model formulas. However, some engines specify smooths via additional arguments, in which case the restriction on `fit_xy()` is excessive. parsnip will now only raise an error when fitting a `gen_additive_mod()` with `fit_xy()` when using the `"mgcv"` engine (#775).
+
+* Aligned `null_model()` with other model types; the model type now has an engine argument that defaults to `"parsnip"` and is checked with the same machinery that checks other model types in the package (#1083).
 
 * New `extract_fit_time()` method has been added that returns the time it took to train the model (#853).
+
+* Ensure that `knit_engine_docs()` has the required packages installed (#1156).
+
+* Fixed bug where some models fit using `fit_xy()` couldn't predict (#1166).
 
 # parsnip 1.2.1
 

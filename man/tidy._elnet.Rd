@@ -19,7 +19,7 @@
 \method{tidy}{`_coxnet`}(x, penalty = NULL, ...)
 }
 \arguments{
-\item{x}{A fitted \code{parsnip} model that used the \code{glmnet} engine.}
+\item{x}{A fitted parsnip model that used the \code{glmnet} engine.}
 
 \item{penalty}{A \emph{single} numeric value. If none is given, the value specified
 in the model specification is used.}
@@ -32,6 +32,6 @@ multinomial mode is used, an additional \code{class} column is included.
 }
 \description{
 \code{tidy()} methods for the various \code{glmnet} models that return the coefficients
-for the specific penalty value used by the \code{parsnip} model fit.
+for the specific penalty value used by the parsnip model fit.
 }
 \keyword{internal}

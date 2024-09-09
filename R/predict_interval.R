@@ -13,7 +13,7 @@ predict_confint.model_fit <- function(object, new_data, level = 0.95, std_error 
   check_spec_pred_type(object, "conf_int")
 
   if (inherits(object$fit, "try-error")) {
-    rlang::warn("Model fit failed; cannot make predictions.")
+    cli::cli_warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
 
@@ -68,7 +68,7 @@ predict_predint.model_fit <- function(object, new_data, level = 0.95, std_error 
   check_spec_pred_type(object, "pred_int")
 
   if (inherits(object$fit, "try-error")) {
-    rlang::warn("Model fit failed; cannot make predictions.")
+    cli::cli_warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
 

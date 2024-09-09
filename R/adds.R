@@ -7,7 +7,7 @@
 #' @export
 add_rowindex <- function(x) {
   if (!is.data.frame(x)) {
-    rlang::abort("`x` should be a data frame.")
+    cli::cli_abort("{.arg x} should be a data frame.")
   }
   x <- dplyr::mutate(x, .row = seq_len(nrow(x)))
   x

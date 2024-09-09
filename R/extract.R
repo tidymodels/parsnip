@@ -30,7 +30,7 @@
 #'  importance/explainers.
 #'
 #' However, users should not invoke the `predict()` method on an extracted
-#'  model. There may be preprocessing operations that `parsnip` has executed on
+#'  model. There may be preprocessing operations that parsnip has executed on
 #'  the data prior to giving it to the model. Bypassing these can lead to errors
 #'  or silently generating incorrect predictions.
 #'
@@ -65,7 +65,7 @@ extract_spec_parsnip.model_fit <- function(x, ...) {
   if (any(names(x) == "spec")) {
     return(x$spec)
   }
-  rlang::abort("Internal error: The model fit does not have a model spec.")
+  cli::cli_abort("The model fit does not have a model spec.", .internal = TRUE)
 }
 
 
@@ -75,7 +75,7 @@ extract_fit_engine.model_fit <- function(x, ...) {
   if (any(names(x) == "fit")) {
     return(x$fit)
   }
-  rlang::abort("Internal error: The model fit does not have an engine fit.")
+  cli::cli_abort("The model fit does not have  an engine fit.", .internal = TRUE)
 }
 
 #' @export
@@ -141,8 +141,8 @@ extract_fit_time.model_fit <- function(x, summarize = TRUE, ...) {
   elapsed <- x[["elapsed"]][["elapsed"]][["elapsed"]]
 
   if (is.na(elapsed) || is.null(elapsed)) {
-    rlang::abort(
-      "This model was fit before `extract_fit_time()` was added."
+    cli::cli_abort(
+      "This model was fit before {.fun extract_fit_time} was added."
     )
   }
 

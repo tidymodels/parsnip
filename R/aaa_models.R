@@ -511,7 +511,7 @@ check_interface_val <- function(x) {
 #'   and `raw`.
 #' @param pkg An options character string for a package name.
 #' @param parsnip A single character string for the "harmonized" argument name
-#'  that `parsnip` exposes.
+#'  that parsnip exposes.
 #' @param original A single character string for the argument name that
 #'  underlying model function uses.
 #' @param value A list that conforms to the `fit_obj` or `pred_obj` description
@@ -525,7 +525,7 @@ check_interface_val <- function(x) {
 #' @keywords internal
 #' @details These functions are available for users to add their
 #'  own models or engines (in a package or otherwise) so that they can
-#'  be accessed using `parsnip`. This is more thoroughly documented
+#'  be accessed using parsnip. This is more thoroughly documented
 #'  on the package web site (see references below).
 #'
 #' In short, `parsnip` stores an environment object that contains

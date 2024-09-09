@@ -112,7 +112,7 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
     }
   } else {
     if (type %in% c("prob", "class")) {
-      rlang::abort("Only numeric predicitons are applicable to regression models")
+      cli::cli_abort("Only numeric predicitons are applicable to regression models.")
     }
     if (length(object$value) == 1) {
       out <- rep(object$value, n)

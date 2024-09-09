@@ -22,8 +22,10 @@ check_eng_args <- function(args, obj, core_args) {
   if (length(common_args) > 0) {
     args <- args[!(names(args) %in% common_args)]
     common_args <- paste0(common_args, collapse = ", ")
-    rlang::warn(glue::glue("The following arguments cannot be manually modified ",
-                           "and were removed: {common_args}."))
+    cli::cli_warn(
+      "The argument{?s} {.arg {common_args}} cannot be manually
+       modified and {?was/were} removed."
+    )
   }
   args
 }
@@ -56,7 +58,7 @@ set_args <- function(object, ...) {
 set_args.model_spec <- function(object, ...) {
   the_dots <- enquos(...)
   if (length(the_dots) == 0)
-    rlang::abort("Please pass at least one named argument.")
+    cli::cli_abort("Please pass at least one named argument.")
   main_args <- names(object$args)
   new_args <- names(the_dots)
   for (i in new_args) {
@@ -262,7 +264,8 @@ make_xy_call <- function(object, target, env) {
       none = rlang::expr(x),
       data.frame = rlang::expr(maybe_data_frame(x)),
       matrix = rlang::expr(maybe_matrix(x)),
-      rlang::abort(glue::glue("Invalid data type target: {target}."))
+      dgCMatrix = rlang::expr(maybe_sparse_matrix(x)),
+      cli::cli_abort("Invalid data type target: {target}.")
     )
   if (uses_weights) {
     object$method$fit$args[[ unname(data_args["weights"]) ]] <- rlang::expr(weights)
@@ -316,9 +319,13 @@ min_cols <- function(num_cols, source) {
     p <- ncol(source)
   }
   if (num_cols > p) {
-    msg <- paste0(num_cols, " columns were requested but there were ", p,
-                 " predictors in the data. ", p, " will be used.")
-    rlang::warn(msg)
+    cli::cli_warn(
+      c(
+        "!" = "{num_cols} column{?s} {?was/were} requested but there {cli::qty(p)} {?was/were}
+               {p} predictor{?s} in the data.",
+        "i" = "{p} predictor{?s} will be used."
+      )
+    )
     num_cols <- p
   }
 
@@ -335,9 +342,14 @@ min_rows <- function(num_rows, source, offset = 0) {
   }
 
   if (num_rows > n - offset) {
-    msg <- paste0(num_rows, " samples were requested but there were ", n,
-                  " rows in the data. ", n - offset, " will be used.")
-    rlang::warn(msg)
+    cli::cli_warn(
+      c(
+        "!" = "{num_rows} sample{?s} {?was/were} requested but there were
+               {n} rows in the data.",
+        "i" = "{n - offset} sample{?s} will be used."
+      )
+    )
+
     num_rows <- n - offset
   }
 

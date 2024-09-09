@@ -148,7 +148,7 @@ check_args.mlp <- function(object, call = rlang::caller_env()) {
 
 class2ind <- function (x, drop2nd = FALSE) {
   if (!is.factor(x))
-    rlang::abort("`x` should be a factor")
+    cli::cli_abort(c("x" = "{.arg x} should be a factor."))
   y <- model.matrix( ~ x - 1)
   colnames(y) <- gsub("^x", "", colnames(y))
   attributes(y)$assign <- NULL
@@ -195,7 +195,7 @@ keras_mlp <-
     rlang::arg_match(activation, act_funs,)
 
     if (penalty > 0 & dropout > 0) {
-      rlang::abort("Please use either dropoput or weight decay.", call. = FALSE)
+      cli::cli_abort("Please use either dropout or weight decay.", call = NULL)
     }
     if (!is.matrix(x)) {
       x <- as.matrix(x)

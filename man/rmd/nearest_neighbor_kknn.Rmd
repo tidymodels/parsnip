@@ -22,6 +22,9 @@ This model has `r nrow(param)` tuning parameters:
 param$item
 ```
 
+Parsnip changes the default range for `neighbors` to `c(1, 15)` and `dist_power` to `c(1/10, 2)`.
+
+
 ## Translation from parsnip to the original package (regression)
 
 ```{r kknn-reg}

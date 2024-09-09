@@ -1,3 +1,4 @@
+# Installs packages needed to run `knit_engine_docs()`.
 install_engine_packages <- function(extension = TRUE, extras = TRUE,
                                     ignore_pkgs = c("stats", "liquidSVM",
                                                     "parsnip")) {
@@ -5,12 +6,7 @@ install_engine_packages <- function(extension = TRUE, extras = TRUE,
 
   if (extension) {
     extensions_packages <- extensions()
-    repositories <- glue::glue("tidymodels/{extensions_packages}")
-
-    remotes::install_github(repositories)
-
-    extensions_packages <- extensions()
-    purrr::walk(extensions_packages, library, character.only = TRUE)
+    rlang::check_installed(extensions_packages)
     bio_pkgs <- c(bio_pkgs, "mixOmics")
   }
 
@@ -35,7 +31,6 @@ install_engine_packages <- function(extension = TRUE, extras = TRUE,
     engine_packages <- unique(c(engine_packages, rmd_pkgs))
   }
 
-  remotes::install_cran(engine_packages)
-
-  remotes::install_bioc(bio_pkgs)
+  rlang::check_installed(engine_packages)
+  rlang::check_installed(bio_pkgs)
 }

@@ -18,7 +18,7 @@ theme_set(theme_bw())
 
 Some R packages can create predictions from models that are different than the one that was fit. For example, if a boosted tree is fit with 10 iterations of boosting, the model can usually make predictions on _submodels_ that have less than 10 trees (all other parameters being static). This is helpful for model tuning since you can cheaply evaluate tuning parameter combinations which often results in a large speed-up in the computations. 
 
-In `parsnip`, there is a method called `multi_predict()` that can do this. It's current methods are:
+In parsnip, there is a method called `multi_predict()` that can do this. It's current methods are:
 
 ```{r methods}
 library(parsnip)

@@ -416,8 +416,9 @@ test_that('xgboost data conversion', {
   expect_equal(xgboost::getinfo(from_df$data, name = "label")[1:5],  rep(1, 5))
 
   mtcars_y <- factor(mtcars$mpg < 15, levels = c(TRUE, FALSE, "na"), labels = c("low", "high", "missing"))
-  expect_warning(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second"),
-                 regexp = "`event_level` can only be set for binary variables.")
+  expect_snapshot(
+    from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second")
+  )
 
   # case weights added
   expect_error(wted <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg, weights = wts), regexp = NA)

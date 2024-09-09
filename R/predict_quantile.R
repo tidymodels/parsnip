@@ -16,7 +16,7 @@ predict_quantile.model_fit <- function(object,
     check_spec_pred_type(object, "quantile")
 
     if (inherits(object$fit, "try-error")) {
-      rlang::warn("Model fit failed; cannot make predictions.")
+      cli::cli_warn("Model fit failed; cannot make predictions.")
       return(NULL)
     }
 
