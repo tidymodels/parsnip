@@ -26,10 +26,10 @@ The types of weights allowed in tidymodels are:
 
 More types can be added by request.
 
-For parsnip, the \code{\link[=fit]{fit()}} and \link{fit_xy} functions contain a \code{case_weight}
+For parsnip, the \code{\link[=fit]{fit()}} and \code{\link[=fit_xy]{fit_xy()}} functions contain a \code{case_weight}
 argument that takes these data. For Spark models, the argument value should
 be a character value.
 }
 \seealso{
-\code{\link[=frequency_weights]{frequency_weights()}}, \code{\link[=importance_weights]{importance_weights()}}, \code{\link[=fit]{fit()}}, \link{fit_xy}
+\code{\link[=frequency_weights]{frequency_weights()}}, \code{\link[=importance_weights]{importance_weights()}}, \code{\link[=fit]{fit()}}, \code{\link[=fit_xy]{fit_xy()}}
 }
