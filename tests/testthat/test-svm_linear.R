@@ -48,10 +48,7 @@ test_that('linear svm regression: LiblineaR', {
   expect_false(has_multi_predict(res))
   expect_equal(multi_predict_args(res), NA_character_)
 
-  expect_error(
-    tidy_res <- tidy(res),
-    NA
-  )
+  expect_no_condition(tidy_res <- tidy(res))
   expect_s3_class(tidy_res, "tbl_df")
   expect_equal(colnames(tidy_res), c("term", "estimate"))
 

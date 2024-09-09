@@ -37,15 +37,14 @@ test_that('glm execution', {
 
 
   # passes interactively but not on R CMD check
-  # expect_error(
+  # expect_no_condition(
   #   res <- fit(
   #     lc_basic,
   #     lc_form,
   #     data = lending_club,
   #     control = ctrl,
   #     engine = "glm"
-  #   ),
-  #   regexp = NA
+  #   )
   # )
   expect_no_condition(
     res <- fit_xy(
@@ -177,9 +176,8 @@ test_that('liblinear execution', {
     )
   )
 
-  expect_error(
-    tidy_res <- tidy(res),
-    NA
+  expect_no_condition(
+    tidy_res <- tidy(res)
   )
   expect_s3_class(tidy_res, "tbl_df")
   expect_equal(colnames(tidy_res), c("term", "estimate"))
