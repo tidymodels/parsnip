@@ -429,7 +429,7 @@ check_xy_interface <- function(x, y, cl, model, call = caller_env()) {
 
   check_outcome(y, model)
 
-  cli::cli_abort("Error when checking the interface", call = call)
+  cli::cli_abort("Error when checking the interface.", call = call)
 }
 
 allow_sparse <- function(x) {
