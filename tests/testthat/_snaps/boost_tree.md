@@ -26,6 +26,21 @@
 ---
 
     Code
+      translate(boost_tree(mode = "classification"), engine = NULL)
+    Message
+      Used `engine = 'xgboost'` for translation.
+    Output
+      Boosted Tree Model Specification (classification)
+      
+      Computational engine: xgboost 
+      
+      Model fit template:
+      parsnip::xgb_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+          nthread = 1, verbose = 0)
+
+---
+
+    Code
       translate(boost_tree(formula = y ~ x))
     Condition
       Error in `boost_tree()`:
