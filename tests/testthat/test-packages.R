@@ -35,7 +35,7 @@ test_that('missing packages', {
   has_earth <- parsnip:::is_installed("earth")
 
   if (has_earth) {
-    expect_error(predict(mars_model, mtcars[1:3, -1]), regexp = NA)
+    expect_no_condition(predict(mars_model, mtcars[1:3, -1]))
 
   } else {
     expect_error(predict(mars_model, mtcars[1:3, -1]), regexp = "earth")

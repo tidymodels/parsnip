@@ -119,11 +119,10 @@ test_that('nullmodel prediction', {
 
 test_that('classification', {
 
-  expect_error(
+  expect_no_condition(
     null_model <- null_model(mode = "classification") %>%
       set_engine("parsnip") %>%
-      fit(class ~ ., data = hpc),
-    regexp = NA
+      fit(class ~ ., data = hpc)
   )
   expect_true(!is.null(null_model$fit))
 })

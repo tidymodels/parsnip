@@ -12,24 +12,22 @@ test_that('nnet execution, classification', {
 
   skip_if_not_installed("nnet")
 
-  expect_error(
+  expect_no_condition(
     res <- parsnip::fit(
       hpc_nnet,
       class ~ compounds + input_fields,
       data = hpc,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     res <- parsnip::fit_xy(
       hpc_nnet,
       x = hpc[, num_pred],
       y = hpc$class,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
   expect_error(
@@ -93,24 +91,22 @@ test_that('nnet execution, regression', {
 
   skip_if_not_installed("nnet")
 
-  expect_error(
+  expect_no_condition(
     res <- parsnip::fit(
       car_basic,
       mpg ~ .,
       data = mtcars,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     res <- parsnip::fit_xy(
       car_basic,
       x = mtcars[, num_pred],
       y = mtcars$mpg,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 })
 

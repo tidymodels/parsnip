@@ -11,13 +11,12 @@ test_that('regression', {
     set_engine("mgcv") %>%
     set_mode("regression")
 
-  expect_error(
+  expect_no_condition(
     f_res <- fit(
       reg_mod,
       mpg ~ s(disp) + wt + gear,
       data = mtcars
-    ),
-    regexp = NA
+    )
   )
   expect_error(
     xy_res <- fit_xy(
@@ -55,13 +54,12 @@ test_that('classification', {
     set_engine("mgcv") %>%
     set_mode("classification")
 
-  expect_error(
+  expect_no_condition(
     f_res <- fit(
       cls_mod,
       Class ~ s(A, k = 10) + B,
       data = two_class_dat
-    ),
-    regexp = NA
+    )
   )
   expect_error(
     xy_res <- fit_xy(

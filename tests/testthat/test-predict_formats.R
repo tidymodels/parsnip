@@ -63,15 +63,13 @@ test_that('predict(type = "prob") with level "class" (see #720)', {
     beep = rnorm(100)
   )
 
-  expect_error(
-    regexp = NA,
+  expect_no_condition(
     mod <- logistic_reg() %>%
       set_mode(mode = "classification") %>%
       fit(boop ~ bop + beep, data = x)
   )
 
-  expect_error(
-    regexp = NA,
+  expect_no_condition(
     predict(mod, type = "class", new_data = x)
   )
 
@@ -120,6 +118,6 @@ test_that("predict() works for model fit with fit_xy() (#1166)", {
   tree_fit <- fit_xy(spec, x = mtcars[, -1], y = mtcars[, 1])
 
   res <- predict(tree_fit, mtcars)
-  
+
   expect_identical(exp, res)
 })

@@ -29,14 +29,13 @@ test_that('kknn execution', {
 
   # nominal
   # expect no error
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       hpc_basic,
       control = ctrl,
       x = hpc[, c("input_fields", "iterations")],
       y = hpc$class
-    ),
-    regexp = NA
+    )
   )
 
   expect_true(has_multi_predict(res))
