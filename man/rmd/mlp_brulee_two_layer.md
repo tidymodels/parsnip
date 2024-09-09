@@ -1,7 +1,7 @@
 
 
 
-For this engine, there are multiple modes: 
+For this engine, there are multiple modes: classification and regression
 
 ## Tuning Parameters
 
@@ -9,17 +9,17 @@ For this engine, there are multiple modes:
 
 This model has 6 tuning parameters:
 
+- `epochs`: # Epochs (type: integer, default: 100L)
+
 - `hidden_units`: # Hidden Units (type: integer, default: 3L)
 
-- `penalty`: Amount of Regularization (type: double, default: 0.001)
+- `activation`: Activation Function (type: character, default: 'relu')
 
-- `epochs`: # Epochs (type: integer, default: 100L)
+- `penalty`: Amount of Regularization (type: double, default: 0.001)
 
 - `dropout`: Dropout Rate (type: double, default: 0.0)
 
 - `learn_rate`: Learning Rate (type: double, default: 0.01)
-
-- `activation`: Activation Function (type: character, default: 'relu')
 
 The use of the L1 penalty (a.k.a. the lasso penalty) does _not_ force parameters to be strictly zero (as it does in packages such as glmnet). The zeroing out of parameters is a specific feature the optimization method used in those packages.
 
@@ -32,6 +32,7 @@ Other engine arguments of interest:
  - `batch_size()`: An integer for the number of training set points in each batch.
  - `class_weights()`: Numeric class weights. See [brulee::brulee_mlp()].
  - `stop_iter()`: A non-negative integer for how many iterations with no improvement before stopping. (default: 5L).
+ - `rate_schedule()`: A function to change the learning rate over epochs. See [brulee::schedule_decay_time()] for details. 
 
 
 ## Translation from parsnip to the original package (regression)

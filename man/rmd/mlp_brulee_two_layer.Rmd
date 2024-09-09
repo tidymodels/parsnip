@@ -10,10 +10,18 @@ defaults <-
   tibble::tibble(parsnip = c("hidden_units", "penalty", "dropout", "epochs", "learn_rate", "activation", "mixture"),
                  default = c("3L", "0.001", "0.0", "100L", "0.01", "'relu'", "0.0"))
 
-param <-
-  mlp() %>% 
-  set_engine("brulee") %>% 
-  make_parameter_list(defaults)
+spec <-
+  mlp(
+    hidden_units = tune(),
+    penalty = tune(),
+    dropout = tune(),
+    epochs = tune(),
+    learn_rate = tune(),
+    activation = tune()
+  ) %>% 
+  set_engine("brulee_two_layer")
+
+param <- spec %>% make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
@@ -33,6 +41,7 @@ Other engine arguments of interest:
  - `batch_size()`: An integer for the number of training set points in each batch.
  - `class_weights()`: Numeric class weights. See [brulee::brulee_mlp()].
  - `stop_iter()`: A non-negative integer for how many iterations with no improvement before stopping. (default: 5L).
+ - `rate_schedule()`: A function to change the learning rate over epochs. See [brulee::schedule_decay_time()] for details. 
 
 
 ## Translation from parsnip to the original package (regression)
