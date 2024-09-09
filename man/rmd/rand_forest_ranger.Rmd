@@ -72,6 +72,11 @@ For `ranger` confidence intervals, the intervals are  constructed using the form
 ```{r child = "template-uses-case-weights.Rmd"}
 ```
 
+## Sparse Data
+
+```{r child = "template-uses-sparse-data.Rmd"}
+```
+
 ## Saving fitted model objects
 
 ```{r child = "template-butcher.Rmd"}
