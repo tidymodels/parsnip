@@ -34,6 +34,9 @@ autoplot.model_fit <- function(object, ...) {
 #' @rdname autoplot.model_fit
 autoplot.glmnet <- function(object, ..., min_penalty = 0, best_penalty = NULL,
                             top_n = 3L) {
+  check_number_decimal(min_penalty, min = 0, max = 1)
+  check_number_decimal(best_penalty, min = 0, max = 1, allow_null = TRUE)
+  check_number_whole(top_n, min = 1, max = Inf, allow_infinite = TRUE)
   autoplot_glmnet(object, min_penalty, best_penalty, top_n, ...)
 }
 
@@ -87,8 +90,6 @@ top_coefs <- function(x, top_n = 5) {
 }
 
 autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L, ...) {
-  check_penalty_value(min_penalty)
-
   tidy_coefs <-
     map_glmnet_coefs(x) %>%
     dplyr::filter(penalty >= min_penalty)
@@ -138,7 +139,6 @@ autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L,
   }
 
   if (!is.null(best_penalty)) {
-    check_penalty_value(best_penalty)
     p <- p + ggplot2::geom_vline(xintercept = best_penalty, lty = 3)
   }
 
@@ -157,15 +157,6 @@ autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L,
       )
   }
   p
-}
-
-check_penalty_value <- function(x) {
-  cl <- match.call()
-  arg_val <- as.character(cl$x)
-  if (!is.vector(x) || length(x) != 1 || !is.numeric(x) || x < 0) {
-    cli::cli_abort("{.arg {arg_val}} should be a single, non-negative value.")
-  }
-  invisible(x)
 }
 
 # nocov end
