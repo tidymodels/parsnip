@@ -80,7 +80,15 @@ new model specifications.</p>
 <span></span>
 <span><span class="fu">print_model_spec</span><span class="op">(</span><span class="va">x</span>, cls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, desc <span class="op">=</span> <span class="fu">get_model_desc</span><span class="op">(</span><span class="va">cls</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">update_spec</span><span class="op">(</span><span class="va">object</span>, <span class="va">parameters</span>, <span class="va">args_enquo_list</span>, <span class="va">fresh</span>, <span class="va">cls</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">update_spec</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">parameters</span>,</span>
+<span>  <span class="va">args_enquo_list</span>,</span>
+<span>  <span class="va">fresh</span>,</span>
+<span>  <span class="va">cls</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  call <span class="op">=</span> <span class="fu">caller_env</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">is_varying</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
     </div>
