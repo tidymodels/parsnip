@@ -4,7 +4,7 @@
 #'
 #' @includeRmd man/rmd/mlp_brulee_two_layer.md details
 #'
-#' @name details_brulee_two_layer
+#' @name details_mlp_brulee_two_layer
 #' @keywords internal
 NULL
 

@@ -47,7 +47,7 @@ mlp(
   learn_rate = double(1),
   activation = character(1)
 ) %>%
-  set_engine("brulee",
+  set_engine("brulee_two_layer",
              hidden_units_2 = integer(1),
              activation_2 = character(1)) %>% 
   set_mode("regression") %>% 
@@ -69,13 +69,13 @@ mlp(
 ##   hidden_units_2 = integer(1)
 ##   activation_2 = character(1)
 ## 
-## Computational engine: brulee 
+## Computational engine: brulee_two_layer 
 ## 
 ## Model fit template:
-## brulee::brulee_mlp(x = missing_arg(), y = missing_arg(), hidden_units = integer(1), 
-##     penalty = double(1), dropout = double(1), epochs = integer(1), 
-##     activation = character(1), learn_rate = double(1), hidden_units_2 = integer(1), 
-##     activation_2 = character(1))
+## brulee::brulee_mlp_two_layer(x = missing_arg(), y = missing_arg(), 
+##     hidden_units = integer(1), penalty = double(1), dropout = double(1), 
+##     epochs = integer(1), activation = character(1), learn_rate = double(1), 
+##     hidden_units_2 = integer(1), activation_2 = character(1))
 ```
 
 Note that parsnip automatically sets linear activation in the last layer. 
@@ -92,7 +92,7 @@ mlp(
   learn_rate = double(1),
   activation = character(1)
 ) %>% 
-  set_engine("brulee",
+  set_engine("brulee_two_layer",
              hidden_units_2 = integer(1),
              activation_2 = character(1)) %>% 
   set_mode("classification") %>% 
@@ -114,13 +114,13 @@ mlp(
 ##   hidden_units_2 = integer(1)
 ##   activation_2 = character(1)
 ## 
-## Computational engine: brulee 
+## Computational engine: brulee_two_layer 
 ## 
 ## Model fit template:
-## brulee::brulee_mlp(x = missing_arg(), y = missing_arg(), hidden_units = integer(1), 
-##     penalty = double(1), dropout = double(1), epochs = integer(1), 
-##     activation = character(1), learn_rate = double(1), hidden_units_2 = integer(1), 
-##     activation_2 = character(1))
+## brulee::brulee_mlp_two_layer(x = missing_arg(), y = missing_arg(), 
+##     hidden_units = integer(1), penalty = double(1), dropout = double(1), 
+##     epochs = integer(1), activation = character(1), learn_rate = double(1), 
+##     hidden_units_2 = integer(1), activation_2 = character(1))
 ```
 
 
