@@ -10,8 +10,8 @@
 #' to the data argument of [fit()], [fit_xy()], and [predict()].
 #' 
 #' Models that don't support sparse data will try to convert to non-sparse data 
-#' with warnings. An informative error will be thrown if conversion isn't
-#' possible.
+#' with warnings. If conversion isn’t possible, an informative error will be 
+#' thrown.
 #' 
 #' @name sparse_data
 NULL

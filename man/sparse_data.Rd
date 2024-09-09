@@ -11,10 +11,10 @@ column.
 \details{
 Using sparse data for model fitting and prediction shouldn't require any
 additional configurations. Just pass in a sparse matrix such as dgCMatrix
-from the \code{Matrix} package or a sparse tibble from the \code{sparsevctrs} package
-to the data argument of the respective \code{\link[=fit]{fit()}}, \code{\link[=fit_xy]{fit_xy()}}, and \code{\link[=predict]{predict()}}.
+from the \code{Matrix} package or a sparse tibble from the sparsevctrs package
+to the data argument of \code{\link[=fit]{fit()}}, \code{\link[=fit_xy]{fit_xy()}}, and \code{\link[=predict]{predict()}}.
 
 Models that don't support sparse data will try to convert to non-sparse data
-with warnings. An informative error will be thrown if conversion isn't
-possible.
+with warnings. If conversion isn’t possible, an informative error will be
+thrown.
 }
