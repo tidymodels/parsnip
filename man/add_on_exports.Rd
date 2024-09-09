@@ -42,7 +42,15 @@ update_engine_parameters(eng_args, fresh, ...)
 
 print_model_spec(x, cls = class(x)[1], desc = get_model_desc(cls), ...)
 
-update_spec(object, parameters, args_enquo_list, fresh, cls, ...)
+update_spec(
+  object,
+  parameters,
+  args_enquo_list,
+  fresh,
+  cls,
+  ...,
+  call = caller_env()
+)
 
 is_varying(x)
 }
