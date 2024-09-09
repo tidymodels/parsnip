@@ -25,6 +25,15 @@ check_quantile_level <- function(x, object, call) {
 # -------------------------------------------------------------------------
 # A column vector of quantiles with an attribute
 
+#' @importFrom vctrs vec_ptype_abbr
+#' @export
+vctrs::vec_ptype_abbr
+
+#' @importFrom vctrs vec_ptype_full
+#' @export
+vctrs::vec_ptype_full
+
+
 #' @export
 vec_ptype_abbr.vctrs_quantiles <- function(x, ...) "qntls"
 
