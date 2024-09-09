@@ -58,8 +58,9 @@ NULL
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-update_spec <- function(object, parameters, args_enquo_list, fresh, cls, ...) {
-
+update_spec <- function(object, parameters, args_enquo_list, fresh, cls, ...,
+                        call = caller_env()) {
+  check_bool(fresh, call = call)
   eng_args <- update_engine_parameters(object$eng_args, fresh, ...)
 
   if (!is.null(parameters)) {
