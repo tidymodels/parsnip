@@ -21,11 +21,11 @@
 
 ---
 
-    Please set the mode in the model specification.
+    Please set the mode in the model specification (`?parsnip::model_spec()`).
 
 ---
 
-    Please set the mode in the model specification.
+    Please set the mode in the model specification (`?parsnip::model_spec()`).
 
 ---
 

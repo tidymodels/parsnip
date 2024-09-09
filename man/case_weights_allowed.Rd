@@ -7,7 +7,7 @@
 case_weights_allowed(spec)
 }
 \arguments{
-\item{spec}{A parsnip model specification.}
+\item{spec}{A parsnip \link[=model_spec]{model specification}.}
 }
 \value{
 A single logical.

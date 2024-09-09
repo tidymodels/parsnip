@@ -35,7 +35,7 @@ check_eng_args <- function(args, obj, core_args) {
 #' `set_args()` can be used to modify the arguments of a model specification while
 #'  `set_mode()` is used to change the model's mode.
 #'
-#' @param object A model specification.
+#' @param object A [model specification][model_spec].
 #' @param ... One or more named model arguments.
 #' @param mode A character string for the model type (e.g. "classification" or
 #'  "regression")
@@ -134,7 +134,7 @@ maybe_eval <- function(x) {
 #' Evaluate parsnip model arguments
 #' @export
 #' @keywords internal
-#' @param spec A model specification
+#' @param spec A [model specification][model_spec].
 #' @param ... Not used.
 eval_args <- function(spec, ...) {
   spec$args   <- purrr::map(spec$args,   maybe_eval)

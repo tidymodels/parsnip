@@ -1,6 +1,6 @@
 #' Determine required packages for a model
 #'
-#' @param x A model specification or fit.
+#' @param x A [model specification][model_spec] or [fit][model_fit].
 #' @param infra Should parsnip itself be included in the result?
 #' @param ... Not used.
 #' @return A character vector

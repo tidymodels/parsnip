@@ -38,7 +38,7 @@ multi_predict.default <- function(object, ...) {
 #' @export
 predict.model_spec <- function(object, ...) {
   cli::cli_abort(
-    "You must {.fun fit} your model specification
+    "You must {.fun fit} your {.help [model specification](parsnip::model_spec)}
      before you can use {.fun predict}."
   )
 }

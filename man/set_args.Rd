@@ -10,7 +10,7 @@ set_args(object, ...)
 set_mode(object, mode)
 }
 \arguments{
-\item{object}{A model specification.}
+\item{object}{A \link[=model_spec]{model specification}.}
 
 \item{...}{One or more named model arguments.}
 

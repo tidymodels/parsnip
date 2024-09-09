@@ -116,7 +116,9 @@ fit.model_spec <-
            ...
   ) {
     if (object$mode == "unknown") {
-      cli::cli_abort("Please set the mode in the model specification.")
+      cli::cli_abort(
+        "Please set the mode in the {.help [model specification](parsnip::model_spec)}."
+      )
     }
     control <- condense_control(control, control_parsnip())
     check_case_weights(case_weights, object)
@@ -249,7 +251,10 @@ fit_xy.model_spec <-
            ...
   ) {
     if (object$mode == "unknown") {
-      cli::cli_abort("Please set the mode in the model specification.")
+      cli::cli_abort(
+        "Please set the mode in the
+        {.help [model specification](parsnip::model_spec)}."
+      )
     }
 
     if (inherits(object, "surv_reg")) {

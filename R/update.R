@@ -18,7 +18,7 @@
 #' @inheritParams svm_linear
 #' @inheritParams svm_poly
 #' @inheritParams svm_rbf
-#' @param object A model specification.
+#' @param object A [model specification][model_spec].
 #' @param parameters A 1-row tibble or named list with _main_
 #'  parameters to update. Use **either** `parameters` **or** the main arguments
 #'  directly when updating. If the main arguments are used,
