@@ -55,11 +55,11 @@
 #' a "reverse Kaplan-Meier" curve that models the probability of censoring. This
 #' may be used later to compute inverse probability censoring weights for
 #' performance measures.
-#' 
+#'
 #' Sparse data is supported, with the use of the `x` argument in `fit_xy()`. See
-#' `allow_sparse_x` column of [parsnip::get_encoding()] for sparse input 
+#' `allow_sparse_x` column of [parsnip::get_encoding()] for sparse input
 #' compatibility.
-#' 
+#'
 #' @examplesIf !parsnip:::is_cran_check()
 #' # Although `glm()` only has a formula interface, different
 #' # methods for specifying the model can be used
@@ -121,21 +121,17 @@ fit.model_spec <-
     control <- condense_control(control, control_parsnip())
     check_case_weights(case_weights, object)
 
-    if (!inherits(formula, "formula")) {
-      msg <- "The {.arg formula} argument must be a formula, but it is a \\
-              {.cls {class(formula)[1]}}."
-
-      if (inherits(formula, "recipe")) {
-        msg <-
-          c(
-            msg,
-            "i" = "To fit a model with a recipe preprocessor, please use a \\
+    if (inherits(formula, "recipe")) {
+      cli::cli_abort(
+        c(
+          "The {.arg formula} argument must be a formula.",
+          "i" = "To fit a model with a recipe preprocessor, please use a \\
                  {.help [workflow](workflows::workflow)}."
-          )
-      }
-
-      cli::cli_abort(msg)
+        )
+      )
     }
+    check_formula(formula)
+
 
     if (is_sparse_matrix(data)) {
       data <- sparsevctrs::coerce_to_sparse_tibble(data)
@@ -179,7 +175,7 @@ fit.model_spec <-
     eval_env$weights <- wts
 
     data <- materialize_sparse_tibble(data, object, "data")
-    
+
     fit_interface <-
       check_interface(eval_env$formula, eval_env$data, cl, object)
 
@@ -297,10 +293,11 @@ fit_xy.model_spec <-
     # TODO case weights: pass in eval_env not individual elements
     fit_interface <- check_xy_interface(eval_env$x, eval_env$y, cl, object)
 
-    if (object$engine == "spark")
+    if (object$engine == "spark") {
       cli::cli_abort(
-          "spark objects can only be used with the formula interface to {.fn fit} with a spark data object."
+        "spark objects can only be used with the formula interface to {.fn fit} with a spark data object."
       )
+    }
 
     # populate `method` with the details for this model type
     object <- add_methods(object, engine = object$engine)
@@ -373,59 +370,47 @@ eval_mod <- function(e, capture = FALSE, catch = FALSE, envir = NULL, ...) {
 
 # ------------------------------------------------------------------------------
 
-inher <- function(x, cls, cl) {
-  if (!is.null(x) && !inherits(x, cls)) {
-
-    call <- match.call()
-    obj <- deparse(call[["x"]])
-
-    if (length(cls) > 1)
-      cli::cli_abort(
-          "{.arg {obj}} should be one of the following classes: {.cls {cls}}.")
-
-    else
-      cli::cli_abort("{.arg {obj}} should be a {.cls {cls}} object")
-  }
-  invisible(x)
-}
-
-# ------------------------------------------------------------------------------
-
-check_interface <- function(formula, data, cl, model) {
-  inher(formula, "formula", cl)
-  inher(data, c("data.frame", "dgCMatrix", "tbl_spark"), cl)
+check_interface <- function(formula, data, cl, model, call = caller_env()) {
+  check_formula(formula, call = call)
+  check_inherits(data, c("data.frame", "dgCMatrix", "tbl_spark"), call = call)
 
   # Determine the `fit()` interface
   form_interface <- !is.null(formula) & !is.null(data)
 
   if (form_interface)
     return("formula")
-  cli::cli_abort("Error when checking the interface.")
+  cli::cli_abort("Error when checking the interface.", call = call)
 }
 
-check_xy_interface <- function(x, y, cl, model) {
+check_xy_interface <- function(x, y, cl, model, call = caller_env()) {
 
   sparse_ok <- allow_sparse(model)
   sparse_x <- inherits(x, "dgCMatrix")
   if (!sparse_ok & sparse_x) {
-    cli::cli_abort("Sparse matrices not supported by this model/engine combination.")
+    cli::cli_abort(
+      "Sparse matrices not supported by this model/engine combination.",
+      call = call
+    )
   }
 
   if (sparse_ok) {
-    inher(x, c("data.frame", "matrix", "dgCMatrix"), cl)
+    check_inherits(x, c("data.frame", "matrix", "dgCMatrix"), call = call)
   } else {
-    inher(x, c("data.frame", "matrix"), cl)
+    check_inherits(x, c("data.frame", "matrix"), call = call)
   }
 
-  if (!is.null(y) && !is.atomic(y))
-    inher(y, c("data.frame", "matrix"), cl)
+  if (!is.null(y) && !is.atomic(y)) {
+    check_inherits(y, c("data.frame", "matrix"), call = call)
+  }
 
   # rule out spark data sets that don't use the formula interface
-  if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark"))
+  if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark")) {
     cli::cli_abort(
-        "spark objects can only be used with the formula interface via {.fn fit} with a spark data object."
-      )
-
+      "spark objects can only be used with the formula interface via
+       {.fn fit} with a spark data object.",
+      call = call
+    )
+  }
 
   if (sparse_ok) {
     matrix_interface <- !is.null(x) && !is.null(y) && (is.matrix(x) | sparse_x)
@@ -444,7 +429,7 @@ check_xy_interface <- function(x, y, cl, model) {
 
   check_outcome(y, model)
 
-  cli::cli_abort("Error when checking the interface")
+  cli::cli_abort("Error when checking the interface.", call = call)
 }
 
 allow_sparse <- function(x) {
