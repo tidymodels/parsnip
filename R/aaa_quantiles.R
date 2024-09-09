@@ -31,7 +31,6 @@ vec_ptype_abbr.vctrs_quantiles <- function(x, ...) "qntls"
 #' @export
 vec_ptype_full.vctrs_quantiles <- function(x, ...) "quantiles"
 
-#' @importFrom rlang is_double !!!
 new_vec_quantiles <- function(values = list(), quantile_levels = double()) {
   quantile_levels <- vctrs::vec_cast(quantile_levels, double())
   vctrs::new_vctr(
@@ -72,8 +71,7 @@ vec_quantiles <- function(values, quantile_levels = double()) {
 
 check_vec_quantiles_inputs <- function(values, levels) {
   if (!is.matrix(values)) {
-    cls <- class(values)[1]
-    cli::cli_abort("{.arg values} must be a {.cls matrix} not a {.cls {cls}}.")
+    cli::cli_abort("{.arg values} must be a {.cls matrix}, not {.obj_type_friendly {values}}.")
   }
   purrr::walk(levels,
     ~ check_number_decimal(.x, min = 0, max = 1, arg = "quantile_levels")
@@ -110,7 +108,9 @@ obj_print_footer.vctrs_quantiles <- function(x, ...) {
 }
 
 restructure_rq_pred <- function(x, object) {
-  if (!is.matrix(x)) x <- as.matrix(x)
+  if (!is.matrix(x)) {
+    x <- as.matrix(x)
+  }
   rownames(x) <- NULL
   n_pred_quantiles <- ncol(x)
   # TODO check p = length(quantile_level)
