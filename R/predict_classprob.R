@@ -9,7 +9,7 @@ predict_classprob.model_fit <- function(object, new_data, ...) {
     cli::cli_abort("{.fun predict.model_fit()} is for predicting factor outcomes.")
   }
 
-  check_spec_pred_type(object, "prob")
+  check_spec_pred_type(object, "prob", call = caller_env())
   check_spec_levels(object)
 
   if (inherits(object$fit, "try-error")) {
