@@ -313,6 +313,11 @@ test_that('show engine', {
 })
 
 test_that('lm can handle rankdeficient predictions', {
+  skip_if(
+    paste0(R.Version()[c("major", "minor")], collapse = ".") < "4.3.0",
+    "R doesn't raise the rank-deficient warning in this R version"
+  )
+
   data <- data.frame(
     y = c(1,2,3,4),
     x1 = c(1,1,2,3),

@@ -98,6 +98,7 @@ test_that('non-factor classification', {
           data = hpc %>% dplyr::mutate(class = ifelse(class == "VF", 1, 0)))
   )
 
+  skip_if_not_installed("glmnet")
   expect_snapshot(
     error = TRUE,
     multinom_reg() %>%
