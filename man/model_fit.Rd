@@ -2,12 +2,17 @@
 % Please edit documentation in R/model_object_docs.R
 \name{model_fit}
 \alias{model_fit}
-\title{Model Fit Object Information}
+\title{Model Fit Objects}
 \description{
-An object with class "model_fit" is a container for
-information about a model that has been fit to the data.
+Model fits are trained \link[=model_spec]{model specifications} that are
+ready to \link[=predict.model_fit]{predict} on new data. Model fits have class
+\code{model_fit} and, usually, a subclass referring to the engine
+used to fit the model.
 }
 \details{
+An object with class "model_fit" is a container for
+information about a model that has been fit to the data.
+
 The main elements of the object are:
 \itemize{
 \item \code{lvl}: A vector of factor levels when the outcome is

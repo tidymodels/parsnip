@@ -165,8 +165,16 @@
 #' @name model_spec
 NULL
 
-#' Model Fit Object Information
+#' Model Fit Objects
 #'
+#' @description
+#'
+#' Model fits are trained [model specifications][model_spec] that are
+#' ready to [predict][predict.model_fit] on new data. Model fits have class
+#' `model_fit` and, usually, a subclass referring to the engine
+#' used to fit the model.
+#'
+#' @details
 #'
 #' An object with class "model_fit" is a container for
 #'  information about a model that has been fit to the data.
