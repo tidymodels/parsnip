@@ -17,14 +17,13 @@ test_that('ranger classification execution', {
 
   skip_if_not_installed("ranger")
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
       lc_ranger,
       Class ~ funded_amnt + term,
       data = lending_club,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
   expect_error(
@@ -37,15 +36,14 @@ test_that('ranger classification execution', {
     regexp = "For a classification model"
   )
 
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       lc_ranger,
       x = lending_club[, num_pred],
       y = lending_club$Class,
 
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
   expect_error(
@@ -182,24 +180,22 @@ test_that('ranger regression execution', {
 
   skip_if_not_installed("ranger")
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
       car_basic,
       mpg ~ .,
       data = mtcars,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       car_basic,
       x = mtcars,
       y = mtcars$mpg,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
 

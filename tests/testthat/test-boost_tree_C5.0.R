@@ -13,24 +13,22 @@ test_that('C5.0 execution', {
 
   skip_if_not_installed("C50")
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
       lc_basic,
       Class ~ log(funded_amnt) + int_rate,
       data = lending_club,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       lc_basic,
       x = lending_club[, num_pred],
       y = lending_club$Class,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
   expect_true(has_multi_predict(res))

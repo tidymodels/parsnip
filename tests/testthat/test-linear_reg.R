@@ -29,24 +29,22 @@ hpc_basic <- linear_reg() %>% set_engine("lm")
 
 test_that('lm execution', {
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
       hpc_basic,
       input_fields ~ log(compounds) + class,
       data = hpc,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       hpc_basic,
       x = hpc[, num_pred],
       y = hpc$input_fields,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
   expect_error(
@@ -90,24 +88,22 @@ test_that('lm execution', {
 
   ## multivariate y
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
       hpc_basic,
       cbind(compounds, iterations) ~ .,
       data = hpc,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       hpc_basic,
       x = hpc[, 1:2],
       y = hpc[3:4],
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 })
 
@@ -115,24 +111,22 @@ test_that('glm execution', {
 
   hpc_glm <- linear_reg() %>% set_engine("glm")
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
       hpc_glm,
       input_fields ~ log(compounds) + class,
       data = hpc,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       hpc_glm,
       x = hpc[, num_pred],
       y = hpc$input_fields,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
   expect_error(
@@ -344,8 +338,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- linear_reg(mixture = -1) %>% 
-        set_engine("lm") %>% 
+      spec <- linear_reg(mixture = -1) %>%
+        set_engine("lm") %>%
         set_mode("regression")
       fit(spec, compounds ~ ., hpc)
     }
@@ -353,8 +347,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- linear_reg(penalty = -1) %>% 
-        set_engine("lm") %>% 
+      spec <- linear_reg(penalty = -1) %>%
+        set_engine("lm") %>%
         set_mode("regression")
       fit(spec, compounds ~ ., hpc)
     }

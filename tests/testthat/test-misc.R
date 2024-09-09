@@ -35,25 +35,23 @@ test_that('other objects', {
 
 test_that('S3 method dispatch/registration', {
 
-  expect_error(
+  expect_no_condition(
     res <-
       null_model() %>%
       set_engine("parsnip") %>%
       set_mode("regression") %>%
       fit(mpg ~ ., data = mtcars) %>%
-      tidy(),
-    regex = NA
+      tidy()
   )
   expect_true(tibble::is_tibble(res))
 
-  expect_error(
+  expect_no_condition(
     res <-
       null_model() %>%
       set_engine("parsnip") %>%
       set_mode("classification") %>%
       fit(class ~ ., data = hpc) %>%
-      tidy(),
-    regex = NA
+      tidy()
   )
   expect_true(tibble::is_tibble(res))
 

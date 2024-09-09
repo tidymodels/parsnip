@@ -34,19 +34,17 @@ test_that('wrong args', {
 
 test_that('single column df for issue #129', {
 
-  expect_error(
+  expect_no_condition(
     lm1 <-
       linear_reg() %>%
       set_engine("lm") %>%
-      fit_xy(x = mtcars[, 2:4], y = mtcars[,1, drop = FALSE]),
-    regexp = NA
+      fit_xy(x = mtcars[, 2:4], y = mtcars[,1, drop = FALSE])
   )
-  expect_error(
+  expect_no_condition(
     lm2 <-
       linear_reg() %>%
       set_engine("lm") %>%
-      fit_xy(x = mtcars[, 2:4], y = as.matrix(mtcars)[,1, drop = FALSE]),
-    regexp = NA
+      fit_xy(x = mtcars[, 2:4], y = as.matrix(mtcars)[,1, drop = FALSE])
   )
   lm3 <-
     linear_reg() %>%
@@ -113,9 +111,8 @@ test_that("elapsed time parsnip mods", {
 })
 
 test_that('No loaded engines', {
-  expect_error(
-    linear_reg() %>% fit(mpg ~., data = mtcars),
-    regexp = NA
+  expect_no_condition(
+    linear_reg() %>% fit(mpg ~., data = mtcars)
   )
   expect_snapshot_error({cubist_rules() %>% fit(mpg ~., data = mtcars)})
   expect_snapshot_error({poisson_reg() %>% fit(mpg ~., data = mtcars)})

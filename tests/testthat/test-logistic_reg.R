@@ -47,14 +47,13 @@ test_that('glm execution', {
   #   ),
   #   regexp = NA
   # )
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       lc_basic,
       x = lending_club[, num_pred],
       y = lending_club$Class,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
   expect_error(
@@ -160,14 +159,13 @@ test_that('liblinear execution', {
 
   skip_if_not_installed("LiblineaR")
 
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       ll_basic,
       x = lending_club[, num_pred],
       y = lending_club$Class,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
   expect_error(
@@ -253,8 +251,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- logistic_reg(mixture = -1) %>% 
-        set_engine("glm") %>% 
+      spec <- logistic_reg(mixture = -1) %>%
+        set_engine("glm") %>%
         set_mode("classification")
       fit(spec, Class ~ ., lending_club)
     }
@@ -262,8 +260,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- logistic_reg(penalty = -1) %>% 
-        set_engine("glm") %>% 
+      spec <- logistic_reg(penalty = -1) %>%
+        set_engine("glm") %>%
         set_mode("classification")
       fit(spec, Class ~ ., lending_club)
     }
@@ -271,8 +269,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- logistic_reg(mixture = 0.5) %>% 
-        set_engine("LiblineaR") %>% 
+      spec <- logistic_reg(mixture = 0.5) %>%
+        set_engine("LiblineaR") %>%
         set_mode("classification")
       fit(spec, Class ~ ., lending_club)
     }
@@ -280,8 +278,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- logistic_reg(penalty = 0) %>% 
-        set_engine("LiblineaR") %>% 
+      spec <- logistic_reg(penalty = 0) %>%
+        set_engine("LiblineaR") %>%
         set_mode("classification")
       fit(spec, Class ~ ., lending_club)
     }
