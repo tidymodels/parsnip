@@ -61,7 +61,8 @@ test_that('extract single parameter from model with no parameters', {
 
   lm_model <- linear_reg() %>% set_engine("lm")
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     extract_parameter_dials(lm_model, parameter = "none there")
   )
 })

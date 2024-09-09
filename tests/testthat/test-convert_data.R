@@ -277,7 +277,8 @@ test_that("numeric y and mixed x, include missing data", {
 })
 
 test_that("numeric y and mixed x, fail missing data", {
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     .convert_form_to_xy_fit(
       rate ~ .,
       data = Puromycin_miss,
@@ -357,7 +358,8 @@ test_that("numeric x and factor y", {
 })
 
 test_that("bad args", {
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     .convert_form_to_xy_fit(
       mpg ~ ., data = mtcars,
       composition = "tibble",
@@ -365,7 +367,8 @@ test_that("bad args", {
       remove_intercept = TRUE
     )
   )
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     .convert_form_to_xy_fit(
       mpg ~ ., data = mtcars,
       weights = letters[1:nrow(mtcars)],
@@ -602,10 +605,12 @@ test_that("data frame x, factor y", {
 
 
 test_that("bad args", {
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     .convert_xy_to_form_fit(mtcars$disp, mtcars$mpg, remove_intercept = TRUE)
   )
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     .convert_xy_to_form_fit(mtcars[, 1:3], mtcars[, 2:5], remove_intercept = TRUE)
   )
 })

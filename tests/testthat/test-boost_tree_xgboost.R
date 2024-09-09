@@ -65,7 +65,8 @@ test_that('xgboost execution, classification', {
   expect_true(has_multi_predict(res_xy))
   expect_equal(multi_predict_args(res_xy), "trees")
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- parsnip::fit(
       hpc_xgboost,
       class ~ novar,
@@ -150,14 +151,14 @@ test_that('xgboost execution, regression', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- parsnip::fit_xy(
       car_basic,
       x = mtcars[, num_pred],
       y = factor(mtcars$vs),
       control = ctrl
-    ),
-    regexp = "For a regression model"
+    )
   )
 })
 
@@ -302,12 +303,12 @@ test_that('validation sets', {
 
   expect_equal(colnames(extract_fit_engine(reg_fit)$evaluation_log)[2], "training_mae")
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     reg_fit <-
       boost_tree(trees = 20, mode = "regression") %>%
       set_engine("xgboost", validation = 3) %>%
-      fit(mpg ~ ., data = mtcars[-(1:4), ]),
-    regex = "`validation` should be on"
+      fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
 })
@@ -345,12 +346,12 @@ test_that('early stopping', {
       fit(mpg ~ ., data = mtcars[-(1:4), ]),
     regex = "`early_stop` was reduced to 19"
   )
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     reg_fit <-
       boost_tree(trees = 20, stop_iter = 0, mode = "regression") %>%
       set_engine("xgboost", validation = .1) %>%
-      fit(mpg ~ ., data = mtcars[-(1:4), ]),
-    regex = "`early_stop` should be on"
+      fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 })
 
@@ -600,12 +601,12 @@ test_that("count/proportion parameters", {
   expect_equal(extract_fit_engine(fit4)$params$colsample_bytree, .1)
   expect_equal(extract_fit_engine(fit4)$params$colsample_bynode, .9)
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     boost_tree(mtry = .9, trees = 4) %>%
       set_engine("xgboost") %>%
       set_mode("regression") %>%
-      fit(mpg ~ ., data = mtcars),
-   "was given as 0.9"
+      fit(mpg ~ ., data = mtcars)
   )
 
 })

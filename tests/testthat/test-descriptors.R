@@ -190,7 +190,7 @@ test_that("can be temporarily overriden at evaluation time", {
   )
 
   # .cols() should now be reset to an error
-  expect_error(.cols())
+  expect_snapshot(error = TRUE, .cols())
 
 })
 

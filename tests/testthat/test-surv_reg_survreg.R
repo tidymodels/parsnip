@@ -33,7 +33,8 @@ test_that('survival execution', {
       control = ctrl
     )
   )
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit_xy(
       surv_basic,
       x = lung[, c("age", "sex")],

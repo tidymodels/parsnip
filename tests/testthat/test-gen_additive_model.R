@@ -18,14 +18,14 @@ test_that('regression', {
       data = mtcars
     )
   )
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     xy_res <- fit_xy(
       reg_mod,
       x = mtcars[, 1:5],
       y = mtcars$mpg,
       control = ctrl
-    ),
-    regexp = "to train generalized additive"
+    )
   )
   mgcv_mod <- mgcv::gam(mpg ~ s(disp) + wt + gear, data = mtcars, select = TRUE)
   expect_equal(coef(mgcv_mod), coef(extract_fit_engine(f_res)))
@@ -61,14 +61,14 @@ test_that('classification', {
       data = two_class_dat
     )
   )
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     xy_res <- fit_xy(
       cls_mod,
       x = two_class_dat[, 2:3],
       y = two_class_dat$Class,
       control = ctrl
-    ),
-    regexp = "to train generalized additive"
+    )
   )
   mgcv_mod <-
     mgcv::gam(Class ~ s(A, k = 10) + B,

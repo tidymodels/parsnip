@@ -42,7 +42,8 @@ test_that('keras execution, classification', {
 
   keras::backend()$clear_session()
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- parsnip::fit(
       hpc_keras,
       class ~ novar,

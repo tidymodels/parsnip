@@ -23,6 +23,14 @@
       Error in `boost_tree()`:
       ! "bogus" is not a known mode for model `boost_tree()`.
 
+---
+
+    Code
+      translate(boost_tree(formula = y ~ x))
+    Condition
+      Error in `boost_tree()`:
+      ! unused argument (formula = y ~ x)
+
 # check_args() works
 
     Code

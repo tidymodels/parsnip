@@ -35,7 +35,8 @@ test_that('C5.0 execution', {
   expect_equal(multi_predict_args(res), "trees")
 
   # outcome is not a factor:
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit(
       lc_basic,
       funded_amnt ~ term,

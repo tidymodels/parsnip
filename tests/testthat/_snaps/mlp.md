@@ -15,6 +15,39 @@
       Computational engine: nnet 
       
 
+# bad input
+
+    Code
+      mlp(mode = "time series")
+    Condition
+      Error in `mlp()`:
+      ! "time series" is not a known mode for model `mlp()`.
+
+---
+
+    Code
+      translate(mlp(mode = "classification") %>% set_engine("wat?"))
+    Condition
+      Error in `set_engine()`:
+      x Engine "wat?" is not supported for `mlp()`
+      i See `show_engines("mlp")`.
+
+---
+
+    Code
+      translate(mlp(mode = "classification", x = x, y = y) %>% set_engine("keras"))
+    Condition
+      Error in `mlp()`:
+      ! unused arguments (x = x, y = y)
+
+---
+
+    Code
+      translate(mlp(mode = "regression", formula = y ~ x) %>% set_engine())
+    Condition
+      Error in `mlp()`:
+      ! unused argument (formula = y ~ x)
+
 # check_args() works
 
     Code

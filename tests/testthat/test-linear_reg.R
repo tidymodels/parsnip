@@ -11,12 +11,12 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(linear_reg(mode = "classification"))
-  expect_error(translate(linear_reg(), engine = "wat?"))
-  expect_error(translate(linear_reg(), engine = NULL))
-  expect_error(translate(linear_reg(formula = y ~ x)))
-  expect_error(translate(linear_reg(x = hpc[,1:3], y = hpc$class) %>% set_engine("glmnet")))
-  expect_error(translate(linear_reg(formula = y ~ x)  %>% set_engine("lm")))
+  expect_snapshot(error = TRUE, linear_reg(mode = "classification"))
+  expect_snapshot(error = TRUE, translate(linear_reg(), engine = "wat?"))
+  expect_snapshot(error = TRUE, translate(linear_reg(), engine = NULL))
+  expect_snapshot(error = TRUE, translate(linear_reg(formula = y ~ x)))
+  expect_snapshot(error = TRUE, translate(linear_reg(x = hpc[,1:3], y = hpc$class) %>% set_engine("glmnet")))
+  expect_snapshot(error = TRUE, translate(linear_reg(formula = y ~ x)  %>% set_engine("lm")))
 })
 
 # ------------------------------------------------------------------------------
@@ -47,27 +47,28 @@ test_that('lm execution', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit_xy(
       hpc_basic,
       x = hpc[, num_pred],
       y = hpc$class,
       control = ctrl
-    ),
-    regexp = "For a regression model"
+    )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit_xy(
       hpc_basic,
       x = hpc[, num_pred],
       y = as.character(hpc$class),
       control = ctrl
-    ),
-    regexp = "For a regression model"
+    )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit(
       hpc_basic,
       hpc_bad_form,
@@ -76,14 +77,14 @@ test_that('lm execution', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     lm_form_catch <- fit(
       hpc_basic,
       hpc_bad_form,
       data = hpc,
       control = caught_ctrl
-    ),
-    regexp = "For a regression model"
+    )
   )
 
   ## multivariate y
@@ -129,17 +130,18 @@ test_that('glm execution', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit_xy(
       hpc_glm,
       x = hpc[, num_pred],
       y = hpc$class,
       control = ctrl
-    ),
-    regexp = "For a regression model"
+    )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit(
       hpc_glm,
       hpc_bad_form,
@@ -148,14 +150,14 @@ test_that('glm execution', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     lm_form_catch <- fit(
       hpc_glm,
       hpc_bad_form,
       data = hpc,
       control = caught_ctrl
-    ),
-    regexp = "For a regression model"
+    )
   )
 
 })
@@ -307,7 +309,7 @@ test_that('show engine', {
   res <- show_engines("linear_reg")
   expt <- get_from_env("linear_reg")
   expect_equal(res, expt)
-  expect_error(show_engines("linear_re"), "No results found for model function")
+  expect_snapshot(error = TRUE, show_engines("linear_re"))
 })
 
 test_that('lm can handle rankdeficient predictions', {

@@ -23,13 +23,13 @@ test_that('good args', {
 })
 
 #test_that('unnamed args', {
-#  expect_error(tester(NULL, hpc, y = hpc, model = rmod))
-#  expect_error(tester(NULL, data = hpc, model = rmod))
+#  expect_snapshot(error = TRUE, tester(NULL, hpc, y = hpc, model = rmod))
+#  expect_snapshot(error = TRUE, tester(NULL, data = hpc, model = rmod))
 #})
 #
 test_that('wrong args', {
- expect_error(tester_xy(NULL, x = sprk, y = hpc, model = rmod))
- expect_error(tester(NULL, f,  data = as.matrix(hpc[, 1:4])))
+ expect_snapshot(error = TRUE, tester_xy(NULL, x = sprk, y = hpc, model = rmod))
+ expect_snapshot(error = TRUE, tester(NULL, f,  data = as.matrix(hpc[, 1:4])))
 })
 
 test_that('single column df for issue #129', {
@@ -58,17 +58,17 @@ test_that('single column df for issue #129', {
 
 test_that('unknown modes', {
   mars_spec <- set_engine(mars(), "earth")
-  expect_error(
-    fit(mars_spec, am ~ ., data = mtcars),
-    "Please set the mode in the model specification."
+  expect_snapshot(
+    error = TRUE,
+    fit(mars_spec, am ~ ., data = mtcars)
   )
-  expect_error(
-    fit_xy(mars_spec, x = mtcars[, -1], y = mtcars[,1]),
-    regexp = "Please set the mode in the model specification."
+  expect_snapshot(
+    error = TRUE,
+    fit_xy(mars_spec, x = mtcars[, -1], y = mtcars[,1])
   )
-  expect_error(
-    fit_xy(mars_spec, x = lending_club[,1:2], y = lending_club$Class),
-    regexp = "Please set the mode in the model specification."
+  expect_snapshot(
+    error = TRUE,
+    fit_xy(mars_spec, x = lending_club[,1:2], y = lending_club$Class)
   )
 })
 

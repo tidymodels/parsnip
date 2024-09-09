@@ -20,9 +20,9 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(translate(mars(mode = "regression") %>% set_engine()))
-  expect_error(translate(mars() %>% set_engine("wat?")))
-  expect_error(translate(mars(formula = y ~ x)))
+  expect_snapshot(error = TRUE, translate(mars(mode = "regression") %>% set_engine()))
+  expect_snapshot(error = TRUE, translate(mars() %>% set_engine("wat?")))
+  expect_snapshot(error = TRUE, translate(mars(formula = y ~ x)))
 })
 
 # ------------------------------------------------------------------------------
@@ -57,14 +57,14 @@ test_that('mars execution', {
   expect_true(has_multi_predict(res))
   expect_equal(multi_predict_args(res), "num_terms")
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit(
       hpc_basic,
       hpc_bad_form,
       data = hpc,
       control = ctrl
-    ),
-    regexp = "For a regression model"
+    )
   )
 
   ## multivariate y

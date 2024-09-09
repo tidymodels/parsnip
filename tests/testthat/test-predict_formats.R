@@ -73,8 +73,8 @@ test_that('predict(type = "prob") with level "class" (see #720)', {
     predict(mod, type = "class", new_data = x)
   )
 
-  expect_error(
-    regexp = 'variable `boop` has a level called "class"',
+  expect_snapshot(
+    error = TRUE,
     predict(mod, type = "prob", new_data = x)
   )
 })
@@ -83,20 +83,23 @@ test_that('predict(type = "prob") with level "class" (see #720)', {
 test_that('non-factor classification', {
   skip_if(run_glmnet)
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     logistic_reg() %>%
       set_engine("glm") %>%
       fit(class ~ .,
           data = hpc %>% dplyr::mutate(class = class == "VF"))
   )
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     logistic_reg() %>%
       set_engine("glm") %>%
       fit(class ~ .,
           data = hpc %>% dplyr::mutate(class = ifelse(class == "VF", 1, 0)))
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     multinom_reg() %>%
       set_engine("glmnet") %>%
       fit(class ~ .,

@@ -49,7 +49,8 @@ test_that('re-registration of fit information', {
 
   # Fail if newly registered data is different than existing
   # `verbose` option is different here
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_fit(
       model = "bart",
       eng = "dbarts",
@@ -61,8 +62,7 @@ test_that('re-registration of fit information', {
         func = c(pkg = "dbarts", fun = "bart"),
         defaults = list(verbose = TRUE, keeptrees = TRUE, keepcall = FALSE)
       )
-    ),
-    "new information being registered is different"
+    )
   )
 })
 
@@ -86,7 +86,8 @@ test_that('re-registration of encoding information', {
 
   # Fail if newly registered data is different than existing
   # `compute_intercept` option is different here
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_encoding(
       model = "bart",
       eng = "dbarts",
@@ -97,8 +98,7 @@ test_that('re-registration of encoding information', {
         remove_intercept = FALSE,
         allow_sparse_x = FALSE
       )
-    ),
-    "new information being registered is different"
+    )
   )
 })
 
@@ -129,7 +129,8 @@ test_that('re-registration of prediction information', {
 
   # Fail if newly registered data is different than existing
   # `type` option is different here
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_pred(
       model = "bart",
       eng = "dbarts",
@@ -146,8 +147,7 @@ test_that('re-registration of prediction information', {
             type = "tuba"
           )
       )
-    ),
-    "new information being registered is different"
+    )
   )
 })
 

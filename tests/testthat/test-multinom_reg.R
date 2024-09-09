@@ -10,9 +10,9 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(multinom_reg(mode = "regression"))
-  expect_error(translate(multinom_reg(penalty = 0.1) %>% set_engine("wat?")))
-  expect_error(multinom_reg(penalty = 0.1) %>% set_engine())
+  expect_snapshot(error = TRUE, multinom_reg(mode = "regression"))
+  expect_snapshot(error = TRUE, translate(multinom_reg(penalty = 0.1) %>% set_engine("wat?")))
+  expect_snapshot(error = TRUE, multinom_reg(penalty = 0.1) %>% set_engine())
   expect_warning(translate(multinom_reg(penalty = 0.1) %>% set_engine("glmnet", x = hpc[,1:3], y = hpc$class)))
 })
 

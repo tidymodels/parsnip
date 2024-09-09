@@ -30,7 +30,8 @@ test_that('flexsurv execution', {
   expect_false(has_multi_predict(res))
   expect_equal(multi_predict_args(res), NA_character_)
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit_xy(
       surv_basic,
       x = lung[, "age", drop = FALSE],
