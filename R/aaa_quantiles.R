@@ -21,23 +21,99 @@ check_quantile_level <- function(x, object, call) {
   x
 }
 
-# Assumes the columns have the same order as quantile_level
-restructure_rq_pred <- function(x, object) {
-  num_quantiles <- NCOL(x)
-  if ( num_quantiles == 1L ){
-    x <- matrix(x, ncol = 1)
-  }
-  n <- nrow(x)
 
+# -------------------------------------------------------------------------
+# A column vector of quantiles with an attribute
+
+#' @export
+vec_ptype_abbr.vctrs_quantiles <- function(x, ...) "qntls"
+
+#' @export
+vec_ptype_full.vctrs_quantiles <- function(x, ...) "quantiles"
+
+#' @importFrom rlang is_double !!!
+new_vec_quantiles <- function(values = list(), quantile_levels = double()) {
+  quantile_levels <- vctrs::vec_cast(quantile_levels, double())
+  vctrs::new_vctr(
+    values, quantile_levels = quantile_levels, class = "vctrs_quantiles"
+  )
+}
+
+
+#' Create a vector containing sets of quantiles
+#'
+#' @param values A matrix of values. Each column should correspond to one of
+#'   the quantile levels.
+#' @param quantile_levels A vector of probabilities corresponding to `values`.
+#'
+#' @export
+#' @return A vector of values associated with the quantile levels.
+#'
+#' @examples
+#' v <- vec_quantiles(matrix(rnorm(20), 5), c(.2, .4, .6, .8))
+#'
+#' # Access the underlying information
+#' attr(v, "quantile_levels")
+#' vctrs::vec_data(v)
+vec_quantiles <- function(values, quantile_levels = double()) {
+  check_vec_quantiles_inputs(values, quantile_levels)
+  quantile_levels <- vctrs::vec_cast(quantile_levels, double())
+  num_lvls <- length(quantile_levels)
+
+  if (ncol(values) != num_lvls) {
+    cli::cli_abort(
+      "The number of columns in {.arg values} must be equal to the length of
+        {.arg quantile_levels}."
+    )
+  }
+  values <- lapply(vctrs::vec_chop(values), drop)
+  new_vec_quantiles(values, quantile_levels)
+}
+
+check_vec_quantiles_inputs <- function(values, levels) {
+  if (!is.matrix(values)) {
+    cls <- class(values)[1]
+    cli::cli_abort("{.arg values} must be a {.cls matrix} not a {.cls {cls}}.")
+  }
+  purrr::walk(levels,
+    ~ check_number_decimal(.x, min = 0, max = 1, arg = "quantile_levels")
+  )
+  if (is.unsorted(levels)) {
+    cli::cli_abort("{.arg quantile_levels} must be sorted in increasing order.")
+  }
+  invisible(NULL)
+}
+
+#' @export
+format.vctrs_quantiles <- function(x, ...) {
+  quantile_levels <- attr(x, "levels")
+  if (length(quantile_levels) == 1L) {
+    x <- unlist(x)
+    out <- round(x, 3L)
+    out[is.na(x)] <- NA
+  } else {
+    rng <- sapply(x, range)
+    out <- paste0("[", round(rng[1, ], 3L), ", ", round(rng[2, ], 3L), "]")
+    out[is.na(rng[1, ]) | is.na(rng[2, ])] <- NA
+  }
+  out
+}
+
+#' @importFrom vctrs obj_print_footer
+#' @export
+vctrs::obj_print_footer
+
+#' @export
+obj_print_footer.vctrs_quantiles <- function(x, ...) {
+  lvls <- attr(x, "quantile_levels")
+  cat("# Quantile levels: ", format(lvls, digits = 3), "\n", sep = " ")
+}
+
+restructure_rq_pred <- function(x, object) {
+  if (!is.matrix(x)) x <- as.matrix(x)
+  n_pred_quantiles <- ncol(x)
+  # TODO check p = length(quantile_level)
   quantile_level <- object$spec$quantile_level
-  res <-
-    tibble::tibble(
-    .pred_quantile = as.vector(x),
-    .quantile_level = rep(quantile_level, each = n),
-    .row = rep(1:n, num_quantiles))
-  res <- vctrs::vec_split(x = res[,1:2], by = res[, ".row"])
-  res <- vctrs::vec_cbind(res$key, tibble::new_tibble(list(.pred_quantile = res$val)))
-  res$.row <- NULL
-  res
+  tibble::tibble(.pred_quantile = vec_quantiles(x, quantile_level))
 }
 
