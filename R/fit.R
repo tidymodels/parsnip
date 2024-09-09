@@ -371,7 +371,7 @@ eval_mod <- function(e, capture = FALSE, catch = FALSE, envir = NULL, ...) {
 # ------------------------------------------------------------------------------
 
 check_interface <- function(formula, data, cl, model, call = caller_env()) {
-  check_inherits(formula, "formula", call = call)
+  check_formula(formula, call = call)
   check_inherits(data, c("data.frame", "dgCMatrix", "tbl_spark"), call = call)
 
   # Determine the `fit()` interface
