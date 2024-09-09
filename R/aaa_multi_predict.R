@@ -3,7 +3,7 @@
 #' Model predictions across many sub-models
 #'
 #' For some models, predictions can be made on sub-models in the model object.
-#' @param object A `model_fit` object.
+#' @param object A [model fit][model_fit].
 #' @param new_data A rectangular data object, such as a data frame.
 #' @param type A single character value or `NULL`. Possible values are
 #' `"numeric"`, `"class"`, `"prob"`, `"conf_int"`, `"pred_int"`, `"quantile"`,

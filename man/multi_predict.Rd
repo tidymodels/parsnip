@@ -38,7 +38,7 @@ multi_predict(object, ...)
 \method{multi_predict}{`_train.kknn`}(object, new_data, type = NULL, neighbors = NULL, ...)
 }
 \arguments{
-\item{object}{A \code{model_fit} object.}
+\item{object}{A \link[=model_fit]{model fit}.}
 
 \item{...}{Optional arguments to pass to \code{predict.model_fit(type = "raw")}
 such as \code{type}.}
