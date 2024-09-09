@@ -2,7 +2,7 @@
 % Please edit documentation in R/aaa_quantiles.R
 \name{vec_quantiles}
 \alias{vec_quantiles}
-\title{A vector containing sets of quantiles}
+\title{Create a vector containing sets of quantiles}
 \usage{
 vec_quantiles(values, quantile_levels = double())
 }
@@ -12,9 +12,16 @@ the quantile levels.}
 
 \item{quantile_levels}{A vector of probabilities corresponding to \code{values}.}
 }
+\value{
+A vector of values associated with the quantile levels.
+}
 \description{
-A vector containing sets of quantiles
+Create a vector containing sets of quantiles
 }
 \examples{
-vec_quantiles(matrix(rnorm(20), 5), c(.2, .4, .6, .8))
+v <- vec_quantiles(matrix(rnorm(20), 5), c(.2, .4, .6, .8))
+
+# Access the underlying information
+attr(v, "quantile_levels")
+vctrs::vec_data(v)
 }

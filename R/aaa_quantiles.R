@@ -111,6 +111,7 @@ obj_print_footer.vctrs_quantiles <- function(x, ...) {
 
 restructure_rq_pred <- function(x, object) {
   if (!is.matrix(x)) x <- as.matrix(x)
+  rownames(x) <- NULL
   n_pred_quantiles <- ncol(x)
   # TODO check p = length(quantile_level)
   quantile_level <- object$spec$quantile_level
