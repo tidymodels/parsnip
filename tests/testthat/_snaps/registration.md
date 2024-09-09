@@ -62,22 +62,29 @@
        modes: unknown, classification, regression 
       
        engines: 
-         classification: brulee, keras, nnet
-         regression:     brulee, keras, nnet
+         classification: brulee, brulee_two_layer, keras, nnet
+         regression:     brulee, brulee_two_layer, keras, nnet
       
       
        arguments: 
-         keras:  
+         keras:            
             hidden_units --> hidden_units
             penalty      --> penalty
             dropout      --> dropout
             epochs       --> epochs
             activation   --> activation
-         nnet:   
+         nnet:             
             hidden_units --> size
             penalty      --> decay
             epochs       --> maxit
-         brulee: 
+         brulee:           
+            hidden_units --> hidden_units
+            penalty      --> penalty
+            epochs       --> epochs
+            dropout      --> dropout
+            learn_rate   --> learn_rate
+            activation   --> activation
+         brulee_two_layer: 
             hidden_units --> hidden_units
             penalty      --> penalty
             epochs       --> epochs
@@ -86,21 +93,25 @@
             activation   --> activation
       
        fit modules:
-         engine           mode
-          keras     regression
-          keras classification
-           nnet     regression
-           nnet classification
-         brulee     regression
-         brulee classification
+                   engine           mode
+                    keras     regression
+                    keras classification
+                     nnet     regression
+                     nnet classification
+                   brulee     regression
+                   brulee classification
+         brulee_two_layer     regression
+         brulee_two_layer classification
       
        prediction modules:
-                   mode engine          methods
-         classification brulee      class, prob
-         classification  keras class, prob, raw
-         classification   nnet class, prob, raw
-             regression brulee          numeric
-             regression  keras     numeric, raw
-             regression   nnet     numeric, raw
+                   mode           engine          methods
+         classification           brulee      class, prob
+         classification brulee_two_layer      class, prob
+         classification            keras class, prob, raw
+         classification             nnet class, prob, raw
+             regression           brulee          numeric
+             regression brulee_two_layer          numeric
+             regression            keras     numeric, raw
+             regression             nnet     numeric, raw
       
 
