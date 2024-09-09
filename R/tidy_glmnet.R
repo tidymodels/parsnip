@@ -58,6 +58,6 @@ get_glmn_coefs <- function(x, penalty = 0.01) {
 tidy_glmnet <- function(x, penalty = NULL, ..., call = caller_env()) {
   check_installs(x$spec)
   load_libs(x$spec, quiet = TRUE, attach = TRUE)
-  check_number_decimal(penalty, min = 0, max = 1, call = call)
+  check_number_decimal(penalty, min = 0, max = 1, allow_null = TRUE, call = call)
   get_glmn_coefs(x$fit, penalty = penalty)
 }
