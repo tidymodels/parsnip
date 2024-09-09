@@ -137,6 +137,10 @@ fit.model_spec <-
       cli::cli_abort(msg)
     }
 
+    if (is_sparse_matrix(data)) {
+      data <- sparsevctrs::coerce_to_sparse_tibble(data)
+    }
+
     dots <- quos(...)
 
     if (length(possible_engines(object)) == 0) {
@@ -444,6 +448,10 @@ check_xy_interface <- function(x, y, cl, model) {
 }
 
 allow_sparse <- function(x) {
+  if (inherits(x, "model_fit")) {
+    x <- x$spec
+  }
+
   res <- get_from_env(paste0(class(x)[1], "_encoding"))
   all(res$allow_sparse_x[res$engine == x$engine])
 }

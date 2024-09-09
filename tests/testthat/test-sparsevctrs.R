@@ -21,6 +21,28 @@ test_that("sparse tibble can be passed to `fit()", {
   )
 })
 
+test_that("sparse matrix can be passed to `fit()", {
+  skip_if_not_installed("xgboost")
+
+  hotel_data <- sparse_hotel_rates()
+
+  spec <- boost_tree() %>%
+    set_mode("regression") %>%
+    set_engine("xgboost")
+
+  expect_no_error(
+    lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
+  )
+
+  spec <- linear_reg() %>%
+    set_mode("regression") %>%
+    set_engine("lm")
+
+  expect_snapshot(
+    lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data[1:100, ])
+  )
+})
+
 test_that("sparse tibble can be passed to `fit_xy()", {
   skip_if_not_installed("xgboost")
 
@@ -64,6 +86,66 @@ test_that("sparse matrices can be passed to `fit_xy()", {
   expect_snapshot(
     lm_fit <- fit_xy(spec, x = hotel_data[1:100, -1], y = hotel_data[1:100, 1]),
     error = TRUE
+  )
+})
+
+test_that("sparse tibble can be passed to `predict()", {
+  skip_if_not_installed("ranger")
+
+  hotel_data <- sparse_hotel_rates()
+  hotel_data <- sparsevctrs::coerce_to_sparse_tibble(hotel_data)
+
+  spec <- rand_forest(trees = 10) %>%
+    set_mode("regression") %>%
+    set_engine("ranger")
+
+  tree_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
+
+  expect_no_error(
+    predict(tree_fit, hotel_data)
+  )
+
+  spec <- linear_reg() %>%
+    set_mode("regression") %>%
+    set_engine("lm")
+
+  lm_fit <- fit(spec, mpg ~ ., data = mtcars)
+
+  sparse_mtcars <- mtcars %>%
+    sparsevctrs::coerce_to_sparse_matrix() %>%
+    sparsevctrs::coerce_to_sparse_tibble()
+
+  expect_snapshot(
+    preds <- predict(lm_fit, sparse_mtcars)
+  )
+})
+
+test_that("sparse matrices can be passed to `predict()", {
+  skip_if_not_installed("ranger")
+
+  hotel_data <- sparse_hotel_rates()
+
+  spec <- rand_forest(trees = 10) %>%
+    set_mode("regression") %>%
+    set_engine("ranger")
+
+  tree_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
+
+  expect_no_error(
+    predict(tree_fit, hotel_data)
+  )
+
+  spec <- linear_reg() %>%
+    set_mode("regression") %>%
+    set_engine("lm")
+
+  lm_fit <- fit(spec, mpg ~ ., data = mtcars)
+
+  sparse_mtcars <- sparsevctrs::coerce_to_sparse_matrix(mtcars)
+
+  expect_snapshot(
+    error = TRUE,
+    predict(lm_fit, sparse_mtcars)
   )
 })
 
