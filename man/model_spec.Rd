@@ -2,12 +2,35 @@
 % Please edit documentation in R/model_object_docs.R
 \name{model_spec}
 \alias{model_spec}
-\title{Model Specification Information}
+\title{Model Specifications}
 \description{
-An object with class "model_spec" is a container for
-information about a model that will be fit.
+The parsnip package splits the process of fitting models into two steps:
+\enumerate{
+\item Specify how a model will be fit using a \emph{model specification}
+\item Fit a model using the model specification
+}
+
+This is a different approach than many interfaces to models in R, like \code{lm()},
+where both the specification of the model and the fitting happens in one
+function call. Splitting the process into two steps allows users to
+iteratively define model specifications throughout the model development
+process.
+
+This intermediate object that defines how the model will be fit is called
+a \emph{model specification} and has class \code{model_spec}. Model type functions,
+like \code{\link[=linear_reg]{linear_reg()}} or \code{\link[=boost_tree]{boost_tree()}}, output \code{model_spec} objects.
+
+Fitted model objects, resulting from passing a \code{model_spec} to
+\link[=fit.model_spec]{fit()} or \link[=fit_xy.model_spec]{fit_xy}, have
+class \code{model_fit}, and contain the original \code{model_spec} objects inside
+them. See \link[=model_fit]{?model_fit} for more on that object type, and
+\link[=extract_spec_parsnip.model_fit]{?extract_spec_parsnip} to
+extract \code{model_spec}s from \code{model_fit}s.
 }
 \details{
+An object with class "model_spec" is a container for
+information about a model that will be fit.
+
 The main elements of the object are:
 \itemize{
 \item \code{args}: A vector of the main arguments for the model. The

@@ -1,5 +1,30 @@
-#' Model Specification Information
+#' Model Specifications
 #'
+#' @description
+#'
+#' The parsnip package splits the process of fitting models into two steps:
+#'
+#' 1) Specify how a model will be fit using a _model specification_
+#' 2) Fit a model using the model specification
+#'
+#' This is a different approach than many interfaces to models in R, like `lm()`,
+#' where both the specification of the model and the fitting happens in one
+#' function call. Splitting the process into two steps allows users to
+#' iteratively define model specifications throughout the model development
+#' process.
+#'
+#' This intermediate object that defines how the model will be fit is called
+#' a _model specification_ and has class `model_spec`. Model type functions,
+#' like [linear_reg()] or [boost_tree()], output `model_spec` objects.
+#'
+#' Fitted model objects, resulting from passing a `model_spec` to
+#' [fit()][fit.model_spec()] or [fit_xy][fit_xy.model_spec()], have
+#' class `model_fit`, and contain the original `model_spec` objects inside
+#' them. See [?model_fit][model_fit] for more on that object type, and
+#' [?extract_spec_parsnip][extract_spec_parsnip.model_fit] to
+#' extract `model_spec`s from `model_fit`s.
+#'
+#' @details
 #'
 #' An object with class "model_spec" is a container for
 #'  information about a model that will be fit.
