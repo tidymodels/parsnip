@@ -78,15 +78,21 @@ vec_quantiles <- function(values, quantile_levels = double()) {
   new_vec_quantiles(values, quantile_levels)
 }
 
-check_vec_quantiles_inputs <- function(values, levels) {
+check_vec_quantiles_inputs <- function(values, levels, call = caller_env()) {
   if (!is.matrix(values)) {
-    cli::cli_abort("{.arg values} must be a {.cls matrix}, not {.obj_type_friendly {values}}.")
+    cli::cli_abort(
+      "{.arg values} must be a {.cls matrix}, not {.obj_type_friendly {values}}.",
+      call = call
+    )
   }
   purrr::walk(levels,
-    ~ check_number_decimal(.x, min = 0, max = 1, arg = "quantile_levels")
+    ~ check_number_decimal(.x, min = 0, max = 1, arg = "quantile_levels", call = call)
   )
   if (is.unsorted(levels)) {
-    cli::cli_abort("{.arg quantile_levels} must be sorted in increasing order.")
+    cli::cli_abort(
+      "{.arg quantile_levels} must be sorted in increasing order.",
+      call = call
+    )
   }
   invisible(NULL)
 }
