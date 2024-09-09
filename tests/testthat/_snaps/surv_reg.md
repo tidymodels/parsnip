@@ -36,3 +36,17 @@
       Error in `if (object$engine == "liquidSVM") ...`:
       ! argument is of length zero
 
+# deprecation warning
+
+    Code
+      surv_reg()
+    Condition
+      Warning:
+      `surv_reg()` was deprecated in parsnip 0.1.6.
+      i Please use `survival_reg()` instead.
+    Output
+      Parametric Survival Regression Model Specification (regression)
+      
+      Computational engine: survival 
+      
+

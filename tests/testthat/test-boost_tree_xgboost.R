@@ -339,12 +339,11 @@ test_that('early stopping', {
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
-  expect_warning(
+  expect_snapshot(
     reg_fit <-
       boost_tree(trees = 20, stop_iter = 30, mode = "regression") %>%
       set_engine("xgboost", validation = .1) %>%
-      fit(mpg ~ ., data = mtcars[-(1:4), ]),
-    regex = "`early_stop` was reduced to 19"
+      fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
   expect_snapshot(
     error = TRUE,
@@ -483,13 +482,11 @@ test_that('argument checks for data dimensions', {
   penguins_dummy <- model.matrix(species ~ ., data = penguins)
   penguins_dummy <- as.data.frame(penguins_dummy[, -1])
 
-  expect_warning(
-    f_fit  <- spec %>% fit(species ~ ., data = penguins, control = ctrl),
-    "1000 samples were requested"
+  expect_snapshot(
+    f_fit  <- spec %>% fit(species ~ ., data = penguins, control = ctrl)
   )
-  expect_warning(
-    xy_fit <- spec %>% fit_xy(x = penguins_dummy, y = penguins$species, control = ctrl),
-    "1000 samples were requested"
+  expect_snapshot(
+    xy_fit <- spec %>% fit_xy(x = penguins_dummy, y = penguins$species, control = ctrl)
   )
   expect_equal(extract_fit_engine(f_fit)$params$colsample_bynode, 1)
   expect_equal(extract_fit_engine(f_fit)$params$min_child_weight, nrow(penguins))

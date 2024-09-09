@@ -35,6 +35,25 @@
 ---
 
     Code
+      translate(mlp(mode = "regression") %>% set_engine("nnet", formula = y ~ x))
+    Condition
+      Warning:
+      The argument `formula` cannot be manually modified and was removed.
+    Output
+      Single Layer Neural Network Model Specification (regression)
+      
+      Main Arguments:
+        hidden_units = 5
+      
+      Computational engine: nnet 
+      
+      Model fit template:
+      nnet::nnet(formula = missing_arg(), data = missing_arg(), size = 5, 
+          trace = FALSE, linout = TRUE)
+
+---
+
+    Code
       translate(mlp(mode = "classification", x = x, y = y) %>% set_engine("keras"))
     Condition
       Error in `mlp()`:

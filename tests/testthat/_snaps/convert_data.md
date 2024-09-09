@@ -7,6 +7,14 @@
       Error in `na.fail.default()`:
       ! missing values in object
 
+# numeric x and factor y
+
+    Code
+      expected <- glm(class ~ ., data = hpc, x = TRUE, y = TRUE, family = binomial())
+    Condition
+      Warning:
+      glm.fit: fitted probabilities numerically 0 or 1 occurred
+
 # bad args
 
     Code

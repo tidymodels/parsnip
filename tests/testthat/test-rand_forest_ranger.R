@@ -426,20 +426,20 @@ test_that('ranger classification intervals', {
   )
 
   rgr_pred <- predict(extract_fit_engine(lc_fit), data = tail(lending_club))$predictions
-  suppressWarnings(expect_warning(
+  expect_snapshot(
     rgr_se <- predict(extract_fit_engine(lc_fit), data = tail(lending_club), type = "se")$se
-  ))
+  )
   rgr_lower <- rgr_pred - qnorm(0.035, lower.tail = FALSE) * rgr_se
   rgr_upper <- rgr_pred + qnorm(0.035, lower.tail = FALSE) * rgr_se
   rgr_lower[rgr_lower < 0] <- 0
   rgr_upper[rgr_upper > 1] <- 1
 
-  suppressWarnings(expect_warning(
+  expect_snapshot(
     parsnip_int <-
       predict(lc_fit, new_data = tail(lending_club),
               type = "conf_int", std_error = TRUE, level = 0.93
       )
-  ))
+  )
   expect_equal(rgr_lower[, "bad"], parsnip_int$.pred_lower_bad)
   expect_equal(rgr_lower[, "good"], parsnip_int$.pred_lower_good)
   expect_equal(rgr_upper[, "bad"], parsnip_int$.pred_upper_bad)

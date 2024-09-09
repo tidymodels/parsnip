@@ -13,7 +13,7 @@ test_that('bad input', {
   expect_snapshot(error = TRUE, multinom_reg(mode = "regression"))
   expect_snapshot(error = TRUE, translate(multinom_reg(penalty = 0.1) %>% set_engine("wat?")))
   expect_snapshot(error = TRUE, multinom_reg(penalty = 0.1) %>% set_engine())
-  expect_warning(translate(multinom_reg(penalty = 0.1) %>% set_engine("glmnet", x = hpc[,1:3], y = hpc$class)))
+  expect_snapshot(translate(multinom_reg(penalty = 0.1) %>% set_engine("glmnet", x = hpc[,1:3], y = hpc$class)))
 })
 
 test_that('check_args() works', {

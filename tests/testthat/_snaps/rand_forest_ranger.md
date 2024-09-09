@@ -46,6 +46,32 @@
       Warning in `sqrt()`:
       NaNs produced
 
+# ranger classification intervals
+
+    Code
+      rgr_se <- predict(extract_fit_engine(lc_fit), data = tail(lending_club), type = "se")$
+        se
+    Condition
+      Warning in `rInfJack()`:
+      Sample size <=20, no calibration performed.
+      Warning in `rInfJack()`:
+      Sample size <=20, no calibration performed.
+      Warning in `sqrt()`:
+      NaNs produced
+
+---
+
+    Code
+      parsnip_int <- predict(lc_fit, new_data = tail(lending_club), type = "conf_int",
+      std_error = TRUE, level = 0.93)
+    Condition
+      Warning in `rInfJack()`:
+      Sample size <=20, no calibration performed.
+      Warning in `rInfJack()`:
+      Sample size <=20, no calibration performed.
+      Warning in `sqrt()`:
+      NaNs produced
+
 # argument checks for data dimensions
 
     Code

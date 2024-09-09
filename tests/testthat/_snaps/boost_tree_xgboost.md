@@ -35,6 +35,16 @@
 # early stopping
 
     Code
+      reg_fit <- boost_tree(trees = 20, stop_iter = 30, mode = "regression") %>%
+        set_engine("xgboost", validation = 0.1) %>% fit(mpg ~ ., data = mtcars[-(1:4),
+      ])
+    Condition
+      Warning:
+      `early_stop` was reduced to 19.
+
+---
+
+    Code
       reg_fit <- boost_tree(trees = 20, stop_iter = 0, mode = "regression") %>%
         set_engine("xgboost", validation = 0.1) %>% fit(mpg ~ ., data = mtcars[-(1:4),
       ])
@@ -49,6 +59,24 @@
     Condition
       Warning:
       `event_level` can only be set for binary outcomes.
+
+# argument checks for data dimensions
+
+    Code
+      f_fit <- spec %>% fit(species ~ ., data = penguins, control = ctrl)
+    Condition
+      Warning:
+      ! 1000 samples were requested but there were 333 rows in the data.
+      i 333 will be used.
+
+---
+
+    Code
+      xy_fit <- spec %>% fit_xy(x = penguins_dummy, y = penguins$species, control = ctrl)
+    Condition
+      Warning:
+      ! 1000 samples were requested but there were 333 rows in the data.
+      i 333 will be used.
 
 # count/proportion parameters
 

@@ -330,7 +330,7 @@ test_that("numeric x and numeric multivariate y", {
 })
 
 test_that("numeric x and factor y", {
-  expect_warning(
+  expect_snapshot(
     expected <-
       glm(class ~ ., data = hpc, x = TRUE, y = TRUE, family = binomial())
   )

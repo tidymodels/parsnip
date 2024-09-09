@@ -327,7 +327,7 @@ test_that('lm can handle rankdeficient predictions', {
     x4 = c(0,0,2,3)
   )
 
-  expect_warning(
+  expect_snapshot(
     preds <- linear_reg() %>%
       fit(y ~ ., data = data) %>%
       predict(new_data = data2)

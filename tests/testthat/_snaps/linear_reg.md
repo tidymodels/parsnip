@@ -137,6 +137,14 @@
       Error in `show_engines()`:
       ! No results found for model function "x".
 
+# lm can handle rankdeficient predictions
+
+    Code
+      preds <- linear_reg() %>% fit(y ~ ., data = data) %>% predict(new_data = data2)
+    Condition
+      Warning in `predict.lm()`:
+      prediction from rank-deficient fit; consider predict(., rankdeficient="NA")
+
 # check_args() works
 
     Code
