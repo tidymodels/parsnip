@@ -1,16 +1,16 @@
 test_that("vec_quantiles error types", {
   expect_error(vec_quantiles(1:10, 1:4 / 5), "matrix")
-  expect_error(
-    vec_quantiles(matrix(1:20, 5), -1:4 / 5),
-    "`quantile_levels` must be a number between 0 and 1"
+  expect_snapshot(
+    error = TRUE,
+    vec_quantiles(matrix(1:20, 5), -1:4 / 5)
   )
-  expect_error(
-    vec_quantiles(matrix(1:20, 5), 1:5 / 6),
-    "The number of columns in `values` must be equal to"
+  expect_snapshot(
+    error = TRUE,
+    vec_quantiles(matrix(1:20, 5), 1:5 / 6)
   )
-  expect_error(
-    vec_quantiles(matrix(1:20, 5), 4:1 / 5),
-    "must be sorted in increasing order"
+  expect_snapshot(
+    error = TRUE,
+    vec_quantiles(matrix(1:20, 5), 4:1 / 5)
   )
 })
 
