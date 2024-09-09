@@ -35,15 +35,15 @@ vctrs::vec_ptype_full
 
 
 #' @export
-vec_ptype_abbr.vctrs_quantiles <- function(x, ...) "qntls"
+vec_ptype_abbr.parsnip_quantiles <- function(x, ...) "qntls"
 
 #' @export
-vec_ptype_full.vctrs_quantiles <- function(x, ...) "quantiles"
+vec_ptype_full.parsnip_quantiles <- function(x, ...) "quantiles"
 
-new_vec_quantiles <- function(values = list(), quantile_levels = double()) {
+new_parsnip_quantiles <- function(values = list(), quantile_levels = double()) {
   quantile_levels <- vctrs::vec_cast(quantile_levels, double())
   vctrs::new_vctr(
-    values, quantile_levels = quantile_levels, class = "vctrs_quantiles"
+    values, quantile_levels = quantile_levels, class = "parsnip_quantiles"
   )
 }
 
@@ -58,13 +58,13 @@ new_vec_quantiles <- function(values = list(), quantile_levels = double()) {
 #' @return A vector of values associated with the quantile levels.
 #'
 #' @examples
-#' v <- vec_quantiles(matrix(rnorm(20), 5), c(.2, .4, .6, .8))
+#' v <- parsnip_quantiles(matrix(rnorm(20), 5), c(.2, .4, .6, .8))
 #'
 #' # Access the underlying information
 #' attr(v, "quantile_levels")
 #' vctrs::vec_data(v)
-vec_quantiles <- function(values, quantile_levels = double()) {
-  check_vec_quantiles_inputs(values, quantile_levels)
+parsnip_quantiles <- function(values, quantile_levels = double()) {
+  check_parsnip_quantiles_inputs(values, quantile_levels)
   quantile_levels <- vctrs::vec_cast(quantile_levels, double())
   num_lvls <- length(quantile_levels)
 
@@ -75,10 +75,10 @@ vec_quantiles <- function(values, quantile_levels = double()) {
     )
   }
   values <- lapply(vctrs::vec_chop(values), drop)
-  new_vec_quantiles(values, quantile_levels)
+  new_parsnip_quantiles(values, quantile_levels)
 }
 
-check_vec_quantiles_inputs <- function(values, levels, call = caller_env()) {
+check_parsnip_quantiles_inputs <- function(values, levels, call = caller_env()) {
   if (!is.matrix(values)) {
     cli::cli_abort(
       "{.arg values} must be a {.cls matrix}, not {.obj_type_friendly {values}}.",
@@ -98,8 +98,8 @@ check_vec_quantiles_inputs <- function(values, levels, call = caller_env()) {
 }
 
 #' @export
-format.vctrs_quantiles <- function(x, ...) {
-  quantile_levels <- attr(x, "levels")
+format.parsnip_quantiles <- function(x, ...) {
+  quantile_levels <- attr(x, "quantile_levels")
   if (length(quantile_levels) == 1L) {
     x <- unlist(x)
     out <- round(x, 3L)
@@ -117,7 +117,7 @@ format.vctrs_quantiles <- function(x, ...) {
 vctrs::obj_print_footer
 
 #' @export
-obj_print_footer.vctrs_quantiles <- function(x, ...) {
+obj_print_footer.parsnip_quantiles <- function(x, ...) {
   lvls <- attr(x, "quantile_levels")
   cat("# Quantile levels: ", format(lvls, digits = 3), "\n", sep = " ")
 }
@@ -130,6 +130,6 @@ restructure_rq_pred <- function(x, object) {
   n_pred_quantiles <- ncol(x)
   # TODO check p = length(quantile_level)
   quantile_level <- object$spec$quantile_level
-  tibble::tibble(.pred_quantile = vec_quantiles(x, quantile_level))
+  tibble::tibble(.pred_quantile = parsnip_quantiles(x, quantile_level))
 }
 

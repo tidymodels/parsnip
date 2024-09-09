@@ -3,6 +3,8 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
+\alias{vec_ptype_abbr}
+\alias{vec_ptype_full}
 \alias{obj_print_footer}
 \alias{autoplot}
 \alias{\%>\%}
@@ -36,6 +38,6 @@ below to see their documentation.
 
   \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
 
-  \item{vctrs}{\code{\link[vctrs:obj_print]{obj_print_footer}}}
+  \item{vctrs}{\code{\link[vctrs:obj_print]{obj_print_footer}}, \code{\link[vctrs:vec_ptype_full]{vec_ptype_abbr}}, \code{\link[vctrs]{vec_ptype_full}}}
 }}
 

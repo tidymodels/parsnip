@@ -24,7 +24,10 @@ test_that('linear quantile regression via quantreg - single quantile', {
   expect_true(nrow(one_quant_pred) == nrow(sac_test))
   expect_named(one_quant_pred, ".pred_quantile")
   expect_true(is.list(one_quant_pred[[1]]))
-  expect_s3_class(one_quant_pred$.pred_quantile[1], c("vctrs_quantiles", "vctrs_vctr", "list"))
+  expect_s3_class(
+    one_quant_pred$.pred_quantile[1],
+    c("parsnip_quantiles", "vctrs_vctr", "list")
+  )
   expect_identical(class(one_quant_pred$.pred_quantile[[1]]), "numeric")
   expect_true(length(one_quant_pred$.pred_quantile[[1]]) == 1L)
   expect_identical(attr(one_quant_pred$.pred_quantile, "quantile_levels"), .5)
@@ -35,7 +38,10 @@ test_that('linear quantile regression via quantreg - single quantile', {
   expect_true(nrow(one_quant_one_row) == 1L)
   expect_named(one_quant_one_row, ".pred_quantile")
   expect_true(is.list(one_quant_one_row[[1]]))
-  expect_s3_class(one_quant_one_row$.pred_quantile[1], c("vctrs_quantiles", "vctrs_vctr", "list"))
+  expect_s3_class(
+    one_quant_one_row$.pred_quantile[1],
+    c("parsnip_quantiles", "vctrs_vctr", "list")
+  )
   expect_identical(class(one_quant_one_row$.pred_quantile[[1]]), "numeric")
   expect_true(length(one_quant_one_row$.pred_quantile[[1]]) == 1L)
   expect_identical(attr(one_quant_pred$.pred_quantile, "quantile_levels"), .5)
@@ -67,7 +73,10 @@ test_that('linear quantile regression via quantreg - multiple quantiles', {
   expect_true(nrow(ten_quant_pred) == nrow(sac_test))
   expect_named(ten_quant_pred, ".pred_quantile")
   expect_true(is.list(ten_quant_pred[[1]]))
-  expect_s3_class(ten_quant_pred$.pred_quantile[1], c("vctrs_quantiles", "vctrs_vctr", "list"))
+  expect_s3_class(
+    ten_quant_pred$.pred_quantile[1],
+    c("parsnip_quantiles", "vctrs_vctr", "list")
+  )
   expect_identical(class(ten_quant_pred$.pred_quantile[[1]]), "numeric")
   expect_true(length(ten_quant_pred$.pred_quantile[[1]]) == 10L)
   expect_identical(attr(ten_quant_pred$.pred_quantile, "quantile_levels"), (0:9)/9)
@@ -78,10 +87,16 @@ test_that('linear quantile regression via quantreg - multiple quantiles', {
   expect_true(nrow(ten_quant_one_row) == 1L)
   expect_named(ten_quant_one_row, ".pred_quantile")
   expect_true(is.list(ten_quant_one_row[[1]]))
-  expect_s3_class(ten_quant_one_row$.pred_quantile[1], c("vctrs_quantiles", "vctrs_vctr", "list"))
+  expect_s3_class(
+    ten_quant_one_row$.pred_quantile[1],
+    c("parsnip_quantiles", "vctrs_vctr", "list")
+  )
   expect_identical(class(ten_quant_one_row$.pred_quantile[[1]]), "numeric")
   expect_true(length(ten_quant_one_row$.pred_quantile[[1]]) == 10L)
-  expect_identical(attr(ten_quant_one_row$.pred_quantile, "quantile_levels"), (0:9)/9)
+  expect_identical(
+    attr(ten_quant_one_row$.pred_quantile, "quantile_levels"),
+    (0:9)/9
+  )
 })
 
 
