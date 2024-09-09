@@ -533,6 +533,21 @@ check_case_weights <- function(x, spec, call = rlang::caller_env()) {
   invisible(NULL)
 }
 
+# ------------------------------------------------------------------------------
+
+check_inherits <- function(x, cls, arg = caller_arg(x), call = caller_env()) {
+  if (is.null(x)) {
+    return(invisible(x))
+  }
+
+  if (!inherits(x, cls)) {
+    cli::cli_abort(
+      "{.arg {arg}} should be a {.cls {cls}}, not {.obj_type_friendly {x}}.",
+      call = call
+    )
+  }
+}
+
 # -----------------------------------------------------------------------------
 check_for_newdata <- function(..., call = rlang::caller_env()) {
   if (any(names(list(...)) == "newdata")) {

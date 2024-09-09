@@ -4,7 +4,7 @@
       fit(linear_reg(), rec, mtcars)
     Condition
       Error in `fit()`:
-      ! The `formula` argument must be a formula, but it is a <recipe>.
+      ! The `formula` argument must be a formula.
       i To fit a model with a recipe preprocessor, please use a workflow (`?workflows::workflow()`).
 
 ---
@@ -13,7 +13,7 @@
       fit(linear_reg(), "boop", mtcars)
     Condition
       Error in `fit()`:
-      ! The `formula` argument must be a formula, but it is a <character>.
+      ! `formula` must be a formula, not the string "boop".
 
 # No loaded engines
 

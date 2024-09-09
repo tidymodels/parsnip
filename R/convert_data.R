@@ -384,7 +384,7 @@ check_dup_names <- function(x, y, call = rlang::caller_env()) {
 #' @return A data frame, matrix, or sparse matrix.
 #' @export
 maybe_matrix <- function(x) {
-  inher(x, c("data.frame", "matrix", "dgCMatrix"), cl = match.call())
+  check_inherits(x, c("data.frame", "matrix", "dgCMatrix"))
   if (is.data.frame(x)) {
     non_num_cols <- vapply(x, function(x) !is.numeric(x), logical(1))
     if (any(non_num_cols)) {
