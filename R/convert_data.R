@@ -124,6 +124,10 @@
         options = options
       )
   } else if (composition == "dgCMatrix") {
+    y_cols <- attr(mod_terms, "response")
+    if (length(y_cols) > 0) {
+      data <- data[, -y_cols, drop = FALSE]
+    }
     x <- sparsevctrs::coerce_to_sparse_matrix(data)
     res <-
       list(
