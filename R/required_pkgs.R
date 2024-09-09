@@ -26,12 +26,14 @@ required_pkgs.model_spec <- function(x, infra = TRUE, ...) {
   if (is.null(x$engine)) {
     cli::cli_abort("Please set an engine.")
   }
+  check_bool(infra)
   get_pkgs(x, infra)
 }
 
 #' @export
 #' @rdname required_pkgs.model_spec
 required_pkgs.model_fit <- function(x, infra = TRUE, ...) {
+  check_bool(infra)
   get_pkgs(x$spec, infra)
 }
 

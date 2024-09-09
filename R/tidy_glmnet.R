@@ -55,15 +55,9 @@ get_glmn_coefs <- function(x, penalty = 0.01) {
   res
 }
 
-tidy_glmnet <- function(x, penalty = NULL, ...) {
+tidy_glmnet <- function(x, penalty = NULL, ..., call = caller_env()) {
   check_installs(x$spec)
   load_libs(x$spec, quiet = TRUE, attach = TRUE)
-  if (is.null(penalty)) {
-    if (isTRUE(is.numeric(x$spec$args$penalty))){
-      penalty <- x$spec$args$penalty
-    } else {
-      rlang::abort("Please pick a single value of `penalty`.")
-    }
-  }
+  check_number_decimal(penalty, min = 0, max = 1, allow_null = TRUE, call = call)
   get_glmn_coefs(x$fit, penalty = penalty)
 }
