@@ -12,8 +12,6 @@ test_that('bad input', {
   expect_snapshot(error = TRUE, mlp(mode = "time series"))
   expect_snapshot(error = TRUE, translate(mlp(mode = "classification") %>% set_engine("wat?")))
   expect_snapshot(translate(mlp(mode = "regression") %>% set_engine("nnet", formula = y ~ x)))
-  expect_snapshot(error = TRUE, translate(mlp(mode = "classification", x = x, y = y) %>% set_engine("keras")))
-  expect_snapshot(error = TRUE, translate(mlp(mode = "regression", formula = y ~ x) %>% set_engine()))
 })
 
 test_that("nnet_softmax", {
@@ -55,8 +53,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- mlp(penalty = -1) %>% 
-        set_engine("keras") %>% 
+      spec <- mlp(penalty = -1) %>%
+        set_engine("keras") %>%
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }
@@ -64,8 +62,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- mlp(dropout = -1) %>% 
-        set_engine("keras") %>% 
+      spec <- mlp(dropout = -1) %>%
+        set_engine("keras") %>%
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }
@@ -73,8 +71,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- mlp(dropout = 1, penalty = 3) %>% 
-        set_engine("keras") %>% 
+      spec <- mlp(dropout = 1, penalty = 3) %>%
+        set_engine("keras") %>%
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }

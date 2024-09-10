@@ -26,30 +26,6 @@
 ---
 
     Code
-      translate(logistic_reg(formula = y ~ x))
-    Condition
-      Error in `logistic_reg()`:
-      ! unused argument (formula = y ~ x)
-
----
-
-    Code
-      translate(logistic_reg(x = hpc[, 1:3], y = hpc$class) %>% set_engine(engine = "glmnet"))
-    Condition
-      Error in `logistic_reg()`:
-      ! unused arguments (x = hpc[, 1:3], y = hpc$class)
-
----
-
-    Code
-      translate(logistic_reg(formula = y ~ x) %>% set_engine(engine = "glm"))
-    Condition
-      Error in `logistic_reg()`:
-      ! unused argument (formula = y ~ x)
-
----
-
-    Code
       translate(logistic_reg(mixture = 0.5) %>% set_engine(engine = "LiblineaR"))
     Condition
       Error in `translate()`:

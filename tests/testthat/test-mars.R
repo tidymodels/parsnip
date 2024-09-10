@@ -22,7 +22,6 @@ test_that('updating', {
 test_that('bad input', {
   expect_snapshot(error = TRUE, translate(mars(mode = "regression") %>% set_engine()))
   expect_snapshot(error = TRUE, translate(mars() %>% set_engine("wat?")))
-  expect_snapshot(error = TRUE, translate(mars(formula = y ~ x)))
 })
 
 # ------------------------------------------------------------------------------

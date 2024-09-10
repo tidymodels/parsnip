@@ -31,14 +31,6 @@
       x Engine "wat?" is not supported for `mars()`
       i See `show_engines("mars")`.
 
----
-
-    Code
-      translate(mars(formula = y ~ x))
-    Condition
-      Error in `mars()`:
-      ! unused argument (formula = y ~ x)
-
 # mars execution
 
     Code

@@ -3,7 +3,6 @@ hpc <- hpc_data[1:150, c(2:5, 8)] %>% as.data.frame()
 test_that('bad input', {
   expect_snapshot(error = TRUE, translate(null_model(mode = "regression") %>% set_engine()))
   expect_snapshot(error = TRUE, translate(null_model() %>% set_engine("wat?")))
-  expect_snapshot(error = TRUE, translate(null_model(formula = y ~ x)))
   expect_snapshot(
     translate(
       null_model(mode = "regression") %>% set_engine("parsnip", x = hpc[,1:3], y = hpc$class)

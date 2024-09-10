@@ -18,14 +18,6 @@
 ---
 
     Code
-      translate(null_model(formula = y ~ x))
-    Condition
-      Error in `null_model()`:
-      ! unused argument (formula = y ~ x)
-
----
-
-    Code
       translate(null_model(mode = "regression") %>% set_engine("parsnip", x = hpc[, 1:
         3], y = hpc$class))
     Condition

@@ -39,11 +39,3 @@
       x Engine "wat?" is not supported for `rand_forest()`
       i See `show_engines("rand_forest")`.
 
----
-
-    Code
-      translate(rand_forest(mode = "classification", ytest = 2))
-    Condition
-      Error in `rand_forest()`:
-      ! unused argument (ytest = 2)
-

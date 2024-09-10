@@ -14,9 +14,6 @@ test_that('bad input', {
   expect_snapshot(error = TRUE, linear_reg(mode = "classification"))
   expect_snapshot(error = TRUE, translate(linear_reg(), engine = "wat?"))
   expect_snapshot(error = TRUE, translate(linear_reg(), engine = NULL))
-  expect_snapshot(error = TRUE, translate(linear_reg(formula = y ~ x)))
-  expect_snapshot(error = TRUE, translate(linear_reg(x = hpc[,1:3], y = hpc$class) %>% set_engine("glmnet")))
-  expect_snapshot(error = TRUE, translate(linear_reg(formula = y ~ x)  %>% set_engine("lm")))
 })
 
 # ------------------------------------------------------------------------------

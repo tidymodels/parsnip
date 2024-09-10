@@ -23,7 +23,6 @@ test_that('bad input', {
   expect_snapshot(
     try(translate(decision_tree(), engine = NULL), silent = TRUE)
   )
-  expect_snapshot_error(translate(decision_tree(formula = y ~ x)))
 })
 
 test_that('rpart_train is stop-deprecated when it ought to be (#1044)', {

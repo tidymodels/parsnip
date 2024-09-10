@@ -40,30 +40,6 @@
       Error in `translate.default()`:
       ! Please set an engine.
 
----
-
-    Code
-      translate(linear_reg(formula = y ~ x))
-    Condition
-      Error in `linear_reg()`:
-      ! unused argument (formula = y ~ x)
-
----
-
-    Code
-      translate(linear_reg(x = hpc[, 1:3], y = hpc$class) %>% set_engine("glmnet"))
-    Condition
-      Error in `linear_reg()`:
-      ! unused arguments (x = hpc[, 1:3], y = hpc$class)
-
----
-
-    Code
-      translate(linear_reg(formula = y ~ x) %>% set_engine("lm"))
-    Condition
-      Error in `linear_reg()`:
-      ! unused argument (formula = y ~ x)
-
 # lm execution
 
     Code

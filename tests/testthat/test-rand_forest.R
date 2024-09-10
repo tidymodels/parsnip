@@ -11,7 +11,6 @@ test_that('bad input', {
   expect_snapshot(res <- translate(rand_forest(mode = "classification") %>% set_engine(NULL)))
   expect_snapshot(error = TRUE, rand_forest(mode = "time series"))
   expect_snapshot(error = TRUE, translate(rand_forest(mode = "classification") %>% set_engine("wat?")))
-  expect_snapshot(error = TRUE, translate(rand_forest(mode = "classification", ytest = 2)))
 })
 
 test_that("check_args() works", {

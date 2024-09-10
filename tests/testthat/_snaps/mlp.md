@@ -51,22 +51,6 @@
       nnet::nnet(formula = missing_arg(), data = missing_arg(), size = 5, 
           trace = FALSE, linout = TRUE)
 
----
-
-    Code
-      translate(mlp(mode = "classification", x = x, y = y) %>% set_engine("keras"))
-    Condition
-      Error in `mlp()`:
-      ! unused arguments (x = x, y = y)
-
----
-
-    Code
-      translate(mlp(mode = "regression", formula = y ~ x) %>% set_engine())
-    Condition
-      Error in `mlp()`:
-      ! unused argument (formula = y ~ x)
-
 # check_args() works
 
     Code

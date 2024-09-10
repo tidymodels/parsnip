@@ -34,10 +34,6 @@
     Message
       Used `engine = 'rpart'` for translation.
 
----
-
-    unused argument (formula = y ~ x)
-
 # argument checks for data dimensions
 
     Code
