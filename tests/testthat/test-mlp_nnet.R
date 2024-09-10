@@ -30,7 +30,8 @@ test_that('nnet execution, classification', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- parsnip::fit(
       hpc_nnet,
       class ~ novar,

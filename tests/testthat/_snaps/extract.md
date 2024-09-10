@@ -38,6 +38,14 @@
       i The parsnip extension package baguette implements support for this specification.
       i Please install (if needed) and load to continue.
 
+# extract single parameter from model with no parameters
+
+    Code
+      extract_parameter_dials(lm_model, parameter = "none there")
+    Condition
+      Error in `extract_parameter_dials()`:
+      ! No parameter exists with id "none there".
+
 # extract_fit_time() works
 
     Code

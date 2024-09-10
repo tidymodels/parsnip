@@ -11,10 +11,10 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(translate(svm_linear(mode = "regression") %>% set_engine( NULL)))
-  expect_error(svm_linear(mode = "reallyunknown"))
-  expect_error(translate(svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = 3)))
-  expect_error(translate(svm_linear(mode = "classification") %>% set_engine("LiblineaR", type = 11)))
+  expect_snapshot(error = TRUE, translate(svm_linear(mode = "regression") %>% set_engine( NULL)))
+  expect_snapshot(error = TRUE, svm_linear(mode = "reallyunknown"))
+  expect_snapshot(error = TRUE, translate(svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = 3)))
+  expect_snapshot(error = TRUE, translate(svm_linear(mode = "classification") %>% set_engine("LiblineaR", type = 11)))
 })
 
 # ------------------------------------------------------------------------------

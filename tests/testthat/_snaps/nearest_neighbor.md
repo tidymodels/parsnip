@@ -15,6 +15,22 @@
       Computational engine: kknn 
       
 
+# bad input
+
+    Code
+      nearest_neighbor(mode = "reallyunknown")
+    Condition
+      Error in `nearest_neighbor()`:
+      ! "reallyunknown" is not a known mode for model `nearest_neighbor()`.
+
+---
+
+    Code
+      nearest_neighbor() %>% set_engine(NULL)
+    Condition
+      Error in `if (object$engine == "liquidSVM") ...`:
+      ! argument is of length zero
+
 # check_args() works
 
     Code

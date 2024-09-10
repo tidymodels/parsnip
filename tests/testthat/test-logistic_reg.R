@@ -11,11 +11,11 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(logistic_reg(mode = "regression"))
-  expect_error(translate(logistic_reg(formula = y ~ x)))
-  expect_error(translate(logistic_reg(x = hpc[,1:3], y = hpc$class) %>% set_engine(engine = "glmnet")))
-  expect_error(translate(logistic_reg(formula = y ~ x) %>% set_engine(engine = "glm")))
-  expect_error(translate(logistic_reg(mixture = 0.5) %>% set_engine(engine = "LiblineaR")))
+  expect_snapshot(error = TRUE, logistic_reg(mode = "regression"))
+  expect_snapshot(error = TRUE, translate(logistic_reg(formula = y ~ x)))
+  expect_snapshot(error = TRUE, translate(logistic_reg(x = hpc[,1:3], y = hpc$class) %>% set_engine(engine = "glmnet")))
+  expect_snapshot(error = TRUE, translate(logistic_reg(formula = y ~ x) %>% set_engine(engine = "glm")))
+  expect_snapshot(error = TRUE, translate(logistic_reg(mixture = 0.5) %>% set_engine(engine = "LiblineaR")))
 
   expect_snapshot(
     res <-
@@ -55,7 +55,8 @@ test_that('glm execution', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit(
       lc_basic,
       funded_amnt ~ term,
@@ -65,7 +66,8 @@ test_that('glm execution', {
   )
 
   # wrong outcome type
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     glm_form_catch <- fit(
       lc_basic,
       funded_amnt ~ term,
@@ -74,7 +76,8 @@ test_that('glm execution', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     glm_xy_catch <- fit_xy(
       lc_basic,
       control = caught_ctrl,
@@ -167,7 +170,8 @@ test_that('liblinear execution', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit(
       ll_basic,
       funded_amnt ~ term,
@@ -183,7 +187,8 @@ test_that('liblinear execution', {
   expect_equal(colnames(tidy_res), c("term", "estimate"))
 
   # wrong outcome type
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     glm_form_catch <- fit(
       ll_basic,
       funded_amnt ~ term,
@@ -192,7 +197,8 @@ test_that('liblinear execution', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     glm_xy_catch <- fit_xy(
       ll_basic,
       control = caught_ctrl,

@@ -7,8 +7,8 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(nearest_neighbor(mode = "reallyunknown"))
-  expect_error(nearest_neighbor() %>% set_engine( NULL))
+  expect_snapshot(error = TRUE, nearest_neighbor(mode = "reallyunknown"))
+  expect_snapshot(error = TRUE, nearest_neighbor() %>% set_engine( NULL))
 })
 
 test_that('check_args() works', {
