@@ -57,7 +57,7 @@ new_quantile_pred <- function(values = list(), quantile_levels = double()) {
 #'
 #' # Access the underlying information
 #' attr(v, "quantile_levels")
-#' vctrs::vec_data(v)
+#' unclass(v)
 quantile_pred <- function(values, quantile_levels = double()) {
   check_quantile_pred_inputs(values, quantile_levels)
   quantile_levels <- vctrs::vec_cast(quantile_levels, double())
@@ -69,6 +69,8 @@ quantile_pred <- function(values, quantile_levels = double()) {
         {.arg quantile_levels}."
     )
   }
+  rownames(values) <- NULL
+  colnames(values) <- NULL
   values <- lapply(vctrs::vec_chop(values), drop)
   new_quantile_pred(values, quantile_levels)
 }
