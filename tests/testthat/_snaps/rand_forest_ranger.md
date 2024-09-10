@@ -20,7 +20,7 @@
       parsnip:::predict_classprob.model_fit(no_prob_model, new_data = lending_club[1:
       6, num_pred])
     Condition
-      Error in `object$spec$method$pred$prob$pre()`:
+      Error in `predict()`:
       ! `ranger` model does not appear to use class probabilities.
       i Was the model fit with `probability = TRUE`?
 

@@ -206,7 +206,8 @@ set_pred(
           c(
             "`ranger` model does not appear to use class probabilities.",
             "i" = "Was the model fit with `probability = TRUE`?"
-          )
+          ),
+          call = call2("predict")
         )
       x
     },
