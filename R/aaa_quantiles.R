@@ -105,7 +105,7 @@ format.parsnip_quantiles <- function(x, ...) {
     out <- round(x, 3L)
     out[is.na(x)] <- NA
   } else {
-    rng <- sapply(x, range)
+    rng <- sapply(x, range, na.rm = TRUE)
     out <- paste0("[", round(rng[1, ], 3L), ", ", round(rng[2, ], 3L), "]")
     out[is.na(rng[1, ]) | is.na(rng[2, ])] <- NA
   }
@@ -117,9 +117,9 @@ format.parsnip_quantiles <- function(x, ...) {
 vctrs::obj_print_footer
 
 #' @export
-obj_print_footer.parsnip_quantiles <- function(x, ...) {
+obj_print_footer.parsnip_quantiles <- function(x, digits = 3, ...) {
   lvls <- attr(x, "quantile_levels")
-  cat("# Quantile levels: ", format(lvls, digits = 3), "\n", sep = " ")
+  cat("# Quantile levels: ", format(lvls, digits = digits), "\n", sep = " ")
 }
 
 restructure_rq_pred <- function(x, object) {
