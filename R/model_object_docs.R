@@ -7,7 +7,7 @@
 #' 1) Specify how a model will be fit using a _model specification_
 #' 2) Fit a model using the model specification
 #'
-#' This is a different approach than many interfaces to models in R, like `lm()`,
+#' This is a different approach to many other model interfaces in R, like `lm()`,
 #' where both the specification of the model and the fitting happens in one
 #' function call. Splitting the process into two steps allows users to
 #' iteratively define model specifications throughout the model development
@@ -15,7 +15,7 @@
 #'
 #' This intermediate object that defines how the model will be fit is called
 #' a _model specification_ and has class `model_spec`. Model type functions,
-#' like [linear_reg()] or [boost_tree()], output `model_spec` objects.
+#' like [linear_reg()] or [boost_tree()], return `model_spec` objects.
 #'
 #' Fitted model objects, resulting from passing a `model_spec` to
 #' [fit()][fit.model_spec()] or [fit_xy][fit_xy.model_spec()], have
@@ -26,7 +26,7 @@
 #'
 #' @details
 #'
-#' An object with class "model_spec" is a container for
+#' An object with class `"model_spec"` is a container for
 #'  information about a model that will be fit.
 #'
 #' The main elements of the object are:
@@ -176,7 +176,7 @@ NULL
 #'
 #' @details
 #'
-#' An object with class "model_fit" is a container for
+#' An object with class `"model_fit"` is a container for
 #'  information about a model that has been fit to the data.
 #'
 #' The main elements of the object are:
