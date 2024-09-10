@@ -26,8 +26,8 @@
 ---
 
     Code
-      svm_poly() %>% set_engine(NULL)
+      svm_poly() %>% set_engine(NULL) %>% translate()
     Condition
-      Error in `if (object$engine == "liquidSVM") ...`:
-      ! argument is of length zero
+      Error in `translate.default()`:
+      ! Please set an engine.
 

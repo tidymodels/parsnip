@@ -20,8 +20,8 @@
     Code
       translate(svm_linear(mode = "regression") %>% set_engine(NULL))
     Condition
-      Error in `if (object$engine == "liquidSVM") ...`:
-      ! argument is of length zero
+      Error in `translate.default()`:
+      ! Please set an engine.
 
 ---
 

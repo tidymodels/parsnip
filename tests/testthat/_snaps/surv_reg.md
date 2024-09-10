@@ -31,10 +31,9 @@
 ---
 
     Code
-      translate(surv_reg() %>% set_engine(NULL))
-    Condition
-      Error in `if (object$engine == "liquidSVM") ...`:
-      ! argument is of length zero
+      res <- translate(surv_reg() %>% set_engine(NULL))
+    Message
+      Used `engine = 'survival'` for translation.
 
 # deprecation warning
 

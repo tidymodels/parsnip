@@ -124,7 +124,7 @@ set_engine.model_spec <- function(object, engine, ...) {
     check_spec_mode_engine_val(mod_type, object$engine, object$mode)
   }
 
-  if (object$engine == "liquidSVM") {
+  if (!is.null(object$engine) && object$engine == "liquidSVM") {
     lifecycle::deprecate_warn(
       "0.1.6",
       "set_engine(engine = 'cannot be liquidSVM')",

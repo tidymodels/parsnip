@@ -11,7 +11,7 @@ test_that('updating', {
 
 test_that('bad input', {
   expect_snapshot(error = TRUE, svm_poly(mode = "reallyunknown"))
-  expect_snapshot(error = TRUE, svm_poly() %>% set_engine(NULL))
+  expect_snapshot(error = TRUE, svm_poly() %>% set_engine(NULL) %>% translate())
 })
 
 # ------------------------------------------------------------------------------

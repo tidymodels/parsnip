@@ -18,10 +18,9 @@
 # bad input
 
     Code
-      translate(rand_forest(mode = "classification") %>% set_engine(NULL))
-    Condition
-      Error in `if (object$engine == "liquidSVM") ...`:
-      ! argument is of length zero
+      res <- translate(rand_forest(mode = "classification") %>% set_engine(NULL))
+    Message
+      Used `engine = 'ranger'` for translation.
 
 ---
 
