@@ -20,7 +20,7 @@
       fit(mars_spec, am ~ ., data = mtcars)
     Condition
       Error in `fit()`:
-      ! Please set the mode in the model specification.
+      ! Please set the mode in the model specification (`?parsnip::model_spec()`).
 
 ---
 
@@ -28,7 +28,7 @@
       fit_xy(mars_spec, x = mtcars[, -1], y = mtcars[, 1])
     Condition
       Error in `fit_xy()`:
-      ! Please set the mode in the model specification.
+      ! Please set the mode in the model specification (`?parsnip::model_spec()`).
 
 ---
 
@@ -36,7 +36,7 @@
       fit_xy(mars_spec, x = lending_club[, 1:2], y = lending_club$Class)
     Condition
       Error in `fit_xy()`:
-      ! Please set the mode in the model specification.
+      ! Please set the mode in the model specification (`?parsnip::model_spec()`).
 
 # misspecified formula argument
 
