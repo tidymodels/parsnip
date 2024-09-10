@@ -80,7 +80,7 @@ check_quantile_pred_inputs <- function(values, levels, call = caller_env()) {
       call = call
     )
   }
-  check_vector_probability(values, arg = "quantile_levels", call = call)
+  check_vector_probability(levels, arg = "quantile_levels", call = call)
 
   if (is.unsorted(levels)) {
     cli::cli_abort(
@@ -97,7 +97,7 @@ format.quantile_pred <- function(x, ...) {
   if (length(quantile_levels) == 1L) {
     x <- unlist(x)
     out <- round(x, 3L)
-    out[is.na(x)] <- NA_character_
+    out[is.na(x)] <- NA_real_
   } else {
     rng <- sapply(x, range, na.rm = TRUE)
     out <- paste0("[", round(rng[1, ], 3L), ", ", round(rng[2, ], 3L), "]")
