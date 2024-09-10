@@ -28,6 +28,7 @@ test_that("quantile_pred outputs", {
 })
 
 test_that("quantile_pred formatting", {
+  # multiple quantiles
   v <- quantile_pred(matrix(1:20, 5), 1:4 / 5)
   expect_snapshot(print(v))
   expect_snapshot(print(quantile_pred(matrix(1:18, 9), c(1/3, 2/3))))
@@ -40,4 +41,11 @@ test_that("quantile_pred formatting", {
   m[4, 2] <- NA
   expect_snapshot(print(quantile_pred(m, 1:4 / 5)))
 
+  # single quantile
+  m <- matrix(1:5)
+  one_quantile <- quantile_pred(m, 5/9)
+  expect_snapshot(print(one_quantile))
+  expect_snapshot(print(tibble(qntls = one_quantile)))
+  m[2] <- NA
+  expect_snapshot(print(quantile_pred(m, 5/9)))
 })
