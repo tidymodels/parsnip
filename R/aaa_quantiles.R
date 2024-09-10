@@ -12,12 +12,7 @@ check_quantile_level <- function(x, object, call) {
   x <- sort(unique(x))
   # TODO we need better vectorization here, otherwise we get things like:
   # "Error during wrapup: i In index: 2." in the traceback.
-  res <-
-    purrr::map(x,
-               ~ check_number_decimal(.x, min = 0, max = 1,
-                                      arg = "quantile_level", call = call,
-                                      allow_infinite = FALSE)
-  )
+  check_vector_probability(x, arg = "quantile_level", call = call)
   x
 }
 
@@ -35,15 +30,15 @@ vctrs::vec_ptype_full
 
 
 #' @export
-vec_ptype_abbr.parsnip_quantiles <- function(x, ...) "qntls"
+vec_ptype_abbr.quantile_pred <- function(x, ...) "qntls"
 
 #' @export
-vec_ptype_full.parsnip_quantiles <- function(x, ...) "quantiles"
+vec_ptype_full.quantile_pred <- function(x, ...) "quantiles"
 
-new_parsnip_quantiles <- function(values = list(), quantile_levels = double()) {
+new_quantile_pred <- function(values = list(), quantile_levels = double()) {
   quantile_levels <- vctrs::vec_cast(quantile_levels, double())
   vctrs::new_vctr(
-    values, quantile_levels = quantile_levels, class = "parsnip_quantiles"
+    values, quantile_levels = quantile_levels, class = "quantile_pred"
   )
 }
 
@@ -58,13 +53,13 @@ new_parsnip_quantiles <- function(values = list(), quantile_levels = double()) {
 #' @return A vector of values associated with the quantile levels.
 #'
 #' @examples
-#' v <- parsnip_quantiles(matrix(rnorm(20), 5), c(.2, .4, .6, .8))
+#' v <- quantile_pred(matrix(rnorm(20), 5), c(.2, .4, .6, .8))
 #'
 #' # Access the underlying information
 #' attr(v, "quantile_levels")
 #' vctrs::vec_data(v)
-parsnip_quantiles <- function(values, quantile_levels = double()) {
-  check_parsnip_quantiles_inputs(values, quantile_levels)
+quantile_pred <- function(values, quantile_levels = double()) {
+  check_quantile_pred_inputs(values, quantile_levels)
   quantile_levels <- vctrs::vec_cast(quantile_levels, double())
   num_lvls <- length(quantile_levels)
 
@@ -75,19 +70,18 @@ parsnip_quantiles <- function(values, quantile_levels = double()) {
     )
   }
   values <- lapply(vctrs::vec_chop(values), drop)
-  new_parsnip_quantiles(values, quantile_levels)
+  new_quantile_pred(values, quantile_levels)
 }
 
-check_parsnip_quantiles_inputs <- function(values, levels, call = caller_env()) {
+check_quantile_pred_inputs <- function(values, levels, call = caller_env()) {
   if (!is.matrix(values)) {
     cli::cli_abort(
       "{.arg values} must be a {.cls matrix}, not {.obj_type_friendly {values}}.",
       call = call
     )
   }
-  purrr::walk(levels,
-    ~ check_number_decimal(.x, min = 0, max = 1, arg = "quantile_levels", call = call)
-  )
+  check_vector_probability(values, arg = "quantile_levels", call = call)
+
   if (is.unsorted(levels)) {
     cli::cli_abort(
       "{.arg quantile_levels} must be sorted in increasing order.",
@@ -98,16 +92,16 @@ check_parsnip_quantiles_inputs <- function(values, levels, call = caller_env()) 
 }
 
 #' @export
-format.parsnip_quantiles <- function(x, ...) {
+format.quantile_pred <- function(x, ...) {
   quantile_levels <- attr(x, "quantile_levels")
   if (length(quantile_levels) == 1L) {
     x <- unlist(x)
     out <- round(x, 3L)
-    out[is.na(x)] <- NA
+    out[is.na(x)] <- NA_character_
   } else {
     rng <- sapply(x, range, na.rm = TRUE)
     out <- paste0("[", round(rng[1, ], 3L), ", ", round(rng[2, ], 3L), "]")
-    out[is.na(rng[1, ]) | is.na(rng[2, ])] <- NA
+    out[is.na(rng[1, ]) & is.na(rng[2, ])] <- NA_character_
   }
   out
 }
@@ -117,9 +111,23 @@ format.parsnip_quantiles <- function(x, ...) {
 vctrs::obj_print_footer
 
 #' @export
-obj_print_footer.parsnip_quantiles <- function(x, digits = 3, ...) {
+obj_print_footer.quantile_pred <- function(x, digits = 3, ...) {
   lvls <- attr(x, "quantile_levels")
   cat("# Quantile levels: ", format(lvls, digits = digits), "\n", sep = " ")
+}
+
+check_vector_probability <- function(x, ...,
+                                     allow_na = FALSE,
+                                     allow_null = FALSE,
+                                     arg = caller_arg(x),
+                                     call = caller_env()) {
+  purrr::walk(x, ~ check_number_decimal(
+    .x, min = 0, max = 1,
+    arg = arg, call = call,
+    allow_na = allow_na,
+    allow_null = allow_null,
+    allow_infinite = FALSE
+  ))
 }
 
 restructure_rq_pred <- function(x, object) {
@@ -130,6 +138,6 @@ restructure_rq_pred <- function(x, object) {
   n_pred_quantiles <- ncol(x)
   # TODO check p = length(quantile_level)
   quantile_level <- object$spec$quantile_level
-  tibble::tibble(.pred_quantile = parsnip_quantiles(x, quantile_level))
+  tibble::tibble(.pred_quantile = quantile_pred(x, quantile_level))
 }
 
