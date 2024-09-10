@@ -1,3 +1,19 @@
+# kknn execution
+
+    Code
+      fit_xy(hpc_basic, control = ctrl, x = hpc[, num_pred], y = hpc$input_fields)
+    Condition
+      Error in `check_outcome()`:
+      ! For a classification model, the outcome should be a `factor`, not a `numeric`.
+
+---
+
+    Code
+      fit(hpc_basic, hpc_bad_form, data = hpc, control = ctrl)
+    Condition
+      Error:
+      ! object 'term' not found
+
 # argument checks for data dimensions
 
     Code

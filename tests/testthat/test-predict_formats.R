@@ -63,20 +63,18 @@ test_that('predict(type = "prob") with level "class" (see #720)', {
     beep = rnorm(100)
   )
 
-  expect_error(
-    regexp = NA,
+  expect_no_condition(
     mod <- logistic_reg() %>%
       set_mode(mode = "classification") %>%
       fit(boop ~ bop + beep, data = x)
   )
 
-  expect_error(
-    regexp = NA,
+  expect_no_condition(
     predict(mod, type = "class", new_data = x)
   )
 
-  expect_error(
-    regexp = 'variable `boop` has a level called "class"',
+  expect_snapshot(
+    error = TRUE,
     predict(mod, type = "prob", new_data = x)
   )
 })
@@ -85,20 +83,24 @@ test_that('predict(type = "prob") with level "class" (see #720)', {
 test_that('non-factor classification', {
   skip_if(run_glmnet)
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     logistic_reg() %>%
       set_engine("glm") %>%
       fit(class ~ .,
           data = hpc %>% dplyr::mutate(class = class == "VF"))
   )
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     logistic_reg() %>%
       set_engine("glm") %>%
       fit(class ~ .,
           data = hpc %>% dplyr::mutate(class = ifelse(class == "VF", 1, 0)))
   )
 
-  expect_error(
+  skip_if_not_installed("glmnet")
+  expect_snapshot(
+    error = TRUE,
     multinom_reg() %>%
       set_engine("glmnet") %>%
       fit(class ~ .,
@@ -120,6 +122,6 @@ test_that("predict() works for model fit with fit_xy() (#1166)", {
   tree_fit <- fit_xy(spec, x = mtcars[, -1], y = mtcars[, 1])
 
   res <- predict(tree_fit, mtcars)
-  
+
   expect_identical(exp, res)
 })

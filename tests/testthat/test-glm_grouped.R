@@ -6,9 +6,8 @@ test_that('correct results for glm_grouped()', {
 
   ungrouped <- glm(Admit ~ Gender + Dept, data = ucb_long, family = binomial)
 
-  expect_error(
-    grouped <- glm_grouped(Admit ~ Gender + Dept, data = ucb_weighted, weights = ucb_weighted$Freq),
-    regexp = NA
+  expect_no_condition(
+    grouped <- glm_grouped(Admit ~ Gender + Dept, data = ucb_weighted, weights = ucb_weighted$Freq)
   )
 
   expect_equal(grouped$df.null, 11)

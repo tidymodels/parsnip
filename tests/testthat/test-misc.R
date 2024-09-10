@@ -35,25 +35,23 @@ test_that('other objects', {
 
 test_that('S3 method dispatch/registration', {
 
-  expect_error(
+  expect_no_condition(
     res <-
       null_model() %>%
       set_engine("parsnip") %>%
       set_mode("regression") %>%
       fit(mpg ~ ., data = mtcars) %>%
-      tidy(),
-    regex = NA
+      tidy()
   )
   expect_true(tibble::is_tibble(res))
 
-  expect_error(
+  expect_no_condition(
     res <-
       null_model() %>%
       set_engine("parsnip") %>%
       set_mode("classification") %>%
       fit(class ~ ., data = hpc) %>%
-      tidy(),
-    regex = NA
+      tidy()
   )
   expect_true(tibble::is_tibble(res))
 
@@ -75,13 +73,11 @@ test_that('control class', {
   class(ctrl) <- c("potato", "chair")
   # This doesn't error anymore because `condense_control()` doesn't care about
   # classes, it cares about elements
-  expect_error(
-    fit(x, mpg ~ ., data = mtcars, control = ctrl),
-    NA
+  expect_no_condition(
+    fit(x, mpg ~ ., data = mtcars, control = ctrl)
   )
-  expect_error(
-    fit_xy(x, x = mtcars[, -1], y = mtcars$mpg, control = ctrl),
-    NA
+  expect_no_condition(
+    fit_xy(x, x = mtcars[, -1], y = mtcars$mpg, control = ctrl)
   )
 })
 
@@ -163,10 +159,7 @@ test_that('arguments can be passed to model spec inside function', {
   exp_res <- nearest_neighbor(mode = "regression", neighbors = 5) %>%
     fit(mpg ~ ., data = mtcars)
 
-  expect_error(
-    fun_res <- f(),
-    NA
-  )
+  expect_no_condition(fun_res <- f())
 
   expect_equal(exp_res$fit[-c(8, 9)], fun_res$fit[-c(8, 9)])
 })

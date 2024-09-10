@@ -10,8 +10,8 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(svm_poly(mode = "reallyunknown"))
-  expect_error(svm_poly() %>% set_engine(NULL))
+  expect_snapshot(error = TRUE, svm_poly(mode = "reallyunknown"))
+  expect_snapshot(error = TRUE, svm_poly() %>% set_engine(NULL))
 })
 
 # ------------------------------------------------------------------------------
@@ -34,27 +34,25 @@ test_that('svm poly regression', {
 
   skip_if_not_installed("kernlab")
 
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       reg_mod,
       control = ctrl,
       x = hpc[,2:4],
       y = hpc$compounds
-    ),
-    regexp = NA
+    )
   )
 
   expect_false(has_multi_predict(res))
   expect_equal(multi_predict_args(res), NA_character_)
 
-  expect_error(
+  expect_no_condition(
     fit(
       reg_mod,
       compounds ~ .,
       data = hpc[, -5],
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
 })
@@ -111,24 +109,22 @@ test_that('svm poly classification', {
 
   skip_if_not_installed("kernlab")
 
-  expect_error(
+  expect_no_condition(
     fit_xy(
       cls_mod,
       control = ctrl,
       x = hpc[, -5],
       y = hpc$class
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     fit(
       cls_mod,
       class ~ .,
       data = hpc,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
 })

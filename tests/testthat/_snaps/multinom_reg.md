@@ -15,6 +15,51 @@
       Computational engine: glmnet 
       
 
+# bad input
+
+    Code
+      multinom_reg(mode = "regression")
+    Condition
+      Error in `multinom_reg()`:
+      ! "regression" is not a known mode for model `multinom_reg()`.
+
+---
+
+    Code
+      translate(multinom_reg(penalty = 0.1) %>% set_engine("wat?"))
+    Condition
+      Error in `set_engine()`:
+      x Engine "wat?" is not supported for `multinom_reg()`
+      i See `show_engines("multinom_reg")`.
+
+---
+
+    Code
+      multinom_reg(penalty = 0.1) %>% set_engine()
+    Condition
+      Error in `set_engine()`:
+      ! Missing engine. Possible mode/engine combinations are: classification {glmnet, spark, keras, nnet, brulee}.
+
+---
+
+    Code
+      translate(multinom_reg(penalty = 0.1) %>% set_engine("glmnet", x = hpc[, 1:3],
+      y = hpc$class))
+    Condition
+      Warning:
+      The argument `x, y` cannot be manually modified and was removed.
+    Output
+      Multinomial Regression Model Specification (classification)
+      
+      Main Arguments:
+        penalty = 0.1
+      
+      Computational engine: glmnet 
+      
+      Model fit template:
+      glmnet::glmnet(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+          family = "multinomial")
+
 # check_args() works
 
     Code

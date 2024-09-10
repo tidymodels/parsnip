@@ -9,11 +9,11 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(mlp(mode = "time series"))
-  expect_error(translate(mlp(mode = "classification") %>% set_engine("wat?")))
-  expect_warning(translate(mlp(mode = "regression") %>% set_engine("nnet", formula = y ~ x)))
-  expect_error(translate(mlp(mode = "classification", x = x, y = y) %>% set_engine("keras")))
-  expect_error(translate(mlp(mode = "regression", formula = y ~ x) %>% set_engine()))
+  expect_snapshot(error = TRUE, mlp(mode = "time series"))
+  expect_snapshot(error = TRUE, translate(mlp(mode = "classification") %>% set_engine("wat?")))
+  expect_snapshot(translate(mlp(mode = "regression") %>% set_engine("nnet", formula = y ~ x)))
+  expect_snapshot(error = TRUE, translate(mlp(mode = "classification", x = x, y = y) %>% set_engine("keras")))
+  expect_snapshot(error = TRUE, translate(mlp(mode = "regression", formula = y ~ x) %>% set_engine()))
 })
 
 test_that("nnet_softmax", {

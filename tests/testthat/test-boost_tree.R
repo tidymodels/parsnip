@@ -12,8 +12,8 @@ test_that('updating', {
 
 test_that('bad input', {
   expect_snapshot(error = TRUE, boost_tree(mode = "bogus"))
-  expect_message(translate(boost_tree(mode = "classification"), engine = NULL))
-  expect_error(translate(boost_tree(formula = y ~ x)))
+  expect_snapshot(translate(boost_tree(mode = "classification"), engine = NULL))
+  expect_snapshot(error = TRUE, translate(boost_tree(formula = y ~ x)))
 })
 
 

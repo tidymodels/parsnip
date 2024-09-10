@@ -22,39 +22,36 @@ test_that('model fitting', {
   skip_if_not_installed("nnet")
 
   set.seed(257)
-  expect_error(
+  expect_no_condition(
     fit1 <-
       fit_xy(
         basic_mod,
         control = ctrl,
         x = tr_dat[, -5],
         y = tr_dat$class
-      ),
-    regexp = NA
+      )
   )
 
   set.seed(257)
-  expect_error(
+  expect_no_condition(
     fit2 <-
       fit_xy(
         basic_mod,
         control = ctrl,
         x = tr_dat[, -5],
         y = tr_dat$class
-      ),
-    regexp = NA
+      )
   )
   fit1$elapsed <- fit2$elapsed
   expect_equal(fit1, fit2, ignore_formula_env = TRUE)
 
-  expect_error(
+  expect_no_condition(
     fit(
       basic_mod,
       class ~ .,
       data = tr_dat,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
 })

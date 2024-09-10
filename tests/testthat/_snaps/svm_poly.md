@@ -15,3 +15,19 @@
       Computational engine: kernlab 
       
 
+# bad input
+
+    Code
+      svm_poly(mode = "reallyunknown")
+    Condition
+      Error in `svm_poly()`:
+      ! "reallyunknown" is not a known mode for model `svm_poly()`.
+
+---
+
+    Code
+      svm_poly() %>% set_engine(NULL)
+    Condition
+      Error in `if (object$engine == "liquidSVM") ...`:
+      ! argument is of length zero
+

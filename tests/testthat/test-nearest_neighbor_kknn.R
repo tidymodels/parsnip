@@ -17,37 +17,36 @@ test_that('kknn execution', {
 
   # continuous
   # expect no error
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     fit_xy(
       hpc_basic,
       control = ctrl,
       x = hpc[, num_pred],
       y = hpc$input_fields
-    ),
-    regexp = "outcome should be a `factor`"
+    )
   )
 
   # nominal
   # expect no error
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       hpc_basic,
       control = ctrl,
       x = hpc[, c("input_fields", "iterations")],
       y = hpc$class
-    ),
-    regexp = NA
+    )
   )
 
   expect_true(has_multi_predict(res))
   expect_equal(multi_predict_args(res), "neighbors")
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     fit(
       hpc_basic,
       hpc_bad_form,
       data = hpc,
-
       control = ctrl
     )
   )

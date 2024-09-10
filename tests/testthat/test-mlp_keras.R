@@ -16,14 +16,13 @@ test_that('keras execution, classification', {
   skip_if_not_installed("keras")
   skip_if(!is_tf_ok())
 
-  expect_error(
+  expect_no_condition(
     res <- parsnip::fit(
       hpc_keras,
       class ~ compounds + input_fields,
       data = hpc,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
 
@@ -32,19 +31,19 @@ test_that('keras execution, classification', {
 
   keras::backend()$clear_session()
 
-  expect_error(
+  expect_no_condition(
     res <- parsnip::fit_xy(
       hpc_keras,
       x = hpc[, num_pred],
       y = hpc$class,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
   keras::backend()$clear_session()
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- parsnip::fit(
       hpc_keras,
       class ~ novar,
@@ -160,26 +159,24 @@ test_that('keras execution, regression', {
   skip_if_not_installed("keras")
   skip_if(!is_tf_ok())
 
-  expect_error(
+  expect_no_condition(
     res <- parsnip::fit(
       car_basic,
       mpg ~ .,
       data = mtcars,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
   keras::backend()$clear_session()
 
-  expect_error(
+  expect_no_condition(
     res <- parsnip::fit_xy(
       car_basic,
       x = mtcars[, num_pred],
       y = mtcars$mpg,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 })
 

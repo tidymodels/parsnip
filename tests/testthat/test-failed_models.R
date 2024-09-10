@@ -25,13 +25,13 @@ test_that('numeric model', {
     set_engine("lm") %>%
     fit(compounds ~ ., data = hpc_bad, control = ctrl)
 
-  expect_warning(num_res <- predict(lm_mod, hpc_bad[1:11, -1]))
+  expect_snapshot(num_res <- predict(lm_mod, hpc_bad[1:11, -1]))
   expect_equal(num_res, NULL)
 
-  expect_warning(ci_res <- predict(lm_mod, hpc_bad[1:11, -1], type = "conf_int"))
+  expect_snapshot(ci_res <- predict(lm_mod, hpc_bad[1:11, -1], type = "conf_int"))
   expect_equal(ci_res, NULL)
 
-  expect_warning(pi_res <- predict(lm_mod, hpc_bad[1:11, -1], type = "pred_int"))
+  expect_snapshot(pi_res <- predict(lm_mod, hpc_bad[1:11, -1], type = "pred_int"))
   expect_equal(pi_res, NULL)
 
 })
@@ -44,19 +44,19 @@ test_that('classification model', {
     set_engine("glm") %>%
     fit(Class ~ log(funded_amnt) + int_rate + big_num, data = lending_club, control = ctrl)
 
-  expect_warning(
+  expect_snapshot(
     cls_res <-
       predict(log_reg, lending_club %>%  dplyr::slice(1:7) %>% dplyr::select(-Class))
   )
   expect_equal(cls_res, NULL)
 
-  expect_warning(
+  expect_snapshot(
     prb_res <-
       predict(log_reg, lending_club %>%  dplyr::slice(1:7) %>% dplyr::select(-Class), type = "prob")
   )
   expect_equal(prb_res, NULL)
 
-  expect_warning(
+  expect_snapshot(
     ci_res <-
       predict(log_reg, lending_club %>%  dplyr::slice(1:7) %>% dplyr::select(-Class), type = "conf_int")
   )

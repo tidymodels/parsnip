@@ -20,12 +20,12 @@
 #'
 #' More types can be added by request.
 #'
-#' For parsnip, the [fit()] and [fit_xy] functions contain a `case_weight`
+#' For parsnip, the [fit()] and [fit_xy()] functions contain a `case_weight`
 #' argument that takes these data. For Spark models, the argument value should
 #' be a character value.
 #'
 #' @name case_weights
-#' @seealso [frequency_weights()], [importance_weights()], [fit()], [fit_xy]
+#' @seealso [frequency_weights()], [importance_weights()], [fit()], [fit_xy()]
 NULL
 
 # ------------------------------------------------------------------------------

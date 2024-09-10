@@ -16,26 +16,25 @@ test_that('survival execution', {
   surv_basic <- surv_reg() %>% set_engine("survival")
   surv_lnorm <- surv_reg(dist = "lognormal") %>% set_engine("survival")
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
       surv_basic,
       survival::Surv(time, status) ~ age + sex,
       data = lung,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
       surv_lnorm,
       survival::Surv(time) ~ age + sex,
       data = lung,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit_xy(
       surv_basic,
       x = lung[, c("age", "sex")],

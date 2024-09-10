@@ -10,22 +10,21 @@ test_that('case weights with xy method', {
   two_class_subset <- two_class_dat[wts != 0, ]
   wts <- importance_weights(wts)
 
-  expect_error({
+  expect_no_condition({
     set.seed(1)
     C5_bst_wt_fit <-
       boost_tree(trees = 5) %>%
       set_engine("C5.0") %>%
       set_mode("classification") %>%
       fit(Class ~ ., data = two_class_dat, case_weights = wts)
-  },
-  regexp = NA)
+  })
 
   expect_output(
     print(C5_bst_wt_fit$fit$call),
     "weights = weights"
   )
 
-  expect_error({
+  expect_no_condition({
     set.seed(1)
     C5_bst_wt_fit <-
       boost_tree(trees = 5) %>%
@@ -36,8 +35,7 @@ test_that('case weights with xy method', {
         y = two_class_dat$Class,
         case_weights = wts
       )
-  },
-  regexp = NA)
+  })
 
   expect_output(
     print(C5_bst_wt_fit$fit$call),
@@ -57,21 +55,20 @@ test_that('case weights with xy method - non-standard argument names', {
   two_class_subset <- two_class_dat[wts != 0, ]
   wts <- importance_weights(wts)
 
-  expect_error({
+  expect_no_condition({
     set.seed(1)
     rf_wt_fit <-
       rand_forest(trees = 5) %>%
       set_mode("classification") %>%
       fit(Class ~ ., data = two_class_dat, case_weights = wts)
-  },
-  regexp = NA)
+  })
 
   # expect_output(
   #   print(rf_wt_fit$fit$call),
   #   "case\\.weights = weights"
   # )
 
-  expect_error({
+  expect_no_condition({
     set.seed(1)
     rf_wt_fit <-
       rand_forest(trees = 5) %>%
@@ -81,8 +78,7 @@ test_that('case weights with xy method - non-standard argument names', {
         y = two_class_dat$Class,
         case_weights = wts
       )
-  },
-  regexp = NA)
+  })
 })
 
 test_that('case weights with formula method', {
@@ -97,11 +93,11 @@ test_that('case weights with formula method', {
   ames_subset <- ames[wts != 0, ]
   wts <- frequency_weights(wts)
 
-  expect_error(
+  expect_no_condition(
     lm_wt_fit <-
       linear_reg() %>%
-      fit(Sale_Price ~ Longitude + Latitude, data = ames, case_weights = wts),
-    regexp = NA)
+      fit(Sale_Price ~ Longitude + Latitude, data = ames, case_weights = wts)
+  )
 
   lm_sub_fit <-
     linear_reg() %>%
@@ -141,15 +137,14 @@ test_that('case weights with formula method that goes through `fit_xy()`', {
   ames_subset <- ames[wts != 0, ]
   wts <- frequency_weights(wts)
 
-  expect_error(
+  expect_no_condition(
     lm_wt_fit <-
       linear_reg() %>%
       fit_xy(
         x = ames[c("Longitude", "Latitude")],
         y = ames$Sale_Price,
         case_weights = wts
-      ),
-    regexp = NA)
+  ))
 
   lm_sub_fit <-
     linear_reg() %>%
