@@ -121,13 +121,15 @@ check_vector_probability <- function(x, ...,
                                      allow_null = FALSE,
                                      arg = caller_arg(x),
                                      call = caller_env()) {
-  purrr::walk(x, ~ check_number_decimal(
-    .x, min = 0, max = 1,
-    arg = arg, call = call,
-    allow_na = allow_na,
-    allow_null = allow_null,
-    allow_infinite = FALSE
-  ))
+  for (d in x) {
+    check_number_decimal(
+      d, min = 0, max = 1,
+      arg = arg, call = call,
+      allow_na = allow_na,
+      allow_null = allow_null,
+      allow_infinite = FALSE
+    )
+  }
 }
 
 restructure_rq_pred <- function(x, object) {
