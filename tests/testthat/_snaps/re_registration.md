@@ -7,7 +7,7 @@
           keeptrees = TRUE, keepcall = FALSE)))
     Condition
       Error in `set_fit()`:
-      ! The combination of engine `dbarts` and mode `regression` "" already has fit data for model `bart` and the new information being registered is different.
+      ! The combination of engine `dbarts` and mode `regression` already has fit data for model `bart` and the new information being registered is different.
 
 # re-registration of encoding information
 
@@ -17,7 +17,7 @@
         allow_sparse_x = FALSE))
     Condition
       Error in `set_encoding()`:
-      ! The combination of engine `dbarts` and mode `regression` "" already has encoding data for model `bart` and the new information being registered is different.
+      ! The combination of engine `dbarts` and mode `regression` already has encoding data for model `bart` and the new information being registered is different.
 
 # re-registration of prediction information
 
@@ -27,5 +27,5 @@
         args = list(obj = quote(object), new_data = quote(new_data), type = "tuba")))
     Condition
       Error in `set_pred()`:
-      ! The combination of engine `dbarts` and mode `regression` "and prediction type 'numeric'" already has predict data for model `bart` and the new information being registered is different.
+      ! The combination of engine `dbarts` and mode `regression` and prediction type "numeric" already has predict data for model `bart` and the new information being registered is different.
 
