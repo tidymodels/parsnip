@@ -160,7 +160,7 @@
 }
 
 
-#' @param object An object of class `model_fit`.
+#' @param object A [model fit][model_fit].
 #' @inheritParams predict.model_fit
 #' @rdname convert_helpers
 #' @keywords internal

@@ -72,7 +72,7 @@ patch_formula_environment_with_case_weights <- function(formula,
 #' Not all modeling engines can incorporate case weights into their
 #' calculations. This function can determine whether they can be used.
 #'
-#' @param spec A parsnip model specification.
+#' @param spec A parsnip [model specification][model_spec].
 #' @return A single logical.
 #' @examples
 #' case_weights_allowed(linear_reg())

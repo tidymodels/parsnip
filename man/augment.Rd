@@ -7,7 +7,7 @@
 \method{augment}{model_fit}(x, new_data, eval_time = NULL, ...)
 }
 \arguments{
-\item{x}{A \code{model_fit} object produced by \code{\link[=fit.model_spec]{fit.model_spec()}} or
+\item{x}{A \link[=model_fit]{model fit} produced by \code{\link[=fit.model_spec]{fit.model_spec()}} or
 \code{\link[=fit_xy.model_spec]{fit_xy.model_spec()}}.}
 
 \item{new_data}{A data frame or matrix.}

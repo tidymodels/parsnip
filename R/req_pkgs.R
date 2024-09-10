@@ -3,7 +3,7 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' @param x A model specification or fit.
+#' @param x A [model specification][model_spec] or [fit][model_fit].
 #' @param ... Not used.
 #' @return A character string of package names (if any).
 #' @details

@@ -2,7 +2,7 @@
 #'
 #' `augment()` will add column(s) for predictions to the given data.
 #'
-#' @param x A `model_fit` object produced by [fit.model_spec()] or
+#' @param x A [model fit][model_fit] produced by [fit.model_spec()] or
 #' [fit_xy.model_spec()].
 #' @param eval_time For censored regression models, a vector of time points at
 #' which the survival probability is estimated.

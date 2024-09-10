@@ -4,7 +4,7 @@
 #'  `predict()` can be used for all types of models and uses the
 #'  "type" argument for more specificity.
 #'
-#' @param object An object of class `model_fit`.
+#' @param object A [model fit][model_fit].
 #' @param new_data A rectangular data object, such as a data frame.
 #' @param type A single character value or `NULL`. Possible values
 #'   are `"numeric"`, `"class"`, `"prob"`, `"conf_int"`, `"pred_int"`,

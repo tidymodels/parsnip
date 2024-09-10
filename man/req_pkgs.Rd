@@ -7,7 +7,7 @@
 req_pkgs(x, ...)
 }
 \arguments{
-\item{x}{A model specification or fit.}
+\item{x}{A \link[=model_spec]{model specification} or \link[=model_fit]{fit}.}
 
 \item{...}{Not used.}
 }
