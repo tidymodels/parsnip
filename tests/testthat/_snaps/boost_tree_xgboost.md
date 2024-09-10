@@ -84,7 +84,7 @@
       boost_tree(mtry = 0.9, trees = 4) %>% set_engine("xgboost") %>% set_mode(
         "regression") %>% fit(mpg ~ ., data = mtcars)
     Condition
-      Error in `recalc_param()`:
+      Error in `xgb_train()`:
       ! The option `counts = TRUE` was used but `colsample_bynode` was given as 0.9.
       i Please use a value >= 1 or use `counts = FALSE`.
 
