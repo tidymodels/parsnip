@@ -30,7 +30,10 @@ vctrs::vec_ptype_full
 
 
 #' @export
-vec_ptype_abbr.quantile_pred <- function(x, ...) "qntls"
+vec_ptype_abbr.quantile_pred <- function(x, ...) {
+  n_lvls <- length(attr(x, "quantile_levels"))
+  cli::format_inline("qtl{?s}({n_lvls})")
+}
 
 #' @export
 vec_ptype_full.quantile_pred <- function(x, ...) "quantiles"
@@ -104,6 +107,8 @@ format.quantile_pred <- function(x, ...) {
     rng <- sapply(x, range, na.rm = TRUE)
     out <- paste0("[", round(rng[1, ], 3L), ", ", round(rng[2, ], 3L), "]")
     out[is.na(rng[1, ]) & is.na(rng[2, ])] <- NA_character_
+    m <- median(x)
+    out <- paste0("[", round(m, 3L), "]")
   }
   out
 }
@@ -132,6 +137,19 @@ check_vector_probability <- function(x, ...,
       allow_infinite = FALSE
     )
   }
+}
+
+#' @export
+median.quantile_pred <- function(x, ...) {
+  lvls <- attr(x, "quantile_levels")
+  loc_median <- (abs(lvls - 0.5) < sqrt(.Machine$double.eps))
+  if (any(loc_median)) {
+    return(map_dbl(x, ~ .x[min(which(loc_median))]))
+  }
+  if (length(lvls) < 2 || min(lvls) > 0.5 || max(lvls) < 0.5) {
+    return(rep(NA, vctrs::vec_size(x)))
+  }
+  map_dbl(x, ~ stats::approx(lvls, .x, xout = 0.5)$y)
 }
 
 restructure_rq_pred <- function(x, object) {
