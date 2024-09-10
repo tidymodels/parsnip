@@ -10,7 +10,7 @@ The parsnip package splits the process of fitting models into two steps:
 \item Fit a model using the model specification
 }
 
-This is a different approach than many interfaces to models in R, like \code{lm()},
+This is a different approach to many other model interfaces in R, like \code{lm()},
 where both the specification of the model and the fitting happens in one
 function call. Splitting the process into two steps allows users to
 iteratively define model specifications throughout the model development
@@ -18,7 +18,7 @@ process.
 
 This intermediate object that defines how the model will be fit is called
 a \emph{model specification} and has class \code{model_spec}. Model type functions,
-like \code{\link[=linear_reg]{linear_reg()}} or \code{\link[=boost_tree]{boost_tree()}}, output \code{model_spec} objects.
+like \code{\link[=linear_reg]{linear_reg()}} or \code{\link[=boost_tree]{boost_tree()}}, return \code{model_spec} objects.
 
 Fitted model objects, resulting from passing a \code{model_spec} to
 \link[=fit.model_spec]{fit()} or \link[=fit_xy.model_spec]{fit_xy}, have
@@ -28,7 +28,7 @@ them. See \link[=model_fit]{?model_fit} for more on that object type, and
 extract \code{model_spec}s from \code{model_fit}s.
 }
 \details{
-An object with class "model_spec" is a container for
+An object with class \code{"model_spec"} is a container for
 information about a model that will be fit.
 
 The main elements of the object are:

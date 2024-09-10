@@ -10,7 +10,7 @@ ready to \link[=predict.model_fit]{predict} on new data. Model fits have class
 used to fit the model.
 }
 \details{
-An object with class "model_fit" is a container for
+An object with class \code{"model_fit"} is a container for
 information about a model that has been fit to the data.
 
 The main elements of the object are:
