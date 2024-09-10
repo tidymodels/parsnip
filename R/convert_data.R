@@ -323,7 +323,7 @@ check_form_dots <- function(x, call = rlang::caller_env()) {
       c(
         "The argument{?s} {.arg {names(x)[!good_names]}} cannot be used to create
          the data.",
-        "Possible arguments are {.arg {.or {good_args}}."
+        "Possible arguments are {.arg {.or {good_args}}}."
       ),
       call = call
     )

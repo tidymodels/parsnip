@@ -4,8 +4,9 @@
       res <- fit(lc_basic, funded_amnt ~ term, data = lending_club, engine = "C5.0",
       control = ctrl)
     Condition
-      Error in `glue()`:
-      ! Expecting '}'
+      Error in `.convert_form_to_xy_fit()`:
+      ! The argument `engine` cannot be used to create the data.
+      Possible arguments are subset or weights.
 
 # submodel prediction
 
