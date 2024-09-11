@@ -1,6 +1,6 @@
 # parsnip (development version)
 
-* A new model mode, "quantile regression" was added. Including:
+* A new model mode (`"quantile regression"`) was added. Including:
   * A function to create a new vector class called `quantile_pred()` was added (#1191). 
   * A `linear_reg()` engine for `"quantreg"`. 
   
