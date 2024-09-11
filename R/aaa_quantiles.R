@@ -61,6 +61,9 @@ new_quantile_pred <- function(values = list(), quantile_levels = double()) {
 #' # Access the underlying information
 #' attr(v, "quantile_levels")
 #' unclass(v)
+#'
+#' # tidy format
+#' as_tibble(v)
 quantile_pred <- function(values, quantile_levels = double()) {
   check_quantile_pred_inputs(values, quantile_levels)
   quantile_levels <- vctrs::vec_cast(quantile_levels, double())
@@ -163,3 +166,15 @@ restructure_rq_pred <- function(x, object) {
   tibble::tibble(.pred_quantile = quantile_pred(x, quantile_level))
 }
 
+#' @export
+as_tibble.quantile_pred <-
+  function (x, ..., .rows = NULL, .name_repair = "minimal", rownames = NULL) {
+    lvls <- attr(x, "quantile_levels")
+    n_samp <- length(x)
+    n_quant <- length(lvls)
+    tibble::tibble(
+      .pred_quantile = unlist(x),
+      .quantile_levels = rep(lvls, n_samp),
+      .row = rep(1:n_samp, each = n_quant)
+    )
+  }

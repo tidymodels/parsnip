@@ -2,6 +2,7 @@
 
 S3method(.censoring_weights_graf,default)
 S3method(.censoring_weights_graf,model_fit)
+S3method(as_tibble,quantile_pred)
 S3method(augment,model_fit)
 S3method(autoplot,glmnet)
 S3method(autoplot,model_fit)

@@ -23,5 +23,8 @@ v <- quantile_pred(matrix(rnorm(20), 5), c(.2, .4, .6, .8))
 
 # Access the underlying information
 attr(v, "quantile_levels")
-vctrs::vec_data(v)
+unclass(v)
+
+# tidy format
+as_tibble(v)
 }

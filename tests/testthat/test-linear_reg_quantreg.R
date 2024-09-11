@@ -32,6 +32,11 @@ test_that('linear quantile regression via quantreg - single quantile', {
   expect_true(length(one_quant_pred$.pred_quantile[[1]]) == 1L)
   expect_identical(attr(one_quant_pred$.pred_quantile, "quantile_levels"), .5)
 
+  one_quant_df <- as_tibble(one_quant_pred$.pred_quantile)
+  expect_s3_class(one_quant_df, c("tbl_df", "tbl", "data.frame"))
+  expect_named(one_quant_df, c(".pred_quantile", ".quantile_levels", ".row"))
+  expect_true(nrow(one_quant_df) == nrow(sac_test) * 1)
+
   ###
 
   one_quant_one_row <- predict(one_quant, new_data = sac_test[1,])
@@ -45,6 +50,11 @@ test_that('linear quantile regression via quantreg - single quantile', {
   expect_identical(class(one_quant_one_row$.pred_quantile[[1]]), "numeric")
   expect_true(length(one_quant_one_row$.pred_quantile[[1]]) == 1L)
   expect_identical(attr(one_quant_pred$.pred_quantile, "quantile_levels"), .5)
+
+  one_quant_one_row_df <- as_tibble(one_quant_one_row$.pred_quantile)
+  expect_s3_class(one_quant_one_row_df, c("tbl_df", "tbl", "data.frame"))
+  expect_named(one_quant_one_row_df, c(".pred_quantile", ".quantile_levels", ".row"))
+  expect_true(nrow(one_quant_one_row_df) == nrow(sac_test[1,]) * 1)
 })
 
 test_that('linear quantile regression via quantreg - multiple quantiles', {
@@ -81,6 +91,11 @@ test_that('linear quantile regression via quantreg - multiple quantiles', {
   expect_true(length(ten_quant_pred$.pred_quantile[[1]]) == 10L)
   expect_identical(attr(ten_quant_pred$.pred_quantile, "quantile_levels"), (0:9)/9)
 
+  ten_quant_df <- as_tibble(ten_quant_pred$.pred_quantile)
+  expect_s3_class(ten_quant_df, c("tbl_df", "tbl", "data.frame"))
+  expect_named(ten_quant_df, c(".pred_quantile", ".quantile_levels", ".row"))
+  expect_true(nrow(ten_quant_df) == nrow(sac_test) * 10)
+
   ###
 
   ten_quant_one_row <- predict(ten_quant, new_data = sac_test[1,])
@@ -97,6 +112,11 @@ test_that('linear quantile regression via quantreg - multiple quantiles', {
     attr(ten_quant_one_row$.pred_quantile, "quantile_levels"),
     (0:9)/9
   )
+
+  ten_quant_one_row_df <- as_tibble(ten_quant_one_row$.pred_quantile)
+  expect_s3_class(ten_quant_one_row_df, c("tbl_df", "tbl", "data.frame"))
+  expect_named(ten_quant_one_row_df, c(".pred_quantile", ".quantile_levels", ".row"))
+  expect_true(nrow(ten_quant_one_row_df) == nrow(sac_test[1,]) * 10)
 })
 
 
