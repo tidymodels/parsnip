@@ -248,7 +248,7 @@ tunable.linear_reg <- function(x, ...) {
   } else if (x$engine == "brulee") {
     res <- add_engine_parameters(res, brulee_linear_engine_args)
   }
-  res
+  res[!vapply(res$call_info, is.null, logical(1)), ]
 }
 
 #' @export
@@ -260,7 +260,7 @@ tunable.logistic_reg <- function(x, ...) {
   } else if (x$engine == "brulee") {
     res <- add_engine_parameters(res, brulee_logistic_engine_args)
   }
-  res
+  res[!vapply(res$call_info, is.null, logical(1)), ]
 }
 
 #' @export
@@ -272,7 +272,7 @@ tunable.multinomial_reg <- function(x, ...) {
   } else if (x$engine == "brulee") {
     res <- add_engine_parameters(res, brulee_multinomial_engine_args)
   }
-  res
+  res[!vapply(res$call_info, is.null, logical(1)), ]
 }
 
 #' @export
@@ -295,7 +295,7 @@ tunable.boost_tree <- function(x, ...) {
     res$call_info[res$name == "sample_size"] <-
       list(list(pkg = "dials", fun = "sample_prop"))
   }
-  res
+  res[!vapply(res$call_info, is.null, logical(1)), ]
 }
 
 #' @export
@@ -310,7 +310,7 @@ tunable.rand_forest <- function(x, ...) {
   } else if (x$engine == "aorsf") {
     res <- add_engine_parameters(res, aorsf_engine_args)
   }
-  res
+  res[!vapply(res$call_info, is.null, logical(1)), ]
 }
 
 #' @export
@@ -319,7 +319,7 @@ tunable.mars <- function(x, ...) {
   if (x$engine == "earth") {
     res <- add_engine_parameters(res, earth_engine_args)
   }
-  res
+  res[!vapply(res$call_info, is.null, logical(1)), ]
 }
 
 #' @export
@@ -333,7 +333,7 @@ tunable.decision_tree <- function(x, ...) {
                             partykit_engine_args %>%
                               dplyr::mutate(component = "decision_tree"))
   }
-  res
+  res[!vapply(res$call_info, is.null, logical(1)), ]
 }
 
 #' @export
@@ -343,7 +343,7 @@ tunable.svm_poly <- function(x, ...) {
     res$call_info[res$name == "degree"] <-
       list(list(pkg = "dials", fun = "prod_degree", range = c(1L, 3L)))
   }
-  res
+  res[!vapply(res$call_info, is.null, logical(1)), ]
 }
 
 
@@ -357,7 +357,7 @@ tunable.mlp <- function(x, ...) {
     res$call_info[res$name == "epochs"] <-
       list(list(pkg = "dials", fun = "epochs", range = c(5L, 500L)))
   }
-  res
+  res[!vapply(res$call_info, is.null, logical(1)), ]
 }
 
 #' @export
@@ -366,7 +366,7 @@ tunable.survival_reg <- function(x, ...) {
   if (x$engine == "flexsurvspline") {
     res <- add_engine_parameters(res, flexsurvspline_engine_args)
   }
-  res
+  res[!vapply(res$call_info, is.null, logical(1)), ]
 }
 
 # nocov end
