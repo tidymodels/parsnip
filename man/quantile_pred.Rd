@@ -52,9 +52,9 @@ unclass(.pred_quantile)
 # Access the underlying information
 extract_quantile_levels(.pred_quantile)
 
-# matrix format
+# Matrix format
 as.matrix(.pred_quantile)
 
-# tidy format
+# Tidy format
 tibble::as_tibble(.pred_quantile)
 }

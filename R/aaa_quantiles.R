@@ -9,9 +9,11 @@ check_quantile_level <- function(x, object, call) {
       {.arg quantile_level} must be specified for quantile regression models.")
     }
   }
+  if ( any(is.na(x)) ) {
+    cli::cli_abort("Missing values are not allowed in {.arg quantile_levels}.",
+                   call = call)
+  }
   x <- sort(unique(x))
-  # TODO we need better vectorization here, otherwise we get things like:
-  # "Error during wrapup: i In index: 2." in the traceback.
   check_vector_probability(x, arg = "quantile_level", call = call)
   x
 }
@@ -83,6 +85,7 @@ new_quantile_pred <- function(values = list(), quantile_levels = double()) {
 #' tibble::as_tibble(.pred_quantile)
 quantile_pred <- function(values, quantile_levels = double()) {
   check_quantile_pred_inputs(values, quantile_levels)
+
   quantile_levels <- vctrs::vec_cast(quantile_levels, double())
   num_lvls <- length(quantile_levels)
 
@@ -99,6 +102,11 @@ quantile_pred <- function(values, quantile_levels = double()) {
 }
 
 check_quantile_pred_inputs <- function(values, levels, call = caller_env()) {
+  if ( any(is.na(levels)) ) {
+    cli::cli_abort("Missing values are not allowed in {.arg quantile_levels}.",
+                   call = call)
+  }
+
   if (!is.matrix(values)) {
     cli::cli_abort(
       "{.arg values} must be a {.cls matrix}, not {.obj_type_friendly {values}}.",

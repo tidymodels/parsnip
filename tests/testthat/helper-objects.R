@@ -31,7 +31,7 @@ is_tf_ok <- function() {
 data("Sacramento")
 
 Sacramento_small <-
-  Sacramento %>%
+  modeldata::Sacramento %>%
   dplyr::mutate(price = log10(price)) %>%
   dplyr::select(price, beds, baths, sqft, latitude, longitude)
 

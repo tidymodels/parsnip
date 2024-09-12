@@ -20,9 +20,7 @@
       linear_reg() %>% set_engine("quantreg") %>% set_mode("quantile regression",
         quantile_level = 2)
     Condition
-      Error in `purrr::map()`:
-      i In index: 1.
-      Caused by error in `set_mode()`:
+      Error in `set_mode()`:
       ! `quantile_level` must be a number between 0 and 1, not the number 2.
 
 ---
@@ -31,9 +29,7 @@
       linear_reg() %>% set_engine("quantreg") %>% set_mode("quantile regression",
         quantile_level = 1:2)
     Condition
-      Error in `purrr::map()`:
-      i In index: 2.
-      Caused by error in `set_mode()`:
+      Error in `set_mode()`:
       ! `quantile_level` must be a number between 0 and 1, not the number 2.
 
 ---
@@ -42,8 +38,6 @@
       linear_reg() %>% set_engine("quantreg") %>% set_mode("quantile regression",
         quantile_level = NA_real_)
     Condition
-      Error in `purrr::map()`:
-      i In index: 1.
-      Caused by error in `set_mode()`:
-      ! `quantile_level` must be a number, not a numeric `NA`.
+      Error in `set_mode()`:
+      ! Missing values are not allowed in `quantile_levels`.
 
