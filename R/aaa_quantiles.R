@@ -64,6 +64,9 @@ new_quantile_pred <- function(values = list(), quantile_levels = double()) {
 #'
 #' # tidy format
 #' as_tibble(v)
+#'
+#' # matrix format
+#' as.matrix(v)
 quantile_pred <- function(values, quantile_levels = double()) {
   check_quantile_pred_inputs(values, quantile_levels)
   quantile_levels <- vctrs::vec_cast(quantile_levels, double())
@@ -178,3 +181,18 @@ as_tibble.quantile_pred <-
       .row = rep(1:n_samp, each = n_quant)
     )
   }
+
+#' @export
+as.matrix.quantile_pred <- function(x, ...) {
+  num_samp <- length(x)
+  matrix(unlist(x), nrow = num_samp)
+}
+
+#' @export
+#' @rdname quantile_pred
+extract_quantile_levels <- function(x) {
+  if ( !inherits(x, "quantile_pred") ) {
+    cli::cli_abort("{.arg x} should have class {.val quantile_pred}.")
+  }
+  attr(x, "quantile_levels")
+}

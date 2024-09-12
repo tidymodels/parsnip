@@ -2,9 +2,12 @@
 % Please edit documentation in R/aaa_quantiles.R
 \name{quantile_pred}
 \alias{quantile_pred}
+\alias{extract_quantile_levels}
 \title{Create a vector containing sets of quantiles}
 \usage{
 quantile_pred(values, quantile_levels = double())
+
+extract_quantile_levels(x)
 }
 \arguments{
 \item{values}{A matrix of values. Each column should correspond to one of
@@ -27,4 +30,7 @@ unclass(v)
 
 # tidy format
 as_tibble(v)
+
+# matrix format
+as.matrix(v)
 }
