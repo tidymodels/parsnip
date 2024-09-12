@@ -45,28 +45,42 @@ new_quantile_pred <- function(values = list(), quantile_levels = double()) {
   )
 }
 
-
 #' Create a vector containing sets of quantiles
+#'
+#' [quantile_pred()] is a special vector class used to efficiently store
+#' predictions from a quantile regression model. It requires the same quantile
+#' levels for each row being predicted.
 #'
 #' @param values A matrix of values. Each column should correspond to one of
 #'   the quantile levels.
 #' @param quantile_levels A vector of probabilities corresponding to `values`.
+#' @param x An object produced by [quantile_pred()].
+#' @param .rows,.name_repair,rownames Arguments not used but required by the
+#' original S3 method.
+#' @param ... Not currently used.
 #'
 #' @export
-#' @return A vector of values associated with the quantile levels.
-#'
+#' @return
+#'   * [quantile_pred()] returns a vector of values associated with the
+#' quantile levels.
+#'   * [extract_quantile_levels()] returns a numeric vector of levels.
+#'   * [as_tibble()] returns a tibble with rows `".pred_quantile"`,
+#'   `".quantile_levels"`, and `".row"`.
+#'   * [as.matrix()] returns an unnamed matrix with rows as sames, columns as
+#'   quantile levels, and entries are predictions.
 #' @examples
-#' v <- quantile_pred(matrix(rnorm(20), 5), c(.2, .4, .6, .8))
+#' .pred_quantile <- quantile_pred(matrix(rnorm(20), 5), c(.2, .4, .6, .8))
+#'
+#' unclass(.pred_quantile)
 #'
 #' # Access the underlying information
-#' attr(v, "quantile_levels")
-#' unclass(v)
+#' extract_quantile_levels(.pred_quantile)
 #'
-#' # tidy format
-#' as_tibble(v)
+#' # Matrix format
+#' as.matrix(.pred_quantile)
 #'
-#' # matrix format
-#' as.matrix(v)
+#' # Tidy format
+#' tibble::as_tibble(.pred_quantile)
 quantile_pred <- function(values, quantile_levels = double()) {
   check_quantile_pred_inputs(values, quantile_levels)
   quantile_levels <- vctrs::vec_cast(quantile_levels, double())
@@ -170,6 +184,16 @@ restructure_rq_pred <- function(x, object) {
 }
 
 #' @export
+#' @rdname quantile_pred
+extract_quantile_levels <- function(x) {
+  if ( !inherits(x, "quantile_pred") ) {
+    cli::cli_abort("{.arg x} should have class {.val quantile_pred}.")
+  }
+  attr(x, "quantile_levels")
+}
+
+#' @export
+#' @rdname quantile_pred
 as_tibble.quantile_pred <-
   function (x, ..., .rows = NULL, .name_repair = "minimal", rownames = NULL) {
     lvls <- attr(x, "quantile_levels")
@@ -183,16 +207,8 @@ as_tibble.quantile_pred <-
   }
 
 #' @export
+#' @rdname quantile_pred
 as.matrix.quantile_pred <- function(x, ...) {
   num_samp <- length(x)
   matrix(unlist(x), nrow = num_samp)
-}
-
-#' @export
-#' @rdname quantile_pred
-extract_quantile_levels <- function(x) {
-  if ( !inherits(x, "quantile_pred") ) {
-    cli::cli_abort("{.arg x} should have class {.val quantile_pred}.")
-  }
-  attr(x, "quantile_levels")
 }

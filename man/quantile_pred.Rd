@@ -3,34 +3,58 @@
 \name{quantile_pred}
 \alias{quantile_pred}
 \alias{extract_quantile_levels}
+\alias{as_tibble.quantile_pred}
+\alias{as.matrix.quantile_pred}
 \title{Create a vector containing sets of quantiles}
 \usage{
 quantile_pred(values, quantile_levels = double())
 
 extract_quantile_levels(x)
+
+\method{as_tibble}{quantile_pred}(x, ..., .rows = NULL, .name_repair = "minimal", rownames = NULL)
+
+\method{as.matrix}{quantile_pred}(x, ...)
 }
 \arguments{
 \item{values}{A matrix of values. Each column should correspond to one of
 the quantile levels.}
 
 \item{quantile_levels}{A vector of probabilities corresponding to \code{values}.}
+
+\item{x}{An object produced by \code{\link[=quantile_pred]{quantile_pred()}}.}
+
+\item{...}{Not currently used.}
+
+\item{.rows, .name_repair, rownames}{Arguments not used but required by the
+original S3 method.}
 }
 \value{
-A vector of values associated with the quantile levels.
+\itemize{
+\item \code{\link[=quantile_pred]{quantile_pred()}} returns a vector of values associated with the
+quantile levels.
+\item \code{\link[=extract_quantile_levels]{extract_quantile_levels()}} returns a numeric vector of levels.
+\item \code{\link[=as_tibble]{as_tibble()}} returns a tibble with rows \code{".pred_quantile"},
+\code{".quantile_levels"}, and \code{".row"}.
+\item \code{\link[=as.matrix]{as.matrix()}} returns an unnamed matrix with rows as sames, columns as
+quantile levels, and entries are predictions.
+}
 }
 \description{
-Create a vector containing sets of quantiles
+\code{\link[=quantile_pred]{quantile_pred()}} is a special vector class used to efficiently store
+predictions from a quantile regression model. It requires the same quantile
+levels for each row being predicted.
 }
 \examples{
-v <- quantile_pred(matrix(rnorm(20), 5), c(.2, .4, .6, .8))
+.pred_quantile <- quantile_pred(matrix(rnorm(20), 5), c(.2, .4, .6, .8))
+
+unclass(.pred_quantile)
 
 # Access the underlying information
-attr(v, "quantile_levels")
-unclass(v)
-
-# tidy format
-as_tibble(v)
+extract_quantile_levels(.pred_quantile)
 
 # matrix format
-as.matrix(v)
+as.matrix(.pred_quantile)
+
+# tidy format
+tibble::as_tibble(.pred_quantile)
 }

@@ -21,7 +21,7 @@
 #' @importFrom stats .checkMFClasses .getXlevels as.formula binomial coef
 #' @importFrom stats delete.response model.frame model.matrix model.offset
 #' @importFrom stats model.response model.weights na.omit na.pass predict qnorm
-#' @importFrom stats qt quantile setNames terms update
+#' @importFrom stats qt quantile setNames terms update median
 #' @importFrom tibble as_tibble is_tibble tibble
 #' @importFrom tidyr gather
 #' @importFrom utils capture.output getFromNamespace globalVariables head

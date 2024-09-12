@@ -1,14 +1,7 @@
 test_that('linear quantile regression via quantreg - single quantile', {
   skip_if_not_installed("quantreg")
 
-  data("Sacramento")
-
-  Sacramento_small <-
-    Sacramento %>%
-    dplyr::select(price, beds, baths, sqft, latitude, longitude)
-
-  sac_train <- Sacramento_small[-(1:5), ]
-  sac_test  <- Sacramento_small[  1:5 , ]
+  # data in `helper-objects.R`
 
   one_quant <-
     linear_reg() %>%
@@ -60,14 +53,7 @@ test_that('linear quantile regression via quantreg - single quantile', {
 test_that('linear quantile regression via quantreg - multiple quantiles', {
   skip_if_not_installed("quantreg")
 
-  data("Sacramento")
-
-  Sacramento_small <-
-    Sacramento %>%
-    dplyr::select(price, beds, baths, sqft, latitude, longitude)
-
-  sac_train <- Sacramento_small[-(1:5), ]
-  sac_test  <- Sacramento_small[  1:5 , ]
+  # data in `helper-objects.R`
 
   ten_quant <-
     linear_reg() %>%

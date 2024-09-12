@@ -24,3 +24,16 @@ is_tf_ok <- function() {
   }
   res
 }
+
+# ------------------------------------------------------------------------------
+# for quantile regression tests
+
+data("Sacramento")
+
+Sacramento_small <-
+  Sacramento %>%
+  dplyr::mutate(price = log10(price)) %>%
+  dplyr::select(price, beds, baths, sqft, latitude, longitude)
+
+sac_train <- Sacramento_small[-(1:5), ]
+sac_test  <- Sacramento_small[  1:5 , ]
