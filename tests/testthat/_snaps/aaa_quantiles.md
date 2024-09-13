@@ -33,7 +33,7 @@
 # quantile_pred formatting
 
     Code
-      print(v)
+      v
     Output
       <quantiles[5]>
       [1] [8.5]  [9.5]  [10.5] [11.5] [12.5]
@@ -42,7 +42,7 @@
 ---
 
     Code
-      print(quantile_pred(matrix(1:18, 9), c(1 / 3, 2 / 3)))
+      quantile_pred(matrix(1:18, 9), c(1 / 3, 2 / 3))
     Output
       <quantiles[9]>
       [1] [5.5]  [6.5]  [7.5]  [8.5]  [9.5]  [10.5] [11.5] [12.5] [13.5]
@@ -51,7 +51,7 @@
 ---
 
     Code
-      print(quantile_pred(matrix(seq(0.01, 1 - 0.01, length.out = 6), 3), c(0.2, 0.8)))
+      quantile_pred(matrix(seq(0.01, 1 - 0.01, length.out = 6), 3), c(0.2, 0.8))
     Output
       <quantiles[3]>
       [1] [0.304] [0.5]   [0.696]
@@ -60,7 +60,7 @@
 ---
 
     Code
-      print(tibble(qntls = v))
+      tibble(qntls = v)
     Output
       # A tibble: 5 x 1
             qntls
@@ -74,7 +74,7 @@
 ---
 
     Code
-      print(quantile_pred(m, 1:4 / 5))
+      quantile_pred(m, 1:4 / 5)
     Output
       <quantiles[5]>
       [1] [8.5]  [9.5]  [10.5] [11.5] [12.5]
@@ -83,7 +83,7 @@
 ---
 
     Code
-      print(one_quantile)
+      one_quantile
     Output
       <quantiles[5]>
       [1] 1 2 3 4 5
@@ -92,7 +92,7 @@
 ---
 
     Code
-      print(tibble(qntls = one_quantile))
+      tibble(qntls = one_quantile)
     Output
       # A tibble: 5 x 1
            qntls
@@ -106,7 +106,7 @@
 ---
 
     Code
-      print(quantile_pred(m, 5 / 9))
+      quantile_pred(m, 5 / 9)
     Output
       <quantiles[5]>
       [1]  1 NA  3  4  5
