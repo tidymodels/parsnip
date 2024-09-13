@@ -214,7 +214,7 @@ tune_sched <- c("none", "decay_time", "decay_expo", "cyclic", "step")
 brulee_args <-
   tibble::tibble(
     name = c('epochs', 'hidden_units', 'hidden_units_2', 'activation', 'activation_2',
-             'penalty', 'dropout', 'learn_rate', 'momentum', 'batch_size',
+             'penalty', 'mixture', 'dropout', 'learn_rate', 'momentum', 'batch_size',
              'class_weights', 'stop_iter', 'rate_schedule'),
     call_info = list(
       list(pkg = "dials", fun = "epochs", range = c(5L, 500L)),
@@ -223,6 +223,7 @@ brulee_args <-
       list(pkg = "dials", fun = "activation", values = tune_activations),
       list(pkg = "dials", fun = "activation_2", values = tune_activations),
       list(pkg = "dials", fun = "penalty"),
+      list(pkg = "dials", fun = "mixture"),
       list(pkg = "dials", fun = "dropout"),
       list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/5)),
       list(pkg = "dials", fun = "momentum", range = c(0.50, 0.95)),
@@ -253,34 +254,10 @@ tunable.linear_reg <- function(x, ...) {
 }
 
 #' @export
-tunable.logistic_reg <- function(x, ...) {
-  res <- NextMethod()
-  if (x$engine == "glmnet") {
-    res$call_info[res$name == "mixture"] <-
-      list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
-  } else if (x$engine == "brulee") {
-    res <-
-      brulee_args %>%
-      dplyr::filter(name %in% tune_args(x)$name) %>%
-      dplyr::full_join(res %>% dplyr::select(-call_info), by = "name")
-  }
-  res
-}
+tunable.logistic_reg <- tunable.linear_reg
 
 #' @export
-tunable.multinomial_reg <- function(x, ...) {
-  res <- NextMethod()
-  if (x$engine == "glmnet") {
-    res$call_info[res$name == "mixture"] <-
-      list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
-  } else if (x$engine == "brulee") {
-    res <-
-      brulee_args %>%
-      dplyr::filter(name %in% tune_args(x)$name) %>%
-      dplyr::full_join(res %>% dplyr::select(-call_info), by = "name")
-  }
-  res
-}
+tunable.multinom_reg <- tunable.linear_reg
 
 #' @export
 tunable.boost_tree <- function(x, ...) {
