@@ -23,8 +23,9 @@ predict_quantile.model_fit <- function(object,
   new_data <- prepare_data(object, new_data)
 
   # preprocess data
-  if (!is.null(object$spec$method$pred$quantile$pre))
+  if (!is.null(object$spec$method$pred$quantile$pre)) {
     new_data <- object$spec$method$pred$quantile$pre(new_data, object)
+  }
 
   # Pass some extra arguments to be used in post-processor
   object$spec$method$pred$quantile$args$p <- quantile

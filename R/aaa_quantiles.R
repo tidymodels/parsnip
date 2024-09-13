@@ -1,15 +1,15 @@
 # Helpers for quantile regression models
 
 check_quantile_level <- function(x, object, call) {
-  if ( object$mode != "quantile regression" ) {
+  if (object$mode != "quantile regression") {
     return(invisible(TRUE))
   } else {
-    if ( is.null(x) ) {
+    if (is.null(x)) {
       cli::cli_abort("In {.fn check_mode}, at least one value of
       {.arg quantile_level} must be specified for quantile regression models.")
     }
   }
-  if ( any(is.na(x)) ) {
+  if (any(is.na(x))) {
     cli::cli_abort("Missing values are not allowed in {.arg quantile_levels}.",
                    call = call)
   }
@@ -102,7 +102,7 @@ quantile_pred <- function(values, quantile_levels = double()) {
 }
 
 check_quantile_pred_inputs <- function(values, levels, call = caller_env()) {
-  if ( any(is.na(levels)) ) {
+  if (any(is.na(levels))) {
     cli::cli_abort("Missing values are not allowed in {.arg quantile_levels}.",
                    call = call)
   }
@@ -194,7 +194,7 @@ restructure_rq_pred <- function(x, object) {
 #' @export
 #' @rdname quantile_pred
 extract_quantile_levels <- function(x) {
-  if ( !inherits(x, "quantile_pred") ) {
+  if (!inherits(x, "quantile_pred")) {
     cli::cli_abort("{.arg x} should have class {.val quantile_pred}.")
   }
   attr(x, "quantile_levels")
