@@ -6,7 +6,12 @@
 #' @method predict_quantile model_fit
 #' @export predict_quantile.model_fit
 #' @export
-predict_quantile.model_fit <- function(object, new_data, ...) {
+predict_quantile.model_fit <- function(object,
+                                       new_data,
+                                       quantile = (1:9)/10,
+                                       interval = "none",
+                                       level = 0.95,
+                                       ...) {
 
   check_spec_pred_type(object, "quantile")
 
@@ -23,7 +28,7 @@ predict_quantile.model_fit <- function(object, new_data, ...) {
   }
 
   # Pass some extra arguments to be used in post-processor
-  object$spec$method$pred$quantile$args$quantile_level <- object$quantile_level
+  object$spec$method$pred$quantile$args$p <- quantile
   pred_call <- make_pred_call(object$spec$method$pred$quantile)
 
   res <- eval_tidy(pred_call)
@@ -40,5 +45,6 @@ predict_quantile.model_fit <- function(object, new_data, ...) {
 # @keywords internal
 # @rdname other_predict
 # @inheritParams predict.model_fit
-predict_quantile <- function (object, ...)
+predict_quantile <- function (object, ...) {
   UseMethod("predict_quantile")
+}

@@ -1,6 +1,9 @@
 # parsnip (development version)
 
-
+* A new model mode (`"quantile regression"`) was added. Including:
+  * A function to create a new vector class called `quantile_pred()` was added (#1191). 
+  * A `linear_reg()` engine for `"quantreg"`. 
+  
 * `fit_xy()` currently raises an error for `gen_additive_mod()` model specifications as the default engine (`"mgcv"`) specifies smoothing terms in model formulas. However, some engines specify smooths via additional arguments, in which case the restriction on `fit_xy()` is excessive. parsnip will now only raise an error when fitting a `gen_additive_mod()` with `fit_xy()` when using the `"mgcv"` engine (#775).
 
 * Aligned `null_model()` with other model types; the model type now has an engine argument that defaults to `"parsnip"` and is checked with the same machinery that checks other model types in the package (#1083).
