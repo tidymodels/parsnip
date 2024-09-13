@@ -186,7 +186,6 @@ restructure_rq_pred <- function(x, object) {
   }
   rownames(x) <- NULL
   n_pred_quantiles <- ncol(x)
-  # TODO check p = length(quantile_level)
   quantile_level <- object$spec$quantile_level
   tibble::tibble(.pred_quantile = quantile_pred(x, quantile_level))
 }
