@@ -1,5 +1,6 @@
 test_that("sparse tibble can be passed to `fit()", {
   skip_if_not_installed("xgboost")
+  withr::local_options("sparsevctrs.verbose_materialize" = 3)
 
   hotel_data <- sparse_hotel_rates()
   hotel_data <- sparsevctrs::coerce_to_sparse_tibble(hotel_data)
@@ -7,14 +8,17 @@ test_that("sparse tibble can be passed to `fit()", {
   spec <- boost_tree() %>%
     set_mode("regression") %>%
     set_engine("xgboost")
-
-  expect_no_error(
+  
+  expect_snapshot(
+    error = TRUE,
     lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
   )
 
   spec <- linear_reg() %>%
     set_mode("regression") %>%
     set_engine("lm")
+
+  withr::local_options("sparsevctrs.verbose_materialize" = NULL)
 
   expect_snapshot(
     lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data[1:100, ])
@@ -23,16 +27,20 @@ test_that("sparse tibble can be passed to `fit()", {
 
 test_that("sparse matrix can be passed to `fit()", {
   skip_if_not_installed("xgboost")
-
+  withr::local_options("sparsevctrs.verbose_materialize" = 3)
+  
   hotel_data <- sparse_hotel_rates()
-
+  
   spec <- boost_tree() %>%
     set_mode("regression") %>%
     set_engine("xgboost")
 
-  expect_no_error(
+  expect_snapshot(
+    error = TRUE,
     lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
   )
+
+  withr::local_options("sparsevctrs.verbose_materialize" = NULL)
 
   spec <- linear_reg() %>%
     set_mode("regression") %>%
@@ -45,9 +53,14 @@ test_that("sparse matrix can be passed to `fit()", {
 
 test_that("sparse tibble can be passed to `fit_xy()", {
   skip_if_not_installed("xgboost")
-
+  
   hotel_data <- sparse_hotel_rates()
   hotel_data <- sparsevctrs::coerce_to_sparse_tibble(hotel_data)
+  
+  # materialize outcome
+  hotel_data$avg_price_per_room <- hotel_data$avg_price_per_room[]
+  
+  withr::local_options("sparsevctrs.verbose_materialize" = 3)
 
   spec <- boost_tree() %>%
     set_mode("regression") %>%
@@ -56,6 +69,8 @@ test_that("sparse tibble can be passed to `fit_xy()", {
   expect_no_error(
     lm_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
+
+  withr::local_options("sparsevctrs.verbose_materialize" = NULL)
 
   spec <- linear_reg() %>%
     set_mode("regression") %>%
@@ -68,6 +83,7 @@ test_that("sparse tibble can be passed to `fit_xy()", {
 
 test_that("sparse matrices can be passed to `fit_xy()", {
   skip_if_not_installed("xgboost")
+  withr::local_options("sparsevctrs.verbose_materialize" = 3)
 
   hotel_data <- sparse_hotel_rates()
 
@@ -94,6 +110,11 @@ test_that("sparse tibble can be passed to `predict()", {
 
   hotel_data <- sparse_hotel_rates()
   hotel_data <- sparsevctrs::coerce_to_sparse_tibble(hotel_data)
+    
+  # materialize outcome
+  hotel_data$avg_price_per_room <- hotel_data$avg_price_per_room[]
+  
+  withr::local_options("sparsevctrs.verbose_materialize" = 3)
 
   spec <- rand_forest(trees = 10) %>%
     set_mode("regression") %>%
@@ -104,6 +125,8 @@ test_that("sparse tibble can be passed to `predict()", {
   expect_no_error(
     predict(tree_fit, hotel_data)
   )
+
+  withr::local_options("sparsevctrs.verbose_materialize" = NULL)
 
   spec <- linear_reg() %>%
     set_mode("regression") %>%
@@ -122,6 +145,7 @@ test_that("sparse tibble can be passed to `predict()", {
 
 test_that("sparse matrices can be passed to `predict()", {
   skip_if_not_installed("ranger")
+  withr::local_options("sparsevctrs.verbose_materialize" = 3)
 
   hotel_data <- sparse_hotel_rates()
 
@@ -151,6 +175,7 @@ test_that("sparse matrices can be passed to `predict()", {
 
 test_that("sparse data work with xgboost engine", {
   skip_if_not_installed("xgboost")
+  withr::local_options("sparsevctrs.verbose_materialize" = 3)
 
   spec <- boost_tree() %>%
     set_mode("regression") %>%
@@ -161,7 +186,7 @@ test_that("sparse data work with xgboost engine", {
   expect_no_error(
     tree_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
    )
- 
+   
    expect_no_error(
      predict(tree_fit, hotel_data)
    )
@@ -169,7 +194,8 @@ test_that("sparse data work with xgboost engine", {
   hotel_data <- sparsevctrs::coerce_to_sparse_tibble(hotel_data)
 
 
-  expect_no_error(
+  expect_snapshot(
+    error = TRUE,
     tree_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
   )
 
@@ -177,6 +203,11 @@ test_that("sparse data work with xgboost engine", {
     predict(tree_fit, hotel_data)
   )
   
+  # materialize outcome
+  withr::local_options("sparsevctrs.verbose_materialize" = NULL)
+  hotel_data$avg_price_per_room <- hotel_data$avg_price_per_room[]
+  withr::local_options("sparsevctrs.verbose_materialize" = 3)
+
   expect_no_error(
    tree_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
@@ -188,6 +219,7 @@ test_that("sparse data work with xgboost engine", {
 
 test_that("to_sparse_data_frame() is used correctly", {
   skip_if_not_installed("xgboost")
+  withr::local_options("sparsevctrs.verbose_materialize" = 3)
   
   local_mocked_bindings(
     to_sparse_data_frame = function(x, object) {
@@ -228,6 +260,7 @@ test_that("to_sparse_data_frame() is used correctly", {
 
 test_that("maybe_sparse_matrix() is used correctly", {
   skip_if_not_installed("xgboost")
+  withr::local_options("sparsevctrs.verbose_materialize" = 3)
   
   local_mocked_bindings(
     maybe_sparse_matrix = function(x) {

@@ -2,7 +2,7 @@
 
 * `fit_xy()` can now take dgCMatrix input for `x` argument (#1121).
 
-* `fit()` and `fit_xy()` can now take sparse tibbles as data values (#1165).
+* `fit_xy()` can now take sparse tibbles as data values (#1165).
 
 * `predict()` can now take dgCMatrix and sparse tibble input for `new_data` argument, and error informatively when model doesn't support it (#1167).
 

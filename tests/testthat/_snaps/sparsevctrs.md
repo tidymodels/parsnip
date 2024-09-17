@@ -1,12 +1,28 @@
 # sparse tibble can be passed to `fit()
 
     Code
+      lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
+    Condition
+      Error in `.convert_form_to_xy_fit()`:
+      ! Sparse data cannot be used with formula interface. Please use `fit_xy()` instead.
+
+---
+
+    Code
       lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data[1:100, ])
     Condition
       Warning:
       `data` is a sparse tibble, but `linear_reg()` with engine "lm" doesn't accept that. Converting to non-sparse.
 
 # sparse matrix can be passed to `fit()
+
+    Code
+      lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
+    Condition
+      Error in `.convert_form_to_xy_fit()`:
+      ! Sparse data cannot be used with formula interface. Please use `fit_xy()` instead.
+
+---
 
     Code
       lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data[1:100, ])
@@ -45,6 +61,14 @@
     Condition
       Error in `predict()`:
       ! `x` is a sparse matrix, but `linear_reg()` with engine "lm" doesn't accept that.
+
+# sparse data work with xgboost engine
+
+    Code
+      tree_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
+    Condition
+      Error in `.convert_form_to_xy_fit()`:
+      ! Sparse data cannot be used with formula interface. Please use `fit_xy()` instead.
 
 # to_sparse_data_frame() is used correctly
 
