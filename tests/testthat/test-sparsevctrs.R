@@ -2,8 +2,7 @@ test_that("sparse tibble can be passed to `fit()", {
   skip_if_not_installed("xgboost")
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
 
-  hotel_data <- sparse_hotel_rates()
-  hotel_data <- sparsevctrs::coerce_to_sparse_tibble(hotel_data)
+  hotel_data <- sparse_hotel_rates(tibble = TRUE)
 
   spec <- boost_tree() %>%
     set_mode("regression") %>%
@@ -54,11 +53,7 @@ test_that("sparse matrix can be passed to `fit()", {
 test_that("sparse tibble can be passed to `fit_xy()", {
   skip_if_not_installed("xgboost")
   
-  hotel_data <- sparse_hotel_rates()
-  hotel_data <- sparsevctrs::coerce_to_sparse_tibble(hotel_data)
-  
-  # materialize outcome
-  hotel_data$avg_price_per_room <- hotel_data$avg_price_per_room[]
+  hotel_data <- sparse_hotel_rates(tibble = TRUE)
   
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
 
@@ -108,11 +103,7 @@ test_that("sparse matrices can be passed to `fit_xy()", {
 test_that("sparse tibble can be passed to `predict()", {
   skip_if_not_installed("ranger")
 
-  hotel_data <- sparse_hotel_rates()
-  hotel_data <- sparsevctrs::coerce_to_sparse_tibble(hotel_data)
-    
-  # materialize outcome
-  hotel_data$avg_price_per_room <- hotel_data$avg_price_per_room[]
+  hotel_data <- sparse_hotel_rates(tibble = TRUE)
   
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
 
@@ -191,8 +182,7 @@ test_that("sparse data work with xgboost engine", {
      predict(tree_fit, hotel_data)
    )
 
-  hotel_data <- sparsevctrs::coerce_to_sparse_tibble(hotel_data)
-
+  hotel_data <- sparse_hotel_rates(tibble = TRUE)
 
   expect_snapshot(
     error = TRUE,
@@ -203,11 +193,6 @@ test_that("sparse data work with xgboost engine", {
     predict(tree_fit, hotel_data)
   )
   
-  # materialize outcome
-  withr::local_options("sparsevctrs.verbose_materialize" = NULL)
-  hotel_data$avg_price_per_room <- hotel_data$avg_price_per_room[]
-  withr::local_options("sparsevctrs.verbose_materialize" = 3)
-
   expect_no_error(
    tree_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
