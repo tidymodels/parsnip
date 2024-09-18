@@ -48,6 +48,13 @@
     )
   }
 
+  if (is_sparse_tibble(data)) {
+    cli::cli_abort(
+      "Sparse data cannot be used with formula interface. Please use 
+      {.fn fit_xy} instead."
+    )
+  }
+
   if (remove_intercept) {
     data <- data[, colnames(data) != "(Intercept)", drop = FALSE]
   }
