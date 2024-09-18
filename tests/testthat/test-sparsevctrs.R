@@ -10,7 +10,7 @@ test_that("sparse tibble can be passed to `fit() - supported", {
   
   expect_snapshot(
     error = TRUE,
-    lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
+    xgb_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
   )
 })
 
@@ -38,7 +38,7 @@ test_that("sparse matrix can be passed to `fit() - supported", {
 
   expect_snapshot(
     error = TRUE,
-    lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
+    xgb_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
   )
 
 })
@@ -66,7 +66,7 @@ test_that("sparse tibble can be passed to `fit_xy() - supported", {
     set_engine("xgboost")
 
   expect_no_error(
-    lm_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
+    xgb_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
 })
 
@@ -93,7 +93,7 @@ test_that("sparse matrices can be passed to `fit_xy() - supported", {
     set_engine("xgboost")
 
   expect_no_error(
-    lm_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
+    xgb_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
 })
 
@@ -190,30 +190,30 @@ test_that("sparse data work with xgboost engine", {
   hotel_data <- sparse_hotel_rates()
 
   expect_no_error(
-    tree_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
+    xgb_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
    )
    
    expect_no_error(
-     predict(tree_fit, hotel_data)
+     predict(xgb_fit, hotel_data)
    )
 
   hotel_data <- sparse_hotel_rates(tibble = TRUE)
 
   expect_snapshot(
     error = TRUE,
-    tree_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
+    xgb_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
   )
 
   expect_no_error(
-    predict(tree_fit, hotel_data)
+    predict(xgb_fit, hotel_data)
   )
   
   expect_no_error(
-   tree_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
+    xgb_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
 
   expect_no_error(
-    predict(tree_fit, hotel_data)
+    predict(xgb_fit, hotel_data)
   )
 })
 

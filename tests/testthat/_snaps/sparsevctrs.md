@@ -1,7 +1,7 @@
 # sparse tibble can be passed to `fit() - supported
 
     Code
-      lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
+      xgb_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
     Condition
       Error in `.convert_form_to_xy_fit()`:
       ! Sparse data cannot be used with formula interface. Please use `fit_xy()` instead.
@@ -17,7 +17,7 @@
 # sparse matrix can be passed to `fit() - supported
 
     Code
-      lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
+      xgb_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
     Condition
       Error in `.convert_form_to_xy_fit()`:
       ! Sparse data cannot be used with formula interface. Please use `fit_xy()` instead.
@@ -65,7 +65,7 @@
 # sparse data work with xgboost engine
 
     Code
-      tree_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
+      xgb_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
     Condition
       Error in `.convert_form_to_xy_fit()`:
       ! Sparse data cannot be used with formula interface. Please use `fit_xy()` instead.
