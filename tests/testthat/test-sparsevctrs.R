@@ -1,4 +1,4 @@
-test_that("sparse tibble can be passed to `fit()", {
+test_that("sparse tibble can be passed to `fit() - supported", {
   skip_if_not_installed("xgboost")
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
 
@@ -12,19 +12,21 @@ test_that("sparse tibble can be passed to `fit()", {
     error = TRUE,
     lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
   )
+})
+
+test_that("sparse tibble can be passed to `fit() - unsupported", {
+  hotel_data <- sparse_hotel_rates(tibble = TRUE)
 
   spec <- linear_reg() %>%
     set_mode("regression") %>%
     set_engine("lm")
-
-  withr::local_options("sparsevctrs.verbose_materialize" = NULL)
 
   expect_snapshot(
     lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data[1:100, ])
   )
 })
 
-test_that("sparse matrix can be passed to `fit()", {
+test_that("sparse matrix can be passed to `fit() - supported", {
   skip_if_not_installed("xgboost")
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
   
@@ -39,7 +41,10 @@ test_that("sparse matrix can be passed to `fit()", {
     lm_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
   )
 
-  withr::local_options("sparsevctrs.verbose_materialize" = NULL)
+})
+
+test_that("sparse matrix can be passed to `fit() - unsupported", {
+  hotel_data <- sparse_hotel_rates()
 
   spec <- linear_reg() %>%
     set_mode("regression") %>%
@@ -50,12 +55,11 @@ test_that("sparse matrix can be passed to `fit()", {
   )
 })
 
-test_that("sparse tibble can be passed to `fit_xy()", {
+test_that("sparse tibble can be passed to `fit_xy() - supported", {
   skip_if_not_installed("xgboost")
+  withr::local_options("sparsevctrs.verbose_materialize" = 3)
   
   hotel_data <- sparse_hotel_rates(tibble = TRUE)
-  
-  withr::local_options("sparsevctrs.verbose_materialize" = 3)
 
   spec <- boost_tree() %>%
     set_mode("regression") %>%
@@ -64,8 +68,10 @@ test_that("sparse tibble can be passed to `fit_xy()", {
   expect_no_error(
     lm_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
+})
 
-  withr::local_options("sparsevctrs.verbose_materialize" = NULL)
+test_that("sparse tibble can be passed to `fit_xy() - unsupported", {
+  hotel_data <- sparse_hotel_rates(tibble = TRUE)
 
   spec <- linear_reg() %>%
     set_mode("regression") %>%
@@ -76,7 +82,7 @@ test_that("sparse tibble can be passed to `fit_xy()", {
   )
 })
 
-test_that("sparse matrices can be passed to `fit_xy()", {
+test_that("sparse matrices can be passed to `fit_xy() - supported", {
   skip_if_not_installed("xgboost")
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
 
@@ -89,6 +95,10 @@ test_that("sparse matrices can be passed to `fit_xy()", {
   expect_no_error(
     lm_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
+})
+
+test_that("sparse matrices can be passed to `fit_xy() - unsupported", {
+  hotel_data <- sparse_hotel_rates()
 
   spec <- linear_reg() %>%
     set_mode("regression") %>%
@@ -100,12 +110,11 @@ test_that("sparse matrices can be passed to `fit_xy()", {
   )
 })
 
-test_that("sparse tibble can be passed to `predict()", {
+test_that("sparse tibble can be passed to `predict() - supported", {
   skip_if_not_installed("ranger")
+  withr::local_options("sparsevctrs.verbose_materialize" = 3)
 
   hotel_data <- sparse_hotel_rates(tibble = TRUE)
-  
-  withr::local_options("sparsevctrs.verbose_materialize" = 3)
 
   spec <- rand_forest(trees = 10) %>%
     set_mode("regression") %>%
@@ -116,8 +125,10 @@ test_that("sparse tibble can be passed to `predict()", {
   expect_no_error(
     predict(tree_fit, hotel_data)
   )
+})
 
-  withr::local_options("sparsevctrs.verbose_materialize" = NULL)
+test_that("sparse tibble can be passed to `predict() - unsupported", {
+  hotel_data <- sparse_hotel_rates(tibble = TRUE)
 
   spec <- linear_reg() %>%
     set_mode("regression") %>%
@@ -134,7 +145,7 @@ test_that("sparse tibble can be passed to `predict()", {
   )
 })
 
-test_that("sparse matrices can be passed to `predict()", {
+test_that("sparse matrices can be passed to `predict() - supported", {
   skip_if_not_installed("ranger")
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
 
@@ -149,6 +160,10 @@ test_that("sparse matrices can be passed to `predict()", {
   expect_no_error(
     predict(tree_fit, hotel_data)
   )
+})
+
+test_that("sparse matrices can be passed to `predict() - unsupported", {
+  hotel_data <- sparse_hotel_rates()
 
   spec <- linear_reg() %>%
     set_mode("regression") %>%
