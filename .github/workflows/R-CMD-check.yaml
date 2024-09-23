@@ -8,7 +8,7 @@ on:
   push:
     branches: [main, master]
   pull_request:
-    types: [opened, edited, reopened]
+    branches: [main, master, quantile-mode]
   workflow_dispatch:
 
 name: R-CMD-check.yaml

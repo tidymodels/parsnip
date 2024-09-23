@@ -4,7 +4,7 @@ on:
   push:
     branches: [main, master]
   pull_request:
-    types: [opened, edited, reopened]
+    branches: [main, master, quantile-mode]
 
 name: test-coverage.yaml
 
