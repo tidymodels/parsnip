@@ -638,7 +638,7 @@ set_pred(
   type = "quantile",
   value = list(
     pre = NULL,
-    post = restructure_rq_pred,
+    post = matrix_to_quantile_pred,
     func = c(fun = "predict"),
     args =
       list(

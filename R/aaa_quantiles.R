@@ -1,4 +1,4 @@
-restructure_rq_pred <- function(x, object) {
+matrix_to_quantile_pred <- function(x, object) {
   if (!is.matrix(x)) {
     x <- as.matrix(x)
   }
