@@ -1,12 +1,15 @@
 test_that('linear quantile regression via quantreg - single quantile', {
   skip_if_not_installed("quantreg")
+  skip_if_not_installed("hardhat", minimum_version = "1.4.0.9002")
+
+  library(hardhat)
 
   # data in `helper-objects.R`
 
   one_quant <-
     linear_reg() %>%
     set_engine("quantreg") %>%
-    set_mode("quantile regression", quantile_level = .5) %>%
+    set_mode("quantile regression", quantile_levels = .5) %>%
     fit(price ~ ., data = sac_train)
 
   expect_s3_class(one_quant, c("_rq", "model_fit"))
@@ -58,7 +61,7 @@ test_that('linear quantile regression via quantreg - multiple quantiles', {
   ten_quant <-
     linear_reg() %>%
     set_engine("quantreg") %>%
-    set_mode("quantile regression", quantile_level = (0:9)/9) %>%
+    set_mode("quantile regression", quantile_levels = (0:9)/9) %>%
     fit(price ~ ., data = sac_train)
 
   expect_s3_class(ten_quant, c("_rq", "model_fit"))

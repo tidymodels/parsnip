@@ -596,7 +596,7 @@ set_fit(
     interface = "formula",
     protect = c("formula", "data", "weights"),
     func = c(pkg = "quantreg", fun = "rq"),
-    defaults = list(tau = expr(quantile_level))
+    defaults = list(tau = expr(quantile_levels))
   )
 )
 

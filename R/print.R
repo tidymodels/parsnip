@@ -24,7 +24,7 @@ print_model_spec <- function(x, cls = class(x)[1], desc = get_model_desc(cls), .
   }
 
   if ( x$mode == "quantile regression" ) {
-    cli::cli_inform("Quantile levels: {x$quantile_level}.")
+    cli::cli_inform("Quantile levels: {x$quantile_levels}.")
   }
 
   invisible(x)
