@@ -68,7 +68,7 @@ Suggests:
 VignetteBuilder: 
     knitr
 ByteCompile: true
-Remote:
+Remotes:
     tidymodels/hardhat
 Config/Needs/website: C50, dbarts, earth, glmnet, keras, kernlab, kknn,
     LiblineaR, mgcv, nnet, parsnip, randomForest, ranger, rpart, rstanarm,
