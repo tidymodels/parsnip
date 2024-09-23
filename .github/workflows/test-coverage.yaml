@@ -4,7 +4,7 @@ on:
   push:
     branches: [main, master]
   pull_request:
-    types: [opened, reopened]
+    types: [opened, edited, reopened]
 
 name: test-coverage.yaml
 
