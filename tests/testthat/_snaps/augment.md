@@ -17,7 +17,8 @@
         probs_1))
     Condition
       Error in `set_mode()`:
-      ! Quantile levels should be unique. The following values were repeated: 0.2, 0.4, 0.6, 0.8, and 1.
+      ! Quantile levels should be unique.
+      i The following values were repeated: 0.2, 0.4, 0.6, 0.8, and 1.
 
 ---
 
@@ -34,5 +35,5 @@
       linear_reg() %>% set_mode("quantile regression")
     Condition
       Error in `set_mode()`:
-      ! `quantile_levels` cannot be NULL.
+      ! `quantile_levels` cannot be "NULL".
 
