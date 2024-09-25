@@ -12,7 +12,7 @@
       linear_reg() %>% set_engine("quantreg") %>% set_mode("quantile regression")
     Condition
       Error in `set_mode()`:
-      ! `quantile_levels` cannot be NULL.
+      ! `quantile_levels` cannot be "NULL".
 
 ---
 
