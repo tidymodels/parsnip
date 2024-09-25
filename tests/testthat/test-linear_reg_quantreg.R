@@ -83,6 +83,11 @@ test_that('linear quantile regression via quantreg - multiple quantiles', {
   expect_named(ten_quant_df, c(".pred_quantile", ".quantile_levels", ".row"))
   expect_true(nrow(ten_quant_df) == nrow(sac_test) * 10)
 
+  expect_snapshot(
+    ten_quant_pred <- predict(ten_quant, new_data = sac_test),
+    error = TRUE
+  )
+
   ###
 
   ten_quant_one_row <- predict(ten_quant, new_data = sac_test[1,])

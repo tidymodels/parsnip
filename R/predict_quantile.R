@@ -1,14 +1,13 @@
 #' @keywords internal
 #' @rdname other_predict
-#' @param quantile A vector of numbers between 0 and 1 for the quantile being
-#'  predicted.
+#' @param quantile_levels  A vector of values between zero and one.
 #' @inheritParams predict.model_fit
 #' @method predict_quantile model_fit
 #' @export predict_quantile.model_fit
 #' @export
 predict_quantile.model_fit <- function(object,
                                        new_data,
-                                       quantile = (1:9)/10,
+                                       quantile_levels = NULL,
                                        interval = "none",
                                        level = 0.95,
                                        ...) {
@@ -20,6 +19,20 @@ predict_quantile.model_fit <- function(object,
     return(NULL)
   }
 
+  if (object$spec$mode != "quantile regression") {
+    if (is.null(quantile_levels)) {
+      quantile_levels <- (1:9)/10
+    }
+    hardhat::check_quantile_levels(quantile_levels)
+    # Pass some extra arguments to be used in post-processor
+    object$quantile_levels <- quantile_levels
+  } else {
+    if (!is.null(quantile_levels)) {
+      cli::cli_abort("{.arg quantile_levels} are specified by {.fn set_mode}
+                     when the mode is {.val quantile regression}.")
+    }
+  }
+
   new_data <- prepare_data(object, new_data)
 
   # preprocess data
@@ -27,8 +40,6 @@ predict_quantile.model_fit <- function(object,
     new_data <- object$spec$method$pred$quantile$pre(new_data, object)
   }
 
-  # Pass some extra arguments to be used in post-processor
-  object$spec$method$pred$quantile$args$p <- quantile
   pred_call <- make_pred_call(object$spec$method$pred$quantile)
 
   res <- eval_tidy(pred_call)

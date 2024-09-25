@@ -11,6 +11,9 @@
 
 * New `extract_fit_time()` method has been added that returns the time it took to train the model (#853).
 
+## Breaking Change
+
+* For quantile prediction, the `predict()` argument has been changed from `quantile` to `quantile_levels` for consistency. This does not affect models with mode `"quantile regression"`. 
 
 # parsnip 1.2.1
 

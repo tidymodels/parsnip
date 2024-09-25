@@ -49,7 +49,7 @@ predict_numeric(object, ...)
 \method{predict_quantile}{model_fit}(
   object,
   new_data,
-  quantile = (1:9)/10,
+  quantile_levels = NULL,
   interval = "none",
   level = 0.95,
   ...
@@ -103,8 +103,7 @@ interval estimates.}
 \item{std_error}{A single logical for whether the standard error should be
 returned (assuming that the model can compute it).}
 
-\item{quantile}{A vector of numbers between 0 and 1 for the quantile being
-predicted.}
+\item{quantile_levels}{A vector of values between zero and one.}
 }
 \description{
 These are internal functions not meant to be directly called by the user.
