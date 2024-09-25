@@ -95,7 +95,7 @@ set_mode <- function(object, mode, ...) {
 
 #' @rdname set_args
 #' @param quantile_levels A vector of values between zero and one (only for the
-#' `quantile regression ` mode); otherwise, it is `NULL`. The model uses these
+#' `"quantile regression"` mode); otherwise, it is `NULL`. The model uses these
 #' values to appropriately train quantile regression models to make predictions
 #' for these values (e.g., `quantile_levels = 0.5` is the median).
 #' @export
