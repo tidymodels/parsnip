@@ -47,6 +47,8 @@ check_eng_args <- function(args, obj, core_args) {
 #'   set_args(mtry = 3, importance = TRUE) %>%
 #'   set_mode("regression")
 #'
+#' linear_reg() %>%
+#'   set_mode("quantile regression", quantile_levels = c(0.2, 0.5, 0.8))
 #' @export
 set_args <- function(object, ...) {
   UseMethod("set_args")
@@ -91,8 +93,13 @@ set_mode <- function(object, mode, ...) {
   UseMethod("set_mode")
 }
 
+#' @rdname set_args
+#' @param quantile_levels A vector of values between zero and one (only for the
+#' `"quantile regression"` mode); otherwise, it is `NULL`. The model uses these
+#' values to appropriately train quantile regression models to make predictions
+#' for these values (e.g., `quantile_levels = 0.5` is the median).
 #' @export
-set_mode.model_spec <- function(object, mode, quantile_level = NULL, ...) {
+set_mode.model_spec <- function(object, mode, quantile_levels = NULL, ...) {
   cls <- class(object)[1]
   if (rlang::is_missing(mode)) {
     spec_modes <- rlang::env_get(get_model_env(), paste0(cls, "_modes"))
@@ -109,9 +116,16 @@ set_mode.model_spec <- function(object, mode, quantile_level = NULL, ...) {
 
   object$mode <- mode
   object$user_specified_mode <- TRUE
-  quantile_level <-
-    check_quantile_level(quantile_level, object, call = caller_env(0))
-  object$quantile_level <- quantile_level
+  if (mode == "quantile regression") {
+      hardhat::check_quantile_levels(quantile_levels)
+  } else {
+    if (!is.null(quantile_levels)) {
+      cli::cli_abort("{.arg quantile_levels} is only used when the mode is
+                      {.val quantile regression}.")
+    }
+  }
+
+  object$quantile_levels <- quantile_levels
   object
 }
 

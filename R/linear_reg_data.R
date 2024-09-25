@@ -596,7 +596,7 @@ set_fit(
     interface = "formula",
     protect = c("formula", "data", "weights"),
     func = c(pkg = "quantreg", fun = "rq"),
-    defaults = list(tau = expr(quantile_level))
+    defaults = list(tau = expr(quantile_levels))
   )
 )
 
@@ -638,7 +638,7 @@ set_pred(
   type = "quantile",
   value = list(
     pre = NULL,
-    post = restructure_rq_pred,
+    post = matrix_to_quantile_pred,
     func = c(fun = "predict"),
     args =
       list(
