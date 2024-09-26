@@ -1,6 +1,6 @@
 Package: parsnip
 Title: A Common API to Modeling and Analysis Functions
-Version: 1.2.1.9002
+Version: 1.2.1.9003
 Authors@R: c(
     person("Max", "Kuhn", , "max@posit.co", role = c("aut", "cre")),
     person("Davis", "Vaughan", , "davis@posit.co", role = "aut"),
@@ -70,7 +70,7 @@ Suggests:
 VignetteBuilder: 
     knitr
 Remotes: 
-    r-lib/sparsevctrs.
+    r-lib/sparsevctrs,
     tidymodels/hardhat
 ByteCompile: true
 Config/Needs/website: C50, dbarts, earth, glmnet, keras, kernlab, kknn,
