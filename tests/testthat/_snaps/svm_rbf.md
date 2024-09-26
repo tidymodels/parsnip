@@ -35,3 +35,19 @@
       Computational engine: kernlab 
       
 
+# bad input
+
+    Code
+      svm_rbf(mode = "reallyunknown")
+    Condition
+      Error in `svm_rbf()`:
+      ! "reallyunknown" is not a known mode for model `svm_rbf()`.
+
+---
+
+    Code
+      translate(svm_rbf(mode = "regression") %>% set_engine(NULL))
+    Condition
+      Error in `translate.default()`:
+      ! Please set an engine.
+

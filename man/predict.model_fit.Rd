@@ -13,7 +13,7 @@
 predict_raw(object, ...)
 }
 \arguments{
-\item{object}{An object of class \code{model_fit}.}
+\item{object}{A \link[=model_fit]{model fit}.}
 
 \item{new_data}{A rectangular data object, such as a data frame.}
 

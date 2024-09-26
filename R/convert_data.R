@@ -41,8 +41,18 @@
                                     indicators = "traditional",
                                     composition = "data.frame",
                                     remove_intercept = TRUE) {
-  if (!(composition %in% c("data.frame", "matrix"))) {
-    rlang::abort("`composition` should be either 'data.frame' or 'matrix'.")
+  if (!(composition %in% c("data.frame", "matrix", "dgCMatrix"))) {
+    cli::cli_abort(
+      "{.arg composition} should be either {.val data.frame}, {.val matrix}, or
+      {.val dgCMatrix}."
+    )
+  }
+
+  if (is_sparse_tibble(data)) {
+    cli::cli_abort(
+      "Sparse data cannot be used with formula interface. Please use 
+      {.fn fit_xy} instead."
+    )
   }
 
   if (remove_intercept) {
@@ -74,7 +84,7 @@
 
   w <- as.vector(model.weights(mod_frame))
   if (!is.null(w) && !is.numeric(w)) {
-    rlang::abort("`weights` must be a numeric vector")
+    cli::cli_abort("{.arg weights} must be a numeric vector.")
   }
 
   # TODO: Do we actually use the offset when fitting?
@@ -120,6 +130,22 @@
         xlevels = .getXlevels(mod_terms, mod_frame),
         options = options
       )
+  } else if (composition == "dgCMatrix") {
+    y_cols <- attr(mod_terms, "response")
+    if (length(y_cols) > 0) {
+      data <- data[, -y_cols, drop = FALSE]
+    }
+    x <- sparsevctrs::coerce_to_sparse_matrix(data)
+    res <-
+      list(
+        x = x,
+        y = y,
+        weights = w,
+        offset = offset,
+        terms = mod_terms,
+        xlevels = .getXlevels(mod_terms, mod_frame),
+        options = options
+      )
   } else {
     # Since a matrix is requested, try to convert y but check
     # to see if it is possible
@@ -141,7 +167,7 @@
 }
 
 
-#' @param object An object of class `model_fit`.
+#' @param object A [model fit][model_fit].
 #' @inheritParams predict.model_fit
 #' @rdname convert_helpers
 #' @keywords internal
@@ -151,7 +177,9 @@
                                     na.action = na.pass,
                                     composition = "data.frame") {
   if (!(composition %in% c("data.frame", "matrix"))) {
-    rlang::abort("`composition` should be either 'data.frame' or 'matrix'.")
+    cli::cli_abort(
+      "{.arg composition} should be either {.val data.frame} or {.val matrix}."
+    )
   }
 
   mod_terms <- object$terms
@@ -218,7 +246,7 @@
                                     y_name = "..y",
                                     remove_intercept = TRUE) {
   if (is.vector(x)) {
-    rlang::abort("`x` cannot be a vector.")
+    cli::cli_abort("{.arg x} cannot be a vector.")
   }
 
   if (remove_intercept) {
@@ -251,10 +279,10 @@
 
   if (!is.null(weights)) {
     if (!is.numeric(weights)) {
-      rlang::abort("`weights` must be a numeric vector")
+      cli::cli_abort("{.arg weights} must be a numeric vector.")
     }
     if (length(weights) != nrow(x)) {
-      rlang::abort(glue::glue("`weights` should have {nrow(x)} elements"))
+      cli::cli_abort("{.arg weights} should have {nrow(x)} elements.")
     }
 
     form <- patch_formula_environment_with_case_weights(
@@ -294,17 +322,17 @@ local_one_hot_contrasts <- function(frame = rlang::caller_env()) {
   rlang::local_options(contrasts = contrasts, .frame = frame)
 }
 
-check_form_dots <- function(x) {
+check_form_dots <- function(x, call = rlang::caller_env()) {
   good_args <- c("subset", "weights")
   good_names <- names(x) %in% good_args
   if (any(!good_names)) {
-    rlang::abort(
-      glue::glue(
-        "These argument(s) cannot be used to create the data: ",
-        glue::glue_collapse(glue::glue("`{names(x)[!good_names]}`"), sep = ", "),
-        ". Possible arguments are: ",
-        glue::glue_collapse(glue::glue("`{good_args}`"), sep = ", ")
-      )
+    cli::cli_abort(
+      c(
+        "The argument{?s} {.arg {names(x)[!good_names]}} cannot be used to create
+         the data.",
+        "Possible arguments are {.arg {.or {good_args}}}."
+      ),
+      call = call
     )
   }
   invisible(NULL)
@@ -339,18 +367,21 @@ will_make_matrix <- function(y) {
   all(can_convert)
 }
 
-check_dup_names <- function(x, y) {
+check_dup_names <- function(x, y, call = rlang::caller_env()) {
   if (is.vector(y))
     return(invisible(NULL))
 
   common_names <- intersect(colnames(x), colnames(y))
-  if (length(common_names) > 0)
-    rlang::abort(
-      glue::glue(
-        "`x` and `y` have at least one name in common: ",
-        glue::glue_collapse(glue::glue("'{common_names}'"), sep = ", ")
-      )
+  if (length(common_names) > 0) {
+    cli::cli_abort(
+      c(
+        "{.arg x} and {.arg y} have the name{?s} {.val {common_names}} in common.",
+        "i" = "Please ensure that {.arg x} and {.arg y} don't share any column names."
+      ),
+      call = call
     )
+  }
+
   invisible(NULL)
 }
 
@@ -364,20 +395,34 @@ check_dup_names <- function(x, y) {
 #' @return A data frame, matrix, or sparse matrix.
 #' @export
 maybe_matrix <- function(x) {
-  inher(x, c("data.frame", "matrix", "dgCMatrix"), cl = match.call())
+  check_inherits(x, c("data.frame", "matrix", "dgCMatrix"))
   if (is.data.frame(x)) {
     non_num_cols <- vapply(x, function(x) !is.numeric(x), logical(1))
     if (any(non_num_cols)) {
       non_num_cols <- names(non_num_cols)[non_num_cols]
-      non_num_cols <- glue::glue_collapse(glue::single_quote(non_num_cols), sep = ", ")
-      msg <- glue::glue("Some columns are non-numeric. The data cannot be ",
-                        "converted to numeric matrix: {non_num_cols}.")
-      rlang::abort(msg)
+
+      cli::cli_abort(
+        "The column{?s} {.val {non_num_cols}} {?is/are} non-numeric, so the
+         data cannot be converted to a numeric matrix."
+      )
     }
-    x <- as.matrix(x)
+    x <- maybe_sparse_matrix(x)
   }
   # leave alone if matrix or sparse matrix
   x
+}
+
+maybe_sparse_matrix <- function(x) {
+  if (methods::is(x, "sparseMatrix")) {
+    return(x)
+  }
+
+  if (is_sparse_tibble(x)) {
+    res <- sparsevctrs::coerce_to_sparse_matrix(x)
+  } else {
+    res <- as.matrix(x)
+  }
+  res
 }
 
 #' @rdname maybe_matrix

@@ -18,7 +18,7 @@
 #' @inheritParams svm_linear
 #' @inheritParams svm_poly
 #' @inheritParams svm_rbf
-#' @param object A model specification.
+#' @param object A [model specification][model_spec].
 #' @param parameters A 1-row tibble or named list with _main_
 #'  parameters to update. Use **either** `parameters` **or** the main arguments
 #'  directly when updating. If the main arguments are used,
@@ -58,8 +58,9 @@ NULL
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-update_spec <- function(object, parameters, args_enquo_list, fresh, cls, ...) {
-
+update_spec <- function(object, parameters, args_enquo_list, fresh, cls, ...,
+                        call = caller_env()) {
+  check_bool(fresh, call = call)
   eng_args <- update_engine_parameters(object$eng_args, fresh, ...)
 
   if (!is.null(parameters)) {

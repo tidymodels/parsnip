@@ -20,17 +20,16 @@ is_installed <- function(pkg) {
   res
 }
 
-check_installs <- function(x) {
+check_installs <- function(x, call = rlang::caller_env()) {
   if (length(x$method$libs) > 0) {
     is_inst <- map_lgl(x$method$libs, is_installed)
     if (any(!is_inst)) {
       missing_pkg <- x$method$libs[!is_inst]
       missing_pkg <- paste0(missing_pkg, collapse = ", ")
-      rlang::abort(
-        glue::glue(
-          "This engine requires some package installs: ",
-          glue::glue_collapse(glue::glue("'{missing_pkg}'"), sep = ", ")
-        )
+
+      cli::cli_abort(
+        "Please install the {.pkg {missing_pkg}} package{?s} to use this engine.",
+        call = call
       )
     }
   }
@@ -72,7 +71,7 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #'
 #' - _Main arguments_ are more commonly used and tend to be available across
 #' engines. These names are standardized to work with different engines in a
-#' consistent way, so you can use the \pkg{parsnip} main argument `trees`,
+#' consistent way, so you can use the parsnip main argument `trees`,
 #' instead of the heterogeneous arguments for this parameter from \pkg{ranger}
 #' and  \pkg{randomForest} packages (`num.trees` and `ntree`, respectively). Set
 #' these in your model type function, like `rand_forest(trees = 2000)`.
@@ -83,7 +82,7 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' `set_engine("ranger", importance = "permutation")`.
 #'
 #'
-#' @param object A model specification.
+#' @param object A [model specification][model_spec].
 #' @param engine A character string for the software that should
 #'  be used to fit the model. This is highly dependent on the type
 #'  of model (e.g. linear regression, random forest, etc.).
@@ -125,7 +124,7 @@ set_engine.model_spec <- function(object, engine, ...) {
     check_spec_mode_engine_val(mod_type, object$engine, object$mode)
   }
 
-  if (object$engine == "liquidSVM") {
+  if (!is.null(object$engine) && object$engine == "liquidSVM") {
     lifecycle::deprecate_warn(
       "0.1.6",
       "set_engine(engine = 'cannot be liquidSVM')",
@@ -154,10 +153,10 @@ set_engine.default <- function(object, engine, ...) {
 #' Display currently available engines for a model
 #'
 #' The possible engines for a model can depend on what packages are loaded.
-#' Some \pkg{parsnip} extension add engines to existing models. For example,
+#' Some parsnip extension add engines to existing models. For example,
 #' the \pkg{poissonreg} package adds additional engines for the [poisson_reg()]
 #' model and these are not available unless \pkg{poissonreg} is loaded.
-#' @param x The name of a `parsnip` model (e.g., "linear_reg", "mars", etc.)
+#' @param x The name of a parsnip model (e.g., "linear_reg", "mars", etc.)
 #' @return A tibble.
 #'
 #' @examplesIf !parsnip:::is_cran_check()
@@ -165,13 +164,11 @@ set_engine.default <- function(object, engine, ...) {
 #' @export
 show_engines <- function(x) {
   if (!is.character(x) || length(x) > 1) {
-    rlang::abort("`show_engines()` takes a single character string as input.")
+    cli::cli_abort("{.arg x} must be a single character string.")
   }
   res <- try(get_from_env(x), silent = TRUE)
   if (inherits(res, "try-error") | is.null(res)) {
-    rlang::abort(
-      paste0("No results found for model function '", x, "'.")
-    )
+    cli::cli_abort("No results found for model function {.val x}.")
   }
   res
 }

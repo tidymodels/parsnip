@@ -28,17 +28,17 @@ control_parsnip <- function(verbosity = 1L, catch = FALSE) {
   res
 }
 
-check_control <- function(x) {
+check_control <- function(x, call = rlang::caller_env()) {
   if (!is.list(x))
-    rlang::abort("control should be a named list.")
+    cli::cli_abort("{.arg control} should be a named list.", call = call)
   if (!isTRUE(all.equal(sort(names(x)), c("catch", "verbosity"))))
-    rlang::abort("control should be a named list with elements 'verbosity' and 'catch'.")
-  # based on ?is.integer
-  int_check <- function(x, tol = .Machine$double.eps^0.5) abs(x - round(x)) < tol
-  if (!int_check(x$verbosity))
-    rlang::abort("verbosity should be an integer.")
-  if (!is.logical(x$catch))
-    rlang::abort("catch should be a logical.")
+    cli::cli_abort(
+      "{.arg control} should be a named list with elements {.field verbosity}
+       and {.field catch}.",
+      call = call
+    )
+  check_number_whole(x$verbosity, call = call)
+  check_bool(x$catch, call = call)
   x
 }
 

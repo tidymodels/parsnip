@@ -64,11 +64,9 @@ ranger_confint <- function(object, new_data, ...) {
     if (object$fit$forest$treetype == "Probability estimation") {
       res <- ranger_class_confint(object, new_data, ...)
     } else {
-      rlang::abort(
-        glue::glue(
-          "Cannot compute confidence intervals for a ranger forest ",
-          "of type {object$fit$forest$treetype}."
-        )
+      cli::cli_abort(
+        "Cannot compute confidence intervals for a ranger forest
+         of type {.val {object$fit$forest$treetype}}."
       )
     }
   }
@@ -204,11 +202,12 @@ set_pred(
   value = list(
     pre = function(x, object) {
       if (object$fit$forest$treetype != "Probability estimation")
-        rlang::abort(
-          glue::glue(
-            "`ranger` model does not appear to use class probabilities. Was ",
-            "the model fit with `probability = TRUE`?"
-          )
+        cli::cli_abort(
+          c(
+            "`ranger` model does not appear to use class probabilities.",
+            "i" = "Was the model fit with `probability = TRUE`?"
+          ),
+          call = call2("predict")
         )
       x
     },

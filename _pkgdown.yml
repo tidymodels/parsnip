@@ -91,6 +91,7 @@ reference:
       - set_engine
       - set_mode
       - show_engines
+      - sparse_data
       - tidy.model_fit
       - translate
       - starts_with("update")

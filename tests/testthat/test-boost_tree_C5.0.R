@@ -13,31 +13,30 @@ test_that('C5.0 execution', {
 
   skip_if_not_installed("C50")
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
       lc_basic,
       Class ~ log(funded_amnt) + int_rate,
       data = lending_club,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       lc_basic,
       x = lending_club[, num_pred],
       y = lending_club$Class,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
   expect_true(has_multi_predict(res))
   expect_equal(multi_predict_args(res), "trees")
 
   # outcome is not a factor:
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit(
       lc_basic,
       funded_amnt ~ term,
@@ -141,13 +140,11 @@ test_that('argument checks for data dimensions', {
     set_engine("C5.0") %>%
     set_mode("classification")
 
-  expect_warning(
-    f_fit  <- spec %>% fit(species ~ ., data = penguins),
-    "1000 samples were requested"
+  expect_snapshot(
+    f_fit  <- spec %>% fit(species ~ ., data = penguins)
   )
-  expect_warning(
-    xy_fit <- spec %>% fit_xy(x = penguins[, -1], y = penguins$species),
-    "1000 samples were requested"
+  expect_snapshot(
+    xy_fit <- spec %>% fit_xy(x = penguins[, -1], y = penguins$species)
   )
 
   expect_equal(extract_fit_engine(f_fit)$control$minCases,  nrow(penguins))

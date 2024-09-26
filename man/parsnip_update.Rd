@@ -312,7 +312,7 @@
 )
 }
 \arguments{
-\item{object}{A model specification.}
+\item{object}{A \link[=model_spec]{model specification}.}
 
 \item{parameters}{A 1-row tibble or named list with \emph{main}
 parameters to update. Use \strong{either} \code{parameters} \strong{or} the main arguments

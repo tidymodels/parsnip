@@ -30,7 +30,7 @@ This package provides functions and methods to create and manipulate functions c
 
 Modeling functions across different R packages can have very different interfaces. If you would like to try different approaches, there is a lot of syntactical minutiae to remember. The problem worsens when you move in-between platforms (e.g. doing a logistic regression in R's `glm` versus Spark's implementation). 
 
-`parsnip` tries to solve this by providing similar interfaces to models. For example, if you are fitting a random forest model and would like to adjust the number of trees in the forest there are different argument names to remember:
+parsnip tries to solve this by providing similar interfaces to models. For example, if you are fitting a random forest model and would like to adjust the number of trees in the forest there are different argument names to remember:
 
 * `randomForest::randomForest` uses `ntree`,
 * `ranger::ranger` uses `num.trees`,  
@@ -51,7 +51,7 @@ Some terminology:
 * The **mode** of the model denotes how it will be used. Two common modes are _classification_ and _regression_. Others would include "censored regression" and "risk regression" (parametric and Cox PH models for censored data, respectively), as well as unsupervised models (e.g. "clustering"). 
 * The **computational engine** indicates how the actual model might be fit. These are often R packages (such as `randomForest` or `ranger`) but might also be methods outside of R (e.g. Stan, Spark, and others). 
 
-`parsnip`, similar to `ggplot2`, `dplyr` and `recipes`, separates the specification of what you want to do from the actual doing. This allows us to create broader functionality for modeling. 
+The parsnip package, similar to ggplot2, dplyr and recipes, separates the specification of what you want to do from the actual doing. This allows us to create broader functionality for modeling. 
 
 
 ### Placeholders for Parameters
@@ -79,7 +79,7 @@ The arguments to the default function are:
 args(rand_forest)
 ```
 
-However, there might be other arguments that you would like to change or allow to vary. These are accessible using `set_engine`. For example, `ranger` has an option to set the internal random number seed. To set this to a specific value: 
+However, there might be other arguments that you would like to change or allow to vary. These are accessible using `set_engine`. For example, `ranger()` from the ranger package has an option to set the internal random number seed. To set this to a specific value: 
 
 ```{r rf-seed}
 rf_with_seed <- 
@@ -151,7 +151,7 @@ rf_with_seed %>%
 
 Note that the call objects show `num.trees = ~2000`. The tilde is the consequence of `parsnip` using [quosures](https://adv-r.hadley.nz/evaluation.html#quosures) to process the model specification's arguments. 
 
-Normally, when a function is executed, the function's arguments are immediately evaluated. In the case of `parsnip`, the model specification's arguments are _not_; the [expression is captured](https://www.tidyverse.org/blog/2019/04/parsnip-internals/) along with the environment where it should be evaluated. That is what a quosure does. 
+Normally, when a function is executed, the function's arguments are immediately evaluated. In the case of parsnip, the model specification's arguments are _not_; the [expression is captured](https://www.tidyverse.org/blog/2019/04/parsnip-internals/) along with the environment where it should be evaluated. That is what a quosure does. 
 
-`parsnip` uses these expressions to make a model fit call that is evaluated. The tilde in the call above reflects that the argument was captured using a quosure. 
+parsnip uses these expressions to make a model fit call that is evaluated. The tilde in the call above reflects that the argument was captured using a quosure. 
 

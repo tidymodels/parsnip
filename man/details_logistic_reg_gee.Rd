@@ -62,7 +62,7 @@ call would look like:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{gee(breaks ~ tension, id = wool, data = warpbreaks, corstr = "exchangeable")
 }\if{html}{\out{</div>}}
 
-With \code{parsnip}, we suggest using the formula method when fitting:
+With parsnip, we suggest using the formula method when fitting:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 data("toenail", package = "HSAUR3")

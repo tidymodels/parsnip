@@ -9,6 +9,9 @@
 #
 
 # ## Changelog
+# 2024-08-28
+# * .check_cens_type() and .is_surv now use cli error formats.
+#
 # 2024-01-10
 # * .filter_eval_time() gives more informative warning.
 #
@@ -50,7 +53,7 @@
 .is_surv <- function(surv, fail = TRUE, call = rlang::caller_env()) {
   is_surv <- inherits(surv, "Surv")
   if (!is_surv && fail) {
-    rlang::abort("The object does not have class `Surv`.", call = call)
+    cli::cli_abort("The object does not have class {.cls Surv}.", call = call)
   }
   is_surv
 }
@@ -68,9 +71,11 @@
     obj_type <- .extract_surv_type(surv)
     good_type <- all(obj_type %in% type)
     if (!good_type && fail) {
-      c_list <- paste0("'", type, "'")
-      msg <- cli::format_inline("For this usage, the allowed censoring type{?s} {?is/are}: {c_list}")
-      rlang::abort(msg, call = call)
+      cli::cli_abort(
+        "For this usage, the allowed censoring
+         type{?s} {?is/are} {.or {.val {type}}}.",
+        call = call
+      )
     }
     good_type
   }

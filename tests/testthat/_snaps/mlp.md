@@ -15,6 +15,42 @@
       Computational engine: nnet 
       
 
+# bad input
+
+    Code
+      mlp(mode = "time series")
+    Condition
+      Error in `mlp()`:
+      ! "time series" is not a known mode for model `mlp()`.
+
+---
+
+    Code
+      translate(mlp(mode = "classification") %>% set_engine("wat?"))
+    Condition
+      Error in `set_engine()`:
+      x Engine "wat?" is not supported for `mlp()`
+      i See `show_engines("mlp")`.
+
+---
+
+    Code
+      translate(mlp(mode = "regression") %>% set_engine("nnet", formula = y ~ x))
+    Condition
+      Warning:
+      The argument `formula` cannot be manually modified and was removed.
+    Output
+      Single Layer Neural Network Model Specification (regression)
+      
+      Main Arguments:
+        hidden_units = 5
+      
+      Computational engine: nnet 
+      
+      Model fit template:
+      nnet::nnet(formula = missing_arg(), data = missing_arg(), size = 5, 
+          trace = FALSE, linout = TRUE)
+
 # check_args() works
 
     Code

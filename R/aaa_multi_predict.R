@@ -3,7 +3,7 @@
 #' Model predictions across many sub-models
 #'
 #' For some models, predictions can be made on sub-models in the model object.
-#' @param object A `model_fit` object.
+#' @param object A [model fit][model_fit].
 #' @param new_data A rectangular data object, such as a data frame.
 #' @param type A single character value or `NULL`. Possible values are
 #' `"numeric"`, `"class"`, `"prob"`, `"conf_int"`, `"pred_int"`, `"quantile"`,
@@ -19,7 +19,7 @@
 #' @export
 multi_predict <- function(object, ...) {
   if (inherits(object$fit, "try-error")) {
-    rlang::warn("Model fit failed; cannot make predictions.")
+    cli::cli_warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }
   check_for_newdata(...)
@@ -28,17 +28,19 @@ multi_predict <- function(object, ...) {
 
 #' @export
 #' @rdname multi_predict
-multi_predict.default <- function(object, ...)
-  rlang::abort(
-    glue::glue(
-      "No `multi_predict` method exists for objects with classes ",
-      glue::glue_collapse(glue::glue("'{class(object)}'"), sep = ", ")
-      )
-    )
+multi_predict.default <- function(object, ...) {
+  cli::cli_abort(
+    "No {.fun multi_predict} method exists for objects with classes
+     {.cls {class(object)}}."
+  )
+}
 
 #' @export
 predict.model_spec <- function(object, ...) {
-  rlang::abort("You must use `fit()` on your model specification before you can use `predict()`.")
+  cli::cli_abort(
+    "You must {.fun fit} your {.help [model specification](parsnip::model_spec)}
+     before you can use {.fun predict}."
+  )
 }
 
 #' Tools for models that predict on sub-models

@@ -1,7 +1,32 @@
-#' Model Specification Information
+#' Model Specifications
 #'
+#' @description
 #'
-#' An object with class "model_spec" is a container for
+#' The parsnip package splits the process of fitting models into two steps:
+#'
+#' 1) Specify how a model will be fit using a _model specification_
+#' 2) Fit a model using the model specification
+#'
+#' This is a different approach to many other model interfaces in R, like `lm()`,
+#' where both the specification of the model and the fitting happens in one
+#' function call. Splitting the process into two steps allows users to
+#' iteratively define model specifications throughout the model development
+#' process.
+#'
+#' This intermediate object that defines how the model will be fit is called
+#' a _model specification_ and has class `model_spec`. Model type functions,
+#' like [linear_reg()] or [boost_tree()], return `model_spec` objects.
+#'
+#' Fitted model objects, resulting from passing a `model_spec` to
+#' [fit()][fit.model_spec()] or [fit_xy][fit_xy.model_spec()], have
+#' class `model_fit`, and contain the original `model_spec` objects inside
+#' them. See [?model_fit][model_fit] for more on that object type, and
+#' [?extract_spec_parsnip][extract_spec_parsnip.model_fit] to
+#' extract `model_spec`s from `model_fit`s.
+#'
+#' @details
+#'
+#' An object with class `"model_spec"` is a container for
 #'  information about a model that will be fit.
 #'
 #' The main elements of the object are:
@@ -38,7 +63,7 @@
 #'  software will be used. It can be a package name or a technology
 #'  type.
 #'
-#' This class and structure is the basis for how \pkg{parsnip}
+#' This class and structure is the basis for how parsnip
 #'  stores model objects prior to seeing the data.
 #'
 #' @section Argument Details:
@@ -53,7 +78,7 @@
 #'  arguments. For example, when calling `mean(dat_vec)`, the object
 #'  `dat_vec` is immediately evaluated inside of the function.
 #'
-#' `parsnip` model functions do not do this. For example, using
+#' parsnip model functions do not do this. For example, using
 #'
 #'\preformatted{
 #'  rand_forest(mtry = ncol(mtcars) - 1)
@@ -140,10 +165,18 @@
 #' @name model_spec
 NULL
 
-#' Model Fit Object Information
+#' Model Fit Objects
 #'
+#' @description
 #'
-#' An object with class "model_fit" is a container for
+#' Model fits are trained [model specifications][model_spec] that are
+#' ready to [predict][predict.model_fit] on new data. Model fits have class
+#' `model_fit` and, usually, a subclass referring to the engine
+#' used to fit the model.
+#'
+#' @details
+#'
+#' An object with class `"model_fit"` is a container for
 #'  information about a model that has been fit to the data.
 #'
 #' The main elements of the object are:

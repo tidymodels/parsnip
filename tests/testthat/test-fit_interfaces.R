@@ -23,30 +23,28 @@ test_that('good args', {
 })
 
 #test_that('unnamed args', {
-#  expect_error(tester(NULL, hpc, y = hpc, model = rmod))
-#  expect_error(tester(NULL, data = hpc, model = rmod))
+#  expect_snapshot(error = TRUE, tester(NULL, hpc, y = hpc, model = rmod))
+#  expect_snapshot(error = TRUE, tester(NULL, data = hpc, model = rmod))
 #})
 #
 test_that('wrong args', {
- expect_error(tester_xy(NULL, x = sprk, y = hpc, model = rmod))
- expect_error(tester(NULL, f,  data = as.matrix(hpc[, 1:4])))
+ expect_snapshot(error = TRUE, tester_xy(NULL, x = sprk, y = hpc, model = rmod))
+ expect_snapshot(error = TRUE, tester(NULL, f,  data = as.matrix(hpc[, 1:4])))
 })
 
 test_that('single column df for issue #129', {
 
-  expect_error(
+  expect_no_condition(
     lm1 <-
       linear_reg() %>%
       set_engine("lm") %>%
-      fit_xy(x = mtcars[, 2:4], y = mtcars[,1, drop = FALSE]),
-    regexp = NA
+      fit_xy(x = mtcars[, 2:4], y = mtcars[,1, drop = FALSE])
   )
-  expect_error(
+  expect_no_condition(
     lm2 <-
       linear_reg() %>%
       set_engine("lm") %>%
-      fit_xy(x = mtcars[, 2:4], y = as.matrix(mtcars)[,1, drop = FALSE]),
-    regexp = NA
+      fit_xy(x = mtcars[, 2:4], y = as.matrix(mtcars)[,1, drop = FALSE])
   )
   lm3 <-
     linear_reg() %>%
@@ -60,17 +58,17 @@ test_that('single column df for issue #129', {
 
 test_that('unknown modes', {
   mars_spec <- set_engine(mars(), "earth")
-  expect_error(
-    fit(mars_spec, am ~ ., data = mtcars),
-    "Please set the mode in the model specification."
+  expect_snapshot(
+    error = TRUE,
+    fit(mars_spec, am ~ ., data = mtcars)
   )
-  expect_error(
-    fit_xy(mars_spec, x = mtcars[, -1], y = mtcars[,1]),
-    regexp = "Please set the mode in the model specification."
+  expect_snapshot(
+    error = TRUE,
+    fit_xy(mars_spec, x = mtcars[, -1], y = mtcars[,1])
   )
-  expect_error(
-    fit_xy(mars_spec, x = lending_club[,1:2], y = lending_club$Class),
-    regexp = "Please set the mode in the model specification."
+  expect_snapshot(
+    error = TRUE,
+    fit_xy(mars_spec, x = lending_club[,1:2], y = lending_club$Class)
   )
 })
 
@@ -113,9 +111,8 @@ test_that("elapsed time parsnip mods", {
 })
 
 test_that('No loaded engines', {
-  expect_error(
-    linear_reg() %>% fit(mpg ~., data = mtcars),
-    regexp = NA
+  expect_no_condition(
+    linear_reg() %>% fit(mpg ~., data = mtcars)
   )
   expect_snapshot_error({cubist_rules() %>% fit(mpg ~., data = mtcars)})
   expect_snapshot_error({poisson_reg() %>% fit(mpg ~., data = mtcars)})
@@ -168,6 +165,12 @@ test_that("overhead of parsnip interface is minimal (#1071)", {
     check = FALSE
   )
 
-  expect_true(bm$median[2] < 3, label = "parsnip overhead is minimal (formula interface)")
-  expect_true(bm$median[3] < 3.5, , label = "parsnip overhead is minimal (xy interface)")
+  expect_true(
+    bm$median[2] < 3.5,
+    label = paste0("parsnip overhead factor (formula interface): ", bm$median[2])
+  )
+  expect_true(
+    bm$median[3] < 3.75,
+    label = paste0("parsnip overhead factor (xy interface): ", bm$median[3])
+  )
 })

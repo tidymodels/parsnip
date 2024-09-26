@@ -82,11 +82,11 @@ glm_grouped <- function(formula, data, weights, ...) {
   }
 
   if (is.null(weights) || !is.numeric(weights)) {
-    rlang::abort("'weights' should be an integer vector.")
+    cli::cli_abort("{.arg weights} should be an integer vector.")
   }
   if (!is.integer(weights)) {
     weights <- as.integer(weights)
-    rlang::warn(glue::glue("converting case weights from numeric to integer."))
+    cli::cli_warn("Converting case weights from numeric to integer.")
   }
 
   terms <- terms(formula)
@@ -96,7 +96,9 @@ glm_grouped <- function(formula, data, weights, ...) {
   lvls <- levels(data[[response]])
 
   if (length(lvls) != 2) {
-    rlang::abort(glue::glue("the response column '{response}' should be a two-level factor."))
+    cli::cli_abort(
+      "The response column {.val response} should be a two-level factor."
+    )
   }
 
   all_cols <- c(response, all_pred)

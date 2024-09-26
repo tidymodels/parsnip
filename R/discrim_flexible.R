@@ -51,7 +51,7 @@ discrim_flexible <-
 # ------------------------------------------------------------------------------
 
 #' Update a model specification
-#' @param object A model specification.
+#' @param object A [model specification][model_spec].
 #' @param ... Not used for `update()`.
 #' @param fresh A logical for whether the arguments should be
 #'  modified in-place of or replaced wholesale.
@@ -92,7 +92,7 @@ check_args.discrim_flexible <- function(object, call = rlang::caller_env()) {
   check_number_whole(args$prod_degree, min = 1, allow_null = TRUE, call = call, arg = "prod_degree")
   check_number_whole(args$num_terms, min = 1, allow_null = TRUE, call = call, arg = "num_terms")
   check_string(args$prune_method, allow_empty = FALSE, allow_null = TRUE, call = call, arg = "prune_method")
-  
+
   invisible(object)
 }
 

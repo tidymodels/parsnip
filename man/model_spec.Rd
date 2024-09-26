@@ -2,12 +2,35 @@
 % Please edit documentation in R/model_object_docs.R
 \name{model_spec}
 \alias{model_spec}
-\title{Model Specification Information}
+\title{Model Specifications}
 \description{
-An object with class "model_spec" is a container for
-information about a model that will be fit.
+The parsnip package splits the process of fitting models into two steps:
+\enumerate{
+\item Specify how a model will be fit using a \emph{model specification}
+\item Fit a model using the model specification
+}
+
+This is a different approach to many other model interfaces in R, like \code{lm()},
+where both the specification of the model and the fitting happens in one
+function call. Splitting the process into two steps allows users to
+iteratively define model specifications throughout the model development
+process.
+
+This intermediate object that defines how the model will be fit is called
+a \emph{model specification} and has class \code{model_spec}. Model type functions,
+like \code{\link[=linear_reg]{linear_reg()}} or \code{\link[=boost_tree]{boost_tree()}}, return \code{model_spec} objects.
+
+Fitted model objects, resulting from passing a \code{model_spec} to
+\link[=fit.model_spec]{fit()} or \link[=fit_xy.model_spec]{fit_xy}, have
+class \code{model_fit}, and contain the original \code{model_spec} objects inside
+them. See \link[=model_fit]{?model_fit} for more on that object type, and
+\link[=extract_spec_parsnip.model_fit]{?extract_spec_parsnip} to
+extract \code{model_spec}s from \code{model_fit}s.
 }
 \details{
+An object with class \code{"model_spec"} is a container for
+information about a model that will be fit.
+
 The main elements of the object are:
 \itemize{
 \item \code{args}: A vector of the main arguments for the model. The
@@ -39,7 +62,7 @@ software will be used. It can be a package name or a technology
 type.
 }
 
-This class and structure is the basis for how \pkg{parsnip}
+This class and structure is the basis for how parsnip
 stores model objects prior to seeing the data.
 }
 \section{Argument Details}{
@@ -55,7 +78,7 @@ For example, most R functions immediately evaluate their
 arguments. For example, when calling \code{mean(dat_vec)}, the object
 \code{dat_vec} is immediately evaluated inside of the function.
 
-\code{parsnip} model functions do not do this. For example, using
+parsnip model functions do not do this. For example, using
 
 \preformatted{
  rand_forest(mtry = ncol(mtcars) - 1)

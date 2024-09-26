@@ -44,7 +44,7 @@ nearest_neighbor() %>%
 ```
 
 For `kknn`, the underlying modeling function used is a restricted version of
-`train.kknn()` and not `kknn()`. It is set up in this way so that `parsnip` can
+`train.kknn()` and not `kknn()`. It is set up in this way so that parsnip can
 utilize the underlying `predict.train.kknn` method to predict on new data. This
 also means that a single value of that function's `kernel` argument (a.k.a
 `weight_func` here) can be supplied

@@ -8,13 +8,12 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(translate(rand_forest(mode = "classification") %>% set_engine(NULL)))
-  expect_error(rand_forest(mode = "time series"))
-  expect_error(translate(rand_forest(mode = "classification") %>% set_engine("wat?")))
-  expect_error(translate(rand_forest(mode = "classification", ytest = 2)))
+  expect_snapshot(res <- translate(rand_forest(mode = "classification") %>% set_engine(NULL)))
+  expect_snapshot(error = TRUE, rand_forest(mode = "time series"))
+  expect_snapshot(error = TRUE, translate(rand_forest(mode = "classification") %>% set_engine("wat?")))
 })
 
 test_that("check_args() works", {
   # Here for completeness, no checking is done
   expect_true(TRUE)
-}) 
+})

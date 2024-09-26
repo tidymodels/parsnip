@@ -31,28 +31,26 @@ test_that('model fitting', {
 
   set_tf_seed(257)
 
-  expect_error(
+  expect_no_condition(
     fit1 <-
       fit_xy(
       basic_mod,
       control = ctrl,
       x = tr_dat[, -1],
       y = tr_dat$Class
-    ),
-    regexp = NA
+    )
   )
 
   set_tf_seed(257)
 
-  expect_error(
+  expect_no_condition(
     fit2 <-
       fit_xy(
         basic_mod,
         control = ctrl,
         x = tr_dat[, -1],
         y = tr_dat$Class
-      ),
-    regexp = NA
+      )
   )
   expect_equal(
     unlist(keras::get_weights(fit1$fit)),
@@ -60,35 +58,32 @@ test_that('model fitting', {
     tolerance = .1
   )
 
-  expect_error(
+  expect_no_condition(
     fit(
       basic_mod,
       Class ~ .,
       data = tr_dat,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     fit1 <-
       fit_xy(
         reg_mod,
         control = ctrl,
         x = tr_dat[, -1],
         y = tr_dat$Class
-      ),
-    regexp = NA
+      )
   )
 
-  expect_error(
+  expect_no_condition(
     fit(
       reg_mod,
       Class ~ .,
       data = tr_dat,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
 })

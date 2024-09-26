@@ -13,7 +13,7 @@ set_mode(object, mode, ...)
 \method{set_mode}{model_spec}(object, mode, quantile_levels = NULL, ...)
 }
 \arguments{
-\item{object}{A model specification.}
+\item{object}{A \link[=model_spec]{model specification}.}
 
 \item{...}{One or more named model arguments.}
 

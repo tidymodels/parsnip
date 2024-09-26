@@ -17,37 +17,36 @@ test_that('kknn execution', {
 
   # continuous
   # expect no error
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     fit_xy(
       hpc_basic,
       control = ctrl,
       x = hpc[, num_pred],
       y = hpc$input_fields
-    ),
-    regexp = "outcome should be a `factor`"
+    )
   )
 
   # nominal
   # expect no error
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       hpc_basic,
       control = ctrl,
       x = hpc[, c("input_fields", "iterations")],
       y = hpc$class
-    ),
-    regexp = NA
+    )
   )
 
   expect_true(has_multi_predict(res))
   expect_equal(multi_predict_args(res), "neighbors")
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     fit(
       hpc_basic,
       hpc_bad_form,
       data = hpc,
-
       control = ctrl
     )
   )
@@ -199,14 +198,12 @@ test_that('argument checks for data dimensions', {
     set_engine("kknn") %>%
     set_mode("regression")
 
-  expect_warning(
-    f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins),
-    "1000 samples were requested but there were 333 rows in the data. 328 will be used."
+  expect_snapshot(
+    f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins)
   )
 
-  expect_warning(
-    xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g),
-    "1000 samples were requested but there were 333 rows in the data. 328 will be used."
+  expect_snapshot(
+    xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g)
   )
 
   expect_equal(extract_fit_engine(f_fit)$best.parameters$k,  nrow(penguins) - 5)

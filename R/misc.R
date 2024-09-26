@@ -18,7 +18,9 @@ make_classes <- function(prefix) {
 check_empty_ellipse <- function(...) {
   terms <- quos(...)
   if (!is_empty(terms)) {
-    rlang::abort("Please pass other arguments to the model function via `set_engine()`.")
+    cli::cli_abort(
+      "Please pass other arguments to the model function via {.fun set_engine}."
+    )
   }
   terms
 }
@@ -298,9 +300,9 @@ check_args.default <- function(object, call = rlang::caller_env()) {
 
 # copied form recipes
 
-names0 <- function(num, prefix = "x") {
+names0 <- function(num, prefix = "x", call = rlang::caller_env()) {
   if (num < 1) {
-    rlang::abort("`num` should be > 0.")
+    cli::cli_abort("{.arg num} should be > 0.", call = call)
   }
   ind <- format(seq_len(num))
   ind <- gsub(" ", "0", ind)
@@ -317,13 +319,9 @@ update_dot_check <- function(...) {
   dots <- enquos(...)
 
   if (length(dots) > 0) {
-    rlang::abort(
-      glue::glue(
-        "Extra arguments will be ignored: ",
-        glue::glue_collapse(glue::glue("`{names(dots)}`"), sep = ", ")
-      )
-    )
+    cli::cli_abort("The extra argument{?s} {.arg {names(dots)}} will be ignored.")
   }
+
   invisible(NULL)
 }
 
@@ -425,16 +423,16 @@ check_final_param <- function(x) {
     return(invisible(x))
   }
   if (!is.list(x) & !tibble::is_tibble(x)) {
-    rlang::abort("The parameter object should be a list or tibble")
+    cli::cli_abort("The parameter object should be a list or tibble.")
   }
   if (tibble::is_tibble(x) && nrow(x) > 1) {
-    rlang::abort("The parameter tibble should have a single row.")
+    cli::cli_abort("The parameter tibble should have a single row.")
   }
   if (tibble::is_tibble(x)) {
     x <- as.list(x)
   }
   if (length(names) == 0 || any(names(x) == "")) {
-    rlang::abort("All values in `parameters` should have a name.")
+    cli::cli_abort("All values in {.arg parameters} should have a name.")
   }
 
   invisible(x)
@@ -455,11 +453,8 @@ update_main_parameters <- function(args, param) {
   has_extra_args <- !(names(param) %in% names(args))
   extra_args <- names(param)[has_extra_args]
   if (any(has_extra_args)) {
-    rlang::abort(
-      paste(
-        "At least one argument is not a main argument:",
-        paste0("`", extra_args, "`", collapse = ", ")
-      )
+    cli::cli_abort(
+      "Argument{?s} {.arg {extra_args}} {?is/are} not a main argument."
     )
   }
   param <- param[!has_extra_args]
@@ -517,25 +512,47 @@ stan_conf_int <- function(object, newdata) {
 
 # ------------------------------------------------------------------------------
 
-check_case_weights <- function(x, spec) {
+check_case_weights <- function(x, spec, call = rlang::caller_env()) {
   if (is.null(x) | spec$engine == "spark") {
     return(invisible(NULL))
   }
   if (!hardhat::is_case_weights(x)) {
-    rlang::abort("'case_weights' should be a single numeric vector of class 'hardhat_case_weights'.")
+    cli::cli_abort(
+      "{.arg case_weights} should be a single numeric vector of
+       class {.cls hardhat_case_weights}.",
+      call = call
+    )
   }
   allowed <- case_weights_allowed(spec)
   if (!allowed) {
-    rlang::abort("Case weights are not enabled by the underlying model implementation.")
+    cli::cli_abort(
+      "Case weights are not enabled by the underlying model implementation.",
+      call = call
+    )
   }
   invisible(NULL)
+}
+
+# ------------------------------------------------------------------------------
+
+check_inherits <- function(x, cls, arg = caller_arg(x), call = caller_env()) {
+  if (is.null(x)) {
+    return(invisible(x))
+  }
+
+  if (!inherits(x, cls)) {
+    cli::cli_abort(
+      "{.arg {arg}} should be a {.cls {cls}}, not {.obj_type_friendly {x}}.",
+      call = call
+    )
+  }
 }
 
 # -----------------------------------------------------------------------------
 check_for_newdata <- function(..., call = rlang::caller_env()) {
   if (any(names(list(...)) == "newdata")) {
-    rlang::abort(
-      "Please use `new_data` instead of `newdata`.",
+    cli::cli_abort(
+      "Please use {.arg new_data} instead of {.arg newdata}.",
       call = call
     )
   }

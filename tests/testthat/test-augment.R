@@ -38,7 +38,10 @@ test_that('regression models', {
 
   reg_form$spec$mode <- "depeche"
 
-  expect_error(augment(reg_form, head(mtcars[, -1])), "Unknown mode: depeche")
+  expect_snapshot(
+    error = TRUE,
+    augment(reg_form, head(mtcars[, -1]))
+  )
 
 })
 

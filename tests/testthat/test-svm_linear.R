@@ -11,10 +11,10 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(translate(svm_linear(mode = "regression") %>% set_engine( NULL)))
-  expect_error(svm_linear(mode = "reallyunknown"))
-  expect_error(translate(svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = 3)))
-  expect_error(translate(svm_linear(mode = "classification") %>% set_engine("LiblineaR", type = 11)))
+  expect_snapshot(error = TRUE, translate(svm_linear(mode = "regression") %>% set_engine( NULL)))
+  expect_snapshot(error = TRUE, svm_linear(mode = "reallyunknown"))
+  expect_snapshot(error = TRUE, translate(svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = 3)))
+  expect_snapshot(error = TRUE, translate(svm_linear(mode = "classification") %>% set_engine("LiblineaR", type = 11)))
 })
 
 # ------------------------------------------------------------------------------
@@ -37,33 +37,28 @@ test_that('linear svm regression: LiblineaR', {
 
   skip_if_not_installed("LiblineaR")
 
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       reg_mod,
       control = ctrl,
       x = hpc[,2:4],
       y = hpc$input_fields
-    ),
-    regexp = NA
+    )
   )
   expect_false(has_multi_predict(res))
   expect_equal(multi_predict_args(res), NA_character_)
 
-  expect_error(
-    tidy_res <- tidy(res),
-    NA
-  )
+  expect_no_condition(tidy_res <- tidy(res))
   expect_s3_class(tidy_res, "tbl_df")
   expect_equal(colnames(tidy_res), c("term", "estimate"))
 
-  expect_error(
+  expect_no_condition(
     fit(
       reg_mod,
       input_fields ~ .,
       data = hpc[, -5],
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
 })
@@ -123,24 +118,22 @@ test_that('linear svm classification: LiblineaR', {
 
   ind <- c(2, 1, 143)
 
-  expect_error(
+  expect_no_condition(
     fit_xy(
       cls_mod,
       control = ctrl,
       x = hpc_no_m[, -5],
       y = hpc_no_m$class
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     fit(
       cls_mod,
       class ~ .,
       data = hpc_no_m,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
 })
@@ -216,26 +209,24 @@ test_that('linear svm regression: kernlab', {
 
   skip_if_not_installed("kernlab")
 
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       reg_mod,
       control = ctrl,
       x = hpc[,2:4],
       y = hpc$input_fields
-    ),
-    regexp = NA
+    )
   )
   expect_false(has_multi_predict(res))
   expect_equal(multi_predict_args(res), NA_character_)
 
-  expect_error(
+  expect_no_condition(
     fit(
       reg_mod,
       input_fields ~ .,
       data = hpc[, -5],
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
 })
@@ -295,24 +286,22 @@ test_that('linear svm classification: kernlab', {
 
   ind <- c(2, 1, 143)
 
-  expect_error(
+  expect_no_condition(
     fit_xy(
       cls_mod,
       control = ctrl,
       x = hpc_no_m[, -5],
       y = hpc_no_m$class
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     fit(
       cls_mod,
       class ~ .,
       data = hpc_no_m,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
 })

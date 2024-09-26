@@ -47,7 +47,7 @@ Both `gee:gee()` and `gee:geepack()` specify the id/cluster variable using an ar
 gee(breaks ~ tension, id = wool, data = warpbreaks, corstr = "exchangeable")
 ```
 
-With `parsnip`, we suggest using the formula method when fitting: 
+With parsnip, we suggest using the formula method when fitting: 
 
 ```r
 library(tidymodels)

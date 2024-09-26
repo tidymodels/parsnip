@@ -14,6 +14,31 @@
       Computational engine: earth 
       
 
+# bad input
+
+    Code
+      translate(mars(mode = "regression") %>% set_engine())
+    Condition
+      Error in `set_engine()`:
+      ! Missing engine. Possible mode/engine combinations are: classification {earth} and regression {earth}.
+
+---
+
+    Code
+      translate(mars() %>% set_engine("wat?"))
+    Condition
+      Error in `set_engine()`:
+      x Engine "wat?" is not supported for `mars()`
+      i See `show_engines("mars")`.
+
+# mars execution
+
+    Code
+      res <- fit(hpc_basic, hpc_bad_form, data = hpc, control = ctrl)
+    Condition
+      Error in `check_outcome()`:
+      ! For a regression model, the outcome should be `numeric`, not a `factor`.
+
 # submodel prediction
 
     Code

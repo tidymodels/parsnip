@@ -2,7 +2,7 @@
 #'
 #' `augment()` will add column(s) for predictions to the given data.
 #'
-#' @param x A `model_fit` object produced by [fit.model_spec()] or
+#' @param x A [model fit][model_fit] produced by [fit.model_spec()] or
 #' [fit_xy.model_spec()].
 #' @param eval_time For censored regression models, a vector of time points at
 #' which the survival probability is estimated.
@@ -86,7 +86,12 @@ augment.model_fit <- function(x, new_data, eval_time = NULL, ...) {
       "regression"          = augment_regression(x, new_data),
       "classification"      = augment_classification(x, new_data),
       "censored regression" = augment_censored(x, new_data, eval_time = eval_time),
-      rlang::abort(paste("Unknown mode:", x$spec$mode))
+      cli::cli_abort(
+        c(
+          "Unknown mode {.val {x$spec$mode}}.",
+          "i" = "Model mode should be one of {.or {.val {all_modes}}}."
+        )
+      )
     )
   tibble::new_tibble(res)
 }

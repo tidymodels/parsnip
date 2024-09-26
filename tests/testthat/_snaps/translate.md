@@ -504,10 +504,10 @@
       translate_args(basic %>% set_engine("glmnet"))
     Condition
       Error in `.check_glmnet_penalty_fit()`:
-      ! For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
-      * There are 0 values for `penalty`.
-      * To try multiple values for total regularization, use the tune package.
-      * To predict multiple penalties, use `multi_predict()`
+      x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      ! There are 0 values for `penalty`.
+      i To try multiple values for total regularization, use the tune package.
+      i To predict multiple penalties, use `multi_predict()`.
 
 ---
 
@@ -555,10 +555,10 @@
       translate_args(mixture %>% set_engine("glmnet"))
     Condition
       Error in `.check_glmnet_penalty_fit()`:
-      ! For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
-      * There are 0 values for `penalty`.
-      * To try multiple values for total regularization, use the tune package.
-      * To predict multiple penalties, use `multi_predict()`
+      x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      ! There are 0 values for `penalty`.
+      i To try multiple values for total regularization, use the tune package.
+      i To predict multiple penalties, use `multi_predict()`.
 
 ---
 
@@ -688,10 +688,10 @@
       translate_args(basic %>% set_engine("glmnet"))
     Condition
       Error in `.check_glmnet_penalty_fit()`:
-      ! For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
-      * There are 0 values for `penalty`.
-      * To try multiple values for total regularization, use the tune package.
-      * To predict multiple penalties, use `multi_predict()`
+      x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      ! There are 0 values for `penalty`.
+      i To try multiple values for total regularization, use the tune package.
+      i To predict multiple penalties, use `multi_predict()`.
 
 ---
 
@@ -827,10 +827,10 @@
       translate_args(mixture %>% set_engine("glmnet"))
     Condition
       Error in `.check_glmnet_penalty_fit()`:
-      ! For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
-      * There are 0 values for `penalty`.
-      * To try multiple values for total regularization, use the tune package.
-      * To predict multiple penalties, use `multi_predict()`
+      x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      ! There are 0 values for `penalty`.
+      i To try multiple values for total regularization, use the tune package.
+      i To predict multiple penalties, use `multi_predict()`.
 
 ---
 
@@ -968,10 +968,10 @@
       translate_args(mixture_v %>% set_engine("glmnet"))
     Condition
       Error in `.check_glmnet_penalty_fit()`:
-      ! For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
-      * There are 0 values for `penalty`.
-      * To try multiple values for total regularization, use the tune package.
-      * To predict multiple penalties, use `multi_predict()`
+      x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      ! There are 0 values for `penalty`.
+      i To try multiple values for total regularization, use the tune package.
+      i To predict multiple penalties, use `multi_predict()`.
 
 ---
 
@@ -1334,10 +1334,10 @@
       translate_args(basic %>% set_engine("glmnet"))
     Condition
       Error in `.check_glmnet_penalty_fit()`:
-      ! For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
-      * There are 0 values for `penalty`.
-      * To try multiple values for total regularization, use the tune package.
-      * To predict multiple penalties, use `multi_predict()`
+      x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      ! There are 0 values for `penalty`.
+      i To try multiple values for total regularization, use the tune package.
+      i To predict multiple penalties, use `multi_predict()`.
 
 ---
 
@@ -1552,10 +1552,10 @@
       basic_incomplete %>% translate_args()
     Condition
       Error in `.check_glmnet_penalty_fit()`:
-      ! For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
-      * There are 0 values for `penalty`.
-      * To try multiple values for total regularization, use the tune package.
-      * To predict multiple penalties, use `multi_predict()`
+      x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      ! There are 0 values for `penalty`.
+      i To try multiple values for total regularization, use the tune package.
+      i To predict multiple penalties, use `multi_predict()`.
 
 # arguments (rand_forest)
 
@@ -2158,5 +2158,5 @@
 
 ---
 
-    'object' should be a model specification or workflow.
+    `object` should be a model specification or workflow.
 

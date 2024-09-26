@@ -11,28 +11,27 @@ test_that('flexsurv execution', {
   rlang::local_options(lifecycle_verbosity = "quiet")
   surv_basic <- surv_reg() %>% set_engine("flexsurv")
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
       surv_basic,
       survival::Surv(time, status) ~ age,
       data = lung,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
-  expect_error(
+  expect_no_condition(
     res <- fit(
       surv_basic,
       survival::Surv(time) ~ age,
       data = lung,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
   expect_false(has_multi_predict(res))
   expect_equal(multi_predict_args(res), NA_character_)
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit_xy(
       surv_basic,
       x = lung[, "age", drop = FALSE],

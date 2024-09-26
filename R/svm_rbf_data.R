@@ -296,9 +296,11 @@ set_pred(
   value = list(
     pre = function(x, object) {
       if (!object$fit$predict.prob) {
-        rlang::abort(
-          paste0("`svm` model does not appear to use class probabilities. Was ",
-                 "the model fit with `predict.prob = TRUE`?")
+        cli::cli_abort(
+          c(
+            "The model does not appear to use class probabilities.",
+            "i" = "Was the model fit with {.code predict.prob = TRUE}?"
+          )
         )
       }
       x

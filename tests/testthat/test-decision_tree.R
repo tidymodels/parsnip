@@ -23,7 +23,6 @@ test_that('bad input', {
   expect_snapshot(
     try(translate(decision_tree(), engine = NULL), silent = TRUE)
   )
-  expect_snapshot_error(translate(decision_tree(formula = y ~ x)))
 })
 
 test_that('rpart_train is stop-deprecated when it ought to be (#1044)', {
@@ -32,7 +31,7 @@ test_that('rpart_train is stop-deprecated when it ought to be (#1044)', {
   # once this test fails, transition `rpart_train()` to `deprecate_stop()`
   # and transition this test to fail if `rpart_train()` still exists after a year.
   if (Sys.Date() > "2025-01-01") {
-    expect_error(rpart_train(mpg ~ ., mtcars))
+    expect_snapshot(error = TRUE, rpart_train(mpg ~ ., mtcars))
   }
 })
 
@@ -48,13 +47,11 @@ test_that('argument checks for data dimensions', {
     set_engine("rpart") %>%
     set_mode("regression")
 
-  expect_warning(
-    f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins),
-    "1000 samples were requested but there were 333 rows in the data. 333 will be used."
+  expect_snapshot(
+    f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins)
   )
-  expect_warning(
-    xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g),
-    "1000 samples were requested but there were 333 rows in the data. 333 will be used."
+  expect_snapshot(
+    xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g)
   )
 
   expect_equal(extract_fit_engine(f_fit)$control$minsplit,  nrow(penguins))

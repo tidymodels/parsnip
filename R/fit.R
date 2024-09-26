@@ -55,6 +55,11 @@
 #' a "reverse Kaplan-Meier" curve that models the probability of censoring. This
 #' may be used later to compute inverse probability censoring weights for
 #' performance measures.
+#'
+#' Sparse data is supported, with the use of the `x` argument in `fit_xy()`. See
+#' `allow_sparse_x` column of [parsnip::get_encoding()] for sparse input
+#' compatibility.
+#'
 #' @examplesIf !parsnip:::is_cran_check()
 #' # Although `glm()` only has a formula interface, different
 #' # methods for specifying the model can be used
@@ -111,25 +116,27 @@ fit.model_spec <-
            ...
   ) {
     if (object$mode == "unknown") {
-      rlang::abort("Please set the mode in the model specification.")
+      cli::cli_abort(
+        "Please set the mode in the {.help [model specification](parsnip::model_spec)}."
+      )
     }
     control <- condense_control(control, control_parsnip())
     check_case_weights(case_weights, object)
 
-    if (!inherits(formula, "formula")) {
-      msg <- "The {.arg formula} argument must be a formula, but it is a \\
-              {.cls {class(formula)[1]}}."
-
-      if (inherits(formula, "recipe")) {
-        msg <-
-          c(
-            msg,
-            "i" = "To fit a model with a recipe preprocessor, please use a \\
+    if (inherits(formula, "recipe")) {
+      cli::cli_abort(
+        c(
+          "The {.arg formula} argument must be a formula.",
+          "i" = "To fit a model with a recipe preprocessor, please use a \\
                  {.help [workflow](workflows::workflow)}."
-          )
-      }
+        )
+      )
+    }
+    check_formula(formula)
 
-      cli::cli_abort(msg)
+
+    if (is_sparse_matrix(data)) {
+      data <- sparsevctrs::coerce_to_sparse_tibble(data)
     }
 
     dots <- quos(...)
@@ -145,12 +152,12 @@ fit.model_spec <-
       eng_vals <- possible_engines(object)
       object$engine <- eng_vals[1]
       if (control$verbosity > 0) {
-        rlang::warn(glue::glue("Engine set to `{object$engine}`."))
+       cli::cli_warn("Engine set to {.val {object$engine}}.")
       }
     }
 
     if (all(c("x", "y") %in% names(dots))) {
-      rlang::abort("`fit.model_spec()` is for the formula methods. Use `fit_xy()` instead.")
+      cli::cli_abort("`fit.model_spec()` is for the formula methods. Use `fit_xy()` instead.")
     }
     cl <- match.call(expand.dots = TRUE)
     # Create an environment with the evaluated argument objects. This will be
@@ -173,16 +180,16 @@ fit.model_spec <-
       eval_env$quantile_levels <- object$quantile_levels
     }
 
+    data <- materialize_sparse_tibble(data, object, "data")
+
     fit_interface <-
       check_interface(eval_env$formula, eval_env$data, cl, object)
 
     if (object$engine == "spark" && !inherits(eval_env$data, "tbl_spark"))
-      rlang::abort(
-        glue::glue(
-          "spark objects can only be used with the formula interface to `fit()` ",
-          "with a spark data object."
+      cli::cli_abort(
+          "spark objects can only be used with the formula interface to {.fn fit}
+           with a spark data object."
         )
-      )
 
     # populate `method` with the details for this model type
     object <- add_methods(object, engine = object$engine)
@@ -225,7 +232,7 @@ fit.model_spec <-
             ...
           ),
 
-        rlang::abort(glue::glue("{interfaces} is unknown."))
+        cli::cli_abort("{.val {interfaces}} is unknown.")
       )
     res$censor_probs <- reverse_km(object, eval_env)
     model_classes <- class(res$fit)
@@ -247,17 +254,20 @@ fit_xy.model_spec <-
            ...
   ) {
     if (object$mode == "unknown") {
-      rlang::abort("Please set the mode in the model specification.")
+      cli::cli_abort(
+        "Please set the mode in the
+        {.help [model specification](parsnip::model_spec)}."
+      )
     }
 
     if (inherits(object, "surv_reg")) {
-      rlang::abort("Survival models must use the formula interface.")
+      cli::cli_abort("Survival models must use the formula interface.")
     }
 
     control <- condense_control(control, control_parsnip())
 
     if (is.null(colnames(x))) {
-      rlang::abort("'x' should have column names.")
+      cli::cli_abort("{.arg {x}} should have column names.")
     }
     check_case_weights(case_weights, object)
 
@@ -266,7 +276,7 @@ fit_xy.model_spec <-
       eng_vals <- possible_engines(object)
       object$engine <- eng_vals[1]
       if (control$verbosity > 0) {
-        rlang::warn(glue::glue("Engine set to `{object$engine}`."))
+        cli::cli_warn("Engine set to {.val {object$engine}}.")
       }
     }
     y_var <- colnames(y)
@@ -278,6 +288,8 @@ fit_xy.model_spec <-
         y <- y[[1]]
       }
     }
+
+    x <- to_sparse_data_frame(x, object)
 
     cl <- match.call(expand.dots = TRUE)
     eval_env <- rlang::env()
@@ -293,13 +305,11 @@ fit_xy.model_spec <-
     # TODO case weights: pass in eval_env not individual elements
     fit_interface <- check_xy_interface(eval_env$x, eval_env$y, cl, object)
 
-    if (object$engine == "spark")
-      rlang::abort(
-        glue::glue(
-          "spark objects can only be used with the formula interface to `fit()` ",
-          "with a spark data object."
-        )
+    if (object$engine == "spark") {
+      cli::cli_abort(
+        "spark objects can only be used with the formula interface to {.fn fit} with a spark data object."
       )
+    }
 
     # populate `method` with the details for this model type
     object <- add_methods(object, engine = object$engine)
@@ -343,7 +353,7 @@ fit_xy.model_spec <-
             control = control,
             ...
           ),
-        rlang::abort(glue::glue("{interfaces} is unknown."))
+        cli::cli_abort("{.val {interfaces}} is unknown.")
       )
     res$censor_probs <- reverse_km(object, eval_env)
     model_classes <- class(res$fit)
@@ -372,65 +382,47 @@ eval_mod <- function(e, capture = FALSE, catch = FALSE, envir = NULL, ...) {
 
 # ------------------------------------------------------------------------------
 
-inher <- function(x, cls, cl) {
-  if (!is.null(x) && !inherits(x, cls)) {
-    call <- match.call()
-    obj <- deparse(call[["x"]])
-    if (length(cls) > 1)
-      rlang::abort(
-        glue::glue(
-          "`{obj}` should be one of the following classes: ",
-          glue::glue_collapse(glue::glue("'{cls}'"), sep = ", ")
-        )
-      )
-    else
-      rlang::abort(
-        glue::glue("`{obj}` should be a {cls} object")
-      )
-  }
-  invisible(x)
-}
-
-# ------------------------------------------------------------------------------
-
-check_interface <- function(formula, data, cl, model) {
-  inher(formula, "formula", cl)
-  inher(data, c("data.frame", "tbl_spark"), cl)
+check_interface <- function(formula, data, cl, model, call = caller_env()) {
+  check_formula(formula, call = call)
+  check_inherits(data, c("data.frame", "dgCMatrix", "tbl_spark"), call = call)
 
   # Determine the `fit()` interface
   form_interface <- !is.null(formula) & !is.null(data)
 
   if (form_interface)
     return("formula")
-  rlang::abort("Error when checking the interface.")
+  cli::cli_abort("Error when checking the interface.", call = call)
 }
 
-check_xy_interface <- function(x, y, cl, model) {
+check_xy_interface <- function(x, y, cl, model, call = caller_env()) {
 
   sparse_ok <- allow_sparse(model)
   sparse_x <- inherits(x, "dgCMatrix")
   if (!sparse_ok & sparse_x) {
-    rlang::abort("Sparse matrices not supported by this model/engine combination.")
+    cli::cli_abort(
+      "Sparse matrices not supported by this model/engine combination.",
+      call = call
+    )
   }
 
   if (sparse_ok) {
-    inher(x, c("data.frame", "matrix", "dgCMatrix"), cl)
+    check_inherits(x, c("data.frame", "matrix", "dgCMatrix"), call = call)
   } else {
-    inher(x, c("data.frame", "matrix"), cl)
+    check_inherits(x, c("data.frame", "matrix"), call = call)
   }
 
-  if (!is.null(y) && !is.atomic(y))
-    inher(y, c("data.frame", "matrix"), cl)
+  if (!is.null(y) && !is.atomic(y)) {
+    check_inherits(y, c("data.frame", "matrix"), call = call)
+  }
 
   # rule out spark data sets that don't use the formula interface
-  if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark"))
-    rlang::abort(
-      glue::glue(
-        "spark objects can only be used with the formula interface via `fit()` ",
-        "with a spark data object."
-        )
-      )
-
+  if (inherits(x, "tbl_spark") | inherits(y, "tbl_spark")) {
+    cli::cli_abort(
+      "spark objects can only be used with the formula interface via
+       {.fn fit} with a spark data object.",
+      call = call
+    )
+  }
 
   if (sparse_ok) {
     matrix_interface <- !is.null(x) && !is.null(y) && (is.matrix(x) | sparse_x)
@@ -449,10 +441,14 @@ check_xy_interface <- function(x, y, cl, model) {
 
   check_outcome(y, model)
 
-  rlang::abort("Error when checking the interface")
+  cli::cli_abort("Error when checking the interface.", call = call)
 }
 
 allow_sparse <- function(x) {
+  if (inherits(x, "model_fit")) {
+    x <- x$spec
+  }
+
   res <- get_from_env(paste0(class(x)[1], "_encoding"))
   all(res$allow_sparse_x[res$engine == x$engine])
 }

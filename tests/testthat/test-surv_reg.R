@@ -11,12 +11,12 @@ test_that('updating', {
 test_that('bad input', {
   rlang::local_options(lifecycle_verbosity = "quiet")
 
-  expect_error(surv_reg(mode = ", classification"))
-  expect_error(translate(surv_reg() %>% set_engine("wat")))
-  expect_error(translate(surv_reg() %>% set_engine(NULL)))
+  expect_snapshot(error = TRUE, surv_reg(mode = ", classification"))
+  expect_snapshot(error = TRUE, translate(surv_reg() %>% set_engine("wat")))
+  expect_snapshot(res <- translate(surv_reg() %>% set_engine(NULL)))
 })
 
 test_that("deprecation warning", {
   rlang::local_options(lifecycle_verbosity = "warning")
-  expect_warning(surv_reg())
+  expect_snapshot(surv_reg())
 })

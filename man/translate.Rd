@@ -10,14 +10,14 @@ translate(x, ...)
 \method{translate}{default}(x, engine = x$engine, ...)
 }
 \arguments{
-\item{x}{A model specification.}
+\item{x}{A \link[=model_spec]{model specification}.}
 
 \item{...}{Not currently used.}
 
 \item{engine}{The computational engine for the model (see \code{?set_engine}).}
 }
 \description{
-\code{translate()} will translate a model specification into a code
+\code{translate()} will translate a \link[=model_spec]{model specification} into a code
 object that is specific to a particular engine (e.g. R package).
 It translates generic parameters to their counterparts.
 }
@@ -34,7 +34,7 @@ It does contain the resolved argument names that are specific to
 the model fitting function/engine.
 
 This function can be useful when you need to understand how
-\code{parsnip} goes from a generic model specific to a model fitting
+parsnip goes from a generic model specific to a model fitting
 function.
 
 \strong{Note}: this function is used internally and users should only use it
