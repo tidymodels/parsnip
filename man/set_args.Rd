@@ -21,7 +21,7 @@ set_mode(object, mode, ...)
 "regression")}
 
 \item{quantile_levels}{A vector of values between zero and one (only for the
-\verb{quantile regression } mode); otherwise, it is \code{NULL}. The model uses these
+\code{"quantile regression"} mode); otherwise, it is \code{NULL}. The model uses these
 values to appropriately train quantile regression models to make predictions
 for these values (e.g., \code{quantile_levels = 0.5} is the median).}
 }
