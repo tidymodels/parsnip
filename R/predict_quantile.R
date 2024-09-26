@@ -1,6 +1,8 @@
 #' @keywords internal
 #' @rdname other_predict
-#' @param quantile_levels  A vector of values between zero and one.
+#' @param quantile_levels  A vector of values between zero and one for the
+#' quantile to be predicted. If the model has a `"censored regression"` mode,
+#' this value should be `NULL`. For other modes, the default is `(1:9)/10`.
 #' @inheritParams predict.model_fit
 #' @method predict_quantile model_fit
 #' @export predict_quantile.model_fit
@@ -19,18 +21,18 @@ predict_quantile.model_fit <- function(object,
     return(NULL)
   }
 
-  if (object$spec$mode != "quantile regression") {
+  if (object$spec$mode == "quantile regression") {
+    if (!is.null(quantile_levels)) {
+      cli::cli_abort("When the mode is {.val quantile regression},
+                     {.arg quantile_levels} are specified by {.fn set_mode}.")
+    }
+  } else {
     if (is.null(quantile_levels)) {
       quantile_levels <- (1:9)/10
     }
     hardhat::check_quantile_levels(quantile_levels)
     # Pass some extra arguments to be used in post-processor
     object$quantile_levels <- quantile_levels
-  } else {
-    if (!is.null(quantile_levels)) {
-      cli::cli_abort("{.arg quantile_levels} are specified by {.fn set_mode}
-                     when the mode is {.val quantile regression}.")
-    }
   }
 
   new_data <- prepare_data(object, new_data)
