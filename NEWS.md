@@ -14,6 +14,7 @@
 ## Breaking Change
 
 * For quantile prediction, the `predict()` argument has been changed from `quantile` to `quantile_levels` for consistency. This does not affect models with mode `"quantile regression"`. 
+* The quantile regression prediction type was disabled for the deprecated `surv_reg()` model. 
 
 # parsnip 1.2.1
 

@@ -44,7 +44,7 @@ test_that('survival execution', {
 })
 
 test_that('survival prediction', {
-  skip_if_not_installed("censored", minimum_version = "0.3.2.9001")
+  skip_if_not_installed("survival")
 
   rlang::local_options(lifecycle_verbosity = "quiet")
   surv_basic <- surv_reg() %>% set_engine("survival")
@@ -59,16 +59,6 @@ test_that('survival prediction', {
   exp_pred <- predict(extract_fit_engine(res), head(lung))
   exp_pred <- tibble(.pred = unname(exp_pred))
   expect_equal(exp_pred, predict(res, head(lung)))
-
-  exp_quant <- predict(extract_fit_engine(res), head(lung), p = (2:4)/5, type = "quantile")
-  exp_quant <-
-    apply(exp_quant, 1, function(x)
-      tibble(.pred = x, .quantile = (2:4) / 5))
-  exp_quant <- tibble(.pred = exp_quant)
-  obs_quant <- predict(res, head(lung), type = "quantile", quantile_level = (2:4)/5)
-
-  expect_equal(as.data.frame(exp_quant), as.data.frame(obs_quant))
-
 })
 
 

@@ -59,25 +59,6 @@ set_pred(
   )
 )
 
-set_pred(
-  model = "surv_reg",
-  eng = "flexsurv",
-  mode = "regression",
-  type = "quantile",
-  value = list(
-    pre = NULL,
-    post = flexsurv_quant,
-    func = c(fun = "summary"),
-    args =
-      list(
-        object = expr(object$fit),
-        newdata = expr(new_data),
-        type = "quantile",
-        quantiles = expr(quantile)
-      )
-  )
-)
-
 # ------------------------------------------------------------------------------
 
 set_model_engine("surv_reg", mode = "regression", eng = "survival")
@@ -130,25 +111,6 @@ set_pred(
         object = expr(object$fit),
         newdata = expr(new_data),
         type = "response"
-      )
-  )
-)
-
-set_pred(
-  model = "surv_reg",
-  eng = "survival",
-  mode = "regression",
-  type = "quantile",
-  value = list(
-    pre = NULL,
-    post = survreg_quant,
-    func = c(fun = "predict"),
-    args =
-      list(
-        object = expr(object$fit),
-        newdata = expr(new_data),
-        type = "quantile",
-        p = expr(quantile)
       )
   )
 )
