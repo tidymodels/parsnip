@@ -32,7 +32,7 @@ predict_quantile.model_fit <- function(object,
     }
     hardhat::check_quantile_levels(quantile_levels)
     # Pass some extra arguments to be used in post-processor
-    object$quantile_levels <- quantile_levels
+    object$spec$quantile_levels <- quantile_levels
   }
 
   new_data <- prepare_data(object, new_data)
