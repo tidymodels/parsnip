@@ -176,8 +176,6 @@ organize_multnet_prob <- function(x, object) {
   x
 }
 
-
-
 # -------------------------------------------------------------------------
 
 multi_predict_glmnet <- function(object,
