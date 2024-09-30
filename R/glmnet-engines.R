@@ -138,6 +138,15 @@ predict_raw._glmnetfit <- predict_raw_glmnet
   unname(x[, 1])
 }
 
+organize_glmnet_pre_pred <- function(x, object) {
+  if (is_sparse_matrix(x)) {
+    return(x)
+  }
+  
+  as.matrix(x[, rownames(object$fit$beta), drop = FALSE])
+}
+
+
 organize_glmnet_class <- function(x, object) {
   prob_to_class_2(x[, 1], object)
 }
@@ -165,6 +174,8 @@ organize_multnet_prob <- function(x, object) {
   }
   x
 }
+
+
 
 # -------------------------------------------------------------------------
 
