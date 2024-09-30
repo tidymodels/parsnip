@@ -249,7 +249,7 @@ set_pred(
     args =
       list(
         object = expr(object$fit),
-        newx = expr(.organize_glmnet_pre_pred(new_data, object)),
+        newx = expr(organize_glmnet_pre_pred(new_data, object)),
         type = "response",
         s = expr(object$spec$args$penalty)
       )

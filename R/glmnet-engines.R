@@ -139,11 +139,12 @@ predict_raw._glmnetfit <- predict_raw_glmnet
 }
 
 organize_glmnet_pre_pred <- function(x, object) {
+  x <- x[, rownames(object$fit$beta), drop = FALSE]
   if (is_sparse_matrix(x)) {
     return(x)
   }
   
-  as.matrix(x[, rownames(object$fit$beta), drop = FALSE])
+  as.matrix(x)
 }
 
 
