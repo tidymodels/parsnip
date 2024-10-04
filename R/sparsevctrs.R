@@ -37,10 +37,6 @@ to_sparse_data_frame <- function(x, object, call = rlang::caller_env()) {
   x
 }
 
-sparsevctrs::has_sparse_elements <- function(x) {
-  any(vapply(x, sparsevctrs::is_sparse_vector, logical(1)))
-}
-
 is_sparse_matrix <- function(x) {
   methods::is(x, "sparseMatrix")
 }
