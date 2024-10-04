@@ -48,7 +48,7 @@
     )
   }
 
-  if (is_sparse_tibble(data)) {
+  if (sparsevctrs::has_sparse_elements(data)) {
     cli::cli_abort(
       "Sparse data cannot be used with formula interface. Please use 
       {.fn fit_xy} instead."
@@ -417,7 +417,7 @@ maybe_sparse_matrix <- function(x) {
     return(x)
   }
 
-  if (is_sparse_tibble(x)) {
+  if (sparsevctrs::has_sparse_elements(x)) {
     res <- sparsevctrs::coerce_to_sparse_matrix(x)
   } else {
     res <- as.matrix(x)

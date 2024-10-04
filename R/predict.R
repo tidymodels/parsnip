@@ -470,7 +470,7 @@ prepare_data <- function(object, new_data) {
   if (allow_sparse(object) && inherits(new_data, "dgCMatrix")) {
     return(new_data)
   }
-  if (allow_sparse(object) && is_sparse_tibble(new_data)) {
+  if (allow_sparse(object) && sparsevctrs::has_sparse_elements(new_data)) {
     new_data <- sparsevctrs::coerce_to_sparse_matrix(new_data)
     return(new_data)
   }

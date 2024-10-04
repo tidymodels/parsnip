@@ -282,7 +282,7 @@ test_that("maybe_sparse_matrix() is used correctly", {
   
   local_mocked_bindings(
     maybe_sparse_matrix = function(x) {
-      if (is_sparse_tibble(x)) {
+      if (sparsevctrs::has_sparse_elements(x)) {
         stop("sparse vectors detected")
       } else {
         stop("no sparse vectors detected")
@@ -311,5 +311,19 @@ test_that("maybe_sparse_matrix() is used correctly", {
   expect_snapshot(
     error = TRUE,
     fit_xy(spec, x = tibble::as_tibble(mtcars)[, -1], y = tibble::as_tibble(mtcars)[, 1])
+  )
+})
+
+test_that("fit() errors if sparse matrix has no colnames", {
+  hotel_data <- sparse_hotel_rates()
+  colnames(hotel_data) <- NULL
+
+  spec <- boost_tree() %>%
+    set_mode("regression") %>%
+    set_engine("xgboost")
+
+  expect_snapshot(
+    error = TRUE,
+    fit(spec, avg_price_per_room ~ ., data = hotel_data)
   )
 })
