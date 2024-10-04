@@ -136,7 +136,7 @@ fit.model_spec <-
 
 
     if (is_sparse_matrix(data)) {
-      data <- sparsevctrs::coerce_to_sparse_tibble(data)
+      data <- sparsevctrs::coerce_to_sparse_tibble(data, rlang::caller_env(0))
     }
 
     dots <- quos(...)

@@ -30,6 +30,14 @@
       Warning:
       `data` is a sparse tibble, but `linear_reg()` with engine "lm" doesn't accept that. Converting to non-sparse.
 
+---
+
+    Code
+      fit(spec, avg_price_per_room ~ ., data = hotel_data)
+    Condition
+      Error in `fit()`:
+      ! `x` must have column names.
+
 # sparse tibble can be passed to `fit_xy() - unsupported
 
     Code
