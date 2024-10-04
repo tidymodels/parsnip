@@ -282,7 +282,7 @@ test_that("maybe_sparse_matrix() is used correctly", {
   
   local_mocked_bindings(
     maybe_sparse_matrix = function(x) {
-      if (is_sparse_tibble(x)) {
+      if (sparsevctrs::has_sparse_elements(x)) {
         stop("sparse vectors detected")
       } else {
         stop("no sparse vectors detected")
