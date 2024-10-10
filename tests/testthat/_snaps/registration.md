@@ -59,8 +59,8 @@
     Code
       set_model_engine("sponge", mode = "regression", eng = "gum")
     Condition
-      Error in `rlang::abort()`:
-      ! `call` must be a call or environment, not a primitive function.
+      Error in `set_model_engine()`:
+      ! "regression" is not a known mode for model `sponge()`.
 
 # adding a new package
 

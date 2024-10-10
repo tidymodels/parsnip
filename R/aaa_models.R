@@ -194,7 +194,7 @@ stop_missing_engine <- function(cls, call) {
   )
 }
 
-check_mode_for_new_engine <- function(cls, eng, mode) {
+check_mode_for_new_engine <- function(cls, eng, mode, call = caller_env()) {
   model_modes <- get_from_env(paste0(cls, "_modes"))
   if (!(mode %in% model_modes)) {
     cli::cli_abort(
