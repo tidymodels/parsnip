@@ -103,8 +103,8 @@ interval estimates.}
 \item{std_error}{A single logical for whether the standard error should be
 returned (assuming that the model can compute it).}
 
-\item{quantile_levels}{A vector of values between zero and one for the
-quantile to be predicted. If the model has a \code{"censored regression"} mode,
+\item{quantile_levels}{A vector of values between 0 and 1 for the
+quantile to be predicted. If the model has a \code{"quantile regression"} mode,
 this value should be \code{NULL}. For other modes, the default is \code{(1:9)/10}.}
 }
 \description{

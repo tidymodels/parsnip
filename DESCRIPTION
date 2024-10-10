@@ -74,8 +74,8 @@ Remotes:
     tidymodels/hardhat
 ByteCompile: true
 Config/Needs/website: C50, dbarts, earth, glmnet, keras, kernlab, kknn,
-    LiblineaR, mgcv, nnet, parsnip, randomForest, ranger, rpart, rstanarm,
-    tidymodels/tidymodels, tidyverse/tidytemplate, rstudio/reticulate,
+    LiblineaR, mgcv, nnet, parsnip, quantreg, randomForest, ranger, rpart, 
+    rstanarm, tidymodels/tidymodels, tidyverse/tidytemplate, rstudio/reticulate,
     xgboost
 Config/rcmdcheck/ignore-inconsequential-notes: true
 Config/testthat/edition: 3
