@@ -203,7 +203,7 @@ check_pred_type <- function(object, type, ..., call = rlang::caller_env()) {
         "censored regression" = "time",
         "quantile regression" = "quantile",
         cli::cli_abort(
-          "{.arg type} should be one of {.val {all_modes}}.",
+          "{.arg type} should be one of {.or {.val {all_modes}}}.",
           call = call
         )
       )

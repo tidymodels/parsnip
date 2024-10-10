@@ -1,7 +1,7 @@
 #' @keywords internal
 #' @rdname other_predict
-#' @param quantile_levels  A vector of values between zero and one for the
-#' quantile to be predicted. If the model has a `"censored regression"` mode,
+#' @param quantile_levels  A vector of values between 0 and 1 for the
+#' quantile to be predicted. If the model has a `"quantile regression"` mode,
 #' this value should be `NULL`. For other modes, the default is `(1:9)/10`.
 #' @inheritParams predict.model_fit
 #' @method predict_quantile model_fit
@@ -13,7 +13,7 @@ predict_quantile.model_fit <- function(object,
                                        interval = "none",
                                        level = 0.95,
                                        ...) {
-
+check_dots_empty()
   check_spec_pred_type(object, "quantile")
 
   if (inherits(object$fit, "try-error")) {
