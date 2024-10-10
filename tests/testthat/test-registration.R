@@ -47,6 +47,11 @@ expect_snapshot(error = TRUE, set_new_model(letters[1:2]))
 
 # ------------------------------------------------------------------------------
 
+test_that('existing modes', {
+  expect_snapshot(get_from_env("modes"))
+})
+
+
 test_that('adding a new mode', {
   set_model_mode("sponge", "classification")
 

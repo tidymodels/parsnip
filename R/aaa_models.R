@@ -1,6 +1,6 @@
 # Initialize model environments
 
-all_modes <- c("classification", "regression", "censored regression")
+all_modes <- c("classification", "regression", "censored regression", "quantile regression")
 
 # ------------------------------------------------------------------------------
 
@@ -195,8 +195,8 @@ stop_missing_engine <- function(cls, call) {
 }
 
 check_mode_for_new_engine <- function(cls, eng, mode, call = caller_env()) {
-  all_modes <- get_from_env(paste0(cls, "_modes"))
-  if (!(mode %in% all_modes)) {
+  model_modes <- get_from_env(paste0(cls, "_modes"))
+  if (!(mode %in% model_modes)) {
     cli::cli_abort(
       "{.val {mode}} is not a known mode for model {.fn {cls}}.",
       call = call

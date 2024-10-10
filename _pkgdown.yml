@@ -78,6 +78,7 @@ reference:
       - fit_xy
       - control_parsnip
       - glance.model_fit
+      - matrix_to_quantile_pred
       - model_fit
       - model_formula
       - model_spec

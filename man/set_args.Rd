@@ -3,11 +3,14 @@
 \name{set_args}
 \alias{set_args}
 \alias{set_mode}
+\alias{set_mode.model_spec}
 \title{Change elements of a model specification}
 \usage{
 set_args(object, ...)
 
-set_mode(object, mode)
+set_mode(object, mode, ...)
+
+\method{set_mode}{model_spec}(object, mode, quantile_levels = NULL, ...)
 }
 \arguments{
 \item{object}{A \link[=model_spec]{model specification}.}
@@ -16,6 +19,11 @@ set_mode(object, mode)
 
 \item{mode}{A character string for the model type (e.g. "classification" or
 "regression")}
+
+\item{quantile_levels}{A vector of values between zero and one (only for the
+\code{"quantile regression"} mode); otherwise, it is \code{NULL}. The model uses these
+values to appropriately train quantile regression models to make predictions
+for these values (e.g., \code{quantile_levels = 0.5} is the median).}
 }
 \value{
 An updated model object.
@@ -34,5 +42,8 @@ rand_forest()
 rand_forest() \%>\%
   set_args(mtry = 3, importance = TRUE) \%>\%
   set_mode("regression")
+
+linear_reg() \%>\%
+  set_mode("quantile regression", quantile_levels = c(0.2, 0.5, 0.8))
 \dontshow{\}) # examplesIf}
 }
