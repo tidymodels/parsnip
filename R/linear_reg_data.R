@@ -625,8 +625,7 @@ set_pred(
       list(
         object = expr(object$fit),
         newdata = expr(new_data),
-        type = "response",
-        rankdeficient = "simple"
+        type = "response"
       )
   )
 )
