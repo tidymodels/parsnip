@@ -101,4 +101,7 @@ test_that('quantile regression models', {
   expect_snapshot(
     linear_reg() %>% set_mode("quantile regression", quantile_levels = probs_1)
   )
+  expect_snapshot(
+    linear_reg() %>% set_mode("regression", quantile_levels = probs_1)
+  )
 })

@@ -123,8 +123,8 @@ set_mode.model_spec <- function(object, mode, quantile_levels = NULL, ...) {
       hardhat::check_quantile_levels(quantile_levels)
   } else {
     if (!is.null(quantile_levels)) {
-      cli::cli_abort("{.arg quantile_levels} is only used when the mode is
-                      {.val quantile regression}.")
+      cli::cli_warn("{.arg quantile_levels} is only used when the mode is
+                     {.val quantile regression}.")
     }
   }
 
