@@ -585,8 +585,8 @@ set_pred(
 
 # ------------------------------------------------------------------------------
 
-set_model_engine("linear_reg", "quantile regression", "quantreg")
-set_dependency("linear_reg", "quantreg", "quantreg")
+set_model_engine(model = "linear_reg", mode = "quantile regression", eng = "quantreg")
+set_dependency(model = "linear_reg", eng = "quantreg", pkg = "quantreg", mode = "quantile regression")
 
 set_fit(
   model = "linear_reg",
