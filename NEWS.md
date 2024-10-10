@@ -31,7 +31,7 @@
 
 ## Breaking Change
 
-* For quantile prediction, the `predict()` argument has been changed from `quantile` to `quantile_levels` for consistency. This does not affect models with mode `"quantile regression"`. 
+* For quantile prediction, the `quantile` argument to `predict()` has been deprecate in facor of `quantile_levels`. This does not affect models with mode `"quantile regression"`. 
 
 * The quantile regression prediction type was disabled for the deprecated `surv_reg()` model. 
 
