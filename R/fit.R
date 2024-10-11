@@ -176,6 +176,10 @@ fit.model_spec <-
     eval_env$formula <- formula
     eval_env$weights <- wts
 
+    if (!is.null(object$quantile_levels)) {
+      eval_env$quantile_levels <- object$quantile_levels
+    }
+
     data <- materialize_sparse_tibble(data, object, "data")
 
     fit_interface <-
@@ -186,7 +190,6 @@ fit.model_spec <-
           "spark objects can only be used with the formula interface to {.fn fit}
            with a spark data object."
         )
-
 
     # populate `method` with the details for this model type
     object <- add_methods(object, engine = object$engine)
@@ -294,6 +297,10 @@ fit_xy.model_spec <-
     eval_env$y <- y
     eval_env$y_var <- y_var
     eval_env$weights <- weights_to_numeric(case_weights, object)
+
+    if (!is.null(object$quantile_levels)) {
+      eval_env$quantile_levels <- object$quantile_levels
+    }
 
     # TODO case weights: pass in eval_env not individual elements
     fit_interface <- check_xy_interface(eval_env$x, eval_env$y, cl, object)
