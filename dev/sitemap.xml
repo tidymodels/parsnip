@@ -74,6 +74,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lm.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lme.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lmer.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_quantreg.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_spark.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_stan.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_stan_glmer.html</loc></url>
@@ -162,6 +163,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/make_call.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/make_classes.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/mars.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/matrix_to_quantile_pred.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/max_mtry_formula.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/maybe_matrix.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/min_cols.html</loc></url>
