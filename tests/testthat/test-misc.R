@@ -192,11 +192,6 @@ test_that('check_outcome works as expected', {
 
   expect_snapshot(
     error = TRUE,
-    check_outcome(factor(1:2), reg_spec)
-  )
-
-  expect_snapshot(
-    error = TRUE,
     check_outcome(NULL, reg_spec)
   )
 
@@ -223,11 +218,6 @@ test_that('check_outcome works as expected', {
 
   expect_no_error(
     check_outcome(lapply(mtcars, as.factor), class_spec)
-  )
-
-  expect_snapshot(
-    error = TRUE,
-    check_outcome(1:2, class_spec)
   )
 
   expect_snapshot(

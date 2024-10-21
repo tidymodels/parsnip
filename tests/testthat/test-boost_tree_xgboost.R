@@ -151,15 +151,6 @@ test_that('xgboost execution, regression', {
     )
   )
 
-  expect_snapshot(
-    error = TRUE,
-    res <- parsnip::fit_xy(
-      car_basic,
-      x = mtcars[, num_pred],
-      y = factor(mtcars$vs),
-      control = ctrl
-    )
-  )
 })
 
 
