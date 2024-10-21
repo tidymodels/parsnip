@@ -31,7 +31,8 @@ multi_predict <- function(object, ...) {
 multi_predict.default <- function(object, ...) {
   cli::cli_abort(
     "No {.fun multi_predict} method exists for objects with classes
-     {.cls {class(object)}}."
+     {.cls {class(object)}}.",
+    call = rlang::caller_env()
   )
 }
 
@@ -39,7 +40,8 @@ multi_predict.default <- function(object, ...) {
 predict.model_spec <- function(object, ...) {
   cli::cli_abort(
     "You must {.fun fit} your {.help [model specification](parsnip::model_spec)}
-     before you can use {.fun predict}."
+     before you can use {.fun predict}.",
+    call = rlang::caller_env()
   )
 }
 

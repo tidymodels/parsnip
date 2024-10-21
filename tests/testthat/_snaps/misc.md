@@ -1,9 +1,17 @@
 # parsnip objects
 
     Code
+      predict(lm_idea, mtcars)
+    Condition
+      Error:
+      ! You must `fit()` your model specification (`?parsnip::model_spec()`) before you can use `predict()`.
+
+---
+
+    Code
       multi_predict(lm_fit, mtcars)
     Condition
-      Error in `multi_predict()`:
+      Error:
       ! No `multi_predict()` method exists for objects with classes <_lm/model_fit>.
 
 ---
@@ -11,7 +19,7 @@
     Code
       multi_predict(extract_fit_engine(mars_fit), mtcars)
     Condition
-      Error in `multi_predict()`:
+      Error:
       ! No `multi_predict()` method exists for objects with classes <earth>.
 
 # combine_words helper works
