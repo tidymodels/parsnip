@@ -130,8 +130,13 @@ update.bart <-
     )
   }
 
+#' Developer functions for predictions via BART models
+#' @name bart-internal
+#' @inheritParams predict.model_fit
+#' @param obj A parsnip object.
+#' @param level Confidence level.
+#' @param std_err Attach column for standard error of prediction or not.
 #' @export
-#' @rdname bart-internal
 #' @keywords internal
 dbart_predict_calc <- function(obj, new_data, type, level = 0.95, std_err = FALSE) {
   types <- c("numeric", "class", "prob", "conf_int", "pred_int")

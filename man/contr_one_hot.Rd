@@ -7,7 +7,8 @@
 contr_one_hot(n, contrasts = TRUE, sparse = FALSE)
 }
 \arguments{
-\item{n}{A vector of character factor levels or the number of unique levels.}
+\item{n}{A vector of character factor levels (of length >=1) or the number
+of unique levels (>= 1).}
 
 \item{contrasts}{This argument is for backwards compatibility and only the
 default of \code{TRUE} is supported.}
