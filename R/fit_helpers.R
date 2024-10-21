@@ -27,7 +27,7 @@ form_form <-
 
     # if descriptors are needed, update descr_env with the calculated values
     if (requires_descrs(object)) {
-      data_stats <- get_descr_form(env$formula, env$data)
+      data_stats <- get_descr_form(env$formula, env$data, call = call)
       scoped_descrs(data_stats)
     }
 
@@ -86,7 +86,7 @@ xy_xy <- function(object,
 
   # if descriptors are needed, update descr_env with the calculated values
   if (requires_descrs(object)) {
-    data_stats <- get_descr_xy(env$x, env$y)
+    data_stats <- get_descr_xy(env$x, env$y, call = call)
     scoped_descrs(data_stats)
   }
 
@@ -141,7 +141,8 @@ form_xy <- function(object, control, env,
     ...,
     composition = target,
     indicators = indicators,
-    remove_intercept = remove_intercept
+    remove_intercept = remove_intercept,
+    call = call
   )
   env$x <- data_obj$x
   env$y <- data_obj$y

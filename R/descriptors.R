@@ -103,22 +103,23 @@ NULL
 
 # Descriptor retrievers --------------------------------------------------------
 
-get_descr_form <- function(formula, data) {
+get_descr_form <- function(formula, data, call = rlang::caller_env()) {
   if (inherits(data, "tbl_spark")) {
     res <- get_descr_spark(formula, data)
   } else {
-    res <- get_descr_df(formula, data)
+    res <- get_descr_df(formula, data, call = call)
   }
   res
 }
 
-get_descr_df <- function(formula, data) {
+get_descr_df <- function(formula, data, call = rlang::caller_env()) {
 
   tmp_dat <-
     .convert_form_to_xy_fit(formula,
                             data,
                             indicators = "none",
-                            remove_intercept = TRUE)
+                            remove_intercept = TRUE,
+                            call = call)
 
   if(is.factor(tmp_dat$y)) {
     .lvls <- function() {
@@ -136,7 +137,8 @@ get_descr_df <- function(formula, data) {
         formula,
         data,
         indicators = "traditional",
-        remove_intercept = TRUE
+        remove_intercept = TRUE,
+        call = call
       )$x
     )
   }
@@ -263,7 +265,7 @@ get_descr_spark <- function(formula, data) {
   )
 }
 
-get_descr_xy <- function(x, y) {
+get_descr_xy <- function(x, y, call = rlang::caller_env()) {
 
   .lvls <- if (is.factor(y)) {
     function() table(y, dnn = NULL)
@@ -291,7 +293,7 @@ get_descr_xy <- function(x, y) {
   }
 
   .dat <- function() {
-    .convert_xy_to_form_fit(x, y, remove_intercept = TRUE)$data
+    .convert_xy_to_form_fit(x, y, remove_intercept = TRUE, call = call)$data
   }
 
   .x <- function() {

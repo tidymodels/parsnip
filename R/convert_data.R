@@ -40,18 +40,21 @@
                                     na.action = na.omit,
                                     indicators = "traditional",
                                     composition = "data.frame",
-                                    remove_intercept = TRUE) {
+                                    remove_intercept = TRUE,
+                                    call = rlang::caller_env()) {
   if (!(composition %in% c("data.frame", "matrix", "dgCMatrix"))) {
     cli::cli_abort(
       "{.arg composition} should be either {.val data.frame}, {.val matrix}, or
-      {.val dgCMatrix}."
+      {.val dgCMatrix}.",
+      call = call
     )
   }
 
   if (sparsevctrs::has_sparse_elements(data)) {
     cli::cli_abort(
-      "Sparse data cannot be used with formula interface. Please use 
-      {.fn fit_xy} instead."
+      "Sparse data cannot be used with formula interface. Please use
+      {.fn fit_xy} instead.",
+      call = call
     )
   }
 
@@ -84,7 +87,7 @@
 
   w <- as.vector(model.weights(mod_frame))
   if (!is.null(w) && !is.numeric(w)) {
-    cli::cli_abort("{.arg weights} must be a numeric vector.")
+    cli::cli_abort("{.arg weights} must be a numeric vector.", call = call)
   }
 
   # TODO: Do we actually use the offset when fitting?
@@ -175,10 +178,12 @@
 .convert_form_to_xy_new <- function(object,
                                     new_data,
                                     na.action = na.pass,
-                                    composition = "data.frame") {
+                                    composition = "data.frame",
+                                    call = rlang::caller_env()) {
   if (!(composition %in% c("data.frame", "matrix"))) {
     cli::cli_abort(
-      "{.arg composition} should be either {.val data.frame} or {.val matrix}."
+      "{.arg composition} should be either {.val data.frame} or {.val matrix}.",
+      call = call
     )
   }
 
@@ -244,9 +249,10 @@
                                     y,
                                     weights = NULL,
                                     y_name = "..y",
-                                    remove_intercept = TRUE) {
+                                    remove_intercept = TRUE,
+                                    call = rlang::caller_env()) {
   if (is.vector(x)) {
-    cli::cli_abort("{.arg x} cannot be a vector.")
+    cli::cli_abort("{.arg x} cannot be a vector.", call = call)
   }
 
   if (remove_intercept) {
@@ -279,10 +285,10 @@
 
   if (!is.null(weights)) {
     if (!is.numeric(weights)) {
-      cli::cli_abort("{.arg weights} must be a numeric vector.")
+      cli::cli_abort("{.arg weights} must be a numeric vector.", call = call)
     }
     if (length(weights) != nrow(x)) {
-      cli::cli_abort("{.arg weights} should have {nrow(x)} elements.")
+      cli::cli_abort("{.arg weights} should have {nrow(x)} elements.", call = call)
     }
 
     form <- patch_formula_environment_with_case_weights(
