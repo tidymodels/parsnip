@@ -64,10 +64,10 @@ update_spec <- function(object, parameters, args_enquo_list, fresh, cls, ...,
   eng_args <- update_engine_parameters(object$eng_args, fresh, ...)
 
   if (!is.null(parameters)) {
-    parameters <- check_final_param(parameters)
+    parameters <- check_final_param(parameters, call = call)
   }
 
-  args <- update_main_parameters(args_enquo_list, parameters)
+  args <- update_main_parameters(args_enquo_list, parameters, call = call)
 
   if (fresh) {
     object$args <- args

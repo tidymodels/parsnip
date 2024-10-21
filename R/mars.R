@@ -161,21 +161,23 @@ multi_predict._earth <-
         object$fit$call[[i]] <- eval_tidy(object$fit$call[[i]])
     }
 
-    msg <- 
-      c("x" = "Please use {.code keepxy = TRUE} as an option to enable submodel 
+    msg <-
+      c("x" = "Please use {.code keepxy = TRUE} as an option to enable submodel
                      predictions with earth.")
     if (any(names(object$fit$call) == "keepxy")) {
-       if (!isTRUE(object$fit$call$keepxy))
-         cli::cli_abort(msg)
+      if (!isTRUE(object$fit$call$keepxy)) {
+        cli::cli_abort(msg)
+      }
     } else {
       cli::cli_abort(msg)
     }
 
     if (is.null(type)) {
-      if (object$spec$mode == "classification")
+      if (object$spec$mode == "classification") {
         type <- "class"
-      else
+      } else {
         type <- "numeric"
+      }
     }
 
     res <-
