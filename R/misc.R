@@ -401,8 +401,8 @@ check_outcome <- function(y, spec) {
     outcome_is_surv <- inherits(y, "Surv")
     if (!outcome_is_surv) {
       cli::cli_abort(
-        "For a censored regression model, the outcome should be {.cls Surv}, not
-        {.cls {class(y)[[1]]}}."
+        "For a censored regression model, the outcome should be a {.cls Surv} object, not
+        {.obj_type_friendly {y}}."
       )
     }
   }
