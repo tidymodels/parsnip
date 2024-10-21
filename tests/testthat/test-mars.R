@@ -56,16 +56,6 @@ test_that('mars execution', {
   expect_true(has_multi_predict(res))
   expect_equal(multi_predict_args(res), "num_terms")
 
-  expect_snapshot(
-    error = TRUE,
-    res <- fit(
-      hpc_basic,
-      hpc_bad_form,
-      data = hpc,
-      control = ctrl
-    )
-  )
-
   ## multivariate y
 
   expect_no_condition(

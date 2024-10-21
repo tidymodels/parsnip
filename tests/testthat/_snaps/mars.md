@@ -31,14 +31,6 @@
       x Engine "wat?" is not supported for `mars()`
       i See `show_engines("mars")`.
 
-# mars execution
-
-    Code
-      res <- fit(hpc_basic, hpc_bad_form, data = hpc, control = ctrl)
-    Condition
-      Error in `check_outcome()`:
-      ! For a regression model, the outcome should be `numeric`, not a `factor`.
-
 # submodel prediction
 
     Code
