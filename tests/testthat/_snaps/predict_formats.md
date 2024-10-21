@@ -14,7 +14,7 @@
         class = class == "VF"))
     Condition
       Error in `check_outcome()`:
-      ! For a classification model, the outcome should be a `factor`, not a `logical`.
+      ! For a classification model, the outcome should be <factor>, not <logical>.
 
 ---
 
@@ -23,7 +23,7 @@
         class = ifelse(class == "VF", 1, 0)))
     Condition
       Error in `check_outcome()`:
-      ! For a classification model, the outcome should be a `factor`, not a `numeric`.
+      ! For a classification model, the outcome should be <factor>, not <numeric>.
 
 ---
 
@@ -32,5 +32,5 @@
         dplyr::mutate(class = as.character(class)))
     Condition
       Error in `check_outcome()`:
-      ! For a classification model, the outcome should be a `factor`, not a `character`.
+      ! For a classification model, the outcome should be <factor>, not <character>.
 

@@ -4,15 +4,7 @@
       res <- fit(lc_ranger, funded_amnt ~ Class + term, data = lending_club, control = ctrl)
     Condition
       Error in `check_outcome()`:
-      ! For a classification model, the outcome should be a `factor`, not a `integer`.
-
----
-
-    Code
-      res <- fit(bad_ranger_cls, funded_amnt ~ term, data = lending_club, control = ctrl)
-    Condition
-      Error in `check_outcome()`:
-      ! For a classification model, the outcome should be a `factor`, not a `integer`.
+      ! For a classification model, the outcome should be <factor>, not <integer>.
 
 # ranger classification probabilities
 
