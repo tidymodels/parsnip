@@ -306,7 +306,7 @@ test_that("translate tuning paramter names", {
   expect_snapshot(.model_param_name_key(mod, as_tibble = FALSE))
   expect_snapshot(.model_param_name_key(linear_reg()))
   expect_snapshot(.model_param_name_key(linear_reg(), as_tibble = FALSE))
-  expect_snapshot_error(.model_param_name_key(1))
+  expect_snapshot_(.model_param_name_key(1), error = TRUE)
 })
 
 # ------------------------------------------------------------------------------

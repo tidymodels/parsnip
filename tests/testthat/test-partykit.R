@@ -26,10 +26,11 @@ test_that('fit ctree models', {
   expect_no_condition(
     fit_4 <- ctree_train(Class ~ ., data = ad_data)
   )
-  expect_snapshot_error(
+  expect_snapshot(
     ctree_train(ridership ~ ., data = Chicago[, 1:20],
                 mincriterion = 1/2, maxdepth = 2,
-                weights = runif(nrow(Chicago)))
+                weights = runif(nrow(Chicago))),
+    error = TRUE
   )
 })
 
@@ -65,7 +66,8 @@ test_that('fit cforest models', {
     fit_5 <- cforest_train(Class ~ ., data = ad_data, ntree = 2, mtry = 2000)
   )
   expect_equal(fit_5$info$control$mtry, 130)
-  expect_snapshot_error(
-    cforest_train(ridership ~ ., data = Chicago[, 1:20], weights = "potato")
+  expect_snapshot(
+    cforest_train(ridership ~ ., data = Chicago[, 1:20], weights = "potato"),
+    error = TRUE
   )
 })

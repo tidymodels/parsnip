@@ -114,9 +114,10 @@ test_that('No loaded engines', {
   expect_no_condition(
     linear_reg() %>% fit(mpg ~., data = mtcars)
   )
-  expect_snapshot_error({cubist_rules() %>% fit(mpg ~., data = mtcars)})
-  expect_snapshot_error({poisson_reg() %>% fit(mpg ~., data = mtcars)})
-  expect_snapshot_error({cubist_rules(engine = "Cubist") %>% fit(mpg ~., data = mtcars)})
+  expect_snapshot({cubist_rules() %>% fit(mpg ~., data = mtcars)}, error = TRUE)
+  expect_snapshot({poisson_reg() %>% fit(mpg ~., data = mtcars)}, error = TRUE)
+  expect_snapshot({cubist_rules(engine = "Cubist") %>% fit(mpg ~., data = mtcars)},
+                  error = TRUE)
 })
 
 test_that("fit_xy() can handle attributes on a data.frame outcome (#1060)", {
