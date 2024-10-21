@@ -4,13 +4,18 @@
 \alias{condense_control}
 \title{Condense control object into strictly smaller control object}
 \usage{
-condense_control(x, ref)
+condense_control(x, ref, call = rlang::caller_env())
 }
 \arguments{
 \item{x}{A control object to be condensed.}
 
 \item{ref}{A control object that is used to determine what element should be
 kept.}
+
+\item{call}{The execution environment of a currently running function, e.g.
+\code{caller_env()}. The function will be mentioned in error messages as the
+source of the error. See the call argument of \code{\link[rlang:abort]{rlang::abort()}} for more
+information.}
 }
 \value{
 A control object with the same elements and classes of \code{ref}, with
