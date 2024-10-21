@@ -157,7 +157,7 @@ fit.model_spec <-
     }
 
     if (all(c("x", "y") %in% names(dots))) {
-      cli::cli_abort("`fit.model_spec()` is for the formula methods. Use `fit_xy()` instead.")
+      cli::cli_abort("{.fn fit.model_spec} is for the formula methods. Use {.fn fit_xy} instead.")
     }
     cl <- match.call(expand.dots = TRUE)
     # Create an environment with the evaluated argument objects. This will be
@@ -307,7 +307,8 @@ fit_xy.model_spec <-
 
     if (object$engine == "spark") {
       cli::cli_abort(
-        "spark objects can only be used with the formula interface to {.fn fit} with a spark data object."
+        "spark objects can only be used with the formula interface to {.fn fit}
+        with a spark data object."
       )
     }
 
