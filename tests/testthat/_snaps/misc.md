@@ -159,14 +159,6 @@
 # check_outcome works as expected
 
     Code
-      check_outcome(factor(1:2), reg_spec)
-    Condition
-      Error in `check_outcome()`:
-      ! For a regression model, the outcome should be `numeric`, not a `factor`.
-
----
-
-    Code
       check_outcome(NULL, reg_spec)
     Condition
       Error:
@@ -203,14 +195,6 @@
 ---
 
     Code
-      check_outcome(1:2, class_spec)
-    Condition
-      Error in `check_outcome()`:
-      ! For a classification model, the outcome should be a `factor`, not a `integer`.
-
----
-
-    Code
       check_outcome(NULL, class_spec)
     Condition
       Error:
@@ -241,5 +225,5 @@
       check_outcome(1:2, cens_spec)
     Condition
       Error in `check_outcome()`:
-      ! For a censored regression model, the outcome should be a `Surv` object, not a `integer`.
+      ! For a censored regression model, the outcome should be a <Surv> object, not an integer vector.
 

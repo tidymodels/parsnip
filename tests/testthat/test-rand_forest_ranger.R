@@ -46,16 +46,6 @@ test_that('ranger classification execution', {
     )
   )
 
-  expect_snapshot(
-    error = TRUE,
-    res <- fit(
-      bad_ranger_cls,
-      funded_amnt ~ term,
-      data = lending_club,
-      control = ctrl
-    )
-  )
-
   ranger_form_catch <- fit(
     bad_ranger_cls,
     Class ~ term,

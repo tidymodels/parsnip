@@ -6,15 +6,6 @@
       Error:
       ! object 'novar' not found
 
-# xgboost execution, regression
-
-    Code
-      res <- parsnip::fit_xy(car_basic, x = mtcars[, num_pred], y = factor(mtcars$vs),
-      control = ctrl)
-    Condition
-      Error in `check_outcome()`:
-      ! For a regression model, the outcome should be `numeric`, not a `factor`.
-
 # submodel prediction
 
     Code

@@ -46,7 +46,7 @@
       res <- fit_xy(hpc_basic, x = hpc[, num_pred], y = hpc$class, control = ctrl)
     Condition
       Error in `check_outcome()`:
-      ! For a regression model, the outcome should be `numeric`, not a `factor`.
+      ! For a regression model, the outcome should be <numeric>, not a <factor> object.
 
 ---
 
@@ -55,7 +55,7 @@
       control = ctrl)
     Condition
       Error in `check_outcome()`:
-      ! For a regression model, the outcome should be `numeric`, not a `character`.
+      ! For a regression model, the outcome should be <numeric>, not a character vector.
 
 ---
 
@@ -63,7 +63,7 @@
       res <- fit(hpc_basic, hpc_bad_form, data = hpc, control = ctrl)
     Condition
       Error in `check_outcome()`:
-      ! For a regression model, the outcome should be `numeric`, not a `factor`.
+      ! For a regression model, the outcome should be <numeric>, not a <factor> object.
 
 ---
 
@@ -71,7 +71,7 @@
       lm_form_catch <- fit(hpc_basic, hpc_bad_form, data = hpc, control = caught_ctrl)
     Condition
       Error in `check_outcome()`:
-      ! For a regression model, the outcome should be `numeric`, not a `factor`.
+      ! For a regression model, the outcome should be <numeric>, not a <factor> object.
 
 # glm execution
 
@@ -79,7 +79,7 @@
       res <- fit_xy(hpc_glm, x = hpc[, num_pred], y = hpc$class, control = ctrl)
     Condition
       Error in `check_outcome()`:
-      ! For a regression model, the outcome should be `numeric`, not a `factor`.
+      ! For a regression model, the outcome should be <numeric>, not a <factor> object.
 
 ---
 
@@ -87,7 +87,7 @@
       res <- fit(hpc_glm, hpc_bad_form, data = hpc, control = ctrl)
     Condition
       Error in `check_outcome()`:
-      ! For a regression model, the outcome should be `numeric`, not a `factor`.
+      ! For a regression model, the outcome should be <numeric>, not a <factor> object.
 
 ---
 
@@ -95,7 +95,7 @@
       lm_form_catch <- fit(hpc_glm, hpc_bad_form, data = hpc, control = caught_ctrl)
     Condition
       Error in `check_outcome()`:
-      ! For a regression model, the outcome should be `numeric`, not a `factor`.
+      ! For a regression model, the outcome should be <numeric>, not a <factor> object.
 
 # newdata error trapping
 
