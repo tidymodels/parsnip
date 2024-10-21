@@ -245,9 +245,9 @@ get_descr_spark <- function(formula, data) {
   .obs   <- function() obs
   .lvls  <- function() y_vals
   .facts <- function() factor_pred
-  .x       <- function() abort("Descriptor .x() not defined for Spark.")
-  .y       <- function() abort("Descriptor .y() not defined for Spark.")
-  .dat     <- function() abort("Descriptor .dat() not defined for Spark.")
+  .x       <- function() cli::cli_abort("Descriptor {.fn .x} not defined for Spark.")
+  .y       <- function() cli::cli_abort("Descriptor {.fn .y} not defined for Spark.")
+  .dat     <- function() cli::cli_abort("Descriptor {.fn .dat} not defined for Spark.")
 
   # still need .x(), .y(), .dat() ?
 
@@ -409,13 +409,13 @@ scoped_descrs <- function(descrs, frame = caller_env()) {
 # with their actual implementations
 descr_env <- rlang::new_environment(
   data = list(
-    .cols  = function() abort("Descriptor context not set"),
-    .preds = function() abort("Descriptor context not set"),
-    .obs   = function() abort("Descriptor context not set"),
-    .lvls  = function() abort("Descriptor context not set"),
-    .facts = function() abort("Descriptor context not set"),
-    .x     = function() abort("Descriptor context not set"),
-    .y     = function() abort("Descriptor context not set"),
-    .dat   = function() abort("Descriptor context not set")
+    .cols  = function() cli::cli_abort("Descriptor context not set"),
+    .preds = function() cli::cli_abort("Descriptor context not set"),
+    .obs   = function() cli::cli_abort("Descriptor context not set"),
+    .lvls  = function() cli::cli_abort("Descriptor context not set"),
+    .facts = function() cli::cli_abort("Descriptor context not set"),
+    .x     = function() cli::cli_abort("Descriptor context not set"),
+    .y     = function() cli::cli_abort("Descriptor context not set"),
+    .dat   = function() cli::cli_abort("Descriptor context not set")
   )
 )

@@ -9,7 +9,7 @@ test_that("sparse tibble can be passed to `fit() - supported", {
   spec <- boost_tree() %>%
     set_mode("regression") %>%
     set_engine("xgboost")
-  
+
   expect_snapshot(
     error = TRUE,
     xgb_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
@@ -33,9 +33,9 @@ test_that("sparse matrix can be passed to `fit() - supported", {
   # Make materialization of sparse vectors throw an error
   # https://r-lib.github.io/sparsevctrs/dev/reference/sparsevctrs_options.html
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
-  
+
   hotel_data <- sparse_hotel_rates()
-  
+
   spec <- boost_tree() %>%
     set_mode("regression") %>%
     set_engine("xgboost")
@@ -64,7 +64,7 @@ test_that("sparse tibble can be passed to `fit_xy() - supported", {
   # Make materialization of sparse vectors throw an error
   # https://r-lib.github.io/sparsevctrs/dev/reference/sparsevctrs_options.html
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
-  
+
   hotel_data <- sparse_hotel_rates(tibble = TRUE)
 
   spec <- boost_tree() %>%
@@ -206,7 +206,7 @@ test_that("sparse data work with xgboost engine", {
   expect_no_error(
     xgb_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
    )
-   
+
    expect_no_error(
      predict(xgb_fit, hotel_data)
    )
@@ -221,7 +221,7 @@ test_that("sparse data work with xgboost engine", {
   expect_no_error(
     predict(xgb_fit, hotel_data)
   )
-  
+
   expect_no_error(
     xgb_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
@@ -236,7 +236,7 @@ test_that("to_sparse_data_frame() is used correctly", {
   # Make materialization of sparse vectors throw an error
   # https://r-lib.github.io/sparsevctrs/dev/reference/sparsevctrs_options.html
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
-  
+
   local_mocked_bindings(
     to_sparse_data_frame = function(x, object) {
       if (methods::is(x, "sparseMatrix")) {
@@ -263,7 +263,7 @@ test_that("to_sparse_data_frame() is used correctly", {
     error = TRUE,
     fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
   )
-  
+
   spec <- boost_tree() %>%
     set_mode("regression") %>%
     set_engine("xgboost")
@@ -279,7 +279,7 @@ test_that("maybe_sparse_matrix() is used correctly", {
   # Make materialization of sparse vectors throw an error
   # https://r-lib.github.io/sparsevctrs/dev/reference/sparsevctrs_options.html
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
-  
+
   local_mocked_bindings(
     maybe_sparse_matrix = function(x) {
       if (sparsevctrs::has_sparse_elements(x)) {
