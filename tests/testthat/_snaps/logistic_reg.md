@@ -51,7 +51,7 @@
       res <- fit(lc_basic, funded_amnt ~ term, data = lending_club, control = ctrl)
     Condition
       Error in `check_outcome()`:
-      ! For a classification model, the outcome should be <factor>, not <integer>.
+      ! For a classification model, the outcome should be a <factor>, not an integer vector.
 
 ---
 
@@ -60,7 +60,7 @@
       control = caught_ctrl)
     Condition
       Error in `check_outcome()`:
-      ! For a classification model, the outcome should be <factor>, not <integer>.
+      ! For a classification model, the outcome should be a <factor>, not an integer vector.
 
 ---
 
@@ -69,7 +69,7 @@
         num_pred], y = lending_club$total_bal_il)
     Condition
       Error in `check_outcome()`:
-      ! For a classification model, the outcome should be <factor>, not <integer>.
+      ! For a classification model, the outcome should be a <factor>, not an integer vector.
 
 # liblinear execution
 
@@ -77,7 +77,7 @@
       res <- fit(ll_basic, funded_amnt ~ term, data = lending_club, control = ctrl)
     Condition
       Error in `check_outcome()`:
-      ! For a classification model, the outcome should be <factor>, not <integer>.
+      ! For a classification model, the outcome should be a <factor>, not an integer vector.
 
 ---
 
@@ -86,7 +86,7 @@
       control = caught_ctrl)
     Condition
       Error in `check_outcome()`:
-      ! For a classification model, the outcome should be <factor>, not <integer>.
+      ! For a classification model, the outcome should be a <factor>, not an integer vector.
 
 ---
 
@@ -95,7 +95,7 @@
         num_pred], y = lending_club$total_bal_il)
     Condition
       Error in `check_outcome()`:
-      ! For a classification model, the outcome should be <factor>, not <integer>.
+      ! For a classification model, the outcome should be a <factor>, not an integer vector.
 
 # check_args() works
 

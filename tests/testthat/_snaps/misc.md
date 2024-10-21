@@ -217,5 +217,5 @@
       check_outcome(1:2, cens_spec)
     Condition
       Error in `check_outcome()`:
-      ! For a censored regression model, the outcome should be <Surv>, not <integer>.
+      ! For a censored regression model, the outcome should be a <Surv> object, not an integer vector.
 
