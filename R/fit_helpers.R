@@ -96,7 +96,7 @@ xy_xy <- function(object,
   # sub in arguments to actual syntax for corresponding engine
   object <- translate(object, engine = object$engine)
 
-  fit_call <- make_xy_call(object, target, env)
+  fit_call <- make_xy_call(object, target, env, call)
 
   res <- list(lvl = levels(env$y), spec = object)
 

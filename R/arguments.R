@@ -258,7 +258,7 @@ make_form_call <- function(object, env = NULL) {
 }
 
 # TODO we need something to indicate that case weights are being used.
-make_xy_call <- function(object, target, env) {
+make_xy_call <- function(object, target, env, call = rlang::caller_env()) {
   fit_args <- object$method$fit$args
   uses_weights <- has_weights(env)
 
@@ -283,7 +283,7 @@ make_xy_call <- function(object, target, env) {
       data.frame = rlang::expr(maybe_data_frame(x)),
       matrix = rlang::expr(maybe_matrix(x)),
       dgCMatrix = rlang::expr(maybe_sparse_matrix(x)),
-      cli::cli_abort("Invalid data type target: {target}.")
+      cli::cli_abort("Invalid data type target: {target}.", call = call)
     )
   if (uses_weights) {
     object$method$fit$args[[ unname(data_args["weights"]) ]] <- rlang::expr(weights)
