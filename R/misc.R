@@ -371,7 +371,7 @@ check_outcome <- function(y, spec) {
     if (!outcome_is_numeric) {
       cli::cli_abort(
         "For a regression model, the outcome should be {.cls numeric}, not
-        {.cls {class(y)[[1]]}}."
+        {.obj_type_friendly {y}}."
       )
     }
   }
@@ -380,8 +380,8 @@ check_outcome <- function(y, spec) {
     outcome_is_factor <- if (is.atomic(y)) {is.factor(y)} else {all(map_lgl(y, is.factor))}
     if (!outcome_is_factor) {
       cli::cli_abort(
-        "For a classification model, the outcome should be {.cls factor}, not
-        {.cls {class(y)[[1]]}}."
+        "For a classification model, the outcome should be a {.cls factor}, not
+        {.obj_type_friendly {y}}."
       )
     }
 
