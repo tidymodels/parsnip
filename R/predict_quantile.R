@@ -37,7 +37,8 @@ predict_quantile.model_fit <- function(object,
   if (object$spec$mode == "quantile regression") {
     if (!is.null(quantile_levels)) {
       cli::cli_abort("When the mode is {.val quantile regression},
-                     {.arg quantile_levels} are specified by {.fn set_mode}.")
+                     {.arg quantile_levels} are specified by {.fn set_mode}.",
+                     call = rlang::call2("predict"))
     }
   } else {
     if (is.null(quantile_levels)) {
