@@ -4,7 +4,7 @@
 \alias{condense_control}
 \title{Condense control object into strictly smaller control object}
 \usage{
-condense_control(x, ref, call = rlang::caller_env())
+condense_control(x, ref, ..., call = rlang::caller_env())
 }
 \arguments{
 \item{x}{A control object to be condensed.}
