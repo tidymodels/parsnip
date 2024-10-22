@@ -370,7 +370,8 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
         {.pkg tune} package.",
         "i" = "To predict multiple penalties, use {.fn multi_predict}."
       ),
-      call = call)
+      call = call
+    )
   }
 }
 
@@ -395,7 +396,8 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
           "{.arg penalty} should be a single numeric value.",
           "i" = "{.fn multi_predict} can be used to get multiple predictions per row of data."
         ),
-        call = call)
+        call = call
+      )
     }
   }
 
@@ -406,7 +408,8 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
       {.arg object$fit$lambda}. Predicting with a value of {.arg penalty}
       will give incorrect results from `glmnet()`."
       ),
-      call = call)
+      call = call
+    )
   }
 
   penalty

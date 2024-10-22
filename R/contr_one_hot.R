@@ -25,9 +25,8 @@ contr_one_hot <- function(n, contrasts = TRUE, sparse = FALSE) {
   }
 
   if (is.character(n)) {
-    check_character(n, empty = FALSE)
     if (length(n) < 1) {
-      cli::cli_abort("A character vector for {.arg n} cannot be empty.")
+      cli::cli_abort("{.arg n} cannot be empty.")
     }
     names <- n
     n <- length(names)

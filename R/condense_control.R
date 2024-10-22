@@ -24,7 +24,8 @@
 #'
 #' ctrl <- condense_control(ctrl, control_parsnip())
 #' str(ctrl)
-condense_control <- function(x, ref, call = rlang::caller_env()) {
+condense_control <- function(x, ref, ..., call = rlang::caller_env()) {
+  check_dots_empty()
   mismatch <- setdiff(names(ref), names(x))
   if (length(mismatch)) {
     cli::cli_abort(

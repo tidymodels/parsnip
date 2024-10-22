@@ -7,7 +7,6 @@ test_that('parsnip objects', {
   expect_false(has_multi_predict(lm_idea))
   expect_snapshot(error = TRUE, predict(lm_idea, mtcars))
 
-
   lm_fit <- fit(lm_idea, mpg ~ ., data = mtcars)
   expect_false(has_multi_predict(lm_fit))
   expect_false(has_multi_predict(extract_fit_engine(lm_fit)))

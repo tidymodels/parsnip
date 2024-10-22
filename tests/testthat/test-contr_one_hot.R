@@ -1,5 +1,4 @@
 test_that('one-hot encoding contrasts', {
-
   contr_mat <- contr_one_hot(12)
   expect_equal(colnames(contr_mat), paste(1:12))
   expect_equal(rownames(contr_mat), paste(1:12))
@@ -17,5 +16,4 @@ test_that('one-hot encoding contrasts', {
   expect_snapshot(contr_one_hot(list()), error = TRUE)
   expect_snapshot(contr_one_hot(2, contrast = FALSE))
   expect_snapshot(contr_one_hot(2, sparse = TRUE))
-
 })

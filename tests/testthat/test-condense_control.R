@@ -25,5 +25,4 @@ test_that("condense_control works", {
     invisible(control)
   }
   expect_snapshot(error = TRUE, control_test(ctrl))
-
 })
