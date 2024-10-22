@@ -3,7 +3,8 @@
 #' This contrast function produces a model matrix with indicator columns for
 #' each level of each factor.
 #'
-#' @param n A vector of character factor levels or the number of unique levels.
+#' @param n A vector of character factor levels (of length >=1) or the number
+#' of unique levels (>= 1).
 #' @param contrasts This argument is for backwards compatibility and only the
 #'   default of `TRUE` is supported.
 #' @param sparse This argument is for backwards compatibility and only the
@@ -24,9 +25,13 @@ contr_one_hot <- function(n, contrasts = TRUE, sparse = FALSE) {
   }
 
   if (is.character(n)) {
+    if (length(n) < 1) {
+      cli::cli_abort("{.arg n} cannot be empty.")
+    }
     names <- n
     n <- length(names)
   } else if (is.numeric(n)) {
+    check_number_whole(n, min = 1)
     n <- as.integer(n)
 
     if (length(n) != 1L) {
@@ -35,7 +40,7 @@ contr_one_hot <- function(n, contrasts = TRUE, sparse = FALSE) {
 
     names <- as.character(seq_len(n))
   } else {
-    cli::cli_abort("{.arg n} must be a character vector or an integer of size 1.")
+    check_number_whole(n, min = 1)
   }
 
   out <- diag(n)

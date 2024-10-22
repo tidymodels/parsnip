@@ -415,21 +415,21 @@ check_outcome <- function(y, spec) {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-check_final_param <- function(x) {
+check_final_param <- function(x, call = rlang::caller_env()) {
   if (is.null(x)) {
     return(invisible(x))
   }
   if (!is.list(x) & !tibble::is_tibble(x)) {
-    cli::cli_abort("The parameter object should be a list or tibble.")
+    cli::cli_abort("The parameter object should be a list or tibble.", call = call)
   }
   if (tibble::is_tibble(x) && nrow(x) > 1) {
-    cli::cli_abort("The parameter tibble should have a single row.")
+    cli::cli_abort("The parameter tibble should have a single row.", call = call)
   }
   if (tibble::is_tibble(x)) {
     x <- as.list(x)
   }
   if (length(names) == 0 || any(names(x) == "")) {
-    cli::cli_abort("All values in {.arg parameters} should have a name.")
+    cli::cli_abort("All values in {.arg parameters} should have a name.", call = call)
   }
 
   invisible(x)
@@ -438,7 +438,7 @@ check_final_param <- function(x) {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-update_main_parameters <- function(args, param) {
+update_main_parameters <- function(args, param, call = rlang::caller_env()) {
   if (length(param) == 0) {
     return(args)
   }
@@ -451,7 +451,8 @@ update_main_parameters <- function(args, param) {
   extra_args <- names(param)[has_extra_args]
   if (any(has_extra_args)) {
     cli::cli_abort(
-      "Argument{?s} {.arg {extra_args}} {?is/are} not a main argument."
+      "Argument{?s} {.arg {extra_args}} {?is/are} not a main argument.",
+      call = call
     )
   }
   param <- param[!has_extra_args]

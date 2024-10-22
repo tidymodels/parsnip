@@ -14,14 +14,16 @@
   na.action = na.omit,
   indicators = "traditional",
   composition = "data.frame",
-  remove_intercept = TRUE
+  remove_intercept = TRUE,
+  call = rlang::caller_env()
 )
 
 .convert_form_to_xy_new(
   object,
   new_data,
   na.action = na.pass,
-  composition = "data.frame"
+  composition = "data.frame",
+  call = rlang::caller_env()
 )
 
 .convert_xy_to_form_fit(
@@ -29,7 +31,8 @@
   y,
   weights = NULL,
   y_name = "..y",
-  remove_intercept = TRUE
+  remove_intercept = TRUE,
+  call = rlang::caller_env()
 )
 
 .convert_xy_to_form_new(object, new_data)

@@ -5,9 +5,14 @@
 \alias{.check_glmnet_penalty_predict}
 \title{Helper functions for checking the penalty of glmnet models}
 \usage{
-.check_glmnet_penalty_fit(x)
+.check_glmnet_penalty_fit(x, call = rlang::caller_env())
 
-.check_glmnet_penalty_predict(penalty = NULL, object, multi = FALSE)
+.check_glmnet_penalty_predict(
+  penalty = NULL,
+  object,
+  multi = FALSE,
+  call = rlang::caller_env()
+)
 }
 \arguments{
 \item{x}{An object of class \code{model_spec}.}

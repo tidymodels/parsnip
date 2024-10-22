@@ -5,6 +5,7 @@ test_that('parsnip objects', {
 
   lm_idea <- linear_reg() %>% set_engine("lm")
   expect_false(has_multi_predict(lm_idea))
+  expect_snapshot(error = TRUE, predict(lm_idea, mtcars))
 
   lm_fit <- fit(lm_idea, mpg ~ ., data = mtcars)
   expect_false(has_multi_predict(lm_fit))

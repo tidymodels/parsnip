@@ -1,6 +1,14 @@
 # parsnip objects
 
     Code
+      predict(lm_idea, mtcars)
+    Condition
+      Error in `predict()`:
+      ! You must `fit()` your model specification (`?parsnip::model_spec()`) before you can use `predict()`.
+
+---
+
+    Code
       multi_predict(lm_fit, mtcars)
     Condition
       Error in `multi_predict()`:

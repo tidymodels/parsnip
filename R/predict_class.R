@@ -10,13 +10,15 @@
 #' @export
 predict_class.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "classification") {
-    cli::cli_abort("{.fun predict.model_fit} is for predicting factor outcomes.")
+    cli::cli_abort("{.fun predict.model_fit} is for predicting factor outcomes.",
+                   call = rlang::call2("predict"))
   }
 
   check_spec_pred_type(object, "class")
 
   if (inherits(object$fit, "try-error")) {
-    cli::cli_warn("Model fit failed; cannot make predictions.")
+    cli::cli_warn("Model fit failed; cannot make predictions.",
+                  call = rlang::call2("predict"))
     return(NULL)
   }
 

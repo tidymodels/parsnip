@@ -146,9 +146,10 @@ check_args.mlp <- function(object, call = rlang::caller_env()) {
 
 # keras wrapper for feed-forward nnet
 
-class2ind <- function (x, drop2nd = FALSE) {
-  if (!is.factor(x))
-    cli::cli_abort(c("x" = "{.arg x} should be a factor."))
+class2ind <- function (x, drop2nd = FALSE, call = rlang::caller_env()) {
+  if (!is.factor(x)) {
+    cli::cli_abort(c("x" = "{.arg x} should be a {cls factor} not {.obj_type_friendly {x}."))
+  }
   y <- model.matrix( ~ x - 1)
   colnames(y) <- gsub("^x", "", colnames(y))
   attributes(y)$assign <- NULL
