@@ -72,9 +72,9 @@ new model specifications.</p>
 <span>  user_specified_engine <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">check_final_param</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu">check_final_param</span><span class="op">(</span><span class="va">x</span>, call <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">caller_env</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">update_main_parameters</span><span class="op">(</span><span class="va">args</span>, <span class="va">param</span><span class="op">)</span></span>
+<span><span class="fu">update_main_parameters</span><span class="op">(</span><span class="va">args</span>, <span class="va">param</span>, call <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">caller_env</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">update_engine_parameters</span><span class="op">(</span><span class="va">eng_args</span>, <span class="va">fresh</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>

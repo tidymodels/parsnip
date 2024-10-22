@@ -50,29 +50,19 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bartMachine_interval_calc</span><span class="op">(</span><span class="va">new_data</span>, <span class="va">obj</span>, ci <span class="op">=</span> <span class="cn">TRUE</span>, level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">dbart_predict_calc</span><span class="op">(</span><span class="va">obj</span>, <span class="va">new_data</span>, <span class="va">type</span>, level <span class="op">=</span> <span class="fl">0.95</span>, std_err <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dbart_predict_calc</span><span class="op">(</span><span class="va">obj</span>, <span class="va">new_data</span>, <span class="va">type</span>, level <span class="op">=</span> <span class="fl">0.95</span>, std_err <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-new-data">new_data<a class="anchor" aria-label="anchor" href="#arg-new-data"></a></dt>
-<dd><p>A rectangular data object, such as a data frame.</p></dd>
-
-
-<dt id="arg-obj">obj<a class="anchor" aria-label="anchor" href="#arg-obj"></a></dt>
+<dl><dt id="arg-obj">obj<a class="anchor" aria-label="anchor" href="#arg-obj"></a></dt>
 <dd><p>A parsnip object.</p></dd>
 
 
-<dt id="arg-ci">ci<a class="anchor" aria-label="anchor" href="#arg-ci"></a></dt>
-<dd><p>Confidence (TRUE) or prediction interval (FALSE)</p></dd>
-
-
-<dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
-<dd><p>Confidence level.</p></dd>
+<dt id="arg-new-data">new_data<a class="anchor" aria-label="anchor" href="#arg-new-data"></a></dt>
+<dd><p>A rectangular data object, such as a data frame.</p></dd>
 
 
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
@@ -80,6 +70,10 @@
 are <code>"numeric"</code>, <code>"class"</code>, <code>"prob"</code>, <code>"conf_int"</code>, <code>"pred_int"</code>,
 <code>"quantile"</code>, <code>"time"</code>, <code>"hazard"</code>, <code>"survival"</code>, or <code>"raw"</code>. When <code>NULL</code>,
 <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> will choose an appropriate value based on the model's mode.</p></dd>
+
+
+<dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
+<dd><p>Confidence level.</p></dd>
 
 
 <dt id="arg-std-err">std_err<a class="anchor" aria-label="anchor" href="#arg-std-err"></a></dt>

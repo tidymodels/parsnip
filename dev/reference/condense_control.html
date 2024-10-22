@@ -56,7 +56,7 @@ function is either a subset or a superset of another control function.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">condense_control</span><span class="op">(</span><span class="va">x</span>, <span class="va">ref</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">condense_control</span><span class="op">(</span><span class="va">x</span>, <span class="va">ref</span>, <span class="va">...</span>, call <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">caller_env</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -70,6 +70,13 @@ function is either a subset or a superset of another control function.</p>
 <dt id="arg-ref">ref<a class="anchor" aria-label="anchor" href="#arg-ref"></a></dt>
 <dd><p>A control object that is used to determine what element should be
 kept.</p></dd>
+
+
+<dt id="arg-call">call<a class="anchor" aria-label="anchor" href="#arg-call"></a></dt>
+<dd><p>The execution environment of a currently running function, e.g.
+<code>caller_env()</code>. The function will be mentioned in error messages as the
+source of the error. See the call argument of <code><a href="https://rlang.r-lib.org/reference/abort.html" class="external-link">rlang::abort()</a></code> for more
+information.</p></dd>
 
 </dl></div>
     <div class="section level2">

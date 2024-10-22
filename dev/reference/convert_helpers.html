@@ -87,14 +87,16 @@ samples are being predicted and only require the predictors to be available.</p>
 <span>  na.action <span class="op">=</span> <span class="va">na.omit</span>,</span>
 <span>  indicators <span class="op">=</span> <span class="st">"traditional"</span>,</span>
 <span>  composition <span class="op">=</span> <span class="st">"data.frame"</span>,</span>
-<span>  remove_intercept <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  remove_intercept <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  call <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">caller_env</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">.convert_form_to_xy_new</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  <span class="va">new_data</span>,</span>
 <span>  na.action <span class="op">=</span> <span class="va">na.pass</span>,</span>
-<span>  composition <span class="op">=</span> <span class="st">"data.frame"</span></span>
+<span>  composition <span class="op">=</span> <span class="st">"data.frame"</span>,</span>
+<span>  call <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">caller_env</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">.convert_xy_to_form_fit</span><span class="op">(</span></span>
@@ -102,7 +104,8 @@ samples are being predicted and only require the predictors to be available.</p>
 <span>  <span class="va">y</span>,</span>
 <span>  weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_name <span class="op">=</span> <span class="st">"..y"</span>,</span>
-<span>  remove_intercept <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  remove_intercept <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  call <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">caller_env</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">.convert_xy_to_form_new</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span><span class="op">)</span></span></code></pre></div>
