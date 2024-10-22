@@ -4,7 +4,7 @@
       contr_one_hot(character(0))
     Condition
       Error in `contr_one_hot()`:
-      ! A character vector for `n` cannot be empty.
+      ! `n` cannot be empty.
 
 ---
 

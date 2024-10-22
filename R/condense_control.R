@@ -30,8 +30,7 @@ condense_control <- function(x, ref, ..., call = rlang::caller_env()) {
   if (length(mismatch)) {
     cli::cli_abort(
       c(
-        "Object of class {.cls {class(x)[1]}} cannot be coerced to
-         object of class {.cls {class(ref)[1]}}.",
+        "{.obj_type_friendly {x}} cannot be coerced to {.obj_type_friendly {ref}}.",
         "i" = "{cli::qty(mismatch)} The argument{?s} {.arg {mismatch}}
                {?is/are} missing."
       ),
