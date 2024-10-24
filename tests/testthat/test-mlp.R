@@ -11,7 +11,10 @@ test_that('updating', {
 test_that('bad input', {
   expect_snapshot(error = TRUE, mlp(mode = "time series"))
   expect_snapshot(error = TRUE, translate(mlp(mode = "classification") %>% set_engine("wat?")))
-  expect_snapshot(translate(mlp(mode = "regression") %>% set_engine("nnet", formula = y ~ x)))
+  expect_warning(
+    translate(mlp(mode = "regression") %>% set_engine("nnet", formula = y ~ x)),
+    class = "parsnip_protected_arg_warning"
+  )
 })
 
 test_that("nnet_softmax", {

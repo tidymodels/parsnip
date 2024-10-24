@@ -15,22 +15,6 @@
       x Engine "wat?" is not supported for `null_model()`
       i See `show_engines("null_model")`.
 
----
-
-    Code
-      translate(null_model(mode = "regression") %>% set_engine("parsnip", x = hpc[, 1:
-        3], y = hpc$class))
-    Condition
-      Warning:
-      The argument `x, y` cannot be manually modified and was removed.
-    Output
-      Null Model Specification (regression)
-      
-      Computational engine: parsnip 
-      
-      Model fit template:
-      parsnip::nullmodel(x = missing_arg(), y = missing_arg())
-
 # nullmodel execution
 
     Code

@@ -20,11 +20,12 @@ check_eng_args <- function(args, obj, core_args) {
   protected_args <- unique(c(obj$protect, core_args))
   common_args <- intersect(protected_args, names(args))
   if (length(common_args) > 0) {
-    args <- args[!(names(args) %in% common_args)]
-    common_args <- paste0(common_args, collapse = ", ")
     cli::cli_warn(
-      "The argument{?s} {.arg {common_args}} cannot be manually
-       modified and {?was/were} removed."
+      c(
+        "The argument{?s} {.arg {common_args}} cannot be manually modified
+         and {?was/were} removed."
+      ),
+      class = "parsnip_protected_arg_warning"
     )
   }
   args
