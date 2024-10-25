@@ -43,6 +43,49 @@ test_that('classification predictions', {
                c(".pred_high", ".pred_low"))
 })
 
+
+test_that('ordinal classification predictions', {
+  skip_if_not_installed("modeldata")
+
+  set.seed(382)
+  dat_tr <-
+    modeldata::sim_multinomial(
+      200,
+      ~  -0.5    +  0.6 * abs(A),
+      ~ ifelse(A > 0 & B > 0, 1.0 + 0.2 * A / B, - 2),
+      ~ -0.6 * A + 0.50 * B -  A * B) %>%
+    dplyr::mutate(class = as.ordered(class))
+  dat_te <-
+    modeldata::sim_multinomial(
+      5,
+      ~  -0.5    +  0.6 * abs(A),
+      ~ ifelse(A > 0 & B > 0, 1.0 + 0.2 * A / B, - 2),
+      ~ -0.6 * A + 0.50 * B -  A * B) %>%
+    dplyr::mutate(class = as.ordered(class))
+
+  ###
+
+  mod_f_fit <-
+    decision_tree() %>%
+    set_mode("classification") %>%
+    fit(class ~ ., data = dat_tr)
+  expect_true("ordered" %in% names(mod_f_fit))
+  mod_f_pred <- predict(mod_f_fit, dat_te)
+  expect_true(is.ordered(mod_f_pred$.pred_class))
+
+  ###
+
+  mod_xy_fit <-
+    decision_tree() %>%
+    set_mode("classification") %>%
+    fit_xy(x = dat_tr %>% dplyr::select(-class), dat_tr$class)
+
+  expect_true("ordered" %in% names(mod_xy_fit))
+  mod_xy_pred <- predict(mod_xy_fit, dat_te)
+  expect_true(is.ordered(mod_f_pred$.pred_class))
+})
+
+
 test_that('non-standard levels', {
   expect_true(is_tibble(predict(lr_fit, new_data = class_dat[1:5,-1])))
   expect_true(is.factor(parsnip:::predict_class.model_fit(lr_fit, new_data = class_dat[1:5,-1])))

@@ -52,6 +52,7 @@ A \code{model_fit} object that contains several elements:
 \itemize{
 \item \code{lvl}: If the outcome is a factor, this contains
 the factor levels at the time of model fitting.
+\item \code{ordered}: If the outcome is a factor, was it an ordered factor?
 \item \code{spec}: The model specification object
 (\code{object} in the call to \code{fit})
 \item \code{fit}: when the model is executed without error,

@@ -260,9 +260,12 @@ convert_arg <- function(x) {
 
 levels_from_formula <- function(f, dat) {
   if (inherits(dat, "tbl_spark")) {
-    res <- NULL
+    res <- list(lvls = NULL, ordered = FALSE)
   } else {
-    res <- levels(eval_tidy(rlang::f_lhs(f), dat))
+    res <- list()
+    y_data <- eval_tidy(rlang::f_lhs(f), dat)
+    res$lvls <- levels(y_data)
+    res$ordered <- is.ordered(y_data)
   }
   res
 }
