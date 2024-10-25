@@ -46,6 +46,7 @@ test_that('classification predictions', {
 
 test_that('ordinal classification predictions', {
   skip_if_not_installed("modeldata")
+  skip_if_not_installed("rpart")
 
   set.seed(382)
   dat_tr <-
