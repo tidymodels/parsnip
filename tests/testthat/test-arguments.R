@@ -10,6 +10,8 @@ test_that("warns informatively about protected arguments", {
     )
   )
 
+  expect_named(.res, "e")
+
   expect_snapshot(
     .res <- check_eng_args(
       args = list(b = 2, c = 3, e = 5),
@@ -18,6 +20,8 @@ test_that("warns informatively about protected arguments", {
     )
   )
 
+  expect_named(.res, "e")
+
   expect_snapshot(
     .res <- check_eng_args(
       args = list(c = 3, e = 5),
@@ -25,6 +29,8 @@ test_that("warns informatively about protected arguments", {
       core_args = core_args
     )
   )
+
+  expect_named(.res, "e")
 
   expect_warning(
     check_eng_args(
