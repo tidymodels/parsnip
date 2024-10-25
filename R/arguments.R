@@ -20,6 +20,7 @@ check_eng_args <- function(args, obj, core_args) {
   protected_args <- unique(c(obj$protect, core_args))
   common_args <- intersect(protected_args, names(args))
   if (length(common_args) > 0) {
+    args <- args[!(names(args) %in% common_args)]
     cli::cli_warn(
       c(
         "The argument{?s} {.arg {common_args}} cannot be manually modified
