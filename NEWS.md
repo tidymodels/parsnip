@@ -25,6 +25,8 @@
 
 ## Bug Fixes
 
+* Make sure that parsnip does not convert ordered factor predictions to be unordered.
+
 * Ensure that `knit_engine_docs()` has the required packages installed (#1156).
 
 * Fixed bug where some models fit using `fit_xy()` couldn't predict (#1166).

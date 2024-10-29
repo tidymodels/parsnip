@@ -40,7 +40,8 @@ form_form <-
     fit_call <- make_form_call(object, env = env)
 
     res <- list(
-      lvl = y_levels,
+      lvl = y_levels$lvl,
+      ordered = y_levels$ordered,
       spec = object
     )
 
@@ -98,7 +99,7 @@ xy_xy <- function(object,
 
   fit_call <- make_xy_call(object, target, env, call)
 
-  res <- list(lvl = levels(env$y), spec = object)
+  res <- list(lvl = levels(env$y), ordered = is.ordered(env$y), spec = object)
 
   time <- proc.time()
   res$fit <- eval_mod(
