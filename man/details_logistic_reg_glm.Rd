@@ -35,12 +35,12 @@ parameter (and/or \code{link}) as an engine argument (see below).
 To use a non-default \code{family} and/or \code{link}, pass in as an argument to
 \code{set_engine()}:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\% 
   set_engine("glm", family = stats::binomial(link = "probit")) \%>\% 
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## Linear Regression Model Specification (regression)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Logistic Regression Model Specification (classification)
 ## 
 ## Engine-Specific Arguments:
 ##   family = stats::binomial(link = "probit")
