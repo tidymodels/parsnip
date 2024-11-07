@@ -45,7 +45,7 @@
     </div>
 
     <div class="ref-description section level2">
-    <p><code><a href="https://glmnet.stanford.edu/reference/glmnet.html" class="external-link">glmnet::glmnet()</a></code> fits a regularized Cox proportional hazards model.</p>
+    <p><code><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html" class="external-link">glmnet::glmnet()</a></code> fits a regularized Cox proportional hazards model.</p>
     </div>
 
 
@@ -99,7 +99,7 @@ formula method via <code><a href="fit.html">fit()</a></code>, parsnip will
 convert factor columns to indicators.</p>
 <p>Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
-variance of one. By default, <code><a href="https://glmnet.stanford.edu/reference/glmnet.html" class="external-link">glmnet::glmnet()</a></code> uses
+variance of one. By default, <code><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html" class="external-link">glmnet::glmnet()</a></code> uses
 the argument <code>standardize = TRUE</code> to center and scale the data.</p>
 </div>
 
@@ -115,8 +115,8 @@ more about using special terms in formulas with tidymodels, see
 <code><a href="model_formula.html">?model_formula</a></code>.) The column used inside
 <code>strata()</code> is treated as qualitative no matter its type. This is
 different than the syntax offered by the
-<code><a href="https://glmnet.stanford.edu/reference/glmnet.html" class="external-link">glmnet::glmnet()</a></code> package (i.e.,
-<code><a href="https://glmnet.stanford.edu/reference/stratifySurv.html" class="external-link">glmnet::stratifySurv()</a></code>) which is not
+<code><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html" class="external-link">glmnet::glmnet()</a></code> package (i.e.,
+<code><a href="https://rdrr.io/pkg/glmnet/man/stratifySurv.html" class="external-link">glmnet::stratifySurv()</a></code>) which is not
 recommended here.</p>
 <p>For example, in this model, the numeric column <code>rx</code> is used to estimate
 two different baseline hazards for each value of the column:</p>
