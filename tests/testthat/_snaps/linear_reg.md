@@ -139,3 +139,39 @@
       Error in `fit()`:
       ! `penalty` must be a number larger than or equal to 0 or `NULL`, not the number -1.
 
+# Poisson family (#956)
+
+    Code
+      linear_reg(penalty = 1) %>% set_engine("glmnet", family = poisson) %>%
+        translate()
+    Condition
+      Error in `linear_reg()`:
+      ! A Poisson family was requested for `linear_reg()`. Please use `poisson_reg()` and the engines in the poissonreg package.
+
+---
+
+    Code
+      linear_reg(penalty = 1) %>% set_engine("glmnet", family = stats::poisson) %>%
+        translate()
+    Condition
+      Error in `linear_reg()`:
+      ! A Poisson family was requested for `linear_reg()`. Please use `poisson_reg()` and the engines in the poissonreg package.
+
+---
+
+    Code
+      linear_reg(penalty = 1) %>% set_engine("glmnet", family = stats::poisson()) %>%
+        translate()
+    Condition
+      Error in `linear_reg()`:
+      ! A Poisson family was requested for `linear_reg()`. Please use `poisson_reg()` and the engines in the poissonreg package.
+
+---
+
+    Code
+      linear_reg(penalty = 1) %>% set_engine("glmnet", family = "poisson") %>%
+        translate()
+    Condition
+      Error in `linear_reg()`:
+      ! A Poisson family was requested for `linear_reg()`. Please use `poisson_reg()` and the engines in the poissonreg package.
+
