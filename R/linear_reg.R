@@ -73,6 +73,27 @@ translate.linear_reg <- function(x, engine = x$engine, ...) {
     # evaluated value for the parameter.
     x$args$penalty <- rlang::eval_tidy(x$args$penalty)
   }
+
+  # ------------------------------------------------------------------------------
+  # We want to avoid folks passing in a poisson family instead of using
+  # poisson_reg(). It's hard to detect this.
+
+  is_fam <- names(x$eng_args) == "family"
+  if (any(is_fam)) {
+    eng_args <- rlang::eval_tidy(x$eng_args[[which(is_fam)]])
+    if (is.function(eng_args)) {
+      eng_args <- try(eng_args(), silent = TRUE)
+    }
+    if (inherits(eng_args, "family")) {
+      eng_args <- eng_args$family
+    }
+    if (eng_args == "poisson") {
+      cli::cli_abort(
+        "A Poisson family was requested for {.fn linear_reg}. Please use
+        {.fn poisson_reg} and the engines in the {.pkg poissonreg} package.",
+        call = rlang::call2("linear_reg"))
+    }
+  }
   x
 }
 
