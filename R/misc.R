@@ -600,6 +600,10 @@ is_cran_check <- function() {
     cli::cli_abort("{.arg x} should be an object with class {.cls model_fit} or
                     {.cls workflow}, not {.obj_type_friendly {x}}.")
   }
+
+  if (inherits(x, "workflow")) {
+    x <- x %>% extract_fit_parsnip(x)
+  }
   model_spec <- extract_spec_parsnip(x)
   model_engine <- model_spec$engine
   model_mode <- model_spec$mode
