@@ -111,3 +111,4 @@ reference:
       - .extract_surv_status
       - .extract_surv_time
       - .model_param_name_key
+      - .get_prediction_column_names
