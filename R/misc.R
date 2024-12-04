@@ -575,3 +575,70 @@ is_cran_check <- function() {
 }
 # nocov end
 
+# ------------------------------------------------------------------------------
+
+#' Obtain names of prediction columns for a fitted model or workflow
+#'
+#' [.get_prediction_column_names()] returns a list that has the names of the
+#' columns for the primary prediction types for a model.
+#' @param x A fitted model (class `"model_fit"`) or a fitted workflow.
+#' @param syms Should the column names be converted to symbols?
+#' @return A list with elements `"estimate"` and `"probabilities"`.
+#' @examplesIf !parsnip:::is_cran_check()
+#' library(dplyr)
+#' library(modeldata)
+#' data("two_class_dat")
+#'
+#' levels(two_class_dat$Class)
+#' lr_fit <- logistic_reg() %>% fit(Class ~ ., data = two_class_dat)
+#'
+#' .get_prediction_column_names(lr_fit)
+#' .get_prediction_column_names(lr_fit, syms = TRUE)
+#' @export
+.get_prediction_column_names <- function(x, syms = FALSE) {
+  if (!inherits(x, c("model_fit", "workflow"))) {
+    cli::cli_abort("{.arg x} should be an object with class {.cls model_fit} or
+                    {.cls workflow}, not {.obj_type_friendly {x}}.")
+  }
+  model_spec <- extract_spec_parsnip(x)
+  model_engine <- model_spec$engine
+  model_mode <- model_spec$mode
+  model_type <- class(model_spec)[1]
+
+  # appropriate populate the model db
+  inst_res <- purrr::map(required_pkgs(x), rlang::check_installed)
+  predict_types <-
+    get_from_env(paste0(model_type, "_predict")) %>%
+    dplyr::filter(engine == model_engine & mode == model_mode) %>%
+    purrr::pluck("type")
+
+  if (length(predict_types) == 0) {
+    cli::cli_abort("Prediction information could not be found for this
+                   {.fn {model_type}} with engine {.val {model_engine}} and mode
+                   {.val {model_mode}}. Does a parsnip extension package need to
+                   be loaded?")
+  }
+
+  res <- list(estimate = character(0), probabilities = character(0))
+
+  if (model_mode == "regression") {
+    res$estimate <- ".pred"
+  } else if (model_mode == "classification") {
+    res$estimate <- ".pred_class"
+    if (any(predict_types == "prob")) {
+      res$probabilities <- paste0(".pred_", x$lvl)
+    }
+  } else if (model_mode == "censored regression") {
+    res$estimate <- ".pred_time"
+    if (any(predict_types %in% c("survival"))) {
+      res$probabilities <- ".pred"
+    }
+  } else {
+    cli::cli_abort("Unsupported model mode {model_mode}.")
+  }
+
+  if (syms) {
+    res <- purrr::map(res, rlang::syms)
+  }
+  res
+}

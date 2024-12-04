@@ -227,3 +227,19 @@
       Error in `check_outcome()`:
       ! For a censored regression model, the outcome should be a <Surv> object, not an integer vector.
 
+# obtaining prediction columns
+
+    Code
+      .get_prediction_column_names(1)
+    Condition
+      Error in `.get_prediction_column_names()`:
+      ! `x` should be an object with class <model_fit> or <workflow>, not a number.
+
+---
+
+    Code
+      .get_prediction_column_names(unk_fit)
+    Condition
+      Error in `.get_prediction_column_names()`:
+      ! Prediction information could not be found for this `linear_reg()` with engine "lm" and mode "Depeche". Does a parsnip extension package need to be loaded?
+
