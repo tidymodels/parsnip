@@ -581,8 +581,8 @@ is_cran_check <- function() {
 #'
 #' [.get_prediction_column_names()] returns a list that has the names of the
 #' columns for the primary prediction types for a model.
-#' @param x A fitted model (class `"model_fit"`) or a fitted workflow.
-#' @param syms Should the column names be converted to symbols?
+#' @param x A fitted parsnip model (class `"model_fit"`) or a fitted workflow.
+#' @param syms Should the column names be converted to symbols? Defaults to `FALSE`.
 #' @return A list with elements `"estimate"` and `"probabilities"`.
 #' @examplesIf !parsnip:::is_cran_check()
 #' library(dplyr)
@@ -638,6 +638,7 @@ is_cran_check <- function() {
       res$probabilities <- ".pred"
     }
   } else {
+    # Should be unreachable
     cli::cli_abort("Unsupported model mode {model_mode}.")
   }
 
