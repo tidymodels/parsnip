@@ -138,6 +138,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/doc-tools.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/dot-extract_surv_status.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/dot-extract_surv_time.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/dot-get_prediction_column_names.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/dot-model_param_name_key.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/eval_args.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/extension-check-helpers.html</loc></url>
