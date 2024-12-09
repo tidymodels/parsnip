@@ -139,7 +139,7 @@
       Error in `fit()`:
       ! `penalty` must be a number larger than or equal to 0 or `NULL`, not the number -1.
 
-# Poisson family (#956)
+# prevent using a Poisson family
 
     Code
       linear_reg(penalty = 1) %>% set_engine("glmnet", family = poisson) %>%

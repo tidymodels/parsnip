@@ -360,7 +360,7 @@ test_that("check_args() works", {
 })
 
 
-test_that('Poisson family (#956)', {
+test_that("prevent using a Poisson family", {
   expect_snapshot(
     linear_reg(penalty = 1) %>%
       set_engine("glmnet", family = poisson) %>%
@@ -385,6 +385,4 @@ test_that('Poisson family (#956)', {
       translate(),
     error = TRUE
   )
-
-
 })
