@@ -76,7 +76,7 @@ ByteCompile: true
 Config/Needs/website: C50, dbarts, earth, glmnet, keras, kernlab, kknn,
     LiblineaR, mgcv, nnet, parsnip, quantreg, randomForest, ranger, rpart, 
     rstanarm, tidymodels/tidymodels, tidyverse/tidytemplate, rstudio/reticulate,
-    xgboost
+    xgboost, rmarkdown
 Config/rcmdcheck/ignore-inconsequential-notes: true
 Config/testthat/edition: 3
 Encoding: UTF-8
