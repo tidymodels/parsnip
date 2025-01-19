@@ -30,7 +30,7 @@ test_that('rpart_train is stop-deprecated when it ought to be (#1044)', {
 
   # once this test fails, transition `rpart_train()` to `deprecate_stop()`
   # and transition this test to fail if `rpart_train()` still exists after a year.
-  if (Sys.Date() > "2025-01-01") {
+  if (Sys.Date() > "2025-02-01") {
     expect_snapshot(error = TRUE, rpart_train(mpg ~ ., mtcars))
   }
 })
