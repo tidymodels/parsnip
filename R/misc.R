@@ -303,8 +303,8 @@ check_args.default <- function(object, call = rlang::caller_env()) {
 
 # ------------------------------------------------------------------------------
 
-# copied form recipes
-
+# copied from recipes
+# nocov start
 names0 <- function(num, prefix = "x", call = rlang::caller_env()) {
   if (num < 1) {
     cli::cli_abort("{.arg num} should be > 0.", call = call)
@@ -313,7 +313,7 @@ names0 <- function(num, prefix = "x", call = rlang::caller_env()) {
   ind <- gsub(" ", "0", ind)
   paste0(prefix, ind)
 }
-
+# nocov end
 
 # ------------------------------------------------------------------------------
 
@@ -604,7 +604,7 @@ is_cran_check <- function() {
   }
 
   if (inherits(x, "workflow")) {
-    x <- x %>% extract_fit_parsnip(x)
+    x <- x %>% hardhat::extract_fit_parsnip(x)
   }
   model_spec <- extract_spec_parsnip(x)
   model_engine <- model_spec$engine
