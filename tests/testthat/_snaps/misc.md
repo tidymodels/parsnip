@@ -243,3 +243,15 @@
       Error in `.get_prediction_column_names()`:
       ! Prediction information could not be found for this `linear_reg()` with engine "lm" and mode "Depeche". Does a parsnip extension package need to be loaded?
 
+# register local models
+
+    Code
+      my_model() %>% translate("my_engine")
+    Output
+      my model Model Specification (regression)
+      
+      Computational engine: my_engine 
+      
+      Model fit template:
+      my_model_fun(formula = missing_arg(), data = missing_arg())
+
