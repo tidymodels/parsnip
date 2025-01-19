@@ -241,13 +241,15 @@ prompt_missing_implementation <- function(spec,
 #' @keywords internal
 #' @export
 show_call <- function(object) {
-  object$method$fit$args <-
-    map(object$method$fit$args, convert_arg)
+  object$method$fit$args <- map(object$method$fit$args, convert_arg)
 
-  call2(object$method$fit$func["fun"],
-    !!!object$method$fit$args,
-    .ns = object$method$fit$func["pkg"]
-  )
+  fn_info <- as.list(object$method$fit$func)
+  if (!any(names(fn_info) == "pkg")) {
+    res <- call2(fn_info$fun, !!!object$method$fit$args)
+  } else {
+    res <- call2(fn_info$fun, !!!object$method$fit$args, .ns = fn_info$pkg)
+  }
+  res
 }
 
 convert_arg <- function(x) {
