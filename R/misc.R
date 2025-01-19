@@ -602,7 +602,7 @@ is_cran_check <- function() {
   }
 
   if (inherits(x, "workflow")) {
-    x <- x %>% extract_fit_parsnip(x)
+    x <- x %>% hardhat::extract_fit_parsnip(x)
   }
   model_spec <- extract_spec_parsnip(x)
   model_engine <- model_spec$engine

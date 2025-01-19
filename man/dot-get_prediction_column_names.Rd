@@ -7,9 +7,9 @@
 .get_prediction_column_names(x, syms = FALSE)
 }
 \arguments{
-\item{x}{A fitted model (class \code{"model_fit"}) or a fitted workflow.}
+\item{x}{A fitted parsnip model (class \code{"model_fit"}) or a fitted workflow.}
 
-\item{syms}{Should the column names be converted to symbols?}
+\item{syms}{Should the column names be converted to symbols? Defaults to \code{FALSE}.}
 }
 \value{
 A list with elements \code{"estimate"} and \code{"probabilities"}.
