@@ -157,6 +157,12 @@ deharmonize <- function(args, key) {
   args[!is.na(merged$original)]
 }
 
+
+#' Add model specification to fit
+#' @param x A model fit
+#' @param engine A character string for the model engine.
+#' @return The updated fit object.
+#' @keywords internal
 add_methods <- function(x, engine) {
   x$engine <- engine
   check_spec_mode_engine_val(class(x)[1], x$engine, x$mode, call = caller_env())
