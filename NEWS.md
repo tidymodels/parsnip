@@ -33,6 +33,8 @@
 
 * Fixed bug where some models fit using `fit_xy()` couldn't predict (#1166).
 
+* `tunable()` now references a dials object for the `mixture` parameter (#1236)
+
 ## Breaking Change
 
 * For quantile prediction, the `quantile` argument to `predict()` has been deprecate in facor of `quantile_levels`. This does not affect models with mode `"quantile regression"`. 

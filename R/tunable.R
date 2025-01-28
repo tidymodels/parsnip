@@ -206,10 +206,9 @@ brulee_mlp_engine_args <-
     "largest",                         list(pkg = "dials", fun = "rate_largest"),
     "rate_schedule",                  list(pkg = "dials", fun = "rate_schedule"),
     "step_size",                     list(pkg = "dials", fun = "rate_step_size"),
-    "steps",                             list(pkg = "dials", fun = "rate_steps")
+    "mixture",                              list(pkg = "dials", fun = "mixture")
   ) %>%
-  dplyr::mutate(,
-                source = "model_spec",
+  dplyr::mutate(source = "model_spec",
                 component = "mlp",
                 component_id = "engine"
   )
