@@ -175,7 +175,7 @@ that the booster will perform bagging at every \code{k}th boosting iteration.
 Thus, by default, the \code{sample_size} argument would be ignored without
 setting this argument manually. Other boosting libraries, like xgboost,
 do not have an analogous argument to \code{bagging_freq} and use \code{k = 1} when
-the analogue to \code{bagging_fraction} is in $\verb{(0, 1)}$. \emph{bonsai will thus
+the analogue to \code{bagging_fraction} is in $(0, 1)$. \emph{bonsai will thus
 automatically set} \code{bagging_freq = 1} \emph{in} \code{set_engine("lightgbm", ...)}
 if \code{sample_size} (i.e. \code{bagging_fraction}) is not equal to 1 and no
 \code{bagging_freq} value is supplied. This default can be overridden by

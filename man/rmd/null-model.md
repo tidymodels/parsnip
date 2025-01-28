@@ -6,7 +6,7 @@ For this type of model, the template of the fit calls are below:
 ## parsnip
 
 
-```r
+``` r
 null_model() %>% 
   set_engine("parsnip") %>% 
   set_mode("regression") %>% 
@@ -23,7 +23,7 @@ null_model() %>%
 ```
 
 
-```r
+``` r
 null_model() %>% 
   set_engine("parsnip") %>% 
   set_mode("classification") %>% 

@@ -25,7 +25,7 @@ See `?rstanarm::stan_glmer` and `?rstan::sampling` for more information.
 The **multilevelmod** extension package is required to fit this model.
 
 
-```r
+``` r
 library(multilevelmod)
 
 logistic_reg() %>% 

@@ -25,7 +25,7 @@ The choice of `mixture` depends on the engine parameter `solver`, which is autom
 The **agua** extension package is required to fit this model.
 
 
-```r
+``` r
 library(poissonreg)
 
 poisson_reg(penalty = double(1), mixture = double(1)) %>% 

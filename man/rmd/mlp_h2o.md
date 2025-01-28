@@ -38,7 +38,7 @@ Other engine arguments of interest:
 [agua::h2o_train_mlp] is a wrapper around [h2o::h2o.deeplearning()].
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
@@ -75,7 +75,7 @@ mlp(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),

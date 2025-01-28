@@ -12,7 +12,7 @@ This engine has no tuning parameters.
 The **poissonreg** extension package is required to fit this model.
 
 
-```r
+``` r
 library(poissonreg)
 
 poisson_reg() %>%
@@ -43,7 +43,7 @@ When fitting a parsnip model with this engine directly, the formula method is re
 
 
 
-```r
+``` r
 library(tidymodels)
 tidymodels_prefer()
 
@@ -72,7 +72,7 @@ poisson_reg() %>%
 However, when using a workflow, the best approach is to avoid using [workflows::add_formula()] and use [workflows::add_variables()] in conjunction with a model formula:
 
 
-```r
+``` r
 data("bioChemists", package = "pscl")
 spec <- 
   poisson_reg() %>% 

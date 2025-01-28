@@ -24,7 +24,7 @@ The choice of `mixture` depends on the engine parameter `solver`, which is autom
 
 
 
-```r
+``` r
 linear_reg(penalty = 1, mixture = 0.5) %>% 
   set_engine("h2o") %>% 
   translate()

@@ -16,7 +16,7 @@ This model has 1 tuning parameters:
 The **censored** extension package is required to fit this model.
 
 
-```r
+``` r
 library(censored)
 
 survival_reg(dist = character(1)) %>% 
@@ -49,7 +49,7 @@ The model formula can include _special_ terms, such as [survival::strata()]. The
 For example, in this model, the numeric column `rx` is used to estimate two different scale parameters for each value of the column:
 
 
-```r
+``` r
 library(survival)
 
 survival_reg() %>% 

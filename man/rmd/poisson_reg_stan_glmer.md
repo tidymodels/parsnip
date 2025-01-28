@@ -25,7 +25,7 @@ See `?rstanarm::stan_glmer` and `?rstan::sampling` for more information.
 The **multilevelmod** extension package is required to fit this model.
 
 
-```r
+``` r
 library(multilevelmod)
 
 poisson_reg(engine = "stan_glmer") %>% 

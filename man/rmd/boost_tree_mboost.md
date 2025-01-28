@@ -26,7 +26,7 @@ The `mtry` parameter is related to the number of predictors. The default is to u
 The **censored** extension package is required to fit this model.
 
 
-```r
+``` r
 library(censored)
 
 boost_tree() %>% 

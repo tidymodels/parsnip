@@ -12,7 +12,7 @@ This model has no tuning parameters.
 The **multilevelmod** extension package is required to fit this model.
 
 
-```r
+``` r
 library(multilevelmod)
 
 logistic_reg() %>% 
