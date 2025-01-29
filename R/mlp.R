@@ -192,8 +192,8 @@ keras_mlp <-
            seeds = sample.int(10^5, size = 3),
            ...) {
 
-    act_funs <- c("linear", "softmax", "relu", "elu")
-    rlang::arg_match(activation, act_funs,)
+    act_funs <- c("linear", "softmax", "relu", "elu", "tanh")
+    rlang::arg_match(activation, act_funs)
 
     if (penalty > 0 & dropout > 0) {
       cli::cli_abort("Please use either dropout or weight decay.", call = NULL)
