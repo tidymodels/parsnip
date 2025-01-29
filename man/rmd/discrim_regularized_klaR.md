@@ -27,7 +27,7 @@ Some special cases for the RDA model:
 The **discrim** extension package is required to fit this model.
 
 
-```r
+``` r
 library(discrim)
 
 discrim_regularized(frac_identity = numeric(0), frac_common_cov = numeric(0)) %>% 

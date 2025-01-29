@@ -23,7 +23,7 @@ The choice of `mixture` depends on the engine parameter `solver`, which is autom
 [agua::h2o_train_glm()] for `multinom_reg()` is a wrapper around [h2o::h2o.glm()] with `family = 'multinomial'`. 
 
 
-```r
+``` r
 multinom_reg(penalty = double(1), mixture = double(1)) %>% 
   set_engine("h2o") %>% 
   translate()

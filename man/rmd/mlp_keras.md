@@ -22,7 +22,7 @@ This model has 5 tuning parameters:
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
@@ -56,7 +56,7 @@ mlp(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),

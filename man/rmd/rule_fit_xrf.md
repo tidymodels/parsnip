@@ -31,7 +31,7 @@ This model has 8 tuning parameters:
 The **rules** extension package is required to fit this model.
 
 
-```r
+``` r
 library(rules)
 
 rule_fit(
@@ -78,7 +78,7 @@ The **rules** extension package is required to fit this model.
 
 
 
-```r
+``` r
 library(rules)
 
 rule_fit(

@@ -22,7 +22,7 @@ This model has 3 tuning parameters:
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
@@ -54,7 +54,7 @@ rand_forest(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 rand_forest(
   mtry = integer(1),
   trees = integer(1),

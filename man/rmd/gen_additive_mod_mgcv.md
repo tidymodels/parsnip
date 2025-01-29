@@ -18,7 +18,7 @@ This model has 2 tuning parameters:
 ## Translation from parsnip to the original package  (regression)
 
 
-```r
+``` r
 gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>% 
   set_engine("mgcv") %>% 
   set_mode("regression") %>% 
@@ -42,7 +42,7 @@ gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>%
 ## Translation from parsnip to the original package  (classification)
 
 
-```r
+``` r
 gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>% 
   set_engine("mgcv") %>% 
   set_mode("classification") %>% 
@@ -69,7 +69,7 @@ This model should be used with a model formula so that smooth terms can be speci
 
 
 
-```r
+``` r
 library(mgcv)
 gen_additive_mod() %>% 
   set_engine("mgcv") %>% 
@@ -99,7 +99,7 @@ The smoothness of the terms will need to be manually specified (e.g., using `s(x
 When using a workflow, pass the _model formula_ to [workflows::add_model()]'s `formula` argument, and a simplified _preprocessing formula_ elsewhere.
 
 
-```r
+``` r
 spec <- 
   gen_additive_mod() %>% 
   set_engine("mgcv") %>% 

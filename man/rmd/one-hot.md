@@ -5,7 +5,7 @@ By default, `model.matrix()` generates binary indicator variables for factor pre
 For example, `species` and `island` both have three levels but `model.matrix()` creates two indicator variables for each:
 
 
-```r
+``` r
 library(dplyr)
 library(modeldata)
 data(penguins)
@@ -17,7 +17,7 @@ levels(penguins$species)
 ## [1] "Adelie"    "Chinstrap" "Gentoo"
 ```
 
-```r
+``` r
 levels(penguins$island)
 ```
 
@@ -25,7 +25,7 @@ levels(penguins$island)
 ## [1] "Biscoe"    "Dream"     "Torgersen"
 ```
 
-```r
+``` r
 model.matrix(~ species + island, data = penguins) %>% 
   colnames()
 ```
@@ -38,7 +38,7 @@ model.matrix(~ species + island, data = penguins) %>%
 For a formula with no intercept, the first factor is expanded to indicators for _all_ factor levels but all other factors are expanded to all but one (as above):
 
 
-```r
+``` r
 model.matrix(~ 0 + species + island, data = penguins) %>% 
   colnames()
 ```
@@ -53,7 +53,7 @@ For inference, this hybrid encoding can be problematic.
 To generate all indicators, use this contrast: 
 
 
-```r
+``` r
 # Switch out the contrast method
 old_contr <- options("contrasts")$contrasts
 new_contr <- old_contr
@@ -69,7 +69,7 @@ model.matrix(~ species + island, data = penguins) %>%
 ## [5] "islandBiscoe"     "islandDream"      "islandTorgersen"
 ```
 
-```r
+``` r
 options(contrasts = old_contr)
 ```
 

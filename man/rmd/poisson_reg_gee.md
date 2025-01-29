@@ -12,7 +12,7 @@ This model has no formal tuning parameters. It may be beneficial to determine th
 The **multilevelmod** extension package is required to fit this model.
 
 
-```r
+``` r
 library(multilevelmod)
 
 poisson_reg(engine = "gee") %>% 

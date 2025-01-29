@@ -13,10 +13,12 @@ This model has 2 tuning parameters:
 
 - `margin`: Insensitivity Margin (type: double, default: 0.1)
 
+Parsnip changes the default range for `cost` to `c(-10, 5)`.
+
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 svm_linear(
   cost = double(1),
   margin = double(1)
@@ -43,7 +45,7 @@ svm_linear(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 svm_linear(
   cost = double(1)
 ) %>% 

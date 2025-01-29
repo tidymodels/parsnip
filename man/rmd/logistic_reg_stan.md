@@ -23,7 +23,7 @@ See [rstan::sampling()] and [rstanarm::priors()] for more information on these a
 ## Translation from parsnip to the original package
 
 
-```r
+``` r
 logistic_reg() %>% 
   set_engine("stan") %>% 
   translate()
