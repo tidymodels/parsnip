@@ -139,3 +139,39 @@
       Error in `fit()`:
       ! `penalty` must be a number larger than or equal to 0 or `NULL`, not the number -1.
 
+# prevent using a Poisson family
+
+    Code
+      linear_reg(penalty = 1) %>% set_engine("glmnet", family = poisson) %>% fit(mpg ~
+        ., data = mtcars)
+    Condition
+      Error in `fit()`:
+      ! Please install the glmnet package to use this engine.
+
+---
+
+    Code
+      linear_reg(penalty = 1) %>% set_engine("glmnet", family = stats::poisson) %>%
+        fit(mpg ~ ., data = mtcars)
+    Condition
+      Error in `fit()`:
+      ! Please install the glmnet package to use this engine.
+
+---
+
+    Code
+      linear_reg(penalty = 1) %>% set_engine("glmnet", family = stats::poisson()) %>%
+        fit(mpg ~ ., data = mtcars)
+    Condition
+      Error in `fit()`:
+      ! Please install the glmnet package to use this engine.
+
+---
+
+    Code
+      linear_reg(penalty = 1) %>% set_engine("glmnet", family = "poisson") %>% fit(
+        mpg ~ ., data = mtcars)
+    Condition
+      Error in `fit()`:
+      ! Please install the glmnet package to use this engine.
+
