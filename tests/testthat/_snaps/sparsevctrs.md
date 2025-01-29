@@ -3,7 +3,7 @@
     Code
       xgb_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
     Condition
-      Error in `.convert_form_to_xy_fit()`:
+      Error in `fit()`:
       ! Sparse data cannot be used with formula interface. Please use `fit_xy()` instead.
 
 # sparse tibble can be passed to `fit() - unsupported
@@ -19,7 +19,7 @@
     Code
       xgb_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
     Condition
-      Error in `.convert_form_to_xy_fit()`:
+      Error in `fit()`:
       ! Sparse data cannot be used with formula interface. Please use `fit_xy()` instead.
 
 # sparse matrix can be passed to `fit() - unsupported
@@ -67,7 +67,7 @@
     Code
       xgb_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
     Condition
-      Error in `.convert_form_to_xy_fit()`:
+      Error in `fit()`:
       ! Sparse data cannot be used with formula interface. Please use `fit_xy()` instead.
 
 # to_sparse_data_frame() is used correctly
@@ -134,4 +134,12 @@
     Condition
       Error in `predict.elnet()`:
       ! data is sparse
+
+# fit() errors if sparse matrix has no colnames
+
+    Code
+      fit(spec, avg_price_per_room ~ ., data = hotel_data)
+    Condition
+      Error in `fit()`:
+      ! `x` must have column names.
 
