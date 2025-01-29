@@ -241,13 +241,15 @@ prompt_missing_implementation <- function(spec,
 #' @keywords internal
 #' @export
 show_call <- function(object) {
-  object$method$fit$args <-
-    map(object$method$fit$args, convert_arg)
+  object$method$fit$args <- map(object$method$fit$args, convert_arg)
 
-  call2(object$method$fit$func["fun"],
-    !!!object$method$fit$args,
-    .ns = object$method$fit$func["pkg"]
-  )
+  fn_info <- as.list(object$method$fit$func)
+  if (!any(names(fn_info) == "pkg")) {
+    res <- call2(fn_info$fun, !!!object$method$fit$args)
+  } else {
+    res <- call2(fn_info$fun, !!!object$method$fit$args, .ns = fn_info$pkg)
+  }
+  res
 }
 
 convert_arg <- function(x) {
@@ -301,8 +303,8 @@ check_args.default <- function(object, call = rlang::caller_env()) {
 
 # ------------------------------------------------------------------------------
 
-# copied form recipes
-
+# copied from recipes
+# nocov start
 names0 <- function(num, prefix = "x", call = rlang::caller_env()) {
   if (num < 1) {
     cli::cli_abort("{.arg num} should be > 0.", call = call)
@@ -311,7 +313,7 @@ names0 <- function(num, prefix = "x", call = rlang::caller_env()) {
   ind <- gsub(" ", "0", ind)
   paste0(prefix, ind)
 }
-
+# nocov end
 
 # ------------------------------------------------------------------------------
 

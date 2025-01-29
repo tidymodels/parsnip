@@ -299,3 +299,44 @@ test_that('obtaining prediction columns', {
   )
 
 })
+
+
+# ------------------------------------------------------------------------------
+
+# https://github.com/tidymodels/parsnip/issues/1229
+test_that('register local models', {
+  set_new_model("my_model")
+  set_model_mode(model = "my_model", mode = "regression")
+  set_model_engine(
+    "my_model",
+    mode = "regression",
+    eng = "my_engine"
+  )
+
+  my_model <-
+    function(mode = "regression") {
+      new_model_spec(
+        "my_model",
+        args = list(),
+        eng_args = NULL,
+        mode = mode,
+        method = NULL,
+        engine = NULL
+      )
+    }
+
+  set_fit(
+    model = "my_model",
+    eng = "my_engine",
+    mode = "regression",
+    value = list(
+      interface = "matrix",
+      protect = c("formula", "data"),
+      func = c(fun = "my_model_fun"),
+      defaults = list()
+    )
+  )
+
+  expect_snapshot(my_model() %>% translate("my_engine"))
+})
+

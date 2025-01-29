@@ -25,6 +25,8 @@
 
 * Aligned `null_model()` with other model types; the model type now has an engine argument that defaults to `"parsnip"` and is checked with the same machinery that checks other model types in the package (#1083).
 
+* If linear regression is requested with a Poisson family, an error will occur and refer the user to `poisson_reg()` (#1219).
+
 * The deprecated function `rpart_train()` was removed after its deprecation period (#1044).
 
 ## Bug Fixes
@@ -34,6 +36,8 @@
 * Ensure that `knit_engine_docs()` has the required packages installed (#1156).
 
 * Fixed bug where some models fit using `fit_xy()` couldn't predict (#1166).
+
+* Fixed bug related to using local (non-package) models (#1229)
 
 * `tunable()` now references a dials object for the `mixture` parameter (#1236)
 
