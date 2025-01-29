@@ -57,15 +57,15 @@ predictions from the individual trees and combines them.</p>
 
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>For this engine, there are multiple modes: censored regression,
-classification, and regression</p><div class="section">
+    <p>For this engine, there are multiple modes: classification, regression,
+and censored regression</p><div class="section">
 <h3 id="tuning-parameters">Tuning Parameters<a class="anchor" aria-label="anchor" href="#tuning-parameters"></a></h3>
 
 
-<p>This model has 3 tuning parameters:</p><ul><li><p><code>trees</code>: # Trees (type: integer, default: 500L)</p></li>
-<li><p><code>min_n</code>: Minimal Node Size (type: integer, default: 5L)</p></li>
-<li><p><code>mtry</code>: # Randomly Selected Predictors (type: integer, default:
+<p>This model has 3 tuning parameters:</p><ul><li><p><code>mtry</code>: # Randomly Selected Predictors (type: integer, default:
 ceiling(sqrt(n_predictors)))</p></li>
+<li><p><code>trees</code>: # Trees (type: integer, default: 500L)</p></li>
+<li><p><code>min_n</code>: Minimal Node Size (type: integer, default: 5L)</p></li>
 </ul><p>Additionally, this model has one engine-specific tuning parameter:</p><ul><li><p><code>split_min_stat</code>: Minimum test statistic required to split a node.
 Defaults are <code>3.841459</code> for censored regression (which is roughly a
 p-value of 0.05) and <code>0</code> for classification and regression. For

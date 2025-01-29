@@ -64,10 +64,7 @@ a model that is a segmented regression in small dimensions.</p>
 <p>This model has 3 tuning parameters:</p><ul><li><p><code>num_terms</code>: # Model Terms (type: integer, default: see below)</p></li>
 <li><p><code>prod_degree</code>: Degree of Interaction (type: integer, default: 1L)</p></li>
 <li><p><code>prune_method</code>: Pruning Method (type: character, default: ‘backward’)</p></li>
-</ul><p>The default value of <code>num_terms</code> depends on the number of predictor
-columns. For a data frame <code>x</code>, the default is
-<code>min(200, max(20, 2 * ncol(x))) + 1</code> (see
-<code><a href="https://rdrr.io/pkg/earth/man/earth.html" class="external-link">earth::earth()</a></code> and the reference below).</p>
+</ul><p>Parsnip changes the default range for <code>num_terms</code> to <code>c(50, 500)</code>.</p>
 </div>
 
 <div class="section">
