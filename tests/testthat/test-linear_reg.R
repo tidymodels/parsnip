@@ -361,6 +361,7 @@ test_that("check_args() works", {
 
 
 test_that("prevent using a Poisson family", {
+  skip_if(rlang::is_installed("glmnet"))
   expect_snapshot(
     linear_reg(penalty = 1) %>%
       set_engine("glmnet", family = poisson) %>%
