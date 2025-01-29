@@ -200,6 +200,7 @@ keras_mlp <-
         {.val {activation}}."
       )
     }
+    activation <- get_activation_fn(activation)
 
     if (penalty > 0 & dropout > 0) {
       cli::cli_abort("Please use either dropout or weight decay.", call = NULL)
@@ -351,7 +352,7 @@ mlp_num_weights <- function(p, hidden_units, classes) {
 }
 
 allowed_keras_activation <-
- c("elu", "exponential", "gelu", "hard_sigmoid", "linear", "relu", "selu", 
+ c("elu", "exponential", "gelu", "hardsigmoid", "linear", "relu", "selu", 
    "sigmoid", "softmax", "softplus", "softsign", "swish", "tanh")
 
 #' Activation functions for neural networks in keras
@@ -361,6 +362,13 @@ allowed_keras_activation <-
 #' @export
 keras_activations <- function() {
   allowed_keras_activation
+}
+
+get_activation_fn <- function(arg, ...) {
+  if (arg == "hardsigmoid") {
+    arg <- "hard_sigmoid"
+  }
+  arg
 }
 
 ## -----------------------------------------------------------------------------
