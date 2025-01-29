@@ -355,9 +355,18 @@ tunable.mlp <- function(x, ...) {
       list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/2)))
     res$call_info[res$name == "epochs"] <-
       list(list(pkg = "dials", fun = "epochs", range = c(5L, 500L)))
+    activation_values <- rlang::eval_tidy(
+      rlang::call2("brulee_activations", .ns = "brulee")
+    )
+    res$call_info[res$name == "activation"] <- 
+      list(list(pkg = "dials", fun = "activation", values = activation_values))
+  } else if (x$engine == "keras") {
+    activation_values <- parsnip::keras_activations()
+    res$call_info[res$name == "activation"] <- 
+      list(list(pkg = "dials", fun = "activation", values = activation_values))
   }
   res
-}
+  }
 
 #' @export
 tunable.survival_reg <- function(x, ...) {
