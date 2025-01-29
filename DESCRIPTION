@@ -32,7 +32,7 @@ Imports:
     prettyunits,
     purrr (>= 1.0.0),
     rlang (>= 1.1.0),
-    sparsevctrs (>= 0.1.0.9002),
+    sparsevctrs (>= 0.2.0),
     stats,
     tibble (>= 2.1.1),
     tidyr (>= 1.3.0),
@@ -70,7 +70,6 @@ Suggests:
 VignetteBuilder: 
     knitr
 Remotes: 
-    r-lib/sparsevctrs,
     tidymodels/hardhat
 ByteCompile: true
 Config/Needs/website: C50, dbarts, earth, glmnet, keras, kernlab, kknn,
