@@ -130,61 +130,13 @@ update.bart <-
     )
   }
 
-
 #' Developer functions for predictions via BART models
-#' @export
-#' @keywords internal
 #' @name bart-internal
 #' @inheritParams predict.model_fit
 #' @param obj A parsnip object.
-#' @param ci Confidence (TRUE) or prediction interval (FALSE)
 #' @param level Confidence level.
 #' @param std_err Attach column for standard error of prediction or not.
-bartMachine_interval_calc <- function(new_data, obj, ci = TRUE, level = 0.95) {
-  if (obj$spec$mode == "classification") {
-    cli::cli_abort(
-      "Prediction intervals are not possible for classification"
-    )
-  }
-  get_std_err <- obj$spec$method$pred$pred_int$extras$std_error
-
-  if (ci) {
-    cl <-
-      rlang::call2(
-        "calc_credible_intervals",
-        .ns = "bartMachine",
-        bart_machine = rlang::expr(obj$fit),
-        new_data = rlang::expr(new_data),
-        ci_conf = level
-      )
-
-  } else {
-    cl <-
-      rlang::call2(
-        "calc_prediction_intervals",
-        .ns = "bartMachine",
-        bart_machine = rlang::expr(obj$fit),
-        new_data = rlang::expr(new_data),
-        pi_conf = level
-      )
-  }
-  res <- rlang::eval_tidy(cl)
-  if (!ci) {
-    if (get_std_err) {
-      .std_error <- apply(res$all_prediction_samples, 1, stats::sd, na.rm = TRUE)
-    }
-    res <- res$interval
-  }
-  res <- tibble::as_tibble(res)
-  names(res) <- c(".pred_lower", ".pred_upper")
-  if (!ci & get_std_err) {
-    res$.std_err <- .std_error
-  }
-  res
-}
-
 #' @export
-#' @rdname bart-internal
 #' @keywords internal
 dbart_predict_calc <- function(obj, new_data, type, level = 0.95, std_err = FALSE) {
   types <- c("numeric", "class", "prob", "conf_int", "pred_int")

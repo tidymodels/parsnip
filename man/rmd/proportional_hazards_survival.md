@@ -12,7 +12,7 @@ This model has no tuning parameters.
 The **censored** extension package is required to fit this model.
 
 
-```r
+``` r
 library(censored)
 
 proportional_hazards() %>% 
@@ -42,7 +42,7 @@ The model formula can include _special_ terms, such as [survival::strata()]. The
 For example, in this model, the numeric column `rx` is used to estimate two different baseline hazards for each value of the column:
 
 
-```r
+``` r
 library(survival)
 
 proportional_hazards() %>% 

@@ -367,18 +367,21 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
 #' @rdname glmnet_helpers
 #' @keywords internal
 #' @export
-.check_glmnet_penalty_fit <- function(x) {
+.check_glmnet_penalty_fit <- function(x, call = rlang::caller_env()) {
   pen <- rlang::eval_tidy(x$args$penalty)
 
   if (length(pen) != 1) {
-    cli::cli_abort(c(
-      "x" = "For the glmnet engine, {.arg penalty} must be a single number
-      (or a value of {.fn tune}).",
-      "!" = "There are {length(pen)} value{?s} for {.arg penalty}.",
-      "i" = "To try multiple values for total regularization, use the
-      {.pkg tune} package.",
-      "i" = "To predict multiple penalties, use {.fn multi_predict}."
-    ))
+    cli::cli_abort(
+      c(
+        "x" = "For the glmnet engine, {.arg penalty} must be a single number
+        (or a value of {.fn tune}).",
+        "!" = "There are {length(pen)} value{?s} for {.arg penalty}.",
+        "i" = "To try multiple values for total regularization, use the
+        {.pkg tune} package.",
+        "i" = "To predict multiple penalties, use {.fn multi_predict}."
+      ),
+      call = call
+    )
   }
 }
 
@@ -389,7 +392,8 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
 #' @rdname glmnet_helpers
 #' @keywords internal
 #' @export
-.check_glmnet_penalty_predict <- function(penalty = NULL, object, multi = FALSE) {
+.check_glmnet_penalty_predict <- function(penalty = NULL, object, multi = FALSE,
+                                          call = rlang::caller_env()) {
   if (is.null(penalty)) {
     penalty <- object$fit$lambda
   }
@@ -397,19 +401,25 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
   # when using `predict()`, allow for a single lambda
   if (!multi) {
     if (length(penalty) != 1) {
-      cli::cli_abort(c(
-        "{.arg penalty} should be a single numeric value.",
-        "i" = "{.fn multi_predict} can be used to get multiple predictions per row of data."
-      ))
+      cli::cli_abort(
+        c(
+          "{.arg penalty} should be a single numeric value.",
+          "i" = "{.fn multi_predict} can be used to get multiple predictions per row of data."
+        ),
+        call = call
+      )
     }
   }
 
   if (length(object$fit$lambda) == 1 && penalty != object$fit$lambda) {
-    cli::cli_abort(c(
-      "The glmnet model was fit with a single penalty value of
+    cli::cli_abort(
+      c(
+        "The glmnet model was fit with a single penalty value of
       {.arg object$fit$lambda}. Predicting with a value of {.arg penalty}
       will give incorrect results from `glmnet()`."
-    ))
+      ),
+      call = call
+    )
   }
 
   penalty

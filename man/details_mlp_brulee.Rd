@@ -38,6 +38,8 @@ each batch.
 \item \code{stop_iter()}: A non-negative integer for how many iterations with no
 improvement before stopping. (default: 5L).
 }
+
+Parsnip changes the default range for \code{learn_rate} to \code{c(-2.5, -0.5)}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{

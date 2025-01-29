@@ -22,7 +22,7 @@ These defaults are set by the `baguette` package and are different than those in
 The **baguette** extension package is required to fit this model.
 
 
-```r
+``` r
 library(baguette)
 
 bag_mlp(penalty = double(1), hidden_units = integer(1)) %>% 
@@ -52,7 +52,7 @@ bag_mlp(penalty = double(1), hidden_units = integer(1)) %>%
 The **baguette** extension package is required to fit this model.
 
 
-```r
+``` r
 library(baguette)
 
 bag_mlp(penalty = double(1), hidden_units = integer(1)) %>% 

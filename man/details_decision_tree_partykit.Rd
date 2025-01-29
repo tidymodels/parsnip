@@ -8,14 +8,14 @@
 tree-based structure using hypothesis testing methods.
 }
 \details{
-For this engine, there are multiple modes: censored regression,
-regression, and classification
+For this engine, there are multiple modes: regression, classification,
+and censored regression
 \subsection{Tuning Parameters}{
 
 This model has 2 tuning parameters:
 \itemize{
-\item \code{tree_depth}: Tree Depth (type: integer, default: see below)
 \item \code{min_n}: Minimal Node Size (type: integer, default: 20L)
+\item \code{tree_depth}: Tree Depth (type: integer, default: see below)
 }
 
 The \code{tree_depth} parameter defaults to \code{0} which means no restrictions

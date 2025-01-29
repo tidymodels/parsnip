@@ -196,7 +196,7 @@
     Code
       expr1 %>% update(param_tibb)
     Condition
-      Error in `update_main_parameters()`:
+      Error in `update()`:
       ! Argument `nlambda` is not a main argument.
 
 ---
@@ -204,7 +204,7 @@
     Code
       expr1 %>% update(param_list)
     Condition
-      Error in `update_main_parameters()`:
+      Error in `update()`:
       ! Argument `nlambda` is not a main argument.
 
 ---
@@ -212,7 +212,7 @@
     Code
       expr1 %>% update(parameters = "wat")
     Condition
-      Error in `check_final_param()`:
+      Error in `update()`:
       ! The parameter object should be a list or tibble.
 
 ---
@@ -220,7 +220,7 @@
     Code
       expr1 %>% update(parameters = tibble::tibble(wat = "wat"))
     Condition
-      Error in `update_main_parameters()`:
+      Error in `update()`:
       ! Argument `wat` is not a main argument.
 
 ---

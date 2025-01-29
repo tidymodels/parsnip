@@ -20,7 +20,7 @@ Note that C5.0 has a tool for _early stopping_ during boosting where less iterat
 The **rules** extension package is required to fit this model.
 
 
-```r
+``` r
 library(rules)
 
 C5_rules(

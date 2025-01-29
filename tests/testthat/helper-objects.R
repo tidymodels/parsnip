@@ -26,6 +26,19 @@ is_tf_ok <- function() {
 }
 
 # ------------------------------------------------------------------------------
+# for quantile regression tests
+
+data("Sacramento")
+
+Sacramento_small <-
+  modeldata::Sacramento %>%
+  dplyr::mutate(price = log10(price)) %>%
+  dplyr::select(price, beds, baths, sqft, latitude, longitude)
+
+sac_train <- Sacramento_small[-(1:5), ]
+sac_test  <- Sacramento_small[  1:5 , ]
+
+# ------------------------------------------------------------------------------
 # For sparse tibble testing
 
 sparse_hotel_rates <- function(tibble = FALSE) {
@@ -61,3 +74,4 @@ sparse_hotel_rates <- function(tibble = FALSE) {
 
   res
 }
+

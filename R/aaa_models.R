@@ -1,6 +1,6 @@
 # Initialize model environments
 
-all_modes <- c("classification", "regression", "censored regression")
+all_modes <- c("classification", "regression", "censored regression", "quantile regression")
 
 # ------------------------------------------------------------------------------
 
@@ -195,8 +195,8 @@ stop_missing_engine <- function(cls, call) {
 }
 
 check_mode_for_new_engine <- function(cls, eng, mode, call = caller_env()) {
-  all_modes <- get_from_env(paste0(cls, "_modes"))
-  if (!(mode %in% all_modes)) {
+  model_modes <- get_from_env(paste0(cls, "_modes"))
+  if (!(mode %in% model_modes)) {
     cli::cli_abort(
       "{.val {mode}} is not a known mode for model {.fn {cls}}.",
       call = call
@@ -796,7 +796,7 @@ is_discordant_info <- function(model, mode, eng, candidate,
   if (component == "predict" & !is.null(pred_type)) {
 
     current <- dplyr::filter(current, type == pred_type)
-    p_type <- paste0("and prediction type '", pred_type, "'")
+    p_type <- "and prediction type {.val {pred_type}} "
   } else {
     p_type <- ""
   }
@@ -809,9 +809,12 @@ is_discordant_info <- function(model, mode, eng, candidate,
 
   if (!same_info) {
     cli::cli_abort(
-      "The combination of engine {.var {eng}} and mode {.var {mode}} \\
-      {.val {p_type}} already has {component} data for model {.var {model}} \\
-      and the new information being registered is different.",
+      paste0(
+        "The combination of engine {.var {eng}} and mode {.var {mode}} ",
+        p_type,
+        "already has {component} data for model {.var {model}}
+         and the new information being registered is different."
+      ),
       call = call
     )
   }

@@ -87,6 +87,7 @@
 #' \itemize{
 #'   \item \code{lvl}: If the outcome is a factor, this contains
 #'    the factor levels at the time of model fitting.
+#'   \item \code{ordered}: If the outcome is a factor, was it an ordered factor?
 #'   \item \code{spec}: The model specification object
 #'    (\code{object} in the call to \code{fit})
 #'   \item \code{fit}: when the model is executed without error,
@@ -136,7 +137,7 @@ fit.model_spec <-
 
 
     if (is_sparse_matrix(data)) {
-      data <- sparsevctrs::coerce_to_sparse_tibble(data)
+      data <- sparsevctrs::coerce_to_sparse_tibble(data, rlang::caller_env(0))
     }
 
     dots <- quos(...)
@@ -157,7 +158,7 @@ fit.model_spec <-
     }
 
     if (all(c("x", "y") %in% names(dots))) {
-      cli::cli_abort("`fit.model_spec()` is for the formula methods. Use `fit_xy()` instead.")
+      cli::cli_abort("{.fn fit.model_spec} is for the formula methods. Use {.fn fit_xy} instead.")
     }
     cl <- match.call(expand.dots = TRUE)
     # Create an environment with the evaluated argument objects. This will be
@@ -176,6 +177,10 @@ fit.model_spec <-
     eval_env$formula <- formula
     eval_env$weights <- wts
 
+    if (!is.null(object$quantile_levels)) {
+      eval_env$quantile_levels <- object$quantile_levels
+    }
+
     data <- materialize_sparse_tibble(data, object, "data")
 
     fit_interface <-
@@ -186,7 +191,6 @@ fit.model_spec <-
           "spark objects can only be used with the formula interface to {.fn fit}
            with a spark data object."
         )
-
 
     # populate `method` with the details for this model type
     object <- add_methods(object, engine = object$engine)
@@ -295,12 +299,17 @@ fit_xy.model_spec <-
     eval_env$y_var <- y_var
     eval_env$weights <- weights_to_numeric(case_weights, object)
 
+    if (!is.null(object$quantile_levels)) {
+      eval_env$quantile_levels <- object$quantile_levels
+    }
+
     # TODO case weights: pass in eval_env not individual elements
     fit_interface <- check_xy_interface(eval_env$x, eval_env$y, cl, object)
 
     if (object$engine == "spark") {
       cli::cli_abort(
-        "spark objects can only be used with the formula interface to {.fn fit} with a spark data object."
+        "spark objects can only be used with the formula interface to {.fn fit}
+        with a spark data object."
       )
     }
 

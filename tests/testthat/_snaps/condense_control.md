@@ -3,7 +3,16 @@
     Code
       condense_control(control_parsnip(), ctrl)
     Condition
-      Error in `condense_control()`:
-      ! Object of class <class(x)[1]> cannot be coerced to object of class <class(ref)[1]>.
+      Error:
+      ! a <control_parsnip> object cannot be coerced to a <control_parsnip> object.
+      i The arguments `allow_par` and `anotherone` are missing.
+
+---
+
+    Code
+      control_test(ctrl)
+    Condition
+      Error in `control_test()`:
+      ! a <control_parsnip> object cannot be coerced to a <control_parsnip> object.
       i The arguments `allow_par` and `anotherone` are missing.
 

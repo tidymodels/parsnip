@@ -201,12 +201,14 @@ check_pred_type <- function(object, type, ..., call = rlang::caller_env()) {
         regression = "numeric",
         classification = "class",
         "censored regression" = "time",
+        "quantile regression" = "quantile",
         cli::cli_abort(
-          "{.arg type} should be 'regression', 'censored regression', or 'classification'.",
+          "{.arg type} should be one of {.or {.val {all_modes}}}.",
           call = call
         )
       )
   }
+
   if (!(type %in% pred_types))
     cli::cli_abort(
       "{.arg type} should be one of {.or {.arg {pred_types}}}.",
@@ -373,7 +375,7 @@ check_pred_type_dots <- function(object, type, ..., call = rlang::caller_env()) 
 
   # ----------------------------------------------------------------------------
 
-  other_args <- c("interval", "level", "std_error", "quantile",
+  other_args <- c("interval", "level", "std_error", "quantile_levels",
                   "time", "eval_time", "increasing")
 
   eval_time_types <- c("survival", "hazard")
@@ -470,7 +472,7 @@ prepare_data <- function(object, new_data) {
   if (allow_sparse(object) && inherits(new_data, "dgCMatrix")) {
     return(new_data)
   }
-  if (allow_sparse(object) && is_sparse_tibble(new_data)) {
+  if (allow_sparse(object) && sparsevctrs::has_sparse_elements(new_data)) {
     new_data <- sparsevctrs::coerce_to_sparse_matrix(new_data)
     return(new_data)
   }

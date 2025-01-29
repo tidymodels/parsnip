@@ -15,18 +15,6 @@ test_that('kknn execution', {
   skip_if_not_installed("kknn")
   library(kknn)
 
-  # continuous
-  # expect no error
-  expect_snapshot(
-    error = TRUE,
-    fit_xy(
-      hpc_basic,
-      control = ctrl,
-      x = hpc[, num_pred],
-      y = hpc$input_fields
-    )
-  )
-
   # nominal
   # expect no error
   expect_no_condition(

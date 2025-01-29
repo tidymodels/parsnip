@@ -37,16 +37,12 @@ to_sparse_data_frame <- function(x, object, call = rlang::caller_env()) {
   x
 }
 
-is_sparse_tibble <- function(x) {
-  any(vapply(x, sparsevctrs::is_sparse_vector, logical(1)))
-}
-
 is_sparse_matrix <- function(x) {
   methods::is(x, "sparseMatrix")
 }
 
 materialize_sparse_tibble <- function(x, object, input) {
-  if (is_sparse_tibble(x) && (!allow_sparse(object))) {
+  if (sparsevctrs::has_sparse_elements(x) && (!allow_sparse(object))) {
     if (inherits(object, "model_fit")) {
       object <- object$spec
     }

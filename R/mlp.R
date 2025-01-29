@@ -146,9 +146,10 @@ check_args.mlp <- function(object, call = rlang::caller_env()) {
 
 # keras wrapper for feed-forward nnet
 
-class2ind <- function (x, drop2nd = FALSE) {
-  if (!is.factor(x))
-    cli::cli_abort(c("x" = "{.arg x} should be a factor."))
+class2ind <- function (x, drop2nd = FALSE, call = rlang::caller_env()) {
+  if (!is.factor(x)) {
+    cli::cli_abort(c("x" = "{.arg x} should be a {cls factor} not {.obj_type_friendly {x}."))
+  }
   y <- model.matrix( ~ x - 1)
   colnames(y) <- gsub("^x", "", colnames(y))
   attributes(y)$assign <- NULL
@@ -191,8 +192,8 @@ keras_mlp <-
            seeds = sample.int(10^5, size = 3),
            ...) {
 
-    act_funs <- c("linear", "softmax", "relu", "elu")
-    rlang::arg_match(activation, act_funs,)
+    act_funs <- c("linear", "softmax", "relu", "elu", "tanh")
+    rlang::arg_match(activation, act_funs)
 
     if (penalty > 0 & dropout > 0) {
       cli::cli_abort("Please use either dropout or weight decay.", call = NULL)

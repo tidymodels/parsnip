@@ -93,3 +93,15 @@ test_that('augment for model without class probabilities', {
   expect_equal(nrow(augment(cls_form, head(two_class_dat))), 6)
 
 })
+
+
+test_that('quantile regression models', {
+  probs_1 <- (1:5)/5
+
+  expect_snapshot(
+    linear_reg() %>% set_mode("quantile regression", quantile_levels = probs_1)
+  )
+  expect_snapshot(
+    linear_reg() %>% set_mode("regression", quantile_levels = probs_1)
+  )
+})

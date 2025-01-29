@@ -1,6 +1,7 @@
 set_new_model("linear_reg")
 
 set_model_mode("linear_reg", "regression")
+set_model_mode("linear_reg", "quantile regression")
 
 # ------------------------------------------------------------------------------
 
@@ -582,3 +583,48 @@ set_pred(
   )
 )
 
+# ------------------------------------------------------------------------------
+
+set_model_engine(model = "linear_reg", mode = "quantile regression", eng = "quantreg")
+set_dependency(model = "linear_reg", eng = "quantreg", pkg = "quantreg", mode = "quantile regression")
+
+set_fit(
+  model = "linear_reg",
+  eng = "quantreg",
+  mode = "quantile regression",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data", "weights"),
+    func = c(pkg = "quantreg", fun = "rq"),
+    defaults = list(tau = expr(quantile_levels))
+  )
+)
+
+set_encoding(
+  model = "linear_reg",
+  eng = "quantreg",
+  mode = "quantile regression",
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "quantreg",
+  mode = "quantile regression",
+  type = "quantile",
+  value = list(
+    pre = NULL,
+    post = matrix_to_quantile_pred,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = expr(object$fit),
+        newdata = expr(new_data)
+      )
+  )
+)

@@ -19,7 +19,7 @@ This model has 2 tuning parameters:
 The **plsmod** extension package is required to fit this model.
 
 
-```r
+``` r
 library(plsmod)
 
 pls(num_comp = integer(1), predictor_prop = double(1)) %>%
@@ -54,7 +54,7 @@ pls(num_comp = integer(1), predictor_prop = double(1)) %>%
 The **plsmod** extension package is required to fit this model.
 
 
-```r
+``` r
 library(plsmod)
 
 pls(num_comp = integer(1), predictor_prop = double(1)) %>%
@@ -84,7 +84,7 @@ In this case, [plsmod::pls_fit()] has the same role as above but eventually targ
 This package is available via the Bioconductor repository and is not accessible via CRAN. You can install using: 
 
 
-```r
+``` r
   if (!require("remotes", quietly = TRUE)) {
     install.packages("remotes")
   }

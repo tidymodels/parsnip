@@ -103,22 +103,23 @@ NULL
 
 # Descriptor retrievers --------------------------------------------------------
 
-get_descr_form <- function(formula, data) {
+get_descr_form <- function(formula, data, call = rlang::caller_env()) {
   if (inherits(data, "tbl_spark")) {
     res <- get_descr_spark(formula, data)
   } else {
-    res <- get_descr_df(formula, data)
+    res <- get_descr_df(formula, data, call = call)
   }
   res
 }
 
-get_descr_df <- function(formula, data) {
+get_descr_df <- function(formula, data, call = rlang::caller_env()) {
 
   tmp_dat <-
     .convert_form_to_xy_fit(formula,
                             data,
                             indicators = "none",
-                            remove_intercept = TRUE)
+                            remove_intercept = TRUE,
+                            call = call)
 
   if(is.factor(tmp_dat$y)) {
     .lvls <- function() {
@@ -136,7 +137,8 @@ get_descr_df <- function(formula, data) {
         formula,
         data,
         indicators = "traditional",
-        remove_intercept = TRUE
+        remove_intercept = TRUE,
+        call = call
       )$x
     )
   }
@@ -245,9 +247,9 @@ get_descr_spark <- function(formula, data) {
   .obs   <- function() obs
   .lvls  <- function() y_vals
   .facts <- function() factor_pred
-  .x       <- function() abort("Descriptor .x() not defined for Spark.")
-  .y       <- function() abort("Descriptor .y() not defined for Spark.")
-  .dat     <- function() abort("Descriptor .dat() not defined for Spark.")
+  .x       <- function() cli::cli_abort("Descriptor {.fn .x} not defined for Spark.")
+  .y       <- function() cli::cli_abort("Descriptor {.fn .y} not defined for Spark.")
+  .dat     <- function() cli::cli_abort("Descriptor {.fn .dat} not defined for Spark.")
 
   # still need .x(), .y(), .dat() ?
 
@@ -263,7 +265,7 @@ get_descr_spark <- function(formula, data) {
   )
 }
 
-get_descr_xy <- function(x, y) {
+get_descr_xy <- function(x, y, call = rlang::caller_env()) {
 
   .lvls <- if (is.factor(y)) {
     function() table(y, dnn = NULL)
@@ -291,7 +293,7 @@ get_descr_xy <- function(x, y) {
   }
 
   .dat <- function() {
-    .convert_xy_to_form_fit(x, y, remove_intercept = TRUE)$data
+    .convert_xy_to_form_fit(x, y, remove_intercept = TRUE, call = call)$data
   }
 
   .x <- function() {
@@ -409,13 +411,13 @@ scoped_descrs <- function(descrs, frame = caller_env()) {
 # with their actual implementations
 descr_env <- rlang::new_environment(
   data = list(
-    .cols  = function() abort("Descriptor context not set"),
-    .preds = function() abort("Descriptor context not set"),
-    .obs   = function() abort("Descriptor context not set"),
-    .lvls  = function() abort("Descriptor context not set"),
-    .facts = function() abort("Descriptor context not set"),
-    .x     = function() abort("Descriptor context not set"),
-    .y     = function() abort("Descriptor context not set"),
-    .dat   = function() abort("Descriptor context not set")
+    .cols  = function() cli::cli_abort("Descriptor context not set"),
+    .preds = function() cli::cli_abort("Descriptor context not set"),
+    .obs   = function() cli::cli_abort("Descriptor context not set"),
+    .lvls  = function() cli::cli_abort("Descriptor context not set"),
+    .facts = function() cli::cli_abort("Descriptor context not set"),
+    .x     = function() cli::cli_abort("Descriptor context not set"),
+    .y     = function() cli::cli_abort("Descriptor context not set"),
+    .dat   = function() cli::cli_abort("Descriptor context not set")
   )
 )

@@ -23,7 +23,7 @@ The possible values of this parameter, and the functions that they execute, are:
 The **discrim** extension package is required to fit this model.
 
 
-```r
+``` r
 library(discrim)
 
 discrim_linear(regularization_method = character(0)) %>% 
@@ -41,7 +41,7 @@ discrim_linear(regularization_method = character(0)) %>%
 ## 
 ## Model fit template:
 ## discrim::fit_regularized_linear(x = missing_arg(), y = missing_arg(), 
-##     method = character(0))
+##     regularization_method = character(0))
 ```
 
 ## Preprocessing requirements

@@ -586,7 +586,52 @@ The following examples use consistent data sets throughout. For regression, we u
     
   </details>
 
+  <details id="linear-reg-quantreg"> 
+  
+  <summary>With the `"quantreg"` engine</summary>
+  
+  <h3>Quantile regression Example (`quantreg`)</h3>
 
+  ```{r echo=FALSE}
+  knitr::spin_child("template-reg-sacramento.R")
+  ```
+
+  We can define the model but should set the model mode. Also, for these models the levels of the distirunbtion that we would like to predict need to specified with the mode using the `quantile_levels` argument. Let's predict the 0.25, 0.50, and 0.75 quantiles:
+
+  ```{r}
+  linreg_quant_spec <- 
+    linear_reg() %>% 
+    set_engine("quantreg") %>% 
+    set_mode("quantile regression", quantile_levels = (1:3) / 4)
+  linreg_quant_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  linreg_quant_fit <- linreg_quant_spec %>% fit(price ~ sqft, data = sac_train)
+  linreg_quant_fit
+  ```
+
+  The holdout data can be predicted:
+
+  ```{r}
+  quant_pred <- predict(linreg_quant_fit, sac_test)
+  quant_pred
+  ```
+  
+  `.pred_quantile` is a vector type that contains all of the quartile predictions for each row.  You can convert this to a rectangular data set using either of: 
+  
+  ```{r}
+  as.matrix(quant_pred$.pred_quantile)
+  
+  # or 
+  as_tibble(quant_pred$.pred_quantile)
+  ```
+  
+  </details>
+  
 ## `logistic_reg()` models
 
   <details id="logistic-reg-glm"> 

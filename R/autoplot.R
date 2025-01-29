@@ -41,14 +41,15 @@ autoplot.glmnet <- function(object, ..., min_penalty = 0, best_penalty = NULL,
 }
 
 
-map_glmnet_coefs <- function(x) {
+map_glmnet_coefs <- function(x, call = rlang::caller_env()) {
   coefs <- coef(x)
   # If parsnip is used to fit the model, glmnet should be attached and this will
   # work. If an object is loaded from a new session, they will need to load the
   # package.
   if (is.null(coefs)) {
     cli::cli_abort(
-      "Please load the {.pkg glmnet} package before running {.fun autoplot}."
+      "Please load the {.pkg glmnet} package before running {.fun autoplot}.",
+      call = call
     )
   }
   p <- x$dim[1]
@@ -89,9 +90,10 @@ top_coefs <- function(x, top_n = 5) {
     dplyr::slice(seq_len(top_n))
 }
 
-autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L, ...) {
+autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L,
+                            call = rlang::caller_env(), ...) {
   tidy_coefs <-
-    map_glmnet_coefs(x) %>%
+    map_glmnet_coefs(x, call = call) %>%
     dplyr::filter(penalty >= min_penalty)
 
   actual_min_penalty <- min(tidy_coefs$penalty)

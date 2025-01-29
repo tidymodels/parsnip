@@ -26,8 +26,8 @@ install_engine_packages <- function(extension = TRUE, extras = TRUE,
   }
 
   if (extras) {
-    rmd_pkgs <- c("tidymodels", "broom.mixed", "glmnet", "Cubist", "xrf", "ape",
-                  "rmarkdown")
+    rmd_pkgs <- c("ape", "broom.mixed", "Cubist", "glmnet", "quantreg",
+                  "rmarkdown", "tidymodels", "xrf")
     engine_packages <- unique(c(engine_packages, rmd_pkgs))
   }
 

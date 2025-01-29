@@ -176,6 +176,7 @@ add_methods <- function(x, engine) {
 #' or in a list that can facilitate renaming grid objects?
 #' @return A tibble with columns `user`, `parsnip`, and `engine`, or a list
 #' with named character vectors `user_to_parsnip` and `parsnip_to_engine`.
+#' @keywords internal
 #' @examplesIf !parsnip:::is_cran_check()
 #' mod <-
 #'  linear_reg(penalty = tune("regularization"), mixture = tune()) %>%

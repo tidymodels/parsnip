@@ -78,6 +78,7 @@ reference:
       - fit_xy
       - control_parsnip
       - glance.model_fit
+      - matrix_to_quantile_pred
       - model_fit
       - model_formula
       - model_spec
@@ -110,3 +111,4 @@ reference:
       - .extract_surv_status
       - .extract_surv_time
       - .model_param_name_key
+      - .get_prediction_column_names

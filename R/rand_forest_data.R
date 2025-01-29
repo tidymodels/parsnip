@@ -66,7 +66,8 @@ ranger_confint <- function(object, new_data, ...) {
     } else {
       cli::cli_abort(
         "Cannot compute confidence intervals for a ranger forest
-         of type {.val {object$fit$forest$treetype}}."
+         of type {.val {object$fit$forest$treetype}}.",
+        call = rlang::call2("predict")
       )
     }
   }

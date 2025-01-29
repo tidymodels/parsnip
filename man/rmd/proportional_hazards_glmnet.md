@@ -24,7 +24,7 @@ The `penalty` parameter has no default and requires a single numeric value. For 
 The **censored** extension package is required to fit this model.
 
 
-```r
+``` r
 library(censored)
 
 proportional_hazards(penalty = double(1), mixture = double(1)) %>% 
@@ -68,7 +68,7 @@ For example, in this model, the numeric column `rx` is used to estimate two diff
 
 
 
-```r
+``` r
 library(survival)
 library(censored)
 library(dplyr)
