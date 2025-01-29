@@ -30,6 +30,10 @@ generics::augment
 #' @export
 generics::required_pkgs
 
+#' @importFrom hardhat contr_one_hot
+#' @export
+hardhat::contr_one_hot
+
 #' @importFrom hardhat extract_spec_parsnip
 #' @export
 hardhat::extract_spec_parsnip
