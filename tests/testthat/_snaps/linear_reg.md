@@ -142,8 +142,8 @@
 # prevent using a Poisson family
 
     Code
-      linear_reg(penalty = 1) %>% set_engine("glmnet", family = poisson) %>%
-        translate()
+      linear_reg(penalty = 1) %>% set_engine("glmnet", family = poisson) %>% fit(mpg ~
+        ., data = mtcars)
     Condition
       Error in `linear_reg()`:
       ! A Poisson family was requested for `linear_reg()`. Please use `poisson_reg()` and the engines in the poissonreg package.
@@ -152,7 +152,7 @@
 
     Code
       linear_reg(penalty = 1) %>% set_engine("glmnet", family = stats::poisson) %>%
-        translate()
+        fit(mpg ~ ., data = mtcars)
     Condition
       Error in `linear_reg()`:
       ! A Poisson family was requested for `linear_reg()`. Please use `poisson_reg()` and the engines in the poissonreg package.
@@ -161,7 +161,7 @@
 
     Code
       linear_reg(penalty = 1) %>% set_engine("glmnet", family = stats::poisson()) %>%
-        translate()
+        fit(mpg ~ ., data = mtcars)
     Condition
       Error in `linear_reg()`:
       ! A Poisson family was requested for `linear_reg()`. Please use `poisson_reg()` and the engines in the poissonreg package.
@@ -169,8 +169,8 @@
 ---
 
     Code
-      linear_reg(penalty = 1) %>% set_engine("glmnet", family = "poisson") %>%
-        translate()
+      linear_reg(penalty = 1) %>% set_engine("glmnet", family = "poisson") %>% fit(
+        mpg ~ ., data = mtcars)
     Condition
       Error in `linear_reg()`:
       ! A Poisson family was requested for `linear_reg()`. Please use `poisson_reg()` and the engines in the poissonreg package.

@@ -364,25 +364,25 @@ test_that("prevent using a Poisson family", {
   expect_snapshot(
     linear_reg(penalty = 1) %>%
       set_engine("glmnet", family = poisson) %>%
-      translate(),
+      fit(mpg ~ ., data = mtcars),
     error = TRUE
   )
   expect_snapshot(
     linear_reg(penalty = 1) %>%
       set_engine("glmnet", family = stats::poisson) %>%
-      translate(),
+      fit(mpg ~ ., data = mtcars),
     error = TRUE
   )
   expect_snapshot(
     linear_reg(penalty = 1) %>%
       set_engine("glmnet", family = stats::poisson()) %>%
-      translate(),
+      fit(mpg ~ ., data = mtcars),
     error = TRUE
   )
   expect_snapshot(
     linear_reg(penalty = 1) %>%
       set_engine("glmnet", family = "poisson") %>%
-      translate(),
+      fit(mpg ~ ., data = mtcars),
     error = TRUE
   )
 })
