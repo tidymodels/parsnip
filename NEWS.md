@@ -33,6 +33,8 @@
 
 * Fixed bug where some models fit using `fit_xy()` couldn't predict (#1166).
 
+* Fixed bug related to using local (non-package) models (#1229)
+
 * `tunable()` now references a dials object for the `mixture` parameter (#1236)
 
 ## Breaking Change
