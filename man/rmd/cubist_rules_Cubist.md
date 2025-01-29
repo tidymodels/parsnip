@@ -21,7 +21,7 @@ This model has 3 tuning parameters:
 The **rules** extension package is required to fit this model.
 
 
-```r
+``` r
 library(rules)
 
 cubist_rules(

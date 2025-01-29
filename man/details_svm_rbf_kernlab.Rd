@@ -26,6 +26,8 @@ kernlab estimates it from the data using a heuristic method. See
 \code{\link[kernlab:sigest]{kernlab::sigest()}}. This method uses random
 numbers so, without setting the seed before fitting, the model will not
 be reproducible.
+
+Parsnip changes the default range for \code{cost} to \code{c(-10, 5)}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{

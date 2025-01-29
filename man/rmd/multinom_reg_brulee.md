@@ -29,7 +29,7 @@ Other engine arguments of interest:
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 multinom_reg(penalty = double(1)) %>% 
   set_engine("brulee") %>% 
   translate()

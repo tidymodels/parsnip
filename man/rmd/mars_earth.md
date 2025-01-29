@@ -15,12 +15,12 @@ This model has 3 tuning parameters:
 
 - `prune_method`: Pruning Method (type: character, default: 'backward')
 
-The default value of `num_terms` depends on the number of predictor columns. For a data frame `x`, the default is `min(200, max(20, 2 * ncol(x))) + 1` (see [earth::earth()] and the reference below). 
+Parsnip changes the default range for `num_terms` to `c(50, 500)`.
 
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) %>% 
   set_engine("earth") %>% 
   set_mode("regression") %>% 
@@ -46,7 +46,7 @@ mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) %>% 
   set_engine("earth") %>% 
   set_mode("classification") %>% 

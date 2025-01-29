@@ -16,7 +16,7 @@ This model has 1 tuning parameters:
 The **censored** extension package is required to fit this model.
 
 
-```r
+``` r
 library(censored)
 
 survival_reg(dist = character(1)) %>% 

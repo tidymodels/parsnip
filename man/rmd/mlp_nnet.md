@@ -21,7 +21,7 @@ Note that, in [nnet::nnet()], the maximum number of parameters is an argument wi
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
@@ -52,7 +52,7 @@ Note that parsnip automatically sets linear activation in the last layer.
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
