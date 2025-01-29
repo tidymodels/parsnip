@@ -275,4 +275,11 @@ test_that('all keras activation functions', {
     keras::backend()$clear_session()
   }
 
+  expect_snapshot(
+    error = TRUE,
+    mlp(mode = "classification", hidden_units = 2, penalty = 0.01, epochs = 2,
+          activation = "invalid")  %>%
+      set_engine("keras", verbose = 0) %>%
+      parsnip::fit(Class ~ A + B, data = modeldata::two_class_dat)
+  )
 })
