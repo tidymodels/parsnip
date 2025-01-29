@@ -314,6 +314,34 @@ test_that("maybe_sparse_matrix() is used correctly", {
   )
 })
 
+test_that("we don't run as.matrix() on sparse matrix for glmnet pred #1210", {
+  skip_if_not_installed("glmnet")
+
+  local_mocked_bindings(
+    predict.elnet = function(object, newx, ...) {
+      if (is_sparse_matrix(newx)) {
+        stop("data is sparse")
+      } else {
+        stop("data isn't sparse (should not happen)")
+      }
+    },
+    .package = "glmnet"
+  )
+
+  hotel_data <- sparse_hotel_rates()
+
+  spec <- linear_reg(penalty = 0) %>%
+    set_mode("regression") %>%
+    set_engine("glmnet")
+
+  lm_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
+
+  expect_snapshot(
+    error = TRUE,
+    predict(lm_fit, hotel_data)
+  )
+})
+
 test_that("fit() errors if sparse matrix has no colnames", {
   hotel_data <- sparse_hotel_rates()
   colnames(hotel_data) <- NULL
