@@ -196,7 +196,8 @@ keras_mlp <-
     good_activation <- activation %in% allowed_keras_activation
     if (!all(good_activation)) {
       cli::cli_abort(
-        "{.arg activation} should be one of: {allowed_activation}."
+        "{.arg activation} should be one of: {allowed_keras_activation}, not 
+        {.val {activation}}."
       )
     }
 
