@@ -28,7 +28,7 @@ The `mtry` parameter is related to the number of predictors. The default depends
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric()
@@ -63,7 +63,7 @@ boost_tree(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric()

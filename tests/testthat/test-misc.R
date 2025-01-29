@@ -249,3 +249,53 @@ test_that('check_outcome works as expected', {
     check_outcome(1:2, cens_spec)
   )
 })
+
+# ------------------------------------------------------------------------------
+
+test_that('obtaining prediction columns', {
+  skip_if_not_installed("modeldata")
+  data(two_class_dat, package = "modeldata")
+
+  ### classification
+  lr_fit <- logistic_reg() %>% fit(Class ~ ., data = two_class_dat)
+  expect_equal(
+    .get_prediction_column_names(lr_fit),
+    list(estimate = ".pred_class",
+         probabilities = c(".pred_Class1", ".pred_Class2"))
+  )
+  expect_equal(
+    .get_prediction_column_names(lr_fit, syms = TRUE),
+    list(estimate = list(quote(.pred_class)),
+         probabilities = list(quote(.pred_Class1), quote(.pred_Class2)))
+  )
+
+  ### regression
+  ols_fit <- linear_reg() %>% fit(mpg ~ ., data = mtcars)
+  expect_equal(
+    .get_prediction_column_names(ols_fit),
+    list(estimate = ".pred",
+         probabilities = character(0))
+  )
+  expect_equal(
+    .get_prediction_column_names(ols_fit, syms = TRUE),
+    list(estimate = list(quote(.pred)),
+         probabilities = list())
+  )
+
+  ### censored regression
+  # in extratests
+
+  ### bad input
+  expect_snapshot(
+    .get_prediction_column_names(1),
+    error = TRUE
+  )
+
+  unk_fit <- ols_fit
+  unk_fit$spec$mode <- "Depeche"
+  expect_snapshot(
+    .get_prediction_column_names(unk_fit),
+    error = TRUE
+  )
+
+})

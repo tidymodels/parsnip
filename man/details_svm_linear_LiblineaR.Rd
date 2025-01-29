@@ -22,6 +22,8 @@ This model has 2 tuning parameters:
 This engine fits models that are L2-regularized for L2-loss. In the
 \code{\link[LiblineaR:LiblineaR]{LiblineaR::LiblineaR()}} documentation, these
 are types 1 (classification) and 11 (regression).
+
+Parsnip changes the default range for \code{cost} to \code{c(-10, 5)}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{

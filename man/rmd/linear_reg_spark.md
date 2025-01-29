@@ -22,7 +22,7 @@ For `penalty`, the amount of regularization includes both the L1 penalty (i.e., 
 ## Translation from parsnip to the original package
 
 
-```r
+``` r
 linear_reg(penalty = double(1), mixture = double(1)) %>% 
   set_engine("spark") %>% 
   translate()

@@ -1,7 +1,7 @@
 
 
 
-For this engine, there are multiple modes: censored regression, classification, and regression
+For this engine, there are multiple modes: classification, regression, and censored regression
 
 ## Tuning Parameters
 
@@ -9,11 +9,11 @@ For this engine, there are multiple modes: censored regression, classification, 
 
 This model has 3 tuning parameters:
 
+- `mtry`: # Randomly Selected Predictors (type: integer, default: ceiling(sqrt(n_predictors)))
+
 - `trees`: # Trees (type: integer, default: 500L)
 
 - `min_n`: Minimal Node Size (type: integer, default: 5L)
-
-- `mtry`: # Randomly Selected Predictors (type: integer, default: ceiling(sqrt(n_predictors)))
 
 Additionally, this model has one engine-specific tuning parameter:
 
@@ -24,7 +24,7 @@ Additionally, this model has one engine-specific tuning parameter:
 The **censored** extension package is required to fit this model.
 
 
-```r
+``` r
 library(censored)
 
 rand_forest() %>%
@@ -47,7 +47,7 @@ rand_forest() %>%
 The **bonsai** extension package is required to fit this model.
 
 
-```r
+``` r
 library(bonsai)
 
 rand_forest() %>%
@@ -71,7 +71,7 @@ rand_forest() %>%
 The **bonsai** extension package is required to fit this model.
 
 
-```r
+``` r
 library(bonsai)
 
 rand_forest() %>%

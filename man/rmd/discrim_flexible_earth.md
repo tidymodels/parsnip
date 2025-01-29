@@ -22,7 +22,7 @@ The default value of `num_terms` depends on the number of columns (`p`): `min(20
 The **discrim** extension package is required to fit this model.
 
 
-```r
+``` r
 library(discrim)
 
 discrim_flexible(

@@ -32,11 +32,12 @@ Other engine arguments of interest:
  - `class_weights()`: Numeric class weights. See [brulee::brulee_mlp()].
  - `stop_iter()`: A non-negative integer for how many iterations with no improvement before stopping. (default: 5L).
 
+Parsnip changes the default range for `learn_rate` to `c(-2.5, -0.5)`.
 
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
@@ -74,7 +75,7 @@ Note that parsnip automatically sets linear activation in the last layer.
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),

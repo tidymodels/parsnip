@@ -20,6 +20,8 @@ This model has 4 tuning parameters:
 \item \code{scale_factor}: Scale Factor (type: double, default: 1.0)
 \item \code{margin}: Insensitivity Margin (type: double, default: 0.1)
 }
+
+Parsnip changes the default range for \code{cost} to \code{c(-10, 5)}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{

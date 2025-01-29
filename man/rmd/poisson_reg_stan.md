@@ -25,7 +25,7 @@ See [rstan::sampling()] and [rstanarm::priors()] for more information on these a
 The **poissonreg** extension package is required to fit this model.
 
 
-```r
+``` r
 library(poissonreg)
 
 poisson_reg() %>% 

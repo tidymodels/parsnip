@@ -17,7 +17,7 @@ This model has 1 tuning parameter:
 The **discrim** extension package is required to fit this model.
 
 
-```r
+``` r
 library(discrim)
 
 discrim_linear(penalty = numeric(0)) %>% 

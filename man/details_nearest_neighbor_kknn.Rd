@@ -18,6 +18,9 @@ This model has 3 tuning parameters:
 ‘optimal’)
 \item \code{dist_power}: Minkowski Distance Order (type: double, default: 2.0)
 }
+
+Parsnip changes the default range for \code{neighbors} to \code{c(1, 15)} and
+\code{dist_power} to \code{c(1/10, 2)}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{

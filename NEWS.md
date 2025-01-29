@@ -25,6 +25,8 @@
 
 * If linear regression is requested with a Poisson family, an error will occur and refer the user to `poisson_reg()` (#1219).
 
+* The deprecated function `rpart_train()` was removed after its deprecation period (#1044).
+
 ## Bug Fixes
 
 * Make sure that parsnip does not convert ordered factor predictions to be unordered.
@@ -32,6 +34,8 @@
 * Ensure that `knit_engine_docs()` has the required packages installed (#1156).
 
 * Fixed bug where some models fit using `fit_xy()` couldn't predict (#1166).
+
+* `tunable()` now references a dials object for the `mixture` parameter (#1236)
 
 ## Breaking Change
 

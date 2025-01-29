@@ -17,10 +17,12 @@ This model has 3 tuning parameters:
 
 There is no default for the radial basis function kernel parameter. kernlab estimates it from the data using a heuristic method. See [kernlab::sigest()]. This method uses random numbers so, without setting the seed before fitting, the model will not be reproducible. 
 
+Parsnip changes the default range for `cost` to `c(-10, 5)`.
+
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 svm_rbf(
   cost = double(1),
   rbf_sigma = double(1), 
@@ -49,7 +51,7 @@ svm_rbf(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 svm_rbf(
   cost = double(1),
   rbf_sigma = double(1)
