@@ -15,6 +15,8 @@
 
 * New `extract_fit_time()` method has been added that returns the time it took to train the model (#853).
 
+* `mlp()` with `keras` engine now work for all activation functions currently supported by `keras` (#1127).
+
 ## Other Changes
 
 * Transitioned package errors and warnings to use cli (#1147 and #1148 by @shum461, #1153 by @RobLBaker and @wright13, #1154 by @JamesHWade, #1160, #1161, #1081).
