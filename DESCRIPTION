@@ -25,7 +25,7 @@ Imports:
     ggplot2,
     globals,
     glue,
-    hardhat (>= 1.4.0.9003),
+    hardhat (>= 1.4.1),
     lifecycle,
     magrittr,
     pillar,
@@ -69,8 +69,6 @@ Suggests:
     xgboost (>= 1.5.0.1)
 VignetteBuilder: 
     knitr
-Remotes: 
-    tidymodels/hardhat
 ByteCompile: true
 Config/Needs/website: C50, dbarts, earth, glmnet, keras, kernlab, kknn,
     LiblineaR, mgcv, nnet, parsnip, quantreg, randomForest, ranger, rpart, 
