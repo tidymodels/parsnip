@@ -41,6 +41,8 @@
 
 * The quantile regression prediction type was disabled for the deprecated `surv_reg()` model. 
 
+* `NULL` is no longer accepted as an engine (#1242).
+
 
 # parsnip 1.2.1
 
