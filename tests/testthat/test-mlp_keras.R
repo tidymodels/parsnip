@@ -149,10 +149,9 @@ car_basic <- mlp(mode = "regression", epochs = 10) %>%
 
 bad_keras_reg <-
   mlp(mode = "regression") %>%
-  set_engine("keras", min.node.size = -10)
+  set_engine("keras", min.node.size = -10, verbose = 0)
 
 # ------------------------------------------------------------------------------
-
 
 test_that('keras execution, regression', {
   skip_on_cran()
@@ -211,7 +210,6 @@ test_that('keras regression prediction', {
   keras::backend()$clear_session()
 })
 
-
 # ------------------------------------------------------------------------------
 
 test_that('multivariate nnet formula', {
@@ -246,4 +244,42 @@ test_that('multivariate nnet formula', {
 
 
   keras::backend()$clear_session()
+})
+
+# ------------------------------------------------------------------------------
+
+test_that('all keras activation functions', {
+  skip_on_cran()
+  skip_if_not_installed("keras")
+  skip_if_not_installed("modeldata")
+  skip_if(!is_tf_ok())
+
+  act <- parsnip:::keras_activations()
+
+  test_act <- function(fn) {
+    set.seed(1)
+    try(
+      mlp(mode = "classification", hidden_units = 2, penalty = 0.01, epochs = 2,
+          activation = !!fn)  %>%
+        set_engine("keras", verbose = 0) %>%
+        parsnip::fit(Class ~ A + B, data = modeldata::two_class_dat),
+      silent = TRUE)
+
+  }
+  test_act_sshhh <- purrr::quietly(test_act)
+
+  for (i in act) {
+    keras::backend()$clear_session()
+    act_res <- test_act_sshhh(i)
+    expect_s3_class(act_res$result, "model_fit")
+    keras::backend()$clear_session()
+  }
+
+  expect_snapshot(
+    error = TRUE,
+    mlp(mode = "classification", hidden_units = 2, penalty = 0.01, epochs = 2,
+          activation = "invalid")  %>%
+      set_engine("keras", verbose = 0) %>%
+      parsnip::fit(Class ~ A + B, data = modeldata::two_class_dat)
+  )
 })

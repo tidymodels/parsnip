@@ -127,6 +127,14 @@
       Error in `maybe_sparse_matrix()`:
       ! no sparse vectors detected
 
+# we don't run as.matrix() on sparse matrix for glmnet pred #1210
+
+    Code
+      predict(lm_fit, hotel_data)
+    Condition
+      Error in `predict.elnet()`:
+      ! data is sparse
+
 # fit() errors if sparse matrix has no colnames
 
     Code

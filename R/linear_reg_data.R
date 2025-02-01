@@ -250,7 +250,7 @@ set_pred(
     args =
       list(
         object = expr(object$fit),
-        newx = expr(as.matrix(new_data[, rownames(object$fit$beta), drop = FALSE])),
+        newx = expr(organize_glmnet_pre_pred(new_data, object)),
         type = "response",
         s = expr(object$spec$args$penalty)
       )

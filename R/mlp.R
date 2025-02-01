@@ -192,8 +192,14 @@ keras_mlp <-
            seeds = sample.int(10^5, size = 3),
            ...) {
 
-    act_funs <- c("linear", "softmax", "relu", "elu", "tanh")
-    rlang::arg_match(activation, act_funs)
+    allowed_keras_activation <- keras_activations()
+    good_activation <- activation %in% allowed_keras_activation
+    if (!all(good_activation)) {
+      cli::cli_abort(
+        "{.arg activation} should be one of: {allowed_keras_activation}, not 
+        {.val {activation}}."
+      )
+    }
 
     if (penalty > 0 & dropout > 0) {
       cli::cli_abort("Please use either dropout or weight decay.", call = NULL)
@@ -342,6 +348,19 @@ parse_keras_args <- function(...) {
 
 mlp_num_weights <- function(p, hidden_units, classes) {
   ((p + 1) * hidden_units) + ((hidden_units+1) * classes)
+}
+
+allowed_keras_activation <-
+ c("elu", "exponential", "gelu", "hard_sigmoid", "linear", "relu", "selu", 
+   "sigmoid", "softmax", "softplus", "softsign", "swish", "tanh")
+
+#' Activation functions for neural networks in keras
+#'
+#' @keywords internal
+#' @return A character vector of values.
+#' @export
+keras_activations <- function() {
+  allowed_keras_activation
 }
 
 ## -----------------------------------------------------------------------------

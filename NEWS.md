@@ -15,6 +15,8 @@
 
 * New `extract_fit_time()` method has been added that returns the time it took to train the model (#853).
 
+* `mlp()` with `keras` engine now work for all activation functions currently supported by `keras` (#1127).
+
 ## Other Changes
 
 * Transitioned package errors and warnings to use cli (#1147 and #1148 by @shum461, #1153 by @RobLBaker and @wright13, #1154 by @JamesHWade, #1160, #1161, #1081).
@@ -22,6 +24,8 @@
 * `fit_xy()` currently raises an error for `gen_additive_mod()` model specifications as the default engine (`"mgcv"`) specifies smoothing terms in model formulas. However, some engines specify smooths via additional arguments, in which case the restriction on `fit_xy()` is excessive. parsnip will now only raise an error when fitting a `gen_additive_mod()` with `fit_xy()` when using the `"mgcv"` engine (#775).
 
 * Aligned `null_model()` with other model types; the model type now has an engine argument that defaults to `"parsnip"` and is checked with the same machinery that checks other model types in the package (#1083).
+
+* If linear regression is requested with a Poisson family, an error will occur and refer the user to `poisson_reg()` (#1219).
 
 * The deprecated function `rpart_train()` was removed after its deprecation period (#1044).
 
@@ -32,6 +36,8 @@
 * Ensure that `knit_engine_docs()` has the required packages installed (#1156).
 
 * Fixed bug where some models fit using `fit_xy()` couldn't predict (#1166).
+
+* Fixed bug related to using local (non-package) models (#1229)
 
 * `tunable()` now references a dials object for the `mixture` parameter (#1236)
 
