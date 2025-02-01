@@ -271,6 +271,8 @@ check_pred_type <- function(object, type, ..., call = rlang::caller_env()) {
 #' tibbles.
 #'
 #' @param x A data frame or vector (depending on the context and function).
+#' @param col_name A string for a prediction column name.
+#' @param overwrite A logical for whether to overwrite the column name.
 #' @return A tibble
 #' @keywords internal
 #' @name format-internals
@@ -336,6 +338,9 @@ format_hazard <- function(x) {
   ensure_parsnip_format(x, ".pred")
 }
 
+#' @export
+#' @rdname format-internals
+#' @keywords internal
 ensure_parsnip_format <- function(x, col_name, overwrite = TRUE) {
   if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
     x <- tibble::new_tibble(x)
