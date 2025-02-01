@@ -1,4 +1,5 @@
 test_that('brulee has mixture object', {
+  skip_if_not_installed("brulee")
   # for issue 1236
   mlp_spec <-
     mlp(
