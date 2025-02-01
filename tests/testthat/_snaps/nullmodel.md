@@ -3,8 +3,8 @@
     Code
       translate(null_model(mode = "regression") %>% set_engine())
     Condition
-      Error in `set_engine()`:
-      ! Missing engine. Possible mode/engine combinations are: classification {parsnip} and regression {parsnip}.
+      Error in `set_engine.model_spec()`:
+      ! argument "engine" is missing, with no default
 
 ---
 

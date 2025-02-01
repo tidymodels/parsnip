@@ -108,16 +108,16 @@
     Code
       linear_reg() %>% set_engine()
     Condition
-      Error in `set_engine()`:
-      ! Missing engine. Possible mode/engine combinations are: quantile regression {quantreg} and regression {lm, glm, glmnet, stan, spark, keras, brulee}.
+      Error in `set_engine.model_spec()`:
+      ! argument "engine" is missing, with no default
 
 ---
 
     Code
       proportional_hazards() %>% set_engine()
     Condition
-      Error in `set_engine()`:
-      ! No known engines for `proportional_hazards()`.
+      Error in `set_engine.model_spec()`:
+      ! argument "engine" is missing, with no default
 
 # set_* functions error when input isn't model_spec
 

@@ -28,6 +28,6 @@
     Code
       svm_poly() %>% set_engine(NULL) %>% translate()
     Condition
-      Error in `translate.default()`:
-      ! Please set an engine.
+      Error in `set_engine()`:
+      ! Missing engine. Possible mode/engine combinations are: classification {kernlab} and regression {kernlab}.
 

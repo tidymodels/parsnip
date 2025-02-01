@@ -19,8 +19,8 @@
     Code
       translate(mars(mode = "regression") %>% set_engine())
     Condition
-      Error in `set_engine()`:
-      ! Missing engine. Possible mode/engine combinations are: classification {earth} and regression {earth}.
+      Error in `set_engine.model_spec()`:
+      ! argument "engine" is missing, with no default
 
 ---
 

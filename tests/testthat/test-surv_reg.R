@@ -13,7 +13,7 @@ test_that('bad input', {
 
   expect_snapshot(error = TRUE, surv_reg(mode = ", classification"))
   expect_snapshot(error = TRUE, translate(surv_reg() %>% set_engine("wat")))
-  expect_snapshot(res <- translate(surv_reg() %>% set_engine(NULL)))
+  expect_snapshot(res <- translate(surv_reg() %>% set_engine(NULL)), error = TRUE)
 })
 
 test_that("deprecation warning", {

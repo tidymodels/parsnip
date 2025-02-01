@@ -20,8 +20,8 @@
     Code
       translate(svm_linear(mode = "regression") %>% set_engine(NULL))
     Condition
-      Error in `translate.default()`:
-      ! Please set an engine.
+      Error in `set_engine()`:
+      ! Missing engine. Possible mode/engine combinations are: classification {LiblineaR, kernlab} and regression {LiblineaR, kernlab}.
 
 ---
 

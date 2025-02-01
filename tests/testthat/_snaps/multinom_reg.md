@@ -37,8 +37,8 @@
     Code
       multinom_reg(penalty = 0.1) %>% set_engine()
     Condition
-      Error in `set_engine()`:
-      ! Missing engine. Possible mode/engine combinations are: classification {glmnet, spark, keras, nnet, brulee}.
+      Error in `set_engine.model_spec()`:
+      ! argument "engine" is missing, with no default
 
 # check_args() works
 
