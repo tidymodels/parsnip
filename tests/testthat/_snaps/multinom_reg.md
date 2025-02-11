@@ -60,3 +60,62 @@
       Error in `fit()`:
       ! `penalty` must be a number larger than or equal to 0 or `NULL`, not the number -1.
 
+# tunables
+
+    Code
+      multinom_reg() %>% tunable()
+    Output
+      # A tibble: 1 x 5
+        name    call_info        source     component    component_id
+        <chr>   <list>           <chr>      <chr>        <chr>       
+      1 penalty <named list [2]> model_spec multinom_reg main        
+
+---
+
+    Code
+      multinom_reg() %>% set_engine("brulee") %>% tunable()
+    Output
+      # A tibble: 9 x 5
+        name          call_info        source     component    component_id
+        <chr>         <list>           <chr>      <chr>        <chr>       
+      1 epochs        <named list [3]> model_spec multinom_reg engine      
+      2 penalty       <named list [2]> model_spec multinom_reg main        
+      3 mixture       <named list [2]> model_spec multinom_reg main        
+      4 learn_rate    <named list [3]> model_spec multinom_reg engine      
+      5 momentum      <named list [3]> model_spec multinom_reg engine      
+      6 batch_size    <named list [2]> model_spec multinom_reg engine      
+      7 class_weights <named list [2]> model_spec multinom_reg engine      
+      8 stop_iter     <named list [2]> model_spec multinom_reg engine      
+      9 rate_schedule <named list [3]> model_spec multinom_reg engine      
+
+---
+
+    Code
+      multinom_reg() %>% set_engine("nnet") %>% tunable()
+    Output
+      # A tibble: 1 x 5
+        name    call_info        source     component    component_id
+        <chr>   <list>           <chr>      <chr>        <chr>       
+      1 penalty <named list [2]> model_spec multinom_reg main        
+
+---
+
+    Code
+      multinom_reg() %>% set_engine("glmnet") %>% tunable()
+    Output
+      # A tibble: 2 x 5
+        name    call_info        source     component    component_id
+        <chr>   <list>           <chr>      <chr>        <chr>       
+      1 penalty <named list [2]> model_spec multinom_reg main        
+      2 mixture <named list [3]> model_spec multinom_reg main        
+
+---
+
+    Code
+      multinom_reg() %>% set_engine("keras") %>% tunable()
+    Output
+      # A tibble: 1 x 5
+        name    call_info        source     component    component_id
+        <chr>   <list>           <chr>      <chr>        <chr>       
+      1 penalty <named list [2]> model_spec multinom_reg main        
+

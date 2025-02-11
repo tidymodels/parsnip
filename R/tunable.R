@@ -211,7 +211,7 @@ flexsurvspline_engine_args <-
 tune_activations <- c("relu", "tanh", "elu", "log_sigmoid", "tanhshrink")
 tune_sched <- c("none", "decay_time", "decay_expo", "cyclic", "step")
 
-brulee_args <-
+brulee_mlp_args <-
   tibble::tibble(
     name = c('epochs', 'hidden_units', 'hidden_units_2', 'activation', 'activation_2',
              'penalty', 'mixture', 'dropout', 'learn_rate', 'momentum', 'batch_size',
@@ -232,11 +232,16 @@ brulee_args <-
       list(pkg = "dials", fun = "class_weights"),
       list(pkg = "dials", fun = "rate_schedule", values = tune_sched)
     )
+  ) %>%
+  dplyr::mutate(source = "model_spec")
+
+brulee_mlp_only_args <-
+  tibble::tibble(
+    name =
+      c('hidden_units', 'hidden_units_2', 'activation', 'activation_2', 'dropout')
   )
 
 # ------------------------------------------------------------------------------
-
-
 
 #' @export
 tunable.linear_reg <- function(x, ...) {
@@ -246,18 +251,57 @@ tunable.linear_reg <- function(x, ...) {
       list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
   } else if (x$engine == "brulee") {
     res <-
-      brulee_args %>%
-      dplyr::filter(name %in% tune_args(x)$name) %>%
-      dplyr::full_join(res %>% dplyr::select(-call_info), by = "name")
+      brulee_mlp_args %>%
+      dplyr::anti_join(brulee_mlp_only_args, by = "name") %>%
+      dplyr::filter(name != "class_weights") %>%
+      dplyr::mutate(
+        component = "linear_reg",
+        component_id = ifelse(name %in% names(formals("linear_reg")), "main", "engine")
+      ) %>%
+      dplyr::select(name, call_info, source, component, component_id)
   }
   res
 }
 
 #' @export
-tunable.logistic_reg <- tunable.linear_reg
 
 #' @export
-tunable.multinom_reg <- tunable.linear_reg
+tunable.logistic_reg <- function(x, ...) {
+  res <- NextMethod()
+  if (x$engine == "glmnet") {
+    res$call_info[res$name == "mixture"] <-
+      list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
+  } else if (x$engine == "brulee") {
+    res <-
+      brulee_mlp_args %>%
+      dplyr::anti_join(brulee_mlp_only_args, by = "name") %>%
+      dplyr::mutate(
+        component = "logistic_reg",
+        component_id = ifelse(name %in% names(formals("logistic_reg")), "main", "engine")
+      ) %>%
+      dplyr::select(name, call_info, source, component, component_id)
+  }
+  res
+}
+
+#' @export
+tunable.multinom_reg <- function(x, ...) {
+  res <- NextMethod()
+  if (x$engine == "glmnet") {
+    res$call_info[res$name == "mixture"] <-
+      list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
+  } else if (x$engine == "brulee") {
+    res <-
+      brulee_mlp_args %>%
+      dplyr::anti_join(brulee_mlp_only_args, by = "name") %>%
+      dplyr::mutate(
+        component = "multinom_reg",
+        component_id = ifelse(name %in% names(formals("multinom_reg")), "main", "engine")
+      ) %>%
+      dplyr::select(name, call_info, source, component, component_id)
+  }
+  res
+}
 
 #' @export
 tunable.boost_tree <- function(x, ...) {
@@ -335,9 +379,15 @@ tunable.mlp <- function(x, ...) {
   res <- NextMethod()
   if (grepl("brulee", x$engine)) {
     res <-
-      brulee_args %>%
-      dplyr::filter(name %in% tune_args(x)$name) %>%
-      dplyr::full_join(res %>% dplyr::select(-call_info), by = "name")
+      brulee_mlp_args %>%
+      dplyr::mutate(
+        component = "mlp",
+        component_id = ifelse(name %in% names(formals("mlp")), "main", "engine")
+      ) %>%
+      dplyr::select(name, call_info, source, component, component_id)
+    if (x$engine == "brulee") {
+      res <- res[!grepl("_2", res$name),]
+    }
   }
   res
 }

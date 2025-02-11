@@ -43,3 +43,38 @@ test_that('check_args() works', {
     }
   )
 })
+
+# ------------------------------------------------------------------------------
+
+test_that("tunables", {
+
+  expect_snapshot(
+    multinom_reg() %>%
+      tunable()
+  )
+
+  expect_snapshot(
+    multinom_reg() %>%
+      set_engine("brulee") %>%
+      tunable()
+  )
+
+  expect_snapshot(
+    multinom_reg() %>%
+      set_engine("nnet") %>%
+      tunable()
+  )
+
+  expect_snapshot(
+    multinom_reg() %>%
+      set_engine("glmnet") %>%
+      tunable()
+  )
+
+  expect_snapshot(
+    multinom_reg() %>%
+      set_engine("keras") %>%
+      tunable()
+  )
+
+})

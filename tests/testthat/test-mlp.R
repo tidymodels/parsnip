@@ -81,3 +81,32 @@ test_that("check_args() works", {
     }
   )
 })
+
+# ------------------------------------------------------------------------------
+
+test_that("tunables", {
+
+  expect_snapshot(
+    mlp() %>%
+      set_engine("brulee") %>%
+      tunable()
+  )
+  expect_snapshot(
+    mlp() %>%
+      set_engine("brulee_two_layer") %>%
+      tunable()
+  )
+
+  expect_snapshot(
+    mlp() %>%
+      set_engine("nnet") %>%
+      tunable()
+  )
+
+  expect_snapshot(
+    mlp() %>%
+      set_engine("keras") %>%
+      tunable()
+  )
+
+})

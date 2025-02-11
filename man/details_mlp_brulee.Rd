@@ -10,12 +10,13 @@
 For this engine, there are multiple modes: classification and regression
 \subsection{Tuning Parameters}{
 
-This model has 6 tuning parameters:
+This model has 7 tuning parameters:
 \itemize{
 \item \code{epochs}: # Epochs (type: integer, default: 100L)
 \item \code{hidden_units}: # Hidden Units (type: integer, default: 3L)
 \item \code{activation}: Activation Function (type: character, default: ‘relu’)
 \item \code{penalty}: Amount of Regularization (type: double, default: 0.001)
+\item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 0.0)
 \item \code{dropout}: Dropout Rate (type: double, default: 0.0)
 \item \code{learn_rate}: Learning Rate (type: double, default: 0.01)
 }
@@ -29,20 +30,18 @@ Both \code{penalty} and \code{dropout} should be not be used in the same model.
 
 Other engine arguments of interest:
 \itemize{
-\item \code{momentum()}: A number used to use historical gradient infomration
+\item \code{momentum}: A number used to use historical gradient infomration
 during optimization.
-\item \code{batch_size()}: An integer for the number of training set points in
-each batch.
-\item \code{class_weights()}: Numeric class weights. See
+\item \code{batch_size}: An integer for the number of training set points in each
+batch.
+\item \code{class_weights}: Numeric class weights. See
 \code{\link[brulee:brulee_mlp]{brulee::brulee_mlp()}}.
-\item \code{stop_iter()}: A non-negative integer for how many iterations with no
+\item \code{stop_iter}: A non-negative integer for how many iterations with no
 improvement before stopping. (default: 5L).
-\item \code{rate_schedule()}: A function to change the learning rate over epochs.
+\item \code{rate_schedule}: A function to change the learning rate over epochs.
 See \code{\link[brulee:schedule_decay_time]{brulee::schedule_decay_time()}}
 for details.
 }
-
-Parsnip changes the default range for \code{learn_rate} to \code{c(-2.5, -0.5)}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{

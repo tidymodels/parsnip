@@ -387,3 +387,39 @@ test_that("prevent using a Poisson family", {
     error = TRUE
   )
 })
+
+
+# ------------------------------------------------------------------------------
+
+test_that("tunables", {
+
+  expect_snapshot(
+    linear_reg() %>%
+      tunable()
+  )
+
+  expect_snapshot(
+    linear_reg() %>%
+      set_engine("brulee") %>%
+      tunable()
+  )
+  expect_snapshot(
+    linear_reg() %>%
+      set_engine("glmnet") %>%
+      tunable()
+  )
+
+  expect_snapshot(
+    linear_reg() %>%
+      set_engine("quantreg") %>%
+      tunable()
+  )
+
+  expect_snapshot(
+    linear_reg() %>%
+      set_engine("keras") %>%
+      tunable()
+  )
+
+})
+

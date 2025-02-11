@@ -7,7 +7,7 @@ For this engine, there are multiple modes: classification and regression
 
 
 
-This model has 6 tuning parameters:
+This model has 7 tuning parameters:
 
 - `epochs`: # Epochs (type: integer, default: 100L)
 
@@ -16,6 +16,8 @@ This model has 6 tuning parameters:
 - `activation`: Activation Function (type: character, default: 'relu')
 
 - `penalty`: Amount of Regularization (type: double, default: 0.001)
+
+- `mixture`: Proportion of Lasso Penalty (type: double, default: 0.0)
 
 - `dropout`: Dropout Rate (type: double, default: 0.0)
 
@@ -28,17 +30,17 @@ Both `penalty` and `dropout` should be not be used in the same model.
 Other engine arguments of interest: 
 
  - `hidden_layer_2` and `activation_2` control the format of the second layer. 
- - `momentum()`: A number used to use historical gradient information during optimization.
- - `batch_size()`: An integer for the number of training set points in each batch.
- - `class_weights()`: Numeric class weights. See [brulee::brulee_mlp()].
- - `stop_iter()`: A non-negative integer for how many iterations with no improvement before stopping. (default: 5L).
- - `rate_schedule()`: A function to change the learning rate over epochs. See [brulee::schedule_decay_time()] for details. 
+ - `momentum`: A number used to use historical gradient information during optimization.
+ - `batch_size`: An integer for the number of training set points in each batch.
+ - `class_weights`: Numeric class weights. See [brulee::brulee_mlp()].
+ - `stop_iter`: A non-negative integer for how many iterations with no improvement before stopping. (default: 5L).
+ - `rate_schedule`: A function to change the learning rate over epochs. See [brulee::schedule_decay_time()] for details. 
 
 
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
@@ -78,12 +80,12 @@ mlp(
 ##     hidden_units_2 = integer(1), activation_2 = character(1))
 ```
 
-Note that parsnip automatically sets linear activation in the last layer. 
+Note that parsnip automatically sets the linear activation in the last layer. 
 
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),

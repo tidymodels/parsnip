@@ -286,3 +286,31 @@ test_that("check_args() works", {
     }
   )
 })
+
+# ------------------------------------------------------------------------------
+
+test_that("tunables", {
+
+  expect_snapshot(
+    logistic_reg() %>%
+      tunable()
+  )
+
+  expect_snapshot(
+    logistic_reg() %>%
+      set_engine("brulee") %>%
+      tunable()
+  )
+  expect_snapshot(
+    logistic_reg() %>%
+      set_engine("glmnet") %>%
+      tunable()
+  )
+
+  expect_snapshot(
+    logistic_reg() %>%
+      set_engine("keras") %>%
+      tunable()
+  )
+
+})
