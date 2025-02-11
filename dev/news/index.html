@@ -80,6 +80,7 @@
 <h3 id="breaking-change-development-version">Breaking Change<a class="anchor" aria-label="anchor" href="#breaking-change-development-version"></a></h3>
 <ul><li><p>For quantile prediction, the <code>quantile</code> argument to <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> has been deprecate in facor of <code>quantile_levels</code>. This does not affect models with mode <code>"quantile regression"</code>.</p></li>
 <li><p>The quantile regression prediction type was disabled for the deprecated <code><a href="../reference/surv_reg.html">surv_reg()</a></code> model.</p></li>
+<li><p><code>NULL</code> is no longer accepted as an engine (<a href="https://github.com/tidymodels/parsnip/issues/1242" class="external-link">#1242</a>).</p></li>
 </ul></div>
 </div>
     <div class="section level2">
