@@ -32,8 +32,9 @@
 
     Code
       res <- translate(surv_reg() %>% set_engine(NULL))
-    Message
-      Used `engine = 'survival'` for translation.
+    Condition
+      Error in `set_engine()`:
+      ! Missing engine. Possible mode/engine combinations are: regression {flexsurv, survival}.
 
 # deprecation warning
 
