@@ -368,7 +368,8 @@ set_pred(
 
 set_model_engine("mlp", "classification", "brulee")
 set_model_engine("mlp", "regression", "brulee")
-set_dependency("mlp", "brulee", "brulee")
+set_dependency("mlp", "brulee", "brulee", mode = "classification")
+set_dependency("mlp", "brulee", "brulee", mode = "regression")
 
 set_model_arg(
   model = "mlp",
@@ -530,7 +531,8 @@ set_pred(
 
 set_model_engine("mlp", "classification", "brulee_two_layer")
 set_model_engine("mlp", "regression", "brulee_two_layer")
-set_dependency("mlp", "brulee_two_layer", "brulee")
+set_dependency("mlp", "brulee_two_layer", "brulee", mode = "classification")
+set_dependency("mlp", "brulee_two_layer", "brulee", mode = "regression")
 
 set_model_arg(
   model = "mlp",
