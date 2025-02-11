@@ -62,7 +62,7 @@ mlp(
   translate()
 ```
 
-Note that parsnip automatically sets linear activation in the last layer. 
+Note that parsnip automatically sets the linear activation in the last layer. 
 
 ## Translation from parsnip to the original package (classification)
 
