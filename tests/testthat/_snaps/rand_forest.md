@@ -19,8 +19,9 @@
 
     Code
       res <- translate(rand_forest(mode = "classification") %>% set_engine(NULL))
-    Message
-      Used `engine = 'ranger'` for translation.
+    Condition
+      Error in `set_engine()`:
+      ! Missing engine. Possible mode/engine combinations are: classification {ranger, randomForest, spark} and regression {ranger, randomForest, spark}.
 
 ---
 

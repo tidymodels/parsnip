@@ -14,5 +14,4 @@
         Class ~ A + B, data = modeldata::two_class_dat)
     Condition
       Error in `parsnip::keras_mlp()`:
-      ! `activation` should be one of: elu, exponential, gelu, hardsigmoid, linear, relu, selu, sigmoid, softmax, softplus, softsign, swish, and tanh, not "invalid".
-
+      ! `activation` should be one of: elu, exponential, gelu, hard_sigmoid, linear, relu, selu, sigmoid, softmax, softplus, softsign, swish, and tanh, not "invalid".

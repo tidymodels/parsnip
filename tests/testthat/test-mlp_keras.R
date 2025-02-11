@@ -252,6 +252,7 @@ test_that('all keras activation functions', {
   skip_on_cran()
   skip_if_not_installed("keras")
   skip_if_not_installed("modeldata")
+  skip_if_not_installed("dials", minimum_version = "1.3.0.9000")
   skip_if(!is_tf_ok())
 
   act <- parsnip:::keras_activations()
