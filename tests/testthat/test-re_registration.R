@@ -4,16 +4,15 @@
 
 test_that('re-registration of mode', {
   old_val <- get_from_env("bart_modes")
-  expect_error(set_model_mode("bart", "classification"), regexp = NA)
+  expect_no_condition(set_model_mode("bart", "classification"))
   new_val <- get_from_env("bart_modes")
   expect_equal(old_val, new_val)
 })
 
 test_that('re-registration of engine', {
   old_val <- get_from_env("bart")
-  expect_error(
-    set_model_engine("bart", mode = "classification", eng = "dbarts"),
-    regexp = NA
+  expect_no_condition(
+    set_model_engine("bart", mode = "classification", eng = "dbarts")
   )
   new_val <- get_from_env("bart")
   expect_equal(old_val, new_val)
@@ -22,17 +21,16 @@ test_that('re-registration of engine', {
 
 test_that('re-registration of package dependencies', {
   old_val <- get_from_env("bart_pkgs")
-  expect_error(
-    set_dependency("bart", "dbarts", "dbarts"),
-    regexp = NA
-  )
+  expect_no_error(expect_no_warning(
+    set_dependency("bart", "dbarts", "dbarts")
+  ))
   new_val <- get_from_env("bart_pkgs")
   expect_equal(old_val, new_val)
 })
 
 test_that('re-registration of fit information', {
   old_val <- get_from_env("bart_fit")
-  expect_error(
+  expect_no_condition(
     set_fit(
       model = "bart",
       eng = "dbarts",
@@ -44,15 +42,15 @@ test_that('re-registration of fit information', {
         func = c(pkg = "dbarts", fun = "bart"),
         defaults = list(verbose = FALSE, keeptrees = TRUE, keepcall = FALSE)
       )
-    ),
-    regexp = NA
+    )
   )
   new_val <- get_from_env("bart_fit")
   expect_equal(old_val, new_val)
 
   # Fail if newly registered data is different than existing
   # `verbose` option is different here
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_fit(
       model = "bart",
       eng = "dbarts",
@@ -64,14 +62,13 @@ test_that('re-registration of fit information', {
         func = c(pkg = "dbarts", fun = "bart"),
         defaults = list(verbose = TRUE, keeptrees = TRUE, keepcall = FALSE)
       )
-    ),
-    "new information being registered is different"
+    )
   )
 })
 
 test_that('re-registration of encoding information', {
   old_val <- get_from_env("bart_encoding")
-  expect_error(
+  expect_no_condition(
     set_encoding(
       model = "bart",
       eng = "dbarts",
@@ -82,15 +79,15 @@ test_that('re-registration of encoding information', {
         remove_intercept = FALSE,
         allow_sparse_x = FALSE
       )
-    ),
-    regexp = NA
+    )
   )
   new_val <- get_from_env("bart_encoding")
   expect_equal(old_val, new_val)
 
   # Fail if newly registered data is different than existing
   # `compute_intercept` option is different here
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_encoding(
       model = "bart",
       eng = "dbarts",
@@ -101,15 +98,14 @@ test_that('re-registration of encoding information', {
         remove_intercept = FALSE,
         allow_sparse_x = FALSE
       )
-    ),
-    "new information being registered is different"
+    )
   )
 })
 
 
 test_that('re-registration of prediction information', {
   old_val <- get_from_env("bart_predict")
-  expect_error(
+  expect_no_condition(
     set_pred(
       model = "bart",
       eng = "dbarts",
@@ -126,15 +122,15 @@ test_that('re-registration of prediction information', {
             type = "numeric"
           )
       )
-    ),
-    regexp = NA
+    )
   )
   new_val <- get_from_env("bart_predict")
   expect_equal(old_val, new_val)
 
   # Fail if newly registered data is different than existing
   # `type` option is different here
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_pred(
       model = "bart",
       eng = "dbarts",
@@ -151,8 +147,7 @@ test_that('re-registration of prediction information', {
             type = "tuba"
           )
       )
-    ),
-    "new information being registered is different"
+    )
   )
 })
 

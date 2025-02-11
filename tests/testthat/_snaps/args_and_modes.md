@@ -1,3 +1,35 @@
+# pipe arguments
+
+    Code
+      rand_forest() %>% set_args()
+    Condition
+      Error in `set_args()`:
+      ! Please pass at least one named argument.
+
+# pipe engine
+
+    Code
+      rand_forest() %>% set_mode()
+    Condition
+      Error in `set_mode()`:
+      ! Available modes for model type rand_forest are: "unknown", "classification", "regression", and "censored regression".
+
+---
+
+    Code
+      rand_forest() %>% set_mode(2)
+    Condition
+      Error in `set_mode()`:
+      ! 2 is not a known mode for model `rand_forest()`.
+
+---
+
+    Code
+      rand_forest() %>% set_mode("haberdashery")
+    Condition
+      Error in `set_mode()`:
+      ! "haberdashery" is not a known mode for model `rand_forest()`.
+
 # can't set a mode that isn't allowed by the model spec
 
     Code
@@ -60,7 +92,7 @@
       linear_reg() %>% set_mode()
     Condition
       Error in `set_mode()`:
-      ! Available modes for model type linear_reg are: "unknown" and "regression".
+      ! Available modes for model type linear_reg are: "unknown", "regression", and "quantile regression".
 
 ---
 
@@ -77,7 +109,7 @@
       linear_reg() %>% set_engine()
     Condition
       Error in `set_engine()`:
-      ! Missing engine. Possible mode/engine combinations are: regression {lm, glm, glmnet, stan, spark, keras, brulee}.
+      ! Missing engine. Possible mode/engine combinations are: quantile regression {quantreg} and regression {lm, glm, glmnet, stan, spark, keras, brulee}.
 
 ---
 

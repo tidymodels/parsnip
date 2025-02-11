@@ -15,6 +15,14 @@
       Computational engine: kknn 
       
 
+# bad input
+
+    Code
+      nearest_neighbor(mode = "reallyunknown")
+    Condition
+      Error in `nearest_neighbor()`:
+      ! "reallyunknown" is not a known mode for model `nearest_neighbor()`.
+
 # check_args() works
 
     Code

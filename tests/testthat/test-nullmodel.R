@@ -1,13 +1,13 @@
 hpc <- hpc_data[1:150, c(2:5, 8)] %>% as.data.frame()
 
 test_that('bad input', {
-  expect_error(translate(null_model(mode = "regression") %>% set_engine()))
-  expect_error(translate(null_model() %>% set_engine("wat?")))
-  expect_error(translate(null_model(formula = y ~ x)))
+  expect_snapshot(error = TRUE, translate(null_model(mode = "regression") %>% set_engine()))
+  expect_snapshot(error = TRUE, translate(null_model() %>% set_engine("wat?")))
   expect_warning(
     translate(
       null_model(mode = "regression") %>% set_engine("parsnip", x = hpc[,1:3], y = hpc$class)
-    )
+    ),
+    class = "parsnip_protected_arg_warning"
   )
 })
 
@@ -49,7 +49,8 @@ test_that('nullmodel execution', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit(
       null_model(mode = "regression") %>% set_engine("parsnip"),
       hpc_bad_form,
@@ -119,11 +120,10 @@ test_that('nullmodel prediction', {
 
 test_that('classification', {
 
-  expect_error(
+  expect_no_condition(
     null_model <- null_model(mode = "classification") %>%
       set_engine("parsnip") %>%
-      fit(class ~ ., data = hpc),
-    regexp = NA
+      fit(class ~ ., data = hpc)
   )
   expect_true(!is.null(null_model$fit))
 })

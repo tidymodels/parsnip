@@ -9,6 +9,7 @@
 \alias{format_survival}
 \alias{format_linear_pred}
 \alias{format_hazard}
+\alias{ensure_parsnip_format}
 \title{Internal functions that format predictions}
 \usage{
 format_num(x)
@@ -24,9 +25,15 @@ format_survival(x)
 format_linear_pred(x)
 
 format_hazard(x)
+
+ensure_parsnip_format(x, col_name, overwrite = TRUE)
 }
 \arguments{
 \item{x}{A data frame or vector (depending on the context and function).}
+
+\item{col_name}{A string for a prediction column name.}
+
+\item{overwrite}{A logical for whether to overwrite the column name.}
 }
 \value{
 A tibble

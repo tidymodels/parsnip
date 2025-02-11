@@ -15,6 +15,23 @@
       Computational engine: nnet 
       
 
+# bad input
+
+    Code
+      mlp(mode = "time series")
+    Condition
+      Error in `mlp()`:
+      ! "time series" is not a known mode for model `mlp()`.
+
+---
+
+    Code
+      translate(mlp(mode = "classification") %>% set_engine("wat?"))
+    Condition
+      Error in `set_engine()`:
+      x Engine "wat?" is not supported for `mlp()`
+      i See `show_engines("mlp")`.
+
 # check_args() works
 
     Code

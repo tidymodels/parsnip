@@ -34,18 +34,22 @@ autoplot.model_fit <- function(object, ...) {
 #' @rdname autoplot.model_fit
 autoplot.glmnet <- function(object, ..., min_penalty = 0, best_penalty = NULL,
                             top_n = 3L) {
+  check_number_decimal(min_penalty, min = 0, max = 1)
+  check_number_decimal(best_penalty, min = 0, max = 1, allow_null = TRUE)
+  check_number_whole(top_n, min = 1, max = Inf, allow_infinite = TRUE)
   autoplot_glmnet(object, min_penalty, best_penalty, top_n, ...)
 }
 
 
-map_glmnet_coefs <- function(x) {
+map_glmnet_coefs <- function(x, call = rlang::caller_env()) {
   coefs <- coef(x)
   # If parsnip is used to fit the model, glmnet should be attached and this will
   # work. If an object is loaded from a new session, they will need to load the
   # package.
   if (is.null(coefs)) {
     cli::cli_abort(
-      "Please load the {.pkg glmnet} package before running {.fun autoplot}."
+      "Please load the {.pkg glmnet} package before running {.fun autoplot}.",
+      call = call
     )
   }
   p <- x$dim[1]
@@ -86,11 +90,10 @@ top_coefs <- function(x, top_n = 5) {
     dplyr::slice(seq_len(top_n))
 }
 
-autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L, ...) {
-  check_penalty_value(min_penalty)
-
+autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L,
+                            call = rlang::caller_env(), ...) {
   tidy_coefs <-
-    map_glmnet_coefs(x) %>%
+    map_glmnet_coefs(x, call = call) %>%
     dplyr::filter(penalty >= min_penalty)
 
   actual_min_penalty <- min(tidy_coefs$penalty)
@@ -138,7 +141,6 @@ autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L,
   }
 
   if (!is.null(best_penalty)) {
-    check_penalty_value(best_penalty)
     p <- p + ggplot2::geom_vline(xintercept = best_penalty, lty = 3)
   }
 
@@ -157,15 +159,6 @@ autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L,
       )
   }
   p
-}
-
-check_penalty_value <- function(x) {
-  cl <- match.call()
-  arg_val <- as.character(cl$x)
-  if (!is.vector(x) || length(x) != 1 || !is.numeric(x) || x < 0) {
-    cli::cli_abort("{.arg {arg_val}} should be a single, non-negative value.")
-  }
-  invisible(x)
 }
 
 # nocov end

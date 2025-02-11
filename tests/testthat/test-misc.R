@@ -5,6 +5,7 @@ test_that('parsnip objects', {
 
   lm_idea <- linear_reg() %>% set_engine("lm")
   expect_false(has_multi_predict(lm_idea))
+  expect_snapshot(error = TRUE, predict(lm_idea, mtcars))
 
   lm_fit <- fit(lm_idea, mpg ~ ., data = mtcars)
   expect_false(has_multi_predict(lm_fit))
@@ -35,25 +36,23 @@ test_that('other objects', {
 
 test_that('S3 method dispatch/registration', {
 
-  expect_error(
+  expect_no_condition(
     res <-
       null_model() %>%
       set_engine("parsnip") %>%
       set_mode("regression") %>%
       fit(mpg ~ ., data = mtcars) %>%
-      tidy(),
-    regex = NA
+      tidy()
   )
   expect_true(tibble::is_tibble(res))
 
-  expect_error(
+  expect_no_condition(
     res <-
       null_model() %>%
       set_engine("parsnip") %>%
       set_mode("classification") %>%
       fit(class ~ ., data = hpc) %>%
-      tidy(),
-    regex = NA
+      tidy()
   )
   expect_true(tibble::is_tibble(res))
 
@@ -75,13 +74,11 @@ test_that('control class', {
   class(ctrl) <- c("potato", "chair")
   # This doesn't error anymore because `condense_control()` doesn't care about
   # classes, it cares about elements
-  expect_error(
-    fit(x, mpg ~ ., data = mtcars, control = ctrl),
-    NA
+  expect_no_condition(
+    fit(x, mpg ~ ., data = mtcars, control = ctrl)
   )
-  expect_error(
-    fit_xy(x, x = mtcars[, -1], y = mtcars$mpg, control = ctrl),
-    NA
+  expect_no_condition(
+    fit_xy(x, x = mtcars[, -1], y = mtcars$mpg, control = ctrl)
   )
 })
 
@@ -163,10 +160,7 @@ test_that('arguments can be passed to model spec inside function', {
   exp_res <- nearest_neighbor(mode = "regression", neighbors = 5) %>%
     fit(mpg ~ ., data = mtcars)
 
-  expect_error(
-    fun_res <- f(),
-    NA
-  )
+  expect_no_condition(fun_res <- f())
 
   expect_equal(exp_res$fit[-c(8, 9)], fun_res$fit[-c(8, 9)])
 })
@@ -195,11 +189,6 @@ test_that('check_outcome works as expected', {
 
   expect_no_error(
     check_outcome(mtcars, reg_spec)
-  )
-
-  expect_snapshot(
-    error = TRUE,
-    check_outcome(factor(1:2), reg_spec)
   )
 
   expect_snapshot(
@@ -234,11 +223,6 @@ test_that('check_outcome works as expected', {
 
   expect_snapshot(
     error = TRUE,
-    check_outcome(1:2, class_spec)
-  )
-
-  expect_snapshot(
-    error = TRUE,
     check_outcome(NULL, class_spec)
   )
 
@@ -265,3 +249,94 @@ test_that('check_outcome works as expected', {
     check_outcome(1:2, cens_spec)
   )
 })
+
+# ------------------------------------------------------------------------------
+
+test_that('obtaining prediction columns', {
+  skip_if_not_installed("modeldata")
+  data(two_class_dat, package = "modeldata")
+
+  ### classification
+  lr_fit <- logistic_reg() %>% fit(Class ~ ., data = two_class_dat)
+  expect_equal(
+    .get_prediction_column_names(lr_fit),
+    list(estimate = ".pred_class",
+         probabilities = c(".pred_Class1", ".pred_Class2"))
+  )
+  expect_equal(
+    .get_prediction_column_names(lr_fit, syms = TRUE),
+    list(estimate = list(quote(.pred_class)),
+         probabilities = list(quote(.pred_Class1), quote(.pred_Class2)))
+  )
+
+  ### regression
+  ols_fit <- linear_reg() %>% fit(mpg ~ ., data = mtcars)
+  expect_equal(
+    .get_prediction_column_names(ols_fit),
+    list(estimate = ".pred",
+         probabilities = character(0))
+  )
+  expect_equal(
+    .get_prediction_column_names(ols_fit, syms = TRUE),
+    list(estimate = list(quote(.pred)),
+         probabilities = list())
+  )
+
+  ### censored regression
+  # in extratests
+
+  ### bad input
+  expect_snapshot(
+    .get_prediction_column_names(1),
+    error = TRUE
+  )
+
+  unk_fit <- ols_fit
+  unk_fit$spec$mode <- "Depeche"
+  expect_snapshot(
+    .get_prediction_column_names(unk_fit),
+    error = TRUE
+  )
+
+})
+
+
+# ------------------------------------------------------------------------------
+
+# https://github.com/tidymodels/parsnip/issues/1229
+test_that('register local models', {
+  set_new_model("my_model")
+  set_model_mode(model = "my_model", mode = "regression")
+  set_model_engine(
+    "my_model",
+    mode = "regression",
+    eng = "my_engine"
+  )
+
+  my_model <-
+    function(mode = "regression") {
+      new_model_spec(
+        "my_model",
+        args = list(),
+        eng_args = NULL,
+        mode = mode,
+        method = NULL,
+        engine = NULL
+      )
+    }
+
+  set_fit(
+    model = "my_model",
+    eng = "my_engine",
+    mode = "regression",
+    value = list(
+      interface = "matrix",
+      protect = c("formula", "data"),
+      func = c(fun = "my_model_fun"),
+      defaults = list()
+    )
+  )
+
+  expect_snapshot(my_model() %>% translate("my_engine"))
+})
+

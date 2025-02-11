@@ -43,6 +43,50 @@ test_that('classification predictions', {
                c(".pred_high", ".pred_low"))
 })
 
+
+test_that('ordinal classification predictions', {
+  skip_if_not_installed("modeldata")
+  skip_if_not_installed("rpart")
+
+  set.seed(382)
+  dat_tr <-
+    modeldata::sim_multinomial(
+      200,
+      ~  -0.5    +  0.6 * abs(A),
+      ~ ifelse(A > 0 & B > 0, 1.0 + 0.2 * A / B, - 2),
+      ~ -0.6 * A + 0.50 * B -  A * B) %>%
+    dplyr::mutate(class = as.ordered(class))
+  dat_te <-
+    modeldata::sim_multinomial(
+      5,
+      ~  -0.5    +  0.6 * abs(A),
+      ~ ifelse(A > 0 & B > 0, 1.0 + 0.2 * A / B, - 2),
+      ~ -0.6 * A + 0.50 * B -  A * B) %>%
+    dplyr::mutate(class = as.ordered(class))
+
+  ###
+
+  mod_f_fit <-
+    decision_tree() %>%
+    set_mode("classification") %>%
+    fit(class ~ ., data = dat_tr)
+  expect_true("ordered" %in% names(mod_f_fit))
+  mod_f_pred <- predict(mod_f_fit, dat_te)
+  expect_true(is.ordered(mod_f_pred$.pred_class))
+
+  ###
+
+  mod_xy_fit <-
+    decision_tree() %>%
+    set_mode("classification") %>%
+    fit_xy(x = dat_tr %>% dplyr::select(-class), dat_tr$class)
+
+  expect_true("ordered" %in% names(mod_xy_fit))
+  mod_xy_pred <- predict(mod_xy_fit, dat_te)
+  expect_true(is.ordered(mod_f_pred$.pred_class))
+})
+
+
 test_that('non-standard levels', {
   expect_true(is_tibble(predict(lr_fit, new_data = class_dat[1:5,-1])))
   expect_true(is.factor(parsnip:::predict_class.model_fit(lr_fit, new_data = class_dat[1:5,-1])))
@@ -63,20 +107,18 @@ test_that('predict(type = "prob") with level "class" (see #720)', {
     beep = rnorm(100)
   )
 
-  expect_error(
-    regexp = NA,
+  expect_no_condition(
     mod <- logistic_reg() %>%
       set_mode(mode = "classification") %>%
       fit(boop ~ bop + beep, data = x)
   )
 
-  expect_error(
-    regexp = NA,
+  expect_no_condition(
     predict(mod, type = "class", new_data = x)
   )
 
-  expect_error(
-    regexp = 'variable `boop` has a level called "class"',
+  expect_snapshot(
+    error = TRUE,
     predict(mod, type = "prob", new_data = x)
   )
 })
@@ -85,20 +127,24 @@ test_that('predict(type = "prob") with level "class" (see #720)', {
 test_that('non-factor classification', {
   skip_if(run_glmnet)
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     logistic_reg() %>%
       set_engine("glm") %>%
       fit(class ~ .,
           data = hpc %>% dplyr::mutate(class = class == "VF"))
   )
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     logistic_reg() %>%
       set_engine("glm") %>%
       fit(class ~ .,
           data = hpc %>% dplyr::mutate(class = ifelse(class == "VF", 1, 0)))
   )
 
-  expect_error(
+  skip_if_not_installed("glmnet")
+  expect_snapshot(
+    error = TRUE,
     multinom_reg() %>%
       set_engine("glmnet") %>%
       fit(class ~ .,
@@ -120,6 +166,6 @@ test_that("predict() works for model fit with fit_xy() (#1166)", {
   tree_fit <- fit_xy(spec, x = mtcars[, -1], y = mtcars[, 1])
 
   res <- predict(tree_fit, mtcars)
-  
+
   expect_identical(exp, res)
 })

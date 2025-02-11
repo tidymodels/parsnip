@@ -38,7 +38,7 @@ section.
 These functions extract various elements from a parsnip object. If they do
 not exist yet, an error is thrown.
 \itemize{
-\item \code{extract_spec_parsnip()} returns the parsnip model specification.
+\item \code{extract_spec_parsnip()} returns the parsnip \link[=model_spec]{model specification}.
 \item \code{extract_fit_engine()} returns the engine specific fit embedded within
 a parsnip model fit. For example, when using \code{\link[=linear_reg]{linear_reg()}}
 with the \code{"lm"} engine, this returns the underlying \code{lm} object.

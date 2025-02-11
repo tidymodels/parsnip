@@ -35,7 +35,7 @@ Other engine arguments of interest:
 The **agua** extension package is required to fit this model.
 
 
-```r
+``` r
 library(rules)
 
 rule_fit(
@@ -73,7 +73,7 @@ rule_fit(
 The **agua** extension package is required to fit this model.
 
 
-```r
+``` r
 rule_fit(
   trees = integer(1),
   tree_depth = integer(1),

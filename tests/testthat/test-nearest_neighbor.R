@@ -7,19 +7,18 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(nearest_neighbor(mode = "reallyunknown"))
-  expect_error(nearest_neighbor() %>% set_engine( NULL))
+  expect_snapshot(error = TRUE, nearest_neighbor(mode = "reallyunknown"))
 })
 
 test_that('check_args() works', {
   skip_if_not_installed("kknn")
 
   hpc <- hpc_data[1:150, c(2:5, 8)]
-  
+
   expect_snapshot(
     error = TRUE,
     {
-      spec <- nearest_neighbor(neighbors = -1) %>% 
+      spec <- nearest_neighbor(neighbors = -1) %>%
         set_engine("kknn") %>%
         set_mode("classification")
       fit(spec, class ~ ., hpc)
@@ -28,7 +27,7 @@ test_that('check_args() works', {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- nearest_neighbor(weight_func = 2) %>% 
+      spec <- nearest_neighbor(weight_func = 2) %>%
         set_engine("kknn") %>%
         set_mode("classification")
       fit(spec, class ~ ., hpc)

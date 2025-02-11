@@ -6,10 +6,11 @@
 #' @export
 predict_classprob.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "classification") {
-    cli::cli_abort("{.fun predict.model_fit()} is for predicting factor outcomes.")
+    cli::cli_abort("{.fun predict.model_fit()} is for predicting factor outcomes.",
+                   call = rlang::call2("predict"))
   }
 
-  check_spec_pred_type(object, "prob")
+  check_spec_pred_type(object, "prob", call = caller_env())
   check_spec_levels(object)
 
   if (inherits(object$fit, "try-error")) {
@@ -36,7 +37,8 @@ predict_classprob.model_fit <- function(object, new_data, ...) {
 
   # check and sort names
   if (!is.data.frame(res) & !inherits(res, "tbl_spark")) {
-    cli::cli_abort("The was a problem with the probability predictions.")
+    cli::cli_abort("The was a problem with the probability predictions.",
+                   call = rlang::call2("predict"))
   }
 
   if (!is_tibble(res) & !inherits(res, "tbl_spark")) {

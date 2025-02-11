@@ -16,7 +16,7 @@ This model has 2 tuning parameters:
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
   set_engine("spark") %>% 
   set_mode("classification") %>% 
@@ -42,7 +42,7 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
   set_engine("spark") %>% 
   set_mode("regression") %>% 

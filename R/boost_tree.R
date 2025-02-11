@@ -371,7 +371,7 @@ recalc_param <- function(x, counts, denom) {
   x
 }
 
-maybe_proportion <- function(x, nm, call = rlang::caller_env()) {
+maybe_proportion <- function(x, nm) {
   if (x < 1) {
     cli::cli_abort(
       c(
@@ -379,7 +379,7 @@ maybe_proportion <- function(x, nm, call = rlang::caller_env()) {
          as {signif(x, 3)}.",
         "i" = "Please use a value >= 1 or use {.code counts = FALSE}."
       ),
-      call = call
+      call = call2("xgb_train")
     )
   }
 }

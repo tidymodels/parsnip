@@ -18,7 +18,7 @@ logistic_reg() %>%
 To use a non-default `family` and/or `link`, pass in as an argument to `set_engine()`:
 
 ```{r glm-reg-engine}
-linear_reg() %>% 
+logistic_reg() %>% 
   set_engine("glm", family = stats::binomial(link = "probit")) %>% 
   translate()
 ```

@@ -11,7 +11,8 @@ predict_numeric.model_fit <- function(object, new_data, ...) {
         "{.fun predict_numeric} is for predicting numeric outcomes.",
         "i" = "Use {.fun predict_class} or {.fun predict_classprob} for
                classification models."
-      )
+      ),
+      call = rlang::call2("predict")
     )
   }
 

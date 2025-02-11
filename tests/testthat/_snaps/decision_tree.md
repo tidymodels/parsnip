@@ -21,11 +21,11 @@
 
 ---
 
-    Please set the mode in the model specification.
+    Please set the mode in the model specification (`?parsnip::model_spec()`).
 
 ---
 
-    Please set the mode in the model specification.
+    Please set the mode in the model specification (`?parsnip::model_spec()`).
 
 ---
 
@@ -33,10 +33,6 @@
       try(translate(decision_tree(), engine = NULL), silent = TRUE)
     Message
       Used `engine = 'rpart'` for translation.
-
----
-
-    unused argument (formula = y ~ x)
 
 # argument checks for data dimensions
 

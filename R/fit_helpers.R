@@ -27,7 +27,7 @@ form_form <-
 
     # if descriptors are needed, update descr_env with the calculated values
     if (requires_descrs(object)) {
-      data_stats <- get_descr_form(env$formula, env$data)
+      data_stats <- get_descr_form(env$formula, env$data, call = call)
       scoped_descrs(data_stats)
     }
 
@@ -40,7 +40,8 @@ form_form <-
     fit_call <- make_form_call(object, env = env)
 
     res <- list(
-      lvl = y_levels,
+      lvl = y_levels$lvl,
+      ordered = y_levels$ordered,
       spec = object
     )
 
@@ -86,7 +87,7 @@ xy_xy <- function(object,
 
   # if descriptors are needed, update descr_env with the calculated values
   if (requires_descrs(object)) {
-    data_stats <- get_descr_xy(env$x, env$y)
+    data_stats <- get_descr_xy(env$x, env$y, call = call)
     scoped_descrs(data_stats)
   }
 
@@ -96,9 +97,9 @@ xy_xy <- function(object,
   # sub in arguments to actual syntax for corresponding engine
   object <- translate(object, engine = object$engine)
 
-  fit_call <- make_xy_call(object, target, env)
+  fit_call <- make_xy_call(object, target, env, call)
 
-  res <- list(lvl = levels(env$y), spec = object)
+  res <- list(lvl = levels(env$y), ordered = is.ordered(env$y), spec = object)
 
   time <- proc.time()
   res$fit <- eval_mod(
@@ -131,7 +132,7 @@ form_xy <- function(object, control, env,
   remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
   allow_sparse_x <- encoding_info %>% dplyr::pull(allow_sparse_x)
 
-  if (allow_sparse_x && is_sparse_tibble(env$data)) {
+  if (allow_sparse_x && sparsevctrs::has_sparse_elements(env$data)) {
     target <- "dgCMatrix"
   }
 
@@ -141,7 +142,8 @@ form_xy <- function(object, control, env,
     ...,
     composition = target,
     indicators = indicators,
-    remove_intercept = remove_intercept
+    remove_intercept = remove_intercept,
+    call = call
   )
   env$x <- data_obj$x
   env$y <- data_obj$y

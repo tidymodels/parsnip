@@ -11,7 +11,8 @@ predict_time.model_fit <- function(object, new_data, ...) {
         "{.fun predict_time} is for predicting time outcomes.",
         "i" = "Use {.fun predict_class} or {.fun predict_classprob} for
                classification models."
-      )
+      ),
+      call = rlang::call2("predict")
     )
   }
 

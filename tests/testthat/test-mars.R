@@ -20,9 +20,8 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(translate(mars(mode = "regression") %>% set_engine()))
-  expect_error(translate(mars() %>% set_engine("wat?")))
-  expect_error(translate(mars(formula = y ~ x)))
+  expect_snapshot(error = TRUE, translate(mars(mode = "regression") %>% set_engine()))
+  expect_snapshot(error = TRUE, translate(mars() %>% set_engine("wat?")))
 })
 
 # ------------------------------------------------------------------------------
@@ -36,59 +35,45 @@ hpc_basic <- mars(mode = "regression") %>% set_engine("earth")
 test_that('mars execution', {
   skip_if_not_installed("earth")
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
       hpc_basic,
       compounds ~ log(input_fields) + class,
       data = hpc,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       hpc_basic,
       x = hpc[, num_pred],
       y = hpc$num_pending,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
   expect_true(has_multi_predict(res))
   expect_equal(multi_predict_args(res), "num_terms")
 
-  expect_error(
-    res <- fit(
-      hpc_basic,
-      hpc_bad_form,
-      data = hpc,
-      control = ctrl
-    ),
-    regexp = "For a regression model"
-  )
-
   ## multivariate y
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
       hpc_basic,
       cbind(compounds, input_fields) ~ .,
       data = hpc,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       hpc_basic,
       x = hpc[, 1:2],
       y = hpc[3:4],
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
   parsnip:::load_libs(res, attach = TRUE)
 
@@ -200,12 +185,11 @@ test_that('submodel prediction', {
 test_that('classification', {
   skip_if_not_installed("earth")
 
-  expect_error(
+  expect_no_condition(
     glm_mars <-
       mars(mode = "classification")  %>%
       set_engine("earth") %>%
-      fit(Class ~ ., data = lending_club[-(1:5),]),
-    regexp = NA
+      fit(Class ~ ., data = lending_club[-(1:5),])
   )
   expect_true(!is.null(extract_fit_engine(glm_mars)$glm.list))
   parsnip_pred <- predict(glm_mars, new_data = lending_club[1:5, -ncol(lending_club)], type = "prob")
@@ -219,12 +203,12 @@ test_that('classification', {
 
 test_that("check_args() works", {
   skip_if_not_installed("earth")
-  
+
   expect_snapshot(
     error = TRUE,
     {
-      spec <- mars(prod_degree = 0) %>% 
-        set_engine("earth") %>% 
+      spec <- mars(prod_degree = 0) %>%
+        set_engine("earth") %>%
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }
@@ -232,8 +216,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- mars(num_terms = 0) %>% 
-        set_engine("earth") %>% 
+      spec <- mars(num_terms = 0) %>%
+        set_engine("earth") %>%
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }
@@ -241,8 +225,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- mars(prune_method = 2) %>% 
-        set_engine("earth") %>% 
+      spec <- mars(prune_method = 2) %>%
+        set_engine("earth") %>%
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }

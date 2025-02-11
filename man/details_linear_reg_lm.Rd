@@ -60,8 +60,8 @@ suboptimal; in the case of replication weights, \strong{even wrong}. Hence,
 standard errors and analysis of variance tables should be treated with
 care” (emphasis added)
 
-Depending on your application, the degrees of freedown for the model
-(and other statistics) might be incorrect.
+Depending on your application, the degrees of freedom for the model (and
+other statistics) might be incorrect.
 }
 
 \subsection{Saving fitted model objects}{

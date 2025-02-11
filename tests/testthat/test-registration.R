@@ -39,20 +39,25 @@ expect_equal(
          type = character(0), value = vector("list"))
 )
 
-expect_error(set_new_model())
-expect_error(set_new_model(2))
-expect_error(set_new_model(letters[1:2]))
+expect_snapshot(error = TRUE, set_new_model())
+expect_snapshot(error = TRUE, set_new_model(2))
+expect_snapshot(error = TRUE, set_new_model(letters[1:2]))
 })
 
 
 # ------------------------------------------------------------------------------
+
+test_that('existing modes', {
+  expect_snapshot(get_from_env("modes"))
+})
+
 
 test_that('adding a new mode', {
   set_model_mode("sponge", "classification")
 
   expect_equal(get_from_env("sponge_modes"), c("unknown", "classification"))
 
-  expect_error(set_model_mode("sponge"))
+  expect_snapshot(error = TRUE, set_model_mode("sponge"))
 
 })
 
@@ -69,8 +74,8 @@ test_that('adding a new engine', {
 
   expect_equal(get_from_env("sponge_modes"), c("unknown", "classification"))
 
-  expect_error(set_model_engine("sponge", eng = "gum"))
-  expect_error(set_model_engine("sponge", mode = "classification"))
+  expect_snapshot(error = TRUE, set_model_engine("sponge", eng = "gum"))
+  expect_snapshot(error = TRUE, set_model_engine("sponge", mode = "classification"))
   expect_snapshot(
     error = TRUE,
     set_model_engine("sponge", mode = "regression", eng = "gum")
@@ -83,9 +88,9 @@ test_that('adding a new engine', {
 test_that('adding a new package', {
   set_dependency("sponge", "gum", "trident")
 
-  expect_error(set_dependency("sponge", "gum", letters[1:2]))
-  expect_error(set_dependency("sponge", "gummies", "trident"))
-  expect_error(set_dependency("sponge",  "gum", "trident", mode = "regression"))
+  expect_snapshot(error = TRUE, set_dependency("sponge", "gum", letters[1:2]))
+  expect_snapshot(error = TRUE, set_dependency("sponge", "gummies", "trident"))
+  expect_snapshot(error = TRUE, set_dependency("sponge",  "gum", "trident", mode = "regression"))
 
   expect_equal(
     get_from_env("sponge_pkgs"),
@@ -140,7 +145,8 @@ test_that('adding a new argument', {
            has_submodel = FALSE)
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_model_arg(
       model = "lunchroom",
       eng = "gum",
@@ -151,7 +157,8 @@ test_that('adding a new argument', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_model_arg(
       model = "sponge",
       eng = "gum",
@@ -161,7 +168,8 @@ test_that('adding a new argument', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_model_arg(
       model = "sponge",
       eng = "gum",
@@ -171,7 +179,8 @@ test_that('adding a new argument', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_model_arg(
       model = "sponge",
       eng = "gum",
@@ -182,7 +191,8 @@ test_that('adding a new argument', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_model_arg(
       model = "sponge",
       eng = "gum",
@@ -193,7 +203,8 @@ test_that('adding a new argument', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_model_arg(
       model = "sponge",
       eng = "gum",
@@ -203,7 +214,8 @@ test_that('adding a new argument', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_model_arg(
       model = "sponge",
       eng = "gum",
@@ -214,7 +226,8 @@ test_that('adding a new argument', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_model_arg(
       model = "sponge",
       eng = "gum",
@@ -225,7 +238,8 @@ test_that('adding a new argument', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_model_arg(
       model = "sponge",
       eng = "gum",
@@ -268,7 +282,8 @@ test_that('adding a new fit', {
     fit_vals
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_fit(
       model = "cactus",
       eng = "gum",
@@ -277,7 +292,8 @@ test_that('adding a new fit', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_fit(
       model = "sponge",
       eng = "nose",
@@ -286,7 +302,8 @@ test_that('adding a new fit', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_fit(
       model = "sponge",
       eng = "gum",
@@ -296,7 +313,8 @@ test_that('adding a new fit', {
   )
 
   for (i in 1:length(fit_vals)) {
-    expect_error(
+    expect_snapshot(
+      error = TRUE,
       set_fit(
         model = "sponge",
         eng = "gum",
@@ -308,7 +326,8 @@ test_that('adding a new fit', {
 
   fit_vals_0 <- fit_vals
   fit_vals_0$interface <- "loaf"
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_fit(
       model = "sponge",
       eng = "gum",
@@ -319,7 +338,8 @@ test_that('adding a new fit', {
 
   fit_vals_1 <- fit_vals
   fit_vals_1$defaults <- 2
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_fit(
       model = "sponge",
       eng = "gum",
@@ -330,7 +350,8 @@ test_that('adding a new fit', {
 
   fit_vals_2 <- fit_vals
   fit_vals_2$func <- "foo:bar"
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_fit(
       model = "sponge",
       eng = "gum",
@@ -341,7 +362,8 @@ test_that('adding a new fit', {
 
   fit_vals_3 <- fit_vals
   fit_vals_3$interface <- letters
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_fit(
       model = "sponge",
       eng = "gum",
@@ -402,7 +424,8 @@ test_that('adding a new predict method', {
     class_vals
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_pred(
       model = "cactus",
       eng = "gum",
@@ -412,7 +435,8 @@ test_that('adding a new predict method', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_pred(
       model = "sponge",
       eng = "nose",
@@ -423,7 +447,8 @@ test_that('adding a new predict method', {
   )
 
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_pred(
       model = "sponge",
       eng = "gum",
@@ -433,7 +458,8 @@ test_that('adding a new predict method', {
     )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_pred(
       model = "sponge",
       eng = "gum",
@@ -444,7 +470,8 @@ test_that('adding a new predict method', {
   )
 
   for (i in 1:length(class_vals)) {
-    expect_error(
+    expect_snapshot(
+      error = TRUE,
       set_pred(
         model = "sponge",
         eng = "gum",
@@ -457,7 +484,8 @@ test_that('adding a new predict method', {
 
   class_vals_0 <- class_vals
   class_vals_0$pre <- "I"
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_pred(
       model = "sponge",
       eng = "gum",
@@ -469,7 +497,8 @@ test_that('adding a new predict method', {
 
   class_vals_1 <- class_vals
   class_vals_1$post <- "I"
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_pred(
       model = "sponge",
       eng = "gum",
@@ -481,7 +510,8 @@ test_that('adding a new predict method', {
 
   class_vals_2 <- class_vals
   class_vals_2$func <- "foo:bar"
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     set_pred(
       model = "sponge",
       eng = "gum",

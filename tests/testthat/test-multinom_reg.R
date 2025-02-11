@@ -10,19 +10,24 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_error(multinom_reg(mode = "regression"))
-  expect_error(translate(multinom_reg(penalty = 0.1) %>% set_engine("wat?")))
-  expect_error(multinom_reg(penalty = 0.1) %>% set_engine())
-  expect_warning(translate(multinom_reg(penalty = 0.1) %>% set_engine("glmnet", x = hpc[,1:3], y = hpc$class)))
+  expect_snapshot(error = TRUE, multinom_reg(mode = "regression"))
+  expect_snapshot(error = TRUE, translate(multinom_reg(penalty = 0.1) %>% set_engine("wat?")))
+  expect_snapshot(error = TRUE, multinom_reg(penalty = 0.1) %>% set_engine())
+  expect_warning(
+    translate(
+      multinom_reg(penalty = 0.1) %>% set_engine("glmnet", x = hpc[,1:3], y = hpc$class)
+    ),
+    class = "parsnip_protected_arg_warning"
+  )
 })
 
 test_that('check_args() works', {
   skip_if_not_installed("keras")
-  
+
   expect_snapshot(
     error = TRUE,
     {
-      spec <- multinom_reg(mixture = -1) %>% 
+      spec <- multinom_reg(mixture = -1) %>%
         set_engine("keras") %>%
         set_mode("classification")
       fit(spec, class ~ ., hpc)
@@ -31,7 +36,7 @@ test_that('check_args() works', {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- multinom_reg(penalty = -1) %>% 
+      spec <- multinom_reg(penalty = -1) %>%
         set_engine("keras") %>%
         set_mode("classification")
       fit(spec, class ~ ., hpc)

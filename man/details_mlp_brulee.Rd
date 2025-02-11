@@ -41,6 +41,8 @@ improvement before stopping. (default: 5L).
 See \code{\link[brulee:schedule_decay_time]{brulee::schedule_decay_time()}}
 for details.
 }
+
+Parsnip changes the default range for \code{learn_rate} to \code{c(-2.5, -0.5)}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{

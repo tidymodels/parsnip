@@ -7,7 +7,7 @@
 eval_args(spec, ...)
 }
 \arguments{
-\item{spec}{A model specification}
+\item{spec}{A \link[=model_spec]{model specification}.}
 
 \item{...}{Not used.}
 }

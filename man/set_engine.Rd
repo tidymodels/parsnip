@@ -7,7 +7,7 @@
 set_engine(object, engine, ...)
 }
 \arguments{
-\item{object}{A model specification.}
+\item{object}{A \link[=model_spec]{model specification}.}
 
 \item{engine}{A character string for the software that should
 be used to fit the model. This is highly dependent on the type

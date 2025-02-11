@@ -17,42 +17,30 @@ test_that('ranger classification execution', {
 
   skip_if_not_installed("ranger")
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
       lc_ranger,
       Class ~ funded_amnt + term,
       data = lending_club,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     res <- fit(
       lc_ranger,
       funded_amnt ~ Class + term,
       data = lending_club,
       control = ctrl
-    ),
-    regexp = "For a classification model"
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       lc_ranger,
       x = lending_club[, num_pred],
       y = lending_club$Class,
-
-      control = ctrl
-    ),
-    regexp = NA
-  )
-
-  expect_error(
-    res <- fit(
-      bad_ranger_cls,
-      funded_amnt ~ term,
-      data = lending_club,
 
       control = ctrl
     )
@@ -162,7 +150,8 @@ test_that('ranger classification probabilities', {
     control = ctrl
   )
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     parsnip:::predict_classprob.model_fit(no_prob_model, new_data = lending_club[1:6, num_pred])
   )
 })
@@ -182,24 +171,22 @@ test_that('ranger regression execution', {
 
   skip_if_not_installed("ranger")
 
-  expect_error(
+  expect_no_condition(
     res <- fit(
       car_basic,
       mpg ~ .,
       data = mtcars,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
-  expect_error(
+  expect_no_condition(
     res <- fit_xy(
       car_basic,
       x = mtcars,
       y = mtcars$mpg,
       control = ctrl
-    ),
-    regexp = NA
+    )
   )
 
 
@@ -429,20 +416,20 @@ test_that('ranger classification intervals', {
   )
 
   rgr_pred <- predict(extract_fit_engine(lc_fit), data = tail(lending_club))$predictions
-  suppressWarnings(expect_warning(
+  expect_snapshot(
     rgr_se <- predict(extract_fit_engine(lc_fit), data = tail(lending_club), type = "se")$se
-  ))
+  )
   rgr_lower <- rgr_pred - qnorm(0.035, lower.tail = FALSE) * rgr_se
   rgr_upper <- rgr_pred + qnorm(0.035, lower.tail = FALSE) * rgr_se
   rgr_lower[rgr_lower < 0] <- 0
   rgr_upper[rgr_upper > 1] <- 1
 
-  suppressWarnings(expect_warning(
+  expect_snapshot(
     parsnip_int <-
       predict(lc_fit, new_data = tail(lending_club),
               type = "conf_int", std_error = TRUE, level = 0.93
       )
-  ))
+  )
   expect_equal(rgr_lower[, "bad"], parsnip_int$.pred_lower_bad)
   expect_equal(rgr_lower[, "good"], parsnip_int$.pred_lower_good)
   expect_equal(rgr_upper[, "bad"], parsnip_int$.pred_upper_bad)

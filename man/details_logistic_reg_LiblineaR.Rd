@@ -61,6 +61,14 @@ center and scale each so that each predictor has mean zero and a
 variance of one.
 }
 
+\subsection{Sparse Data}{
+
+This model can utilize sparse data during model fitting and prediction.
+Both sparse matrices such as dgCMatrix from the \code{Matrix} package and
+sparse tibbles from the \code{sparsevctrs} package are supported. See
+\link{sparse_data} for more information.
+}
+
 \subsection{Examples}{
 
 The “Fitting and Predicting with parsnip” article contains

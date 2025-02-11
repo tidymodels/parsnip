@@ -30,7 +30,7 @@ For `mtry`, the default value of `NULL` translates to using all available column
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
@@ -67,7 +67,7 @@ boost_tree(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
@@ -116,6 +116,11 @@ This model can utilize case weights during model fitting. To use them, see the d
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
+## Sparse Data
+
+
+This model can utilize sparse data during model fitting and prediction. Both sparse matrices such as dgCMatrix from the `Matrix` package and sparse tibbles from the `sparsevctrs` package are supported. See [sparse_data] for more information.
+
 ## Other details
 
 ### Interfacing with the `params` argument
@@ -123,7 +128,7 @@ The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that e
 The xgboost function that parsnip indirectly wraps, [xgboost::xgb.train()], takes most arguments via the `params` list argument. To supply engine-specific arguments that are documented in [xgboost::xgb.train()] as arguments to be passed via `params`, supply the list elements directly as named arguments to [set_engine()] rather than as elements in `params`. For example, pass a non-default evaluation metric like this:
 
 
-```r
+``` r
 # good
 boost_tree() %>%
   set_engine("xgboost", eval_metric = "mae")
@@ -141,7 +146,7 @@ boost_tree() %>%
 ...rather than this:
 
 
-```r
+``` r
 # bad
 boost_tree() %>%
   set_engine("xgboost", params = list(eval_metric = "mae"))

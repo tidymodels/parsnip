@@ -24,7 +24,7 @@ test_that('pipe arguments', {
     rlang::empty_env()
   )
 
-  expect_error(rand_forest() %>% set_args())
+  expect_snapshot(error = TRUE, rand_forest() %>% set_args())
 
 })
 
@@ -34,9 +34,9 @@ test_that('pipe engine', {
     set_mode("regression")
   expect_equal(mod_1$mode, "regression")
 
-  expect_error(rand_forest() %>% set_mode())
-  expect_error(rand_forest() %>% set_mode(2))
-  expect_error(rand_forest() %>% set_mode("haberdashery"))
+  expect_snapshot(error = TRUE, rand_forest() %>% set_mode())
+  expect_snapshot(error = TRUE, rand_forest() %>% set_mode(2))
+  expect_snapshot(error = TRUE, rand_forest() %>% set_mode("haberdashery"))
 })
 
 test_that("can't set a mode that isn't allowed by the model spec", {

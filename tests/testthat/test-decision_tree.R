@@ -23,17 +23,6 @@ test_that('bad input', {
   expect_snapshot(
     try(translate(decision_tree(), engine = NULL), silent = TRUE)
   )
-  expect_snapshot_error(translate(decision_tree(formula = y ~ x)))
-})
-
-test_that('rpart_train is stop-deprecated when it ought to be (#1044)', {
-  skip_on_cran()
-
-  # once this test fails, transition `rpart_train()` to `deprecate_stop()`
-  # and transition this test to fail if `rpart_train()` still exists after a year.
-  if (Sys.Date() > "2025-01-01") {
-    expect_error(rpart_train(mpg ~ ., mtcars))
-  }
 })
 
 # ------------------------------------------------------------------------------

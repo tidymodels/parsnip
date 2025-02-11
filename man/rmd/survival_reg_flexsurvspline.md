@@ -14,7 +14,7 @@ This model has one engine-specific tuning parameter:
 The **censored** extension package is required to fit this model.
 
 
-```r
+``` r
 library(censored)
 
 survival_reg() %>% 

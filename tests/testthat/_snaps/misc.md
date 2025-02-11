@@ -1,6 +1,14 @@
 # parsnip objects
 
     Code
+      predict(lm_idea, mtcars)
+    Condition
+      Error in `predict()`:
+      ! You must `fit()` your model specification (`?parsnip::model_spec()`) before you can use `predict()`.
+
+---
+
+    Code
       multi_predict(lm_fit, mtcars)
     Condition
       Error in `multi_predict()`:
@@ -151,14 +159,6 @@
 # check_outcome works as expected
 
     Code
-      check_outcome(factor(1:2), reg_spec)
-    Condition
-      Error in `check_outcome()`:
-      ! For a regression model, the outcome should be `numeric`, not a `factor`.
-
----
-
-    Code
       check_outcome(NULL, reg_spec)
     Condition
       Error:
@@ -195,14 +195,6 @@
 ---
 
     Code
-      check_outcome(1:2, class_spec)
-    Condition
-      Error in `check_outcome()`:
-      ! For a classification model, the outcome should be a `factor`, not a `integer`.
-
----
-
-    Code
       check_outcome(NULL, class_spec)
     Condition
       Error:
@@ -233,5 +225,33 @@
       check_outcome(1:2, cens_spec)
     Condition
       Error in `check_outcome()`:
-      ! For a censored regression model, the outcome should be a `Surv` object, not a `integer`.
+      ! For a censored regression model, the outcome should be a <Surv> object, not an integer vector.
+
+# obtaining prediction columns
+
+    Code
+      .get_prediction_column_names(1)
+    Condition
+      Error in `.get_prediction_column_names()`:
+      ! `x` should be an object with class <model_fit> or <workflow>, not a number.
+
+---
+
+    Code
+      .get_prediction_column_names(unk_fit)
+    Condition
+      Error in `.get_prediction_column_names()`:
+      ! Prediction information could not be found for this `linear_reg()` with engine "lm" and mode "Depeche". Does a parsnip extension package need to be loaded?
+
+# register local models
+
+    Code
+      my_model() %>% translate("my_engine")
+    Output
+      my model Model Specification (regression)
+      
+      Computational engine: my_engine 
+      
+      Model fit template:
+      my_model_fun(formula = missing_arg(), data = missing_arg())
 

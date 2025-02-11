@@ -49,7 +49,8 @@ predict_numeric(object, ...)
 \method{predict_quantile}{model_fit}(
   object,
   new_data,
-  quantile = (1:9)/10,
+  quantile_levels = NULL,
+  quantile = deprecated(),
   interval = "none",
   level = 0.95,
   ...
@@ -72,7 +73,7 @@ predict_survival(object, ...)
 predict_time(object, ...)
 }
 \arguments{
-\item{object}{An object of class \code{model_fit}.}
+\item{object}{A \link[=model_fit]{model fit}.}
 
 \item{new_data}{A rectangular data object, such as a data frame.}
 
@@ -103,8 +104,11 @@ interval estimates.}
 \item{std_error}{A single logical for whether the standard error should be
 returned (assuming that the model can compute it).}
 
-\item{quantile}{A vector of numbers between 0 and 1 for the quantile being
-predicted.}
+\item{quantile, quantile_levels}{A vector of values between 0 and 1 for the
+quantile to be predicted. If the model has a \code{"quantile regression"} mode,
+this value should be \code{NULL}. For other modes, the default is \code{(1:9)/10}.
+Note that, as of version 1.3.0 of parsnip, the \code{quantile} is deprecated. Use
+\code{quantile_levels} instead.}
 }
 \description{
 These are internal functions not meant to be directly called by the user.

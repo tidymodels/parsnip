@@ -61,7 +61,8 @@ test_that('extract single parameter from model with no parameters', {
 
   lm_model <- linear_reg() %>% set_engine("lm")
 
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     extract_parameter_dials(lm_model, parameter = "none there")
   )
 })
@@ -90,9 +91,8 @@ test_that("extract_parameter_dials doesn't error if namespaced args are used", {
     logistic_reg(mode = "classification", penalty = hardhat::tune()) %>%
       set_engine("glmnet", family = stats::gaussian("log"))
 
-  expect_error(
-    extract_parameter_dials(bst_model, parameter = "penalty"),
-    NA
+  expect_no_condition(
+    extract_parameter_dials(bst_model, parameter = "penalty")
   )
 })
 

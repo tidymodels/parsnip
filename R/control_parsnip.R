@@ -37,12 +37,8 @@ check_control <- function(x, call = rlang::caller_env()) {
        and {.field catch}.",
       call = call
     )
-  # based on ?is.integer
-  int_check <- function(x, tol = .Machine$double.eps^0.5) abs(x - round(x)) < tol
-  if (!int_check(x$verbosity))
-    cli::cli_abort("{.arg verbosity} should be an integer.", call = call)
-  if (!is.logical(x$catch))
-    cli::cli_abort("{.arg catch} should be a logical.", call = call)
+  check_number_whole(x$verbosity, call = call)
+  check_bool(x$catch, call = call)
   x
 }
 

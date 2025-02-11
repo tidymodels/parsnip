@@ -82,7 +82,7 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' `set_engine("ranger", importance = "permutation")`.
 #'
 #'
-#' @param object A model specification.
+#' @param object A [model specification][model_spec].
 #' @param engine A character string for the software that should
 #'  be used to fit the model. This is highly dependent on the type
 #'  of model (e.g. linear regression, random forest, etc.).
@@ -124,7 +124,7 @@ set_engine.model_spec <- function(object, engine, ...) {
     check_spec_mode_engine_val(mod_type, object$engine, object$mode)
   }
 
-  if (object$engine == "liquidSVM") {
+  if (!is.null(object$engine) && object$engine == "liquidSVM") {
     lifecycle::deprecate_warn(
       "0.1.6",
       "set_engine(engine = 'cannot be liquidSVM')",

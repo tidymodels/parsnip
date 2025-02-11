@@ -13,5 +13,5 @@ test_that('adding row indicies', {
   expect_true(sum(names(mtcar_2) == ".row") == 1)
   expect_true(is.integer(mtcar_2$.row))
 
-  expect_error(as.matrix(mtcars) %>% add_rowindex())
+  expect_snapshot(error = TRUE, as.matrix(mtcars) %>% add_rowindex())
 })

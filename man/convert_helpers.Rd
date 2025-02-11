@@ -14,14 +14,16 @@
   na.action = na.omit,
   indicators = "traditional",
   composition = "data.frame",
-  remove_intercept = TRUE
+  remove_intercept = TRUE,
+  call = rlang::caller_env()
 )
 
 .convert_form_to_xy_new(
   object,
   new_data,
   na.action = na.pass,
-  composition = "data.frame"
+  composition = "data.frame",
+  call = rlang::caller_env()
 )
 
 .convert_xy_to_form_fit(
@@ -29,7 +31,8 @@
   y,
   weights = NULL,
   y_name = "..y",
-  remove_intercept = TRUE
+  remove_intercept = TRUE,
+  call = rlang::caller_env()
 )
 
 .convert_xy_to_form_new(object, new_data)
@@ -57,7 +60,7 @@ should be returned as a \code{"matrix"} or a \code{"data.frame"}.}
 \item{remove_intercept}{A logical indicating whether to remove the intercept
 column after \code{model.matrix()} is finished.}
 
-\item{object}{An object of class \code{model_fit}.}
+\item{object}{A \link[=model_fit]{model fit}.}
 
 \item{new_data}{A rectangular data object, such as a data frame.}
 

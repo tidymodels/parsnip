@@ -10,7 +10,7 @@
 \method{required_pkgs}{model_fit}(x, infra = TRUE, ...)
 }
 \arguments{
-\item{x}{A model specification or fit.}
+\item{x}{A \link[=model_spec]{model specification} or \link[=model_fit]{fit}.}
 
 \item{infra}{Should parsnip itself be included in the result?}
 

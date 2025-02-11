@@ -4,7 +4,7 @@
 #'  `predict()` can be used for all types of models and uses the
 #'  "type" argument for more specificity.
 #'
-#' @param object An object of class `model_fit`.
+#' @param object A [model fit][model_fit].
 #' @param new_data A rectangular data object, such as a data frame.
 #' @param type A single character value or `NULL`. Possible values
 #'   are `"numeric"`, `"class"`, `"prob"`, `"conf_int"`, `"pred_int"`,
@@ -201,12 +201,14 @@ check_pred_type <- function(object, type, ..., call = rlang::caller_env()) {
         regression = "numeric",
         classification = "class",
         "censored regression" = "time",
+        "quantile regression" = "quantile",
         cli::cli_abort(
-          "{.arg type} should be 'regression', 'censored regression', or 'classification'.",
+          "{.arg type} should be one of {.or {.val {all_modes}}}.",
           call = call
         )
       )
   }
+
   if (!(type %in% pred_types))
     cli::cli_abort(
       "{.arg type} should be one of {.or {.arg {pred_types}}}.",
@@ -269,6 +271,8 @@ check_pred_type <- function(object, type, ..., call = rlang::caller_env()) {
 #' tibbles.
 #'
 #' @param x A data frame or vector (depending on the context and function).
+#' @param col_name A string for a prediction column name.
+#' @param overwrite A logical for whether to overwrite the column name.
 #' @return A tibble
 #' @keywords internal
 #' @name format-internals
@@ -334,6 +338,9 @@ format_hazard <- function(x) {
   ensure_parsnip_format(x, ".pred")
 }
 
+#' @export
+#' @rdname format-internals
+#' @keywords internal
 ensure_parsnip_format <- function(x, col_name, overwrite = TRUE) {
   if (isTRUE(ncol(x) > 1) | is.data.frame(x)) {
     x <- tibble::new_tibble(x)
@@ -373,7 +380,7 @@ check_pred_type_dots <- function(object, type, ..., call = rlang::caller_env()) 
 
   # ----------------------------------------------------------------------------
 
-  other_args <- c("interval", "level", "std_error", "quantile",
+  other_args <- c("interval", "level", "std_error", "quantile_levels",
                   "time", "eval_time", "increasing")
 
   eval_time_types <- c("survival", "hazard")
@@ -468,6 +475,10 @@ prepare_data <- function(object, new_data) {
   }
 
   if (allow_sparse(object) && inherits(new_data, "dgCMatrix")) {
+    return(new_data)
+  }
+  if (allow_sparse(object) && sparsevctrs::has_sparse_elements(new_data)) {
+    new_data <- sparsevctrs::coerce_to_sparse_matrix(new_data)
     return(new_data)
   }
 

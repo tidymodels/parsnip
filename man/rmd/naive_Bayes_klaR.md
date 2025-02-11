@@ -21,7 +21,7 @@ Note that the engine argument `usekernel` is set to `TRUE` by default when using
 The **discrim** extension package is required to fit this model.
 
 
-```r
+``` r
 library(discrim)
 
 naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) %>% 

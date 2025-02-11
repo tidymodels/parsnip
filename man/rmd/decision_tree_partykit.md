@@ -1,7 +1,7 @@
 
 
 
-For this engine, there are multiple modes: censored regression, regression, and classification
+For this engine, there are multiple modes: regression, classification, and censored regression
 
 ## Tuning Parameters
 
@@ -9,9 +9,9 @@ For this engine, there are multiple modes: censored regression, regression, and 
 
 This model has 2 tuning parameters:
 
-- `tree_depth`: Tree Depth (type: integer, default: see below)
-
 - `min_n`: Minimal Node Size (type: integer, default: 20L)
+
+- `tree_depth`: Tree Depth (type: integer, default: see below)
 
 The `tree_depth` parameter defaults to `0` which means no restrictions are applied to tree depth.
 
@@ -24,7 +24,7 @@ An engine-specific parameter for this model is:
 The **bonsai** extension package is required to fit this model.
 
 
-```r
+``` r
 library(bonsai)
 
 decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
@@ -53,7 +53,7 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 The **bonsai** extension package is required to fit this model.
 
 
-```r
+``` r
 library(bonsai)
 
 decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
@@ -84,7 +84,7 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 The **censored** extension package is required to fit this model.
 
 
-```r
+``` r
 library(censored)
 
 decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 

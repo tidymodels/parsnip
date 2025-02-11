@@ -22,6 +22,8 @@ This model has 2 tuning parameters:
 This engine fits models that are L2-regularized for L2-loss. In the
 \code{\link[LiblineaR:LiblineaR]{LiblineaR::LiblineaR()}} documentation, these
 are types 1 (classification) and 11 (regression).
+
+Parsnip changes the default range for \code{cost} to \code{c(-10, 5)}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{
@@ -95,6 +97,14 @@ variance of one.
 \subsection{Case weights}{
 
 The underlying model implementation does not allow for case weights.
+}
+
+\subsection{Sparse Data}{
+
+This model can utilize sparse data during model fitting and prediction.
+Both sparse matrices such as dgCMatrix from the \code{Matrix} package and
+sparse tibbles from the \code{sparsevctrs} package are supported. See
+\link{sparse_data} for more information.
 }
 
 \subsection{Examples}{

@@ -22,7 +22,7 @@ This model has 3 tuning parameters:
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
@@ -55,7 +55,7 @@ rand_forest(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
@@ -102,6 +102,11 @@ For `ranger` confidence intervals, the intervals are  constructed using the form
 This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
+## Sparse Data
+
+
+This model can utilize sparse data during model fitting and prediction. Both sparse matrices such as dgCMatrix from the `Matrix` package and sparse tibbles from the `sparsevctrs` package are supported. See [sparse_data] for more information.
 
 ## Saving fitted model objects
 

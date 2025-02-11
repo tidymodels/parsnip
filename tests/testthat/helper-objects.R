@@ -26,9 +26,22 @@ is_tf_ok <- function() {
 }
 
 # ------------------------------------------------------------------------------
+# for quantile regression tests
+
+data("Sacramento")
+
+Sacramento_small <-
+  modeldata::Sacramento %>%
+  dplyr::mutate(price = log10(price)) %>%
+  dplyr::select(price, beds, baths, sqft, latitude, longitude)
+
+sac_train <- Sacramento_small[-(1:5), ]
+sac_test  <- Sacramento_small[  1:5 , ]
+
+# ------------------------------------------------------------------------------
 # For sparse tibble testing
 
-sparse_hotel_rates <- function() {
+sparse_hotel_rates <- function(tibble = FALSE) {
   # 99.2 sparsity
   hotel_rates <- modeldata::hotel_rates
 
@@ -49,5 +62,16 @@ sparse_hotel_rates <- function() {
   )
 
   res <- as.matrix(res)
-  Matrix::Matrix(res, sparse = TRUE)
+  res <- Matrix::Matrix(res, sparse = TRUE)
+
+  if (tibble) {
+    res <- sparsevctrs::coerce_to_sparse_tibble(res)
+
+    # materialize outcome
+    withr::local_options("sparsevctrs.verbose_materialize" = NULL)
+    res$avg_price_per_room <- res$avg_price_per_room[]
+  }
+
+  res
 }
+

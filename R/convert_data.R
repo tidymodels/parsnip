@@ -40,11 +40,21 @@
                                     na.action = na.omit,
                                     indicators = "traditional",
                                     composition = "data.frame",
-                                    remove_intercept = TRUE) {
+                                    remove_intercept = TRUE,
+                                    call = rlang::caller_env()) {
   if (!(composition %in% c("data.frame", "matrix", "dgCMatrix"))) {
     cli::cli_abort(
       "{.arg composition} should be either {.val data.frame}, {.val matrix}, or
-      {.val dgCMatrix}."
+      {.val dgCMatrix}.",
+      call = call
+    )
+  }
+
+  if (sparsevctrs::has_sparse_elements(data)) {
+    cli::cli_abort(
+      "Sparse data cannot be used with formula interface. Please use
+      {.fn fit_xy} instead.",
+      call = call
     )
   }
 
@@ -77,7 +87,7 @@
 
   w <- as.vector(model.weights(mod_frame))
   if (!is.null(w) && !is.numeric(w)) {
-    cli::cli_abort("{.arg weights} must be a numeric vector.")
+    cli::cli_abort("{.arg weights} must be a numeric vector.", call = call)
   }
 
   # TODO: Do we actually use the offset when fitting?
@@ -124,6 +134,10 @@
         options = options
       )
   } else if (composition == "dgCMatrix") {
+    y_cols <- attr(mod_terms, "response")
+    if (length(y_cols) > 0) {
+      data <- data[, -y_cols, drop = FALSE]
+    }
     x <- sparsevctrs::coerce_to_sparse_matrix(data)
     res <-
       list(
@@ -156,7 +170,7 @@
 }
 
 
-#' @param object An object of class `model_fit`.
+#' @param object A [model fit][model_fit].
 #' @inheritParams predict.model_fit
 #' @rdname convert_helpers
 #' @keywords internal
@@ -164,10 +178,12 @@
 .convert_form_to_xy_new <- function(object,
                                     new_data,
                                     na.action = na.pass,
-                                    composition = "data.frame") {
+                                    composition = "data.frame",
+                                    call = rlang::caller_env()) {
   if (!(composition %in% c("data.frame", "matrix"))) {
     cli::cli_abort(
-      "{.arg composition} should be either {.val data.frame} or {.val matrix}."
+      "{.arg composition} should be either {.val data.frame} or {.val matrix}.",
+      call = call
     )
   }
 
@@ -233,9 +249,10 @@
                                     y,
                                     weights = NULL,
                                     y_name = "..y",
-                                    remove_intercept = TRUE) {
+                                    remove_intercept = TRUE,
+                                    call = rlang::caller_env()) {
   if (is.vector(x)) {
-    cli::cli_abort("{.arg x} cannot be a vector.")
+    cli::cli_abort("{.arg x} cannot be a vector.", call = call)
   }
 
   if (remove_intercept) {
@@ -268,10 +285,10 @@
 
   if (!is.null(weights)) {
     if (!is.numeric(weights)) {
-      cli::cli_abort("{.arg weights} must be a numeric vector.")
+      cli::cli_abort("{.arg weights} must be a numeric vector.", call = call)
     }
     if (length(weights) != nrow(x)) {
-      cli::cli_abort("{.arg weights} should have {nrow(x)} elements.")
+      cli::cli_abort("{.arg weights} should have {nrow(x)} elements.", call = call)
     }
 
     form <- patch_formula_environment_with_case_weights(
@@ -319,7 +336,7 @@ check_form_dots <- function(x, call = rlang::caller_env()) {
       c(
         "The argument{?s} {.arg {names(x)[!good_names]}} cannot be used to create
          the data.",
-        "Possible arguments are {.arg {.or {good_args}}."
+        "Possible arguments are {.arg {.or {good_args}}}."
       ),
       call = call
     )
@@ -384,7 +401,7 @@ check_dup_names <- function(x, y, call = rlang::caller_env()) {
 #' @return A data frame, matrix, or sparse matrix.
 #' @export
 maybe_matrix <- function(x) {
-  inher(x, c("data.frame", "matrix", "dgCMatrix"), cl = match.call())
+  check_inherits(x, c("data.frame", "matrix", "dgCMatrix"))
   if (is.data.frame(x)) {
     non_num_cols <- vapply(x, function(x) !is.numeric(x), logical(1))
     if (any(non_num_cols)) {
@@ -406,7 +423,7 @@ maybe_sparse_matrix <- function(x) {
     return(x)
   }
 
-  if (is_sparse_tibble(x)) {
+  if (sparsevctrs::has_sparse_elements(x)) {
     res <- sparsevctrs::coerce_to_sparse_matrix(x)
   } else {
     res <- as.matrix(x)

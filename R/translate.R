@@ -1,10 +1,10 @@
 #' Resolve a Model Specification for a Computational Engine
 #'
-#' `translate()` will translate a model specification into a code
+#' `translate()` will translate a [model specification][model_spec] into a code
 #'  object that is specific to a particular engine (e.g. R package).
 #'  It translates generic parameters to their counterparts.
 #'
-#' @param x A model specification.
+#' @param x A [model specification][model_spec].
 #' @param engine The computational engine for the model (see `?set_engine`).
 #' @param ... Not currently used.
 #' @details
@@ -176,6 +176,7 @@ add_methods <- function(x, engine) {
 #' or in a list that can facilitate renaming grid objects?
 #' @return A tibble with columns `user`, `parsnip`, and `engine`, or a list
 #' with named character vectors `user_to_parsnip` and `parsnip_to_engine`.
+#' @keywords internal
 #' @examplesIf !parsnip:::is_cran_check()
 #' mod <-
 #'  linear_reg(penalty = tune("regularization"), mixture = tune()) %>%

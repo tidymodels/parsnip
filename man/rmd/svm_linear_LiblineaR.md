@@ -15,10 +15,12 @@ This model has 2 tuning parameters:
 
 This engine fits models that are L2-regularized for L2-loss. In the [LiblineaR::LiblineaR()] documentation, these are types 1 (classification) and 11 (regression).
 
+Parsnip changes the default range for `cost` to `c(-10, 5)`.
+
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 svm_linear(
   cost = double(1),
   margin = double(1)
@@ -45,7 +47,7 @@ svm_linear(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 svm_linear(
   cost = double(1)
 ) %>% 
@@ -84,6 +86,11 @@ scale each so that each predictor has mean zero and a variance of one.
 
 
 The underlying model implementation does not allow for case weights. 
+
+## Sparse Data
+
+
+This model can utilize sparse data during model fitting and prediction. Both sparse matrices such as dgCMatrix from the `Matrix` package and sparse tibbles from the `sparsevctrs` package are supported. See [sparse_data] for more information.
 
 ## Examples 
 

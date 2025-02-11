@@ -56,9 +56,10 @@ tune_tbl <- function(name = character(),
                      source = character(),
                      component = character(),
                      component_id = character(),
-                     full = FALSE) {
+                     full = FALSE,
+                     call = caller_env()) {
 
-
+  check_bool(full, call = call)
   complete_id <- id[!is.na(id)]
   dups <- duplicated(complete_id)
   if (any(dups)) {

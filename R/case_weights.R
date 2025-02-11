@@ -20,12 +20,12 @@
 #'
 #' More types can be added by request.
 #'
-#' For parsnip, the [fit()] and [fit_xy] functions contain a `case_weight`
+#' For parsnip, the [fit()] and [fit_xy()] functions contain a `case_weight`
 #' argument that takes these data. For Spark models, the argument value should
 #' be a character value.
 #'
 #' @name case_weights
-#' @seealso [frequency_weights()], [importance_weights()], [fit()], [fit_xy]
+#' @seealso [frequency_weights()], [importance_weights()], [fit()], [fit_xy()]
 NULL
 
 # ------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ patch_formula_environment_with_case_weights <- function(formula,
 #' Not all modeling engines can incorporate case weights into their
 #' calculations. This function can determine whether they can be used.
 #'
-#' @param spec A parsnip model specification.
+#' @param spec A parsnip [model specification][model_spec].
 #' @return A single logical.
 #' @examples
 #' case_weights_allowed(linear_reg())
