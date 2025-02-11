@@ -10,12 +10,13 @@
 For this engine, there are multiple modes: classification and regression
 \subsection{Tuning Parameters}{
 
-This model has 6 tuning parameters:
+This model has 7 tuning parameters:
 \itemize{
 \item \code{epochs}: # Epochs (type: integer, default: 100L)
 \item \code{hidden_units}: # Hidden Units (type: integer, default: 3L)
 \item \code{activation}: Activation Function (type: character, default: ‘relu’)
 \item \code{penalty}: Amount of Regularization (type: double, default: 0.001)
+\item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 0.0)
 \item \code{dropout}: Dropout Rate (type: double, default: 0.0)
 \item \code{learn_rate}: Learning Rate (type: double, default: 0.01)
 }
@@ -31,15 +32,15 @@ Other engine arguments of interest:
 \itemize{
 \item \code{hidden_layer_2} and \code{activation_2} control the format of the second
 layer.
-\item \code{momentum()}: A number used to use historical gradient information
+\item \code{momentum}: A number used to use historical gradient information
 during optimization.
-\item \code{batch_size()}: An integer for the number of training set points in
-each batch.
-\item \code{class_weights()}: Numeric class weights. See
+\item \code{batch_size}: An integer for the number of training set points in each
+batch.
+\item \code{class_weights}: Numeric class weights. See
 \code{\link[brulee:brulee_mlp]{brulee::brulee_mlp()}}.
-\item \code{stop_iter()}: A non-negative integer for how many iterations with no
+\item \code{stop_iter}: A non-negative integer for how many iterations with no
 improvement before stopping. (default: 5L).
-\item \code{rate_schedule()}: A function to change the learning rate over epochs.
+\item \code{rate_schedule}: A function to change the learning rate over epochs.
 See \code{\link[brulee:schedule_decay_time]{brulee::schedule_decay_time()}}
 for details.
 }
@@ -85,7 +86,7 @@ for details.
 ##     hidden_units_2 = integer(1), activation_2 = character(1))
 }\if{html}{\out{</div>}}
 
-Note that parsnip automatically sets linear activation in the last
+Note that parsnip automatically sets the linear activation in the last
 layer.
 }
 
