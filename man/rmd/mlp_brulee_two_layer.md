@@ -29,12 +29,14 @@ Both `penalty` and `dropout` should be not be used in the same model.
 
 Other engine arguments of interest: 
 
- - `momentum`: A number used to use historical gradient infomration during optimization.
+ - `hidden_layer_2` and `activation_2` control the format of the second layer. 
+ - `momentum`: A number used to use historical gradient information during optimization.
  - `batch_size`: An integer for the number of training set points in each batch.
  - `class_weights`: Numeric class weights. See [brulee::brulee_mlp()].
  - `stop_iter`: A non-negative integer for how many iterations with no improvement before stopping. (default: 5L).
  - `rate_schedule`: A function to change the learning rate over epochs. See [brulee::schedule_decay_time()] for details. 
- 
+
+
 ## Translation from parsnip to the original package (regression)
 
 
@@ -46,8 +48,10 @@ mlp(
   epochs = integer(1),
   learn_rate = double(1),
   activation = character(1)
-) %>%  
-  set_engine("brulee") %>% 
+) %>%
+  set_engine("brulee_two_layer",
+             hidden_units_2 = integer(1),
+             activation_2 = character(1)) %>% 
   set_mode("regression") %>% 
   translate()
 ```
@@ -63,15 +67,20 @@ mlp(
 ##   activation = character(1)
 ##   learn_rate = double(1)
 ## 
-## Computational engine: brulee 
+## Engine-Specific Arguments:
+##   hidden_units_2 = integer(1)
+##   activation_2 = character(1)
+## 
+## Computational engine: brulee_two_layer 
 ## 
 ## Model fit template:
-## brulee::brulee_mlp(x = missing_arg(), y = missing_arg(), hidden_units = integer(1), 
-##     penalty = double(1), dropout = double(1), epochs = integer(1), 
-##     activation = character(1), learn_rate = double(1))
+## brulee::brulee_mlp_two_layer(x = missing_arg(), y = missing_arg(), 
+##     hidden_units = integer(1), penalty = double(1), dropout = double(1), 
+##     epochs = integer(1), activation = character(1), learn_rate = double(1), 
+##     hidden_units_2 = integer(1), activation_2 = character(1))
 ```
 
-Note that parsnip automatically sets linear activation in the last layer. 
+Note that parsnip automatically sets the linear activation in the last layer. 
 
 ## Translation from parsnip to the original package (classification)
 
@@ -85,7 +94,9 @@ mlp(
   learn_rate = double(1),
   activation = character(1)
 ) %>% 
-  set_engine("brulee") %>% 
+  set_engine("brulee_two_layer",
+             hidden_units_2 = integer(1),
+             activation_2 = character(1)) %>% 
   set_mode("classification") %>% 
   translate()
 ```
@@ -101,12 +112,17 @@ mlp(
 ##   activation = character(1)
 ##   learn_rate = double(1)
 ## 
-## Computational engine: brulee 
+## Engine-Specific Arguments:
+##   hidden_units_2 = integer(1)
+##   activation_2 = character(1)
+## 
+## Computational engine: brulee_two_layer 
 ## 
 ## Model fit template:
-## brulee::brulee_mlp(x = missing_arg(), y = missing_arg(), hidden_units = integer(1), 
-##     penalty = double(1), dropout = double(1), epochs = integer(1), 
-##     activation = character(1), learn_rate = double(1))
+## brulee::brulee_mlp_two_layer(x = missing_arg(), y = missing_arg(), 
+##     hidden_units = integer(1), penalty = double(1), dropout = double(1), 
+##     epochs = integer(1), activation = character(1), learn_rate = double(1), 
+##     hidden_units_2 = integer(1), activation_2 = character(1))
 ```
 
 

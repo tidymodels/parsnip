@@ -175,3 +175,59 @@
       Error in `fit()`:
       ! Please install the glmnet package to use this engine.
 
+# tunables
+
+    Code
+      linear_reg() %>% tunable()
+    Output
+      # A tibble: 0 x 5
+      # i 5 variables: name <chr>, call_info <list>, source <chr>, component <chr>,
+      #   component_id <chr>
+
+---
+
+    Code
+      linear_reg() %>% set_engine("brulee") %>% tunable()
+    Output
+      # A tibble: 8 x 5
+        name          call_info        source     component  component_id
+        <chr>         <list>           <chr>      <chr>      <chr>       
+      1 epochs        <named list [3]> model_spec linear_reg engine      
+      2 penalty       <named list [2]> model_spec linear_reg main        
+      3 mixture       <named list [2]> model_spec linear_reg main        
+      4 learn_rate    <named list [3]> model_spec linear_reg engine      
+      5 momentum      <named list [3]> model_spec linear_reg engine      
+      6 batch_size    <named list [2]> model_spec linear_reg engine      
+      7 stop_iter     <named list [2]> model_spec linear_reg engine      
+      8 rate_schedule <named list [3]> model_spec linear_reg engine      
+
+---
+
+    Code
+      linear_reg() %>% set_engine("glmnet") %>% tunable()
+    Output
+      # A tibble: 2 x 5
+        name    call_info        source     component  component_id
+        <chr>   <list>           <chr>      <chr>      <chr>       
+      1 penalty <named list [2]> model_spec linear_reg main        
+      2 mixture <named list [3]> model_spec linear_reg main        
+
+---
+
+    Code
+      linear_reg() %>% set_engine("quantreg") %>% tunable()
+    Output
+      # A tibble: 0 x 5
+      # i 5 variables: name <chr>, call_info <list>, source <chr>, component <chr>,
+      #   component_id <chr>
+
+---
+
+    Code
+      linear_reg() %>% set_engine("keras") %>% tunable()
+    Output
+      # A tibble: 1 x 5
+        name    call_info        source     component  component_id
+        <chr>   <list>           <chr>      <chr>      <chr>       
+      1 penalty <named list [2]> model_spec linear_reg main        
+

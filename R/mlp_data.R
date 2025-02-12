@@ -368,7 +368,8 @@ set_pred(
 
 set_model_engine("mlp", "classification", "brulee")
 set_model_engine("mlp", "regression", "brulee")
-set_dependency("mlp", "brulee", "brulee")
+set_dependency("mlp", "brulee", "brulee", mode = "classification")
+set_dependency("mlp", "brulee", "brulee", mode = "regression")
 
 set_model_arg(
   model = "mlp",
@@ -512,6 +513,169 @@ set_pred(
 set_pred(
   model = "mlp",
   eng = "brulee",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        new_data = quote(new_data),
+        type = "prob"
+      )
+  )
+)
+
+
+set_model_engine("mlp", "classification", "brulee_two_layer")
+set_model_engine("mlp", "regression", "brulee_two_layer")
+set_dependency("mlp", "brulee_two_layer", "brulee", mode = "classification")
+set_dependency("mlp", "brulee_two_layer", "brulee", mode = "regression")
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "hidden_units",
+  original = "hidden_units",
+  func = list(pkg = "dials", fun = "hidden_units"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "penalty",
+  original = "penalty",
+  func = list(pkg = "dials", fun = "penalty"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "epochs",
+  original = "epochs",
+  func = list(pkg = "dials", fun = "epochs"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "dropout",
+  original = "dropout",
+  func = list(pkg = "dials", fun = "dropout"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "learn_rate",
+  original = "learn_rate",
+  func = list(pkg = "dials", fun = "learn_rate", range = c(-2.5, -0.5)),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "activation",
+  original = "activation",
+  func = list(pkg = "dials", fun = "activation", values = c('relu', 'elu', 'tanh')),
+  has_submodel = FALSE
+)
+
+
+set_fit(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  mode = "regression",
+  value = list(
+    interface = "data.frame",
+    protect = c("x", "y"),
+    func = c(pkg = "brulee", fun = "brulee_mlp_two_layer"),
+    defaults = list()
+  )
+)
+
+set_encoding(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  mode = "regression",
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_fit(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  mode = "classification",
+  value = list(
+    interface = "data.frame",
+    protect = c("x", "y"),
+    func = c(pkg = "brulee", fun = "brulee_mlp_two_layer"),
+    defaults = list()
+  )
+)
+
+set_encoding(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  mode = "classification",
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_pred(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = reformat_torch_num,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        new_data = quote(new_data),
+        type = "numeric"
+      )
+  )
+)
+
+set_pred(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args =
+      list(
+        object = quote(object$fit),
+        new_data = quote(new_data),
+        type = "class"
+      )
+  )
+)
+
+set_pred(
+  model = "mlp",
+  eng = "brulee_two_layer",
   mode = "classification",
   type = "prob",
   value = list(
