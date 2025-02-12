@@ -77,6 +77,8 @@ For `ranger` confidence intervals, the intervals are  constructed using the form
 ```{r child = "template-uses-sparse-data.Rmd"}
 ```
 
+While this engine supports sparse data as an input, it doesn't use it any differently than dense data. Hence there it no reason to convert back and forth.
+
 ## Saving fitted model objects
 
 ```{r child = "template-butcher.Rmd"}
