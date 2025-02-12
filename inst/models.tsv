@@ -44,6 +44,7 @@
 "discrim_regularized"	"classification"	"klaR"	"discrim"
 "gen_additive_mod"	"classification"	"mgcv"	NA
 "gen_additive_mod"	"regression"	"mgcv"	NA
+"linear_reg"	"quantile regression"	"quantreg"	NA
 "linear_reg"	"regression"	"brulee"	NA
 "linear_reg"	"regression"	"gee"	"multilevelmod"
 "linear_reg"	"regression"	"glm"	NA
@@ -55,7 +56,6 @@
 "linear_reg"	"regression"	"lm"	NA
 "linear_reg"	"regression"	"lme"	"multilevelmod"
 "linear_reg"	"regression"	"lmer"	"multilevelmod"
-"linear_reg"	"quantile regression"	"quantreg"	NA
 "linear_reg"	"regression"	"spark"	NA
 "linear_reg"	"regression"	"stan"	NA
 "linear_reg"	"regression"	"stan_glmer"	"multilevelmod"
