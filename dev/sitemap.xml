@@ -91,6 +91,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_stan_glmer.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mars_earth.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_brulee.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_brulee_two_layer.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_h2o.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_keras.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_nnet.html</loc></url>
