@@ -1068,45 +1068,45 @@ last week will be predicted after the model is fit.</p>
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">linreg_reg_fit</span> <span class="op">&lt;-</span> <span class="va">linreg_reg_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## Epoch 1/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 752.7691 - 457ms/epoch - 3ms/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 756.7579 - 469ms/epoch - 3ms/step</span></span>
 <span>  <span class="co">## Epoch 2/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 523.4379 - 165ms/epoch - 928us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 526.9231 - 172ms/epoch - 966us/step</span></span>
 <span>  <span class="co">## Epoch 3/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 394.8418 - 150ms/epoch - 844us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 397.2277 - 158ms/epoch - 886us/step</span></span>
 <span>  <span class="co">## Epoch 4/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 318.6948 - 149ms/epoch - 836us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 320.3880 - 153ms/epoch - 862us/step</span></span>
 <span>  <span class="co">## Epoch 5/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 271.7917 - 149ms/epoch - 836us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 272.9154 - 154ms/epoch - 867us/step</span></span>
 <span>  <span class="co">## Epoch 6/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 241.8885 - 153ms/epoch - 857us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 242.6400 - 153ms/epoch - 861us/step</span></span>
 <span>  <span class="co">## Epoch 7/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 222.1885 - 146ms/epoch - 822us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 222.7003 - 152ms/epoch - 853us/step</span></span>
 <span>  <span class="co">## Epoch 8/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 208.5524 - 147ms/epoch - 825us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 208.9068 - 152ms/epoch - 853us/step</span></span>
 <span>  <span class="co">## Epoch 9/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 198.1157 - 147ms/epoch - 827us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 198.3906 - 152ms/epoch - 852us/step</span></span>
 <span>  <span class="co">## Epoch 10/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 188.4015 - 147ms/epoch - 828us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 188.6790 - 155ms/epoch - 868us/step</span></span>
 <span>  <span class="co">## Epoch 11/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 176.3861 - 148ms/epoch - 829us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 176.8083 - 152ms/epoch - 853us/step</span></span>
 <span>  <span class="co">## Epoch 12/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 157.3589 - 148ms/epoch - 832us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 158.1775 - 152ms/epoch - 853us/step</span></span>
 <span>  <span class="co">## Epoch 13/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 125.2068 - 151ms/epoch - 847us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 126.6977 - 153ms/epoch - 862us/step</span></span>
 <span>  <span class="co">## Epoch 14/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 79.9115 - 146ms/epoch - 820us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 81.8863 - 155ms/epoch - 868us/step</span></span>
 <span>  <span class="co">## Epoch 15/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 38.2233 - 148ms/epoch - 832us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 39.6112 - 155ms/epoch - 869us/step</span></span>
 <span>  <span class="co">## Epoch 16/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 16.9133 - 155ms/epoch - 873us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 17.4431 - 166ms/epoch - 934us/step</span></span>
 <span>  <span class="co">## Epoch 17/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 11.2061 - 148ms/epoch - 831us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 11.3173 - 159ms/epoch - 891us/step</span></span>
 <span>  <span class="co">## Epoch 18/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 10.3475 - 148ms/epoch - 829us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 10.3659 - 155ms/epoch - 869us/step</span></span>
 <span>  <span class="co">## Epoch 19/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 10.2621 - 148ms/epoch - 829us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 10.2663 - 152ms/epoch - 856us/step</span></span>
 <span>  <span class="co">## Epoch 20/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 10.2494 - 150ms/epoch - 841us/step</span></span></code></pre>
+<span>  <span class="co">## 178/178 - 0s - loss: 10.2518 - 153ms/epoch - 857us/step</span></span></code></pre>
 <div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">linreg_reg_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
@@ -1125,17 +1125,17 @@ last week will be predicted after the model is fit.</p>
 <p>The holdout data can be predicted:</p>
 <div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">linreg_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span>  <span class="co">## 1/1 - 0s - 46ms/epoch - 46ms/step</span></span></code></pre>
+<pre><code><span>  <span class="co">## 1/1 - 0s - 52ms/epoch - 52ms/step</span></span></code></pre>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span>  <span class="co">##   .pred</span></span>
 <span>  <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">1</span> 19.7 </span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">2</span> 19.7 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">3</span> 20.0 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">3</span> 20.1 </span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">4</span> 19.8 </span></span>
 <span>  <span class="co">## <span style="color: #BCBCBC;">5</span> 18.2 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.93</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.26</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.94</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  7.27</span></span></code></pre>
 </details><details id="linear-reg-stan"><summary>
 With the <code>"stan"</code> engine
 </summary><h3>
@@ -1512,45 +1512,45 @@ Both predictors are in the same units.</p>
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">logreg_cls_fit</span> <span class="op">&lt;-</span> <span class="va">logreg_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## Epoch 1/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 1.3309 - 365ms/epoch - 15ms/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 1.3294 - 401ms/epoch - 16ms/step</span></span>
 <span>  <span class="co">## Epoch 2/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 1.2572 - 23ms/epoch - 929us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 1.2544 - 24ms/epoch - 957us/step</span></span>
 <span>  <span class="co">## Epoch 3/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 1.1901 - 23ms/epoch - 917us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 1.1881 - 24ms/epoch - 957us/step</span></span>
 <span>  <span class="co">## Epoch 4/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 1.1294 - 23ms/epoch - 907us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 1.1269 - 24ms/epoch - 961us/step</span></span>
 <span>  <span class="co">## Epoch 5/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 1.0745 - 23ms/epoch - 920us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 1.0734 - 24ms/epoch - 965us/step</span></span>
 <span>  <span class="co">## Epoch 6/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 1.0264 - 23ms/epoch - 937us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 1.0249 - 24ms/epoch - 954us/step</span></span>
 <span>  <span class="co">## Epoch 7/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.9824 - 24ms/epoch - 945us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.9816 - 24ms/epoch - 968us/step</span></span>
 <span>  <span class="co">## Epoch 8/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.9447 - 23ms/epoch - 922us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.9437 - 24ms/epoch - 965us/step</span></span>
 <span>  <span class="co">## Epoch 9/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.9109 - 23ms/epoch - 902us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.9107 - 24ms/epoch - 965us/step</span></span>
 <span>  <span class="co">## Epoch 10/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.8809 - 23ms/epoch - 925us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.8817 - 24ms/epoch - 972us/step</span></span>
 <span>  <span class="co">## Epoch 11/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.8555 - 23ms/epoch - 933us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.8562 - 24ms/epoch - 974us/step</span></span>
 <span>  <span class="co">## Epoch 12/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.8328 - 23ms/epoch - 938us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.8337 - 24ms/epoch - 964us/step</span></span>
 <span>  <span class="co">## Epoch 13/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.8137 - 23ms/epoch - 923us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.8146 - 24ms/epoch - 973us/step</span></span>
 <span>  <span class="co">## Epoch 14/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.7970 - 23ms/epoch - 927us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.7974 - 24ms/epoch - 968us/step</span></span>
 <span>  <span class="co">## Epoch 15/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.7823 - 23ms/epoch - 932us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.7831 - 24ms/epoch - 968us/step</span></span>
 <span>  <span class="co">## Epoch 16/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.7697 - 23ms/epoch - 911us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.7701 - 24ms/epoch - 977us/step</span></span>
 <span>  <span class="co">## Epoch 17/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.7590 - 24ms/epoch - 974us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.7589 - 24ms/epoch - 973us/step</span></span>
 <span>  <span class="co">## Epoch 18/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.7492 - 25ms/epoch - 987us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.7494 - 25ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 19/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.7410 - 23ms/epoch - 926us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.7410 - 24ms/epoch - 967us/step</span></span>
 <span>  <span class="co">## Epoch 20/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.7337 - 23ms/epoch - 916us/step</span></span></code></pre>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.7337 - 24ms/epoch - 971us/step</span></span></code></pre>
 <div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">logreg_cls_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
@@ -1573,21 +1573,21 @@ probabilities. We’ll bind these together into one tibble:</p>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">logreg_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">logreg_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<pre><code><span>  <span class="co">## 1/1 - 0s - 30ms/epoch - 30ms/step</span></span>
-<span>  <span class="co">## 1/1 - 0s - 12ms/epoch - 12ms/step</span></span></code></pre>
+<pre><code><span>  <span class="co">## 1/1 - 0s - 35ms/epoch - 35ms/step</span></span>
+<span>  <span class="co">## 1/1 - 0s - 15ms/epoch - 15ms/step</span></span></code></pre>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span>  <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span></span>
 <span>  <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class2             0.336        0.664</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class2             0.347        0.653</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class2             0.415        0.585</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.131        0.869</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.197        0.803</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.144        0.856</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class2             0.258        0.742</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class2             0.354        0.646</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class2             0.199        0.801</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.103        0.897</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class2             0.338        0.662</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class2             0.349        0.651</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class2             0.417        0.583</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.133        0.867</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.200        0.800</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.146        0.854</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class2             0.260        0.740</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class2             0.357        0.643</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class2             0.201        0.799</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.105        0.895</span></span></code></pre>
 </details><details id="logistic-reg-LiblineaR"><summary>
 With the <code>"LiblineaR"</code> engine
 </summary><h3>
@@ -2025,45 +2025,45 @@ last week will be predicted after the model is fit.</p>
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">mlp_reg_fit</span> <span class="op">&lt;-</span> <span class="va">mlp_reg_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">ridership</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">Chicago_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## Epoch 1/20</span></span>
-<span>  <span class="co">## 178/178 - 1s - loss: 227.3652 - 515ms/epoch - 3ms/step</span></span>
+<span>  <span class="co">## 178/178 - 1s - loss: 226.8931 - 590ms/epoch - 3ms/step</span></span>
 <span>  <span class="co">## Epoch 2/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 195.0502 - 152ms/epoch - 854us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 195.1042 - 168ms/epoch - 944us/step</span></span>
 <span>  <span class="co">## Epoch 3/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 178.9502 - 153ms/epoch - 862us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 179.5427 - 160ms/epoch - 901us/step</span></span>
 <span>  <span class="co">## Epoch 4/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 167.7639 - 153ms/epoch - 857us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 167.7254 - 159ms/epoch - 893us/step</span></span>
 <span>  <span class="co">## Epoch 5/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 159.0498 - 153ms/epoch - 858us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 158.9066 - 160ms/epoch - 899us/step</span></span>
 <span>  <span class="co">## Epoch 6/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 151.2330 - 159ms/epoch - 893us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 151.0407 - 160ms/epoch - 897us/step</span></span>
 <span>  <span class="co">## Epoch 7/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 143.9999 - 153ms/epoch - 857us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 143.7856 - 165ms/epoch - 926us/step</span></span>
 <span>  <span class="co">## Epoch 8/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 137.2270 - 153ms/epoch - 861us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 136.9987 - 160ms/epoch - 897us/step</span></span>
 <span>  <span class="co">## Epoch 9/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 130.8480 - 153ms/epoch - 862us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 130.6111 - 161ms/epoch - 905us/step</span></span>
 <span>  <span class="co">## Epoch 10/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 124.8124 - 155ms/epoch - 869us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 124.5731 - 158ms/epoch - 889us/step</span></span>
 <span>  <span class="co">## Epoch 11/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 119.0879 - 154ms/epoch - 868us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 118.8516 - 158ms/epoch - 887us/step</span></span>
 <span>  <span class="co">## Epoch 12/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 113.6482 - 155ms/epoch - 873us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 113.4126 - 159ms/epoch - 896us/step</span></span>
 <span>  <span class="co">## Epoch 13/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 108.4661 - 157ms/epoch - 884us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 108.2269 - 159ms/epoch - 893us/step</span></span>
 <span>  <span class="co">## Epoch 14/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 103.5091 - 154ms/epoch - 868us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 103.2680 - 164ms/epoch - 924us/step</span></span>
 <span>  <span class="co">## Epoch 15/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 98.7472 - 154ms/epoch - 868us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 98.5082 - 157ms/epoch - 883us/step</span></span>
 <span>  <span class="co">## Epoch 16/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 94.1594 - 153ms/epoch - 861us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 93.9265 - 158ms/epoch - 885us/step</span></span>
 <span>  <span class="co">## Epoch 17/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 89.7253 - 153ms/epoch - 861us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 89.4995 - 159ms/epoch - 891us/step</span></span>
 <span>  <span class="co">## Epoch 18/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 85.4142 - 153ms/epoch - 860us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 85.1938 - 158ms/epoch - 890us/step</span></span>
 <span>  <span class="co">## Epoch 19/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 81.1533 - 158ms/epoch - 885us/step</span></span>
+<span>  <span class="co">## 178/178 - 0s - loss: 80.9454 - 157ms/epoch - 884us/step</span></span>
 <span>  <span class="co">## Epoch 20/20</span></span>
-<span>  <span class="co">## 178/178 - 0s - loss: 77.0061 - 152ms/epoch - 854us/step</span></span></code></pre>
+<span>  <span class="co">## 178/178 - 0s - loss: 76.8024 - 163ms/epoch - 915us/step</span></span></code></pre>
 <div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">mlp_reg_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
@@ -2082,17 +2082,17 @@ last week will be predicted after the model is fit.</p>
 <p>The holdout data can be predicted:</p>
 <div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mlp_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span>  <span class="co">## 1/1 - 0s - 29ms/epoch - 29ms/step</span></span></code></pre>
+<pre><code><span>  <span class="co">## 1/1 - 0s - 33ms/epoch - 33ms/step</span></span></code></pre>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span>  <span class="co">##   .pred</span></span>
 <span>  <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">1</span>  7.78</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">2</span>  7.78</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">3</span>  7.78</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">4</span>  7.78</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">5</span>  7.77</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.07</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.91</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;">1</span>  7.79</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">2</span>  7.79</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">3</span>  7.79</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">4</span>  7.79</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">5</span>  7.79</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.05</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.90</span></span></code></pre>
 <h3>
 Classification Example (<code>keras</code>)
 </h3>
@@ -2125,45 +2125,45 @@ Both predictors are in the same units.</p>
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="va">mlp_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mlp_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## Epoch 1/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.7282 - 354ms/epoch - 14ms/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.7279 - 363ms/epoch - 15ms/step</span></span>
 <span>  <span class="co">## Epoch 2/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.7199 - 24ms/epoch - 949us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.7192 - 25ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 3/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.7126 - 24ms/epoch - 954us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.7120 - 25ms/epoch - 998us/step</span></span>
 <span>  <span class="co">## Epoch 4/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.7065 - 24ms/epoch - 942us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.7055 - 25ms/epoch - 994us/step</span></span>
 <span>  <span class="co">## Epoch 5/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.7008 - 23ms/epoch - 935us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.7000 - 25ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 6/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.6959 - 24ms/epoch - 948us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.6952 - 25ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 7/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.6914 - 24ms/epoch - 944us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.6908 - 25ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 8/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.6873 - 24ms/epoch - 951us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.6869 - 25ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 9/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.6839 - 24ms/epoch - 944us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.6833 - 25ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 10/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.6802 - 24ms/epoch - 947us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.6800 - 26ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 11/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.6772 - 24ms/epoch - 953us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.6767 - 26ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 12/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.6741 - 24ms/epoch - 947us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.6737 - 27ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 13/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.6711 - 24ms/epoch - 946us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.6707 - 26ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 14/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.6681 - 24ms/epoch - 951us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.6678 - 26ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 15/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.6651 - 24ms/epoch - 944us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.6649 - 25ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 16/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.6621 - 24ms/epoch - 948us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.6620 - 26ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 17/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.6591 - 24ms/epoch - 942us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.6589 - 25ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 18/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.6561 - 23ms/epoch - 934us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.6560 - 26ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 19/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.6531 - 24ms/epoch - 941us/step</span></span>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.6530 - 26ms/epoch - 1ms/step</span></span>
 <span>  <span class="co">## Epoch 20/20</span></span>
-<span>  <span class="co">## 25/25 - 0s - loss: 0.6501 - 24ms/epoch - 945us/step</span></span></code></pre>
+<span>  <span class="co">## 25/25 - 0s - loss: 0.6499 - 25ms/epoch - 1ms/step</span></span></code></pre>
 <div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">mlp_cls_fit</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
@@ -2186,21 +2186,21 @@ probabilities. We’ll bind these together into one tibble:</p>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mlp_cls_fit</span>, <span class="va">data_test</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mlp_cls_fit</span>, <span class="va">data_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<pre><code><span>  <span class="co">## 1/1 - 0s - 30ms/epoch - 30ms/step</span></span>
-<span>  <span class="co">## 1/1 - 0s - 11ms/epoch - 11ms/step</span></span></code></pre>
+<pre><code><span>  <span class="co">## 1/1 - 0s - 34ms/epoch - 34ms/step</span></span>
+<span>  <span class="co">## 1/1 - 0s - 14ms/epoch - 14ms/step</span></span></code></pre>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span>  <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span></span>
 <span>  <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.534        0.466</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.587        0.413</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.570        0.430</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.467        0.533</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.481        0.519</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.444        0.556</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.525        0.475</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.544        0.456</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.598        0.402</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.420        0.580</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class1             0.535        0.465</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1             0.588        0.412</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1             0.571        0.429</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class2             0.468        0.532</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2             0.482        0.518</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2             0.445        0.555</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1             0.527        0.473</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1             0.545        0.455</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1             0.599        0.401</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2             0.421        0.579</span></span></code></pre>
 </details>
 </div>
 <div class="section level2">
@@ -2352,45 +2352,45 @@ variables in the same unit (mm): bill length and bill depth.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">mr_cls_fit</span> <span class="op">&lt;-</span> <span class="va">mr_cls_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">island</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">penguins_train</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Epoch 1/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 19.0874 - 341ms/epoch - 31ms/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 19.0926 - 362ms/epoch - 33ms/step</span></span>
 <span><span class="co">## Epoch 2/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 18.4659 - 11ms/epoch - 1ms/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 18.4640 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 3/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 17.8445 - 11ms/epoch - 1ms/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 17.8476 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 4/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 17.2493 - 11ms/epoch - 1ms/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 17.2498 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 5/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 16.6592 - 11ms/epoch - 992us/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 16.6699 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 6/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 16.0857 - 11ms/epoch - 1ms/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 16.0773 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 7/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 15.5163 - 11ms/epoch - 997us/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 15.5299 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 8/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 14.9771 - 11ms/epoch - 986us/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 14.9764 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 9/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 14.4439 - 11ms/epoch - 980us/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 14.4530 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 10/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 13.9258 - 11ms/epoch - 1ms/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 13.9263 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 11/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 13.4160 - 11ms/epoch - 999us/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 13.4195 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 12/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 12.9233 - 11ms/epoch - 1ms/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 12.9313 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 13/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 12.4469 - 11ms/epoch - 994us/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 12.4503 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 14/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 11.9865 - 11ms/epoch - 994us/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 11.9871 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 15/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 11.5346 - 11ms/epoch - 1ms/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 11.5460 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 16/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 11.1021 - 11ms/epoch - 995us/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 11.1080 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 17/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 10.6893 - 11ms/epoch - 1ms/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 10.6956 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 18/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 10.2973 - 11ms/epoch - 1ms/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 10.3063 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 19/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 9.9237 - 11ms/epoch - 1ms/step</span></span>
+<span><span class="co">## 11/11 - 0s - loss: 9.9315 - 12ms/epoch - 1ms/step</span></span>
 <span><span class="co">## Epoch 20/20</span></span>
-<span><span class="co">## 11/11 - 0s - loss: 9.5684 - 12ms/epoch - 1ms/step</span></span></code></pre>
+<span><span class="co">## 11/11 - 0s - loss: 9.5787 - 12ms/epoch - 1ms/step</span></span></code></pre>
 <div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mr_cls_fit</span></span></code></pre></div>
 <pre><code><span><span class="co">## parsnip model object</span></span>
@@ -2413,16 +2413,16 @@ probabilities. We’ll bind these together into one tibble:</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mr_cls_fit</span>, <span class="va">penguins_test</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## 1/1 - 0s - 28ms/epoch - 28ms/step</span></span>
-<span><span class="co">## 1/1 - 0s - 11ms/epoch - 11ms/step</span></span></code></pre>
+<pre><code><span><span class="co">## 1/1 - 0s - 33ms/epoch - 33ms/step</span></span>
+<span><span class="co">## 1/1 - 0s - 14ms/epoch - 14ms/step</span></span></code></pre>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 4</span></span></span>
 <span><span class="co">##   .pred_class .pred_Biscoe .pred_Dream .pred_Torgersen</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> Dream           7.90<span style="color: #949494;">e</span><span style="color: #BB0000;">-18</span>           1        1.38<span style="color: #949494;">e</span><span style="color: #BB0000;">-11</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> Dream           2.96<span style="color: #949494;">e</span><span style="color: #BB0000;">-21</span>           1        9.70<span style="color: #949494;">e</span><span style="color: #BB0000;">-14</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> Dream           1.66<span style="color: #949494;">e</span><span style="color: #BB0000;">-18</span>           1        5.17<span style="color: #949494;">e</span><span style="color: #BB0000;">-12</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> Dream           1.24<span style="color: #949494;">e</span><span style="color: #BB0000;">-21</span>           1        5.61<span style="color: #949494;">e</span><span style="color: #BB0000;">-14</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> Dream           2.04<span style="color: #949494;">e</span><span style="color: #BB0000;">-18</span>           1        5.88<span style="color: #949494;">e</span><span style="color: #BB0000;">-12</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Dream           7.54<span style="color: #949494;">e</span><span style="color: #BB0000;">-18</span>           1        1.36<span style="color: #949494;">e</span><span style="color: #BB0000;">-11</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Dream           2.80<span style="color: #949494;">e</span><span style="color: #BB0000;">-21</span>           1        9.53<span style="color: #949494;">e</span><span style="color: #BB0000;">-14</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> Dream           1.58<span style="color: #949494;">e</span><span style="color: #BB0000;">-18</span>           1        5.09<span style="color: #949494;">e</span><span style="color: #BB0000;">-12</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> Dream           1.17<span style="color: #949494;">e</span><span style="color: #BB0000;">-21</span>           1        5.51<span style="color: #949494;">e</span><span style="color: #BB0000;">-14</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> Dream           1.94<span style="color: #949494;">e</span><span style="color: #BB0000;">-18</span>           1        5.79<span style="color: #949494;">e</span><span style="color: #BB0000;">-12</span></span></span></code></pre>
 </details><details id="multinom-reg-nnet"><summary>
 With the <code>"nnet"</code> engine
 </summary><h3>
