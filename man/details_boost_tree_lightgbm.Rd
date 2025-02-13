@@ -192,6 +192,14 @@ the user. To print out all logs during training, set \code{quiet = TRUE}.
 
 }
 
+\subsection{Sparse Data}{
+
+This model can utilize sparse data during model fitting and prediction.
+Both sparse matrices such as dgCMatrix from the \code{Matrix} package and
+sparse tibbles from the \code{sparsevctrs} package are supported. See
+\link{sparse_data} for more information.
+}
+
 \subsection{Examples}{
 
 The “Introduction to bonsai” article contains

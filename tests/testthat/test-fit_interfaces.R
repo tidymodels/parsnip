@@ -156,7 +156,7 @@ test_that("overhead of parsnip interface is minimal (#1071)", {
   skip_on_cran()
   skip_on_covr()
   skip_if_not_installed("bench")
-  skip_if_not_installed("parsnip", minimum_version = "1.3.0")
+  skip_if_not_installed("parsnip", minimum_version = "1.4.0")
 
   bm <- bench::mark(
     time_engine = lm(mpg ~ ., mtcars),

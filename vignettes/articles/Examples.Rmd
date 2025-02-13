@@ -631,6 +631,41 @@ The following examples use consistent data sets throughout. For regression, we u
   ```
   
   </details>
+
+  <details id="linear-reg-brulee"> 
+  
+  <summary>With the `"brulee"` engine</summary>
+  
+  <h3>Regression Example (`brulee`)</h3>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-reg-chicago.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  linreg_reg_spec <- 
+    linear_reg() %>% 
+    set_engine("brulee")
+  linreg_reg_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  linreg_reg_fit <- linreg_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  linreg_reg_fit
+  ```
+
+  The holdout data can be predicted:
+
+  ```{r}
+  predict(linreg_reg_fit, Chicago_test)
+  ```
+    
+  </details>
   
 ## `logistic_reg()` models
 
@@ -828,6 +863,45 @@ The following examples use consistent data sets throughout. For regression, we u
     
   </details>
 
+
+  <details id="logistic-reg-brulee"> 
+  
+  <summary>With the `"brulee"` engine</summary>
+  
+  <h3>Classification Example (`brulee`)</h3>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-two-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  logreg_cls_spec <- 
+    logistic_reg() %>% 
+    set_engine("brulee")
+  logreg_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  logreg_cls_fit <- logreg_cls_spec %>% fit(Class ~ ., data = data_train)
+  logreg_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(logreg_cls_fit, data_test),
+    predict(logreg_cls_fit, data_test, type = "prob")
+  )
+  ```
+    
+  </details>
+  
 ## `mars()` models 
 
   <details id="mars-earth"> 
@@ -1047,6 +1121,149 @@ The following examples use consistent data sets throughout. For regression, we u
     
   </details>  
   
+
+  <details id="mlp-brulee"> 
+  
+  <summary>With the `"brulee"` engine</summary>
+
+  <h3>Regression Example (`brulee`)</h3>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-reg-chicago.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  mlp_reg_spec <- 
+    mlp(penalty = 0, epochs = 100) %>% 
+    # This model can be used for classification or regression, so set mode
+    set_mode("regression") %>% 
+    set_engine("brulee")
+  mlp_reg_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  mlp_reg_fit <- mlp_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  mlp_reg_fit
+  ```
+
+  The holdout data can be predicted:
+
+  ```{r}
+  predict(mlp_reg_fit, Chicago_test)
+  ```
+
+  <h3>Classification Example (`brulee`)</h3>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-two-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  mlp_cls_spec <- 
+    mlp(penalty = 0, epochs = 100) %>% 
+    # This model can be used for classification or regression, so set mode
+    set_mode("classification") %>% 
+    set_engine("brulee")
+  mlp_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  mlp_cls_fit <- mlp_cls_spec %>% fit(Class ~ ., data = data_train)
+  mlp_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(mlp_cls_fit, data_test),
+    predict(mlp_cls_fit, data_test, type = "prob")
+  )
+  ```
+    
+  </details>
+  
+  <details id="mlp-brulee_two_layer_two_layer"> 
+  
+  <summary>With the `"brulee_two_layer"` engine</summary>
+
+  <h3>Regression Example (`brulee_two_layer`)</h3>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-reg-chicago.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  mlp_reg_spec <- 
+    mlp(penalty = 0, epochs = 10) %>% 
+    # This model can be used for classification or regression, so set mode
+    set_mode("regression") %>% 
+    set_engine("brulee_two_layer", hidden_units_2 = 2)
+  mlp_reg_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(13)
+  mlp_reg_fit <- mlp_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  mlp_reg_fit
+  ```
+
+  The holdout data can be predicted:
+
+  ```{r}
+  predict(mlp_reg_fit, Chicago_test)
+  ```
+
+  <h3>Classification Example (`brulee_two_layer`)</h3>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-two-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  mlp_cls_spec <- 
+    mlp(penalty = 0, epochs = 10) %>% 
+    # This model can be used for classification or regression, so set mode
+    set_mode("classification") %>% 
+    set_engine("brulee_two_layer", hidden_units_2 = 2)
+  mlp_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(12)
+  mlp_cls_fit <- mlp_cls_spec %>% fit(Class ~ ., data = data_train)
+  mlp_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(mlp_cls_fit, data_test),
+    predict(mlp_cls_fit, data_test, type = "prob")
+  )
+  ```
+    
+  </details>
+  
   
 ## `multinom_reg()` models
 
@@ -1167,6 +1384,45 @@ The following examples use consistent data sets throughout. For regression, we u
   </details>
 
 
+  <details id="multinom-reg-brulee"> 
+
+  <summary>With the `"brulee"` engine</summary>
+
+  <h3>Classification Example (`brulee`)</h3>
+
+  ```{r echo=FALSE}
+  knitr::spin_child("template-cls-multi-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  mr_cls_spec <- 
+    multinom_reg(penalty = 0.1) %>% 
+    set_engine("brulee")
+  mr_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  mr_cls_fit <- mr_cls_spec %>% fit(island ~ ., data = penguins_train)
+  mr_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(mr_cls_fit, penguins_test),
+    predict(mr_cls_fit, penguins_test, type = "prob")
+  )
+  ```
+
+  </details>
+  
+  
 ## `nearest_neighbor()` models
 
   <details id="nearest-neighbor-kknn"> 
