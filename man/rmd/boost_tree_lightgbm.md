@@ -133,6 +133,11 @@ To effectively enable bagging, the user would also need to set the `bagging_freq
 
 bonsai quiets much of the logging output from [lightgbm::lgb.train()] by default. With default settings, logged warnings and errors will still be passed on to the user. To print out all logs during training, set `quiet = TRUE`.
 
+## Sparse Data
+
+
+This model can utilize sparse data during model fitting and prediction. Both sparse matrices such as dgCMatrix from the `Matrix` package and sparse tibbles from the `sparsevctrs` package are supported. See [sparse_data] for more information.
+
 ## Examples 
 
 The "Introduction to bonsai" article contains [examples](https://bonsai.tidymodels.org/articles/bonsai.html) of `boost_tree()` with the `"lightgbm"` engine.

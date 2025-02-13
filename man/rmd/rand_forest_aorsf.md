@@ -1,7 +1,7 @@
 
 
 
-For this engine, there are multiple modes: classification, regression, and censored regression
+For this engine, there are multiple modes: censored regression, classification, and regression
 
 ## Tuning Parameters
 
@@ -9,11 +9,11 @@ For this engine, there are multiple modes: classification, regression, and censo
 
 This model has 3 tuning parameters:
 
-- `mtry`: # Randomly Selected Predictors (type: integer, default: ceiling(sqrt(n_predictors)))
-
 - `trees`: # Trees (type: integer, default: 500L)
 
 - `min_n`: Minimal Node Size (type: integer, default: 5L)
+
+- `mtry`: # Randomly Selected Predictors (type: integer, default: ceiling(sqrt(n_predictors)))
 
 Additionally, this model has one engine-specific tuning parameter:
 

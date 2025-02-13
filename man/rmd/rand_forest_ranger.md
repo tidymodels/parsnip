@@ -108,6 +108,8 @@ The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that e
 
 This model can utilize sparse data during model fitting and prediction. Both sparse matrices such as dgCMatrix from the `Matrix` package and sparse tibbles from the `sparsevctrs` package are supported. See [sparse_data] for more information.
 
+While this engine supports sparse data as an input, it doesn't use it any differently than dense data. Hence there it no reason to convert back and forth.
+
 ## Saving fitted model objects
 
 

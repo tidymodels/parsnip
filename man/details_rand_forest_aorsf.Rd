@@ -9,16 +9,16 @@ trees, each de-correlated from the others. The final prediction uses all
 predictions from the individual trees and combines them.
 }
 \details{
-For this engine, there are multiple modes: classification, regression,
-and censored regression
+For this engine, there are multiple modes: censored regression,
+classification, and regression
 \subsection{Tuning Parameters}{
 
 This model has 3 tuning parameters:
 \itemize{
-\item \code{mtry}: # Randomly Selected Predictors (type: integer, default:
-ceiling(sqrt(n_predictors)))
 \item \code{trees}: # Trees (type: integer, default: 500L)
 \item \code{min_n}: Minimal Node Size (type: integer, default: 5L)
+\item \code{mtry}: # Randomly Selected Predictors (type: integer, default:
+ceiling(sqrt(n_predictors)))
 }
 
 Additionally, this model has one engine-specific tuning parameter:
