@@ -26,7 +26,7 @@ survival_reg() %>%
 
 The main interface for this model uses the formula method since the model specification typically involved the use of [survival::Surv()]. 
 
-For this engine, stratification cannot be specified via [`strata()`], please see [flexsurv::flexsurvspline()] for alternative specifications.
+For this engine, stratification cannot be specified via [`survival::strata()`], please see [flexsurv::flexsurvspline()] for alternative specifications.
 
 ```{r child = "template-survival-mean.Rmd"}
 ```

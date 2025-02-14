@@ -1,4 +1,4 @@
-# parsnip (development version)
+# parsnip 1.3.0
 
 ## New Features
 
@@ -7,15 +7,16 @@
   * Predictions are encoded via a custom vector type. See [hardhat::quantile_pred()].
   * Predicted quantile levels are designated when the new mode is specified. See `?set_mode`.
   
-* `fit_xy()` can now take dgCMatrix input for `x` argument (#1121).
-
-* `fit_xy()` can now take sparse tibbles as data values (#1165).
-
-* `predict()` can now take dgCMatrix and sparse tibble input for `new_data` argument, and error informatively when model doesn't support it (#1167).
+* Updates for sparse data formats:  
+  * `fit_xy()` can now take dgCMatrix input for `x` argument (#1121).
+  * `fit_xy()` can now take sparse tibbles as data values (#1165).
+  * `predict()` can now take dgCMatrix and sparse tibble input for `new_data` argument, and error informatively when model doesn't support it (#1167).
 
 * New `extract_fit_time()` method has been added that returns the time it took to train the model (#853).
 
 * `mlp()` with `keras` engine now work for all activation functions currently supported by `keras` (#1127).
+
+* `mlp()` now has a  `brulee_two_layer` engine.
 
 ## Other Changes
 
@@ -48,7 +49,6 @@
 * The quantile regression prediction type was disabled for the deprecated `surv_reg()` model. 
 
 * `NULL` is no longer accepted as an engine (#1242).
-
 
 # parsnip 1.2.1
 

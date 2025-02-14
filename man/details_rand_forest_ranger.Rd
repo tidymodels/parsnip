@@ -129,6 +129,10 @@ This model can utilize sparse data during model fitting and prediction.
 Both sparse matrices such as dgCMatrix from the \code{Matrix} package and
 sparse tibbles from the \code{sparsevctrs} package are supported. See
 \link{sparse_data} for more information.
+
+While this engine supports sparse data as an input, it doesn’t use it
+any differently than dense data. Hence there it no reason to convert
+back and forth.
 }
 
 \subsection{Saving fitted model objects}{
