@@ -11,7 +11,7 @@ All trees in the ensemble are combined to produce a final prediction."><meta pro
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.1.9004</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.3.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -235,6 +235,16 @@ the user. To print out all logs during training, set <code>quiet = TRUE</code>.<
 </div>
 
 
+</div>
+
+<div class="section">
+<h3 id="sparse-data">Sparse Data<a class="anchor" aria-label="anchor" href="#sparse-data"></a></h3>
+
+
+<p>This model can utilize sparse data during model fitting and prediction.
+Both sparse matrices such as dgCMatrix from the <code>Matrix</code> package and
+sparse tibbles from the <code>sparsevctrs</code> package are supported. See
+<a href="sparse_data.html">sparse_data</a> for more information.</p>
 </div>
 
 <div class="section">
