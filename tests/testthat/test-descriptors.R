@@ -199,6 +199,8 @@ test_that("can be temporarily overriden at evaluation time", {
 
 test_that("system-level descriptor tests", {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
+
   expect_no_condition(
     boost_tree(mode = "regression", mtry = .cols()) %>%
       set_engine("xgboost") %>%

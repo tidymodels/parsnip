@@ -154,6 +154,7 @@ test_that('non-factor classification', {
 
 test_that("predict() works for model fit with fit_xy() (#1166)", {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
 
   spec <- boost_tree() %>%
     set_mode("regression") %>%

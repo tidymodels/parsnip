@@ -37,6 +37,7 @@ test_that('argument checks for data dimensions', {
 })
 
 test_that('boost_tree can be fit with 1 predictor if validation is used', {
+  skip_on_cran()
   spec <- boost_tree(trees = 1) %>%
     set_engine("xgboost", validation = 0.5) %>%
     set_mode("regression")
@@ -48,6 +49,7 @@ test_that('boost_tree can be fit with 1 predictor if validation is used', {
 
 test_that("check_args() works", {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
 
   expect_snapshot(
     error = TRUE,

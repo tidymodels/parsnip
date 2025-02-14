@@ -1,5 +1,7 @@
 test_that("sparse tibble can be passed to `fit() - supported", {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
+
   # Make materialization of sparse vectors throw an error
   # https://r-lib.github.io/sparsevctrs/dev/reference/sparsevctrs_options.html
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
@@ -30,6 +32,8 @@ test_that("sparse tibble can be passed to `fit() - unsupported", {
 
 test_that("sparse matrix can be passed to `fit() - supported", {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
+
   # Make materialization of sparse vectors throw an error
   # https://r-lib.github.io/sparsevctrs/dev/reference/sparsevctrs_options.html
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
@@ -61,6 +65,8 @@ test_that("sparse matrix can be passed to `fit() - unsupported", {
 
 test_that("sparse tibble can be passed to `fit_xy() - supported", {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
+
   # Make materialization of sparse vectors throw an error
   # https://r-lib.github.io/sparsevctrs/dev/reference/sparsevctrs_options.html
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
@@ -90,6 +96,8 @@ test_that("sparse tibble can be passed to `fit_xy() - unsupported", {
 
 test_that("sparse matrices can be passed to `fit_xy() - supported", {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
+
   # Make materialization of sparse vectors throw an error
   # https://r-lib.github.io/sparsevctrs/dev/reference/sparsevctrs_options.html
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
@@ -193,6 +201,8 @@ test_that("sparse matrices can be passed to `predict() - unsupported", {
 
 test_that("sparse data work with xgboost engine", {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
+
   # Make materialization of sparse vectors throw an error
   # https://r-lib.github.io/sparsevctrs/dev/reference/sparsevctrs_options.html
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
@@ -233,6 +243,8 @@ test_that("sparse data work with xgboost engine", {
 
 test_that("to_sparse_data_frame() is used correctly", {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
+
   # Make materialization of sparse vectors throw an error
   # https://r-lib.github.io/sparsevctrs/dev/reference/sparsevctrs_options.html
   withr::local_options("sparsevctrs.verbose_materialize" = 3)
@@ -276,6 +288,8 @@ test_that("to_sparse_data_frame() is used correctly", {
 
 test_that("maybe_sparse_matrix() is used correctly", {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
+
   # Make materialization of sparse vectors throw an error
   # https://r-lib.github.io/sparsevctrs/dev/reference/sparsevctrs_options.html
   withr::local_options("sparsevctrs.verbose_materialize" = 3)

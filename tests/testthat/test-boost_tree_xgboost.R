@@ -9,8 +9,8 @@ hpc_xgboost <-
 # ------------------------------------------------------------------------------
 
 test_that('xgboost execution, classification', {
-
   skip_if_not_installed("xgboost")
+  skip_on_cran()
 
   ctrl$verbosity <- 0L
 
@@ -80,6 +80,7 @@ test_that('xgboost execution, classification', {
 test_that('xgboost classification prediction', {
 
   skip_if_not_installed("xgboost")
+  skip_on_cran()
 
   library(xgboost)
 
@@ -130,6 +131,7 @@ bad_rf_reg <-
 test_that('xgboost execution, regression', {
 
   skip_if_not_installed("xgboost")
+  skip_on_cran()
 
   ctrl$verbosity <- 0L
 
@@ -158,6 +160,7 @@ test_that('xgboost execution, regression', {
 test_that('xgboost regression prediction', {
 
   skip_if_not_installed("xgboost")
+  skip_on_cran()
 
   ctrl$verbosity <- 0L
 
@@ -189,6 +192,7 @@ test_that('xgboost regression prediction', {
 
 test_that('xgboost alternate objective', {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
 
   ctrl$verbosity <- 0L
 
@@ -224,6 +228,7 @@ test_that('xgboost alternate objective', {
 test_that('submodel prediction', {
 
   skip_if_not_installed("xgboost")
+  skip_on_cran()
 
   ctrl$verbosity <- 0L
 
@@ -264,6 +269,7 @@ test_that('submodel prediction', {
 
 test_that('validation sets', {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
 
   ctrl$verbosity <- 0L
 
@@ -309,6 +315,7 @@ test_that('validation sets', {
 
 test_that('early stopping', {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
 
   ctrl$verbosity <- 0L
 
@@ -350,6 +357,7 @@ test_that('early stopping', {
 
 test_that('xgboost data conversion', {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
 
   mtcar_x <- mtcars[, -1]
   mtcar_mat <- as.matrix(mtcar_x)
@@ -412,6 +420,7 @@ test_that('xgboost data conversion', {
 
 test_that('xgboost data and sparse matrices', {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
 
   ctrl$verbosity <- 0L
 
@@ -459,6 +468,7 @@ test_that('xgboost data and sparse matrices', {
 test_that('argument checks for data dimensions', {
 
   skip_if_not_installed("xgboost")
+  skip_on_cran()
 
   ctrl$verbosity <- 0L
 
@@ -489,6 +499,7 @@ test_that('argument checks for data dimensions', {
 test_that("fit and prediction with `event_level`", {
 
   skip_if_not_installed("xgboost")
+  skip_on_cran()
 
   ctrl$verbosity <- 0L
 
@@ -554,6 +565,7 @@ test_that("fit and prediction with `event_level`", {
 
 test_that("count/proportion parameters", {
   skip_if_not_installed("xgboost")
+  skip_on_cran()
 
   ctrl$verbosity <- 0L
 
@@ -602,6 +614,7 @@ test_that("count/proportion parameters", {
 test_that('interface to param arguments', {
   skip_if_not_installed("xgboost")
   skip_on_os("windows") # some snapshots different on windows (added spaces)
+  skip_on_cran()
 
   ctrl$verbosity <- 0L
 
