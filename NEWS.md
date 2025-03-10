@@ -1,5 +1,9 @@
 # parsnip (development version)
 
+## Bug Fixes
+
+* Fixed a bug that errored when tidying a glmnet object with a penalty value greater than one (#1261).
+
 # parsnip 1.3.0
 
 ## New Features
