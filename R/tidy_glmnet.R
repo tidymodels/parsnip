@@ -48,7 +48,10 @@ get_glmn_coefs <- function(x, penalty = 0.01) {
   res <- tibble::as_tibble(res) %>% mutate(term = rn, penalty = penalty)
   res <- dplyr::select(res, term, estimate, penalty)
   if (is.list(res$estimate)) {
-    res$estimate <- purrr::map(res$estimate, ~ as_tibble(as.matrix(.x), rownames = "term"))
+    res$estimate <- purrr::map(
+      res$estimate,
+      ~ as_tibble(as.matrix(.x), rownames = "term")
+    )
     res <- tidyr::unnest(res, cols = c(estimate), names_repair = "minimal")
     names(res) <- c("class", "term", "estimate", "penalty")
   }
@@ -61,6 +64,6 @@ tidy_glmnet <- function(x, penalty = NULL, ..., call = caller_env()) {
   if (is.null(penalty)) {
     penalty <- x$spec$args$penalty
   }
-  check_number_decimal(penalty, min = 0, max = 1, allow_null = TRUE, call = call)
+  check_number_decimal(penalty, min = 0, allow_null = TRUE, call = call)
   get_glmn_coefs(x$fit, penalty = penalty)
 }
