@@ -153,8 +153,8 @@ rand_forest(mtry = 10, trees = 2000) %>%
 #> Target node size:                 5 
 #> Variable importance mode:         impurity 
 #> Splitrule:                        variance 
-#> OOB prediction error (MSE):       5.725636 
-#> R squared (OOB):                  0.8423737
+#> OOB prediction error (MSE):       5.976917 
+#> R squared (OOB):                  0.8354559
 ```
 
 A list of all parsnip models across different CRAN packages can be found
