@@ -3,27 +3,27 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 # ------------------------------------------------------------------------------
 test_that('updating', {
   expect_snapshot(
-    svm_poly(mode = "regression", degree = 2) %>%
-      set_engine("kernlab", cross = 10) %>%
+    svm_poly(mode = "regression", degree = 2) |>
+      set_engine("kernlab", cross = 10) |>
       update(degree = tune(), cross = tune())
   )
 })
 
 test_that('bad input', {
   expect_snapshot(error = TRUE, svm_poly(mode = "reallyunknown"))
-  expect_snapshot(error = TRUE, svm_poly() %>% set_engine(NULL) %>% translate())
+  expect_snapshot(error = TRUE, svm_poly() |> set_engine(NULL) |> translate())
 })
 
 # ------------------------------------------------------------------------------
 
 reg_mod <-
-  svm_poly(mode = "regression", degree = 1, cost = 1/4) %>%
-  set_engine("kernlab") %>%
+  svm_poly(mode = "regression", degree = 1, cost = 1/4) |>
+  set_engine("kernlab") |>
   set_mode("regression")
 
 cls_mod <-
-  svm_poly(mode = "classification", degree = 2, cost = 1/8) %>%
-  set_engine("kernlab") %>%
+  svm_poly(mode = "classification", degree = 2, cost = 1/8) |>
+  set_engine("kernlab") |>
   set_mode("classification")
 
 ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
@@ -71,8 +71,8 @@ test_that('svm poly regression prediction', {
     )
 
   # kern_pred <-
-  #   predict(reg_form$fit, hpc[1:3, -c(1, 5)]) %>%
-  #   as_tibble() %>%
+  #   predict(reg_form$fit, hpc[1:3, -c(1, 5)]) |>
+  #   as_tibble() |>
   #   setNames(".pred")
   kern_pred <-
     structure(
@@ -134,7 +134,7 @@ test_that('svm poly classification probabilities', {
 
   skip_if_not_installed("kernlab")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] %>%
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
     droplevels()
 
   ind <- c(1, 2, 143)
@@ -171,8 +171,8 @@ test_that('svm poly classification probabilities', {
 
   library(kernlab)
   kern_probs <-
-    kernlab::predict(extract_fit_engine(cls_form), hpc_no_m[ind, -5], type = "probabilities") %>%
-    as_tibble() %>%
+    kernlab::predict(extract_fit_engine(cls_form), hpc_no_m[ind, -5], type = "probabilities") |>
+    as_tibble() |>
     setNames(c('.pred_VF', '.pred_F', '.pred_L'))
 
   parsnip_probs <- predict(cls_form, hpc_no_m[ind, -5], type = "prob")

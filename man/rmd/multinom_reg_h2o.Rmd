@@ -11,8 +11,8 @@ defaults <-
                  default = c("see below", "see below"))
 
 param <-
-multinom_reg() %>% 
-  set_engine("h2o") %>% 
+multinom_reg() |> 
+  set_engine("h2o") |> 
   make_parameter_list(defaults)
 ```
 
@@ -30,8 +30,8 @@ param$item
 [agua::h2o_train_glm()] for `multinom_reg()` is a wrapper around [h2o::h2o.glm()] with `family = 'multinomial'`. 
 
 ```{r h2o-cls}
-multinom_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("h2o") %>% 
+multinom_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("h2o") |> 
   translate()
 ```
 

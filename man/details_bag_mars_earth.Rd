@@ -28,9 +28,9 @@ columns. For a data frame \code{x}, the default is
 
 The \strong{baguette} extension package is required to fit this model.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
-  set_engine("earth") \%>\% 
-  set_mode("regression") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |> 
+  set_engine("earth") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -60,9 +60,9 @@ bag_mars(
   num_terms = integer(1),
   prod_degree = integer(1),
   prune_method = character(1)
-) \%>\% 
-  set_engine("earth") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("earth") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

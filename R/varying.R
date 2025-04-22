@@ -41,27 +41,27 @@ generics::varying_args
 #' @examplesIf !parsnip:::is_cran_check()
 #'
 #' # List all possible varying args for the random forest spec
-#' rand_forest() %>% varying_args()
+#' rand_forest() |> varying_args()
 #'
 #' # mtry is now recognized as varying
-#' rand_forest(mtry = varying()) %>% varying_args()
+#' rand_forest(mtry = varying()) |> varying_args()
 #'
 #' # Even engine specific arguments can vary
-#' rand_forest() %>%
-#'   set_engine("ranger", sample.fraction = varying()) %>%
+#' rand_forest() |>
+#'   set_engine("ranger", sample.fraction = varying()) |>
 #'   varying_args()
 #'
 #' # List only the arguments that actually vary
-#' rand_forest() %>%
-#'   set_engine("ranger", sample.fraction = varying()) %>%
+#' rand_forest() |>
+#'   set_engine("ranger", sample.fraction = varying()) |>
 #'   varying_args(full = FALSE)
 #'
-#' rand_forest() %>%
+#' rand_forest() |>
 #'   set_engine(
 #'     "randomForest",
 #'     strata = Class,
 #'     sampsize = varying()
-#'   ) %>%
+#'   ) |>
 #'   varying_args()
 #'
 #' @rdname varying_args
@@ -112,7 +112,7 @@ varying_args.recipe <- function(object, full = TRUE, ...) {
     return(varying_tbl())
   }
 
-  map(object$steps, varying_args, full = full) %>% purrr::list_rbind()
+  map(object$steps, varying_args, full = full) |> purrr::list_rbind()
 }
 
 #' @export

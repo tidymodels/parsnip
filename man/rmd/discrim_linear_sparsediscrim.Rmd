@@ -11,8 +11,8 @@ defaults <-
                  default = c("'diagonal'"))
 
 param <-
-  discrim_linear() %>% 
-  set_engine("sparsediscrim") %>% 
+  discrim_linear() |> 
+  set_engine("sparsediscrim") |> 
   make_parameter_list(defaults)
 ```
 
@@ -36,8 +36,8 @@ The possible values of this parameter, and the functions that they execute, are:
 ```{r sparsediscrim-cls}
 library(discrim)
 
-discrim_linear(regularization_method = character(0)) %>% 
-  set_engine("sparsediscrim") %>% 
+discrim_linear(regularization_method = character(0)) |> 
+  set_engine("sparsediscrim") |> 
   translate()
 ```
 

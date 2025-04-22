@@ -16,9 +16,9 @@ This model has one engine-specific tuning parameter:
 ```{r flexsurvspline-creg}
 library(censored)
 
-survival_reg() %>% 
-  set_engine("flexsurvspline") %>% 
-  set_mode("censored regression") %>% 
+survival_reg() |> 
+  set_engine("flexsurvspline") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 

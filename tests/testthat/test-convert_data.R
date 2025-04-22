@@ -348,7 +348,7 @@ test_that("numeric x and factor y", {
   )
 
   expect_no_error(
-    observed2 <- .convert_form_to_xy_fit(class ~ ., data = hpc %>% mutate(x = NA))
+    observed2 <- .convert_form_to_xy_fit(class ~ ., data = hpc |> mutate(x = NA))
   )
   expect_equal(hpc$class[logical()], observed2$y)
   expect_s3_class(observed2$terms, "terms")

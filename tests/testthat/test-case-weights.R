@@ -13,9 +13,9 @@ test_that('case weights with xy method', {
   expect_no_condition({
     set.seed(1)
     C5_bst_wt_fit <-
-      boost_tree(trees = 5) %>%
-      set_engine("C5.0") %>%
-      set_mode("classification") %>%
+      boost_tree(trees = 5) |>
+      set_engine("C5.0") |>
+      set_mode("classification") |>
       fit(Class ~ ., data = two_class_dat, case_weights = wts)
   })
 
@@ -27,9 +27,9 @@ test_that('case weights with xy method', {
   expect_no_condition({
     set.seed(1)
     C5_bst_wt_fit <-
-      boost_tree(trees = 5) %>%
-      set_engine("C5.0") %>%
-      set_mode("classification") %>%
+      boost_tree(trees = 5) |>
+      set_engine("C5.0") |>
+      set_mode("classification") |>
       fit_xy(
         x = two_class_dat[c("A", "B")],
         y = two_class_dat$Class,
@@ -58,8 +58,8 @@ test_that('case weights with xy method - non-standard argument names', {
   expect_no_condition({
     set.seed(1)
     rf_wt_fit <-
-      rand_forest(trees = 5) %>%
-      set_mode("classification") %>%
+      rand_forest(trees = 5) |>
+      set_mode("classification") |>
       fit(Class ~ ., data = two_class_dat, case_weights = wts)
   })
 
@@ -71,8 +71,8 @@ test_that('case weights with xy method - non-standard argument names', {
   expect_no_condition({
     set.seed(1)
     rf_wt_fit <-
-      rand_forest(trees = 5) %>%
-      set_mode("classification") %>%
+      rand_forest(trees = 5) |>
+      set_mode("classification") |>
       fit_xy(
         x = two_class_dat[c("A", "B")],
         y = two_class_dat$Class,
@@ -95,12 +95,12 @@ test_that('case weights with formula method', {
 
   expect_no_condition(
     lm_wt_fit <-
-      linear_reg() %>%
+      linear_reg() |>
       fit(Sale_Price ~ Longitude + Latitude, data = ames, case_weights = wts)
   )
 
   lm_sub_fit <-
-    linear_reg() %>%
+    linear_reg() |>
     fit(Sale_Price ~ Longitude + Latitude, data = ames_subset)
 
   expect_equal(coef(lm_wt_fit$fit), coef(lm_sub_fit$fit))
@@ -120,7 +120,7 @@ test_that('case weights with formula method -- unregistered model spec', {
 
   expect_snapshot(
     error = TRUE,
-    bag_mars("regression") %>%
+    bag_mars("regression") |>
       fit(Sale_Price ~ Longitude + Latitude, data = ames, case_weights = wts)
   )
 })
@@ -139,7 +139,7 @@ test_that('case weights with formula method that goes through `fit_xy()`', {
 
   expect_no_condition(
     lm_wt_fit <-
-      linear_reg() %>%
+      linear_reg() |>
       fit_xy(
         x = ames[c("Longitude", "Latitude")],
         y = ames$Sale_Price,
@@ -147,7 +147,7 @@ test_that('case weights with formula method that goes through `fit_xy()`', {
   ))
 
   lm_sub_fit <-
-    linear_reg() %>%
+    linear_reg() |>
     fit_xy(
       x = ames_subset[c("Longitude", "Latitude")],
       y = ames_subset$Sale_Price

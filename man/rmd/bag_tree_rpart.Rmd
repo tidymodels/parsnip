@@ -11,9 +11,9 @@ defaults <-
                  default = c("30L", "2L", "0.01", "(see below)"))
 
 param <-
- bag_tree() %>% 
-  set_engine("rpart") %>% 
-  set_mode("regression") %>% 
+ bag_tree() |> 
+  set_engine("rpart") |> 
+  set_mode("regression") |> 
   make_parameter_list(defaults)
 ```
 
@@ -33,9 +33,9 @@ For the `class_cost` parameter, the value can be a non-negative scalar for a cla
 ```{r rpart-cls}
 library(baguette)
 
-bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
-  set_engine("rpart") %>% 
-  set_mode("classification") %>% 
+bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
+  set_engine("rpart") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -47,9 +47,9 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 ```{r rpart-reg}
 library(baguette)
 
-bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
-  set_engine("rpart") %>% 
-  set_mode("regression") %>% 
+bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
+  set_engine("rpart") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -60,9 +60,9 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 ```{r rpart-creg}
 library(censored)
 
-bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
-  set_engine("rpart") %>% 
-  set_mode("censored regression") %>% 
+bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
+  set_engine("rpart") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 

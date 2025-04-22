@@ -13,12 +13,12 @@ install_engine_packages <- function(extension = TRUE, extras = TRUE,
   engine_packages <- purrr::map(
     ls(envir = get_model_env(), pattern = "_pkgs$"),
     get_from_env
-  ) %>%
-    purrr::list_rbind() %>%
-    dplyr::pull(pkg) %>%
-    unlist() %>%
-    unique() %>%
-    setdiff(ignore_pkgs) %>%
+  ) |>
+    purrr::list_rbind() |>
+    dplyr::pull(pkg) |>
+    unlist() |>
+    unique() |>
+    setdiff(ignore_pkgs) |>
     setdiff(bio_pkgs)
 
   if (extension) {

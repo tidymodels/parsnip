@@ -1,9 +1,9 @@
 test_that("model spec print methods work (whole game)", {
   expect_snapshot(svm_poly())
   expect_snapshot(boost_tree(mtry = 5))
-  expect_snapshot(rand_forest() %>% set_mode("regression"))
-  expect_snapshot(logistic_reg() %>% set_engine("glmnet", penalty = .5))
-  expect_snapshot(mlp() %>% set_mode("classification") %>% translate())
+  expect_snapshot(rand_forest() |> set_mode("regression"))
+  expect_snapshot(logistic_reg() |> set_engine("glmnet", penalty = .5))
+  expect_snapshot(mlp() |> set_mode("classification") |> translate())
 })
 
 test_that("`print_model_spec()` handles args correctly", {

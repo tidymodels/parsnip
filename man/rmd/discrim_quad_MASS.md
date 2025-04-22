@@ -15,8 +15,8 @@ The **discrim** extension package is required to fit this model.
 ``` r
 library(discrim)
 
-discrim_quad() %>% 
-  set_engine("MASS") %>% 
+discrim_quad() |> 
+  set_engine("MASS") |> 
   translate()
 ```
 

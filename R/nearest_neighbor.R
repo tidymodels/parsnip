@@ -157,7 +157,7 @@ multi_predict._train.kknn <-
 
     res <-
       purrr::map(neighbors, knn_by_k, object = object,
-                 new_data = new_data, type = type, ...) %>%
+                 new_data = new_data, type = type, ...) |>
       purrr::list_rbind()
     res <- dplyr::arrange(res, .row, neighbors)
     res <- split(res[, -1], res$.row)
@@ -168,7 +168,7 @@ multi_predict._train.kknn <-
 knn_by_k <- function(k, object, new_data, type, ...) {
   object$fit$best.parameters$k <- k
 
-  predict(object, new_data = new_data, type = type, ...) %>%
-    dplyr::mutate(neighbors = k, .row = dplyr::row_number()) %>%
+  predict(object, new_data = new_data, type = type, ...) |>
+    dplyr::mutate(neighbors = k, .row = dplyr::row_number()) |>
     dplyr::select(.row, neighbors, dplyr::starts_with(".pred"))
 }

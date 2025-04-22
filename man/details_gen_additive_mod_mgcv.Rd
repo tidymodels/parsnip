@@ -20,9 +20,9 @@ This model has 2 tuning parameters:
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) \%>\% 
-  set_engine("mgcv") \%>\% 
-  set_mode("regression") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) |> 
+  set_engine("mgcv") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -42,9 +42,9 @@ This model has 2 tuning parameters:
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) \%>\% 
-  set_engine("mgcv") \%>\% 
-  set_mode("classification") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) |> 
+  set_engine("mgcv") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -68,9 +68,9 @@ This model should be used with a model formula so that smooth terms can
 be specified. For example:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(mgcv)
-gen_additive_mod() \%>\% 
-  set_engine("mgcv") \%>\% 
-  set_mode("regression") \%>\% 
+gen_additive_mod() |> 
+  set_engine("mgcv") |> 
+  set_mode("regression") |> 
   fit(mpg ~ wt + gear + cyl + s(disp, k = 10), data = mtcars)
 }\if{html}{\out{</div>}}
 
@@ -98,14 +98,14 @@ When using a workflow, pass the \emph{model formula} to
 and a simplified \emph{preprocessing formula} elsewhere.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{spec <- 
-  gen_additive_mod() \%>\% 
-  set_engine("mgcv") \%>\% 
+  gen_additive_mod() |> 
+  set_engine("mgcv") |> 
   set_mode("regression")
 
-workflow() \%>\% 
-  add_model(spec, formula = mpg ~ wt + gear + cyl + s(disp, k = 10)) \%>\% 
-  add_formula(mpg ~ wt + gear + cyl + disp) \%>\% 
-  fit(data = mtcars) \%>\% 
+workflow() |> 
+  add_model(spec, formula = mpg ~ wt + gear + cyl + s(disp, k = 10)) |> 
+  add_formula(mpg ~ wt + gear + cyl + disp) |> 
+  fit(data = mtcars) |> 
   extract_fit_engine()
 }\if{html}{\out{</div>}}
 

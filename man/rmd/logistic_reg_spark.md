@@ -23,8 +23,8 @@ For `penalty`, the amount of regularization includes both the L1 penalty (i.e., 
 
 
 ``` r
-logistic_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("spark") %>% 
+logistic_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("spark") |> 
   translate()
 ```
 

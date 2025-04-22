@@ -11,10 +11,10 @@ defaults <-
                  default = c("500L", "5L", "ceiling(sqrt(n_predictors))"))
 
 param <-
-  rand_forest() %>%
-  set_engine("aorsf") %>%
-  set_mode("censored regression") %>%
-  make_parameter_list(defaults) %>%
+  rand_forest() |>
+  set_engine("aorsf") |>
+  set_mode("censored regression") |>
+  make_parameter_list(defaults) |>
   distinct()
 ```
 
@@ -35,9 +35,9 @@ Additionally, this model has one engine-specific tuning parameter:
 ```{r aorsf-creg}
 library(censored)
 
-rand_forest() %>%
-  set_engine("aorsf") %>%
-  set_mode("censored regression") %>%
+rand_forest() |>
+  set_engine("aorsf") |>
+  set_mode("censored regression") |>
   translate()
 ```
 
@@ -48,9 +48,9 @@ rand_forest() %>%
 ```{r aorsf-reg}
 library(bonsai)
 
-rand_forest() %>%
-  set_engine("aorsf") %>%
-  set_mode("regression") %>%
+rand_forest() |>
+  set_engine("aorsf") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -61,9 +61,9 @@ rand_forest() %>%
 ```{r aorsf-class}
 library(bonsai)
 
-rand_forest() %>%
-  set_engine("aorsf") %>%
-  set_mode("classification") %>%
+rand_forest() |>
+  set_engine("aorsf") |>
+  set_mode("classification") |>
   translate()
 ```
 

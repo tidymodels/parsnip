@@ -11,9 +11,9 @@ defaults <-
                  default = c("2L"))
 
 param <-
- decision_tree() %>% 
-  set_engine("C5.0") %>% 
-  set_mode("classification") %>% 
+ decision_tree() |> 
+  set_engine("C5.0") |> 
+  set_mode("classification") |> 
   make_parameter_list(defaults)
 ```
 
@@ -26,9 +26,9 @@ param$item
 ## Translation from parsnip to the original package (classification)
 
 ```{r C5.0-cls}
-decision_tree(min_n = integer()) %>% 
-  set_engine("C5.0") %>% 
-  set_mode("classification") %>% 
+decision_tree(min_n = integer()) |> 
+  set_engine("C5.0") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

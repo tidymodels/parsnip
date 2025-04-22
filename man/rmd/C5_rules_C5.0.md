@@ -26,9 +26,9 @@ library(rules)
 C5_rules(
   trees = integer(1),
   min_n = integer(1)
-) %>%
-  set_engine("C5.0") %>%
-  set_mode("classification") %>%
+) |>
+  set_engine("C5.0") |>
+  set_mode("classification") |>
   translate()
 ```
 

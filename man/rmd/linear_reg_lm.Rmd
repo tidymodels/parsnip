@@ -10,8 +10,8 @@ This engine has no tuning parameters.
 ## Translation from parsnip to the original package
 
 ```{r lm-reg}
-linear_reg() %>% 
-  set_engine("lm") %>% 
+linear_reg() |> 
+  set_engine("lm") |> 
   translate()
 ```
 

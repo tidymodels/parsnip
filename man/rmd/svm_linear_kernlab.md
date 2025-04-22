@@ -22,9 +22,9 @@ Parsnip changes the default range for `cost` to `c(-10, 5)`.
 svm_linear(
   cost = double(1),
   margin = double(1)
-) %>%  
-  set_engine("kernlab") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("kernlab") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -48,9 +48,9 @@ svm_linear(
 ``` r
 svm_linear(
   cost = double(1)
-) %>% 
-  set_engine("kernlab") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("kernlab") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

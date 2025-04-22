@@ -28,9 +28,9 @@ The \strong{baguette} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
 
-bag_mlp(penalty = double(1), hidden_units = integer(1)) \%>\% 
-  set_engine("nnet") \%>\% 
-  set_mode("classification") \%>\% 
+bag_mlp(penalty = double(1), hidden_units = integer(1)) |> 
+  set_engine("nnet") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -55,9 +55,9 @@ The \strong{baguette} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
 
-bag_mlp(penalty = double(1), hidden_units = integer(1)) \%>\% 
-  set_engine("nnet") \%>\% 
-  set_mode("regression") \%>\% 
+bag_mlp(penalty = double(1), hidden_units = integer(1)) |> 
+  set_engine("nnet") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 

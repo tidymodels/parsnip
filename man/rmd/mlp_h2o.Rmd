@@ -11,8 +11,8 @@ defaults <-
                  default = c("200L", "0.0", "0.5", "10", "0.005", "'see below'"))
 
 param <-
-  mlp() %>% 
-  set_engine("h2o") %>% 
+  mlp() |> 
+  set_engine("h2o") |> 
   make_parameter_list(defaults)
 ```
 
@@ -46,9 +46,9 @@ mlp(
   epochs = integer(1),
   learn_rate = double(1),
   activation = character(1)
-) %>%  
-  set_engine("h2o") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("h2o") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -62,9 +62,9 @@ mlp(
   epochs = integer(1),
   learn_rate = double(1),
   activation = character(1)
-) %>% 
-  set_engine("h2o") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("h2o") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

@@ -56,7 +56,7 @@ predict.model_spec <- function(object, ...) {
 #'  if none exist).
 #' @keywords internal
 #' @examplesIf !parsnip:::is_cran_check()
-#' lm_model_idea <- linear_reg() %>% set_engine("lm")
+#' lm_model_idea <- linear_reg() |> set_engine("lm")
 #' has_multi_predict(lm_model_idea)
 #' lm_model_fit <- fit(lm_model_idea, mpg ~ ., data = mtcars)
 #' has_multi_predict(lm_model_fit)
@@ -66,8 +66,8 @@ predict.model_spec <- function(object, ...) {
 #' library(kknn)
 #'
 #' knn_fit <-
-#'   nearest_neighbor(mode = "regression", neighbors = 5) %>%
-#'   set_engine("kknn") %>%
+#'   nearest_neighbor(mode = "regression", neighbors = 5) |>
+#'   set_engine("kknn") |>
 #'   fit(mpg ~ ., mtcars)
 #'
 #' multi_predict_args(knn_fit)

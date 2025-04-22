@@ -24,8 +24,8 @@ See [rstan::sampling()] and [rstanarm::priors()] for more information on these a
 
 
 ``` r
-linear_reg() %>% 
-  set_engine("stan") %>% 
+linear_reg() |> 
+  set_engine("stan") |> 
   translate()
 ```
 

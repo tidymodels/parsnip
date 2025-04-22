@@ -53,9 +53,9 @@ times number of observations.
   prior_terminal_node_coef = double(1),
   prior_terminal_node_expo = double(1),
   prior_outcome_range = double(1)
-) \%>\% 
-  set_engine("dbarts") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("dbarts") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -83,9 +83,9 @@ times number of observations.
   prior_terminal_node_coef = double(1),
   prior_terminal_node_expo = double(1),
   prior_outcome_range = double(1)
-) \%>\% 
-  set_engine("dbarts") \%>\% 
-  set_mode("regression") \%>\% 
+) |> 
+  set_engine("dbarts") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 

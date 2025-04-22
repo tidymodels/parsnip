@@ -27,8 +27,8 @@ The **poissonreg** extension package is required to fit this model.
 ``` r
 library(poissonreg)
 
-poisson_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("glmnet") %>% 
+poisson_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("glmnet") |> 
   translate()
 ```
 

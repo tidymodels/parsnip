@@ -18,8 +18,8 @@ parameter (and/or \code{link}) as an engine argument (see below).
 
 \subsection{Translation from parsnip to the original package}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() \%>\% 
-  set_engine("glm") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() |> 
+  set_engine("glm") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -35,8 +35,8 @@ parameter (and/or \code{link}) as an engine argument (see below).
 To use a non-default \code{family} and/or \code{link}, pass in as an argument to
 \code{set_engine()}:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() \%>\% 
-  set_engine("glm", family = stats::poisson(link = "sqrt")) \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() |> 
+  set_engine("glm", family = stats::poisson(link = "sqrt")) |> 
   translate()
 }\if{html}{\out{</div>}}
 

@@ -11,8 +11,8 @@ defaults <-
                  default = c("1L",                "0L", "NA_integer"))
 
 param <-
-  cubist_rules() %>% 
-  set_engine("Cubist") %>% 
+  cubist_rules() |> 
+  set_engine("Cubist") |> 
   make_parameter_list(defaults)
 ```
 
@@ -34,9 +34,9 @@ cubist_rules(
   committees = integer(1),
   neighbors = integer(1),
   max_rules = integer(1)
-) %>%
-  set_engine("Cubist") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("Cubist") |>
+  set_mode("regression") |>
   translate()
 ```
 

@@ -11,10 +11,10 @@ defaults <-
                  default = c("see below", "20L"))
 
 param <-
- decision_tree() %>% 
-  set_engine("partykit") %>% 
-  set_mode("regression") %>% 
-  make_parameter_list(defaults) %>% 
+ decision_tree() |> 
+  set_engine("partykit") |> 
+  set_mode("regression") |> 
+  make_parameter_list(defaults) |> 
   distinct()
 ```
 
@@ -37,9 +37,9 @@ An engine-specific parameter for this model is:
 ```{r partykit-creg}
 library(bonsai)
 
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("partykit") %>% 
-  set_mode("regression") %>% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("partykit") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -50,9 +50,9 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 ```{r partykit-class}
 library(bonsai)
 
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("partykit") %>% 
-  set_mode("classification") %>% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("partykit") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -65,9 +65,9 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 ```{r party-creg}
 library(censored)
 
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("partykit") %>% 
-  set_mode("censored regression") %>% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("partykit") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 

@@ -99,8 +99,8 @@ Using the example above, the parsnip approach would be:
 ``` r
 library(parsnip)
 
-rand_forest(mtry = 10, trees = 2000) %>%
-  set_engine("ranger", importance = "impurity") %>%
+rand_forest(mtry = 10, trees = 2000) |>
+  set_engine("ranger", importance = "impurity") |>
   set_mode("regression")
 #> Random Forest Model Specification (regression)
 #> 
@@ -118,8 +118,8 @@ The engine can be easily changed. To use Spark, the change is
 straightforward:
 
 ``` r
-rand_forest(mtry = 10, trees = 2000) %>%
-  set_engine("spark") %>%
+rand_forest(mtry = 10, trees = 2000) |>
+  set_engine("spark") |>
   set_mode("regression")
 #> Random Forest Model Specification (regression)
 #> 
@@ -134,9 +134,9 @@ Either one of these model specifications can be fit in the same way:
 
 ``` r
 set.seed(192)
-rand_forest(mtry = 10, trees = 2000) %>%
-  set_engine("ranger", importance = "impurity") %>%
-  set_mode("regression") %>%
+rand_forest(mtry = 10, trees = 2000) |>
+  set_engine("ranger", importance = "impurity") |>
+  set_mode("regression") |>
   fit(mpg ~ ., data = mtcars)
 #> parsnip model object
 #> 

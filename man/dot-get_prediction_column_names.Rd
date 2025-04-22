@@ -25,7 +25,7 @@ library(modeldata)
 data("two_class_dat")
 
 levels(two_class_dat$Class)
-lr_fit <- logistic_reg() \%>\% fit(Class ~ ., data = two_class_dat)
+lr_fit <- logistic_reg() |> fit(Class ~ ., data = two_class_dat)
 
 .get_prediction_column_names(lr_fit)
 .get_prediction_column_names(lr_fit, syms = TRUE)

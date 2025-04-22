@@ -42,7 +42,7 @@ A boosted classification tree is one of the most low-maintenance approaches that
 ```{r boost-model}
 # requires the xgboost package
 attrition_boost <- 
-  boost_tree(mode = "classification", trees = 100) %>% 
+  boost_tree(mode = "classification", trees = 100) |> 
   set_engine("C5.0")
 ```
 
@@ -60,8 +60,8 @@ model_data <- analysis(folds$splits[[1]])
 pred_data  <- assessment(folds$splits[[1]])
 
 fold_1_model <-
-  attrition_boost %>% 
-  fit_xy(x = model_data %>% dplyr::select(-Attrition), y = model_data$Attrition)
+  attrition_boost |> 
+  fit_xy(x = model_data |> dplyr::select(-Attrition), y = model_data$Attrition)
 
 ```
 
@@ -72,7 +72,7 @@ For `multi_predict()`, the same semantics of `predict()` are used but, for this 
 fold_1_pred <- 
   multi_predict(
     fold_1_model, 
-    new_data = pred_data %>% dplyr::select(-Attrition),
+    new_data = pred_data |> dplyr::select(-Attrition),
     trees = 1:100,
     type = "prob"
   )
@@ -89,9 +89,9 @@ To get this into a format that is more usable, we can use `tidyr::unnest()` but 
 
 ```{r unnest}
 fold_1_df <- 
-  fold_1_pred %>% 
-  bind_cols(pred_data %>% dplyr::select(Attrition)) %>% 
-  add_rowindex() %>% 
+  fold_1_pred |> 
+  bind_cols(pred_data |> dplyr::select(Attrition)) |> 
+  add_rowindex() |> 
   tidyr::unnest(.pred)
 fold_1_df
 ```
@@ -99,8 +99,8 @@ fold_1_df
 For two samples, what do these look like over trees?
 
 ```{r prob-plot, fig.alt = "Two lines tracing the predicted probabilty of no attrition for two observation over the number of trees ranging from 0 to 100. For both observations, the true value of attrition is 'no'. The predicted probability is larger than 0.5 for both observations across all numbers of trees and does not change much between 15 and 100 trees."}
-fold_1_df %>% 
-  dplyr::filter(.row %in% c(1, 88)) %>% 
+fold_1_df |> 
+  dplyr::filter(.row %in% c(1, 88)) |> 
   ggplot(aes(x = trees, y = .pred_No, col = Attrition, group = .row)) + 
   geom_step() + 
   ylim(0:1) +
@@ -110,9 +110,9 @@ fold_1_df %>%
 What does performance look like over trees (using the area under the ROC curve)? 
 
 ```{r auc-plot, fig.alt = "A line plot of the AUC ROC for a number of trees varying between 1 and 100. The AUC is largest for higher number of trees but the gains get smaller for 50+ trees with the maximum being reached around 70 trees."}
-fold_1_df %>% 
-  group_by(trees) %>% 
-  roc_auc(truth = Attrition, .pred_No) %>% 
+fold_1_df |> 
+  group_by(trees) |> 
+  roc_auc(truth = Attrition, .pred_No) |> 
   ggplot(aes(x = trees, y = .estimate)) + 
   geom_step()
 ```

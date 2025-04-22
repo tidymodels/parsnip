@@ -11,8 +11,8 @@ defaults <-
                  default = c("see below", "1.0"))
 
 param <-
-linear_reg() %>% 
-  set_engine("glmnet") %>% 
+linear_reg() |> 
+  set_engine("glmnet") |> 
   make_parameter_list(defaults)
 ```
 
@@ -29,8 +29,8 @@ The `penalty` parameter has no default and requires a single numeric value. For 
 ## Translation from parsnip to the original package
 
 ```{r glmnet-csl}
-linear_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("glmnet") %>% 
+linear_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("glmnet") |> 
   translate()
 ```
 

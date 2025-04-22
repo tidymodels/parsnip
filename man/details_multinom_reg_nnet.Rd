@@ -22,8 +22,8 @@ For \code{penalty}, the amount of regularization includes only the L2 penalty
 
 \subsection{Translation from parsnip to the original package}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1)) \%>\% 
-  set_engine("nnet") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1)) |> 
+  set_engine("nnet") |> 
   translate()
 }\if{html}{\out{</div>}}
 

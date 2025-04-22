@@ -59,8 +59,8 @@ set_pred(
   value = list(
     pre = NULL,
     post = function(results, object) {
-      tibble::as_tibble(results) %>%
-        dplyr::select(-fit) %>%
+      tibble::as_tibble(results) |>
+        dplyr::select(-fit) |>
         setNames(c(".pred_lower", ".pred_upper"))
     },
     func = c(fun = "predict"),
@@ -82,8 +82,8 @@ set_pred(
   value = list(
     pre = NULL,
     post = function(results, object) {
-      tibble::as_tibble(results) %>%
-        dplyr::select(-fit) %>%
+      tibble::as_tibble(results) |>
+        dplyr::select(-fit) |>
         setNames(c(".pred_lower", ".pred_upper"))
     },
     func = c(fun = "predict"),

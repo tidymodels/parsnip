@@ -55,11 +55,11 @@ for details.
   epochs = integer(1),
   learn_rate = double(1),
   activation = character(1)
-) \%>\%
+) |>
   set_engine("brulee_two_layer",
              hidden_units_2 = integer(1),
-             activation_2 = character(1)) \%>\% 
-  set_mode("regression") \%>\% 
+             activation_2 = character(1)) |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -99,11 +99,11 @@ layer.
   epochs = integer(1),
   learn_rate = double(1),
   activation = character(1)
-) \%>\% 
+) |> 
   set_engine("brulee_two_layer",
              hidden_units_2 = integer(1),
-             activation_2 = character(1)) \%>\% 
-  set_mode("classification") \%>\% 
+             activation_2 = character(1)) |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

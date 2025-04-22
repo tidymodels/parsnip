@@ -30,8 +30,8 @@ The **discrim** extension package is required to fit this model.
 ``` r
 library(discrim)
 
-discrim_regularized(frac_identity = numeric(0), frac_common_cov = numeric(0)) %>% 
-  set_engine("klaR") %>% 
+discrim_regularized(frac_identity = numeric(0), frac_common_cov = numeric(0)) |> 
+  set_engine("klaR") |> 
   translate()
 ```
 

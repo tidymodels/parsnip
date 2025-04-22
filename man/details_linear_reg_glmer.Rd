@@ -20,9 +20,9 @@ The \strong{multilevelmod} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
 
-linear_reg() \%>\% 
-  set_engine("glmer") \%>\% 
-  set_mode("regression") \%>\% 
+linear_reg() |> 
+  set_engine("glmer") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -91,8 +91,8 @@ With parsnip, we suggest using the formula method when fitting:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 data("riesby")
 
-linear_reg() \%>\% 
-  set_engine("glmer") \%>\% 
+linear_reg() |> 
+  set_engine("glmer") |> 
   fit(depr_score ~ week + (1|subject), data = riesby)
 }\if{html}{\out{</div>}}
 
@@ -103,13 +103,13 @@ workflow. In this case, you can add the appropriate columns using
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 glmer_spec <- 
-  linear_reg() \%>\% 
+  linear_reg() |> 
   set_engine("glmer")
 
 glmer_wflow <- 
-  workflow() \%>\% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = depr_score, predictors = c(week, subject)) \%>\% 
+  add_variables(outcomes = depr_score, predictors = c(week, subject)) |> 
   add_model(glmer_spec, formula = depr_score ~ week + (1|subject))
 
 fit(glmer_wflow, data = riesby)

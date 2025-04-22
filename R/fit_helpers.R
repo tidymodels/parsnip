@@ -16,7 +16,7 @@ form_form <-
           encoding_info$mode == object$mode & encoding_info$engine == object$engine
         )
 
-      remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
+      remove_intercept <- encoding_info |> dplyr::pull(remove_intercept)
       if (remove_intercept) {
         env$data <- env$data[, colnames(env$data) != "(Intercept)", drop = FALSE]
       }
@@ -77,10 +77,10 @@ xy_xy <- function(object,
   check_outcome(env$y, object)
 
   encoding_info <-
-    get_encoding(class(object)[1]) %>%
+    get_encoding(class(object)[1]) |>
     dplyr::filter(mode == object$mode, engine == object$engine)
 
-  remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
+  remove_intercept <- encoding_info |> dplyr::pull(remove_intercept)
   if (remove_intercept) {
     env$x <- env$x[, colnames(env$x) != "(Intercept)", drop = FALSE]
   }
@@ -125,12 +125,12 @@ form_xy <- function(object, control, env,
                     target = "none", ..., call = rlang::caller_env()) {
 
   encoding_info <-
-    get_encoding(class(object)[1]) %>%
+    get_encoding(class(object)[1]) |>
     dplyr::filter(mode == object$mode, engine == object$engine)
 
-  indicators <- encoding_info %>% dplyr::pull(predictor_indicators)
-  remove_intercept <- encoding_info %>% dplyr::pull(remove_intercept)
-  allow_sparse_x <- encoding_info %>% dplyr::pull(allow_sparse_x)
+  indicators <- encoding_info |> dplyr::pull(predictor_indicators)
+  remove_intercept <- encoding_info |> dplyr::pull(remove_intercept)
+  allow_sparse_x <- encoding_info |> dplyr::pull(allow_sparse_x)
 
   if (allow_sparse_x && sparsevctrs::has_sparse_elements(env$data)) {
     target <- "dgCMatrix"

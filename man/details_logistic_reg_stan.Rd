@@ -39,8 +39,8 @@ and other options.
 
 \subsection{Translation from parsnip to the original package}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() \%>\% 
-  set_engine("stan") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() |> 
+  set_engine("stan") |> 
   translate()
 }\if{html}{\out{</div>}}
 

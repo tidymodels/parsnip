@@ -15,8 +15,8 @@ The **poissonreg** extension package is required to fit this model.
 ``` r
 library(poissonreg)
 
-poisson_reg() %>%
-  set_engine("zeroinfl") %>%
+poisson_reg() |>
+  set_engine("zeroinfl") |>
   translate()
 ```
 
@@ -49,8 +49,8 @@ library(tidymodels)
 tidymodels_prefer()
 
 data("bioChemists", package = "pscl")
-poisson_reg() %>% 
-  set_engine("zeroinfl") %>% 
+poisson_reg() |> 
+  set_engine("zeroinfl") |> 
   fit(art ~ fem + mar | ment, data = bioChemists)
 ```
 
@@ -76,13 +76,13 @@ However, when using a workflow, the best approach is to avoid using [workflows::
 ``` r
 data("bioChemists", package = "pscl")
 spec <- 
-  poisson_reg() %>% 
+  poisson_reg() |> 
   set_engine("zeroinfl")
 
-workflow() %>% 
-  add_variables(outcomes = c(art), predictors = c(fem, mar, ment)) %>% 
-  add_model(spec, formula = art ~ fem + mar | ment) %>% 
-  fit(data = bioChemists) %>% 
+workflow() |> 
+  add_variables(outcomes = c(art), predictors = c(fem, mar, ment)) |> 
+  add_model(spec, formula = art ~ fem + mar | ment) |> 
+  fit(data = bioChemists) |> 
   extract_fit_engine()
 ```
 

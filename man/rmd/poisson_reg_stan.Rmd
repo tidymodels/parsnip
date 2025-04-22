@@ -27,8 +27,8 @@ See [rstan::sampling()] and [rstanarm::priors()] for more information on these a
 ```{r stan-csl}
 library(poissonreg)
 
-poisson_reg() %>% 
-  set_engine("stan") %>% 
+poisson_reg() |> 
+  set_engine("stan") |> 
   translate()
 ```
 

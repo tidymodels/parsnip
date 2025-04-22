@@ -50,9 +50,9 @@ The \strong{agua} extension package is required to fit this model.
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric(), stop_iter = integer()
-) \%>\%
-  set_engine("h2o") \%>\%
-  set_mode("regression") \%>\%
+) |>
+  set_engine("h2o") |>
+  set_mode("regression") |>
   translate()
 }\if{html}{\out{</div>}}
 
@@ -85,9 +85,9 @@ The \strong{agua} extension package is required to fit this model.
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric(), stop_iter = integer()
-) \%>\% 
-  set_engine("h2o") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("h2o") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

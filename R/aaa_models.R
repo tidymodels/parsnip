@@ -179,8 +179,8 @@ stop_incompatible_engine <- function(spec_engs, mode, call) {
 
 stop_missing_engine <- function(cls, call) {
   info <-
-    get_from_env(cls) %>%
-    dplyr::group_by(mode) %>%
+    get_from_env(cls) |>
+    dplyr::group_by(mode) |>
     dplyr::summarize(msg = paste0(unique(mode), " {",
                                   paste0(unique(engine), collapse = ", "),
                                   "}"),
@@ -233,8 +233,8 @@ check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
   # are contained in a different package
   model_info_parsnip_only <-
     dplyr::inner_join(
-      model_info_table %>% dplyr::filter(is.na(pkg)) %>% dplyr::select(-pkg),
-      model_info %>% dplyr::mutate(model = cls),
+      model_info_table |> dplyr::filter(is.na(pkg)) |> dplyr::select(-pkg),
+      model_info |> dplyr::mutate(model = cls),
       by = c("model", "engine", "mode")
     )
 
@@ -639,8 +639,8 @@ set_model_engine <- function(model, mode, eng) {
   old_eng <- get_from_env(model)
 
   engs <-
-    old_eng %>%
-    dplyr::bind_rows(new_eng) %>%
+    old_eng |>
+    dplyr::bind_rows(new_eng) |>
     dplyr::distinct()
 
   set_env_val(model, engs)
@@ -704,9 +704,9 @@ set_dependency <- function(model, eng, pkg = "parsnip", mode = NULL) {
   # Check engine
 
   has_engine <-
-    model_info %>%
-    dplyr::distinct(engine) %>%
-    dplyr::filter(engine == eng) %>%
+    model_info |>
+    dplyr::distinct(engine) |>
+    dplyr::filter(engine == eng) |>
     nrow()
   if (has_engine != 1) {
     cli::cli_abort(
@@ -739,21 +739,21 @@ set_dependency <- function(model, eng, pkg = "parsnip", mode = NULL) {
   # Add the new entry to the existing list for this engine (if any) and
   # keep unique results
   eng_pkgs <-
-    pkg_info %>%
-    dplyr::filter(engine == eng) %>%
-    dplyr::bind_rows(new_pkgs) %>%
+    pkg_info |>
+    dplyr::filter(engine == eng) |>
+    dplyr::bind_rows(new_pkgs) |>
     # Take unique combinations in case packages have alread been registered
-    dplyr::distinct() %>%
+    dplyr::distinct() |>
     # In case there are existing results (in a list column pkg), aggregate the
     # list results and re-list their unique values.
-    dplyr::group_by(mode, engine) %>%
-    dplyr::summarize(pkg = list(unique(unlist(pkg))), .groups = "drop") %>%
+    dplyr::group_by(mode, engine) |>
+    dplyr::summarize(pkg = list(unique(unlist(pkg))), .groups = "drop") |>
     dplyr::select(engine, pkg, mode)
 
   pkg_info <-
-    pkg_info %>%
-    dplyr::filter(engine != eng) %>%
-    dplyr::bind_rows(eng_pkgs) %>%
+    pkg_info |>
+    dplyr::filter(engine != eng) |>
+    dplyr::bind_rows(eng_pkgs) |>
     dplyr::arrange(engine, mode)
 
   set_env_val(paste0(model, "_pkgs"), pkg_info)
@@ -827,8 +827,8 @@ is_discordant_info <- function(model, mode, eng, candidate,
 check_unregistered <- function(model, mode, eng, call = caller_env()) {
   model_info <- get_from_env(model)
   has_engine <-
-    model_info %>%
-    dplyr::filter(engine == eng & mode == !!mode) %>%
+    model_info |>
+    dplyr::filter(engine == eng & mode == !!mode) |>
     nrow()
   if (has_engine != 1) {
     cli::cli_abort(
@@ -972,31 +972,31 @@ show_model_info <- function(model) {
     weight_info <-
       purrr::map(
         model,
-        ~ get_from_env(paste0(.x, "_fit")) %>% mutate(model = .x)
-      ) %>%
-      purrr::list_rbind() %>%
-      dplyr::mutate(protect = map(value, ~ .x$protect)) %>%
-      dplyr::select(-value) %>%
+        ~ get_from_env(paste0(.x, "_fit")) |> mutate(model = .x)
+      ) |>
+      purrr::list_rbind() |>
+      dplyr::mutate(protect = map(value, ~ .x$protect)) |>
+      dplyr::select(-value) |>
       dplyr::mutate(
         has_wts = purrr::map_lgl(protect, ~ any(grepl("^weight", .x))),
         has_wts = ifelse(has_wts, cli::symbol$sup_1, "")
-      ) %>%
+      ) |>
       dplyr::select(engine, mode, has_wts)
 
-      engine_weight_info <- engines %>%
-        dplyr::left_join(weight_info, by = c("engine", "mode")) %>%
+      engine_weight_info <- engines |>
+        dplyr::left_join(weight_info, by = c("engine", "mode")) |>
       dplyr::mutate(
         engine = paste0(engine, has_wts),
         mode = format(paste0(mode, ": "))
-      ) %>%
-      dplyr::group_by(mode) %>%
+      ) |>
+      dplyr::group_by(mode) |>
       dplyr::summarize(
         engine = paste0(sort(engine), collapse = ", ")
-      ) %>%
+      ) |>
       dplyr::mutate(
         lab = paste0("   ", mode, engine, "\n")
-      ) %>%
-      dplyr::ungroup() %>%
+      ) |>
+      dplyr::ungroup() |>
       dplyr::pull(lab)
 
     cat(engine_weight_info, sep = "")
@@ -1013,21 +1013,21 @@ show_model_info <- function(model) {
   args <- get_from_env(paste0(model, "_args"))
   if (nrow(args) > 0) {
     cat(" arguments: \n")
-    args %>%
-      dplyr::select(engine, parsnip, original) %>%
-      dplyr::distinct() %>%
+    args |>
+      dplyr::select(engine, parsnip, original) |>
+      dplyr::distinct() |>
       dplyr::mutate(
         engine = format(paste0("   ", engine, ": ")),
         parsnip = paste0("      ", format(parsnip), " --> ", original, "\n")
-      ) %>%
-      dplyr::group_by(engine) %>%
+      ) |>
+      dplyr::group_by(engine) |>
       dplyr::mutate(
         engine2 = ifelse(dplyr::row_number() == 1, engine, ""),
         parsnip = ifelse(dplyr::row_number() == 1, paste0("\n", parsnip), parsnip),
         lab = paste0(engine2, parsnip)
-      ) %>%
-      dplyr::ungroup() %>%
-      dplyr::pull(lab) %>%
+      ) |>
+      dplyr::ungroup() |>
+      dplyr::pull(lab) |>
       cat(sep = "")
     cat("\n")
   } else {
@@ -1037,10 +1037,10 @@ show_model_info <- function(model) {
   fits <- get_from_env(paste0(model, "_fit"))
   if (nrow(fits) > 0) {
     cat(" fit modules:\n")
-    fits %>%
-      dplyr::select(-value) %>%
-      mutate(engine = paste0("  ", engine)) %>%
-      as.data.frame() %>%
+    fits |>
+      dplyr::select(-value) |>
+      mutate(engine = paste0("  ", engine)) |>
+      as.data.frame() |>
       print(row.names = FALSE)
     cat("\n")
   } else {
@@ -1050,12 +1050,12 @@ show_model_info <- function(model) {
   preds <- get_from_env(paste0(model, "_predict"))
   if (nrow(preds) > 0) {
     cat(" prediction modules:\n")
-    preds %>%
-      dplyr::group_by(mode, engine) %>%
-      dplyr::summarize(methods = paste0(sort(type), collapse = ", ")) %>%
-      dplyr::ungroup() %>%
-      mutate(mode = paste0("  ", mode)) %>%
-      as.data.frame() %>%
+    preds |>
+      dplyr::group_by(mode, engine) |>
+      dplyr::summarize(methods = paste0(sort(type), collapse = ", ")) |>
+      dplyr::ungroup() |>
+      mutate(mode = paste0("  ", mode)) |>
+      as.data.frame() |>
       print(row.names = FALSE)
     cat("\n")
   } else {
@@ -1147,14 +1147,14 @@ get_encoding <- function(model) {
   if (inherits(res, "try-error")) {
     # for objects made before encodings were specified in parsnip
     res <-
-      get_from_env(model) %>%
+      get_from_env(model) |>
       dplyr::mutate(
         model = model,
         predictor_indicators = "traditional",
         compute_intercept = TRUE,
         remove_intercept = TRUE,
         allow_sparse_x = FALSE
-      ) %>%
+      ) |>
       dplyr::select(model, engine, mode, predictor_indicators,
                     compute_intercept, remove_intercept)
   }

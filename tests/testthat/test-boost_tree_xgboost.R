@@ -3,7 +3,7 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 num_pred <- names(hpc)[1:4]
 
 hpc_xgboost <-
-  boost_tree(trees = 2, mode = "classification") %>%
+  boost_tree(trees = 2, mode = "classification") |>
   set_engine("xgboost")
 
 # ------------------------------------------------------------------------------
@@ -117,15 +117,15 @@ test_that('xgboost classification prediction', {
 num_pred <- names(mtcars)[3:6]
 
 car_basic <-
-  boost_tree(mode = "regression") %>%
+  boost_tree(mode = "regression") |>
   set_engine("xgboost")
 
 bad_xgboost_reg <-
-  boost_tree(mode = "regression") %>%
+  boost_tree(mode = "regression") |>
   set_engine("xgboost", min.node.size = -10)
 
 bad_rf_reg <-
-  boost_tree(mode = "regression") %>%
+  boost_tree(mode = "regression") |>
   set_engine("xgboost", sampsize = -10)
 
 test_that('xgboost execution, regression', {
@@ -197,11 +197,11 @@ test_that('xgboost alternate objective', {
   ctrl$verbosity <- 0L
 
   spec <-
-    boost_tree() %>%
-    set_engine("xgboost", objective = "reg:pseudohubererror") %>%
+    boost_tree() |>
+    set_engine("xgboost", objective = "reg:pseudohubererror") |>
     set_mode("regression")
 
-  xgb_fit <- spec %>% fit(mpg ~ ., data = mtcars)
+  xgb_fit <- spec |> fit(mpg ~ ., data = mtcars)
   expect_equal(extract_fit_engine(xgb_fit)$params$objective, "reg:pseudohubererror")
   expect_no_error(xgb_preds <- predict(xgb_fit, new_data = mtcars[1,]))
   expect_s3_class(xgb_preds, "data.frame")
@@ -215,11 +215,11 @@ test_that('xgboost alternate objective', {
   }
 
   spec2 <-
-    boost_tree() %>%
-    set_engine("xgboost", objective = logregobj) %>%
+    boost_tree() |>
+    set_engine("xgboost", objective = logregobj) |>
     set_mode("classification")
 
-  xgb_fit2 <- spec2 %>% fit(vs ~ ., data = mtcars %>% mutate(vs = as.factor(vs)))
+  xgb_fit2 <- spec2 |> fit(vs ~ ., data = mtcars |> mutate(vs = as.factor(vs)))
   expect_equal(rlang::eval_tidy(xgb_fit2$spec$eng_args$objective), logregobj)
   expect_no_error(xgb_preds2 <- predict(xgb_fit2, new_data = mtcars[1,-8]))
   expect_s3_class(xgb_preds2, "data.frame")
@@ -233,8 +233,8 @@ test_that('submodel prediction', {
   ctrl$verbosity <- 0L
 
   reg_fit <-
-    boost_tree(trees = 20, mode = "regression") %>%
-    set_engine("xgboost") %>%
+    boost_tree(trees = 20, mode = "regression") |>
+    set_engine("xgboost") |>
     fit(mpg ~ ., data = mtcars[-(1:4), ])
 
   x <-  xgboost::xgb.DMatrix(as.matrix(mtcars[1:4, -1]))
@@ -248,8 +248,8 @@ test_that('submodel prediction', {
 
   vars <- c("female", "tenure", "total_charges", "phone_service", "monthly_charges")
   class_fit <-
-    boost_tree(trees = 20, mode = "classification") %>%
-    set_engine("xgboost") %>%
+    boost_tree(trees = 20, mode = "classification") |>
+    set_engine("xgboost") |>
     fit(churn ~ ., data = wa_churn[-(1:4), c("churn", vars)], control = ctrl)
 
   x <-  xgboost::xgb.DMatrix(as.matrix(wa_churn[1:4, vars]))
@@ -275,8 +275,8 @@ test_that('validation sets', {
 
   expect_no_condition(
     reg_fit <-
-      boost_tree(trees = 20, mode = "regression") %>%
-      set_engine("xgboost", validation = .1) %>%
+      boost_tree(trees = 20, mode = "regression") |>
+      set_engine("xgboost", validation = .1) |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
@@ -284,8 +284,8 @@ test_that('validation sets', {
 
   expect_no_condition(
     reg_fit <-
-      boost_tree(trees = 20, mode = "regression") %>%
-      set_engine("xgboost", validation = .1, eval_metric = "mae") %>%
+      boost_tree(trees = 20, mode = "regression") |>
+      set_engine("xgboost", validation = .1, eval_metric = "mae") |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
@@ -293,8 +293,8 @@ test_that('validation sets', {
 
   expect_no_condition(
     reg_fit <-
-      boost_tree(trees = 20, mode = "regression") %>%
-      set_engine("xgboost", eval_metric = "mae") %>%
+      boost_tree(trees = 20, mode = "regression") |>
+      set_engine("xgboost", eval_metric = "mae") |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
@@ -303,8 +303,8 @@ test_that('validation sets', {
   expect_snapshot(
     error = TRUE,
     reg_fit <-
-      boost_tree(trees = 20, mode = "regression") %>%
-      set_engine("xgboost", validation = 3) %>%
+      boost_tree(trees = 20, mode = "regression") |>
+      set_engine("xgboost", validation = 3) |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
@@ -322,8 +322,8 @@ test_that('early stopping', {
   set.seed(233456)
   expect_no_condition(
     reg_fit <-
-      boost_tree(trees = 200, stop_iter = 5, mode = "regression") %>%
-      set_engine("xgboost", validation = .1) %>%
+      boost_tree(trees = 200, stop_iter = 5, mode = "regression") |>
+      set_engine("xgboost", validation = .1) |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
@@ -332,22 +332,22 @@ test_that('early stopping', {
 
   expect_no_condition(
     reg_fit <-
-      boost_tree(trees = 20, mode = "regression") %>%
-      set_engine("xgboost", validation = .1, eval_metric = "mae") %>%
+      boost_tree(trees = 20, mode = "regression") |>
+      set_engine("xgboost", validation = .1, eval_metric = "mae") |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
   expect_snapshot(
     reg_fit <-
-      boost_tree(trees = 20, stop_iter = 30, mode = "regression") %>%
-      set_engine("xgboost", validation = .1) %>%
+      boost_tree(trees = 20, stop_iter = 30, mode = "regression") |>
+      set_engine("xgboost", validation = .1) |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
   expect_snapshot(
     error = TRUE,
     reg_fit <-
-      boost_tree(trees = 20, stop_iter = 0, mode = "regression") %>%
-      set_engine("xgboost", validation = .1) %>%
+      boost_tree(trees = 20, stop_iter = 0, mode = "regression") |>
+      set_engine("xgboost", validation = .1) |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 })
@@ -430,16 +430,16 @@ test_that('xgboost data and sparse matrices', {
   wts <- 1:32
 
   xgb_spec <-
-    boost_tree(trees = 10) %>%
-    set_engine("xgboost") %>%
+    boost_tree(trees = 10) |>
+    set_engine("xgboost") |>
     set_mode("regression")
 
   set.seed(1)
-  from_df <- xgb_spec %>% fit_xy(mtcar_x, mtcars$mpg)
+  from_df <- xgb_spec |> fit_xy(mtcar_x, mtcars$mpg)
   set.seed(1)
-  from_mat <- xgb_spec %>% fit_xy(mtcar_mat, mtcars$mpg)
+  from_mat <- xgb_spec |> fit_xy(mtcar_mat, mtcars$mpg)
   set.seed(1)
-  from_sparse <- xgb_spec %>% fit_xy(mtcar_smat, mtcars$mpg)
+  from_sparse <- xgb_spec |> fit_xy(mtcar_smat, mtcars$mpg)
 
   from_df$fit$handle <- NULL
   from_mat$fit$handle <- NULL
@@ -476,18 +476,18 @@ test_that('argument checks for data dimensions', {
   penguins <- na.omit(penguins)
 
   spec <-
-    boost_tree(mtry = 1000, min_n = 1000, trees = 5) %>%
-    set_engine("xgboost") %>%
+    boost_tree(mtry = 1000, min_n = 1000, trees = 5) |>
+    set_engine("xgboost") |>
     set_mode("classification")
 
   penguins_dummy <- model.matrix(species ~ ., data = penguins)
   penguins_dummy <- as.data.frame(penguins_dummy[, -1])
 
   expect_snapshot(
-    f_fit  <- spec %>% fit(species ~ ., data = penguins, control = ctrl)
+    f_fit  <- spec |> fit(species ~ ., data = penguins, control = ctrl)
   )
   expect_snapshot(
-    xy_fit <- spec %>% fit_xy(x = penguins_dummy, y = penguins$species, control = ctrl)
+    xy_fit <- spec |> fit_xy(x = penguins_dummy, y = penguins$species, control = ctrl)
   )
   expect_equal(extract_fit_engine(f_fit)$params$colsample_bynode, 1)
   expect_equal(extract_fit_engine(f_fit)$params$min_child_weight, nrow(penguins))
@@ -514,11 +514,11 @@ test_that("fit and prediction with `event_level`", {
 
   # event_level = "first"
   set.seed(24)
-  fit_p_1 <- boost_tree(trees = 10) %>%
+  fit_p_1 <- boost_tree(trees = 10) |>
     set_engine("xgboost", eval_metric = "auc"
                # event_level = "first" is the default
-               ) %>%
-    set_mode("classification") %>%
+               ) |>
+    set_mode("classification") |>
     fit(sex ~ ., data = penguins[-(1:4), ])
 
   xgbmat_train_1 <- xgb.DMatrix(data = train_x, label = train_y_1)
@@ -539,10 +539,10 @@ test_that("fit and prediction with `event_level`", {
 
   # event_level = "second"
   set.seed(24)
-  fit_p_2 <- boost_tree(trees = 10) %>%
+  fit_p_2 <- boost_tree(trees = 10) |>
     set_engine("xgboost", eval_metric = "auc",
-               event_level = "second") %>%
-    set_mode("classification") %>%
+               event_level = "second") |>
+    set_mode("classification") |>
     fit(sex ~ ., data = penguins[-(1:4), ])
 
   xgbmat_train_2 <- xgb.DMatrix(data = train_x, label = train_y_2)
@@ -570,42 +570,42 @@ test_that("count/proportion parameters", {
   ctrl$verbosity <- 0L
 
   fit1 <-
-    boost_tree(mtry = 7, trees = 4) %>%
-    set_engine("xgboost") %>%
-    set_mode("regression") %>%
+    boost_tree(mtry = 7, trees = 4) |>
+    set_engine("xgboost") |>
+    set_mode("regression") |>
     fit(mpg ~ ., data = mtcars)
   expect_equal(extract_fit_engine(fit1)$params$colsample_bytree, 1)
   expect_equal(extract_fit_engine(fit1)$params$colsample_bynode, 7/(ncol(mtcars) - 1))
 
   fit2 <-
-    boost_tree(mtry = 7, trees = 4) %>%
-    set_engine("xgboost", colsample_bytree = 4) %>%
-    set_mode("regression") %>%
+    boost_tree(mtry = 7, trees = 4) |>
+    set_engine("xgboost", colsample_bytree = 4) |>
+    set_mode("regression") |>
     fit(mpg ~ ., data = mtcars)
   expect_equal(extract_fit_engine(fit2)$params$colsample_bytree, 4/(ncol(mtcars) - 1))
   expect_equal(extract_fit_engine(fit2)$params$colsample_bynode, 7/(ncol(mtcars) - 1))
 
   fit3 <-
-    boost_tree(trees = 4) %>%
-    set_engine("xgboost") %>%
-    set_mode("regression") %>%
+    boost_tree(trees = 4) |>
+    set_engine("xgboost") |>
+    set_mode("regression") |>
     fit(mpg ~ ., data = mtcars)
   expect_equal(extract_fit_engine(fit3)$params$colsample_bytree, 1)
   expect_equal(extract_fit_engine(fit3)$params$colsample_bynode, 1)
 
   fit4 <-
-    boost_tree(mtry = .9, trees = 4) %>%
-    set_engine("xgboost", colsample_bytree = .1, counts = FALSE) %>%
-    set_mode("regression") %>%
+    boost_tree(mtry = .9, trees = 4) |>
+    set_engine("xgboost", colsample_bytree = .1, counts = FALSE) |>
+    set_mode("regression") |>
     fit(mpg ~ ., data = mtcars)
   expect_equal(extract_fit_engine(fit4)$params$colsample_bytree, .1)
   expect_equal(extract_fit_engine(fit4)$params$colsample_bynode, .9)
 
   expect_snapshot(
     error = TRUE,
-    boost_tree(mtry = .9, trees = 4) %>%
-      set_engine("xgboost") %>%
-      set_mode("regression") %>%
+    boost_tree(mtry = .9, trees = 4) |>
+      set_engine("xgboost") |>
+      set_mode("regression") |>
       fit(mpg ~ ., data = mtcars)
   )
 
@@ -620,16 +620,16 @@ test_that('interface to param arguments', {
 
   # define base model spec
   spec_base <-
-    boost_tree() %>%
+    boost_tree() |>
     set_mode("regression")
 
   # pass params to params argument (bad)
   spec_1 <-
-    spec_base %>%
+    spec_base |>
     set_engine("xgboost", params = list(eval_metric = "mae"))
 
   expect_snapshot_warning(
-    fit_1 <- spec_1 %>% fit(mpg ~ ., data = mtcars),
+    fit_1 <- spec_1 |> fit(mpg ~ ., data = mtcars),
     class = "xgboost_params_warning"
   )
 
@@ -637,22 +637,22 @@ test_that('interface to param arguments', {
 
   # pass params as main argument (good)
   spec_2 <-
-    spec_base %>%
+    spec_base |>
     set_engine("xgboost", eval_metric = "mae")
 
   expect_silent(
-    fit_2 <- spec_2 %>% fit(mpg ~ ., data = mtcars)
+    fit_2 <- spec_2 |> fit(mpg ~ ., data = mtcars)
   )
 
   expect_equal(extract_fit_engine(fit_2)$params$eval_metric, "mae")
 
   # pass objective to params argument (bad)
   spec_3 <-
-    spec_base %>%
+    spec_base |>
     set_engine("xgboost", params = list(objective = "reg:pseudohubererror"))
 
   expect_snapshot_warning(
-    fit_3 <- spec_3 %>% fit(mpg ~ ., data = mtcars),
+    fit_3 <- spec_3 |> fit(mpg ~ ., data = mtcars),
     class = "xgboost_params_warning"
   )
 
@@ -660,22 +660,22 @@ test_that('interface to param arguments', {
 
   # pass objective as main argument (good)
   spec_4 <-
-    spec_base %>%
+    spec_base |>
     set_engine("xgboost", objective = "reg:pseudohubererror")
 
   expect_silent(
-    fit_4 <- spec_4 %>% fit(mpg ~ ., data = mtcars)
+    fit_4 <- spec_4 |> fit(mpg ~ ., data = mtcars)
   )
 
   expect_equal(extract_fit_engine(fit_4)$params$objective, "reg:pseudohubererror")
 
   # pass a guarded argument as a main argument (bad)
   spec_5 <-
-    spec_base %>%
+    spec_base |>
     set_engine("xgboost", watchlist = "boop")
 
   expect_snapshot_warning(
-    fit_5 <- spec_5 %>% fit(mpg ~ ., data = mtcars),
+    fit_5 <- spec_5 |> fit(mpg ~ ., data = mtcars),
     class = "xgboost_guarded_warning"
   )
 
@@ -683,11 +683,11 @@ test_that('interface to param arguments', {
 
   # pass two guarded arguments as main arguments (bad)
   spec_6 <-
-    spec_base %>%
+    spec_base |>
     set_engine("xgboost", watchlist = "boop", data = "beep")
 
   expect_snapshot_warning(
-    fit_6 <- spec_6 %>% fit(mpg ~ ., data = mtcars),
+    fit_6 <- spec_6 |> fit(mpg ~ ., data = mtcars),
     class = "xgboost_guarded_warning"
   )
 
@@ -695,11 +695,11 @@ test_that('interface to param arguments', {
 
   # pass a guarded argument as params argument (bad)
   spec_7 <-
-    spec_base %>%
+    spec_base |>
     set_engine("xgboost", params = list(gamma = 0.1))
 
   expect_snapshot_warning(
-    fit_7 <- spec_7 %>% fit(mpg ~ ., data = mtcars),
+    fit_7 <- spec_7 |> fit(mpg ~ ., data = mtcars),
     class = "xgboost_params_warning"
   )
 

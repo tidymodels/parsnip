@@ -23,9 +23,9 @@ code for specifying this generalized additive model
 \link[=details_gen_additive_mod_mgcv]{with the parsnip "mgcv" engine}
 looks like:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{gen_additive_mod() \%>\%
-  set_mode("regression") \%>\%
-  set_engine("mgcv") \%>\%
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{gen_additive_mod() |>
+  set_mode("regression") |>
+  set_engine("mgcv") |>
   fit(mpg ~ wt + s(disp, k = 5), data = mtcars)
 }\if{html}{\out{</div>}}
 
@@ -53,11 +53,11 @@ preproc_formula <- mpg ~ wt + disp
 \item \strong{With parsnip,} use the model formula:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{model_spec <-
-  gen_additive_mod() \%>\%
-  set_mode("regression") \%>\%
+  gen_additive_mod() |>
+  set_mode("regression") |>
   set_engine("mgcv")
 
-model_spec \%>\%
+model_spec |>
   fit(model_formula, data = mtcars)
 }\if{html}{\out{</div>}}
 
@@ -77,8 +77,8 @@ pass the model formula to the \code{formula} argument in \code{add_model()}:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(workflows)
 
 wflow <-
-  workflow() \%>\%
-  add_formula(preproc_formula) \%>\%
+  workflow() |>
+  add_formula(preproc_formula) |>
   add_model(model_spec, formula = model_formula)
 
 fit(wflow, data = mtcars)

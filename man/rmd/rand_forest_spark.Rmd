@@ -11,8 +11,8 @@ defaults <-
                  default = c("see below", "20L", "1L"))
 
 param <-
-  rand_forest() %>% 
-  set_engine("spark") %>% 
+  rand_forest() |> 
+  set_engine("spark") |> 
   make_parameter_list(defaults)
 ```
 
@@ -31,9 +31,9 @@ rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
-) %>%  
-  set_engine("spark") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("spark") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -46,9 +46,9 @@ rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
-) %>% 
-  set_engine("spark") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("spark") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

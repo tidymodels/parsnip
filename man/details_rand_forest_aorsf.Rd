@@ -38,9 +38,9 @@ The \strong{censored} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
-rand_forest() \%>\%
-  set_engine("aorsf") \%>\%
-  set_mode("censored regression") \%>\%
+rand_forest() |>
+  set_engine("aorsf") |>
+  set_mode("censored regression") |>
   translate()
 }\if{html}{\out{</div>}}
 
@@ -59,9 +59,9 @@ The \strong{bonsai} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(bonsai)
 
-rand_forest() \%>\%
-  set_engine("aorsf") \%>\%
-  set_mode("regression") \%>\%
+rand_forest() |>
+  set_engine("aorsf") |>
+  set_mode("regression") |>
   translate()
 }\if{html}{\out{</div>}}
 
@@ -81,9 +81,9 @@ The \strong{bonsai} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(bonsai)
 
-rand_forest() \%>\%
-  set_engine("aorsf") \%>\%
-  set_mode("classification") \%>\%
+rand_forest() |>
+  set_engine("aorsf") |>
+  set_mode("classification") |>
   translate()
 }\if{html}{\out{</div>}}
 

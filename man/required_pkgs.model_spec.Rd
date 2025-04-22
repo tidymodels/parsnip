@@ -27,17 +27,17 @@ Determine required packages for a model
 should_fail <- try(required_pkgs(linear_reg(engine = NULL)), silent = TRUE)
 should_fail
 
-linear_reg() \%>\%
-  set_engine("glmnet") \%>\%
+linear_reg() |>
+  set_engine("glmnet") |>
   required_pkgs()
 
-linear_reg() \%>\%
-  set_engine("glmnet") \%>\%
+linear_reg() |>
+  set_engine("glmnet") |>
   required_pkgs(infra = FALSE)
 
-linear_reg() \%>\%
-  set_engine("lm") \%>\%
-  fit(mpg ~ ., data = mtcars) \%>\%
+linear_reg() |>
+  set_engine("lm") |>
+  fit(mpg ~ ., data = mtcars) |>
   required_pkgs()
 \dontshow{\}) # examplesIf}
 }

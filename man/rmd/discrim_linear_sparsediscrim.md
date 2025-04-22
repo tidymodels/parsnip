@@ -26,8 +26,8 @@ The **discrim** extension package is required to fit this model.
 ``` r
 library(discrim)
 
-discrim_linear(regularization_method = character(0)) %>% 
-  set_engine("sparsediscrim") %>% 
+discrim_linear(regularization_method = character(0)) |> 
+  set_engine("sparsediscrim") |> 
   translate()
 ```
 

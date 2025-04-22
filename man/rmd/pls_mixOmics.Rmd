@@ -11,9 +11,9 @@ defaults <-
                  default = c("2L",           "see below"))
 
 param <-
-  pls() %>% 
-  set_engine("mixOmics") %>% 
-  set_mode("regression") %>% 
+  pls() |> 
+  set_engine("mixOmics") |> 
+  set_mode("regression") |> 
   make_parameter_list(defaults)
 ```
 
@@ -31,9 +31,9 @@ param$item
 ```{r mixOmics-reg}
 library(plsmod)
 
-pls(num_comp = integer(1), predictor_prop = double(1)) %>%
-  set_engine("mixOmics") %>%
-  set_mode("regression") %>%
+pls(num_comp = integer(1), predictor_prop = double(1)) |>
+  set_engine("mixOmics") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -51,9 +51,9 @@ pls(num_comp = integer(1), predictor_prop = double(1)) %>%
 ```{r mixOmics-cls}
 library(plsmod)
 
-pls(num_comp = integer(1), predictor_prop = double(1)) %>%
-  set_engine("mixOmics") %>%
-  set_mode("classification") %>%
+pls(num_comp = integer(1), predictor_prop = double(1)) |>
+  set_engine("mixOmics") |>
+  set_mode("classification") |>
   translate()
 ```
 

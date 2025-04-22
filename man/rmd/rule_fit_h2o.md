@@ -42,9 +42,9 @@ rule_fit(
   trees = integer(1),
   tree_depth = integer(1),
   penalty = numeric(1)
-) %>%
-  set_engine("h2o") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("h2o") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -78,9 +78,9 @@ rule_fit(
   trees = integer(1),
   tree_depth = integer(1),
   penalty = numeric(1)
-) %>%
-  set_engine("h2o") %>%
-  set_mode("classification") %>%
+) |>
+  set_engine("h2o") |>
+  set_mode("classification") |>
   translate()
 ```
 

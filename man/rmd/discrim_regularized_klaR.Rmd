@@ -12,8 +12,8 @@ defaults <-
                  default = c("(see below)", "(see below)"))
 
 param <-
-  discrim_regularized() %>% 
-  set_engine("klaR") %>% 
+  discrim_regularized() |> 
+  set_engine("klaR") |> 
   make_parameter_list(defaults)
 ```
 
@@ -38,8 +38,8 @@ Some special cases for the RDA model:
 ```{r klaR-cls}
 library(discrim)
 
-discrim_regularized(frac_identity = numeric(0), frac_common_cov = numeric(0)) %>% 
-  set_engine("klaR") %>% 
+discrim_regularized(frac_identity = numeric(0), frac_common_cov = numeric(0)) |> 
+  set_engine("klaR") |> 
   translate()
 ```
 

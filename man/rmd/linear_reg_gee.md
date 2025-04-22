@@ -15,9 +15,9 @@ The **multilevelmod** extension package is required to fit this model.
 ``` r
 library(multilevelmod)
 
-linear_reg() %>% 
-  set_engine("gee") %>% 
-  set_mode("regression") %>% 
+linear_reg() |> 
+  set_engine("gee") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -53,8 +53,8 @@ With parsnip, we suggest using the formula method when fitting:
 ```r
 library(tidymodels)
 
-linear_reg() %>% 
-  set_engine("gee", corstr = "exchangeable") %>% 
+linear_reg() |> 
+  set_engine("gee", corstr = "exchangeable") |> 
   fit(breaks ~ tension + id_var(wool), data = warpbreaks)
 ```
 
@@ -64,13 +64,13 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 library(tidymodels)
 
 gee_spec <- 
-  linear_reg() %>% 
+  linear_reg() |> 
   set_engine("gee", corstr = "exchangeable")
 
 gee_wflow <- 
-  workflow() %>% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = breaks, predictors = c(tension, wool)) %>% 
+  add_variables(outcomes = breaks, predictors = c(tension, wool)) |> 
   add_model(gee_spec, formula = breaks ~ tension + id_var(wool))
 
 fit(gee_wflow, data = warpbreaks)

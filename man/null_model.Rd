@@ -23,9 +23,9 @@ Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below:
 \subsection{parsnip}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{null_model() \%>\% 
-  set_engine("parsnip") \%>\% 
-  set_mode("regression") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{null_model() |> 
+  set_engine("parsnip") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -37,9 +37,9 @@ call. For this type of model, the template of the fit calls are below:
 ## parsnip::nullmodel(x = missing_arg(), y = missing_arg())
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{null_model() \%>\% 
-  set_engine("parsnip") \%>\% 
-  set_mode("classification") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{null_model() |> 
+  set_engine("parsnip") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

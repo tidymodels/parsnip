@@ -28,9 +28,9 @@ cubist_rules(
   committees = integer(1),
   neighbors = integer(1),
   max_rules = integer(1)
-) %>%
-  set_engine("Cubist") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("Cubist") |>
+  set_mode("regression") |>
   translate()
 ```
 

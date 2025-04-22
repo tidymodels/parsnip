@@ -10,16 +10,16 @@ This engine has no tuning parameters but you can set the `family` parameter (and
 ## Translation from parsnip to the original package
 
 ```{r glm-reg}
-linear_reg() %>% 
-  set_engine("glm") %>% 
+linear_reg() |> 
+  set_engine("glm") |> 
   translate()
 ```
 
 To use a non-default `family` and/or `link`, pass in as an argument to `set_engine()`:
 
 ```{r glm-reg-engine}
-linear_reg() %>% 
-  set_engine("glm", family = stats::poisson(link = "sqrt")) %>% 
+linear_reg() |> 
+  set_engine("glm", family = stats::poisson(link = "sqrt")) |> 
   translate()
 ```
 

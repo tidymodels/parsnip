@@ -35,9 +35,9 @@ boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
   stop_iter = integer()
-) %>%
-  set_engine("xgboost") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("xgboost") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -72,9 +72,9 @@ boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
   stop_iter = integer()
-) %>% 
-  set_engine("xgboost") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("xgboost") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -130,7 +130,7 @@ The xgboost function that parsnip indirectly wraps, [xgboost::xgb.train()], take
 
 ``` r
 # good
-boost_tree() %>%
+boost_tree() |>
   set_engine("xgboost", eval_metric = "mae")
 ```
 
@@ -148,7 +148,7 @@ boost_tree() %>%
 
 ``` r
 # bad
-boost_tree() %>%
+boost_tree() |>
   set_engine("xgboost", params = list(eval_metric = "mae"))
 ```
 

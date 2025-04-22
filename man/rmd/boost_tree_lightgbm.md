@@ -36,9 +36,9 @@ The **bonsai** extension package is required to fit this model.
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric()
-) %>%
-  set_engine("lightgbm") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("lightgbm") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -73,9 +73,9 @@ The **bonsai** extension package is required to fit this model.
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric()
-) %>% 
-  set_engine("lightgbm") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("lightgbm") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

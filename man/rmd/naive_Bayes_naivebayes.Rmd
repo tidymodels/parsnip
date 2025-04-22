@@ -12,8 +12,8 @@ defaults <-
                  default = c("1.0", "0.0"))
 
 param <-
-  naive_Bayes() %>% 
-  set_engine("naivebayes") %>% 
+  naive_Bayes() |> 
+  set_engine("naivebayes") |> 
   make_parameter_list(defaults)
 ```
 
@@ -32,8 +32,8 @@ Note that the engine argument `usekernel` is set to `TRUE` by default when using
 ```{r naivebayes-cls}
 library(discrim)
 
-naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) %>% 
-  set_engine("naivebayes") %>% 
+naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) |> 
+  set_engine("naivebayes") |> 
   translate()
 ```
 

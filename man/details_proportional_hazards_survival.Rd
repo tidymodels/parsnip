@@ -19,9 +19,9 @@ The \strong{censored} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
-proportional_hazards() \%>\% 
-  set_engine("survival") \%>\% 
-  set_mode("censored regression") \%>\% 
+proportional_hazards() |> 
+  set_engine("survival") |> 
+  set_mode("censored regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -55,9 +55,9 @@ two different baseline hazards for each value of the column:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(survival)
 
-proportional_hazards() \%>\% 
-  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) \%>\% 
-  extract_fit_engine() \%>\% 
+proportional_hazards() |> 
+  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) |> 
+  extract_fit_engine() |> 
   # Two different hazards for each value of 'rx'
   basehaz()
 }\if{html}{\out{</div>}}

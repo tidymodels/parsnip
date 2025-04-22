@@ -22,9 +22,9 @@ The \strong{censored} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
-survival_reg() \%>\% 
-  set_engine("flexsurvspline") \%>\% 
-  set_mode("censored regression") \%>\% 
+survival_reg() |> 
+  set_engine("flexsurvspline") |> 
+  set_mode("censored regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 

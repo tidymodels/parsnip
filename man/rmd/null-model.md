@@ -7,9 +7,9 @@ For this type of model, the template of the fit calls are below:
 
 
 ``` r
-null_model() %>% 
-  set_engine("parsnip") %>% 
-  set_mode("regression") %>% 
+null_model() |> 
+  set_engine("parsnip") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -24,9 +24,9 @@ null_model() %>%
 
 
 ``` r
-null_model() %>% 
-  set_engine("parsnip") %>% 
-  set_mode("classification") %>% 
+null_model() |> 
+  set_engine("parsnip") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

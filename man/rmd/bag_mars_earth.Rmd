@@ -11,8 +11,8 @@ defaults <-
                  default = c("see below", "1L", "'backward'"))
 
 param <-
-  bag_mars() %>% 
-  set_engine("earth") %>% 
+  bag_mars() |> 
+  set_engine("earth") |> 
   make_parameter_list(defaults)
 ```
 
@@ -29,9 +29,9 @@ The default value of `num_terms` depends on the number of predictor columns. For
 `r uses_extension("bag_mars", "earth", "regression")`
 
 ```{r earth-reg}
-bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) %>% 
-  set_engine("earth") %>% 
-  set_mode("regression") %>% 
+bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |> 
+  set_engine("earth") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -46,9 +46,9 @@ bag_mars(
   num_terms = integer(1),
   prod_degree = integer(1),
   prune_method = character(1)
-) %>% 
-  set_engine("earth") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("earth") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

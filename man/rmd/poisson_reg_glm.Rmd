@@ -14,8 +14,8 @@ This engine has no tuning parameters.
 ```{r glm-reg}
 library(poissonreg)
 
-poisson_reg() %>%
-  set_engine("glm") %>%
+poisson_reg() |>
+  set_engine("glm") |>
   translate()
 ```
 

@@ -3,7 +3,7 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 num_pred <- names(hpc)[1:4]
 
 hpc_nnet <-
-  mlp(mode = "classification", hidden_units = 5) %>%
+  mlp(mode = "classification", hidden_units = 5) |>
   set_engine("nnet")
 
 # ------------------------------------------------------------------------------
@@ -75,14 +75,14 @@ test_that('nnet classification prediction', {
 num_pred <- names(mtcars)[3:6]
 
 car_basic <-
-  mlp(mode = "regression") %>%
+  mlp(mode = "regression") |>
   set_engine("nnet")
 
 bad_nnet_reg <-
-  mlp(mode = "regression") %>%
+  mlp(mode = "regression") |>
   set_engine("nnet", min.node.size = -10)
 bad_rf_reg <-
-  mlp(mode = "regression") %>%
+  mlp(mode = "regression") |>
   set_engine("nnet", sampsize = -10)
 
 # ------------------------------------------------------------------------------
@@ -153,8 +153,8 @@ test_that('multivariate nnet formula', {
       mode = "regression",
       hidden_units = 3,
       penalty = 0.01
-    )  %>%
-    set_engine("nnet") %>%
+    )  |>
+    set_engine("nnet") |>
     parsnip::fit(
       cbind(V1, V2, V3) ~ .,
       data = nn_dat[-(1:5),]
@@ -172,8 +172,8 @@ test_that('multivariate nnet formula', {
       mode = "regression",
       hidden_units = 3,
       penalty = 0.01
-    ) %>%
-    set_engine("nnet") %>%
+    ) |>
+    set_engine("nnet") |>
     parsnip::fit_xy(
       x = nn_dat[-(1:5), -(1:3)],
       y = nn_dat[-(1:5),   1:3 ]

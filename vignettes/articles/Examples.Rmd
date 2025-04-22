@@ -43,9 +43,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   bt_reg_spec <- 
-    bart(trees = 15) %>% 
+    bart(trees = 15) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>% 
+    set_mode("regression") |> 
     set_engine("dbarts")
   bt_reg_spec
   ```
@@ -54,7 +54,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  bt_reg_fit <- bt_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  bt_reg_fit <- bt_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   bt_reg_fit
   ```
 
@@ -75,9 +75,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   bt_cls_spec <- 
-    bart(trees = 15) %>% 
+    bart(trees = 15) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>% 
+    set_mode("classification") |> 
     set_engine("dbarts")
   bt_cls_spec
   ```
@@ -86,7 +86,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  bt_cls_fit <- bt_cls_spec %>% fit(Class ~ ., data = data_train)
+  bt_cls_fit <- bt_cls_spec |> fit(Class ~ ., data = data_train)
   bt_cls_fit
   ```
 
@@ -118,9 +118,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   bt_reg_spec <- 
-    boost_tree(trees = 15) %>% 
+    boost_tree(trees = 15) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>% 
+    set_mode("regression") |> 
     set_engine("xgboost")
   bt_reg_spec
   ```
@@ -129,7 +129,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  bt_reg_fit <- bt_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  bt_reg_fit <- bt_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   bt_reg_fit
   ```
 
@@ -150,9 +150,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   bt_cls_spec <- 
-    boost_tree(trees = 15) %>% 
+    boost_tree(trees = 15) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>% 
+    set_mode("classification") |> 
     set_engine("xgboost")
   bt_cls_spec
   ```
@@ -161,7 +161,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  bt_cls_fit <- bt_cls_spec %>% fit(Class ~ ., data = data_train)
+  bt_cls_fit <- bt_cls_spec |> fit(Class ~ ., data = data_train)
   bt_cls_fit
   ```
 
@@ -191,8 +191,8 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   bt_cls_spec <- 
-    boost_tree(trees = 15) %>% 
-    set_mode("classification") %>% 
+    boost_tree(trees = 15) |> 
+    set_mode("classification") |> 
     set_engine("C5.0")
   bt_cls_spec
   ```
@@ -201,7 +201,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  bt_cls_fit <- bt_cls_spec %>% fit(Class ~ ., data = data_train)
+  bt_cls_fit <- bt_cls_spec |> fit(Class ~ ., data = data_train)
   bt_cls_fit
   ```
 
@@ -233,9 +233,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   dt_reg_spec <- 
-    decision_tree(tree_depth = 30) %>% 
+    decision_tree(tree_depth = 30) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>% 
+    set_mode("regression") |> 
     set_engine("rpart")
   dt_reg_spec
   ```
@@ -244,7 +244,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  dt_reg_fit <- dt_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  dt_reg_fit <- dt_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   dt_reg_fit
   ```
 
@@ -265,9 +265,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   dt_cls_spec <- 
-    decision_tree(tree_depth = 30) %>% 
+    decision_tree(tree_depth = 30) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>% 
+    set_mode("classification") |> 
     set_engine("rpart")
   dt_cls_spec
   ```
@@ -276,7 +276,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  dt_cls_fit <- dt_cls_spec %>% fit(Class ~ ., data = data_train)
+  dt_cls_fit <- dt_cls_spec |> fit(Class ~ ., data = data_train)
   dt_cls_fit
   ```
 
@@ -306,8 +306,8 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   dt_cls_spec <- 
-    decision_tree(min_n = 2) %>% 
-    set_mode("classification") %>% 
+    decision_tree(min_n = 2) |> 
+    set_mode("classification") |> 
     set_engine("C5.0")
   dt_cls_spec
   ```
@@ -316,7 +316,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  dt_cls_fit <- dt_cls_spec %>% fit(Class ~ ., data = data_train)
+  dt_cls_fit <- dt_cls_spec |> fit(Class ~ ., data = data_train)
   dt_cls_fit
   ```
 
@@ -347,9 +347,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   gam_reg_spec <- 
-    gen_additive_mod(select_features = FALSE, adjust_deg_free = 10) %>% 
+    gen_additive_mod(select_features = FALSE, adjust_deg_free = 10) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>% 
+    set_mode("regression") |> 
     set_engine("mgcv")
   gam_reg_spec
   ```
@@ -358,7 +358,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  gam_reg_fit <- gam_reg_spec %>% 
+  gam_reg_fit <- gam_reg_spec |> 
     fit(ridership ~ Clark_Lake + Quincy_Wells, data = Chicago_train)
   gam_reg_fit
   ```
@@ -380,9 +380,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   gam_cls_spec <- 
-    gen_additive_mod(select_features = FALSE, adjust_deg_free = 10) %>% 
+    gen_additive_mod(select_features = FALSE, adjust_deg_free = 10) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>% 
+    set_mode("classification") |> 
     set_engine("mgcv")
   gam_cls_spec
   ```
@@ -391,7 +391,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  gam_cls_fit <- gam_cls_spec %>% fit(Class ~ A + B, data = data_train)
+  gam_cls_fit <- gam_cls_spec |> fit(Class ~ A + B, data = data_train)
   gam_cls_fit
   ```
 
@@ -423,7 +423,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   linreg_reg_spec <- 
-    linear_reg() %>% 
+    linear_reg() |> 
     set_engine("lm")
   linreg_reg_spec
   ```
@@ -432,7 +432,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  linreg_reg_fit <- linreg_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  linreg_reg_fit <- linreg_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   linreg_reg_fit
   ```
 
@@ -458,7 +458,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   linreg_reg_spec <- 
-    linear_reg() %>% 
+    linear_reg() |> 
     set_engine("glm")
   linreg_reg_spec
   ```
@@ -467,7 +467,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  linreg_reg_fit <- linreg_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  linreg_reg_fit <- linreg_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   linreg_reg_fit
   ```
 
@@ -493,7 +493,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   linreg_reg_spec <- 
-    linear_reg(penalty = 0.1) %>% 
+    linear_reg(penalty = 0.1) |> 
     set_engine("glmnet")
   linreg_reg_spec
   ```
@@ -502,7 +502,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  linreg_reg_fit <- linreg_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  linreg_reg_fit <- linreg_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   linreg_reg_fit
   ```
 
@@ -529,7 +529,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   linreg_reg_spec <- 
-    linear_reg(penalty = 0.1) %>% 
+    linear_reg(penalty = 0.1) |> 
     set_engine("keras")
   linreg_reg_spec
   ```
@@ -538,7 +538,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  linreg_reg_fit <- linreg_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  linreg_reg_fit <- linreg_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   linreg_reg_fit
   ```
 
@@ -565,7 +565,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   linreg_reg_spec <- 
-    linear_reg() %>% 
+    linear_reg() |> 
     set_engine("stan")
   linreg_reg_spec
   ```
@@ -574,7 +574,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  linreg_reg_fit <- linreg_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  linreg_reg_fit <- linreg_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   linreg_reg_fit
   ```
 
@@ -600,8 +600,8 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   linreg_quant_spec <- 
-    linear_reg() %>% 
-    set_engine("quantreg") %>% 
+    linear_reg() |> 
+    set_engine("quantreg") |> 
     set_mode("quantile regression", quantile_levels = (1:3) / 4)
   linreg_quant_spec
   ```
@@ -610,7 +610,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  linreg_quant_fit <- linreg_quant_spec %>% fit(price ~ sqft, data = sac_train)
+  linreg_quant_fit <- linreg_quant_spec |> fit(price ~ sqft, data = sac_train)
   linreg_quant_fit
   ```
 
@@ -646,7 +646,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   linreg_reg_spec <- 
-    linear_reg() %>% 
+    linear_reg() |> 
     set_engine("brulee")
   linreg_reg_spec
   ```
@@ -655,7 +655,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  linreg_reg_fit <- linreg_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  linreg_reg_fit <- linreg_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   linreg_reg_fit
   ```
 
@@ -683,7 +683,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   logreg_cls_spec <- 
-    logistic_reg() %>% 
+    logistic_reg() |> 
     set_engine("glm")
   logreg_cls_spec
   ```
@@ -692,7 +692,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  logreg_cls_fit <- logreg_cls_spec %>% fit(Class ~ ., data = data_train)
+  logreg_cls_fit <- logreg_cls_spec |> fit(Class ~ ., data = data_train)
   logreg_cls_fit
   ```
 
@@ -722,7 +722,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   logreg_cls_spec <- 
-    logistic_reg(penalty = 0.1) %>% 
+    logistic_reg(penalty = 0.1) |> 
     set_engine("glmnet")
   logreg_cls_spec
   ```
@@ -731,7 +731,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  logreg_cls_fit <- logreg_cls_spec %>% fit(Class ~ ., data = data_train)
+  logreg_cls_fit <- logreg_cls_spec |> fit(Class ~ ., data = data_train)
   logreg_cls_fit
   ```
 
@@ -761,7 +761,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   logreg_cls_spec <- 
-    logistic_reg(penalty = 0.1) %>% 
+    logistic_reg(penalty = 0.1) |> 
     set_engine("keras")
   logreg_cls_spec
   ```
@@ -770,7 +770,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  logreg_cls_fit <- logreg_cls_spec %>% fit(Class ~ ., data = data_train)
+  logreg_cls_fit <- logreg_cls_spec |> fit(Class ~ ., data = data_train)
   logreg_cls_fit
   ```
 
@@ -800,7 +800,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   logreg_cls_spec <- 
-    logistic_reg(penalty = 0.1) %>% 
+    logistic_reg(penalty = 0.1) |> 
     set_engine("LiblineaR")
   logreg_cls_spec
   ```
@@ -809,7 +809,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  logreg_cls_fit <- logreg_cls_spec %>% fit(Class ~ ., data = data_train)
+  logreg_cls_fit <- logreg_cls_spec |> fit(Class ~ ., data = data_train)
   logreg_cls_fit
   ```
 
@@ -839,7 +839,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   logreg_cls_spec <- 
-    logistic_reg() %>% 
+    logistic_reg() |> 
     set_engine("stan")
   logreg_cls_spec
   ```
@@ -848,7 +848,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  logreg_cls_fit <- logreg_cls_spec %>% fit(Class ~ ., data = data_train)
+  logreg_cls_fit <- logreg_cls_spec |> fit(Class ~ ., data = data_train)
   logreg_cls_fit
   ```
 
@@ -878,7 +878,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   logreg_cls_spec <- 
-    logistic_reg() %>% 
+    logistic_reg() |> 
     set_engine("brulee")
   logreg_cls_spec
   ```
@@ -887,7 +887,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  logreg_cls_fit <- logreg_cls_spec %>% fit(Class ~ ., data = data_train)
+  logreg_cls_fit <- logreg_cls_spec |> fit(Class ~ ., data = data_train)
   logreg_cls_fit
   ```
 
@@ -918,9 +918,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   mars_reg_spec <- 
-    mars(prod_degree = 1, prune_method = "backward") %>% 
+    mars(prod_degree = 1, prune_method = "backward") |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>% 
+    set_mode("regression") |> 
     set_engine("earth")
   mars_reg_spec
   ```
@@ -929,7 +929,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  mars_reg_fit <- mars_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  mars_reg_fit <- mars_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   mars_reg_fit
   ```
 
@@ -949,9 +949,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   mars_cls_spec <- 
-    mars(prod_degree = 1, prune_method = "backward") %>% 
+    mars(prod_degree = 1, prune_method = "backward") |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>% 
+    set_mode("classification") |> 
     set_engine("earth")
   mars_cls_spec
   ```
@@ -960,7 +960,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  mars_cls_fit <- mars_cls_spec %>% fit(Class ~ ., data = data_train)
+  mars_cls_fit <- mars_cls_spec |> fit(Class ~ ., data = data_train)
   mars_cls_fit
   ```
 
@@ -992,9 +992,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   mlp_reg_spec <- 
-    mlp(penalty = 0, epochs = 100) %>% 
+    mlp(penalty = 0, epochs = 100) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>% 
+    set_mode("regression") |> 
     set_engine("nnet")
   mlp_reg_spec
   ```
@@ -1003,7 +1003,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  mlp_reg_fit <- mlp_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  mlp_reg_fit <- mlp_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   mlp_reg_fit
   ```
 
@@ -1023,9 +1023,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   mlp_cls_spec <- 
-    mlp(penalty = 0, epochs = 100) %>% 
+    mlp(penalty = 0, epochs = 100) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>% 
+    set_mode("classification") |> 
     set_engine("nnet")
   mlp_cls_spec
   ```
@@ -1034,7 +1034,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  mlp_cls_fit <- mlp_cls_spec %>% fit(Class ~ ., data = data_train)
+  mlp_cls_fit <- mlp_cls_spec |> fit(Class ~ ., data = data_train)
   mlp_cls_fit
   ```
 
@@ -1063,9 +1063,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   mlp_reg_spec <- 
-    mlp(penalty = 0, epochs = 20) %>% 
+    mlp(penalty = 0, epochs = 20) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>% 
+    set_mode("regression") |> 
     set_engine("keras")
   mlp_reg_spec
   ```
@@ -1074,7 +1074,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  mlp_reg_fit <- mlp_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  mlp_reg_fit <- mlp_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   mlp_reg_fit
   ```
 
@@ -1095,9 +1095,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   mlp_cls_spec <- 
-    mlp(penalty = 0, epochs = 20) %>% 
+    mlp(penalty = 0, epochs = 20) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>% 
+    set_mode("classification") |> 
     set_engine("keras")
   mlp_cls_spec
   ```
@@ -1106,7 +1106,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  mlp_cls_fit <- mlp_cls_spec %>% fit(Class ~ ., data = data_train)
+  mlp_cls_fit <- mlp_cls_spec |> fit(Class ~ ., data = data_train)
   mlp_cls_fit
   ```
 
@@ -1136,9 +1136,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   mlp_reg_spec <- 
-    mlp(penalty = 0, epochs = 100) %>% 
+    mlp(penalty = 0, epochs = 100) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>% 
+    set_mode("regression") |> 
     set_engine("brulee")
   mlp_reg_spec
   ```
@@ -1147,7 +1147,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  mlp_reg_fit <- mlp_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  mlp_reg_fit <- mlp_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   mlp_reg_fit
   ```
 
@@ -1167,9 +1167,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   mlp_cls_spec <- 
-    mlp(penalty = 0, epochs = 100) %>% 
+    mlp(penalty = 0, epochs = 100) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>% 
+    set_mode("classification") |> 
     set_engine("brulee")
   mlp_cls_spec
   ```
@@ -1178,7 +1178,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  mlp_cls_fit <- mlp_cls_spec %>% fit(Class ~ ., data = data_train)
+  mlp_cls_fit <- mlp_cls_spec |> fit(Class ~ ., data = data_train)
   mlp_cls_fit
   ```
 
@@ -1207,9 +1207,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   mlp_reg_spec <- 
-    mlp(penalty = 0, epochs = 10) %>% 
+    mlp(penalty = 0, epochs = 10) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>% 
+    set_mode("regression") |> 
     set_engine("brulee_two_layer", hidden_units_2 = 2)
   mlp_reg_spec
   ```
@@ -1218,7 +1218,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(13)
-  mlp_reg_fit <- mlp_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  mlp_reg_fit <- mlp_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   mlp_reg_fit
   ```
 
@@ -1238,9 +1238,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   mlp_cls_spec <- 
-    mlp(penalty = 0, epochs = 10) %>% 
+    mlp(penalty = 0, epochs = 10) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>% 
+    set_mode("classification") |> 
     set_engine("brulee_two_layer", hidden_units_2 = 2)
   mlp_cls_spec
   ```
@@ -1249,7 +1249,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(12)
-  mlp_cls_fit <- mlp_cls_spec %>% fit(Class ~ ., data = data_train)
+  mlp_cls_fit <- mlp_cls_spec |> fit(Class ~ ., data = data_train)
   mlp_cls_fit
   ```
 
@@ -1281,7 +1281,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   mr_cls_spec <- 
-    multinom_reg(penalty = 0.1) %>% 
+    multinom_reg(penalty = 0.1) |> 
     set_engine("glmnet")
   mr_cls_spec
   ```
@@ -1290,7 +1290,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  mr_cls_fit <- mr_cls_spec %>% fit(island ~ ., data = penguins_train)
+  mr_cls_fit <- mr_cls_spec |> fit(island ~ ., data = penguins_train)
   mr_cls_fit
   ```
 
@@ -1320,7 +1320,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   mr_cls_spec <- 
-    multinom_reg(penalty = 0.1) %>% 
+    multinom_reg(penalty = 0.1) |> 
     set_engine("keras")
   mr_cls_spec
   ```
@@ -1329,7 +1329,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  mr_cls_fit <- mr_cls_spec %>% fit(island ~ ., data = penguins_train)
+  mr_cls_fit <- mr_cls_spec |> fit(island ~ ., data = penguins_train)
   mr_cls_fit
   ```
 
@@ -1359,7 +1359,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   mr_cls_spec <- 
-    multinom_reg(penalty = 0.1) %>% 
+    multinom_reg(penalty = 0.1) |> 
     set_engine("nnet")
   mr_cls_spec
   ```
@@ -1368,7 +1368,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  mr_cls_fit <- mr_cls_spec %>% fit(island ~ ., data = penguins_train)
+  mr_cls_fit <- mr_cls_spec |> fit(island ~ ., data = penguins_train)
   mr_cls_fit
   ```
 
@@ -1398,7 +1398,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   mr_cls_spec <- 
-    multinom_reg(penalty = 0.1) %>% 
+    multinom_reg(penalty = 0.1) |> 
     set_engine("brulee")
   mr_cls_spec
   ```
@@ -1407,7 +1407,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  mr_cls_fit <- mr_cls_spec %>% fit(island ~ ., data = penguins_train)
+  mr_cls_fit <- mr_cls_spec |> fit(island ~ ., data = penguins_train)
   mr_cls_fit
   ```
 
@@ -1439,9 +1439,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   knn_reg_spec <-
-    nearest_neighbor(neighbors = 5, weight_func = "triangular") %>%
+    nearest_neighbor(neighbors = 5, weight_func = "triangular") |>
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>%
+    set_mode("regression") |>
     set_engine("kknn")
   knn_reg_spec
   ```
@@ -1449,7 +1449,7 @@ The following examples use consistent data sets throughout. For regression, we u
   Now we create the model fit object:
 
   ```{r}
-  knn_reg_fit <- knn_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  knn_reg_fit <- knn_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   knn_reg_fit
   ```
 
@@ -1470,9 +1470,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   knn_cls_spec <-
-    nearest_neighbor(neighbors = 11, weight_func = "triangular") %>%
+    nearest_neighbor(neighbors = 11, weight_func = "triangular") |>
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>%
+    set_mode("classification") |>
     set_engine("kknn")
   knn_cls_spec
   ```
@@ -1480,7 +1480,7 @@ The following examples use consistent data sets throughout. For regression, we u
   Now we create the model fit object:
 
   ```{r}
-  knn_cls_fit <- knn_cls_spec %>% fit(Class ~ ., data = data_train)
+  knn_cls_fit <- knn_cls_spec |> fit(Class ~ ., data = data_train)
   knn_cls_fit
   ```
 
@@ -1512,9 +1512,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   rf_reg_spec <- 
-    rand_forest(trees = 200, min_n = 5) %>% 
+    rand_forest(trees = 200, min_n = 5) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>% 
+    set_mode("regression") |> 
     set_engine("ranger")
   rf_reg_spec
   ```
@@ -1523,7 +1523,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  rf_reg_fit <- rf_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  rf_reg_fit <- rf_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   rf_reg_fit
   ```
 
@@ -1544,9 +1544,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   rf_cls_spec <- 
-    rand_forest(trees = 200, min_n = 5) %>% 
+    rand_forest(trees = 200, min_n = 5) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>% 
+    set_mode("classification") |> 
     set_engine("ranger")
   rf_cls_spec
   ```
@@ -1555,7 +1555,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  rf_cls_fit <- rf_cls_spec %>% fit(Class ~ ., data = data_train)
+  rf_cls_fit <- rf_cls_spec |> fit(Class ~ ., data = data_train)
   rf_cls_fit
   ```
 
@@ -1585,9 +1585,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   rf_reg_spec <- 
-    rand_forest(trees = 200, min_n = 5) %>% 
+    rand_forest(trees = 200, min_n = 5) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>% 
+    set_mode("regression") |> 
     set_engine("randomForest")
   rf_reg_spec
   ```
@@ -1596,7 +1596,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  rf_reg_fit <- rf_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  rf_reg_fit <- rf_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   rf_reg_fit
   ```
 
@@ -1617,9 +1617,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   rf_cls_spec <- 
-    rand_forest(trees = 200, min_n = 5) %>% 
+    rand_forest(trees = 200, min_n = 5) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>% 
+    set_mode("classification") |> 
     set_engine("randomForest")
   rf_cls_spec
   ```
@@ -1628,7 +1628,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  rf_cls_fit <- rf_cls_spec %>% fit(Class ~ ., data = data_train)
+  rf_cls_fit <- rf_cls_spec |> fit(Class ~ ., data = data_train)
   rf_cls_fit
   ```
 
@@ -1660,9 +1660,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   svm_reg_spec <- 
-    svm_linear(cost = 1, margin = 0.1) %>% 
+    svm_linear(cost = 1, margin = 0.1) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>% 
+    set_mode("regression") |> 
     set_engine("LiblineaR")
   svm_reg_spec
   ```
@@ -1671,7 +1671,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  svm_reg_fit <- svm_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  svm_reg_fit <- svm_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   svm_reg_fit
   ```
 
@@ -1692,9 +1692,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   svm_cls_spec <- 
-    svm_linear(cost = 1) %>% 
+    svm_linear(cost = 1) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>% 
+    set_mode("classification") |> 
     set_engine("LiblineaR")
   svm_cls_spec
   ```
@@ -1703,7 +1703,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  svm_cls_fit <- svm_cls_spec %>% fit(Class ~ ., data = data_train)
+  svm_cls_fit <- svm_cls_spec |> fit(Class ~ ., data = data_train)
   svm_cls_fit
   ```
 
@@ -1730,9 +1730,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   svm_reg_spec <- 
-    svm_linear(cost = 1, margin = 0.1) %>% 
+    svm_linear(cost = 1, margin = 0.1) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>% 
+    set_mode("regression") |> 
     set_engine("kernlab")
   svm_reg_spec
   ```
@@ -1741,7 +1741,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  svm_reg_fit <- svm_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  svm_reg_fit <- svm_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   svm_reg_fit
   ```
 
@@ -1762,9 +1762,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   svm_cls_spec <- 
-    svm_linear(cost = 1) %>% 
+    svm_linear(cost = 1) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>% 
+    set_mode("classification") |> 
     set_engine("kernlab")
   svm_cls_spec
   ```
@@ -1773,7 +1773,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  svm_cls_fit <- svm_cls_spec %>% fit(Class ~ ., data = data_train)
+  svm_cls_fit <- svm_cls_spec |> fit(Class ~ ., data = data_train)
   svm_cls_fit
   ```
 
@@ -1805,9 +1805,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   svm_reg_spec <- 
-    svm_poly(cost = 1, margin = 0.1) %>% 
+    svm_poly(cost = 1, margin = 0.1) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>% 
+    set_mode("regression") |> 
     set_engine("kernlab")
   svm_reg_spec
   ```
@@ -1816,7 +1816,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  svm_reg_fit <- svm_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  svm_reg_fit <- svm_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   svm_reg_fit
   ```
 
@@ -1837,9 +1837,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   svm_cls_spec <- 
-    svm_poly(cost = 1) %>% 
+    svm_poly(cost = 1) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>% 
+    set_mode("classification") |> 
     set_engine("kernlab")
   svm_cls_spec
   ```
@@ -1848,7 +1848,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  svm_cls_fit <- svm_cls_spec %>% fit(Class ~ ., data = data_train)
+  svm_cls_fit <- svm_cls_spec |> fit(Class ~ ., data = data_train)
   svm_cls_fit
   ```
 
@@ -1880,9 +1880,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   svm_reg_spec <- 
-    svm_rbf(cost = 1, margin = 0.1) %>% 
+    svm_rbf(cost = 1, margin = 0.1) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("regression") %>% 
+    set_mode("regression") |> 
     set_engine("kernlab")
   svm_reg_spec
   ```
@@ -1891,7 +1891,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  svm_reg_fit <- svm_reg_spec %>% fit(ridership ~ ., data = Chicago_train)
+  svm_reg_fit <- svm_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   svm_reg_fit
   ```
 
@@ -1912,9 +1912,9 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   svm_cls_spec <- 
-    svm_rbf(cost = 1) %>% 
+    svm_rbf(cost = 1) |> 
     # This model can be used for classification or regression, so set mode
-    set_mode("classification") %>% 
+    set_mode("classification") |> 
     set_engine("kernlab")
   svm_cls_spec
   ```
@@ -1923,7 +1923,7 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   set.seed(1)
-  svm_cls_fit <- svm_cls_spec %>% fit(Class ~ ., data = data_train)
+  svm_cls_fit <- svm_cls_spec |> fit(Class ~ ., data = data_train)
   svm_cls_fit
   ```
 

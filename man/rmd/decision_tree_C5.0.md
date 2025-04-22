@@ -15,9 +15,9 @@ This model has 1 tuning parameters:
 
 
 ``` r
-decision_tree(min_n = integer()) %>% 
-  set_engine("C5.0") %>% 
-  set_mode("classification") %>% 
+decision_tree(min_n = integer()) |> 
+  set_engine("C5.0") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

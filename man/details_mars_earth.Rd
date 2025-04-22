@@ -24,9 +24,9 @@ Parsnip changes the default range for \code{num_terms} to \code{c(50, 500)}.
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
-  set_engine("earth") \%>\% 
-  set_mode("regression") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |> 
+  set_engine("earth") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -48,9 +48,9 @@ Parsnip changes the default range for \code{num_terms} to \code{c(50, 500)}.
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
-  set_engine("earth") \%>\% 
-  set_mode("classification") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |> 
+  set_engine("earth") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

@@ -55,14 +55,14 @@
 #' library(dplyr)
 #'
 #' prior_test <- function(coef = 0.95, expo = 2, depths = 1:10) {
-#'   tidyr::crossing(coef = coef, expo = expo, depth = depths) %>%
+#'   tidyr::crossing(coef = coef, expo = expo, depth = depths) |>
 #'     mutate(
 #'       `terminial node prior` = coef * (1 + depth)^(-expo),
 #'       coef = format(coef),
 #'       expo = format(expo))
 #' }
 #'
-#' prior_test(coef = c(0.05, 0.5, .95), expo = c(1/2, 1, 2)) %>%
+#' prior_test(coef = c(0.05, 0.5, .95), expo = c(1/2, 1, 2)) |>
 #'   ggplot(aes(depth, `terminial node prior`, col = coef)) +
 #'   geom_line() +
 #'   geom_point() +
@@ -160,7 +160,7 @@ dbart_predict_calc <- function(obj, new_data, type, level = 0.95, std_err = FALS
   } else if (type == "prob") {
     mn <- apply(post_dist, 2, mean, na.rm = TRUE)
     res <-
-      tibble::tibble(a = 1 - mn, b = mn) %>%
+      tibble::tibble(a = 1 - mn, b = mn) |>
       setNames(paste0(".pred_", obj$lv))
   } else if (type %in% c("conf_int", "pred_int")) {
     if (mod_mode == "regression") {
@@ -179,7 +179,7 @@ dbart_predict_calc <- function(obj, new_data, type, level = 0.95, std_err = FALS
           .pred_lower_b =     bnds[,1],
           .pred_upper_a = 1 - bnds[,1],
           .pred_upper_b =     bnds[,2]
-        ) %>%
+        ) |>
         rlang::set_names(
           c(
             paste0(".pred_lower_", obj$lvl),

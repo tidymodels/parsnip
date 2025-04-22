@@ -24,9 +24,9 @@ The \strong{plsmod} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(plsmod)
 
-pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
-  set_engine("mixOmics") \%>\%
-  set_mode("regression") \%>\%
+pls(num_comp = integer(1), predictor_prop = double(1)) |>
+  set_engine("mixOmics") |>
+  set_mode("regression") |>
   translate()
 }\if{html}{\out{</div>}}
 
@@ -59,9 +59,9 @@ The \strong{plsmod} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(plsmod)
 
-pls(num_comp = integer(1), predictor_prop = double(1)) \%>\%
-  set_engine("mixOmics") \%>\%
-  set_mode("classification") \%>\%
+pls(num_comp = integer(1), predictor_prop = double(1)) |>
+  set_engine("mixOmics") |>
+  set_mode("classification") |>
   translate()
 }\if{html}{\out{</div>}}
 

@@ -29,9 +29,9 @@ This model has 5 tuning parameters:
   dropout = double(1),
   epochs = integer(1),
   activation = character(1)
-) \%>\%  
-  set_engine("keras") \%>\% 
-  set_mode("regression") \%>\% 
+) |>  
+  set_engine("keras") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -61,9 +61,9 @@ This model has 5 tuning parameters:
   dropout = double(1),
   epochs = integer(1),
   activation = character(1)
-) \%>\% 
-  set_engine("keras") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("keras") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

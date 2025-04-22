@@ -17,8 +17,8 @@ For `penalty`, the amount of regularization includes only the L2 penalty (i.e., 
 
 
 ``` r
-multinom_reg(penalty = double(1)) %>% 
-  set_engine("nnet") %>% 
+multinom_reg(penalty = double(1)) |> 
+  set_engine("nnet") |> 
   translate()
 ```
 

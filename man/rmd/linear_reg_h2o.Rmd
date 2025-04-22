@@ -11,8 +11,8 @@ defaults <-
                  default = c("see below", "see below"))
 
 param <-
-linear_reg() %>% 
-  set_engine("h2o") %>% 
+linear_reg() |> 
+  set_engine("h2o") |> 
   make_parameter_list(defaults)
 ```
 
@@ -31,8 +31,8 @@ param$item
 
 
 ```{r h2o-csl}
-linear_reg(penalty = 1, mixture = 0.5) %>% 
-  set_engine("h2o") %>% 
+linear_reg(penalty = 1, mixture = 0.5) |> 
+  set_engine("h2o") |> 
   translate()
 ```
 

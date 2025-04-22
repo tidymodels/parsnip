@@ -53,9 +53,9 @@ for details.
   epochs = integer(1),
   learn_rate = double(1),
   activation = character(1)
-) \%>\%  
-  set_engine("brulee") \%>\% 
-  set_mode("regression") \%>\% 
+) |>  
+  set_engine("brulee") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -90,9 +90,9 @@ layer.
   epochs = integer(1),
   learn_rate = double(1),
   activation = character(1)
-) \%>\% 
-  set_engine("brulee") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("brulee") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

@@ -4,7 +4,6 @@
 \name{reexports}
 \alias{reexports}
 \alias{autoplot}
-\alias{\%>\%}
 \alias{fit}
 \alias{fit_xy}
 \alias{tidy}
@@ -33,7 +32,5 @@ below to see their documentation.
   \item{ggplot2}{\code{\link[ggplot2]{autoplot}}}
 
   \item{hardhat}{\code{\link[hardhat]{contr_one_hot}}, \code{\link[hardhat:hardhat-extract]{extract_fit_engine}}, \code{\link[hardhat:hardhat-extract]{extract_fit_time}}, \code{\link[hardhat:hardhat-extract]{extract_parameter_dials}}, \code{\link[hardhat:hardhat-extract]{extract_parameter_set_dials}}, \code{\link[hardhat:hardhat-extract]{extract_spec_parsnip}}, \code{\link[hardhat]{frequency_weights}}, \code{\link[hardhat]{importance_weights}}, \code{\link[hardhat]{tune}}}
-
-  \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
 }}
 

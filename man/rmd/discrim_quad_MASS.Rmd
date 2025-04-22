@@ -14,8 +14,8 @@ This engine has no tuning parameters.
 ```{r mass-cls}
 library(discrim)
 
-discrim_quad() %>% 
-  set_engine("MASS") %>% 
+discrim_quad() |> 
+  set_engine("MASS") |> 
   translate()
 ```
 

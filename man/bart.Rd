@@ -87,14 +87,14 @@ library(ggplot2)
 library(dplyr)
 
 prior_test <- function(coef = 0.95, expo = 2, depths = 1:10) {
-  tidyr::crossing(coef = coef, expo = expo, depth = depths) \%>\%
+  tidyr::crossing(coef = coef, expo = expo, depth = depths) |>
     mutate(
       `terminial node prior` = coef * (1 + depth)^(-expo),
       coef = format(coef),
       expo = format(expo))
 }
 
-prior_test(coef = c(0.05, 0.5, .95), expo = c(1/2, 1, 2)) \%>\%
+prior_test(coef = c(0.05, 0.5, .95), expo = c(1/2, 1, 2)) |>
   ggplot(aes(depth, `terminial node prior`, col = coef)) +
   geom_line() +
   geom_point() +

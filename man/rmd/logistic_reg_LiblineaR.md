@@ -21,8 +21,8 @@ Be aware that the `LiblineaR` engine regularizes the intercept. Other regularize
 
 
 ``` r
-logistic_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("LiblineaR") %>% 
+logistic_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("LiblineaR") |> 
   translate()
 ```
 

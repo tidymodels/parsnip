@@ -31,9 +31,9 @@ Parsnip changes the default range for \code{cost} to \code{c(-10, 5)}.
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
   cost = double(1),
   margin = double(1)
-) \%>\%  
-  set_engine("LiblineaR") \%>\% 
-  set_mode("regression") \%>\% 
+) |>  
+  set_engine("LiblineaR") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -55,9 +55,9 @@ Parsnip changes the default range for \code{cost} to \code{c(-10, 5)}.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
   cost = double(1)
-) \%>\% 
-  set_engine("LiblineaR") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("LiblineaR") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

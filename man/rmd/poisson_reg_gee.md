@@ -15,8 +15,8 @@ The **multilevelmod** extension package is required to fit this model.
 ``` r
 library(multilevelmod)
 
-poisson_reg(engine = "gee") %>% 
-  set_engine("gee") %>% 
+poisson_reg(engine = "gee") |> 
+  set_engine("gee") |> 
   translate()
 ```
 
@@ -55,8 +55,8 @@ With parsnip, we suggest using the formula method when fitting:
 ```r
 library(tidymodels)
 
-poisson_reg() %>% 
-  set_engine("gee", corstr = "exchangeable") %>% 
+poisson_reg() |> 
+  set_engine("gee", corstr = "exchangeable") |> 
   fit(y ~ time + x + id_var(subject), data = longitudinal_counts)
 ```
 
@@ -66,13 +66,13 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 library(tidymodels)
 
 gee_spec <- 
-  poisson_reg() %>% 
+  poisson_reg() |> 
   set_engine("gee", corstr = "exchangeable")
 
 gee_wflow <- 
-  workflow() %>% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = y, predictors = c(time, x, subject)) %>% 
+  add_variables(outcomes = y, predictors = c(time, x, subject)) |> 
   add_model(gee_spec, formula = y ~ time + x + id_var(subject))
 
 fit(gee_wflow, data = longitudinal_counts)

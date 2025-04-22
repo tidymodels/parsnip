@@ -4,20 +4,20 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 test_that('updating', {
   expect_snapshot(
-    logistic_reg(mixture = 0) %>%
-      set_engine("glmnet", nlambda = 10) %>%
+    logistic_reg(mixture = 0) |>
+      set_engine("glmnet", nlambda = 10) |>
       update(mixture = tune(), nlambda = tune())
   )
 })
 
 test_that('bad input', {
   expect_snapshot(error = TRUE, logistic_reg(mode = "regression"))
-  expect_snapshot(error = TRUE, translate(logistic_reg(mixture = 0.5) %>% set_engine(engine = "LiblineaR")))
+  expect_snapshot(error = TRUE, translate(logistic_reg(mixture = 0.5) |> set_engine(engine = "LiblineaR")))
 
   expect_snapshot(
     res <-
-      mtcars %>%
-      dplyr::mutate(cyl = as.factor(cyl)) %>%
+      mtcars |>
+      dplyr::mutate(cyl = as.factor(cyl)) |>
       fit(logistic_reg(), cyl ~ mpg, data = .)
   )
 })
@@ -27,8 +27,8 @@ test_that('bad input', {
 lending_club <- head(lending_club, 200)
 lc_form <- as.formula(Class ~ log(funded_amnt) + int_rate)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
-lc_basic <- logistic_reg() %>% set_engine("glm")
-ll_basic <- logistic_reg() %>% set_engine("LiblineaR")
+lc_basic <- logistic_reg() |> set_engine("glm")
+ll_basic <- logistic_reg() |> set_engine("LiblineaR")
 
 test_that('glm execution', {
 
@@ -133,7 +133,7 @@ test_that('glm intervals', {
   upper_glm <- stats_glm$family$linkinv(upper_glm)
 
   res <- fit(
-    logistic_reg() %>% set_engine("glm"),
+    logistic_reg() |> set_engine("glm"),
     Class ~ log(funded_amnt) + int_rate,
     data = lending_club,
     control = ctrl
@@ -252,8 +252,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- logistic_reg(mixture = -1) %>%
-        set_engine("glm") %>%
+      spec <- logistic_reg(mixture = -1) |>
+        set_engine("glm") |>
         set_mode("classification")
       fit(spec, Class ~ ., lending_club)
     }
@@ -261,8 +261,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- logistic_reg(penalty = -1) %>%
-        set_engine("glm") %>%
+      spec <- logistic_reg(penalty = -1) |>
+        set_engine("glm") |>
         set_mode("classification")
       fit(spec, Class ~ ., lending_club)
     }
@@ -270,8 +270,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- logistic_reg(mixture = 0.5) %>%
-        set_engine("LiblineaR") %>%
+      spec <- logistic_reg(mixture = 0.5) |>
+        set_engine("LiblineaR") |>
         set_mode("classification")
       fit(spec, Class ~ ., lending_club)
     }
@@ -279,8 +279,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- logistic_reg(penalty = 0) %>%
-        set_engine("LiblineaR") %>%
+      spec <- logistic_reg(penalty = 0) |>
+        set_engine("LiblineaR") |>
         set_mode("classification")
       fit(spec, Class ~ ., lending_club)
     }
@@ -292,24 +292,24 @@ test_that("check_args() works", {
 test_that("tunables", {
 
   expect_snapshot(
-    logistic_reg() %>%
+    logistic_reg() |>
       tunable()
   )
 
   expect_snapshot(
-    logistic_reg() %>%
-      set_engine("brulee") %>%
+    logistic_reg() |>
+      set_engine("brulee") |>
       tunable()
   )
   expect_snapshot(
-    logistic_reg() %>%
-      set_engine("glmnet") %>%
+    logistic_reg() |>
+      set_engine("glmnet") |>
       tunable()
   )
 
   expect_snapshot(
-    logistic_reg() %>%
-      set_engine("keras") %>%
+    logistic_reg() |>
+      set_engine("keras") |>
       tunable()
   )
 

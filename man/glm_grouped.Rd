@@ -54,7 +54,7 @@ nrow(ucb_long)
 
 # Format where the outcome is formatted as number of events
 ucb_events <-
-  ucb_weighted \%>\%
+  ucb_weighted |>
   tidyr::pivot_wider(
     id_cols = c(Gender, Dept),
     names_from = Admit,

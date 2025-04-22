@@ -27,9 +27,9 @@ rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
-) %>%  
-  set_engine("randomForest") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("randomForest") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -59,9 +59,9 @@ rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
-) %>% 
-  set_engine("randomForest") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("randomForest") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

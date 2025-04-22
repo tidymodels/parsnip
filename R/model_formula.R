@@ -23,9 +23,9 @@
 #' looks like:
 #'
 #' ``` r
-#' gen_additive_mod() %>%
-#'   set_mode("regression") %>%
-#'   set_engine("mgcv") %>%
+#' gen_additive_mod() |>
+#'   set_mode("regression") |>
+#'   set_engine("mgcv") |>
 #'   fit(mpg ~ wt + s(disp, k = 5), data = mtcars)
 #' ```
 #'
@@ -54,11 +54,11 @@
 #'
 #'    ``` r
 #'    model_spec <-
-#'      gen_additive_mod() %>%
-#'      set_mode("regression") %>%
+#'      gen_additive_mod() |>
+#'      set_mode("regression") |>
 #'      set_engine("mgcv")
 #'
-#'    model_spec %>%
+#'    model_spec |>
 #'      fit(model_formula, data = mtcars)
 #'    ```
 #'
@@ -80,8 +80,8 @@
 #'    library(workflows)
 #'
 #'    wflow <-
-#'      workflow() %>%
-#'      add_formula(preproc_formula) %>%
+#'      workflow() |>
+#'      add_formula(preproc_formula) |>
 #'      add_model(model_spec, formula = model_formula)
 #'
 #'    fit(wflow, data = mtcars)

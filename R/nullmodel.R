@@ -171,7 +171,7 @@ null_model <-
 #' @keywords internal
 #' @examplesIf !parsnip:::is_cran_check()
 #'
-#' nullmodel(mtcars[,-1], mtcars$mpg) %>% tidy()
+#' nullmodel(mtcars[,-1], mtcars$mpg) |> tidy()
 
 tidy.nullmodel <- function(x, ...) {
   tibble::tibble(value = x$value)

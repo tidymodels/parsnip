@@ -39,11 +39,11 @@ An updated model object.
 \dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 rand_forest()
 
-rand_forest() \%>\%
-  set_args(mtry = 3, importance = TRUE) \%>\%
+rand_forest() |>
+  set_args(mtry = 3, importance = TRUE) |>
   set_mode("regression")
 
-linear_reg() \%>\%
+linear_reg() |>
   set_mode("quantile regression", quantile_levels = c(0.2, 0.5, 0.8))
 \dontshow{\}) # examplesIf}
 }

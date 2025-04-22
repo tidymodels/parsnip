@@ -11,9 +11,9 @@ defaults <-
                  default = c("'weibull'"))
 
 param <-
-  survival_reg() %>%
-  set_engine("survival") %>%
-  set_mode("censored regression") %>%
+  survival_reg() |>
+  set_engine("survival") |>
+  set_mode("censored regression") |>
   make_parameter_list(defaults)
 ```
 
@@ -30,9 +30,9 @@ param$item
 ```{r survival-creg}
 library(censored)
 
-survival_reg(dist = character(1)) %>% 
-  set_engine("survival") %>% 
-  set_mode("censored regression") %>% 
+survival_reg(dist = character(1)) |> 
+  set_engine("survival") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 
@@ -49,8 +49,8 @@ For example, in this model, the numeric column `rx` is used to estimate two diff
 ```{r}
 library(survival)
 
-survival_reg() %>% 
-  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) %>% 
+survival_reg() |> 
+  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) |> 
   extract_fit_engine()
 ```
 

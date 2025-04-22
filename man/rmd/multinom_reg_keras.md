@@ -17,8 +17,8 @@ For `penalty`, the amount of regularization is _only_ L2 penalty (i.e., ridge or
 
 
 ``` r
-multinom_reg(penalty = double(1)) %>% 
-  set_engine("keras") %>% 
+multinom_reg(penalty = double(1)) |> 
+  set_engine("keras") |> 
   translate()
 ```
 

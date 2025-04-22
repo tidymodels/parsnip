@@ -24,8 +24,8 @@ The \strong{discrim} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
 
-discrim_linear(penalty = numeric(0)) \%>\% 
-  set_engine("mda") \%>\% 
+discrim_linear(penalty = numeric(0)) |> 
+  set_engine("mda") |> 
   translate()
 }\if{html}{\out{</div>}}
 

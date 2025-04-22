@@ -61,17 +61,17 @@ or silently generating incorrect predictions.
 
 \strong{Good}:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{   parsnip_fit \%>\% predict(new_data)
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{   parsnip_fit |> predict(new_data)
 }\if{html}{\out{</div>}}
 
 \strong{Bad}:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{   parsnip_fit \%>\% extract_fit_engine() \%>\% predict(new_data)
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{   parsnip_fit |> extract_fit_engine() |> predict(new_data)
 }\if{html}{\out{</div>}}
 }
 \examples{
 \dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-lm_spec <- linear_reg() \%>\% set_engine("lm")
+lm_spec <- linear_reg() |> set_engine("lm")
 lm_fit <- fit(lm_spec, mpg ~ ., data = mtcars)
 
 lm_spec

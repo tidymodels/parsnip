@@ -5,6 +5,6 @@ library(tidymodels)
 tidymodels_prefer()
 data(penguins)
 
-penguins <- penguins %>% select(island, starts_with("bill_"))
+penguins <- penguins |> select(island, starts_with("bill_"))
 penguins_train <- penguins[-c(21, 153, 31, 277, 1), ]
 penguins_test  <- penguins[ c(21, 153, 31, 277, 1), ]

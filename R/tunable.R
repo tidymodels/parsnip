@@ -59,7 +59,7 @@ add_engine_parameters <- function(pset, engines) {
     engine_names <- pset$name[is_engine_param]
     pset <- pset[!is_engine_param,]
     pset <-
-      dplyr::bind_rows(pset, engines %>% dplyr::filter(name %in% engines$name))
+      dplyr::bind_rows(pset, engines |> dplyr::filter(name %in% engines$name))
   }
   pset
 }
@@ -232,7 +232,7 @@ brulee_mlp_args <-
       list(pkg = "dials", fun = "class_weights"),
       list(pkg = "dials", fun = "rate_schedule", values = tune_sched)
     )
-  ) %>%
+  ) |>
   dplyr::mutate(source = "model_spec")
 
 brulee_mlp_only_args <-
@@ -251,13 +251,13 @@ tunable.linear_reg <- function(x, ...) {
       list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
   } else if (x$engine == "brulee") {
     res <-
-      brulee_mlp_args %>%
-      dplyr::anti_join(brulee_mlp_only_args, by = "name") %>%
-      dplyr::filter(name != "class_weights") %>%
+      brulee_mlp_args |>
+      dplyr::anti_join(brulee_mlp_only_args, by = "name") |>
+      dplyr::filter(name != "class_weights") |>
       dplyr::mutate(
         component = "linear_reg",
         component_id = ifelse(name %in% names(formals("linear_reg")), "main", "engine")
-      ) %>%
+      ) |>
       dplyr::select(name, call_info, source, component, component_id)
   }
   res
@@ -273,12 +273,12 @@ tunable.logistic_reg <- function(x, ...) {
       list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
   } else if (x$engine == "brulee") {
     res <-
-      brulee_mlp_args %>%
-      dplyr::anti_join(brulee_mlp_only_args, by = "name") %>%
+      brulee_mlp_args |>
+      dplyr::anti_join(brulee_mlp_only_args, by = "name") |>
       dplyr::mutate(
         component = "logistic_reg",
         component_id = ifelse(name %in% names(formals("logistic_reg")), "main", "engine")
-      ) %>%
+      ) |>
       dplyr::select(name, call_info, source, component, component_id)
   }
   res
@@ -292,12 +292,12 @@ tunable.multinom_reg <- function(x, ...) {
       list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
   } else if (x$engine == "brulee") {
     res <-
-      brulee_mlp_args %>%
-      dplyr::anti_join(brulee_mlp_only_args, by = "name") %>%
+      brulee_mlp_args |>
+      dplyr::anti_join(brulee_mlp_only_args, by = "name") |>
       dplyr::mutate(
         component = "multinom_reg",
         component_id = ifelse(name %in% names(formals("multinom_reg")), "main", "engine")
-      ) %>%
+      ) |>
       dplyr::select(name, call_info, source, component, component_id)
   }
   res
@@ -358,7 +358,7 @@ tunable.decision_tree <- function(x, ...) {
   } else if (x$engine == "partykit") {
     res <-
       add_engine_parameters(res,
-                            partykit_engine_args %>%
+                            partykit_engine_args |>
                               dplyr::mutate(component = "decision_tree"))
   }
   res
@@ -379,11 +379,11 @@ tunable.mlp <- function(x, ...) {
   res <- NextMethod()
   if (grepl("brulee", x$engine)) {
     res <-
-      brulee_mlp_args %>%
+      brulee_mlp_args |>
       dplyr::mutate(
         component = "mlp",
         component_id = ifelse(name %in% names(formals("mlp")), "main", "engine")
-      ) %>%
+      ) |>
       dplyr::select(name, call_info, source, component, component_id)
     if (x$engine == "brulee") {
       res <- res[!grepl("_2", res$name),]

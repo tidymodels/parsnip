@@ -12,8 +12,8 @@ defaults <-
                  default = c("1.0"))
 
 param <-
-  discrim_linear() %>% 
-  set_engine("mda") %>% 
+  discrim_linear() |> 
+  set_engine("mda") |> 
   make_parameter_list(defaults)
 ```
 
@@ -30,8 +30,8 @@ param$item
 ```{r mda-cls}
 library(discrim)
 
-discrim_linear(penalty = numeric(0)) %>% 
-  set_engine("mda") %>% 
+discrim_linear(penalty = numeric(0)) |> 
+  set_engine("mda") |> 
   translate()
 ```
 

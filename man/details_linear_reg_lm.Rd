@@ -15,8 +15,8 @@ This engine has no tuning parameters.
 
 \subsection{Translation from parsnip to the original package}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() \%>\% 
-  set_engine("lm") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() |> 
+  set_engine("lm") |> 
   translate()
 }\if{html}{\out{</div>}}
 

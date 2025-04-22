@@ -22,8 +22,8 @@ ridge or weight decay).
 
 \subsection{Translation from parsnip to the original package}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1)) \%>\% 
-  set_engine("keras") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1)) |> 
+  set_engine("keras") |> 
   translate()
 }\if{html}{\out{</div>}}
 

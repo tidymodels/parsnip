@@ -20,9 +20,9 @@ The \strong{multilevelmod} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
 
-linear_reg() \%>\% 
-  set_engine("lme") \%>\% 
-  set_mode("regression") \%>\% 
+linear_reg() |> 
+  set_engine("lme") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -85,8 +85,8 @@ fitting, but the random effects formula should be passed to
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 data("riesby")
 
-linear_reg() \%>\% 
-  set_engine("lme", random =  ~ 1|subject) \%>\% 
+linear_reg() |> 
+  set_engine("lme", random =  ~ 1|subject) |> 
   fit(depr_score ~ week, data = riesby)
 }\if{html}{\out{</div>}}
 
@@ -97,13 +97,13 @@ workflow. In this case, you can add the appropriate columns using
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 lme_spec <- 
-  linear_reg() \%>\% 
+  linear_reg() |> 
   set_engine("lme", random =  ~ 1|subject)
 
 lme_wflow <- 
-  workflow() \%>\% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = depr_score, predictors = c(week, subject)) \%>\% 
+  add_variables(outcomes = depr_score, predictors = c(week, subject)) |> 
   add_model(lme_spec, formula = depr_score ~ week)
 
 fit(lme_wflow, data = riesby)

@@ -3,7 +3,7 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 # ------------------------------------------------------------------------------
 
 test_that('engine arguments', {
-  kernlab_cv <- svm_rbf(mode = "regression") %>% set_engine("kernlab", cross = 10)
+  kernlab_cv <- svm_rbf(mode = "regression") |> set_engine("kernlab", cross = 10)
 
   expect_snapshot(translate(kernlab_cv, "kernlab")$method$fit$args)
 })
@@ -11,27 +11,27 @@ test_that('engine arguments', {
 
 test_that('updating', {
   expect_snapshot(
-    svm_rbf(mode = "regression", rbf_sigma = .3) %>%
-      set_engine("kernlab", cross = 10) %>%
+    svm_rbf(mode = "regression", rbf_sigma = .3) |>
+      set_engine("kernlab", cross = 10) |>
       update(rbf_sigma = tune(), cross = tune())
   )
 })
 
 test_that('bad input', {
   expect_snapshot(error = TRUE, svm_rbf(mode = "reallyunknown"))
-  expect_snapshot(error = TRUE, translate(svm_rbf(mode = "regression") %>% set_engine( NULL)))
+  expect_snapshot(error = TRUE, translate(svm_rbf(mode = "regression") |> set_engine( NULL)))
 })
 
 # ------------------------------------------------------------------------------
 
 reg_mod <-
-  svm_rbf(mode = "regression", rbf_sigma = .1, cost = 1/4) %>%
-  set_engine("kernlab") %>%
+  svm_rbf(mode = "regression", rbf_sigma = .1, cost = 1/4) |>
+  set_engine("kernlab") |>
   set_mode("regression")
 
 cls_mod <-
-  svm_rbf(mode = "classification", rbf_sigma = .1, cost = 1/8) %>%
-  set_engine("kernlab") %>%
+  svm_rbf(mode = "classification", rbf_sigma = .1, cost = 1/8) |>
+  set_engine("kernlab") |>
   set_mode("classification")
 
 ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
@@ -69,7 +69,7 @@ test_that('svm rbf regression prediction', {
 
   skip_if_not_installed("kernlab")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] %>%
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
     droplevels()
 
   ind <- c(2, 1, 143)
@@ -114,7 +114,7 @@ test_that('svm rbf classification', {
 
   skip_if_not_installed("kernlab")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] %>%
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
     droplevels()
 
   ind <- c(2, 1, 143)
@@ -144,7 +144,7 @@ test_that('svm rbf classification probabilities', {
 
   skip_if_not_installed("kernlab")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] %>%
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
     droplevels()
 
   ind <- c(4, 55, 143)
@@ -180,8 +180,8 @@ test_that('svm rbf classification probabilities', {
 
   library(kernlab)
   kern_probs <-
-    kernlab::predict(extract_fit_engine(cls_form), hpc_no_m[ind, -5], type = "probabilities") %>%
-    as_tibble() %>%
+    kernlab::predict(extract_fit_engine(cls_form), hpc_no_m[ind, -5], type = "probabilities") |>
+    as_tibble() |>
     setNames(c('.pred_VF', '.pred_F', '.pred_L'))
 
   parsnip_probs <- predict(cls_form, hpc_no_m[ind, -5], type = "prob")

@@ -1,10 +1,10 @@
 lending_club <- head(lending_club, 200)
 lending_club_fail <-
-  lending_club %>%
+  lending_club |>
   dplyr::mutate(bad = Inf, miss = NA)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
 lc_basic <-
-  boost_tree(mode = "classification")  %>%
+  boost_tree(mode = "classification")  |>
       set_engine("C5.0", bands = 2)
 
 # ------------------------------------------------------------------------------
@@ -110,8 +110,8 @@ test_that('submodel prediction', {
 
   vars <- c("female", "tenure", "total_charges", "phone_service", "monthly_charges")
   class_fit <-
-    boost_tree(trees = 20, mode = "classification") %>%
-    set_engine("C5.0", control = C5.0Control(earlyStopping = FALSE)) %>%
+    boost_tree(trees = 20, mode = "classification") |>
+    set_engine("C5.0", control = C5.0Control(earlyStopping = FALSE)) |>
     fit(churn ~ ., data = wa_churn[-(1:4), c("churn", vars)])
 
   pred_class <- predict(extract_fit_engine(class_fit), wa_churn[1:4, vars], trials = 4, type = "prob")
@@ -136,15 +136,15 @@ test_that('argument checks for data dimensions', {
   penguins <- na.omit(penguins)
 
   spec <-
-    boost_tree(min_n = 1000, trees = 5) %>%
-    set_engine("C5.0") %>%
+    boost_tree(min_n = 1000, trees = 5) |>
+    set_engine("C5.0") |>
     set_mode("classification")
 
   expect_snapshot(
-    f_fit  <- spec %>% fit(species ~ ., data = penguins)
+    f_fit  <- spec |> fit(species ~ ., data = penguins)
   )
   expect_snapshot(
-    xy_fit <- spec %>% fit_xy(x = penguins[, -1], y = penguins$species)
+    xy_fit <- spec |> fit_xy(x = penguins[, -1], y = penguins$species)
   )
 
   expect_equal(extract_fit_engine(f_fit)$control$minCases,  nrow(penguins))

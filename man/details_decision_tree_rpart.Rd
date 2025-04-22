@@ -23,9 +23,9 @@ This model has 3 tuning parameters:
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
-  set_engine("rpart") \%>\% 
-  set_mode("classification") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
+  set_engine("rpart") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -47,9 +47,9 @@ This model has 3 tuning parameters:
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) \%>\% 
-  set_engine("rpart") \%>\% 
-  set_mode("regression") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
+  set_engine("rpart") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -79,9 +79,9 @@ decision_tree(
   tree_depth = integer(1),
   min_n = integer(1),
   cost_complexity = double(1)
-) \%>\% 
-  set_engine("rpart") \%>\% 
-  set_mode("censored regression") \%>\% 
+) |> 
+  set_engine("rpart") |> 
+  set_mode("censored regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 

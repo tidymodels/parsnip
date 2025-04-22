@@ -41,8 +41,8 @@ The \strong{agua} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
 
-poisson_reg(penalty = double(1), mixture = double(1)) \%>\% 
-  set_engine("h2o") \%>\% 
+poisson_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("h2o") |> 
   translate()
 }\if{html}{\out{</div>}}
 

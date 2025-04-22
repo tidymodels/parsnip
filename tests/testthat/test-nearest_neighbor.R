@@ -1,7 +1,7 @@
 test_that('updating', {
   expect_snapshot(
-    nearest_neighbor(neighbors = 5) %>%
-      set_engine("kknn", scale = FALSE) %>%
+    nearest_neighbor(neighbors = 5) |>
+      set_engine("kknn", scale = FALSE) |>
       update(neighbors = tune(), scale = tune())
   )
 })
@@ -18,8 +18,8 @@ test_that('check_args() works', {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- nearest_neighbor(neighbors = -1) %>%
-        set_engine("kknn") %>%
+      spec <- nearest_neighbor(neighbors = -1) |>
+        set_engine("kknn") |>
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }
@@ -27,8 +27,8 @@ test_that('check_args() works', {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- nearest_neighbor(weight_func = 2) %>%
-        set_engine("kknn") %>%
+      spec <- nearest_neighbor(weight_func = 2) |>
+        set_engine("kknn") |>
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }

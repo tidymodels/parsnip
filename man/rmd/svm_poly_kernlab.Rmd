@@ -11,8 +11,8 @@ defaults <-
                  default = c("1.0", "1L1", "1.0", "0.1"))
 
 param <-
-  svm_poly() %>% 
-  set_engine("kernlab") %>% 
+  svm_poly() |> 
+  set_engine("kernlab") |> 
   make_parameter_list(defaults)
 ```
 
@@ -32,9 +32,9 @@ svm_poly(
   degree = integer(1),
   scale_factor = double(1), 
   margin = double(1)
-) %>%  
-  set_engine("kernlab") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("kernlab") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -45,9 +45,9 @@ svm_poly(
   cost = double(1),
   degree = integer(1),
   scale_factor = double(1)
-) %>% 
-  set_engine("kernlab") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("kernlab") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
