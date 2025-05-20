@@ -11,9 +11,9 @@ defaults <-
                  default = c("2L"))
 
 param <-
- bag_tree() %>% 
-  set_engine("C5.0") %>% 
-  set_mode("classification") %>% 
+ bag_tree() |> 
+  set_engine("C5.0") |> 
+  set_mode("classification") |> 
   make_parameter_list(defaults)
 ```
 
@@ -30,9 +30,9 @@ param$item
 ```{r C5.0-cls}
 library(baguette)
 
-bag_tree(min_n = integer()) %>% 
-  set_engine("C5.0") %>% 
-  set_mode("classification") %>% 
+bag_tree(min_n = integer()) |> 
+  set_engine("C5.0") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

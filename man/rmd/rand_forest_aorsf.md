@@ -27,9 +27,9 @@ The **censored** extension package is required to fit this model.
 ``` r
 library(censored)
 
-rand_forest() %>%
-  set_engine("aorsf") %>%
-  set_mode("censored regression") %>%
+rand_forest() |>
+  set_engine("aorsf") |>
+  set_mode("censored regression") |>
   translate()
 ```
 
@@ -50,9 +50,9 @@ The **bonsai** extension package is required to fit this model.
 ``` r
 library(bonsai)
 
-rand_forest() %>%
-  set_engine("aorsf") %>%
-  set_mode("regression") %>%
+rand_forest() |>
+  set_engine("aorsf") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -74,9 +74,9 @@ The **bonsai** extension package is required to fit this model.
 ``` r
 library(bonsai)
 
-rand_forest() %>%
-  set_engine("aorsf") %>%
-  set_mode("classification") %>%
+rand_forest() |>
+  set_engine("aorsf") |>
+  set_mode("classification") |>
   translate()
 ```
 

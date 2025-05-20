@@ -1,7 +1,7 @@
 # updating
 
     Code
-      surv_reg() %>% set_engine("flexsurv", cl = 0.99) %>% update(cl = tune())
+      update(set_engine(surv_reg(), "flexsurv", cl = 0.99), cl = tune())
     Output
       Parametric Survival Regression Model Specification (regression)
       
@@ -22,7 +22,7 @@
 ---
 
     Code
-      translate(surv_reg() %>% set_engine("wat"))
+      translate(set_engine(surv_reg(), "wat"))
     Condition
       Error in `set_engine()`:
       x Engine "wat" is not supported for `surv_reg()`
@@ -31,7 +31,7 @@
 ---
 
     Code
-      res <- translate(surv_reg() %>% set_engine(NULL))
+      res <- translate(set_engine(surv_reg(), NULL))
     Condition
       Error in `set_engine()`:
       ! Missing engine. Possible mode/engine combinations are: regression {flexsurv, survival}.

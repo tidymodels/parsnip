@@ -11,9 +11,9 @@ defaults <-
                  default = c("see below", "100L", "2L", "10L", "0"))
 
 param <-
-  boost_tree() %>% 
-  set_engine("mboost") %>% 
-  set_mode("censored regression") %>%
+  boost_tree() |> 
+  set_engine("mboost") |> 
+  set_mode("censored regression") |>
   make_parameter_list(defaults)
 ```
 
@@ -32,9 +32,9 @@ The `mtry` parameter is related to the number of predictors. The default is to u
 ```{r mboost-creg}
 library(censored)
 
-boost_tree() %>% 
-  set_engine("mboost") %>% 
-  set_mode("censored regression") %>% 
+boost_tree() |> 
+  set_engine("mboost") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 

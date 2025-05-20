@@ -1,7 +1,7 @@
 # adding row indicies
 
     Code
-      as.matrix(mtcars) %>% add_rowindex()
+      add_rowindex(as.matrix(mtcars))
     Condition
       Error in `add_rowindex()`:
       ! `x` should be a data frame.

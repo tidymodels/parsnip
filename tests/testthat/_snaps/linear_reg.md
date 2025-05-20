@@ -1,8 +1,8 @@
 # updating
 
     Code
-      linear_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10) %>% update(
-        mixture = tune(), nlambda = tune())
+      update(set_engine(linear_reg(mixture = 0), "glmnet", nlambda = 10), mixture = tune(),
+      nlambda = tune())
     Output
       Linear Regression Model Specification (regression)
       
@@ -116,7 +116,7 @@
 # lm can handle rankdeficient predictions
 
     Code
-      preds <- linear_reg() %>% fit(y ~ ., data = data) %>% predict(new_data = data2)
+      preds <- predict(fit(linear_reg(), y ~ ., data = data), new_data = data2)
     Condition
       Warning in `predict.lm()`:
       prediction from rank-deficient fit; consider predict(., rankdeficient="NA")
@@ -124,7 +124,7 @@
 # check_args() works
 
     Code
-      spec <- linear_reg(mixture = -1) %>% set_engine("lm") %>% set_mode("regression")
+      spec <- set_mode(set_engine(linear_reg(mixture = -1), "lm"), "regression")
       fit(spec, compounds ~ ., hpc)
     Condition
       Error in `fit()`:
@@ -133,52 +133,16 @@
 ---
 
     Code
-      spec <- linear_reg(penalty = -1) %>% set_engine("lm") %>% set_mode("regression")
+      spec <- set_mode(set_engine(linear_reg(penalty = -1), "lm"), "regression")
       fit(spec, compounds ~ ., hpc)
     Condition
       Error in `fit()`:
       ! `penalty` must be a number larger than or equal to 0 or `NULL`, not the number -1.
 
-# prevent using a Poisson family
-
-    Code
-      linear_reg(penalty = 1) %>% set_engine("glmnet", family = poisson) %>% fit(mpg ~
-        ., data = mtcars)
-    Condition
-      Error in `fit()`:
-      ! Please install the glmnet package to use this engine.
-
----
-
-    Code
-      linear_reg(penalty = 1) %>% set_engine("glmnet", family = stats::poisson) %>%
-        fit(mpg ~ ., data = mtcars)
-    Condition
-      Error in `fit()`:
-      ! Please install the glmnet package to use this engine.
-
----
-
-    Code
-      linear_reg(penalty = 1) %>% set_engine("glmnet", family = stats::poisson()) %>%
-        fit(mpg ~ ., data = mtcars)
-    Condition
-      Error in `fit()`:
-      ! Please install the glmnet package to use this engine.
-
----
-
-    Code
-      linear_reg(penalty = 1) %>% set_engine("glmnet", family = "poisson") %>% fit(
-        mpg ~ ., data = mtcars)
-    Condition
-      Error in `fit()`:
-      ! Please install the glmnet package to use this engine.
-
 # tunables
 
     Code
-      linear_reg() %>% tunable()
+      tunable(linear_reg())
     Output
       # A tibble: 0 x 5
       # i 5 variables: name <chr>, call_info <list>, source <chr>, component <chr>,
@@ -187,7 +151,7 @@
 ---
 
     Code
-      linear_reg() %>% set_engine("brulee") %>% tunable()
+      tunable(set_engine(linear_reg(), "brulee"))
     Output
       # A tibble: 8 x 5
         name          call_info        source     component  component_id
@@ -204,7 +168,7 @@
 ---
 
     Code
-      linear_reg() %>% set_engine("glmnet") %>% tunable()
+      tunable(set_engine(linear_reg(), "glmnet"))
     Output
       # A tibble: 2 x 5
         name    call_info        source     component  component_id
@@ -215,7 +179,7 @@
 ---
 
     Code
-      linear_reg() %>% set_engine("quantreg") %>% tunable()
+      tunable(set_engine(linear_reg(), "quantreg"))
     Output
       # A tibble: 0 x 5
       # i 5 variables: name <chr>, call_info <list>, source <chr>, component <chr>,
@@ -224,7 +188,7 @@
 ---
 
     Code
-      linear_reg() %>% set_engine("keras") %>% tunable()
+      tunable(set_engine(linear_reg(), "keras"))
     Output
       # A tibble: 1 x 5
         name    call_info        source     component  component_id

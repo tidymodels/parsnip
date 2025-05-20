@@ -32,9 +32,9 @@ regression.
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
-) \%>\%  
-  set_engine("spark") \%>\% 
-  set_mode("regression") \%>\% 
+) |>  
+  set_engine("spark") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -64,9 +64,9 @@ chosen value if it is not consistent with the actual data dimensions.
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
-) \%>\% 
-  set_engine("spark") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("spark") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

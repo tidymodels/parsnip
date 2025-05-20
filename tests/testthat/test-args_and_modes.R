@@ -1,5 +1,5 @@
 test_that('pipe arguments', {
-  mod_1 <- rand_forest() %>%
+  mod_1 <- rand_forest() |>
     set_args(mtry = 1)
   expect_equal(
     rlang::quo_get_expr(mod_1$args$mtry),
@@ -10,7 +10,7 @@ test_that('pipe arguments', {
     rlang::empty_env()
   )
 
-  mod_2 <- rand_forest(mtry = 2) %>%
+  mod_2 <- rand_forest(mtry = 2) |>
     set_args(mtry = 1)
 
   var_env <- rlang::current_env()
@@ -24,19 +24,19 @@ test_that('pipe arguments', {
     rlang::empty_env()
   )
 
-  expect_snapshot(error = TRUE, rand_forest() %>% set_args())
+  expect_snapshot(error = TRUE, rand_forest() |> set_args())
 
 })
 
 
 test_that('pipe engine', {
-  mod_1 <- rand_forest() %>%
+  mod_1 <- rand_forest() |>
     set_mode("regression")
   expect_equal(mod_1$mode, "regression")
 
-  expect_snapshot(error = TRUE, rand_forest() %>% set_mode())
-  expect_snapshot(error = TRUE, rand_forest() %>% set_mode(2))
-  expect_snapshot(error = TRUE, rand_forest() %>% set_mode("haberdashery"))
+  expect_snapshot(error = TRUE, rand_forest() |> set_mode())
+  expect_snapshot(error = TRUE, rand_forest() |> set_mode(2))
+  expect_snapshot(error = TRUE, rand_forest() |> set_mode("haberdashery"))
 })
 
 test_that("can't set a mode that isn't allowed by the model spec", {
@@ -50,8 +50,8 @@ test_that("can't set a mode that isn't allowed by the model spec", {
 
 test_that("unavailable modes for an engine and vice-versa", {
   expect_snapshot(
-    decision_tree() %>%
-      set_mode("regression") %>%
+    decision_tree() |>
+      set_mode("regression") |>
       set_engine("C5.0"),
     error = TRUE
   )
@@ -62,33 +62,33 @@ test_that("unavailable modes for an engine and vice-versa", {
   )
 
   expect_snapshot(
-    decision_tree() %>%
-      set_engine("C5.0") %>%
+    decision_tree() |>
+      set_engine("C5.0") |>
       set_mode("regression"),
     error = TRUE
   )
 
   expect_snapshot(
-    decision_tree(engine = NULL) %>%
-      set_engine("C5.0") %>%
+    decision_tree(engine = NULL) |>
+      set_engine("C5.0") |>
       set_mode("regression"),
     error = TRUE
   )
 
   expect_snapshot(
-    decision_tree(engine = NULL)%>%
-      set_mode("regression") %>%
+    decision_tree(engine = NULL)|>
+      set_mode("regression") |>
       set_engine("C5.0"),
     error = TRUE
   )
 
   expect_snapshot(
-    proportional_hazards() %>% set_mode("regression"),
+    proportional_hazards() |> set_mode("regression"),
     error = TRUE
   )
 
   expect_snapshot(
-    linear_reg() %>% set_mode(),
+    linear_reg() |> set_mode(),
     error = TRUE
   )
 
@@ -98,12 +98,12 @@ test_that("unavailable modes for an engine and vice-versa", {
   )
 
   expect_snapshot(
-    linear_reg() %>% set_engine(),
+    linear_reg() |> set_engine(),
     error = TRUE
   )
 
   expect_snapshot(
-    proportional_hazards() %>% set_engine(),
+    proportional_hazards() |> set_engine(),
     error = TRUE
   )
 })
@@ -118,26 +118,26 @@ test_that("set_* functions error when input isn't model_spec", {
   )
 
   expect_snapshot(error = TRUE,
-                  bag_tree %>% set_mode("classification")
+                  bag_tree |> set_mode("classification")
   )
 
   expect_snapshot(error = TRUE,
-                  bag_tree %>% set_engine("rpart")
+                  bag_tree |> set_engine("rpart")
   )
 
   expect_snapshot(error = TRUE,
-                  bag_tree %>% set_args(boop = "bop")
+                  bag_tree |> set_args(boop = "bop")
   )
 
   # won't raise "info" part of error if not a parsnip-namespaced function
   # not a function
   expect_snapshot(error = TRUE,
-                  1L %>% set_args(mode = "classification")
+                  1L |> set_args(mode = "classification")
   )
 
   # not from parsnip
   expect_snapshot(error = TRUE,
-                  bag_tree %>% set_mode("classification")
+                  bag_tree |> set_mode("classification")
   )
 })
 

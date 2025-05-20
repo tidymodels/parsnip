@@ -36,9 +36,9 @@ Parsnip changes the default range for \code{cost} to \code{c(-10, 5)}.
   cost = double(1),
   rbf_sigma = double(1), 
   margin = double(1)
-) \%>\%  
-  set_engine("kernlab") \%>\% 
-  set_mode("regression") \%>\% 
+) |>  
+  set_engine("kernlab") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -62,9 +62,9 @@ Parsnip changes the default range for \code{cost} to \code{c(-10, 5)}.
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_rbf(
   cost = double(1),
   rbf_sigma = double(1)
-) \%>\% 
-  set_engine("kernlab") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("kernlab") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

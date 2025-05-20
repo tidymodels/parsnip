@@ -17,8 +17,8 @@
 # validation sets
 
     Code
-      reg_fit <- boost_tree(trees = 20, mode = "regression") %>% set_engine("xgboost",
-        validation = 3) %>% fit(mpg ~ ., data = mtcars[-(1:4), ])
+      reg_fit <- fit(set_engine(boost_tree(trees = 20, mode = "regression"),
+      "xgboost", validation = 3), mpg ~ ., data = mtcars[-(1:4), ])
     Condition
       Error in `parsnip::xgb_train()`:
       ! `validation` should be on [0, 1).
@@ -26,9 +26,8 @@
 # early stopping
 
     Code
-      reg_fit <- boost_tree(trees = 20, stop_iter = 30, mode = "regression") %>%
-        set_engine("xgboost", validation = 0.1) %>% fit(mpg ~ ., data = mtcars[-(1:4),
-      ])
+      reg_fit <- fit(set_engine(boost_tree(trees = 20, stop_iter = 30, mode = "regression"),
+      "xgboost", validation = 0.1), mpg ~ ., data = mtcars[-(1:4), ])
     Condition
       Warning:
       `early_stop` was reduced to 19.
@@ -36,9 +35,8 @@
 ---
 
     Code
-      reg_fit <- boost_tree(trees = 20, stop_iter = 0, mode = "regression") %>%
-        set_engine("xgboost", validation = 0.1) %>% fit(mpg ~ ., data = mtcars[-(1:4),
-      ])
+      reg_fit <- fit(set_engine(boost_tree(trees = 20, stop_iter = 0, mode = "regression"),
+      "xgboost", validation = 0.1), mpg ~ ., data = mtcars[-(1:4), ])
     Condition
       Error in `parsnip::xgb_train()`:
       ! `early_stop` should be on [2, 20).
@@ -54,7 +52,7 @@
 # argument checks for data dimensions
 
     Code
-      f_fit <- spec %>% fit(species ~ ., data = penguins, control = ctrl)
+      f_fit <- fit(spec, species ~ ., data = penguins, control = ctrl)
     Condition
       Warning:
       ! 1000 samples were requested but there were 333 rows in the data.
@@ -63,7 +61,7 @@
 ---
 
     Code
-      xy_fit <- spec %>% fit_xy(x = penguins_dummy, y = penguins$species, control = ctrl)
+      xy_fit <- fit_xy(spec, x = penguins_dummy, y = penguins$species, control = ctrl)
     Condition
       Warning:
       ! 1000 samples were requested but there were 333 rows in the data.
@@ -72,8 +70,8 @@
 # count/proportion parameters
 
     Code
-      boost_tree(mtry = 0.9, trees = 4) %>% set_engine("xgboost") %>% set_mode(
-        "regression") %>% fit(mpg ~ ., data = mtcars)
+      fit(set_mode(set_engine(boost_tree(mtry = 0.9, trees = 4), "xgboost"),
+      "regression"), mpg ~ ., data = mtcars)
     Condition
       Error in `xgb_train()`:
       ! The option `counts = TRUE` was used but `colsample_bynode` was given as 0.9.

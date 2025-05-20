@@ -23,9 +23,9 @@ The \strong{baguette} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(baguette)
 
-bag_tree(min_n = integer()) \%>\% 
-  set_engine("C5.0") \%>\% 
-  set_mode("classification") \%>\% 
+bag_tree(min_n = integer()) |> 
+  set_engine("C5.0") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

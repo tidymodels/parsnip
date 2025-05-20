@@ -32,9 +32,9 @@ performance assessment and potential early stopping.
 \code{\link[agua:h2o_train]{agua::h2o_train_auto()}} is a wrapper around
 \code{\link[h2o:h2o.automl]{h2o::h2o.automl()}}.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{auto_ml() \%>\%  
-  set_engine("h2o") \%>\% 
-  set_mode("regression") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{auto_ml() |>  
+  set_engine("h2o") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -50,9 +50,9 @@ performance assessment and potential early stopping.
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{auto_ml() \%>\%  
-  set_engine("h2o") \%>\% 
-  set_mode("classification") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{auto_ml() |>  
+  set_engine("h2o") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

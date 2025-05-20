@@ -17,9 +17,9 @@ The **censored** extension package is required to fit this model.
 ``` r
 library(censored)
 
-survival_reg() %>% 
-  set_engine("flexsurvspline") %>% 
-  set_mode("censored regression") %>% 
+survival_reg() |> 
+  set_engine("flexsurvspline") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 

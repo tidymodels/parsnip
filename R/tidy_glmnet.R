@@ -45,7 +45,7 @@ get_glmn_coefs <- function(x, penalty = 0.01) {
   res <- as.matrix(res)
   colnames(res) <- "estimate"
   rn <- rownames(res)
-  res <- tibble::as_tibble(res) %>% mutate(term = rn, penalty = penalty)
+  res <- tibble::as_tibble(res) |> mutate(term = rn, penalty = penalty)
   res <- dplyr::select(res, term, estimate, penalty)
   if (is.list(res$estimate)) {
     res$estimate <- purrr::map(

@@ -36,8 +36,8 @@ defaults to 0 (ridge regression) and 0.5 otherwise.
 wrapper around \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}} with
 \code{family = "gaussian"}.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = 1, mixture = 0.5) \%>\% 
-  set_engine("h2o") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = 1, mixture = 0.5) |> 
+  set_engine("h2o") |> 
   translate()
 }\if{html}{\out{</div>}}
 

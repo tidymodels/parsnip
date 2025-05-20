@@ -1,7 +1,7 @@
 # updating
 
     Code
-      expr1 %>% update(num_terms = tune(), nk = tune())
+      update(expr1, num_terms = tune(), nk = tune())
     Output
       MARS Model Specification (unknown mode)
       
@@ -17,7 +17,7 @@
 # bad input
 
     Code
-      translate(mars(mode = "regression") %>% set_engine())
+      translate(set_engine(mars(mode = "regression")))
     Condition
       Error in `set_engine()`:
       ! Missing engine. Possible mode/engine combinations are: classification {earth} and regression {earth}.
@@ -25,7 +25,7 @@
 ---
 
     Code
-      translate(mars() %>% set_engine("wat?"))
+      translate(set_engine(mars(), "wat?"))
     Condition
       Error in `set_engine()`:
       x Engine "wat?" is not supported for `mars()`
@@ -42,8 +42,7 @@
 # check_args() works
 
     Code
-      spec <- mars(prod_degree = 0) %>% set_engine("earth") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(mars(prod_degree = 0), "earth"), "classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:
@@ -52,8 +51,7 @@
 ---
 
     Code
-      spec <- mars(num_terms = 0) %>% set_engine("earth") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(mars(num_terms = 0), "earth"), "classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:
@@ -62,8 +60,7 @@
 ---
 
     Code
-      spec <- mars(prune_method = 2) %>% set_engine("earth") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(mars(prune_method = 2), "earth"), "classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:

@@ -154,7 +154,7 @@ spec_is_loaded <- function(spec,
   engine_condition <- engine_filter_condition(engine, user_specified_engine, avail)
   mode_condition <- mode_filter_condition(mode, user_specified_mode, avail)
 
-  avail <- avail %>%
+  avail <- avail |>
     vctrs::vec_slice(mode_condition & engine_condition)
 
   if (nrow(avail) > 0) {
@@ -592,7 +592,7 @@ is_cran_check <- function() {
 #' data("two_class_dat")
 #'
 #' levels(two_class_dat$Class)
-#' lr_fit <- logistic_reg() %>% fit(Class ~ ., data = two_class_dat)
+#' lr_fit <- logistic_reg() |> fit(Class ~ ., data = two_class_dat)
 #'
 #' .get_prediction_column_names(lr_fit)
 #' .get_prediction_column_names(lr_fit, syms = TRUE)
@@ -604,7 +604,7 @@ is_cran_check <- function() {
   }
 
   if (inherits(x, "workflow")) {
-    x <- x %>% hardhat::extract_fit_parsnip(x)
+    x <- x |> hardhat::extract_fit_parsnip(x)
   }
   model_spec <- extract_spec_parsnip(x)
   model_engine <- model_spec$engine
@@ -614,8 +614,8 @@ is_cran_check <- function() {
   # appropriate populate the model db
   inst_res <- purrr::map(required_pkgs(x), rlang::check_installed)
   predict_types <-
-    get_from_env(paste0(model_type, "_predict")) %>%
-    dplyr::filter(engine == model_engine & mode == model_mode) %>%
+    get_from_env(paste0(model_type, "_predict")) |>
+    dplyr::filter(engine == model_engine & mode == model_mode) |>
     purrr::pluck("type")
 
   if (length(predict_types) == 0) {

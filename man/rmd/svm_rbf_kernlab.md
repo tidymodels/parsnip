@@ -27,9 +27,9 @@ svm_rbf(
   cost = double(1),
   rbf_sigma = double(1), 
   margin = double(1)
-) %>%  
-  set_engine("kernlab") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("kernlab") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -55,9 +55,9 @@ svm_rbf(
 svm_rbf(
   cost = double(1),
   rbf_sigma = double(1)
-) %>% 
-  set_engine("kernlab") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("kernlab") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

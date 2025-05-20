@@ -12,8 +12,8 @@ defaults <-
                  default = c("FALSE", "1.0"))
 
 param <-
-  gen_additive_mod() %>% 
-  set_engine("mgcv") %>% 
+  gen_additive_mod() |> 
+  set_engine("mgcv") |> 
   make_parameter_list(defaults)
 ```
 
@@ -27,18 +27,18 @@ param$item
 ## Translation from parsnip to the original package  (regression)
 
 ```{r glm-reg}
-gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>% 
-  set_engine("mgcv") %>% 
-  set_mode("regression") %>% 
+gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) |> 
+  set_engine("mgcv") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
 ## Translation from parsnip to the original package  (classification)
 
 ```{r glm-cls}
-gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>% 
-  set_engine("mgcv") %>% 
-  set_mode("classification") %>% 
+gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) |> 
+  set_engine("mgcv") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -51,9 +51,9 @@ library(mgcv)
 ```
 ```{r}
 library(mgcv)
-gen_additive_mod() %>% 
-  set_engine("mgcv") %>% 
-  set_mode("regression") %>% 
+gen_additive_mod() |> 
+  set_engine("mgcv") |> 
+  set_mode("regression") |> 
   fit(mpg ~ wt + gear + cyl + s(disp, k = 10), data = mtcars)
 ```
 
@@ -64,14 +64,14 @@ When using a workflow, pass the _model formula_ to [workflows::add_model()]'s `f
 
 ```{r}
 spec <- 
-  gen_additive_mod() %>% 
-  set_engine("mgcv") %>% 
+  gen_additive_mod() |> 
+  set_engine("mgcv") |> 
   set_mode("regression")
 
-workflow() %>% 
-  add_model(spec, formula = mpg ~ wt + gear + cyl + s(disp, k = 10)) %>% 
-  add_formula(mpg ~ wt + gear + cyl + disp) %>% 
-  fit(data = mtcars) %>% 
+workflow() |> 
+  add_model(spec, formula = mpg ~ wt + gear + cyl + s(disp, k = 10)) |> 
+  add_formula(mpg ~ wt + gear + cyl + disp) |> 
+  fit(data = mtcars) |> 
   extract_fit_engine()
 ```
 

@@ -21,9 +21,9 @@ Parsnip changes the default range for `num_terms` to `c(50, 500)`.
 
 
 ``` r
-mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) %>% 
-  set_engine("earth") %>% 
-  set_mode("regression") %>% 
+mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |> 
+  set_engine("earth") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -47,9 +47,9 @@ mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(
 
 
 ``` r
-mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) %>% 
-  set_engine("earth") %>% 
-  set_mode("classification") %>% 
+mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |> 
+  set_engine("earth") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

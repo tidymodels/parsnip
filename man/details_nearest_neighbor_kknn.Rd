@@ -29,9 +29,9 @@ Parsnip changes the default range for \code{neighbors} to \code{c(1, 15)} and
   neighbors = integer(1),
   weight_func = character(1),
   dist_power = double(1)
-) \%>\%  
-  set_engine("kknn") \%>\% 
-  set_mode("regression") \%>\% 
+) |>  
+  set_engine("kknn") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -59,9 +59,9 @@ it is not consistent with the actual data dimensions.
   neighbors = integer(1),
   weight_func = character(1),
   dist_power = double(1)
-) \%>\% 
-  set_engine("kknn") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("kknn") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

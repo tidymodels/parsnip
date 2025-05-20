@@ -1,8 +1,8 @@
 # updating
 
     Code
-      logistic_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10) %>% update(
-        mixture = tune(), nlambda = tune())
+      update(set_engine(logistic_reg(mixture = 0), "glmnet", nlambda = 10), mixture = tune(),
+      nlambda = tune())
     Output
       Logistic Regression Model Specification (classification)
       
@@ -26,7 +26,7 @@
 ---
 
     Code
-      translate(logistic_reg(mixture = 0.5) %>% set_engine(engine = "LiblineaR"))
+      translate(set_engine(logistic_reg(mixture = 0.5), engine = "LiblineaR"))
     Condition
       Error in `translate()`:
       ! For the LiblineaR engine, `mixture` must be 0 or 1.
@@ -34,16 +34,11 @@
 ---
 
     Code
-      res <- mtcars %>% dplyr::mutate(cyl = as.factor(cyl)) %>% fit(logistic_reg(),
-      cyl ~ mpg, data = .)
+      res <- fit(dplyr::mutate(mtcars, cyl = as.factor(cyl)), logistic_reg(), cyl ~
+        mpg, data = .)
     Condition
-      Warning:
-      ! Logistic regression is intended for modeling binary outcomes, but there are 3 levels in the outcome.
-      i If this is unintended, adjust outcome levels accordingly or see the `multinom_reg()` function.
-      Warning:
-      glm.fit: algorithm did not converge
-      Warning:
-      glm.fit: fitted probabilities numerically 0 or 1 occurred
+      Error in `UseMethod()`:
+      ! no applicable method for 'fit' applied to an object of class "data.frame"
 
 # glm execution
 
@@ -100,8 +95,8 @@
 # check_args() works
 
     Code
-      spec <- logistic_reg(mixture = -1) %>% set_engine("glm") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(logistic_reg(mixture = -1), "glm"),
+      "classification")
       fit(spec, Class ~ ., lending_club)
     Condition
       Error in `fit()`:
@@ -110,8 +105,8 @@
 ---
 
     Code
-      spec <- logistic_reg(penalty = -1) %>% set_engine("glm") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(logistic_reg(penalty = -1), "glm"),
+      "classification")
       fit(spec, Class ~ ., lending_club)
     Condition
       Error in `fit()`:
@@ -120,8 +115,8 @@
 ---
 
     Code
-      spec <- logistic_reg(mixture = 0.5) %>% set_engine("LiblineaR") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(logistic_reg(mixture = 0.5), "LiblineaR"),
+      "classification")
       fit(spec, Class ~ ., lending_club)
     Condition
       Error in `fit()`:
@@ -132,8 +127,8 @@
 ---
 
     Code
-      spec <- logistic_reg(penalty = 0) %>% set_engine("LiblineaR") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(logistic_reg(penalty = 0), "LiblineaR"),
+      "classification")
       fit(spec, Class ~ ., lending_club)
     Condition
       Error in `fit()`:
@@ -142,7 +137,7 @@
 # tunables
 
     Code
-      logistic_reg() %>% tunable()
+      tunable(logistic_reg())
     Output
       # A tibble: 0 x 5
       # i 5 variables: name <chr>, call_info <list>, source <chr>, component <chr>,
@@ -151,7 +146,7 @@
 ---
 
     Code
-      logistic_reg() %>% set_engine("brulee") %>% tunable()
+      tunable(set_engine(logistic_reg(), "brulee"))
     Output
       # A tibble: 9 x 5
         name          call_info        source     component    component_id
@@ -169,7 +164,7 @@
 ---
 
     Code
-      logistic_reg() %>% set_engine("glmnet") %>% tunable()
+      tunable(set_engine(logistic_reg(), "glmnet"))
     Output
       # A tibble: 2 x 5
         name    call_info        source     component    component_id
@@ -180,7 +175,7 @@
 ---
 
     Code
-      logistic_reg() %>% set_engine("keras") %>% tunable()
+      tunable(set_engine(logistic_reg(), "keras"))
     Output
       # A tibble: 1 x 5
         name    call_info        source     component    component_id

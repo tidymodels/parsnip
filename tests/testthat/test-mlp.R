@@ -2,17 +2,17 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 test_that('updating', {
   expect_snapshot(
-    mlp(mode = "classification", hidden_units = 2) %>%
-      set_engine("nnet", Hess = FALSE) %>%
+    mlp(mode = "classification", hidden_units = 2) |>
+      set_engine("nnet", Hess = FALSE) |>
       update(hidden_units = tune(), Hess = tune())
   )
 })
 
 test_that('bad input', {
   expect_snapshot(error = TRUE, mlp(mode = "time series"))
-  expect_snapshot(error = TRUE, translate(mlp(mode = "classification") %>% set_engine("wat?")))
+  expect_snapshot(error = TRUE, translate(mlp(mode = "classification") |> set_engine("wat?")))
   expect_warning(
-    translate(mlp(mode = "regression") %>% set_engine("nnet", formula = y ~ x)),
+    translate(mlp(mode = "regression") |> set_engine("nnet", formula = y ~ x)),
     class = "parsnip_protected_arg_warning"
   )
 })
@@ -41,9 +41,9 @@ test_that("more activations for brulee", {
   set.seed(1)
   fit <-
     try(
-      mlp(penalty = 0.10, activation = "softplus") %>%
-        set_mode("regression") %>%
-        set_engine("brulee") %>%
+      mlp(penalty = 0.10, activation = "softplus") |>
+        set_mode("regression") |>
+        set_engine("brulee") |>
         fit_xy(x = as.matrix(ames_train[, c("Longitude", "Latitude")]),
                y = ames_train$Sale_Price),
       silent = TRUE)
@@ -56,8 +56,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- mlp(penalty = -1) %>%
-        set_engine("keras") %>%
+      spec <- mlp(penalty = -1) |>
+        set_engine("keras") |>
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }
@@ -65,8 +65,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- mlp(dropout = -1) %>%
-        set_engine("keras") %>%
+      spec <- mlp(dropout = -1) |>
+        set_engine("keras") |>
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }
@@ -74,8 +74,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- mlp(dropout = 1, penalty = 3) %>%
-        set_engine("keras") %>%
+      spec <- mlp(dropout = 1, penalty = 3) |>
+        set_engine("keras") |>
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }
@@ -87,25 +87,25 @@ test_that("check_args() works", {
 test_that("tunables", {
 
   expect_snapshot(
-    mlp() %>%
-      set_engine("brulee") %>%
+    mlp() |>
+      set_engine("brulee") |>
       tunable()
   )
   expect_snapshot(
-    mlp() %>%
-      set_engine("brulee_two_layer") %>%
-      tunable()
-  )
-
-  expect_snapshot(
-    mlp() %>%
-      set_engine("nnet") %>%
+    mlp() |>
+      set_engine("brulee_two_layer") |>
       tunable()
   )
 
   expect_snapshot(
-    mlp() %>%
-      set_engine("keras") %>%
+    mlp() |>
+      set_engine("nnet") |>
+      tunable()
+  )
+
+  expect_snapshot(
+    mlp() |>
+      set_engine("keras") |>
       tunable()
   )
 

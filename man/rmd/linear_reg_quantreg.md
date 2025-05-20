@@ -15,9 +15,9 @@ This model only works with the `"quantile regression"` model and requires users 
 
 
 ``` r
-linear_reg() %>% 
-  set_engine("quantreg") %>% 
-  set_mode("quantile regression", quantile_levels = (1:3) / 4) %>% 
+linear_reg() |> 
+  set_engine("quantreg") |> 
+  set_mode("quantile regression", quantile_levels = (1:3) / 4) |> 
   translate()
 ```
 
@@ -47,15 +47,15 @@ library(modeldata)
 rlang::check_installed("quantreg")
 
 n <- nrow(Chicago)
-Chicago <- Chicago %>% select(ridership, Clark_Lake)
+Chicago <- Chicago |> select(ridership, Clark_Lake)
 
 Chicago_train <- Chicago[1:(n - 7), ]
 Chicago_test  <- Chicago[(n - 6):n, ]
 
 qr_fit <- 
-  linear_reg() %>% 
-  set_engine("quantreg") %>% 
-  set_mode("quantile regression", quantile_levels = (1:3) / 4) %>% 
+  linear_reg() |> 
+  set_engine("quantreg") |> 
+  set_mode("quantile regression", quantile_levels = (1:3) / 4) |> 
   fit(ridership ~ Clark_Lake, data = Chicago_train)
 qr_fit
 ```

@@ -118,13 +118,13 @@
 #' library(dplyr)
 #'
 #' lm_model <-
-#'   linear_reg() %>%
-#'   set_engine("lm") %>%
-#'   fit(mpg ~ ., data = mtcars %>% dplyr::slice(11:32))
+#'   linear_reg() |>
+#'   set_engine("lm") |>
+#'   fit(mpg ~ ., data = mtcars |> dplyr::slice(11:32))
 #'
 #' pred_cars <-
-#'   mtcars %>%
-#'   dplyr::slice(1:10) %>%
+#'   mtcars |>
+#'   dplyr::slice(1:10) |>
 #'   dplyr::select(-mpg)
 #'
 #' predict(lm_model, pred_cars)

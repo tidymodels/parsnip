@@ -1,8 +1,8 @@
 # updating
 
     Code
-      svm_poly(mode = "regression", degree = 2) %>% set_engine("kernlab", cross = 10) %>%
-        update(degree = tune(), cross = tune())
+      update(set_engine(svm_poly(mode = "regression", degree = 2), "kernlab", cross = 10),
+      degree = tune(), cross = tune())
     Output
       Polynomial Support Vector Machine Model Specification (regression)
       
@@ -26,7 +26,7 @@
 ---
 
     Code
-      svm_poly() %>% set_engine(NULL) %>% translate()
+      translate(set_engine(svm_poly(), NULL))
     Condition
       Error in `set_engine()`:
       ! Missing engine. Possible mode/engine combinations are: classification {kernlab} and regression {kernlab}.

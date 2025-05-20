@@ -23,8 +23,8 @@ The `penalty` parameter has no default and requires a single numeric value. For 
 
 
 ``` r
-logistic_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("glmnet") %>% 
+logistic_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("glmnet") |> 
   translate()
 ```
 

@@ -25,8 +25,8 @@
 # classification model
 
     Code
-      cls_res <- predict(log_reg, lending_club %>% dplyr::slice(1:7) %>% dplyr::select(
-        -Class))
+      cls_res <- predict(log_reg, dplyr::select(dplyr::slice(lending_club, 1:7),
+      -Class))
     Condition
       Warning:
       Model fit failed; cannot make predictions.
@@ -34,8 +34,8 @@
 ---
 
     Code
-      prb_res <- predict(log_reg, lending_club %>% dplyr::slice(1:7) %>% dplyr::select(
-        -Class), type = "prob")
+      prb_res <- predict(log_reg, dplyr::select(dplyr::slice(lending_club, 1:7),
+      -Class), type = "prob")
     Condition
       Warning:
       Model fit failed; cannot make predictions.
@@ -43,8 +43,8 @@
 ---
 
     Code
-      ci_res <- predict(log_reg, lending_club %>% dplyr::slice(1:7) %>% dplyr::select(
-        -Class), type = "conf_int")
+      ci_res <- predict(log_reg, dplyr::select(dplyr::slice(lending_club, 1:7),
+      -Class), type = "conf_int")
     Condition
       Warning:
       Model fit failed; cannot make predictions.

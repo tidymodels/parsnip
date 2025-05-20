@@ -11,8 +11,8 @@ defaults <-
                  default = c("see below", "see below"))
 
 param <-
-poisson_reg() %>% 
-  set_engine("h2o") %>% 
+poisson_reg() |> 
+  set_engine("h2o") |> 
   make_parameter_list(defaults)
 ```
 
@@ -34,8 +34,8 @@ param$item
 ```{r h2o-csl}
 library(poissonreg)
 
-poisson_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("h2o") %>% 
+poisson_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("h2o") |> 
   translate()
 ```
 

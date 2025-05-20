@@ -49,9 +49,9 @@ rule_fit(
   trees = integer(1),
   tree_depth = integer(1),
   penalty = numeric(1)
-) \%>\%
-  set_engine("h2o") \%>\%
-  set_mode("regression") \%>\%
+) |>
+  set_engine("h2o") |>
+  set_mode("regression") |>
   translate()
 }\if{html}{\out{</div>}}
 
@@ -82,9 +82,9 @@ The \strong{agua} extension package is required to fit this model.
   trees = integer(1),
   tree_depth = integer(1),
   penalty = numeric(1)
-) \%>\%
-  set_engine("h2o") \%>\%
-  set_mode("classification") \%>\%
+) |>
+  set_engine("h2o") |>
+  set_mode("classification") |>
   translate()
 }\if{html}{\out{</div>}}
 

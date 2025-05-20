@@ -31,8 +31,8 @@ and ridge.
 
 \subsection{Translation from parsnip to the original package}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg(penalty = double(1), mixture = double(1)) \%>\% 
-  set_engine("glmnet") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("glmnet") |> 
   translate()
 }\if{html}{\out{</div>}}
 

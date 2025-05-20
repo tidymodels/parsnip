@@ -1,8 +1,8 @@
 # updating
 
     Code
-      svm_linear(mode = "regression", cost = 2) %>% set_engine("kernlab", cross = 10) %>%
-        update(cross = tune(), cost = tune())
+      update(set_engine(svm_linear(mode = "regression", cost = 2), "kernlab", cross = 10),
+      cross = tune(), cost = tune())
     Output
       Linear Support Vector Machine Model Specification (regression)
       
@@ -18,7 +18,7 @@
 # bad input
 
     Code
-      translate(svm_linear(mode = "regression") %>% set_engine(NULL))
+      translate(set_engine(svm_linear(mode = "regression"), NULL))
     Condition
       Error in `set_engine()`:
       ! Missing engine. Possible mode/engine combinations are: classification {LiblineaR, kernlab} and regression {LiblineaR, kernlab}.
@@ -34,7 +34,7 @@
 ---
 
     Code
-      translate(svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = 3))
+      translate(set_engine(svm_linear(mode = "regression"), "LiblineaR", type = 3))
     Condition
       Error in `translate()`:
       ! The LiblineaR engine argument `type = 3` does not correspond to an SVM regression model.
@@ -42,7 +42,7 @@
 ---
 
     Code
-      translate(svm_linear(mode = "classification") %>% set_engine("LiblineaR", type = 11))
+      translate(set_engine(svm_linear(mode = "classification"), "LiblineaR", type = 11))
     Condition
       Error in `translate()`:
       ! The LiblineaR engine argument of `type = 11` does not correspond to an SVM classification model.

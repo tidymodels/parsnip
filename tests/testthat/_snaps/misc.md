@@ -53,7 +53,7 @@
 # model type functions message informatively with unknown implementation
 
     Code
-      bag_tree() %>% set_engine("rpart") %>% set_mode("regression")
+      set_mode(set_engine(bag_tree(), "rpart"), "regression")
     Message
       ! parsnip could not locate an implementation for `bag_tree` regression model specifications using the `rpart` engine.
       i The parsnip extension package baguette implements support for this specification.
@@ -71,7 +71,7 @@
 ---
 
     Code
-      bag_tree() %>% set_mode("censored regression")
+      set_mode(bag_tree(), "censored regression")
     Message
       ! parsnip could not locate an implementation for `bag_tree` censored regression model specifications.
       i The parsnip extension package censored implements support for this specification.
@@ -107,7 +107,7 @@
 ---
 
     Code
-      bag_tree() %>% set_engine("rpart")
+      set_engine(bag_tree(), "rpart")
     Message
       ! parsnip could not locate an implementation for `bag_tree` model specifications using the `rpart` engine.
       i The parsnip extension packages censored and baguette implement support for this specification.
@@ -246,7 +246,7 @@
 # register local models
 
     Code
-      my_model() %>% translate("my_engine")
+      translate(my_model(), "my_engine")
     Output
       my model Model Specification (regression)
       

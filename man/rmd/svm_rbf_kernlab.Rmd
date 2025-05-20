@@ -11,8 +11,8 @@ defaults <-
                  default = c("1.0", "see below", "0.1"))
 
 param <-
-  svm_rbf() %>% 
-  set_engine("kernlab") %>% 
+  svm_rbf() |> 
+  set_engine("kernlab") |> 
   make_parameter_list(defaults)
 ```
 
@@ -33,9 +33,9 @@ svm_rbf(
   cost = double(1),
   rbf_sigma = double(1), 
   margin = double(1)
-) %>%  
-  set_engine("kernlab") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("kernlab") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -45,9 +45,9 @@ svm_rbf(
 svm_rbf(
   cost = double(1),
   rbf_sigma = double(1)
-) %>% 
-  set_engine("kernlab") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("kernlab") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

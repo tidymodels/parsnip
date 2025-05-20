@@ -11,9 +11,9 @@ defaults <-
                  default = c("'weibull'"))
 
 param <-
-  survival_reg() %>%
-  set_engine("flexsurv") %>%
-  set_mode("censored regression") %>%
+  survival_reg() |>
+  set_engine("flexsurv") |>
+  set_mode("censored regression") |>
   make_parameter_list(defaults)
 ```
 
@@ -30,9 +30,9 @@ param$item
 ```{r flexsurv-creg}
 library(censored)
 
-survival_reg(dist = character(1)) %>% 
-  set_engine("flexsurv") %>% 
-  set_mode("censored regression") %>% 
+survival_reg(dist = character(1)) |> 
+  set_engine("flexsurv") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 

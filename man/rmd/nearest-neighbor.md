@@ -9,9 +9,9 @@ Engines may have pre-set default arguments when executing the model fit call. Fo
 
 
 ```r
-nearest_neighbor() %>% 
-  set_engine("kknn") %>% 
-  set_mode("regression") %>% 
+nearest_neighbor() |> 
+  set_engine("kknn") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -27,9 +27,9 @@ nearest_neighbor() %>%
 
 
 ```r
-nearest_neighbor() %>% 
-  set_engine("kknn") %>% 
-  set_mode("classification") %>% 
+nearest_neighbor() |> 
+  set_engine("kknn") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

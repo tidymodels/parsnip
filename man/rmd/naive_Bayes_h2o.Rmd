@@ -12,8 +12,8 @@ defaults <-
                  default = c("0.0"))
 
 param <-
-  naive_Bayes() %>% 
-  set_engine("h2o") %>% 
+  naive_Bayes() |> 
+  set_engine("h2o") |> 
   make_parameter_list(defaults)
 ```
 
@@ -41,8 +41,8 @@ param$item
 [agua::h2o_train_nb()] is a wrapper around [h2o::h2o.naiveBayes()]. 
 
 ```{r h2o-cls}
-naive_Bayes(Laplace = numeric(0)) %>% 
-  set_engine("h2o") %>% 
+naive_Bayes(Laplace = numeric(0)) |> 
+  set_engine("h2o") |> 
   translate()
 ```
 

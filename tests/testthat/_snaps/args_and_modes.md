@@ -1,7 +1,7 @@
 # pipe arguments
 
     Code
-      rand_forest() %>% set_args()
+      set_args(rand_forest())
     Condition
       Error in `set_args()`:
       ! Please pass at least one named argument.
@@ -9,7 +9,7 @@
 # pipe engine
 
     Code
-      rand_forest() %>% set_mode()
+      set_mode(rand_forest())
     Condition
       Error in `set_mode()`:
       ! Available modes for model type rand_forest are: "unknown", "classification", "regression", and "censored regression".
@@ -17,7 +17,7 @@
 ---
 
     Code
-      rand_forest() %>% set_mode(2)
+      set_mode(rand_forest(), 2)
     Condition
       Error in `set_mode()`:
       ! 2 is not a known mode for model `rand_forest()`.
@@ -25,7 +25,7 @@
 ---
 
     Code
-      rand_forest() %>% set_mode("haberdashery")
+      set_mode(rand_forest(), "haberdashery")
     Condition
       Error in `set_mode()`:
       ! "haberdashery" is not a known mode for model `rand_forest()`.
@@ -41,7 +41,7 @@
 # unavailable modes for an engine and vice-versa
 
     Code
-      decision_tree() %>% set_mode("regression") %>% set_engine("C5.0")
+      set_engine(set_mode(decision_tree(), "regression"), "C5.0")
     Condition
       Error in `set_engine()`:
       ! Available modes for engine C5.0 are: "unknown" and "classification".
@@ -57,7 +57,7 @@
 ---
 
     Code
-      decision_tree() %>% set_engine("C5.0") %>% set_mode("regression")
+      set_mode(set_engine(decision_tree(), "C5.0"), "regression")
     Condition
       Error in `set_mode()`:
       ! Available modes for engine C5.0 are: "unknown" and "classification".
@@ -65,7 +65,7 @@
 ---
 
     Code
-      decision_tree(engine = NULL) %>% set_engine("C5.0") %>% set_mode("regression")
+      set_mode(set_engine(decision_tree(engine = NULL), "C5.0"), "regression")
     Condition
       Error in `set_mode()`:
       ! Available modes for engine C5.0 are: "unknown" and "classification".
@@ -73,7 +73,7 @@
 ---
 
     Code
-      decision_tree(engine = NULL) %>% set_mode("regression") %>% set_engine("C5.0")
+      set_engine(set_mode(decision_tree(engine = NULL), "regression"), "C5.0")
     Condition
       Error in `set_engine()`:
       ! Available modes for engine C5.0 are: "unknown" and "classification".
@@ -81,7 +81,7 @@
 ---
 
     Code
-      proportional_hazards() %>% set_mode("regression")
+      set_mode(proportional_hazards(), "regression")
     Condition
       Error in `set_mode()`:
       ! "regression" is not a known mode for model `proportional_hazards()`.
@@ -89,7 +89,7 @@
 ---
 
     Code
-      linear_reg() %>% set_mode()
+      set_mode(linear_reg())
     Condition
       Error in `set_mode()`:
       ! Available modes for model type linear_reg are: "unknown", "regression", and "quantile regression".
@@ -106,7 +106,7 @@
 ---
 
     Code
-      linear_reg() %>% set_engine()
+      set_engine(linear_reg())
     Condition
       Error in `set_engine()`:
       ! Missing engine. Possible mode/engine combinations are: quantile regression {quantreg} and regression {lm, glm, glmnet, stan, spark, keras, brulee}.
@@ -114,7 +114,7 @@
 ---
 
     Code
-      proportional_hazards() %>% set_engine()
+      set_engine(proportional_hazards())
     Condition
       Error in `set_engine()`:
       ! No known engines for `proportional_hazards()`.
@@ -138,7 +138,7 @@
 ---
 
     Code
-      bag_tree %>% set_mode("classification")
+      set_mode(bag_tree, "classification")
     Condition
       Error in `set_mode()`:
       ! `set_mode()` expected a model specification to be supplied to the `object` argument, but received a(n) `function` object.
@@ -147,7 +147,7 @@
 ---
 
     Code
-      bag_tree %>% set_engine("rpart")
+      set_engine(bag_tree, "rpart")
     Condition
       Error in `set_engine()`:
       ! `set_engine()` expected a model specification to be supplied to the `object` argument, but received a(n) `function` object.
@@ -156,7 +156,7 @@
 ---
 
     Code
-      bag_tree %>% set_args(boop = "bop")
+      set_args(bag_tree, boop = "bop")
     Condition
       Error in `set_args()`:
       ! `set_args()` expected a model specification to be supplied to the `object` argument, but received a(n) `function` object.
@@ -165,7 +165,7 @@
 ---
 
     Code
-      1L %>% set_args(mode = "classification")
+      set_args(1L, mode = "classification")
     Condition
       Error in `set_args()`:
       ! `set_args()` expected a model specification to be supplied to the `object` argument, but received a(n) `integer` object.
@@ -173,7 +173,7 @@
 ---
 
     Code
-      bag_tree %>% set_mode("classification")
+      set_mode(bag_tree, "classification")
     Condition
       Error in `set_mode()`:
       ! `set_mode()` expected a model specification to be supplied to the `object` argument, but received a(n) `function` object.

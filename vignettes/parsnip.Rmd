@@ -83,7 +83,7 @@ However, there might be other arguments that you would like to change or allow t
 
 ```{r rf-seed}
 rf_with_seed <- 
-  rand_forest(trees = 2000, mtry = tune(), mode = "regression") %>%
+  rand_forest(trees = 2000, mtry = tune(), mode = "regression") |>
   set_engine("ranger", seed = 63233)
 rf_with_seed
 ```
@@ -99,9 +99,9 @@ To fit the model, you must:
 For example, `rf_with_seed` above is not ready for fitting due the `tune()` parameter. We can set that parameter's value and then create the model fit: 
 
 ```{r, eval = FALSE}
-rf_with_seed %>% 
-  set_args(mtry = 4) %>% 
-  set_engine("ranger") %>%
+rf_with_seed |> 
+  set_args(mtry = 4) |> 
+  set_engine("ranger") |>
   fit(mpg ~ ., data = mtcars)
 ```
 
@@ -129,9 +129,9 @@ Or, using the `randomForest` package:
 
 ```{r, eval = FALSE}
 set.seed(56982)
-rf_with_seed %>% 
-  set_args(mtry = 4) %>% 
-  set_engine("randomForest") %>%
+rf_with_seed |> 
+  set_args(mtry = 4) |> 
+  set_engine("randomForest") |>
   fit(mpg ~ ., data = mtcars)
 ```
 

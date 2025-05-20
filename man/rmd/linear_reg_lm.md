@@ -11,8 +11,8 @@ This engine has no tuning parameters.
 
 
 ``` r
-linear_reg() %>% 
-  set_engine("lm") %>% 
+linear_reg() |> 
+  set_engine("lm") |> 
   translate()
 ```
 

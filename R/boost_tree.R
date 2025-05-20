@@ -500,7 +500,7 @@ multi_predict._xgb.Booster <-
 
     res <-
       map(trees, xgb_by_tree, object = object, new_data = new_data,
-          type = type, ...) %>%
+          type = type, ...) |>
       purrr::list_rbind()
     res <- arrange(res, .row, trees)
     res <- split(res[, -1], res$.row)
@@ -625,7 +625,7 @@ multi_predict._C5.0 <-
 
     res <-
       map(trees, C50_by_tree, object = object,
-          new_data = new_data, type = type, ...) %>%
+          new_data = new_data, type = type, ...) |>
       purrr::list_rbind()
     res <- arrange(res, .row, trees)
     res <- split(res[, -1], res$.row)

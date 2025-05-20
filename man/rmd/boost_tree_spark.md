@@ -32,9 +32,9 @@ The `mtry` parameter is related to the number of predictors. The default depends
 boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric()
-) %>%
-  set_engine("spark") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("spark") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -67,9 +67,9 @@ boost_tree(
 boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric()
-) %>% 
-  set_engine("spark") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("spark") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

@@ -11,8 +11,8 @@ defaults <-
                  default = c("0.0"))
 
 param <-
-  multinom_reg() %>% 
-  set_engine("nnet") %>% 
+  multinom_reg() |> 
+  set_engine("nnet") |> 
   make_parameter_list(defaults)
 ```
 
@@ -27,8 +27,8 @@ For `penalty`, the amount of regularization includes only the L2 penalty (i.e., 
 ## Translation from parsnip to the original package
 
 ```{r nnet-csl}
-multinom_reg(penalty = double(1)) %>% 
-  set_engine("nnet") %>% 
+multinom_reg(penalty = double(1)) |> 
+  set_engine("nnet") |> 
   translate()
 ```
 

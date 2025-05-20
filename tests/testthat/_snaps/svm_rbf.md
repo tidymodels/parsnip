@@ -21,8 +21,8 @@
 # updating
 
     Code
-      svm_rbf(mode = "regression", rbf_sigma = 0.3) %>% set_engine("kernlab", cross = 10) %>%
-        update(rbf_sigma = tune(), cross = tune())
+      update(set_engine(svm_rbf(mode = "regression", rbf_sigma = 0.3), "kernlab",
+      cross = 10), rbf_sigma = tune(), cross = tune())
     Output
       Radial Basis Function Support Vector Machine Model Specification (regression)
       
@@ -46,7 +46,7 @@
 ---
 
     Code
-      translate(svm_rbf(mode = "regression") %>% set_engine(NULL))
+      translate(set_engine(svm_rbf(mode = "regression"), NULL))
     Condition
       Error in `set_engine()`:
       ! Missing engine. Possible mode/engine combinations are: classification {kernlab, liquidSVM} and regression {kernlab, liquidSVM}.

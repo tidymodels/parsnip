@@ -1,7 +1,7 @@
 # arguments (boost_tree)
 
     Code
-      translate_args(basic_class %>% set_engine("xgboost"))
+      translate_args(set_engine(basic_class, "xgboost"))
     Output
       $x
       missing_arg()
@@ -22,7 +22,7 @@
 ---
 
     Code
-      translate_args(basic_class %>% set_engine("C5.0"))
+      translate_args(set_engine(basic_class, "C5.0"))
     Output
       $x
       missing_arg()
@@ -37,7 +37,7 @@
 ---
 
     Code
-      translate_args(basic_class %>% set_engine("C5.0", rules = TRUE))
+      translate_args(set_engine(basic_class, "C5.0", rules = TRUE))
     Output
       $x
       missing_arg()
@@ -57,7 +57,7 @@
 ---
 
     Code
-      translate_args(basic_reg %>% set_engine("xgboost", print_every_n = 10L))
+      translate_args(set_engine(basic_reg, "xgboost", print_every_n = 10L))
     Output
       $x
       missing_arg()
@@ -83,7 +83,7 @@
 ---
 
     Code
-      translate_args(trees %>% set_engine("C5.0"))
+      translate_args(set_engine(trees, "C5.0"))
     Output
       $x
       missing_arg()
@@ -103,7 +103,7 @@
 ---
 
     Code
-      translate_args(trees %>% set_engine("xgboost"))
+      translate_args(set_engine(trees, "xgboost"))
     Output
       $x
       missing_arg()
@@ -129,7 +129,7 @@
 ---
 
     Code
-      translate_args(split_num %>% set_engine("C5.0"))
+      translate_args(set_engine(split_num, "C5.0"))
     Output
       $x
       missing_arg()
@@ -149,7 +149,7 @@
 ---
 
     Code
-      translate_args(split_num %>% set_engine("xgboost"))
+      translate_args(set_engine(split_num, "xgboost"))
     Output
       $x
       missing_arg()
@@ -175,7 +175,7 @@
 # arguments (decision_tree)
 
     Code
-      translate_args(basic_class %>% set_engine("rpart"))
+      translate_args(set_engine(basic_class, "rpart"))
     Output
       $formula
       missing_arg()
@@ -190,7 +190,7 @@
 ---
 
     Code
-      translate_args(basic_class %>% set_engine("C5.0"))
+      translate_args(set_engine(basic_class, "C5.0"))
     Output
       $x
       missing_arg()
@@ -208,7 +208,7 @@
 ---
 
     Code
-      translate_args(basic_class %>% set_engine("C5.0", rules = TRUE))
+      translate_args(set_engine(basic_class, "C5.0", rules = TRUE))
     Output
       $x
       missing_arg()
@@ -231,7 +231,7 @@
 ---
 
     Code
-      translate_args(basic_reg %>% set_engine("rpart", model = TRUE))
+      translate_args(set_engine(basic_reg, "rpart", model = TRUE))
     Output
       $formula
       missing_arg()
@@ -251,7 +251,7 @@
 ---
 
     Code
-      translate_args(cost_complexity %>% set_engine("rpart"))
+      translate_args(set_engine(cost_complexity, "rpart"))
     Output
       $formula
       missing_arg()
@@ -271,7 +271,7 @@
 ---
 
     Code
-      translate_args(split_num %>% set_engine("C5.0"))
+      translate_args(set_engine(split_num, "C5.0"))
     Output
       $x
       missing_arg()
@@ -294,7 +294,7 @@
 ---
 
     Code
-      translate_args(split_num %>% set_engine("rpart"))
+      translate_args(set_engine(split_num, "rpart"))
     Output
       $formula
       missing_arg()
@@ -312,7 +312,7 @@
 # arguments (default)
 
     Code
-      translate_args(basic %>% set_engine("parsnip"))
+      translate_args(set_engine(basic, "parsnip"))
     Output
       $x
       missing_arg()
@@ -324,7 +324,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("parsnip", keepxy = FALSE))
+      translate_args(set_engine(basic, "parsnip", keepxy = FALSE))
     Output
       $x
       missing_arg()
@@ -341,7 +341,7 @@
 # arguments (linear_reg)
 
     Code
-      translate_args(basic %>% set_engine("lm"))
+      translate_args(set_engine(basic, "lm"))
     Output
       $formula
       missing_arg()
@@ -356,7 +356,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("lm", model = FALSE))
+      translate_args(set_engine(basic, "lm", model = FALSE))
     Output
       $formula
       missing_arg()
@@ -376,7 +376,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("glm"))
+      translate_args(set_engine(basic, "glm"))
     Output
       $formula
       missing_arg()
@@ -394,7 +394,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("glm", family = "quasipoisson"))
+      translate_args(set_engine(basic, "glm", family = "quasipoisson"))
     Output
       $formula
       missing_arg()
@@ -414,7 +414,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("stan"))
+      translate_args(set_engine(basic, "stan"))
     Output
       $formula
       missing_arg()
@@ -435,7 +435,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("stan", chains = 1, iter = 5))
+      translate_args(set_engine(basic, "stan", chains = 1, iter = 5))
     Output
       $formula
       missing_arg()
@@ -466,7 +466,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("spark"))
+      translate_args(set_engine(basic, "spark"))
     Output
       $x
       missing_arg()
@@ -481,7 +481,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("spark", max_iter = 20))
+      translate_args(set_engine(basic, "spark", max_iter = 20))
     Output
       $x
       missing_arg()
@@ -501,7 +501,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("glmnet"))
+      translate_args(set_engine(basic, "glmnet"))
     Condition
       Error in `translate()`:
       x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
@@ -512,7 +512,7 @@
 ---
 
     Code
-      translate_args(mixture %>% set_engine("spark"))
+      translate_args(set_engine(mixture, "spark"))
     Output
       $x
       missing_arg()
@@ -532,7 +532,7 @@
 ---
 
     Code
-      translate_args(mixture_v %>% set_engine("spark"))
+      translate_args(set_engine(mixture_v, "spark"))
     Output
       $x
       missing_arg()
@@ -552,7 +552,7 @@
 ---
 
     Code
-      translate_args(mixture %>% set_engine("glmnet"))
+      translate_args(set_engine(mixture, "glmnet"))
     Condition
       Error in `translate()`:
       x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
@@ -563,7 +563,7 @@
 ---
 
     Code
-      translate_args(penalty %>% set_engine("glmnet"))
+      translate_args(set_engine(penalty, "glmnet"))
     Output
       $x
       missing_arg()
@@ -581,7 +581,7 @@
 ---
 
     Code
-      translate_args(penalty %>% set_engine("glmnet", nlambda = 10))
+      translate_args(set_engine(penalty, "glmnet", nlambda = 10))
     Output
       $x
       missing_arg()
@@ -604,7 +604,7 @@
 ---
 
     Code
-      translate_args(penalty %>% set_engine("glmnet", path_values = 4:2))
+      translate_args(set_engine(penalty, "glmnet", path_values = 4:2))
     Output
       $x
       missing_arg()
@@ -627,7 +627,7 @@
 ---
 
     Code
-      translate_args(penalty %>% set_engine("spark"))
+      translate_args(set_engine(penalty, "spark"))
     Output
       $x
       missing_arg()
@@ -647,7 +647,7 @@
 # arguments (logistic_reg)
 
     Code
-      translate_args(basic %>% set_engine("glm"))
+      translate_args(set_engine(basic, "glm"))
     Output
       $formula
       missing_arg()
@@ -665,7 +665,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("glm", family = binomial(link = "probit")))
+      translate_args(set_engine(basic, "glm", family = binomial(link = "probit")))
     Output
       $formula
       missing_arg()
@@ -685,7 +685,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("glmnet"))
+      translate_args(set_engine(basic, "glmnet"))
     Condition
       Error in `translate()`:
       x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
@@ -696,7 +696,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("LiblineaR"))
+      translate_args(set_engine(basic, "LiblineaR"))
     Output
       $x
       missing_arg()
@@ -711,7 +711,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("LiblineaR", bias = 0))
+      translate_args(set_engine(basic, "LiblineaR", bias = 0))
     Output
       $x
       missing_arg()
@@ -731,7 +731,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("stan"))
+      translate_args(set_engine(basic, "stan"))
     Output
       $formula
       missing_arg()
@@ -752,7 +752,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("stan", chains = 1, iter = 5))
+      translate_args(set_engine(basic, "stan", chains = 1, iter = 5))
     Output
       $formula
       missing_arg()
@@ -783,7 +783,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("spark"))
+      translate_args(set_engine(basic, "spark"))
     Output
       $x
       missing_arg()
@@ -801,7 +801,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("spark", max_iter = 20))
+      translate_args(set_engine(basic, "spark", max_iter = 20))
     Output
       $x
       missing_arg()
@@ -824,7 +824,7 @@
 ---
 
     Code
-      translate_args(mixture %>% set_engine("glmnet"))
+      translate_args(set_engine(mixture, "glmnet"))
     Condition
       Error in `translate()`:
       x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
@@ -835,7 +835,7 @@
 ---
 
     Code
-      translate_args(mixture %>% set_engine("spark"))
+      translate_args(set_engine(mixture, "spark"))
     Output
       $x
       missing_arg()
@@ -858,7 +858,7 @@
 ---
 
     Code
-      translate_args(penalty %>% set_engine("glmnet"))
+      translate_args(set_engine(penalty, "glmnet"))
     Output
       $x
       missing_arg()
@@ -876,7 +876,7 @@
 ---
 
     Code
-      translate_args(penalty %>% set_engine("glmnet", nlambda = 10))
+      translate_args(set_engine(penalty, "glmnet", nlambda = 10))
     Output
       $x
       missing_arg()
@@ -899,7 +899,7 @@
 ---
 
     Code
-      translate_args(penalty %>% set_engine("glmnet", path_values = 4:2))
+      translate_args(set_engine(penalty, "glmnet", path_values = 4:2))
     Output
       $x
       missing_arg()
@@ -922,7 +922,7 @@
 ---
 
     Code
-      translate_args(penalty %>% set_engine("LiblineaR"))
+      translate_args(set_engine(penalty, "LiblineaR"))
     Output
       $x
       missing_arg()
@@ -942,7 +942,7 @@
 ---
 
     Code
-      translate_args(penalty %>% set_engine("spark"))
+      translate_args(set_engine(penalty, "spark"))
     Output
       $x
       missing_arg()
@@ -965,7 +965,7 @@
 ---
 
     Code
-      translate_args(mixture_v %>% set_engine("glmnet"))
+      translate_args(set_engine(mixture_v, "glmnet"))
     Condition
       Error in `translate()`:
       x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
@@ -976,7 +976,7 @@
 ---
 
     Code
-      translate_args(mixture_v %>% set_engine("LiblineaR"))
+      translate_args(set_engine(mixture_v, "LiblineaR"))
     Output
       $x
       missing_arg()
@@ -996,7 +996,7 @@
 ---
 
     Code
-      translate_args(mixture_v %>% set_engine("spark"))
+      translate_args(set_engine(mixture_v, "spark"))
     Output
       $x
       missing_arg()
@@ -1019,7 +1019,7 @@
 # arguments (mars)
 
     Code
-      translate_args(basic %>% set_engine("earth"))
+      translate_args(set_engine(basic, "earth"))
     Output
       $formula
       missing_arg()
@@ -1037,7 +1037,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("earth", keepxy = FALSE))
+      translate_args(set_engine(basic, "earth", keepxy = FALSE))
     Output
       $formula
       missing_arg()
@@ -1057,7 +1057,7 @@
 ---
 
     Code
-      translate_args(num_terms %>% set_engine("earth"))
+      translate_args(set_engine(num_terms, "earth"))
     Output
       $formula
       missing_arg()
@@ -1085,7 +1085,7 @@
 ---
 
     Code
-      translate_args(prod_degree %>% set_engine("earth"))
+      translate_args(set_engine(prod_degree, "earth"))
     Output
       $formula
       missing_arg()
@@ -1108,7 +1108,7 @@
 ---
 
     Code
-      translate_args(prune_method_v %>% set_engine("earth"))
+      translate_args(set_engine(prune_method_v, "earth"))
     Output
       $formula
       missing_arg()
@@ -1131,7 +1131,7 @@
 # arguments (mlp)
 
     Code
-      translate_args(hidden_units %>% set_engine("nnet"))
+      translate_args(set_engine(hidden_units, "nnet"))
     Output
       $formula
       missing_arg()
@@ -1154,7 +1154,7 @@
 ---
 
     Code
-      translate_args(hidden_units %>% set_engine("keras"))
+      translate_args(set_engine(hidden_units, "keras"))
     Output
       $x
       missing_arg()
@@ -1171,7 +1171,7 @@
 ---
 
     Code
-      translate_args(no_hidden_units %>% set_engine("nnet"))
+      translate_args(set_engine(no_hidden_units, "nnet"))
     Output
       $formula
       missing_arg()
@@ -1192,7 +1192,7 @@
 ---
 
     Code
-      translate_args(no_hidden_units %>% set_engine("nnet", abstol = tune()))
+      translate_args(set_engine(no_hidden_units, "nnet", abstol = tune()))
     Output
       $formula
       missing_arg()
@@ -1218,7 +1218,7 @@
 ---
 
     Code
-      translate_args(no_hidden_units %>% set_engine("keras", validation_split = 0.2))
+      translate_args(set_engine(no_hidden_units, "keras", validation_split = 0.2))
     Output
       $x
       missing_arg()
@@ -1235,7 +1235,7 @@
 ---
 
     Code
-      translate_args(hess %>% set_engine("nnet", Hess = TRUE))
+      translate_args(set_engine(hess, "nnet", Hess = TRUE))
     Output
       $formula
       missing_arg()
@@ -1261,7 +1261,7 @@
 ---
 
     Code
-      translate_args(all_args %>% set_engine("nnet"))
+      translate_args(set_engine(all_args, "nnet"))
     Output
       $formula
       missing_arg()
@@ -1294,7 +1294,7 @@
 ---
 
     Code
-      translate_args(all_args %>% set_engine("keras"))
+      translate_args(set_engine(all_args, "keras"))
     Output
       $x
       missing_arg()
@@ -1331,7 +1331,7 @@
 # arguments (multinom_reg)
 
     Code
-      translate_args(basic %>% set_engine("glmnet"))
+      translate_args(set_engine(basic, "glmnet"))
     Condition
       Error in `translate()`:
       x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
@@ -1342,7 +1342,7 @@
 ---
 
     Code
-      translate_args(mixture %>% set_engine("glmnet"))
+      translate_args(set_engine(mixture, "glmnet"))
     Output
       $x
       missing_arg()
@@ -1365,7 +1365,7 @@
 ---
 
     Code
-      translate_args(penalty %>% set_engine("glmnet"))
+      translate_args(set_engine(penalty, "glmnet"))
     Output
       $x
       missing_arg()
@@ -1383,7 +1383,7 @@
 ---
 
     Code
-      translate_args(penalty %>% set_engine("glmnet", path_values = 4:2))
+      translate_args(set_engine(penalty, "glmnet", path_values = 4:2))
     Output
       $x
       missing_arg()
@@ -1406,7 +1406,7 @@
 ---
 
     Code
-      translate_args(penalty %>% set_engine("glmnet", nlambda = 10))
+      translate_args(set_engine(penalty, "glmnet", nlambda = 10))
     Output
       $x
       missing_arg()
@@ -1429,7 +1429,7 @@
 ---
 
     Code
-      translate_args(mixture_v %>% set_engine("glmnet"))
+      translate_args(set_engine(mixture_v, "glmnet"))
     Output
       $x
       missing_arg()
@@ -1452,7 +1452,7 @@
 # arguments (nearest_neighbor)
 
     Code
-      translate_args(basic %>% set_engine("kknn"))
+      translate_args(set_engine(basic, "kknn"))
     Output
       $formula
       missing_arg()
@@ -1467,7 +1467,7 @@
 ---
 
     Code
-      translate_args(neighbors %>% set_engine("kknn"))
+      translate_args(set_engine(neighbors, "kknn"))
     Output
       $formula
       missing_arg()
@@ -1482,7 +1482,7 @@
 ---
 
     Code
-      translate_args(neighbors %>% set_engine("kknn", scale = FALSE))
+      translate_args(set_engine(neighbors, "kknn", scale = FALSE))
     Output
       $formula
       missing_arg()
@@ -1502,7 +1502,7 @@
 ---
 
     Code
-      translate_args(weight_func %>% set_engine("kknn"))
+      translate_args(set_engine(weight_func, "kknn"))
     Output
       $formula
       missing_arg()
@@ -1522,7 +1522,7 @@
 ---
 
     Code
-      translate_args(dist_power %>% set_engine("kknn"))
+      translate_args(set_engine(dist_power, "kknn"))
     Output
       $formula
       missing_arg()
@@ -1542,14 +1542,14 @@
 # arguments (proportional_hazards)
 
     Code
-      basic %>% translate_args()
+      translate_args(basic)
     Output
       list()
 
 ---
 
     Code
-      basic_incomplete %>% translate_args()
+      translate_args(basic_incomplete)
     Condition
       Error in `translate()`:
       x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
@@ -1560,7 +1560,7 @@
 # arguments (rand_forest)
 
     Code
-      translate_args(basic %>% set_engine("randomForest", norm.votes = FALSE))
+      translate_args(set_engine(basic, "randomForest", norm.votes = FALSE))
     Output
       $x
       missing_arg()
@@ -1577,7 +1577,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("spark", min_info_gain = 2))
+      translate_args(set_engine(basic, "spark", min_info_gain = 2))
     Output
       $x
       missing_arg()
@@ -1600,7 +1600,7 @@
 ---
 
     Code
-      translate_args(mtry %>% set_engine("ranger"))
+      translate_args(set_engine(mtry, "ranger"))
     Output
       $x
       missing_arg()
@@ -1627,7 +1627,7 @@
 ---
 
     Code
-      translate_args(mtry %>% set_engine("randomForest"))
+      translate_args(set_engine(mtry, "randomForest"))
     Output
       $x
       missing_arg()
@@ -1642,7 +1642,7 @@
 ---
 
     Code
-      translate_args(mtry %>% set_engine("spark"))
+      translate_args(set_engine(mtry, "spark"))
     Output
       $x
       missing_arg()
@@ -1663,7 +1663,7 @@
 ---
 
     Code
-      translate_args(trees %>% set_engine("ranger"))
+      translate_args(set_engine(trees, "ranger"))
     Output
       $x
       missing_arg()
@@ -1695,7 +1695,7 @@
 ---
 
     Code
-      translate_args(trees %>% set_engine("ranger", importance = "impurity"))
+      translate_args(set_engine(trees, "ranger", importance = "impurity"))
     Output
       $x
       missing_arg()
@@ -1732,7 +1732,7 @@
 ---
 
     Code
-      translate_args(trees %>% set_engine("randomForest"))
+      translate_args(set_engine(trees, "randomForest"))
     Output
       $x
       missing_arg()
@@ -1749,7 +1749,7 @@
 ---
 
     Code
-      translate_args(trees %>% set_engine("spark"))
+      translate_args(set_engine(trees, "spark"))
     Output
       $x
       missing_arg()
@@ -1772,7 +1772,7 @@
 ---
 
     Code
-      translate_args(min_n %>% set_engine("ranger"))
+      translate_args(set_engine(min_n, "ranger"))
     Output
       $x
       missing_arg()
@@ -1799,7 +1799,7 @@
 ---
 
     Code
-      translate_args(min_n %>% set_engine("randomForest"))
+      translate_args(set_engine(min_n, "randomForest"))
     Output
       $x
       missing_arg()
@@ -1814,7 +1814,7 @@
 ---
 
     Code
-      translate_args(min_n %>% set_engine("spark"))
+      translate_args(set_engine(min_n, "spark"))
     Output
       $x
       missing_arg()
@@ -1835,7 +1835,7 @@
 # arguments (surv_reg)
 
     Code
-      translate_args(basic %>% set_engine("flexsurv"))
+      translate_args(set_engine(basic, "flexsurv"))
     Output
       $formula
       missing_arg()
@@ -1850,7 +1850,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("flexsurv", cl = 0.99))
+      translate_args(set_engine(basic, "flexsurv", cl = 0.99))
     Output
       $formula
       missing_arg()
@@ -1870,7 +1870,7 @@
 ---
 
     Code
-      translate_args(normal %>% set_engine("flexsurv"))
+      translate_args(set_engine(normal, "flexsurv"))
     Output
       $formula
       missing_arg()
@@ -1890,7 +1890,7 @@
 ---
 
     Code
-      translate_args(dist_v %>% set_engine("flexsurv"))
+      translate_args(set_engine(dist_v, "flexsurv"))
     Output
       $formula
       missing_arg()
@@ -1910,14 +1910,14 @@
 # arguments (survival_reg)
 
     Code
-      basic %>% translate_args()
+      translate_args(basic)
     Output
       list()
 
 # arguments (svm_linear)
 
     Code
-      translate_args(basic %>% set_engine("LiblineaR"))
+      translate_args(set_engine(basic, "LiblineaR"))
     Output
       $x
       missing_arg()
@@ -1935,7 +1935,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("LiblineaR", type = 12))
+      translate_args(set_engine(basic, "LiblineaR", type = 12))
     Output
       $x
       missing_arg()
@@ -1955,7 +1955,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("kernlab"))
+      translate_args(set_engine(basic, "kernlab"))
     Output
       $x
       missing_arg()
@@ -1970,7 +1970,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("kernlab", cross = 10))
+      translate_args(set_engine(basic, "kernlab", cross = 10))
     Output
       $x
       missing_arg()
@@ -1990,7 +1990,7 @@
 # arguments (svm_poly)
 
     Code
-      translate_args(basic %>% set_engine("kernlab"))
+      translate_args(set_engine(basic, "kernlab"))
     Output
       $x
       missing_arg()
@@ -2005,7 +2005,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("kernlab", cross = 10))
+      translate_args(set_engine(basic, "kernlab", cross = 10))
     Output
       $x
       missing_arg()
@@ -2025,7 +2025,7 @@
 ---
 
     Code
-      translate_args(degree %>% set_engine("kernlab"))
+      translate_args(set_engine(degree, "kernlab"))
     Output
       $x
       missing_arg()
@@ -2043,7 +2043,7 @@
 ---
 
     Code
-      translate_args(degree_scale %>% set_engine("kernlab"))
+      translate_args(set_engine(degree_scale, "kernlab"))
     Output
       $x
       missing_arg()
@@ -2061,7 +2061,7 @@
 # arguments (svm_rbf)
 
     Code
-      translate_args(basic %>% set_engine("kernlab"))
+      translate_args(set_engine(basic, "kernlab"))
     Output
       $x
       missing_arg()
@@ -2076,7 +2076,7 @@
 ---
 
     Code
-      translate_args(basic %>% set_engine("kernlab", cross = 10))
+      translate_args(set_engine(basic, "kernlab", cross = 10))
     Output
       $x
       missing_arg()
@@ -2096,7 +2096,7 @@
 ---
 
     Code
-      translate_args(rbf_sigma %>% set_engine("kernlab"))
+      translate_args(set_engine(rbf_sigma, "kernlab"))
     Output
       $x
       missing_arg()

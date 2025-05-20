@@ -10,7 +10,7 @@
 # non-factor classification
 
     Code
-      logistic_reg() %>% set_engine("glm") %>% fit(class ~ ., data = hpc %>% dplyr::mutate(
+      fit(set_engine(logistic_reg(), "glm"), class ~ ., data = dplyr::mutate(hpc,
         class = class == "VF"))
     Condition
       Error in `check_outcome()`:
@@ -19,7 +19,7 @@
 ---
 
     Code
-      logistic_reg() %>% set_engine("glm") %>% fit(class ~ ., data = hpc %>% dplyr::mutate(
+      fit(set_engine(logistic_reg(), "glm"), class ~ ., data = dplyr::mutate(hpc,
         class = ifelse(class == "VF", 1, 0)))
     Condition
       Error in `check_outcome()`:
@@ -28,8 +28,8 @@
 ---
 
     Code
-      multinom_reg() %>% set_engine("glmnet") %>% fit(class ~ ., data = hpc %>%
-        dplyr::mutate(class = as.character(class)))
+      fit(set_engine(multinom_reg(), "glmnet"), class ~ ., data = dplyr::mutate(hpc,
+        class = as.character(class)))
     Condition
       Error in `check_outcome()`:
       ! For a classification model, the outcome should be a <factor>, not a character vector.

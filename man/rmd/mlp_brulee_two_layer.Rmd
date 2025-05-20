@@ -18,10 +18,10 @@ spec <-
     epochs = tune(),
     learn_rate = tune(),
     activation = tune()
-  ) %>% 
+  ) |> 
   set_engine("brulee_two_layer")
 
-param <- spec %>% make_parameter_list(defaults)
+param <- spec |> make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
@@ -54,11 +54,11 @@ mlp(
   epochs = integer(1),
   learn_rate = double(1),
   activation = character(1)
-) %>%
+) |>
   set_engine("brulee_two_layer",
              hidden_units_2 = integer(1),
-             activation_2 = character(1)) %>% 
-  set_mode("regression") %>% 
+             activation_2 = character(1)) |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -74,11 +74,11 @@ mlp(
   epochs = integer(1),
   learn_rate = double(1),
   activation = character(1)
-) %>% 
+) |> 
   set_engine("brulee_two_layer",
              hidden_units_2 = integer(1),
-             activation_2 = character(1)) %>% 
-  set_mode("classification") %>% 
+             activation_2 = character(1)) |> 
+  set_mode("classification") |> 
   translate()
 ```
 

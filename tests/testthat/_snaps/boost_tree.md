@@ -1,8 +1,8 @@
 # updating
 
     Code
-      boost_tree(trees = 1) %>% set_engine("C5.0", noGlobalPruning = TRUE) %>% update(
-        trees = tune(), noGlobalPruning = tune())
+      update(set_engine(boost_tree(trees = 1), "C5.0", noGlobalPruning = TRUE),
+      trees = tune(), noGlobalPruning = tune())
     Output
       Boosted Tree Model Specification (unknown mode)
       
@@ -41,8 +41,8 @@
 # check_args() works
 
     Code
-      spec <- boost_tree(trees = -1) %>% set_engine("xgboost") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(boost_tree(trees = -1), "xgboost"),
+      "classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:
@@ -51,8 +51,8 @@
 ---
 
     Code
-      spec <- boost_tree(sample_size = -10) %>% set_engine("xgboost") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(boost_tree(sample_size = -10), "xgboost"),
+      "classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:
@@ -61,8 +61,8 @@
 ---
 
     Code
-      spec <- boost_tree(tree_depth = -10) %>% set_engine("xgboost") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(boost_tree(tree_depth = -10), "xgboost"),
+      "classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:
@@ -71,8 +71,8 @@
 ---
 
     Code
-      spec <- boost_tree(min_n = -10) %>% set_engine("xgboost") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(boost_tree(min_n = -10), "xgboost"),
+      "classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:

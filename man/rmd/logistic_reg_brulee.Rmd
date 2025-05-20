@@ -11,8 +11,8 @@ defaults <-
                  default = c(  "0.001", "0.0"))
 
 param <-
-  logistic_reg() %>% 
-  set_engine("brulee") %>% 
+  logistic_reg() |> 
+  set_engine("brulee") |> 
   make_parameter_list(defaults)
 ```
 
@@ -38,8 +38,8 @@ Other engine arguments of interest:
 ## Translation from parsnip to the original package (classification)
 
 ```{r brulee-cls}
-logistic_reg(penalty = double(1)) %>% 
-  set_engine("brulee") %>% 
+logistic_reg(penalty = double(1)) |> 
+  set_engine("brulee") |> 
   translate()
 ```
 

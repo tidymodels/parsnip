@@ -1,8 +1,8 @@
 # updating
 
     Code
-      nearest_neighbor(neighbors = 5) %>% set_engine("kknn", scale = FALSE) %>%
-        update(neighbors = tune(), scale = tune())
+      update(set_engine(nearest_neighbor(neighbors = 5), "kknn", scale = FALSE),
+      neighbors = tune(), scale = tune())
     Output
       K-Nearest Neighbor Model Specification (unknown mode)
       
@@ -26,8 +26,8 @@
 # check_args() works
 
     Code
-      spec <- nearest_neighbor(neighbors = -1) %>% set_engine("kknn") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(nearest_neighbor(neighbors = -1), "kknn"),
+      "classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:
@@ -36,8 +36,8 @@
 ---
 
     Code
-      spec <- nearest_neighbor(weight_func = 2) %>% set_engine("kknn") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(nearest_neighbor(weight_func = 2), "kknn"),
+      "classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:

@@ -91,15 +91,15 @@ load_libs <- function(x, quiet, attach = FALSE) {
 #' @return An updated model specification.
 #' @examplesIf !parsnip:::is_cran_check()
 #' # First, set main arguments using the standardized names
-#' logistic_reg(penalty = 0.01, mixture = 1/3) %>%
+#' logistic_reg(penalty = 0.01, mixture = 1/3) |>
 #'   # Now specify how you want to fit the model with another argument
-#'   set_engine("glmnet", nlambda = 10) %>%
+#'   set_engine("glmnet", nlambda = 10) |>
 #'   translate()
 #'
 #' # Many models have possible engine-specific arguments
-#' decision_tree(tree_depth = 5) %>%
-#'   set_engine("rpart", parms = list(prior = c(.65,.35))) %>%
-#'   set_mode("classification") %>%
+#' decision_tree(tree_depth = 5) |>
+#'   set_engine("rpart", parms = list(prior = c(.65,.35))) |>
+#'   set_mode("classification") |>
 #'   translate()
 #'
 #' @export

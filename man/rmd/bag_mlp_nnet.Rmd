@@ -11,9 +11,9 @@ defaults <-
                  default = c("0.0", "10L", "1000L"))
 
 param <-
- bag_mlp() %>% 
-  set_engine("nnet") %>% 
-  set_mode("regression") %>% 
+ bag_mlp() |> 
+  set_engine("nnet") |> 
+  set_mode("regression") |> 
   make_parameter_list(defaults)
 ```
 
@@ -32,9 +32,9 @@ These defaults are set by the `baguette` package and are different than those in
 ```{r nnet-cls}
 library(baguette)
 
-bag_mlp(penalty = double(1), hidden_units = integer(1)) %>% 
-  set_engine("nnet") %>% 
-  set_mode("classification") %>% 
+bag_mlp(penalty = double(1), hidden_units = integer(1)) |> 
+  set_engine("nnet") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -46,9 +46,9 @@ bag_mlp(penalty = double(1), hidden_units = integer(1)) %>%
 ```{r nnet-reg}
 library(baguette)
 
-bag_mlp(penalty = double(1), hidden_units = integer(1)) %>% 
-  set_engine("nnet") %>% 
-  set_mode("regression") %>% 
+bag_mlp(penalty = double(1), hidden_units = integer(1)) |> 
+  set_engine("nnet") |> 
+  set_mode("regression") |> 
   translate()
 ```
 

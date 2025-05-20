@@ -29,9 +29,9 @@ mlp(
   dropout = double(1),
   epochs = integer(1),
   activation = character(1)
-) %>%  
-  set_engine("keras") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("keras") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -63,9 +63,9 @@ mlp(
   dropout = double(1),
   epochs = integer(1),
   activation = character(1)
-) %>% 
-  set_engine("keras") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("keras") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

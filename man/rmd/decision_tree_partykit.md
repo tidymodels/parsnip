@@ -27,9 +27,9 @@ The **bonsai** extension package is required to fit this model.
 ``` r
 library(bonsai)
 
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("partykit") %>% 
-  set_mode("regression") %>% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("partykit") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -56,9 +56,9 @@ The **bonsai** extension package is required to fit this model.
 ``` r
 library(bonsai)
 
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("partykit") %>% 
-  set_mode("classification") %>% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("partykit") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -87,9 +87,9 @@ The **censored** extension package is required to fit this model.
 ``` r
 library(censored)
 
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("partykit") %>% 
-  set_mode("censored regression") %>% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("partykit") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 

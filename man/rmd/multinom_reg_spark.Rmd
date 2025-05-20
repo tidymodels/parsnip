@@ -11,8 +11,8 @@ defaults <-
                  default = c("0.0", "0.0"))
 
 param <-
-  multinom_reg() %>% 
-  set_engine("spark") %>% 
+  multinom_reg() |> 
+  set_engine("spark") |> 
   make_parameter_list(defaults)
 ```
 
@@ -31,8 +31,8 @@ For `penalty`, the amount of regularization includes both the L1 penalty (i.e., 
 ## Translation from parsnip to the original package
 
 ```{r spark-csl}
-multinom_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("spark") %>% 
+multinom_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("spark") |> 
   translate()
 ```
 

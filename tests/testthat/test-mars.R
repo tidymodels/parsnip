@@ -3,32 +3,32 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 # ------------------------------------------------------------------------------
 
 test_that('updating', {
-  expr1 <- mars(num_terms = 0) %>% set_engine("earth", nk = 10)
+  expr1 <- mars(num_terms = 0) |> set_engine("earth", nk = 10)
 
   expect_snapshot(
-    expr1 %>%
+    expr1 |>
       update(num_terms = tune(), nk = tune())
   )
 
   expect_equal(
-    expr1 %>%
-      update(nk = tune()) %>%
-      extract_parameter_set_dials() %>%
+    expr1 |>
+      update(nk = tune()) |>
+      extract_parameter_set_dials() |>
       nrow(),
     1
   )
 })
 
 test_that('bad input', {
-  expect_snapshot(error = TRUE, translate(mars(mode = "regression") %>% set_engine()))
-  expect_snapshot(error = TRUE, translate(mars() %>% set_engine("wat?")))
+  expect_snapshot(error = TRUE, translate(mars(mode = "regression") |> set_engine()))
+  expect_snapshot(error = TRUE, translate(mars() |> set_engine("wat?")))
 })
 
 # ------------------------------------------------------------------------------
 
 num_pred <- colnames(hpc)[1:3]
 hpc_bad_form <- as.formula(class ~ term)
-hpc_basic <- mars(mode = "regression") %>% set_engine("earth")
+hpc_basic <- mars(mode = "regression") |> set_engine("earth")
 
 # ------------------------------------------------------------------------------
 
@@ -122,8 +122,8 @@ test_that('mars prediction', {
     control = ctrl
   )
   expect_equal(
-    setNames(mv_pred, paste0(".pred_", names(mv_pred))) %>% as.data.frame(),
-    predict(res_mv, hpc[1:5,]) %>% as.data.frame()
+    setNames(mv_pred, paste0(".pred_", names(mv_pred))) |> as.data.frame(),
+    predict(res_mv, hpc[1:5,]) |> as.data.frame()
   )
 })
 
@@ -136,8 +136,8 @@ test_that('submodel prediction', {
       num_terms = 20,
       mode = "regression",
       prune_method = "none"
-    ) %>%
-    set_engine("earth", keepxy = TRUE) %>%
+    ) |>
+    set_engine("earth", keepxy = TRUE) |>
     fit(mpg ~ ., data = mtcars[-(1:4), ])
 
   parsnip:::load_libs(reg_fit$spec, quiet = TRUE, attach = TRUE)
@@ -157,8 +157,8 @@ test_that('submodel prediction', {
   full_churn <- wa_churn[complete.cases(wa_churn), ]
   vars <- c("female", "tenure", "total_charges", "phone_service", "monthly_charges")
   class_fit <-
-    mars(mode = "classification", prune_method = "none")  %>%
-    set_engine("earth", keepxy = TRUE) %>%
+    mars(mode = "classification", prune_method = "none")  |>
+    set_engine("earth", keepxy = TRUE) |>
     fit(churn ~ .,
         data = full_churn[-(1:4), c("churn", vars)])
 
@@ -187,8 +187,8 @@ test_that('classification', {
 
   expect_no_condition(
     glm_mars <-
-      mars(mode = "classification")  %>%
-      set_engine("earth") %>%
+      mars(mode = "classification")  |>
+      set_engine("earth") |>
       fit(Class ~ ., data = lending_club[-(1:5),])
   )
   expect_true(!is.null(extract_fit_engine(glm_mars)$glm.list))
@@ -207,8 +207,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- mars(prod_degree = 0) %>%
-        set_engine("earth") %>%
+      spec <- mars(prod_degree = 0) |>
+        set_engine("earth") |>
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }
@@ -216,8 +216,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- mars(num_terms = 0) %>%
-        set_engine("earth") %>%
+      spec <- mars(num_terms = 0) |>
+        set_engine("earth") |>
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }
@@ -225,8 +225,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- mars(prune_method = 2) %>%
-        set_engine("earth") %>%
+      spec <- mars(prune_method = 2) |>
+        set_engine("earth") |>
         set_mode("classification")
       fit(spec, class ~ ., hpc)
     }

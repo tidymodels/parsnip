@@ -36,19 +36,19 @@ test_that('single column df for issue #129', {
 
   expect_no_condition(
     lm1 <-
-      linear_reg() %>%
-      set_engine("lm") %>%
+      linear_reg() |>
+      set_engine("lm") |>
       fit_xy(x = mtcars[, 2:4], y = mtcars[,1, drop = FALSE])
   )
   expect_no_condition(
     lm2 <-
-      linear_reg() %>%
-      set_engine("lm") %>%
+      linear_reg() |>
+      set_engine("lm") |>
       fit_xy(x = mtcars[, 2:4], y = as.matrix(mtcars)[,1, drop = FALSE])
   )
   lm3 <-
-    linear_reg() %>%
-    set_engine("lm") %>%
+    linear_reg() |>
+    set_engine("lm") |>
     fit_xy(x = mtcars[, 2:4], y = mtcars$mpg)
   expect_equal(coef(lm1), coef(lm3))
   expect_equal(coef(lm2), coef(lm3))
@@ -84,14 +84,14 @@ test_that("misspecified formula argument", {
 
 test_that("elapsed time parsnip mods", {
   lm1 <-
-    linear_reg() %>%
-    set_engine("lm") %>%
+    linear_reg() |>
+    set_engine("lm") |>
     fit_xy(x = mtcars[, 2:4], y = mtcars$mpg,
            control = control_parsnip(verbosity = 2L))
 
   lm2 <-
-    linear_reg() %>%
-    set_engine("lm") %>%
+    linear_reg() |>
+    set_engine("lm") |>
     fit(mpg ~ ., data = mtcars,
         control = control_parsnip(verbosity = 2))
 
@@ -101,8 +101,8 @@ test_that("elapsed time parsnip mods", {
   expect_true(!is.null(lm2$elapsed))
 
   lm3 <-
-    linear_reg() %>%
-    set_engine("lm") %>%
+    linear_reg() |>
+    set_engine("lm") |>
     fit_xy(x = mtcars[, 2:4], y = mtcars$mpg)
 
   output3 <- capture.output(print(lm3))
@@ -112,11 +112,11 @@ test_that("elapsed time parsnip mods", {
 
 test_that('No loaded engines', {
   expect_no_condition(
-    linear_reg() %>% fit(mpg ~., data = mtcars)
+    linear_reg() |> fit(mpg ~., data = mtcars)
   )
-  expect_snapshot_error({cubist_rules() %>% fit(mpg ~., data = mtcars)})
-  expect_snapshot_error({poisson_reg() %>% fit(mpg ~., data = mtcars)})
-  expect_snapshot_error({cubist_rules(engine = "Cubist") %>% fit(mpg ~., data = mtcars)})
+  expect_snapshot_error({cubist_rules() |> fit(mpg ~., data = mtcars)})
+  expect_snapshot_error({poisson_reg() |> fit(mpg ~., data = mtcars)})
+  expect_snapshot_error({cubist_rules(engine = "Cubist") |> fit(mpg ~., data = mtcars)})
 })
 
 test_that("fit_xy() can handle attributes on a data.frame outcome (#1060)", {

@@ -5,9 +5,9 @@ test_that('linear quantile regression via quantreg - single quantile', {
   # data in `helper-objects.R`
 
   one_quant <-
-    linear_reg() %>%
-    set_engine("quantreg") %>%
-    set_mode("quantile regression", quantile_levels = .5) %>%
+    linear_reg() |>
+    set_engine("quantreg") |>
+    set_mode("quantile regression", quantile_levels = .5) |>
     fit(price ~ ., data = sac_train)
 
   expect_s3_class(one_quant, c("_rq", "model_fit"))
@@ -57,9 +57,9 @@ test_that('linear quantile regression via quantreg - multiple quantiles', {
   # data in `helper-objects.R`
 
   ten_quant <-
-    linear_reg() %>%
-    set_engine("quantreg") %>%
-    set_mode("quantile regression", quantile_levels = (0:9)/9) %>%
+    linear_reg() |>
+    set_engine("quantreg") |>
+    set_mode("quantile regression", quantile_levels = (0:9)/9) |>
     fit(price ~ ., data = sac_train)
 
   expect_s3_class(ten_quant, c("_rq", "model_fit"))

@@ -1,8 +1,8 @@
 # updating
 
     Code
-      decision_tree(cost_complexity = 0.1) %>% set_engine("rpart", model = FALSE) %>%
-        update(cost_complexity = tune(), model = tune())
+      update(set_engine(decision_tree(cost_complexity = 0.1), "rpart", model = FALSE),
+      cost_complexity = tune(), model = tune())
     Output
       Decision Tree Model Specification (unknown mode)
       
@@ -37,7 +37,7 @@
 # argument checks for data dimensions
 
     Code
-      f_fit <- spec %>% fit(body_mass_g ~ ., data = penguins)
+      f_fit <- fit(spec, body_mass_g ~ ., data = penguins)
     Condition
       Warning:
       ! 1000 samples were requested but there were 333 rows in the data.
@@ -46,7 +46,7 @@
 ---
 
     Code
-      xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g)
+      xy_fit <- fit_xy(spec, x = penguins[, -6], y = penguins$body_mass_g)
     Condition
       Warning:
       ! 1000 samples were requested but there were 333 rows in the data.

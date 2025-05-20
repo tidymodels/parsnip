@@ -10,16 +10,16 @@ This engine has no tuning parameters but you can set the `family` parameter (and
 ## Translation from parsnip to the original package
 
 ```{r glm-reg}
-logistic_reg() %>% 
-  set_engine("glm") %>% 
+logistic_reg() |> 
+  set_engine("glm") |> 
   translate()
 ```
 
 To use a non-default `family` and/or `link`, pass in as an argument to `set_engine()`:
 
 ```{r glm-reg-engine}
-logistic_reg() %>% 
-  set_engine("glm", family = stats::binomial(link = "probit")) %>% 
+logistic_reg() |> 
+  set_engine("glm", family = stats::binomial(link = "probit")) |> 
   translate()
 ```
 

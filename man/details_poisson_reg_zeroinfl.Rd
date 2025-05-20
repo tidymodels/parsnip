@@ -21,8 +21,8 @@ The \strong{poissonreg} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
 
-poisson_reg() \%>\%
-  set_engine("zeroinfl") \%>\%
+poisson_reg() |>
+  set_engine("zeroinfl") |>
   translate()
 }\if{html}{\out{</div>}}
 
@@ -59,8 +59,8 @@ method is required and the formula is just passed through. For example:
 tidymodels_prefer()
 
 data("bioChemists", package = "pscl")
-poisson_reg() \%>\% 
-  set_engine("zeroinfl") \%>\% 
+poisson_reg() |> 
+  set_engine("zeroinfl") |> 
   fit(art ~ fem + mar | ment, data = bioChemists)
 }\if{html}{\out{</div>}}
 
@@ -86,13 +86,13 @@ conjunction with a model formula:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{data("bioChemists", package = "pscl")
 spec <- 
-  poisson_reg() \%>\% 
+  poisson_reg() |> 
   set_engine("zeroinfl")
 
-workflow() \%>\% 
-  add_variables(outcomes = c(art), predictors = c(fem, mar, ment)) \%>\% 
-  add_model(spec, formula = art ~ fem + mar | ment) \%>\% 
-  fit(data = bioChemists) \%>\% 
+workflow() |> 
+  add_variables(outcomes = c(art), predictors = c(fem, mar, ment)) |> 
+  add_model(spec, formula = art ~ fem + mar | ment) |> 
+  fit(data = bioChemists) |> 
   extract_fit_engine()
 }\if{html}{\out{</div>}}
 

@@ -19,7 +19,7 @@
 # argument checks for data dimensions
 
     Code
-      f_fit <- spec %>% fit(species ~ ., data = penguins)
+      f_fit <- fit(spec, species ~ ., data = penguins)
     Condition
       Warning:
       ! 1000 samples were requested but there were 333 rows in the data.
@@ -28,7 +28,7 @@
 ---
 
     Code
-      xy_fit <- spec %>% fit_xy(x = penguins[, -1], y = penguins$species)
+      xy_fit <- fit_xy(spec, x = penguins[, -1], y = penguins$species)
     Condition
       Warning:
       ! 1000 samples were requested but there were 333 rows in the data.

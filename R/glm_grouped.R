@@ -39,7 +39,7 @@
 #'
 #' # Format where the outcome is formatted as number of events
 #' ucb_events <-
-#'   ucb_weighted %>%
+#'   ucb_weighted |>
 #'   tidyr::pivot_wider(
 #'     id_cols = c(Gender, Dept),
 #'     names_from = Admit,
@@ -108,7 +108,7 @@ glm_grouped <- function(formula, data, weights, ...) {
   rlang::f_lhs(formula) <- rlang::call2("cbind", !!!rlang::syms(rev(lvls)))
 
   data <-
-    data %>%
+    data |>
     tidyr::pivot_wider(
       id_cols = c(dplyr::all_of(all_pred)),
       names_from = c(dplyr::all_of(response)),

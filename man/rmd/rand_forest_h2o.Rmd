@@ -11,8 +11,8 @@ defaults <-
                  default = c("see below", "50L", 1))
 
 param <-
-  rand_forest() %>% 
-  set_engine("h2o") %>% 
+  rand_forest() |> 
+  set_engine("h2o") |> 
   make_parameter_list(defaults)
 ```
 
@@ -33,9 +33,9 @@ rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
-) %>%  
-  set_engine("h2o") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("h2o") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -48,9 +48,9 @@ rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
-) %>% 
-  set_engine("h2o") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("h2o") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

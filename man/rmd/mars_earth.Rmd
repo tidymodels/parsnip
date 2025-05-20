@@ -11,8 +11,8 @@ defaults <-
                  default = c("see below", "1L", "'backward'"))
 
 param <-
-  mars() %>% 
-  set_engine("earth") %>% 
+  mars() |> 
+  set_engine("earth") |> 
   make_parameter_list(defaults)
 ```
 
@@ -27,18 +27,18 @@ Parsnip changes the default range for `num_terms` to `c(50, 500)`.
 ## Translation from parsnip to the original package (regression)
 
 ```{r earth-reg}
-mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) %>% 
-  set_engine("earth") %>% 
-  set_mode("regression") %>% 
+mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |> 
+  set_engine("earth") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
 ## Translation from parsnip to the original package (classification)
 
 ```{r earth-cls}
-mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) %>% 
-  set_engine("earth") %>% 
-  set_mode("classification") %>% 
+mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |> 
+  set_engine("earth") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

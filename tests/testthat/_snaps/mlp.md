@@ -1,8 +1,8 @@
 # updating
 
     Code
-      mlp(mode = "classification", hidden_units = 2) %>% set_engine("nnet", Hess = FALSE) %>%
-        update(hidden_units = tune(), Hess = tune())
+      update(set_engine(mlp(mode = "classification", hidden_units = 2), "nnet", Hess = FALSE),
+      hidden_units = tune(), Hess = tune())
     Output
       Single Layer Neural Network Model Specification (classification)
       
@@ -26,7 +26,7 @@
 ---
 
     Code
-      translate(mlp(mode = "classification") %>% set_engine("wat?"))
+      translate(set_engine(mlp(mode = "classification"), "wat?"))
     Condition
       Error in `set_engine()`:
       x Engine "wat?" is not supported for `mlp()`
@@ -35,7 +35,7 @@
 # check_args() works
 
     Code
-      spec <- mlp(penalty = -1) %>% set_engine("keras") %>% set_mode("classification")
+      spec <- set_mode(set_engine(mlp(penalty = -1), "keras"), "classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:
@@ -44,7 +44,7 @@
 ---
 
     Code
-      spec <- mlp(dropout = -1) %>% set_engine("keras") %>% set_mode("classification")
+      spec <- set_mode(set_engine(mlp(dropout = -1), "keras"), "classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:
@@ -53,8 +53,8 @@
 ---
 
     Code
-      spec <- mlp(dropout = 1, penalty = 3) %>% set_engine("keras") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(mlp(dropout = 1, penalty = 3), "keras"),
+      "classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:
@@ -63,7 +63,7 @@
 # tunables
 
     Code
-      mlp() %>% set_engine("brulee") %>% tunable()
+      tunable(set_engine(mlp(), "brulee"))
     Output
       # A tibble: 12 x 5
          name          call_info        source     component component_id
@@ -84,7 +84,7 @@
 ---
 
     Code
-      mlp() %>% set_engine("brulee_two_layer") %>% tunable()
+      tunable(set_engine(mlp(), "brulee_two_layer"))
     Output
       # A tibble: 14 x 5
          name           call_info        source     component component_id
@@ -107,7 +107,7 @@
 ---
 
     Code
-      mlp() %>% set_engine("nnet") %>% tunable()
+      tunable(set_engine(mlp(), "nnet"))
     Output
       # A tibble: 3 x 5
         name         call_info        source     component component_id
@@ -119,7 +119,7 @@
 ---
 
     Code
-      mlp() %>% set_engine("keras") %>% tunable()
+      tunable(set_engine(mlp(), "keras"))
     Output
       # A tibble: 5 x 5
         name         call_info        source     component component_id

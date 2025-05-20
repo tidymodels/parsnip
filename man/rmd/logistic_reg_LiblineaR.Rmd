@@ -11,8 +11,8 @@ defaults <-
                  default = c("see below", "0"))
 
 param <-
-logistic_reg() %>% 
-  set_engine("LiblineaR") %>% 
+logistic_reg() |> 
+  set_engine("LiblineaR") |> 
   make_parameter_list(defaults)
 ```
 
@@ -29,8 +29,8 @@ Be aware that the `LiblineaR` engine regularizes the intercept. Other regularize
 ## Translation from parsnip to the original package
 
 ```{r LiblineaR-cls}
-logistic_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("LiblineaR") %>% 
+logistic_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("LiblineaR") |> 
   translate()
 ```
 

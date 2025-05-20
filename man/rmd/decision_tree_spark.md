@@ -17,9 +17,9 @@ This model has 2 tuning parameters:
 
 
 ``` r
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("spark") %>% 
-  set_mode("classification") %>% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("spark") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -43,9 +43,9 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 
 
 ``` r
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("spark") %>% 
-  set_mode("regression") %>% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("spark") |> 
+  set_mode("regression") |> 
   translate()
 ```
 

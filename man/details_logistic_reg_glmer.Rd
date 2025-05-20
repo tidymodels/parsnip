@@ -20,8 +20,8 @@ The \strong{multilevelmod} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
 
-logistic_reg() \%>\% 
-  set_engine("glmer") \%>\% 
+logistic_reg() |> 
+  set_engine("glmer") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -83,8 +83,8 @@ With parsnip, we suggest using the formula method when fitting:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 data("toenail", package = "HSAUR3")
 
-logistic_reg() \%>\% 
-  set_engine("glmer") \%>\% 
+logistic_reg() |> 
+  set_engine("glmer") |> 
   fit(outcome ~ treatment * visit + (1 | patientID), data = toenail)
 }\if{html}{\out{</div>}}
 
@@ -95,13 +95,13 @@ workflow. In this case, you can add the appropriate columns using
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 glmer_spec <- 
-  logistic_reg() \%>\% 
+  logistic_reg() |> 
   set_engine("glmer")
 
 glmer_wflow <- 
-  workflow() \%>\% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = outcome, predictors = c(treatment, visit, patientID)) \%>\% 
+  add_variables(outcomes = outcome, predictors = c(treatment, visit, patientID)) |> 
   add_model(glmer_spec, formula = outcome ~ treatment * visit + (1 | patientID))
 
 fit(glmer_wflow, data = toenail)

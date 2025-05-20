@@ -1,8 +1,8 @@
 # updating
 
     Code
-      multinom_reg(mixture = 0) %>% set_engine("glmnet", nlambda = 10) %>% update(
-        mixture = tune(), nlambda = tune())
+      update(set_engine(multinom_reg(mixture = 0), "glmnet", nlambda = 10), mixture = tune(),
+      nlambda = tune())
     Output
       Multinomial Regression Model Specification (classification)
       
@@ -26,7 +26,7 @@
 ---
 
     Code
-      translate(multinom_reg(penalty = 0.1) %>% set_engine("wat?"))
+      translate(set_engine(multinom_reg(penalty = 0.1), "wat?"))
     Condition
       Error in `set_engine()`:
       x Engine "wat?" is not supported for `multinom_reg()`
@@ -35,7 +35,7 @@
 ---
 
     Code
-      multinom_reg(penalty = 0.1) %>% set_engine()
+      set_engine(multinom_reg(penalty = 0.1))
     Condition
       Error in `set_engine()`:
       ! Missing engine. Possible mode/engine combinations are: classification {glmnet, spark, keras, nnet, brulee}.
@@ -43,8 +43,8 @@
 # check_args() works
 
     Code
-      spec <- multinom_reg(mixture = -1) %>% set_engine("keras") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(multinom_reg(mixture = -1), "keras"),
+      "classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:
@@ -53,8 +53,8 @@
 ---
 
     Code
-      spec <- multinom_reg(penalty = -1) %>% set_engine("keras") %>% set_mode(
-        "classification")
+      spec <- set_mode(set_engine(multinom_reg(penalty = -1), "keras"),
+      "classification")
       fit(spec, class ~ ., hpc)
     Condition
       Error in `fit()`:
@@ -63,7 +63,7 @@
 # tunables
 
     Code
-      multinom_reg() %>% tunable()
+      tunable(multinom_reg())
     Output
       # A tibble: 1 x 5
         name    call_info        source     component    component_id
@@ -73,7 +73,7 @@
 ---
 
     Code
-      multinom_reg() %>% set_engine("brulee") %>% tunable()
+      tunable(set_engine(multinom_reg(), "brulee"))
     Output
       # A tibble: 9 x 5
         name          call_info        source     component    component_id
@@ -91,7 +91,7 @@
 ---
 
     Code
-      multinom_reg() %>% set_engine("nnet") %>% tunable()
+      tunable(set_engine(multinom_reg(), "nnet"))
     Output
       # A tibble: 1 x 5
         name    call_info        source     component    component_id
@@ -101,7 +101,7 @@
 ---
 
     Code
-      multinom_reg() %>% set_engine("glmnet") %>% tunable()
+      tunable(set_engine(multinom_reg(), "glmnet"))
     Output
       # A tibble: 2 x 5
         name    call_info        source     component    component_id
@@ -112,7 +112,7 @@
 ---
 
     Code
-      multinom_reg() %>% set_engine("keras") %>% tunable()
+      tunable(set_engine(multinom_reg(), "keras"))
     Output
       # A tibble: 1 x 5
         name    call_info        source     component    component_id

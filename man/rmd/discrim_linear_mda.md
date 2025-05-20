@@ -20,8 +20,8 @@ The **discrim** extension package is required to fit this model.
 ``` r
 library(discrim)
 
-discrim_linear(penalty = numeric(0)) %>% 
-  set_engine("mda") %>% 
+discrim_linear(penalty = numeric(0)) |> 
+  set_engine("mda") |> 
   translate()
 ```
 

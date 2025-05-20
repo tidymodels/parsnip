@@ -11,8 +11,8 @@ defaults <-
                  default = c("6L",           "15L",        "0.3",  "see below", "1L",    "0.0",            "1.0",         "Inf",       "0.1"))
 
 param <-
-  rule_fit() %>% 
-  set_engine("xrf") %>% 
+  rule_fit() |> 
+  set_engine("xrf") |> 
   make_parameter_list(defaults)
 ```
 
@@ -39,9 +39,9 @@ rule_fit(
   loss_reduction = numeric(1),
   sample_size = numeric(1),
   penalty = numeric(1)
-) %>%
-  set_engine("xrf") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("xrf") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -62,9 +62,9 @@ rule_fit(
   loss_reduction = numeric(1),
   sample_size = numeric(1),
   penalty = numeric(1)
-) %>%
-  set_engine("xrf") %>%
-  set_mode("classification") %>%
+) |>
+  set_engine("xrf") |>
+  set_mode("classification") |>
   translate()
 ```
 

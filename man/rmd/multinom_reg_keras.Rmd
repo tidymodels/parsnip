@@ -11,8 +11,8 @@ defaults <-
                  default = c("0.0"))
 
 param <-
-  multinom_reg() %>% 
-  set_engine("keras") %>% 
+  multinom_reg() |> 
+  set_engine("keras") |> 
   make_parameter_list(defaults)
 ```
 
@@ -27,8 +27,8 @@ For `penalty`, the amount of regularization is _only_ L2 penalty (i.e., ridge or
 ## Translation from parsnip to the original package
 
 ```{r keras-csl}
-multinom_reg(penalty = double(1)) %>% 
-  set_engine("keras") %>% 
+multinom_reg(penalty = double(1)) |> 
+  set_engine("keras") |> 
   translate()
 ```
 

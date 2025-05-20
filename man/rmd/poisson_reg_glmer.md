@@ -15,8 +15,8 @@ The **multilevelmod** extension package is required to fit this model.
 ``` r
 library(multilevelmod)
 
-poisson_reg(engine = "glmer") %>% 
-  set_engine("glmer") %>% 
+poisson_reg(engine = "glmer") |> 
+  set_engine("glmer") |> 
   translate()
 ```
 
@@ -65,8 +65,8 @@ With parsnip, we suggest using the formula method when fitting:
 ```r
 library(tidymodels)
 
-poisson_reg() %>% 
-  set_engine("glmer") %>% 
+poisson_reg() |> 
+  set_engine("glmer") |> 
   fit(y ~ time + x + (1 | subject), data = longitudinal_counts)
 ```
 
@@ -76,13 +76,13 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 library(tidymodels)
 
 glmer_spec <- 
-  poisson_reg() %>% 
+  poisson_reg() |> 
   set_engine("glmer")
 
 glmer_wflow <- 
-  workflow() %>% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = y, predictors = c(time, x, subject)) %>% 
+  add_variables(outcomes = y, predictors = c(time, x, subject)) |> 
   add_model(glmer_spec, formula = y ~ time + x + (1 | subject))
 
 fit(glmer_wflow, data = longitudinal_counts)

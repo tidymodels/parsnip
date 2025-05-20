@@ -27,8 +27,8 @@ The \strong{discrim} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
 
-naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) \%>\% 
-  set_engine("naivebayes") \%>\% 
+naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) |> 
+  set_engine("naivebayes") |> 
   translate()
 }\if{html}{\out{</div>}}
 

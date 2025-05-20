@@ -8,7 +8,7 @@ tidymodels_prefer()
 data(Chicago)
 
 n <- nrow(Chicago)
-Chicago <- Chicago %>% select(ridership, Clark_Lake, Quincy_Wells)
+Chicago <- Chicago |> select(ridership, Clark_Lake, Quincy_Wells)
 
 Chicago_train <- Chicago[1:(n - 7), ]
 Chicago_test <- Chicago[(n - 6):n, ]

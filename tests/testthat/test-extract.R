@@ -1,5 +1,5 @@
 test_that('extract', {
-  x <- linear_reg() %>% set_engine("lm") %>% fit(mpg ~ ., data = mtcars)
+  x <- linear_reg() |> set_engine("lm") |> fit(mpg ~ ., data = mtcars)
   x_no_spec <- x
   x_no_spec$spec <- NULL
   x_no_fit <- x
@@ -17,7 +17,7 @@ test_that('extract', {
 test_that('extract parameter set from model with no parameters', {
   skip_on_covr()
 
-  lm_model <- linear_reg() %>% set_engine("lm")
+  lm_model <- linear_reg() |> set_engine("lm")
 
   lm_info <- extract_parameter_set_dials(lm_model)
   check_parameter_set_tibble(lm_info)
@@ -28,7 +28,7 @@ test_that('extract parameter set from model with main and engine parameters', {
   skip_on_covr()
 
   bst_model <-
-    boost_tree(mode = "classification", trees = hardhat::tune("funky name \n")) %>%
+    boost_tree(mode = "classification", trees = hardhat::tune("funky name \n")) |>
     set_engine("C5.0", rules = hardhat::tune(), noGlobalPruning = TRUE)
 
   c5_info <- extract_parameter_set_dials(bst_model)
@@ -47,7 +47,7 @@ test_that('extract parameter set from model with main and engine parameters', {
 })
 
 test_that('extract parameter set from model with no loaded implementation', {
-  bt_mod <- bag_tree(min_n = tune()) %>%
+  bt_mod <- bag_tree(min_n = tune()) |>
     set_mode("regression")
 
   expect_snapshot(error = TRUE, extract_parameter_set_dials(bt_mod))
@@ -59,7 +59,7 @@ test_that('extract parameter set from model with no loaded implementation', {
 test_that('extract single parameter from model with no parameters', {
   skip_on_covr()
 
-  lm_model <- linear_reg() %>% set_engine("lm")
+  lm_model <- linear_reg() |> set_engine("lm")
 
   expect_snapshot(
     error = TRUE,
@@ -71,7 +71,7 @@ test_that('extract single parameter from model with main and engine parameters',
   skip_on_covr()
 
   bst_model <-
-    boost_tree(mode = "classification", trees = hardhat::tune("funky name \n")) %>%
+    boost_tree(mode = "classification", trees = hardhat::tune("funky name \n")) |>
     set_engine("C5.0", rules = hardhat::tune(), noGlobalPruning = TRUE)
 
   expect_equal(
@@ -88,7 +88,7 @@ test_that("extract_parameter_dials doesn't error if namespaced args are used", {
   skip_on_covr()
 
   bst_model <-
-    logistic_reg(mode = "classification", penalty = hardhat::tune()) %>%
+    logistic_reg(mode = "classification", penalty = hardhat::tune()) |>
       set_engine("glmnet", family = stats::gaussian("log"))
 
   expect_no_condition(
@@ -97,7 +97,7 @@ test_that("extract_parameter_dials doesn't error if namespaced args are used", {
 })
 
 test_that("extract_fit_time() works", {
-  lm_fit <- linear_reg() %>% fit(mpg ~ ., data = mtcars)
+  lm_fit <- linear_reg() |> fit(mpg ~ ., data = mtcars)
 
   res <- extract_fit_time(lm_fit)
 

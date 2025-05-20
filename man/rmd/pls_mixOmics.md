@@ -22,9 +22,9 @@ The **plsmod** extension package is required to fit this model.
 ``` r
 library(plsmod)
 
-pls(num_comp = integer(1), predictor_prop = double(1)) %>%
-  set_engine("mixOmics") %>%
-  set_mode("regression") %>%
+pls(num_comp = integer(1), predictor_prop = double(1)) |>
+  set_engine("mixOmics") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -57,9 +57,9 @@ The **plsmod** extension package is required to fit this model.
 ``` r
 library(plsmod)
 
-pls(num_comp = integer(1), predictor_prop = double(1)) %>%
-  set_engine("mixOmics") %>%
-  set_mode("classification") %>%
+pls(num_comp = integer(1), predictor_prop = double(1)) |>
+  set_engine("mixOmics") |>
+  set_mode("classification") |>
   translate()
 ```
 

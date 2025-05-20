@@ -29,8 +29,8 @@ Other engine arguments of interest:
 
 
 ``` r
-linear_reg(penalty = double(1)) %>%  
-  set_engine("brulee") %>% 
+linear_reg(penalty = double(1)) |>  
+  set_engine("brulee") |> 
   translate()
 ```
 

@@ -25,8 +25,8 @@ The **discrim** extension package is required to fit this model.
 ``` r
 library(discrim)
 
-discrim_linear() %>% 
-  set_engine("sda") %>% 
+discrim_linear() |> 
+  set_engine("sda") |> 
   translate()
 ```
 

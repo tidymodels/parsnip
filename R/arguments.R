@@ -47,11 +47,11 @@ check_eng_args <- function(args, obj, core_args) {
 #' @examplesIf !parsnip:::is_cran_check()
 #' rand_forest()
 #'
-#' rand_forest() %>%
-#'   set_args(mtry = 3, importance = TRUE) %>%
+#' rand_forest() |>
+#'   set_args(mtry = 3, importance = TRUE) |>
 #'   set_mode("regression")
 #'
-#' linear_reg() %>%
+#' linear_reg() |>
 #'   set_mode("quantile regression", quantile_levels = c(0.2, 0.5, 0.8))
 #' @export
 set_args <- function(object, ...) {
@@ -319,15 +319,15 @@ make_xy_call <- function(object, target, env, call = rlang::caller_env()) {
 #' @return An integer (and perhaps a warning).
 #' @examplesIf !parsnip:::is_cran_check()
 
-#' nearest_neighbor(neighbors= 100) %>%
-#'   set_engine("kknn") %>%
-#'   set_mode("regression") %>%
+#' nearest_neighbor(neighbors= 100) |>
+#'   set_engine("kknn") |>
+#'   set_mode("regression") |>
 #'   translate()
 #'
 #' library(ranger)
-#' rand_forest(mtry = 2, min_n = 100, trees = 3) %>%
-#'   set_engine("ranger") %>%
-#'   set_mode("regression") %>%
+#' rand_forest(mtry = 2, min_n = 100, trees = 3) |>
+#'   set_engine("ranger") |>
+#'   set_mode("regression") |>
 #'   fit(mpg ~ ., data = mtcars)
 #' @export
 min_cols <- function(num_cols, source) {

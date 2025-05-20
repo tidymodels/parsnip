@@ -42,9 +42,9 @@ rule_fit(
   loss_reduction = numeric(1),
   sample_size = numeric(1),
   penalty = numeric(1)
-) \%>\%
-  set_engine("xrf") \%>\%
-  set_mode("regression") \%>\%
+) |>
+  set_engine("xrf") |>
+  set_mode("regression") |>
   translate()
 }\if{html}{\out{</div>}}
 
@@ -86,9 +86,9 @@ rule_fit(
   loss_reduction = numeric(1),
   sample_size = numeric(1),
   penalty = numeric(1)
-) \%>\%
-  set_engine("xrf") \%>\%
-  set_mode("classification") \%>\%
+) |>
+  set_engine("xrf") |>
+  set_mode("classification") |>
   translate()
 }\if{html}{\out{</div>}}
 

@@ -11,10 +11,10 @@ defaults <-
                  default = c("500L", "20L", "5L"))
 
 param <-
-  rand_forest() %>% 
-  set_engine("partykit") %>% 
-  set_mode("regression") %>%  
-  make_parameter_list(defaults) %>% 
+  rand_forest() |> 
+  set_engine("partykit") |> 
+  set_mode("regression") |>  
+  make_parameter_list(defaults) |> 
   distinct()
 ```
 
@@ -31,9 +31,9 @@ param$item
 ```{r partykit-creg}
 library(bonsai)
 
-rand_forest() %>% 
-  set_engine("partykit") %>% 
-  set_mode("regression") %>% 
+rand_forest() |> 
+  set_engine("partykit") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -44,9 +44,9 @@ rand_forest() %>%
 ```{r partykit-class}
 library(bonsai)
 
-rand_forest() %>% 
-  set_engine("partykit") %>% 
-  set_mode("classification") %>% 
+rand_forest() |> 
+  set_engine("partykit") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -59,9 +59,9 @@ rand_forest() %>%
 ```{r party-creg}
 library(censored)
 
-rand_forest() %>% 
-  set_engine("partykit") %>% 
-  set_mode("censored regression") %>% 
+rand_forest() |> 
+  set_engine("partykit") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 

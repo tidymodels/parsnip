@@ -15,9 +15,9 @@ The **multilevelmod** extension package is required to fit this model.
 ``` r
 library(multilevelmod)
 
-linear_reg() %>% 
-  set_engine("glmer") %>% 
-  set_mode("regression") %>% 
+linear_reg() |> 
+  set_engine("glmer") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -75,8 +75,8 @@ With parsnip, we suggest using the formula method when fitting:
 library(tidymodels)
 data("riesby")
 
-linear_reg() %>% 
-  set_engine("glmer") %>% 
+linear_reg() |> 
+  set_engine("glmer") |> 
   fit(depr_score ~ week + (1|subject), data = riesby)
 ```
 
@@ -86,13 +86,13 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 library(tidymodels)
 
 glmer_spec <- 
-  linear_reg() %>% 
+  linear_reg() |> 
   set_engine("glmer")
 
 glmer_wflow <- 
-  workflow() %>% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = depr_score, predictors = c(week, subject)) %>% 
+  add_variables(outcomes = depr_score, predictors = c(week, subject)) |> 
   add_model(glmer_spec, formula = depr_score ~ week + (1|subject))
 
 fit(glmer_wflow, data = riesby)

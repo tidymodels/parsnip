@@ -10,7 +10,7 @@
 # quantile regression models
 
     Code
-      linear_reg() %>% set_mode("quantile regression", quantile_levels = probs_1)
+      set_mode(linear_reg(), "quantile regression", quantile_levels = probs_1)
     Output
       Linear Regression Model Specification (quantile regression)
       
@@ -22,7 +22,7 @@
 ---
 
     Code
-      linear_reg() %>% set_mode("regression", quantile_levels = probs_1)
+      set_mode(linear_reg(), "regression", quantile_levels = probs_1)
     Condition
       Warning:
       `quantile_levels` is only used when the mode is "quantile regression".

@@ -12,9 +12,9 @@ defaults <-
 
 # For this model, this is the same for all modes
 param <-
- boost_tree() %>% 
-  set_engine("lightgbm") %>% 
-  set_mode("regression") %>% 
+ boost_tree() |> 
+  set_engine("lightgbm") |> 
+  set_mode("regression") |> 
   make_parameter_list(defaults)
 ```
 
@@ -38,9 +38,9 @@ Note that parsnip's translation can be overridden via the `counts` argument, sup
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric()
-) %>%
-  set_engine("lightgbm") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("lightgbm") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -52,9 +52,9 @@ boost_tree(
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric()
-) %>% 
-  set_engine("lightgbm") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("lightgbm") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

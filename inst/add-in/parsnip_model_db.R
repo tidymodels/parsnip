@@ -18,7 +18,7 @@ print_methods <- function(x) {
   ns <- asNamespace(ns = x)
   mthds <- ls(envir = ns, pattern = "^print\\.")
   mthds <- gsub("^print\\.", "", mthds)
-  purrr::map(mthds, get_engines) %>% purrr::list_rbind() %>% dplyr::mutate(package = x)
+  purrr::map(mthds, get_engines) |> purrr::list_rbind() |> dplyr::mutate(package = x)
 }
 get_engines <- function(x) {
   eng <- try(parsnip::show_engines(x), silent = TRUE)
@@ -35,7 +35,7 @@ get_tunable_param <- function(mode, package, model, engine) {
   obj <- parsnip::set_engine(obj, engine)
   obj <- parsnip::set_mode(obj, mode)
   res <-
-    tune::tunable(obj) %>%
+    tune::tunable(obj) |>
     dplyr::select(parameter = name)
 
   # ------------------------------------------------------------------------------
@@ -63,25 +63,25 @@ get_tunable_param <- function(mode, package, model, engine) {
 # ------------------------------------------------------------------------------
 
 model_db <-
-  purrr::map(packages, print_methods) %>%
-  purrr::list_rbind() %>%
-  dplyr::filter(engine != "liquidSVM") %>%
-  dplyr::filter(model != "surv_reg") %>%
-  dplyr::filter(engine != "spark") %>%
-  dplyr::filter(!is.na(engine)) %>%
-  dplyr::mutate(label = paste0(model, " (", engine, ")")) %>%
+  purrr::map(packages, print_methods) |>
+  purrr::list_rbind() |>
+  dplyr::filter(engine != "liquidSVM") |>
+  dplyr::filter(model != "surv_reg") |>
+  dplyr::filter(engine != "spark") |>
+  dplyr::filter(!is.na(engine)) |>
+  dplyr::mutate(label = paste0(model, " (", engine, ")")) |>
   dplyr::arrange(model, engine, mode)
 
 num_modes <-
-  model_db %>%
-  dplyr::group_by(package, model, engine) %>%
-  dplyr::count() %>%
-  dplyr::ungroup() %>%
-  dplyr::mutate(single_mode = n == 1) %>%
+  model_db |>
+  dplyr::group_by(package, model, engine) |>
+  dplyr::count() |>
+  dplyr::ungroup() |>
+  dplyr::mutate(single_mode = n == 1) |>
   dplyr::select(package, model, engine, single_mode)
 
 model_db <-
-  dplyr::left_join(model_db, num_modes, by = c("package", "model", "engine")) %>%
+  dplyr::left_join(model_db, num_modes, by = c("package", "model", "engine")) |>
   dplyr::mutate(parameters = purrr::pmap(list(mode, package, model, engine), get_tunable_param))
 
 usethis::use_data(model_db, overwrite = TRUE)

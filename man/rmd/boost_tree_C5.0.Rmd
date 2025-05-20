@@ -11,9 +11,9 @@ defaults <-
                  default = c("15L", "2L", "1.0"))
 
 param <-
- boost_tree() %>% 
-  set_engine("C5.0") %>% 
-  set_mode("classification") %>% 
+ boost_tree() |> 
+  set_engine("C5.0") |> 
+  set_mode("classification") |> 
   make_parameter_list(defaults)
 ```
 
@@ -28,9 +28,9 @@ The implementation of C5.0 limits the number of trees to be between 1 and 100.
 ## Translation from parsnip to the original package (classification)
 
 ```{r C5.0-cls}
-boost_tree(trees = integer(), min_n = integer(), sample_size = numeric()) %>% 
-  set_engine("C5.0") %>% 
-  set_mode("classification") %>% 
+boost_tree(trees = integer(), min_n = integer(), sample_size = numeric()) |> 
+  set_engine("C5.0") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

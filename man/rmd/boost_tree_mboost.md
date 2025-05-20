@@ -29,9 +29,9 @@ The **censored** extension package is required to fit this model.
 ``` r
 library(censored)
 
-boost_tree() %>% 
-  set_engine("mboost") %>% 
-  set_mode("censored regression") %>% 
+boost_tree() |> 
+  set_engine("mboost") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 
