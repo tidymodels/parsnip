@@ -972,13 +972,13 @@ show_model_info <- function(model) {
     weight_info <-
       purrr::map(
         model,
-        ~ get_from_env(paste0(.x, "_fit")) |> mutate(model = .x)
+        \(x) get_from_env(paste0(x, "_fit")) |> mutate(model = x)
       ) |>
       purrr::list_rbind() |>
       dplyr::mutate(protect = map(value, ~ .x$protect)) |>
       dplyr::select(-value) |>
       dplyr::mutate(
-        has_wts = purrr::map_lgl(protect, ~ any(grepl("^weight", .x))),
+        has_wts = purrr::map_lgl(protect, \(x) any(grepl("^weight", x))),
         has_wts = ifelse(has_wts, cli::symbol$sup_1, "")
       ) |>
       dplyr::select(engine, mode, has_wts)

@@ -23,7 +23,7 @@ parsnip_spec_add_in <- function() {
   make_spec <- function(x, tune_args) {
     if (tune_args) {
       nms <- x$parameters[[1]]$parameter
-      args <- purrr::map(nms, ~ rlang::call2("tune"))
+      args <- purrr::map(nms, \(x) rlang::call2("tune"))
       names(args) <- nms
     } else {
       args <- NULL

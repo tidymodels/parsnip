@@ -50,7 +50,7 @@ get_glmn_coefs <- function(x, penalty = 0.01) {
   if (is.list(res$estimate)) {
     res$estimate <- purrr::map(
       res$estimate,
-      ~ as_tibble(as.matrix(.x), rownames = "term")
+      \(x) as_tibble(as.matrix(x), rownames = "term")
     )
     res <- tidyr::unnest(res, cols = c(estimate), names_repair = "minimal")
     names(res) <- c("class", "term", "estimate", "penalty")

@@ -196,7 +196,7 @@ keras_mlp <-
     good_activation <- activation %in% allowed_keras_activation
     if (!all(good_activation)) {
       cli::cli_abort(
-        "{.arg activation} should be one of: {allowed_keras_activation}, not 
+        "{.arg activation} should be one of: {allowed_keras_activation}, not
         {.val {activation}}."
       )
     }
@@ -352,7 +352,7 @@ mlp_num_weights <- function(p, hidden_units, classes) {
 }
 
 allowed_keras_activation <-
- c("elu", "exponential", "gelu", "hardsigmoid", "linear", "relu", "selu", 
+ c("elu", "exponential", "gelu", "hardsigmoid", "linear", "relu", "selu",
    "sigmoid", "softmax", "softplus", "softsign", "swish", "tanh")
 
 #' Activation functions for neural networks in keras
@@ -398,7 +398,7 @@ multi_predict._torch_mlp <-
       purrr::map(epochs,
                  ~ predict(object, new_data, type, epochs = .x) |>
                    dplyr::mutate(epochs = .x)) |>
-      purrr::map(~ .x |> dplyr::mutate(.row = seq_len(nrow(new_data)))) |>
+      purrr::map(\(x) x |> dplyr::mutate(.row = seq_len(nrow(new_data)))) |>
       purrr::list_rbind() |>
       dplyr::arrange(.row, epochs)
     res <- split(dplyr::select(res, -.row), res$.row)
