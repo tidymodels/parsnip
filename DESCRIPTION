@@ -6,7 +6,7 @@ Authors@R: c(
     person("Davis", "Vaughan", , "davis@posit.co", role = "aut"),
     person("Emil", "Hvitfeldt", , "emil.hvitfeldt@posit.co", role = "ctb"),
     person("Posit Software, PBC", role = c("cph", "fnd"),
-            comment = c(ROR = "03wc8by49"))
+           comment = c(ROR = "03wc8by49"))
   )
 Maintainer: Max Kuhn <max@posit.co>
 Description: A common interface is provided to allow users to specify a

@@ -12,6 +12,8 @@ coverage](https://codecov.io/gh/tidymodels/parsnip/branch/main/graph/badge.svg)]
 status](https://www.r-pkg.org/badges/version/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![Downloads](https://cranlogs.r-pkg.org/badges/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![Codecov test
+coverage](https://codecov.io/gh/tidymodels/parsnip/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/parsnip)
 <!-- badges: end -->
 
 ## Introduction
