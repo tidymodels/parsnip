@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("survival_reg", "survival")`
 
 ## Tuning Parameters
 
-```{r survival-param-info, echo = FALSE}
+```{r}
+#| label: survival-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("dist"),
                  default = c("'weibull'"))
@@ -19,7 +23,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r survival-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: survival-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -27,7 +34,8 @@ param$item
 
 `r uses_extension("survival_reg", "survival", "censored regression")`
 
-```{r survival-creg}
+```{r}
+#| label: survival-creg
 library(censored)
 
 survival_reg(dist = character(1)) |> 
@@ -54,17 +62,20 @@ survival_reg() |>
   extract_fit_engine()
 ```
 
-```{r child = "template-survival-mean.Rmd"}
+```{r}
+#| child: template-survival-mean.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 ## References

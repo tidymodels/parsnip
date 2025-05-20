@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("rand_forest", "h2o")`
 
 ## Tuning Parameters
 
-```{r h2o-param-info, echo = FALSE}
+```{r}
+#| label: h2o-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("mtry", "trees", "min_n"),
                  default = c("see below", "50L", 1))
@@ -18,7 +22,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r h2o-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: h2o-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -28,7 +35,8 @@ param$item
 
 [agua::h2o_train_rf()] is a wrapper around [h2o::h2o.randomForest()]. 
 
-```{r h2o-reg}
+```{r}
+#| label: h2o-reg
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
@@ -43,7 +51,8 @@ rand_forest(
 
 ## Translation from parsnip to the original package (classification)
 
-```{r h2o-cls}
+```{r}
+#| label: h2o-cls
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
@@ -56,16 +65,19 @@ rand_forest(
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 
 ## Initializing h2o 
 
-```{r child = "template-h2o-init.Rmd"}
+```{r}
+#| child: template-h2o-init.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-bundle.Rmd"}
+```{r}
+#| child: template-bundle.Rmd
 ```

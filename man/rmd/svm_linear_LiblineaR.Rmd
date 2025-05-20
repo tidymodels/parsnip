@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("svm_linear", "LiblineaR")`
 
 ## Tuning Parameters
 
-```{r LiblineaR-param-info, echo = FALSE}
+```{r}
+#| label: LiblineaR-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("cost", "margin"),
                  default = c("1.0", "no default"))
@@ -18,7 +22,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r LiblineaR-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: LiblineaR-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -28,7 +35,8 @@ Parsnip changes the default range for `cost` to `c(-10, 5)`.
 
 ## Translation from parsnip to the original package (regression)
 
-```{r LiblineaR-reg}
+```{r}
+#| label: LiblineaR-reg
 svm_linear(
   cost = double(1),
   margin = double(1)
@@ -40,7 +48,8 @@ svm_linear(
 
 ## Translation from parsnip to the original package (classification)
 
-```{r LiblineaR-cls}
+```{r}
+#| label: LiblineaR-cls
 svm_linear(
   cost = double(1)
 ) |> 
@@ -55,20 +64,24 @@ Note that the `LiblineaR` engine does not produce class probabilities. When opti
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## Sparse Data
 
-```{r child = "template-uses-sparse-data.Rmd"}
+```{r}
+#| child: template-uses-sparse-data.Rmd
 ```
 
 ## Examples 

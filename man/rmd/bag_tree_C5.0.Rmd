@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("bag_tree", "C5.0")`
 
 ## Tuning Parameters
 
-```{r C5.0-param-info, echo = FALSE}
+```{r}
+#| label: C5.0-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("min_n"),
                  default = c("2L"))
@@ -19,7 +23,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r C5.0-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: C5.0-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -27,7 +34,8 @@ param$item
 
 `r uses_extension("bag_tree", "C5.0", "classification")`
 
-```{r C5.0-cls}
+```{r}
+#| label: C5.0-cls
 library(baguette)
 
 bag_tree(min_n = integer()) |> 
@@ -38,12 +46,14 @@ bag_tree(min_n = integer()) |>
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 

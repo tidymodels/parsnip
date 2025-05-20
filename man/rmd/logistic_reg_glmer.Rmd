@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("logistic_reg", "glmer")`
@@ -11,7 +13,8 @@ This model has no tuning parameters.
 
 `r uses_extension("logistic_reg", "glmer", "classification")`
 
-```{r lmer-csl}
+```{r}
+#| label: lmer-csl
 library(multilevelmod)
 
 logistic_reg() |> 
@@ -19,7 +22,8 @@ logistic_reg() |>
   translate()
 ```
 
-```{r child = "template-no-pooling.Rmd"}
+```{r}
+#| child: template-no-pooling.Rmd
 ```
 
 ## Preprocessing requirements
@@ -61,7 +65,8 @@ fit(glmer_wflow, data = toenail)
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## References

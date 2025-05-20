@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("proportional_hazards", "glmnet")`
 
 ## Tuning Parameters
 
-```{r glmnet-param-info, echo = FALSE}
+```{r}
+#| label: glmnet-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("penalty", "mixture"),
                  default = c("see below", "1.0"))
@@ -18,7 +22,10 @@ proportional_hazards() |>
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r glmnet-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: glmnet-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -32,7 +39,8 @@ The `penalty` parameter has no default and requires a single numeric value. For 
 
 `r uses_extension("proportional_hazards", "glmnet", "censored regression")`
 
-```{r glmnet-creg}
+```{r}
+#| label: glmnet-creg
 library(censored)
 
 proportional_hazards(penalty = double(1), mixture = double(1)) |> 
@@ -42,10 +50,12 @@ proportional_hazards(penalty = double(1), mixture = double(1)) |>
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 By default, [glmnet::glmnet()] uses the argument `standardize = TRUE` to center and scale the data. 
 
@@ -58,14 +68,16 @@ The model formula (which is required) can include _special_ terms, such as [surv
 
 For example, in this model, the numeric column `rx` is used to estimate two different baseline hazards for each value of the column:
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 library(survival)
 library(censored)
 library(dplyr)
 library(tidyr)
 ```
 
-```{r, warning = FALSE}
+```{r}
+#| warning: false
 library(survival)
 library(censored)
 library(dplyr)
@@ -86,22 +98,26 @@ predict(mod, pred_data, type = "survival", time = 500) |>
 
 Note that columns used in the `strata()` function _will_ also be estimated in the regular portion of the model (i.e., within the linear predictor).
 
-```{r child = "template-survival-mean.Rmd"}
+```{r}
+#| child: template-survival-mean.Rmd
 ```
 
 ## Linear predictor values
 
-```{r child = "template-censored-linear-predictor.Rmd"}
+```{r}
+#| child: template-censored-linear-predictor.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 # References

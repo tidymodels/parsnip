@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("rand_forest", "randomForest")`
 
 ## Tuning Parameters
 
-```{r randomForest-param-info, echo = FALSE}
+```{r}
+#| label: randomForest-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("mtry", "trees", "min_n"),
                  default = c("see below", "500L", "see below"))
@@ -18,7 +22,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r randomForest-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: randomForest-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -28,7 +35,8 @@ param$item
 
 ## Translation from parsnip to the original package (regression)
 
-```{r randomForest-reg}
+```{r}
+#| label: randomForest-reg
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
@@ -43,7 +51,8 @@ rand_forest(
 
 ## Translation from parsnip to the original package (classification)
 
-```{r randomForest-cls}
+```{r}
+#| label: randomForest-cls
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
@@ -56,12 +65,14 @@ rand_forest(
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 

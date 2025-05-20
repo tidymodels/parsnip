@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("decision_tree", "C5.0")`
 
 ## Tuning Parameters
 
-```{r C5.0-param-info, echo = FALSE}
+```{r}
+#| label: C5.0-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("min_n"),
                  default = c("2L"))
@@ -19,13 +23,17 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r C5.0-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: C5.0-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
 ## Translation from parsnip to the original package (classification)
 
-```{r C5.0-cls}
+```{r}
+#| label: C5.0-cls
 decision_tree(min_n = integer()) |> 
   set_engine("C5.0") |> 
   set_mode("classification") |> 
@@ -36,17 +44,20 @@ decision_tree(min_n = integer()) |>
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 

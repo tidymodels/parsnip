@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("boost_tree", "mboost")`
 
 ## Tuning Parameters
 
-```{r mboost-param-info, echo = FALSE}
+```{r}
+#| label: mboost-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("mtry", "trees", "tree_depth", "min_n", "loss_reduction"),
                  default = c("see below", "100L", "2L", "10L", "0"))
@@ -19,7 +23,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r mboost-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: mboost-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -29,7 +36,8 @@ The `mtry` parameter is related to the number of predictors. The default is to u
 
 `r uses_extension("boost_tree", "mboost", "censored regression")`
 
-```{r mboost-creg}
+```{r}
+#| label: mboost-creg
 library(censored)
 
 boost_tree() |> 
@@ -42,12 +50,14 @@ boost_tree() |>
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## Other details
 
-```{r child = "template-survival-mean.Rmd"}
+```{r}
+#| child: template-survival-mean.Rmd
 ```
 
 ## References

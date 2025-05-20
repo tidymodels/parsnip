@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("rand_forest", "ranger")`
 
 ## Tuning Parameters
 
-```{r ranger-param-info, echo = FALSE}
+```{r}
+#| label: ranger-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("mtry", "trees", "min_n"),
                  default = c("see below", "500L", "see below"))
@@ -18,7 +22,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r ranger-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: ranger-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -28,7 +35,8 @@ param$item
 
 ## Translation from parsnip to the original package (regression)
 
-```{r ranger-reg}
+```{r}
+#| label: ranger-reg
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
@@ -43,7 +51,8 @@ rand_forest(
 
 ## Translation from parsnip to the original package (classification)
 
-```{r ranger-cls}
+```{r}
+#| label: ranger-cls
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
@@ -58,7 +67,8 @@ Note that a `ranger` probability forest is always fit (unless the `probability` 
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## Other notes
@@ -69,19 +79,22 @@ For `ranger` confidence intervals, the intervals are  constructed using the form
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Sparse Data
 
-```{r child = "template-uses-sparse-data.Rmd"}
+```{r}
+#| child: template-uses-sparse-data.Rmd
 ```
 
 While this engine supports sparse data as an input, it doesn't use it any differently than dense data. Hence there it no reason to convert back and forth.
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 

@@ -10,7 +10,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r startup, include = FALSE}
+```{r}
+#| label: startup
+#| include: false
 library(utils)
 library(ggplot2)
 theme_set(theme_bw())
@@ -20,7 +22,8 @@ Some R packages can create predictions from models that are different than the o
 
 In parsnip, there is a method called `multi_predict()` that can do this. It's current methods are:
 
-```{r methods}
+```{r}
+#| label: methods
 library(parsnip)
 methods("multi_predict")
 ```
@@ -39,7 +42,8 @@ attrition_test  <- testing(data_split)
 
 A boosted classification tree is one of the most low-maintenance approaches that we could take to these data:
 
-```{r boost-model}
+```{r}
+#| label: boost-model
 # requires the xgboost package
 attrition_boost <- 
   boost_tree(mode = "classification", trees = 100) |> 
@@ -48,14 +52,16 @@ attrition_boost <-
 
 Suppose that 10-fold cross-validation was being used to tune the model over the number of trees:
 
-```{r folds}
+```{r}
+#| label: folds
 set.seed(616)
 folds <- vfold_cv(attrition_train)
 ```
 
 The process would fit a model on 90% of the data and predict on the remaining 10%. Using `rsample`:
 
-```{r fold-1}
+```{r}
+#| label: fold-1
 model_data <- analysis(folds$splits[[1]])
 pred_data  <- assessment(folds$splits[[1]])
 
@@ -67,7 +73,8 @@ fold_1_model <-
 
 For `multi_predict()`, the same semantics of `predict()` are used but, for this model, there is an extra argument called `trees`. Candidate submodel values can be passed in with `trees`:
 
-```{r fold-1-pred}
+```{r}
+#| label: fold-1-pred
 
 fold_1_pred <- 
   multi_predict(
@@ -81,13 +88,15 @@ fold_1_pred
 
 The results is a tibble that has as many rows as the data being predicted (_n_ = `r nrow(pred_data)`). The `.pred` column contains a list of tibbles and each has the predictions across the different number of trees:
 
-```{r obs-1-pred}
+```{r}
+#| label: obs-1-pred
 fold_1_pred$.pred[[1]]
 ```
 
 To get this into a format that is more usable, we can use `tidyr::unnest()` but we first add row numbers so that we can track the predictions by test sample as well as the actual classes:
 
-```{r unnest}
+```{r}
+#| label: unnest
 fold_1_df <- 
   fold_1_pred |> 
   bind_cols(pred_data |> dplyr::select(Attrition)) |> 
@@ -98,7 +107,13 @@ fold_1_df
 
 For two samples, what do these look like over trees?
 
-```{r prob-plot, fig.alt = "Two lines tracing the predicted probabilty of no attrition for two observation over the number of trees ranging from 0 to 100. For both observations, the true value of attrition is 'no'. The predicted probability is larger than 0.5 for both observations across all numbers of trees and does not change much between 15 and 100 trees."}
+```{r}
+#| label: prob-plot
+#| fig-alt: Two lines tracing the predicted probabilty of no attrition for two observation
+#|   over the number of trees ranging from 0 to 100. For both observations, the true
+#|   value of attrition is 'no'. The predicted probability is larger than 0.5 for both
+#|   observations across all numbers of trees and does not change much between 15 and
+#|   100 trees.
 fold_1_df |> 
   dplyr::filter(.row %in% c(1, 88)) |> 
   ggplot(aes(x = trees, y = .pred_No, col = Attrition, group = .row)) + 
@@ -109,7 +124,11 @@ fold_1_df |>
 
 What does performance look like over trees (using the area under the ROC curve)? 
 
-```{r auc-plot, fig.alt = "A line plot of the AUC ROC for a number of trees varying between 1 and 100. The AUC is largest for higher number of trees but the gains get smaller for 50+ trees with the maximum being reached around 70 trees."}
+```{r}
+#| label: auc-plot
+#| fig-alt: A line plot of the AUC ROC for a number of trees varying between 1 and 100.
+#|   The AUC is largest for higher number of trees but the gains get smaller for 50+
+#|   trees with the maximum being reached around 70 trees.
 fold_1_df |> 
   group_by(trees) |> 
   roc_auc(truth = Attrition, .pred_No) |> 

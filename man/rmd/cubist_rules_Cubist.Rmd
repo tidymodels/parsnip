@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("cubist_rules", "Cubist")`
 
 ## Tuning Parameters
 
-```{r cubist-param-info, echo = FALSE}
+```{r}
+#| label: cubist-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("committees", "neighbors",  "max_rules"),
                  default = c("1L",                "0L", "NA_integer"))
@@ -18,7 +22,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r cubist-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: cubist-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -27,7 +34,8 @@ param$item
 
 `r uses_extension("cubist_rules", "Cubist", "regression")`
 
-```{r cubist-reg}
+```{r}
+#| label: cubist-reg
 library(rules)
 
 cubist_rules(
@@ -42,7 +50,8 @@ cubist_rules(
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## References

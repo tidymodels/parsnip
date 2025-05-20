@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("mars", "earth")`
 
 ## Tuning Parameters
 
-```{r earth-param-info, echo = FALSE}
+```{r}
+#| label: earth-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("num_terms", "prod_degree", "prune_method"),
                  default = c("see below", "1L", "'backward'"))
@@ -18,7 +22,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r earth-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: earth-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -26,7 +33,8 @@ Parsnip changes the default range for `num_terms` to `c(50, 500)`.
 
 ## Translation from parsnip to the original package (regression)
 
-```{r earth-reg}
+```{r}
+#| label: earth-reg
 mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |> 
   set_engine("earth") |> 
   set_mode("regression") |> 
@@ -35,7 +43,8 @@ mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(
 
 ## Translation from parsnip to the original package (classification)
 
-```{r earth-cls}
+```{r}
+#| label: earth-cls
 mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |> 
   set_engine("earth") |> 
   set_mode("classification") |> 
@@ -47,19 +56,22 @@ An alternate method for using MARs for categorical outcomes can be found in [dis
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 Note that the `earth` package documentation has: "In the current implementation, _building models with weights can be slow_."
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 ## Examples 

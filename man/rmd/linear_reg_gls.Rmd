@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("linear_reg", "gls")`
@@ -11,7 +13,8 @@ This model has no tuning parameters.
 
 `r uses_extension("linear_reg", "gls", "regression")`
 
-```{r gls-csl}
+```{r}
+#| label: gls-csl
 library(multilevelmod)
 
 linear_reg() |> 
@@ -63,7 +66,8 @@ fit(gls_wflow, data = riesby)
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

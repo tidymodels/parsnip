@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("naive_Bayes", "klaR")`
@@ -6,7 +8,9 @@
 ## Tuning Parameters
 
 
-```{r klaR-param-info, echo = FALSE}
+```{r}
+#| label: klaR-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("smoothness", "Laplace"),
                  default = c("1.0", "0.0"))
@@ -19,7 +23,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameter:
 
-```{r klaR-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: klaR-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -29,7 +36,8 @@ Note that the engine argument `usekernel` is set to `TRUE` by default when using
 
 `r uses_extension("naive_Bayes", "klaR", "classification")`
 
-```{r klaR-cls}
+```{r}
+#| label: klaR-cls
 library(discrim)
 
 naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) |> 
@@ -41,12 +49,14 @@ naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) |>
 
 The columns for qualitative predictors should always be represented as factors (as opposed to dummy/indicator variables). When the predictors are factors, the underlying code treats them as multinomial data and appropriately computes their conditional distributions. 
 
-```{r child = "template-zv.Rmd"}
+```{r}
+#| child: template-zv.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

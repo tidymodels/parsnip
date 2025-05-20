@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("auto_ml", "h2o")`
@@ -19,7 +21,8 @@ Engine arguments of interest
 
 [agua::h2o_train_auto()] is a wrapper around [h2o::h2o.automl()]. 
 
-```{r h2o-reg}
+```{r}
+#| label: h2o-reg
 auto_ml() |>  
   set_engine("h2o") |> 
   set_mode("regression") |> 
@@ -29,7 +32,8 @@ auto_ml() |>
 
 ## Translation from parsnip to the original package (classification)
 
-```{r h2o-cls}
+```{r}
+#| label: h2o-cls
 auto_ml() |>  
   set_engine("h2o") |> 
   set_mode("classification") |> 
@@ -38,15 +42,18 @@ auto_ml() |>
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
 ## Initializing h2o 
 
-```{r child = "template-h2o-init.Rmd"}
+```{r}
+#| child: template-h2o-init.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-bundle.Rmd"}
+```{r}
+#| child: template-bundle.Rmd
 ```

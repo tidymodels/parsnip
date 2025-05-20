@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("gen_additive_mod", "mgcv")`
@@ -6,7 +8,9 @@
 ## Tuning Parameters
 
 
-```{r earth-param-info, echo = FALSE}
+```{r}
+#| label: earth-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("select_features", "adjust_deg_free"),
                  default = c("FALSE", "1.0"))
@@ -19,14 +23,18 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r earth-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: earth-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
 
 ## Translation from parsnip to the original package  (regression)
 
-```{r glm-reg}
+```{r}
+#| label: glm-reg
 gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) |> 
   set_engine("mgcv") |> 
   set_mode("regression") |> 
@@ -35,7 +43,8 @@ gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) |>
 
 ## Translation from parsnip to the original package  (classification)
 
-```{r glm-cls}
+```{r}
+#| label: glm-cls
 gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) |> 
   set_engine("mgcv") |> 
   set_mode("classification") |> 
@@ -46,7 +55,8 @@ gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) |>
 
 This model should be used with a model formula so that smooth terms can be specified. For example:
 
-```{r include = FALSE}
+```{r}
+#| include: false
 library(mgcv)
 ```
 ```{r}
@@ -79,17 +89,20 @@ To learn more about the differences between these formulas, see [`?model_formula
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 ## References

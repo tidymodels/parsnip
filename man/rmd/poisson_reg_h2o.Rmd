@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("poisson_reg", "h2o")`
 
 ## Tuning Parameters
 
-```{r h2o-param-info, echo = FALSE}
+```{r}
+#| label: h2o-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("penalty", "mixture"),
                  default = c("see below", "see below"))
@@ -18,11 +22,16 @@ poisson_reg() |>
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r h2o-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: h2o-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
-```{r, child = "template-h2o-glm-penalty.Rmd", include = FALSE}
+```{r}
+#| child: template-h2o-glm-penalty.Rmd
+#| include: false
 ```
 
 ## Translation from parsnip to the original package
@@ -31,7 +40,8 @@ param$item
 
 `r uses_extension("poisson_reg", "h2o", "regression")`
 
-```{r h2o-csl}
+```{r}
+#| label: h2o-csl
 library(poissonreg)
 
 poisson_reg(penalty = double(1), mixture = double(1)) |> 
@@ -41,10 +51,12 @@ poisson_reg(penalty = double(1), mixture = double(1)) |>
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 By default, `h2o::h2o.glm()` uses the argument `standardize = TRUE` to center and scale all numerical columns. 
@@ -52,10 +64,12 @@ By default, `h2o::h2o.glm()` uses the argument `standardize = TRUE` to center an
 
 ## Initializing h2o  
 
-```{r child = "template-h2o-init.Rmd"}
+```{r}
+#| child: template-h2o-init.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-bundle.Rmd"}
+```{r}
+#| child: template-bundle.Rmd
 ```

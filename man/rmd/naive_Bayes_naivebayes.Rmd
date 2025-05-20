@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("naive_Bayes", "naivebayes")`
@@ -6,7 +8,9 @@
 ## Tuning Parameters
 
 
-```{r naivebayes-param-info, echo = FALSE}
+```{r}
+#| label: naivebayes-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("smoothness", "Laplace"),
                  default = c("1.0", "0.0"))
@@ -19,7 +23,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameter:
 
-```{r naivebayes-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: naivebayes-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -29,7 +36,8 @@ Note that the engine argument `usekernel` is set to `TRUE` by default when using
 
 `r uses_extension("naive_Bayes", "naivebayes", "classification")`
 
-```{r naivebayes-cls}
+```{r}
+#| label: naivebayes-cls
 library(discrim)
 
 naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) |> 
@@ -43,12 +51,14 @@ The columns for qualitative predictors should always be represented as factors (
 
 For count data, integers can be estimated using a Poisson distribution if the argument `usepoisson = TRUE` is passed as an engine argument.  
 
-```{r child = "template-zv.Rmd"}
+```{r}
+#| child: template-zv.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

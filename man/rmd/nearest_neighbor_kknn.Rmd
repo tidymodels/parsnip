@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("nearest_neighbor", "kknn")`
 
 ## Tuning Parameters
 
-```{r kknn-param-info, echo = FALSE}
+```{r}
+#| label: kknn-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("neighbors", "weight_func", "dist_power"),
                  default = c("5L", "'optimal'", "2.0"))
@@ -18,7 +22,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r kknn-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: kknn-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -27,7 +34,8 @@ Parsnip changes the default range for `neighbors` to `c(1, 15)` and `dist_power`
 
 ## Translation from parsnip to the original package (regression)
 
-```{r kknn-reg}
+```{r}
+#| label: kknn-reg
 nearest_neighbor(
   neighbors = integer(1),
   weight_func = character(1),
@@ -42,7 +50,8 @@ nearest_neighbor(
 
 ## Translation from parsnip to the original package (classification)
 
-```{r kknn-cls}
+```{r}
+#| label: kknn-cls
 nearest_neighbor(
   neighbors = integer(1),
   weight_func = character(1),
@@ -55,10 +64,12 @@ nearest_neighbor(
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 ## Examples 
@@ -67,12 +78,14 @@ The "Fitting and Predicting with parsnip" article contains [examples](https://pa
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 ## References

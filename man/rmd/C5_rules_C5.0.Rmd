@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("C5_rules", "C5.0")`
 
 ## Tuning Parameters
 
-```{r C5.0-param-info, echo = FALSE}
+```{r}
+#| label: C5.0-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("trees", "min_n"),
                  default = c("1L",       "2L"))
@@ -18,7 +22,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r C5.0-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: C5.0-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -28,7 +35,8 @@ Note that C5.0 has a tool for _early stopping_ during boosting where less iterat
 
 `r uses_extension("C5_rules", "C5.0", "classification")`
 
-```{r C5.0-cls}
+```{r}
+#| label: C5.0-cls
 library(rules)
 
 C5_rules(
@@ -42,17 +50,20 @@ C5_rules(
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 

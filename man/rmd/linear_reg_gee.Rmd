@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("linear_reg", "gee")`
@@ -11,7 +13,8 @@ This model has no formal tuning parameters. It may be beneficial to determine th
 
 `r uses_extension("linear_reg", "gee", "regression")`
 
-```{r gee-csl}
+```{r}
+#| label: gee-csl
 library(multilevelmod)
 
 linear_reg() |> 
@@ -64,14 +67,16 @@ gee_wflow <-
 
 fit(gee_wflow, data = warpbreaks)
 ```
-```{r child = "template-gee-silent.Rmd"}
+```{r}
+#| child: template-gee-silent.Rmd
 ```
 
 Also, because of issues with the `gee()` function, a supplementary call to `glm()` is needed to get the rank and QR decomposition objects so that `predict()` can be used.
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

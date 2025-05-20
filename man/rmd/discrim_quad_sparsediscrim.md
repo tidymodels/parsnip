@@ -40,7 +40,7 @@ discrim_quad(regularization_method = character(0)) |>
 ## 
 ## Model fit template:
 ## discrim::fit_regularized_quad(x = missing_arg(), y = missing_arg(), 
-##     regularization_method = character(0))
+##     method = character(0))
 ```
 
 ## Preprocessing requirements

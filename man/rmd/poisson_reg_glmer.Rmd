@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("poisson_reg", "glmer")`
@@ -11,7 +13,8 @@ This model has no tuning parameters.
 
 `r uses_extension("poisson_reg", "glmer", "regression")`
 
-```{r lmer-csl}
+```{r}
+#| label: lmer-csl
 library(multilevelmod)
 
 poisson_reg(engine = "glmer") |> 
@@ -19,7 +22,8 @@ poisson_reg(engine = "glmer") |>
   translate()
 ```
 
-```{r child = "template-no-pooling.Rmd"}
+```{r}
+#| child: template-no-pooling.Rmd
 ```
 
 ## Preprocessing requirements
@@ -60,7 +64,8 @@ fit(glmer_wflow, data = longitudinal_counts)
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## References

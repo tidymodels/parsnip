@@ -5,14 +5,16 @@ For this type of model, the template of the fit calls are below:
 
 ## parsnip
 
-```{r parsnip-reg}
+```{r}
+#| label: parsnip-reg
 null_model() |> 
   set_engine("parsnip") |> 
   set_mode("regression") |> 
   translate()
 ```
 
-```{r parsnip-cls}
+```{r}
+#| label: parsnip-cls
 null_model() |> 
   set_engine("parsnip") |> 
   set_mode("classification") |> 

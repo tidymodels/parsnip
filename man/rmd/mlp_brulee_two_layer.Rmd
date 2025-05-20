@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("mlp", "brulee_two_layer")`
 
 ## Tuning Parameters
 
-```{r brulee-param-info, echo = FALSE}
+```{r}
+#| label: brulee-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("hidden_units", "penalty", "dropout", "epochs", "learn_rate", "activation", "mixture"),
                  default = c("3L", "0.001", "0.0", "100L", "0.01", "'relu'", "0.0"))
@@ -26,7 +30,10 @@ param <- spec |> make_parameter_list(defaults)
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r brulee-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: brulee-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -46,7 +53,8 @@ Other engine arguments of interest:
 
 ## Translation from parsnip to the original package (regression)
 
-```{r brulee-reg}
+```{r}
+#| label: brulee-reg
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
@@ -66,7 +74,8 @@ Note that parsnip automatically sets the linear activation in the last layer.
 
 ## Translation from parsnip to the original package (classification)
 
-```{r brulee-cls}
+```{r}
+#| label: brulee-cls
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
@@ -85,15 +94,18 @@ mlp(
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

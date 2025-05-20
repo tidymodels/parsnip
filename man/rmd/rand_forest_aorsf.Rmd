@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("rand_forest", "aorsf")`
 
 ## Tuning Parameters
 
-```{r aorsf-param-info, echo = FALSE}
+```{r}
+#| label: aorsf-param-info
+#| echo: false
 defaults <-
   tibble::tibble(parsnip = c("trees", "min_n", "mtry"),
                  default = c("500L", "5L", "ceiling(sqrt(n_predictors))"))
@@ -20,7 +24,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r aorsf-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: aorsf-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -32,7 +39,8 @@ Additionally, this model has one engine-specific tuning parameter:
 
 `r uses_extension("rand_forest", "aorsf", "censored regression")`
 
-```{r aorsf-creg}
+```{r}
+#| label: aorsf-creg
 library(censored)
 
 rand_forest() |>
@@ -45,7 +53,8 @@ rand_forest() |>
 
 `r uses_extension("rand_forest", "aorsf", "regression")`
 
-```{r aorsf-reg}
+```{r}
+#| label: aorsf-reg
 library(bonsai)
 
 rand_forest() |>
@@ -58,7 +67,8 @@ rand_forest() |>
 
 `r uses_extension("rand_forest", "aorsf", "classification")`
 
-```{r aorsf-class}
+```{r}
+#| label: aorsf-class
 library(bonsai)
 
 rand_forest() |>
@@ -69,12 +79,14 @@ rand_forest() |>
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Other details

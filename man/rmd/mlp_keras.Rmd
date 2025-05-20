@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("mlp", "keras")`
 
 ## Tuning Parameters
 
-```{r keras-param-info, echo = FALSE}
+```{r}
+#| label: keras-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("hidden_units", "penalty", "dropout", "epochs", "activation"),
                  default = c("5L", "0.0", "0.0", "20L", "'softmax'"))
@@ -18,13 +22,17 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r keras-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: keras-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
 ## Translation from parsnip to the original package (regression)
 
-```{r keras-reg}
+```{r}
+#| label: keras-reg
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
@@ -39,7 +47,8 @@ mlp(
 
 ## Translation from parsnip to the original package (classification)
 
-```{r keras-cls}
+```{r}
+#| label: keras-cls
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
@@ -55,20 +64,24 @@ mlp(
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-bundle.Rmd"}
+```{r}
+#| child: template-bundle.Rmd
 ```
 
 ## Examples 

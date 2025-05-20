@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("rand_forest", "spark")`
 
 ## Tuning Parameters
 
-```{r spark-param-info, echo = FALSE}
+```{r}
+#| label: spark-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("mtry", "trees", "min_n"),
                  default = c("see below", "20L", "1L"))
@@ -18,7 +22,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r spark-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: spark-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -26,7 +33,8 @@ param$item
 
 ## Translation from parsnip to the original package (regression)
 
-```{r spark-reg}
+```{r}
+#| label: spark-reg
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
@@ -41,7 +49,8 @@ rand_forest(
 
 ## Translation from parsnip to the original package (classification)
 
-```{r spark-cls}
+```{r}
+#| label: spark-cls
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
@@ -54,17 +63,20 @@ rand_forest(
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## Other details
 
-```{r child = "template-spark-notes.Rmd"}
+```{r}
+#| child: template-spark-notes.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 Note that, for spark engines, the `case_weight` argument value should be a character string to specify the column with the numeric case weights. 

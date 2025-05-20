@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("bag_tree", "rpart")`
 
 ## Tuning Parameters
 
-```{r rpart-param-info, echo = FALSE}
+```{r}
+#| label: rpart-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("tree_depth", "min_n", "cost_complexity", "class_cost"),
                  default = c("30L", "2L", "0.01", "(see below)"))
@@ -19,7 +23,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r rpart-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: rpart-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -30,7 +37,8 @@ For the `class_cost` parameter, the value can be a non-negative scalar for a cla
 
 `r uses_extension("bag_tree", "rpart", "classification")`
 
-```{r rpart-cls}
+```{r}
+#| label: rpart-cls
 library(baguette)
 
 bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
@@ -44,7 +52,8 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 
 `r uses_extension("bag_tree", "rpart", "regression")`
 
-```{r rpart-reg}
+```{r}
+#| label: rpart-reg
 library(baguette)
 
 bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
@@ -57,7 +66,8 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 
 `r uses_extension("bag_tree", "rpart", "censored regression")`
 
-```{r rpart-creg}
+```{r}
+#| label: rpart-creg
 library(censored)
 
 bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
@@ -69,17 +79,20 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Other details
 
-```{r child = "template-survival-median.Rmd"}
+```{r}
+#| child: template-survival-median.Rmd
 ```
 
 ## References

@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("discrim_flexible", "earth")`
 
 ## Tuning Parameters
 
-```{r earth-param-info, echo = FALSE}
+```{r}
+#| label: earth-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("num_terms", "prod_degree", "prune_method"),
                  default = c("(see below)", "1L", "'backward'"))
@@ -18,7 +22,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameter:
 
-```{r earth-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: earth-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -28,7 +35,8 @@ The default value of `num_terms` depends on the number of columns (`p`): `min(20
 
 `r uses_extension("discrim_flexible", "earth", "classification")`
 
-```{r earth-cls}
+```{r}
+#| label: earth-cls
 library(discrim)
 
 discrim_flexible(
@@ -41,12 +49,14 @@ discrim_flexible(
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## References

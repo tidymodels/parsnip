@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("svm_rbf", "kernlab")`
 
 ## Tuning Parameters
 
-```{r kernlab-param-info, echo = FALSE}
+```{r}
+#| label: kernlab-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("cost","rbf_sigma", "margin"),
                  default = c("1.0", "see below", "0.1"))
@@ -18,7 +22,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r kernlab-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: kernlab-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -28,7 +35,8 @@ Parsnip changes the default range for `cost` to `c(-10, 5)`.
 
 ## Translation from parsnip to the original package (regression)
 
-```{r kernlab-reg}
+```{r}
+#| label: kernlab-reg
 svm_rbf(
   cost = double(1),
   rbf_sigma = double(1), 
@@ -41,7 +49,8 @@ svm_rbf(
 
 ## Translation from parsnip to the original package (classification)
 
-```{r kernlab-cls}
+```{r}
+#| label: kernlab-cls
 svm_rbf(
   cost = double(1),
   rbf_sigma = double(1)
@@ -57,20 +66,24 @@ Note that the `"kernlab"` engine does not naturally estimate class probabilities
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 ## Examples 

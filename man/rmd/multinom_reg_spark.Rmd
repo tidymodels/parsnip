@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("multinom_reg", "spark")`
 
 ## Tuning Parameters
 
-```{r spark-param-info, echo = FALSE}
+```{r}
+#| label: spark-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("penalty", "mixture"),
                  default = c("0.0", "0.0"))
@@ -18,7 +22,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r spark-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: spark-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -30,7 +37,8 @@ For `penalty`, the amount of regularization includes both the L1 penalty (i.e., 
 
 ## Translation from parsnip to the original package
 
-```{r spark-csl}
+```{r}
+#| label: spark-csl
 multinom_reg(penalty = double(1), mixture = double(1)) |> 
   set_engine("spark") |> 
   translate()
@@ -38,17 +46,20 @@ multinom_reg(penalty = double(1), mixture = double(1)) |>
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 By default, `ml_multinom_regression()` uses the argument `standardization = TRUE` to center and scale the data. 
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 Note that, for spark engines, the `case_weight` argument value should be a character string to specify the column with the numeric case weights. 
@@ -56,7 +67,8 @@ Note that, for spark engines, the `case_weight` argument value should be a chara
 
 ## Other details
 
-```{r child = "template-spark-notes.Rmd"}
+```{r}
+#| child: template-spark-notes.Rmd
 ```
 
 ## References

@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("bag_mars", "earth")`
 
 ## Tuning Parameters
 
-```{r earth-param-info, echo = FALSE}
+```{r}
+#| label: earth-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("num_terms", "prod_degree", "prune_method"),
                  default = c("see below", "1L", "'backward'"))
@@ -18,7 +22,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r earth-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: earth-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -28,7 +35,8 @@ The default value of `num_terms` depends on the number of predictor columns. For
 
 `r uses_extension("bag_mars", "earth", "regression")`
 
-```{r earth-reg}
+```{r}
+#| label: earth-reg
 bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |> 
   set_engine("earth") |> 
   set_mode("regression") |> 
@@ -39,7 +47,8 @@ bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = charac
 
 `r uses_extension("bag_mars", "earth", "classification")`
 
-```{r earth-cls}
+```{r}
+#| label: earth-cls
 library(baguette)
 
 bag_mars(
@@ -54,12 +63,14 @@ bag_mars(
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 Note that the `earth` package documentation has: "In the current implementation, _building models with weights can be slow_."

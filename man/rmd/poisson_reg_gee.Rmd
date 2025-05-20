@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("poisson_reg", "gee")`
@@ -11,7 +13,8 @@ This model has no formal tuning parameters. It may be beneficial to determine th
 
 `r uses_extension("poisson_reg", "gee", "regression")`
 
-```{r gee-csl}
+```{r}
+#| label: gee-csl
 library(multilevelmod)
 
 poisson_reg(engine = "gee") |> 
@@ -28,7 +31,8 @@ There are no specific preprocessing needs. However, it is helpful to keep the cl
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## Other details
@@ -66,7 +70,8 @@ gee_wflow <-
 
 fit(gee_wflow, data = longitudinal_counts)
 ```
-```{r child = "template-gee-silent.Rmd"}
+```{r}
+#| child: template-gee-silent.Rmd
 ```
 
 Also, because of issues with the `gee()` function, a supplementary call to `glm()` is needed to get the rank and QR decomposition objects so that `predict()` can be used.

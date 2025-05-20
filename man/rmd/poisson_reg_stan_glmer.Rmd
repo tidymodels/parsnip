@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("poisson_reg", "stan_glmer")`
@@ -24,7 +26,8 @@ See `?rstanarm::stan_glmer` and `?rstan::sampling` for more information.
 
 `r uses_extension("poisson_reg", "stan_glmer", "regression")`
 
-```{r stan_glmer-cls}
+```{r}
+#| label: stan_glmer-cls
 library(multilevelmod)
 
 poisson_reg(engine = "stan_glmer") |> 
@@ -32,7 +35,8 @@ poisson_reg(engine = "stan_glmer") |>
   translate()
 ```
 
-```{r child = "template-no-pooling.Rmd"}
+```{r}
+#| child: template-no-pooling.Rmd
 ```
 
 ## Preprocessing requirements
@@ -75,7 +79,8 @@ For prediction, the `"stan_glmer"` engine can compute posterior intervals analog
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## References

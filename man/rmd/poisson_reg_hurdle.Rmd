@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("poisson_reg", "hurdle")`
@@ -11,7 +13,8 @@ This engine has no tuning parameters.
 
 `r uses_extension("poisson_reg", "hurdle", "regression")`
 
-```{r hurdle-reg}
+```{r}
+#| label: hurdle-reg
 library(poissonreg)
 
 poisson_reg() |>
@@ -21,7 +24,8 @@ poisson_reg() |>
 
 ## Preprocessing and special formulas for zero-inflated Poisson models
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
 ## Specifying the statistical model details
@@ -30,11 +34,13 @@ For this particular model, a special formula is used to specify which columns af
 
 When fitting a parsnip model with this engine directly, the formula method is required and the formula is just passed through. For example:
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 library(tidymodels)
 ```
 
-```{r, message = FALSE}
+```{r}
+#| message: false
 library(tidymodels)
 tidymodels_prefer()
 
@@ -63,5 +69,6 @@ The reason for this is that [workflows::add_formula()] will try to create the mo
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```

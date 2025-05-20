@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("discrim_linear", "sparsediscrim")`
 
 ## Tuning Parameters
 
-```{r sparsediscrim-param-info, echo = FALSE}
+```{r}
+#| label: sparsediscrim-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("regularization_method"),
                  default = c("'diagonal'"))
@@ -18,7 +22,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameter:
 
-```{r mda-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: mda-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -33,7 +40,8 @@ The possible values of this parameter, and the functions that they execute, are:
 
 `r uses_extension("discrim_linear", "sparsediscrim", "classification")`
 
-```{r sparsediscrim-cls}
+```{r}
+#| label: sparsediscrim-cls
 library(discrim)
 
 discrim_linear(regularization_method = character(0)) |> 
@@ -43,15 +51,18 @@ discrim_linear(regularization_method = character(0)) |>
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-zv.Rmd"}
+```{r}
+#| child: template-zv.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

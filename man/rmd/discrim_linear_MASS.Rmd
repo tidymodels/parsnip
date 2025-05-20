@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("discrim_linear", "MASS")`
@@ -11,7 +13,8 @@ This engine has no tuning parameters.
 
 `r uses_extension("discrim_linear", "MASS", "classification")`
 
-```{r mass-cls}
+```{r}
+#| label: mass-cls
 library(discrim)
 
 discrim_linear() |> 
@@ -21,15 +24,18 @@ discrim_linear() |>
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-zv.Rmd"}
+```{r}
+#| child: template-zv.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

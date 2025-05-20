@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("linear_reg", "glmer")`
@@ -11,7 +13,8 @@ This model has no tuning parameters.
 
 `r uses_extension("linear_reg", "glmer", "regression")`
 
-```{r glmer-reg}
+```{r}
+#| label: glmer-reg
 library(multilevelmod)
 
 linear_reg() |> 
@@ -28,7 +31,8 @@ to lmer() is deprecated; please call lmer() directly
 ```
 
 
-```{r child = "template-no-pooling.Rmd"}
+```{r}
+#| child: template-no-pooling.Rmd
 ```
 
 ## Preprocessing requirements
@@ -70,7 +74,8 @@ fit(glmer_wflow, data = riesby)
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## References

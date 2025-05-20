@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("boost_tree", "C5.0")`
 
 ## Tuning Parameters
 
-```{r C5.0-param-info, echo = FALSE}
+```{r}
+#| label: C5.0-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("trees", "min_n", "sample_size"),
                  default = c("15L", "2L", "1.0"))
@@ -19,7 +23,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r C5.0-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: C5.0-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -27,7 +34,8 @@ The implementation of C5.0 limits the number of trees to be between 1 and 100.
 
 ## Translation from parsnip to the original package (classification)
 
-```{r C5.0-cls}
+```{r}
+#| label: C5.0-cls
 boost_tree(trees = integer(), min_n = integer(), sample_size = numeric()) |> 
   set_engine("C5.0") |> 
   set_mode("classification") |> 
@@ -38,17 +46,20 @@ boost_tree(trees = integer(), min_n = integer(), sample_size = numeric()) |>
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 ## Other details

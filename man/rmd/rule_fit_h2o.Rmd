@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("rule_fit", "h2o")`
 
 ## Tuning Parameters
 
-```{r h2o-param-info, echo = FALSE}
+```{r}
+#| label: h2o-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("tree_depth", "trees", "penalty"),
                  default = c("3L", "50L", 0))
@@ -18,7 +22,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r h2o-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: h2o-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 Note that `penalty` for the h2o engine in `rule_fit()`` corresponds to the L1 penalty (LASSO). 
@@ -41,7 +48,8 @@ Other engine arguments of interest:
 
 `r uses_extension("rule_fit", "h2o", "regression")`
 
-```{r h2o-reg}
+```{r}
+#| label: h2o-reg
 library(rules)
 
 rule_fit(
@@ -62,7 +70,8 @@ rule_fit(
 
 `r uses_extension("rule_fit", "h2o", "classification")`
 
-```{r h2o-cls}
+```{r}
+#| label: h2o-cls
 rule_fit(
   trees = integer(1),
   tree_depth = integer(1),
@@ -75,15 +84,18 @@ rule_fit(
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
 ## Other details
 
-```{r child = "template-h2o-init.Rmd"}
+```{r}
+#| child: template-h2o-init.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-bundle.Rmd"}
+```{r}
+#| child: template-bundle.Rmd
 ```
