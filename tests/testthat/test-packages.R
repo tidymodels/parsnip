@@ -32,6 +32,8 @@ test_that('required packages', {
 # ------------------------------------------------------------------------------
 
 test_that('missing packages', {
+  skip_if_not_installed("earth")
+
   has_earth <- parsnip:::is_installed("earth")
 
   if (has_earth) {

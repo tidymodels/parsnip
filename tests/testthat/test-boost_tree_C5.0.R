@@ -129,7 +129,7 @@ test_that('submodel prediction', {
 ## -----------------------------------------------------------------------------
 
 test_that('argument checks for data dimensions', {
-
+  skip_if_not_installed("modeldata")
   skip_if_not_installed("C50")
 
   data(penguins, package = "modeldata")

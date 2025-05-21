@@ -2,6 +2,7 @@
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 test_that('parsnip objects', {
+  skip_if_not_installed("earth")
 
   lm_idea <- linear_reg() |> set_engine("lm")
   expect_false(has_multi_predict(lm_idea))
@@ -152,6 +153,7 @@ test_that('missing implementation checks prompt conservatively with old objects'
 })
 
 test_that('arguments can be passed to model spec inside function', {
+  skip_if_not_installed("kknn")
   f <- function(k = 5) {
     nearest_neighbor(mode = "regression", neighbors = k) |>
       fit(mpg ~ ., data = mtcars)

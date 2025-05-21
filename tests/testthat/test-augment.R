@@ -48,6 +48,8 @@ test_that('regression models', {
 
 
 test_that('classification models', {
+  skip_if_not_installed("modeldata")
+
   data(two_class_dat, package = "modeldata")
   x <- logistic_reg() |> set_engine("glm")
 
@@ -81,6 +83,7 @@ test_that('classification models', {
 
 test_that('augment for model without class probabilities', {
   skip_if_not_installed("LiblineaR")
+  skip_if_not_installed("modeldata")
 
   data(two_class_dat, package = "modeldata")
   x <- svm_linear(mode = "classification") |> set_engine("LiblineaR")

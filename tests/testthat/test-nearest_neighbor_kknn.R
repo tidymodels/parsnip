@@ -177,6 +177,8 @@ test_that('kknn multi-predict', {
 ## -----------------------------------------------------------------------------
 
 test_that('argument checks for data dimensions', {
+  skip_if_not_installed("kknn")
+  skip_if_not_installed("modeldata")
 
   data(penguins, package = "modeldata")
   penguins <- na.omit(penguins)

@@ -187,6 +187,8 @@ test_that("arguments (multinom_reg)", {
 
 # translate.nearest_neighbor ---------------------------------------------------
 test_that("arguments (nearest_neighbor)", {
+  skip_if_not_installed("kknn")
+
   basic <- nearest_neighbor(mode = "regression")
   neighbors <- nearest_neighbor(mode = "classification", neighbors = 2)
   weight_func <- nearest_neighbor(mode = "classification", weight_func = "triangular")

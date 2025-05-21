@@ -466,7 +466,7 @@ test_that('xgboost data and sparse matrices', {
 ## -----------------------------------------------------------------------------
 
 test_that('argument checks for data dimensions', {
-
+  skip_if_not_installed("modeldata")
   skip_if_not_installed("xgboost")
   skip_on_cran()
 
@@ -500,6 +500,7 @@ test_that("fit and prediction with `event_level`", {
 
   skip_if_not_installed("xgboost")
   skip_on_cran()
+  skip_if_not_installed("modeldata")
 
   ctrl$verbosity <- 0L
 

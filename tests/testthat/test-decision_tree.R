@@ -28,6 +28,7 @@ test_that('bad input', {
 # ------------------------------------------------------------------------------
 
 test_that('argument checks for data dimensions', {
+  skip_if_not_installed("modeldata")
 
   data(penguins, package = "modeldata")
   penguins <- na.omit(penguins)

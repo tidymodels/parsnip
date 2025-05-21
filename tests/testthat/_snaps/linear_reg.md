@@ -139,6 +139,42 @@
       Error in `fit()`:
       ! `penalty` must be a number larger than or equal to 0 or `NULL`, not the number -1.
 
+# prevent using a Poisson family
+
+    Code
+      fit(set_engine(linear_reg(penalty = 1), "glmnet", family = poisson), mpg ~ .,
+      data = mtcars)
+    Condition
+      Error in `linear_reg()`:
+      ! A Poisson family was requested for `linear_reg()`. Please use `poisson_reg()` and the engines in the poissonreg package.
+
+---
+
+    Code
+      fit(set_engine(linear_reg(penalty = 1), "glmnet", family = stats::poisson),
+      mpg ~ ., data = mtcars)
+    Condition
+      Error in `linear_reg()`:
+      ! A Poisson family was requested for `linear_reg()`. Please use `poisson_reg()` and the engines in the poissonreg package.
+
+---
+
+    Code
+      fit(set_engine(linear_reg(penalty = 1), "glmnet", family = stats::poisson()),
+      mpg ~ ., data = mtcars)
+    Condition
+      Error in `linear_reg()`:
+      ! A Poisson family was requested for `linear_reg()`. Please use `poisson_reg()` and the engines in the poissonreg package.
+
+---
+
+    Code
+      fit(set_engine(linear_reg(penalty = 1), "glmnet", family = "poisson"), mpg ~ .,
+      data = mtcars)
+    Condition
+      Error in `linear_reg()`:
+      ! A Poisson family was requested for `linear_reg()`. Please use `poisson_reg()` and the engines in the poissonreg package.
+
 # tunables
 
     Code

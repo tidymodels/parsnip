@@ -227,7 +227,7 @@ test_that('ranger regression prediction', {
 
 
 test_that('ranger regression intervals', {
-
+  skip_if_not_installed("modeldata")
   skip_if_not_installed("ranger")
 
   data(ames, package = "modeldata")

@@ -618,6 +618,8 @@ test_that("bad args", {
 ## -----------------------------------------------------------------------------
 
 test_that("convert to matrix", {
+  skip_if_not_installed("modeldata")
+
   expect_true(inherits(parsnip::maybe_matrix(mtcars), "matrix"))
   expect_true(inherits(parsnip::maybe_matrix(tibble::as_tibble(mtcars)), "matrix"))
   expect_true(inherits(parsnip::maybe_matrix(as.matrix(mtcars)), "matrix"))

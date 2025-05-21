@@ -1,10 +1,11 @@
-data(two_class_dat, package = "modeldata")
+
 
 # ------------------------------------------------------------------------------
 
 
 test_that('regression', {
   skip_if_not_installed("mgcv")
+  skip_if_not_installed("modeldata")
 
   reg_mod <-
     gen_additive_mod(select_features = TRUE) |>
