@@ -160,7 +160,7 @@ rand_forest(mtry = 10, trees = 2000) |>
 ```
 
 A list of all parsnip models across different CRAN packages can be found
-at <https://www.tidymodels.org/find/parsnip>.
+at <https://www.tidymodels.org/find/parsnip/>.
 
 ## Contributing
 
