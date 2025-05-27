@@ -14,9 +14,9 @@ The parsnip package can handle most specials without issue. The analogous
 code for specifying this generalized additive model
 with the parsnip "mgcv" engine
 looks like:
-gen_additive_mod() %&amp;gt;%
-  set_mode("regression") %&amp;gt;%
-  set_engine("mgcv") %&amp;gt;%
+gen_additive_mod() |&amp;gt;
+  set_mode("regression") |&amp;gt;
+  set_engine("mgcv") |&amp;gt;
   fit(mpg ~ wt + s(disp, k = 5), data = mtcars)
 
 However, parsnip is often used in conjunction with the greater tidymodels
@@ -41,9 +41,9 @@ The parsnip package can handle most specials without issue. The analogous
 code for specifying this generalized additive model
 with the parsnip "mgcv" engine
 looks like:
-gen_additive_mod() %&amp;gt;%
-  set_mode("regression") %&amp;gt;%
-  set_engine("mgcv") %&amp;gt;%
+gen_additive_mod() |&amp;gt;
+  set_mode("regression") |&amp;gt;
+  set_engine("mgcv") |&amp;gt;
   fit(mpg ~ wt + s(disp, k = 5), data = mtcars)
 
 However, parsnip is often used in conjunction with the greater tidymodels
@@ -114,9 +114,9 @@ package knows to look for when preprocessing model input.</p>
 code for specifying this generalized additive model
 <a href="details_gen_additive_mod_mgcv.html">with the parsnip "mgcv" engine</a>
 looks like:</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/gen_additive_mod.html">gen_additive_mod</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"mgcv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/gen_additive_mod.html">gen_additive_mod</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"mgcv"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">wt</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/s.html" class="external-link">s</a></span><span class="op">(</span><span class="va">disp</span>, k <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>However, parsnip is often used in conjunction with the greater tidymodels
 package ecosystem, which defines its own pre-processing infrastructure and
@@ -140,11 +140,11 @@ the specials, retaining references to input variables themselves. For example:</
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>preproc_formula <span class="ot">&lt;-</span> mpg <span class="sc">~</span> wt <span class="sc">+</span> disp</span></code></pre><p></p></div>
 <ul><li><p><strong>With parsnip,</strong> use the model formula:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">model_spec</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="../reference/gen_additive_mod.html">gen_additive_mod</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/gen_additive_mod.html">gen_additive_mod</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"mgcv"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">model_spec</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">model_spec</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">model_formula</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre><p></p></div></li>
 <li><p><strong>With recipes</strong>, use the preprocessing formula only:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/recipes" class="external-link">recipes</a></span><span class="op">)</span></span>
@@ -157,8 +157,8 @@ pass the model formula to the <code>formula</code> argument in <code>add_model()
 <p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/workflows" class="external-link">workflows</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">wflow</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://workflows.tidymodels.org/reference/add_formula.html" class="external-link">add_formula</a></span><span class="op">(</span><span class="va">preproc_formula</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://workflows.tidymodels.org/reference/add_formula.html" class="external-link">add_formula</a></span><span class="op">(</span><span class="va">preproc_formula</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://workflows.tidymodels.org/reference/add_model.html" class="external-link">add_model</a></span><span class="op">(</span><span class="va">model_spec</span>, formula <span class="op">=</span> <span class="va">model_formula</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">wflow</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre><p></p></div>

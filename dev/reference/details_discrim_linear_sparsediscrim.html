@@ -81,8 +81,8 @@ execute, are:</p><ul><li><p><code>"diagonal"</code>: <code>sparsediscrim::lda_di
 <p>The <strong>discrim</strong> extension package is required to fit this model.</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/discrim" class="external-link">discrim</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/discrim_linear.html">discrim_linear</a></span><span class="op">(</span>regularization_method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"sparsediscrim"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="fu"><a href="../reference/discrim_linear.html">discrim_linear</a></span><span class="op">(</span>regularization_method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"sparsediscrim"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></span></code></pre><p></p></div>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="do">## Linear Discriminant Model Specification (classification)</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="do">##</span></span>
@@ -93,7 +93,7 @@ execute, are:</p><ul><li><p><code>"diagonal"</code>: <code>sparsediscrim::lda_di
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="do">##</span></span>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="do">## Model fit template:</span></span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="do">## discrim::fit_regularized_linear(x = missing_arg(), y = missing_arg(),</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="do">##     regularization_method = character(0))</span></span></code></pre><p></p></div>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="do">##     method = character(0))</span></span></code></pre><p></p></div>
 </div>
 
 <div class="section">

@@ -144,8 +144,8 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/parsnip" class="external-link">parsnip</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>mtry <span class="op">=</span> <span class="fl">10</span>, trees <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"ranger"</span>, importance <span class="op">=</span> <span class="st">"impurity"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="fu"><a href="reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>mtry <span class="op">=</span> <span class="fl">10</span>, trees <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"ranger"</span>, importance <span class="op">=</span> <span class="st">"impurity"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Random Forest Model Specification (regression)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -159,8 +159,8 @@
 <span><span class="co">#&gt; Computational engine: ranger</span></span></code></pre></div>
 <p>The engine can be easily changed. To use Spark, the change is straightforward:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>mtry <span class="op">=</span> <span class="fl">10</span>, trees <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"spark"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>mtry <span class="op">=</span> <span class="fl">10</span>, trees <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"spark"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Random Forest Model Specification (regression)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -172,9 +172,9 @@
 <p>Either one of these model specifications can be fit in the same way:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">192</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>mtry <span class="op">=</span> <span class="fl">10</span>, trees <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"ranger"</span>, importance <span class="op">=</span> <span class="st">"impurity"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="fu"><a href="reference/rand_forest.html">rand_forest</a></span><span class="op">(</span>mtry <span class="op">=</span> <span class="fl">10</span>, trees <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"ranger"</span>, importance <span class="op">=</span> <span class="st">"impurity"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"regression"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span><span class="co">#&gt; parsnip model object</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -193,7 +193,7 @@
 <span><span class="co">#&gt; Splitrule:                        variance </span></span>
 <span><span class="co">#&gt; OOB prediction error (MSE):       5.976917 </span></span>
 <span><span class="co">#&gt; R squared (OOB):                  0.8354559</span></span></code></pre></div>
-<p>A list of all parsnip models across different CRAN packages can be found at <a href="https://www.tidymodels.org/find/parsnip" class="external-link uri">https://www.tidymodels.org/find/parsnip</a>.</p>
+<p>A list of all parsnip models across different CRAN packages can be found at <a href="https://www.tidymodels.org/find/parsnip/" class="external-link uri">https://www.tidymodels.org/find/parsnip/</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
@@ -247,7 +247,7 @@
 <li>
 <a href="https://github.com/DavisVaughan" class="external-link">Davis Vaughan</a> <br><small class="roles"> Author </small>   </li>
 <li>
-<a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a> <br><small class="roles"> Copyright holder, funder </small>   </li>
+<a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a> <br><small class="roles"> Copyright holder, funder </small>  <a href="https://ror.org/03wc8by49" class="external-link"><img src="https://raw.githubusercontent.com/ror-community/ror-logos/main/ror-icon-rgb.svg" class="ror" alt="ROR"></a> </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
@@ -260,6 +260,7 @@
 <li><a href="https://CRAN.R-project.org/package=parsnip" class="external-link"><img src="https://www.r-pkg.org/badges/version/parsnip" alt="CRAN status"></a></li>
 <li><a href="https://CRAN.R-project.org/package=parsnip" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/parsnip" alt="Downloads"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
+<li><a href="https://app.codecov.io/gh/tidymodels/parsnip" class="external-link"><img src="https://codecov.io/gh/tidymodels/parsnip/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 
