@@ -208,10 +208,10 @@ make_engine_list <- function(mod) {
   }
 
   exts <-
-    utils::read.delim(system.file("models.tsv", package = "parsnip")) %>%
-    dplyr::filter(model == mod) %>%
-    dplyr::group_by(engine, mode) %>%
-    dplyr::summarize(extensions = sum(!is.na(pkg)), .groups = "drop") %>%
+    model_info_table |>
+    dplyr::filter(model == mod) |>
+    dplyr::group_by(engine, mode) |>
+    dplyr::summarize(extensions = sum(!is.na(pkg)), .groups = "drop") |>
     dplyr::mutate(
       has_ext = ifelse(extensions > 0, cli::symbol$sup_2, "")
     )
@@ -285,8 +285,21 @@ make_seealso_list <- function(mod, pkg= "parsnip") {
   paste0(c(main, res), collapse = ", ")
 }
 
+read_rd_rds <- function(pkg) {
+  quiet_sys_file <- purrr::quietly(system.file)
+  file_loc <- quiet_sys_file("Meta/Rd.rds", package = pkg)
+
+  if (length(file_loc$result) == 0) {
+    res <- character(0)
+  } else {
+    res <- file_loc$result
+  }
+  res
+}
+
+
 find_details_topics <- function(mod, pkg = "parsnip") {
-  meta_loc <- system.file("Meta/Rd.rds", package = pkg)
+  meta_loc <- read_rd_rds(pkg = pkg)
   meta_loc <- meta_loc[meta_loc != ""]
   if (length(meta_loc) > 0) {
     topic_names <- readRDS(meta_loc)$Name

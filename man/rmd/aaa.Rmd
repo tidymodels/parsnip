@@ -31,9 +31,9 @@ check_pkg_for_docs(parsnip:::extensions())
 make_mode_list <- function(mod, eng) {
   modes <- c("regression", "classification", "censored regression")
   exts <-
-    utils::read.delim(system.file("models.tsv", package = "parsnip")) %>%
-    dplyr::filter(model == mod & engine == eng) %>% 
-    dplyr::mutate(mode = factor(mode, levels = modes)) %>% 
+    model_info_table |>
+    dplyr::filter(model == mod & engine == eng) |> 
+    dplyr::mutate(mode = factor(mode, levels = modes)) |> 
     dplyr::arrange(mode)
   
   # Need to get mode-specific dependencies (see tidymodels/parsnip#629)
@@ -127,7 +127,7 @@ descr_models <- function(mod, eng) {
 
 uses_extension <- function(mod, eng, mod_mode) {
   exts <-
-    utils::read.delim(system.file("models.tsv", package = "parsnip")) %>%
+    model_info_table |>
     dplyr::filter(
       model == mod & 
         engine == eng & 

@@ -37,11 +37,6 @@ pred_types <-
 
 # ------------------------------------------------------------------------------
 
-model_info_table <-
-  utils::read.delim(system.file("models.tsv", package = "parsnip"))
-
-# ------------------------------------------------------------------------------
-
 #' Working with the parsnip model environment
 #'
 #' These functions read and write to the environment where the package stores
