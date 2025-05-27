@@ -1,24 +1,31 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("linear_reg", "glmnet")`
 
 ## Tuning Parameters
 
-```{r glmnet-param-info, echo = FALSE}
+```{r}
+#| label: glmnet-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("penalty", "mixture"),
                  default = c("see below", "1.0"))
 
 param <-
-linear_reg() %>% 
-  set_engine("glmnet") %>% 
+linear_reg() |> 
+  set_engine("glmnet") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r glmnet-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: glmnet-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -28,34 +35,40 @@ The `penalty` parameter has no default and requires a single numeric value. For 
 
 ## Translation from parsnip to the original package
 
-```{r glmnet-csl}
-linear_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("glmnet") %>% 
+```{r}
+#| label: glmnet-csl
+linear_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("glmnet") |> 
   translate()
 ```
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 By default, [glmnet::glmnet()] uses the argument `standardize = TRUE` to center and scale the data. 
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Sparse Data
 
-```{r child = "template-uses-sparse-data.Rmd"}
+```{r}
+#| child: template-uses-sparse-data.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 ## Examples 

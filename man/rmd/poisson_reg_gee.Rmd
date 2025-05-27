@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("poisson_reg", "gee")`
@@ -11,11 +13,12 @@ This model has no formal tuning parameters. It may be beneficial to determine th
 
 `r uses_extension("poisson_reg", "gee", "regression")`
 
-```{r gee-csl}
+```{r}
+#| label: gee-csl
 library(multilevelmod)
 
-poisson_reg(engine = "gee") %>% 
-  set_engine("gee") %>% 
+poisson_reg(engine = "gee") |> 
+  set_engine("gee") |> 
   translate()
 ```
 
@@ -28,7 +31,8 @@ There are no specific preprocessing needs. However, it is helpful to keep the cl
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## Other details
@@ -44,8 +48,8 @@ With parsnip, we suggest using the formula method when fitting:
 ```r
 library(tidymodels)
 
-poisson_reg() %>% 
-  set_engine("gee", corstr = "exchangeable") %>% 
+poisson_reg() |> 
+  set_engine("gee", corstr = "exchangeable") |> 
   fit(y ~ time + x + id_var(subject), data = longitudinal_counts)
 ```
 
@@ -55,18 +59,19 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 library(tidymodels)
 
 gee_spec <- 
-  poisson_reg() %>% 
+  poisson_reg() |> 
   set_engine("gee", corstr = "exchangeable")
 
 gee_wflow <- 
-  workflow() %>% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = y, predictors = c(time, x, subject)) %>% 
+  add_variables(outcomes = y, predictors = c(time, x, subject)) |> 
   add_model(gee_spec, formula = y ~ time + x + id_var(subject))
 
 fit(gee_wflow, data = longitudinal_counts)
 ```
-```{r child = "template-gee-silent.Rmd"}
+```{r}
+#| child: template-gee-silent.Rmd
 ```
 
 Also, because of issues with the `gee()` function, a supplementary call to `glm()` is needed to get the rank and QR decomposition objects so that `predict()` can be used.

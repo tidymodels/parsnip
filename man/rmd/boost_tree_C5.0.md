@@ -21,9 +21,9 @@ The implementation of C5.0 limits the number of trees to be between 1 and 100.
 
 
 ``` r
-boost_tree(trees = integer(), min_n = integer(), sample_size = numeric()) %>% 
-  set_engine("C5.0") %>% 
-  set_mode("classification") %>% 
+boost_tree(trees = integer(), min_n = integer(), sample_size = numeric()) |> 
+  set_engine("C5.0") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

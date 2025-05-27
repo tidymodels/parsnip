@@ -240,7 +240,7 @@ get_descr_spark <- function(formula, data) {
     y_vals <- as.table(y_vals)
   } else y_vals <- NA
 
-  obs <- dplyr::tally(data) %>% dplyr::pull()
+  obs <- dplyr::tally(data) |> dplyr::pull()
 
   .cols  <- function() all_preds
   .preds <- function() length(f_term_labels)

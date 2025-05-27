@@ -1,3 +1,5 @@
+skip_if_not_installed("modeldata")
+
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
@@ -11,11 +13,11 @@ te_dat <- dat[141:150, ]
 # ------------------------------------------------------------------------------
 
 basic_mod <-
-  multinom_reg() %>%
+  multinom_reg() |>
   set_engine("keras", epochs = 50, verbose = 0)
 
 reg_mod <-
-  multinom_reg(penalty = 0.1) %>%
+  multinom_reg(penalty = 0.1) |>
   set_engine("keras", epochs = 50, verbose = 0)
 
 ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
@@ -106,7 +108,7 @@ test_that('classification prediction', {
   keras_raw <-
     predict(extract_fit_engine(lr_fit), as.matrix(te_dat[, -5]))
   keras_pred <-
-    tibble::tibble(.pred_class = apply(keras_raw, 1, which.max)) %>%
+    tibble::tibble(.pred_class = apply(keras_raw, 1, which.max)) |>
     dplyr::mutate(.pred_class = factor(lr_fit$lvl[.pred_class], levels = lr_fit$lvl))
 
   parsnip_pred <- predict(lr_fit, te_dat[, -5])
@@ -124,7 +126,7 @@ test_that('classification prediction', {
   keras_raw <-
     predict(extract_fit_engine(plrfit), as.matrix(te_dat[, -5]))
   keras_pred <-
-    tibble::tibble(.pred_class = apply(keras_raw, 1, which.max)) %>%
+    tibble::tibble(.pred_class = apply(keras_raw, 1, which.max)) |>
     dplyr::mutate(.pred_class = factor(plrfit$lvl[.pred_class], levels = plrfit$lvl))
   parsnip_pred <- predict(plrfit, te_dat[, -5])
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))
@@ -150,8 +152,8 @@ test_that('classification probabilities', {
     )
 
   keras_pred <-
-    predict(extract_fit_engine(lr_fit), as.matrix(te_dat[, -5])) %>%
-    as_tibble(.name_repair = "minimal") %>%
+    predict(extract_fit_engine(lr_fit), as.matrix(te_dat[, -5])) |>
+    as_tibble(.name_repair = "minimal") |>
     setNames(paste0(".pred_", lr_fit$lvl))
 
   parsnip_pred <- predict(lr_fit, te_dat[, -5], type = "prob")
@@ -168,8 +170,8 @@ test_that('classification probabilities', {
     )
 
   keras_pred <-
-    predict(extract_fit_engine(plrfit), as.matrix(te_dat[, -5])) %>%
-    as_tibble(.name_repair = "minimal") %>%
+    predict(extract_fit_engine(plrfit), as.matrix(te_dat[, -5])) |>
+    as_tibble(.name_repair = "minimal") |>
     setNames(paste0(".pred_", lr_fit$lvl))
   parsnip_pred <- predict(plrfit, te_dat[, -5], type = "prob")
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))

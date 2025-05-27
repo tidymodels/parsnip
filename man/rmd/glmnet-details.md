@@ -14,7 +14,7 @@ Recall that tidymodels uses standardized parameter names across models chosen to
 In tidymodels, our `predict()` methods are defined to make one prediction at a time. For this model, that means predictions are for a single penalty value. For this reason, models that have glmnet engines require the user to always specify a single penalty value when the model is defined. For example, for linear regression: 
 
 ```r
-linear_reg(penalty = 1) %>% set_engine("glmnet")
+linear_reg(penalty = 1) |> set_engine("glmnet")
 ```
 
 When the `predict()` method is called, it automatically uses the penalty that was given when the model was defined. For example: 
@@ -25,8 +25,8 @@ When the `predict()` method is called, it automatically uses the penalty that wa
 library(tidymodels)
 
 fit <- 
-  linear_reg(penalty = 1) %>% 
-  set_engine("glmnet") %>% 
+  linear_reg(penalty = 1) |> 
+  set_engine("glmnet") |> 
   fit(mpg ~ ., data = mtcars)
 
 # predict at penalty = 1
@@ -61,8 +61,8 @@ multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01))
 
 ``` r
 # unnested:
-multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01)) %>% 
-  add_rowindex() %>% 
+multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01)) |> 
+  add_rowindex() |> 
   unnest(cols = ".pred")
 ```
 
@@ -84,8 +84,8 @@ It may appear odd that the `lambda` value does not get used in the fit:
 
 
 ``` r
-linear_reg(penalty = 1) %>% 
-  set_engine("glmnet") %>% 
+linear_reg(penalty = 1) |> 
+  set_engine("glmnet") |> 
   translate()
 ```
 
@@ -121,8 +121,8 @@ If we want to use our own path, the argument is passed as an engine-specific opt
 coef_path_values <- c(0, 10^seq(-5, 1, length.out = 7))
 
 fit_ridge <- 
-  linear_reg(penalty = 1, mixture = 0) %>% 
-  set_engine("glmnet", path_values = coef_path_values) %>% 
+  linear_reg(penalty = 1, mixture = 0) |> 
+  set_engine("glmnet", path_values = coef_path_values) |> 
   fit(mpg ~ ., data = mtcars)
 
 all.equal(sort(fit_ridge$fit$lambda), coef_path_values)

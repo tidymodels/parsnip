@@ -1,11 +1,13 @@
-hpc <- hpc_data[1:150, c(2:5, 8)] %>% as.data.frame()
+skip_if_not_installed("modeldata")
+
+hpc <- hpc_data[1:150, c(2:5, 8)] |> as.data.frame()
 
 test_that('bad input', {
-  expect_snapshot(error = TRUE, translate(null_model(mode = "regression") %>% set_engine()))
-  expect_snapshot(error = TRUE, translate(null_model() %>% set_engine("wat?")))
+  expect_snapshot(error = TRUE, translate(null_model(mode = "regression") |> set_engine()))
+  expect_snapshot(error = TRUE, translate(null_model() |> set_engine("wat?")))
   expect_warning(
     translate(
-      null_model(mode = "regression") %>% set_engine("parsnip", x = hpc[,1:3], y = hpc$class)
+      null_model(mode = "regression") |> set_engine("parsnip", x = hpc[,1:3], y = hpc$class)
     ),
     class = "parsnip_protected_arg_warning"
   )
@@ -22,7 +24,7 @@ test_that('nullmodel execution', {
 
   expect_no_condition(
     res <- fit(
-      null_model(mode = "regression") %>% set_engine("parsnip"),
+      null_model(mode = "regression") |> set_engine("parsnip"),
       compounds ~ log(input_fields) + class,
       data = hpc
     )
@@ -36,7 +38,7 @@ test_that('nullmodel execution', {
   )
   expect_no_condition(
     res <- fit_xy(
-      null_model(mode = "regression") %>% set_engine("parsnip"),
+      null_model(mode = "regression") |> set_engine("parsnip"),
       x = hpc[, num_pred],
       y = hpc$num_pending
     )
@@ -52,7 +54,7 @@ test_that('nullmodel execution', {
   expect_snapshot(
     error = TRUE,
     res <- fit(
-      null_model(mode = "regression") %>% set_engine("parsnip"),
+      null_model(mode = "regression") |> set_engine("parsnip"),
       hpc_bad_form,
       data = hpc
     )
@@ -62,7 +64,7 @@ test_that('nullmodel execution', {
 
   expect_no_condition(
     res <- fit(
-      null_model(mode = "regression") %>% set_engine("parsnip"),
+      null_model(mode = "regression") |> set_engine("parsnip"),
       cbind(compounds, input_fields) ~ .,
       data = hpc
     )
@@ -85,7 +87,7 @@ test_that('nullmodel prediction', {
                     carb = rep(2.8125, 5))
 
   res_xy <- fit_xy(
-    null_model(mode = "regression") %>% set_engine("parsnip"),
+    null_model(mode = "regression") |> set_engine("parsnip"),
     x = hpc[, num_pred],
     y = hpc$num_pending
   )
@@ -95,7 +97,7 @@ test_that('nullmodel prediction', {
                tolerance = .01)
 
   res_form <- fit(
-    null_model(mode = "regression") %>% set_engine("parsnip"),
+    null_model(mode = "regression") |> set_engine("parsnip"),
     num_pending ~ log(compounds) + class,
     data = hpc
   )
@@ -105,7 +107,7 @@ test_that('nullmodel prediction', {
 
   # Multivariate y
   res <- fit(
-    null_model(mode = "regression") %>% set_engine("parsnip"),
+    null_model(mode = "regression") |> set_engine("parsnip"),
     cbind(gear, carb) ~ .,
     data = mtcars
   )
@@ -121,8 +123,8 @@ test_that('nullmodel prediction', {
 test_that('classification', {
 
   expect_no_condition(
-    null_model <- null_model(mode = "classification") %>%
-      set_engine("parsnip") %>%
+    null_model <- null_model(mode = "classification") |>
+      set_engine("parsnip") |>
       fit(class ~ ., data = hpc)
   )
   expect_true(!is.null(null_model$fit))
@@ -134,8 +136,8 @@ test_that('null_model printing', {
   expect_snapshot(print(null_model(mode = "classification")))
   expect_snapshot(
     print(
-      null_model(mode = "classification") %>%
-        set_engine("parsnip") %>%
+      null_model(mode = "classification") |>
+        set_engine("parsnip") |>
         translate()
     )
   )

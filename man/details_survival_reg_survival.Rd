@@ -22,9 +22,9 @@ The \strong{censored} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
-survival_reg(dist = character(1)) \%>\% 
-  set_engine("survival") \%>\% 
-  set_mode("censored regression") \%>\% 
+survival_reg(dist = character(1)) |> 
+  set_engine("survival") |> 
+  set_mode("censored regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -63,8 +63,8 @@ two different scale parameters for each value of the column:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(survival)
 
-survival_reg() \%>\% 
-  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) \%>\% 
+survival_reg() |> 
+  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) |> 
   extract_fit_engine()
 }\if{html}{\out{</div>}}
 

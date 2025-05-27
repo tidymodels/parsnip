@@ -28,8 +28,8 @@ The **poissonreg** extension package is required to fit this model.
 ``` r
 library(poissonreg)
 
-poisson_reg() %>% 
-  set_engine("stan") %>% 
+poisson_reg() |> 
+  set_engine("stan") |> 
   translate()
 ```
 

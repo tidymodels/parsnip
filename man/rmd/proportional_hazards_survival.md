@@ -15,9 +15,9 @@ The **censored** extension package is required to fit this model.
 ``` r
 library(censored)
 
-proportional_hazards() %>% 
-  set_engine("survival") %>% 
-  set_mode("censored regression") %>% 
+proportional_hazards() |> 
+  set_engine("survival") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 
@@ -45,9 +45,9 @@ For example, in this model, the numeric column `rx` is used to estimate two diff
 ``` r
 library(survival)
 
-proportional_hazards() %>% 
-  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) %>% 
-  extract_fit_engine() %>% 
+proportional_hazards() |> 
+  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) |> 
+  extract_fit_engine() |> 
   # Two different hazards for each value of 'rx'
   basehaz()
 ```

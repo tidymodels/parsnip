@@ -1,24 +1,31 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("logistic_reg", "brulee")`
 
 ## Tuning Parameters
 
-```{r brulee-param-info, echo = FALSE}
+```{r}
+#| label: brulee-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("penalty", "mixture"),
                  default = c(  "0.001", "0.0"))
 
 param <-
-  logistic_reg() %>% 
-  set_engine("brulee") %>% 
+  logistic_reg() |> 
+  set_engine("brulee") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameter:
 
-```{r brulee-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: brulee-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -37,22 +44,26 @@ Other engine arguments of interest:
 
 ## Translation from parsnip to the original package (classification)
 
-```{r brulee-cls}
-logistic_reg(penalty = double(1)) %>% 
-  set_engine("brulee") %>% 
+```{r}
+#| label: brulee-cls
+logistic_reg(penalty = double(1)) |> 
+  set_engine("brulee") |> 
   translate()
 ```
 
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

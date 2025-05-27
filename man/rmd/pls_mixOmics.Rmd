@@ -1,25 +1,32 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("pls", "mixOmics")`
 
 ## Tuning Parameters
 
-```{r mixOmics-param-info, echo = FALSE}
+```{r}
+#| label: mixOmics-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("num_comp", "predictor_prop"),
                  default = c("2L",           "see below"))
 
 param <-
-  pls() %>% 
-  set_engine("mixOmics") %>% 
-  set_mode("regression") %>% 
+  pls() |> 
+  set_engine("mixOmics") |> 
+  set_mode("regression") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r mixOmics-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: mixOmics-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -28,12 +35,13 @@ param$item
 
 `r uses_extension("pls", "mixOmics", "regression")`
 
-```{r mixOmics-reg}
+```{r}
+#| label: mixOmics-reg
 library(plsmod)
 
-pls(num_comp = integer(1), predictor_prop = double(1)) %>%
-  set_engine("mixOmics") %>%
-  set_mode("regression") %>%
+pls(num_comp = integer(1), predictor_prop = double(1)) |>
+  set_engine("mixOmics") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -48,12 +56,13 @@ pls(num_comp = integer(1), predictor_prop = double(1)) %>%
 
 `r uses_extension("pls", "mixOmics", "classification")`
 
-```{r mixOmics-cls}
+```{r}
+#| label: mixOmics-cls
 library(plsmod)
 
-pls(num_comp = integer(1), predictor_prop = double(1)) %>%
-  set_engine("mixOmics") %>%
-  set_mode("classification") %>%
+pls(num_comp = integer(1), predictor_prop = double(1)) |>
+  set_engine("mixOmics") |>
+  set_mode("classification") |>
   translate()
 ```
 
@@ -63,7 +72,8 @@ In this case, [plsmod::pls_fit()] has the same role as above but eventually targ
 
 This package is available via the Bioconductor repository and is not accessible via CRAN. You can install using: 
 
-```{r eval = FALSE}
+```{r}
+#| eval: false
   if (!require("remotes", quietly = TRUE)) {
     install.packages("remotes")
   }
@@ -73,18 +83,22 @@ This package is available via the Bioconductor repository and is not accessible 
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-zv.Rmd"}
+```{r}
+#| child: template-zv.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

@@ -21,9 +21,9 @@ Engine arguments of interest
 
 
 ``` r
-auto_ml() %>%  
-  set_engine("h2o") %>% 
-  set_mode("regression") %>% 
+auto_ml() |>  
+  set_engine("h2o") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -42,9 +42,9 @@ auto_ml() %>%
 
 
 ``` r
-auto_ml() %>%  
-  set_engine("h2o") %>% 
-  set_mode("classification") %>% 
+auto_ml() |>  
+  set_engine("h2o") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

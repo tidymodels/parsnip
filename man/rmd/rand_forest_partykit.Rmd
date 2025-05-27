@@ -1,26 +1,33 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("rand_forest", "partykit")`
 
 ## Tuning Parameters
 
-```{r partykit-param-info, echo = FALSE}
+```{r}
+#| label: partykit-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("trees", "min_n", "mtry"),
                  default = c("500L", "20L", "5L"))
 
 param <-
-  rand_forest() %>% 
-  set_engine("partykit") %>% 
-  set_mode("regression") %>%  
-  make_parameter_list(defaults) %>% 
+  rand_forest() |> 
+  set_engine("partykit") |> 
+  set_mode("regression") |>  
+  make_parameter_list(defaults) |> 
   distinct()
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r partykit-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: partykit-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -28,12 +35,13 @@ param$item
 
 `r uses_extension("rand_forest", "partykit", "regression")`
 
-```{r partykit-creg}
+```{r}
+#| label: partykit-creg
 library(bonsai)
 
-rand_forest() %>% 
-  set_engine("partykit") %>% 
-  set_mode("regression") %>% 
+rand_forest() |> 
+  set_engine("partykit") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -41,12 +49,13 @@ rand_forest() %>%
 
 `r uses_extension("rand_forest", "partykit", "classification")`
 
-```{r partykit-class}
+```{r}
+#| label: partykit-class
 library(bonsai)
 
-rand_forest() %>% 
-  set_engine("partykit") %>% 
-  set_mode("classification") %>% 
+rand_forest() |> 
+  set_engine("partykit") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -56,12 +65,13 @@ rand_forest() %>%
 
 `r uses_extension("rand_forest", "partykit", "censored regression")`
 
-```{r party-creg}
+```{r}
+#| label: party-creg
 library(censored)
 
-rand_forest() %>% 
-  set_engine("partykit") %>% 
-  set_mode("censored regression") %>% 
+rand_forest() |> 
+  set_engine("partykit") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 
@@ -70,12 +80,14 @@ rand_forest() %>%
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## Other details
 
-```{r child = "template-survival-median.Rmd"}
+```{r}
+#| child: template-survival-median.Rmd
 ```
 
 ## References

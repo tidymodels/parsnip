@@ -1,24 +1,31 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("mlp", "h2o")`
 
 ## Tuning Parameters
 
-```{r h2o-param-info, echo = FALSE}
+```{r}
+#| label: h2o-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("hidden_units", "penalty", "dropout", "epochs", "learn_rate", "activation"),
                  default = c("200L", "0.0", "0.5", "10", "0.005", "'see below'"))
 
 param <-
-  mlp() %>% 
-  set_engine("h2o") %>% 
+  mlp() |> 
+  set_engine("h2o") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r h2o-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: h2o-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -38,7 +45,8 @@ Other engine arguments of interest:
 
 [agua::h2o_train_mlp] is a wrapper around [h2o::h2o.deeplearning()].
 
-```{r h2o-reg}
+```{r}
+#| label: h2o-reg
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
@@ -46,15 +54,16 @@ mlp(
   epochs = integer(1),
   learn_rate = double(1),
   activation = character(1)
-) %>%  
-  set_engine("h2o") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("h2o") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
 ## Translation from parsnip to the original package (classification)
 
-```{r h2o-cls}
+```{r}
+#| label: h2o-cls
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
@@ -62,19 +71,21 @@ mlp(
   epochs = integer(1),
   learn_rate = double(1),
   activation = character(1)
-) %>% 
-  set_engine("h2o") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("h2o") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 
@@ -83,10 +94,12 @@ By default, [h2o::h2o.deeplearning()] uses the argument `standardize = TRUE` to 
 
 ## Initializing h2o 
 
-```{r child = "template-h2o-init.Rmd"}
+```{r}
+#| child: template-h2o-init.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-bundle.Rmd"}
+```{r}
+#| child: template-bundle.Rmd
 ```

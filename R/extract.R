@@ -36,20 +36,20 @@
 #'
 #' **Good**:
 #' ```r
-#'    parsnip_fit %>% predict(new_data)
+#'    parsnip_fit |> predict(new_data)
 #' ```
 #'
 #' **Bad**:
 #' ```r
-#'    parsnip_fit %>% extract_fit_engine() %>% predict(new_data)
+#'    parsnip_fit |> extract_fit_engine() |> predict(new_data)
 #' ```
 #' @return
 #' The extracted value from the parsnip object, `x`, as described in the description
 #' section.
 #'
 #' @name extract-parsnip
-#' @examplesIf !parsnip:::is_cran_check()
-#' lm_spec <- linear_reg() %>% set_engine("lm")
+#' @examplesIf !parsnip:::is_cran_check() & rlang::is_installed("dials")
+#' lm_spec <- linear_reg() |> set_engine("lm")
 #' lm_fit <- fit(lm_spec, mpg ~ ., data = mtcars)
 #'
 #' lm_spec
@@ -94,10 +94,10 @@ extract_parameter_set_dials.model_spec <- function(x, ...) {
 
   res <-
     dplyr::inner_join(
-      tuning_param %>% dplyr::select(-tunable, -component_id),
+      tuning_param |> dplyr::select(-tunable, -component_id),
       all_args,
       by = c("name", "source", "component")
-    ) %>%
+    ) |>
     mutate(object = purrr::map(call_info, eval_call_info))
 
   dials::parameters_constr(

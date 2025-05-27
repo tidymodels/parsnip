@@ -29,9 +29,9 @@ some models, you may need to pass this value in via
   hidden_units = integer(1),
   penalty = double(1),
   epochs = integer(1)
-) \%>\%  
-  set_engine("nnet") \%>\% 
-  set_mode("regression") \%>\% 
+) |>  
+  set_engine("nnet") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -59,9 +59,9 @@ layer.
   hidden_units = integer(1),
   penalty = double(1),
   epochs = integer(1)
-) \%>\% 
-  set_engine("nnet") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("nnet") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

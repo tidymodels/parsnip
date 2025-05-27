@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("linear_reg", "gee")`
@@ -11,12 +13,13 @@ This model has no formal tuning parameters. It may be beneficial to determine th
 
 `r uses_extension("linear_reg", "gee", "regression")`
 
-```{r gee-csl}
+```{r}
+#| label: gee-csl
 library(multilevelmod)
 
-linear_reg() %>% 
-  set_engine("gee") %>% 
-  set_mode("regression") %>% 
+linear_reg() |> 
+  set_engine("gee") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -42,8 +45,8 @@ With parsnip, we suggest using the formula method when fitting:
 ```r
 library(tidymodels)
 
-linear_reg() %>% 
-  set_engine("gee", corstr = "exchangeable") %>% 
+linear_reg() |> 
+  set_engine("gee", corstr = "exchangeable") |> 
   fit(breaks ~ tension + id_var(wool), data = warpbreaks)
 ```
 
@@ -53,25 +56,27 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 library(tidymodels)
 
 gee_spec <- 
-  linear_reg() %>% 
+  linear_reg() |> 
   set_engine("gee", corstr = "exchangeable")
 
 gee_wflow <- 
-  workflow() %>% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = breaks, predictors = c(tension, wool)) %>% 
+  add_variables(outcomes = breaks, predictors = c(tension, wool)) |> 
   add_model(gee_spec, formula = breaks ~ tension + id_var(wool))
 
 fit(gee_wflow, data = warpbreaks)
 ```
-```{r child = "template-gee-silent.Rmd"}
+```{r}
+#| child: template-gee-silent.Rmd
 ```
 
 Also, because of issues with the `gee()` function, a supplementary call to `glm()` is needed to get the rank and QR decomposition objects so that `predict()` can be used.
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

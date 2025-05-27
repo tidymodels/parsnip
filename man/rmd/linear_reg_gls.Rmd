@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("linear_reg", "gls")`
@@ -11,12 +13,13 @@ This model has no tuning parameters.
 
 `r uses_extension("linear_reg", "gls", "regression")`
 
-```{r gls-csl}
+```{r}
+#| label: gls-csl
 library(multilevelmod)
 
-linear_reg() %>% 
-  set_engine("gls") %>% 
-  set_mode("regression") %>% 
+linear_reg() |> 
+  set_engine("gls") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -38,8 +41,8 @@ library(nlme)
 
 data("riesby")
 
-linear_reg() %>% 
-  set_engine("gls", correlation =  corCompSymm(form = ~ 1 | subject)) %>% 
+linear_reg() |> 
+  set_engine("gls", correlation =  corCompSymm(form = ~ 1 | subject)) |> 
   fit(depr_score ~ week, data = riesby)
 ```
 
@@ -49,13 +52,13 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 library(tidymodels)
 
 gls_spec <- 
-  linear_reg() %>% 
+  linear_reg() |> 
   set_engine("gls", correlation =  corCompSymm(form = ~ 1 | subject))
 
 gls_wflow <- 
-  workflow() %>% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = depr_score, predictors = c(week, subject)) %>% 
+  add_variables(outcomes = depr_score, predictors = c(week, subject)) |> 
   add_model(gls_spec, formula = depr_score ~ week)
 
 fit(gls_wflow, data = riesby)
@@ -63,7 +66,8 @@ fit(gls_wflow, data = riesby)
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

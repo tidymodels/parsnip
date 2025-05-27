@@ -1,26 +1,33 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("boost_tree", "spark")`. However, multiclass classification is not supported yet.
 
 ## Tuning Parameters
 
-```{r spark-param-info, echo = FALSE}
+```{r}
+#| label: spark-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("tree_depth", "trees", "learn_rate", "mtry", "min_n", "loss_reduction", "sample_size"),
                  default = c("5L", "20L", "0.1", "see below", "1L", "0.0", "1.0"))
 
 # For this model, this is the same for all modes
 param <-
- boost_tree() %>% 
-  set_engine("spark") %>% 
-  set_mode("regression") %>% 
+ boost_tree() |> 
+  set_engine("spark") |> 
+  set_mode("regression") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r spark-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: spark-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -28,43 +35,48 @@ The `mtry` parameter is related to the number of predictors. The default depends
 
 ## Translation from parsnip to the original package (regression)
 
-```{r spark-reg}
+```{r}
+#| label: spark-reg
 boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric()
-) %>%
-  set_engine("spark") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("spark") |>
+  set_mode("regression") |>
   translate()
 ```
 
 ## Translation from parsnip to the original package (classification)
 
-```{r spark-cls}
+```{r}
+#| label: spark-cls
 boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric()
-) %>% 
-  set_engine("spark") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("spark") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 Note that, for spark engines, the `case_weight` argument value should be a character string to specify the column with the numeric case weights. 
 
 ## Other details
 
-```{r child = "template-spark-notes.Rmd"}
+```{r}
+#| child: template-spark-notes.Rmd
 ```
 
 ## References

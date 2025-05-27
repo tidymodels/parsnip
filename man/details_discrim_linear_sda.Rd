@@ -38,8 +38,8 @@ The \strong{discrim} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
 
-discrim_linear() \%>\% 
-  set_engine("sda") \%>\% 
+discrim_linear() |> 
+  set_engine("sda") |> 
   translate()
 }\if{html}{\out{</div>}}
 

@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("discrim_quad", "MASS")`
@@ -11,25 +13,29 @@ This engine has no tuning parameters.
 
 `r uses_extension("discrim_quad", "MASS", "classification")`
 
-```{r mass-cls}
+```{r}
+#| label: mass-cls
 library(discrim)
 
-discrim_quad() %>% 
-  set_engine("MASS") %>% 
+discrim_quad() |> 
+  set_engine("MASS") |> 
   translate()
 ```
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-zv-conditional.Rmd"}
+```{r}
+#| child: template-zv-conditional.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

@@ -34,9 +34,9 @@ The \strong{bonsai} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(bonsai)
 
-decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\% 
-  set_engine("partykit") \%>\% 
-  set_mode("regression") \%>\% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("partykit") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -61,9 +61,9 @@ The \strong{bonsai} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(bonsai)
 
-decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\% 
-  set_engine("partykit") \%>\% 
-  set_mode("classification") \%>\% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("partykit") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -92,9 +92,9 @@ The \strong{censored} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
-decision_tree(tree_depth = integer(1), min_n = integer(1)) \%>\% 
-  set_engine("partykit") \%>\% 
-  set_mode("censored regression") \%>\% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("partykit") |> 
+  set_mode("censored regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 

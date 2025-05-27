@@ -1,25 +1,32 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("survival_reg", "survival")`
 
 ## Tuning Parameters
 
-```{r survival-param-info, echo = FALSE}
+```{r}
+#| label: survival-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("dist"),
                  default = c("'weibull'"))
 
 param <-
-  survival_reg() %>%
-  set_engine("survival") %>%
-  set_mode("censored regression") %>%
+  survival_reg() |>
+  set_engine("survival") |>
+  set_mode("censored regression") |>
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r survival-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: survival-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -27,12 +34,13 @@ param$item
 
 `r uses_extension("survival_reg", "survival", "censored regression")`
 
-```{r survival-creg}
+```{r}
+#| label: survival-creg
 library(censored)
 
-survival_reg(dist = character(1)) %>% 
-  set_engine("survival") %>% 
-  set_mode("censored regression") %>% 
+survival_reg(dist = character(1)) |> 
+  set_engine("survival") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 
@@ -49,22 +57,25 @@ For example, in this model, the numeric column `rx` is used to estimate two diff
 ```{r}
 library(survival)
 
-survival_reg() %>% 
-  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) %>% 
+survival_reg() |> 
+  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) |> 
   extract_fit_engine()
 ```
 
-```{r child = "template-survival-mean.Rmd"}
+```{r}
+#| child: template-survival-mean.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 ## References

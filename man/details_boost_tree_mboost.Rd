@@ -32,9 +32,9 @@ The \strong{censored} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
-boost_tree() \%>\% 
-  set_engine("mboost") \%>\% 
-  set_mode("censored regression") \%>\% 
+boost_tree() |> 
+  set_engine("mboost") |> 
+  set_mode("censored regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 

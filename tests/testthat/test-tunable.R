@@ -8,8 +8,8 @@ test_that('brulee has mixture object', {
       penalty = tune(),
       learn_rate = tune(),
       epoch = 2000
-    ) %>%
-    set_mode("regression") %>%
+    ) |>
+    set_mode("regression") |>
     set_engine("brulee",
                stop_iter = tune(),
                mixture = tune(),

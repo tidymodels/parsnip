@@ -84,7 +84,7 @@ case_weights_allowed <- function(spec) {
   mod_mode <- spec$mode
 
   model_info <-
-    get_from_env(paste0(mod_type, "_fit")) %>%
+    get_from_env(paste0(mod_type, "_fit")) |>
     dplyr::filter(engine == mod_eng & mode == mod_mode)
   if (nrow(model_info) != 1) {
     cli::cli_abort(

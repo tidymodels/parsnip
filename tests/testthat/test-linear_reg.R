@@ -1,11 +1,13 @@
+skip_if_not_installed("modeldata")
+
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
 test_that('updating', {
   expect_snapshot(
-    linear_reg(mixture = 0) %>%
-      set_engine("glmnet", nlambda = 10) %>%
+    linear_reg(mixture = 0) |>
+      set_engine("glmnet", nlambda = 10) |>
       update(mixture = tune(), nlambda = tune())
   )
 })
@@ -20,7 +22,7 @@ test_that('bad input', {
 
 num_pred <- c("input_fields", "num_pending", "iterations")
 hpc_bad_form <- as.formula(class ~ term)
-hpc_basic <- linear_reg() %>% set_engine("lm")
+hpc_basic <- linear_reg() |> set_engine("lm")
 
 # ------------------------------------------------------------------------------
 
@@ -107,7 +109,7 @@ test_that('lm execution', {
 
 test_that('glm execution', {
 
-  hpc_glm <- linear_reg() %>% set_engine("glm")
+  hpc_glm <- linear_reg() |> set_engine("glm")
 
   expect_no_condition(
     res <- fit(
@@ -199,7 +201,7 @@ test_that('lm prediction', {
 
 test_that('glm prediction', {
 
-  hpc_glm <- linear_reg() %>% set_engine("glm")
+  hpc_glm <- linear_reg() |> set_engine("glm")
 
   uni_lm <- glm(compounds ~ input_fields + num_pending + iterations, data = hpc)
   uni_pred <- unname(predict(uni_lm, newdata = hpc[1:5, ]))
@@ -235,7 +237,7 @@ test_that('lm intervals', {
                            level = 0.93, interval = "prediction")
 
   res_xy <- fit_xy(
-    linear_reg()  %>% set_engine("lm"),
+    linear_reg()  |> set_engine("lm"),
     x = hpc[, num_pred],
     y = hpc$compounds,
     control = ctrl
@@ -272,7 +274,7 @@ test_that('glm intervals', {
   upper_glm <- stats_glm$family$linkinv(upper_glm)
 
   res_xy <- fit_xy(
-    linear_reg()  %>% set_engine("glm"),
+    linear_reg()  |> set_engine("glm"),
     x = hpc[, num_pred],
     y = hpc$compounds,
     control = ctrl
@@ -330,8 +332,8 @@ test_that('lm can handle rankdeficient predictions', {
   )
 
   expect_snapshot(
-    preds <- linear_reg() %>%
-      fit(y ~ ., data = data) %>%
+    preds <- linear_reg() |>
+      fit(y ~ ., data = data) |>
       predict(new_data = data2)
   )
 
@@ -342,8 +344,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- linear_reg(mixture = -1) %>%
-        set_engine("lm") %>%
+      spec <- linear_reg(mixture = -1) |>
+        set_engine("lm") |>
         set_mode("regression")
       fit(spec, compounds ~ ., hpc)
     }
@@ -351,8 +353,8 @@ test_that("check_args() works", {
   expect_snapshot(
     error = TRUE,
     {
-      spec <- linear_reg(penalty = -1) %>%
-        set_engine("lm") %>%
+      spec <- linear_reg(penalty = -1) |>
+        set_engine("lm") |>
         set_mode("regression")
       fit(spec, compounds ~ ., hpc)
     }
@@ -361,28 +363,29 @@ test_that("check_args() works", {
 
 
 test_that("prevent using a Poisson family", {
-  skip_if(rlang::is_installed("glmnet"))
+  skip_if_not_installed("glmnet")
+
   expect_snapshot(
-    linear_reg(penalty = 1) %>%
-      set_engine("glmnet", family = poisson) %>%
+    linear_reg(penalty = 1) |>
+      set_engine("glmnet", family = poisson) |>
       fit(mpg ~ ., data = mtcars),
     error = TRUE
   )
   expect_snapshot(
-    linear_reg(penalty = 1) %>%
-      set_engine("glmnet", family = stats::poisson) %>%
+    linear_reg(penalty = 1) |>
+      set_engine("glmnet", family = stats::poisson) |>
       fit(mpg ~ ., data = mtcars),
     error = TRUE
   )
   expect_snapshot(
-    linear_reg(penalty = 1) %>%
-      set_engine("glmnet", family = stats::poisson()) %>%
+    linear_reg(penalty = 1) |>
+      set_engine("glmnet", family = stats::poisson()) |>
       fit(mpg ~ ., data = mtcars),
     error = TRUE
   )
   expect_snapshot(
-    linear_reg(penalty = 1) %>%
-      set_engine("glmnet", family = "poisson") %>%
+    linear_reg(penalty = 1) |>
+      set_engine("glmnet", family = "poisson") |>
       fit(mpg ~ ., data = mtcars),
     error = TRUE
   )
@@ -394,30 +397,30 @@ test_that("prevent using a Poisson family", {
 test_that("tunables", {
 
   expect_snapshot(
-    linear_reg() %>%
+    linear_reg() |>
       tunable()
   )
 
   expect_snapshot(
-    linear_reg() %>%
-      set_engine("brulee") %>%
+    linear_reg() |>
+      set_engine("brulee") |>
       tunable()
   )
   expect_snapshot(
-    linear_reg() %>%
-      set_engine("glmnet") %>%
-      tunable()
-  )
-
-  expect_snapshot(
-    linear_reg() %>%
-      set_engine("quantreg") %>%
+    linear_reg() |>
+      set_engine("glmnet") |>
       tunable()
   )
 
   expect_snapshot(
-    linear_reg() %>%
-      set_engine("keras") %>%
+    linear_reg() |>
+      set_engine("quantreg") |>
+      tunable()
+  )
+
+  expect_snapshot(
+    linear_reg() |>
+      set_engine("keras") |>
       tunable()
   )
 

@@ -16,8 +16,8 @@
 #' @examplesIf !parsnip:::is_cran_check()
 #'
 #' fitted_model <-
-#'   linear_reg() %>%
-#'   set_engine("lm", model = TRUE) %>%
+#'   linear_reg() |>
+#'   set_engine("lm", model = TRUE) |>
 #'   fit(mpg ~ ., data = mtcars)
 #'
 #' # In this call, note that `data` is not `mtcars` and the `model = ~TRUE`

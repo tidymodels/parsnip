@@ -22,23 +22,23 @@ tuning parameter names, the standardized parsnip parameter names, and the
 argument names to the underlying fit function for the engine.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check() & rlang::is_installed("dials")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 mod <-
- linear_reg(penalty = tune("regularization"), mixture = tune()) \%>\%
+ linear_reg(penalty = tune("regularization"), mixture = tune()) |>
  set_engine("glmnet")
 
-mod \%>\% .model_param_name_key()
+mod |> .model_param_name_key()
 
-rn <- mod \%>\% .model_param_name_key(as_tibble = FALSE)
+rn <- mod |> .model_param_name_key(as_tibble = FALSE)
 rn
 
 grid <- tidyr::crossing(regularization = c(0, 1), mixture = (0:3) / 3)
 
-grid \%>\%
+grid |>
   dplyr::rename(!!!rn$user_to_parsnip)
 
-grid \%>\%
-  dplyr::rename(!!!rn$user_to_parsnip) \%>\%
+grid |>
+  dplyr::rename(!!!rn$user_to_parsnip) |>
   dplyr::rename(!!!rn$parsnip_to_engine)
 \dontshow{\}) # examplesIf}
 }

@@ -60,7 +60,7 @@
 #' `allow_sparse_x` column of [parsnip::get_encoding()] for sparse input
 #' compatibility.
 #'
-#' @examplesIf !parsnip:::is_cran_check()
+#' @examplesIf !parsnip:::is_cran_check() & rlang::is_installed("modeldata")
 #' # Although `glm()` only has a formula interface, different
 #' # methods for specifying the model can be used
 #'
@@ -71,13 +71,13 @@
 #' lr_mod <- logistic_reg()
 #'
 #' using_formula <-
-#'   lr_mod %>%
-#'   set_engine("glm") %>%
+#'   lr_mod |>
+#'   set_engine("glm") |>
 #'   fit(Class ~ funded_amnt + int_rate, data = lending_club)
 #'
 #' using_xy <-
-#'   lr_mod %>%
-#'    set_engine("glm") %>%
+#'   lr_mod |>
+#'    set_engine("glm") |>
 #'   fit_xy(x = lending_club[, c("funded_amnt", "int_rate")],
 #'          y = lending_club$Class)
 #'

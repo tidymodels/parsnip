@@ -35,7 +35,7 @@ discrim_flexible(
   num_terms = integer(0),
   prod_degree = integer(0),
   prune_method = character(0)
-) \%>\% 
+) |> 
   translate()
 }\if{html}{\out{</div>}}
 

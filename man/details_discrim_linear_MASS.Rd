@@ -22,8 +22,8 @@ The \strong{discrim} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
 
-discrim_linear() \%>\% 
-  set_engine("MASS") \%>\% 
+discrim_linear() |> 
+  set_engine("MASS") |> 
   translate()
 }\if{html}{\out{</div>}}
 

@@ -1,4 +1,5 @@
-```{r, include = FALSE}
+```{r}
+#| include: false
 # pillar/cli options to try to lock down formatting
 options(useFancyQuotes = FALSE)
 options(dplyr.print_min = 6, dplyr.print_max = 6)
@@ -31,7 +32,7 @@ check_pkg_for_docs(parsnip:::extensions())
 make_mode_list <- function(mod, eng) {
   modes <- c("regression", "classification", "censored regression")
   exts <-
-    model_info_table |>
+    utils::read.delim(system.file("models.tsv", package = "parsnip")) |>
     dplyr::filter(model == mod & engine == eng) |> 
     dplyr::mutate(mode = factor(mode, levels = modes)) |> 
     dplyr::arrange(mode)
@@ -41,15 +42,15 @@ make_mode_list <- function(mod, eng) {
 }
 
 make_parameter_list <- function(x, defaults) {
-  x %>%
-    tune::tunable() %>%
-    dplyr::select(-source, -component, -component_id, parsnip = name) %>%
+  x |>
+    tune::tunable() |>
+    dplyr::select(-source, -component, -component_id, parsnip = name) |>
     dplyr::mutate(
       dials = purrr::map(call_info, get_dials),
       label = purrr::map_chr(dials, ~ .x$label),
       type = purrr::map_chr(dials, ~ .x$type)
-    ) %>%
-    dplyr::inner_join(defaults, by = "parsnip") %>%
+    ) |>
+    dplyr::inner_join(defaults, by = "parsnip") |>
     dplyr::mutate(
       item =
         glue::glue("- `{parsnip}`: {label} (type: {type}, default: {default})\n\n")
@@ -60,26 +61,26 @@ convert_args <- function(model_name) {
   envir <- get_model_env()
 
   args <-
-    ls(envir) %>%
-    tibble::tibble(name = .) %>%
-    dplyr::filter(grepl("args", name)) %>%
+    ls(envir) |>
+    tibble::tibble(name = .) |>
+    dplyr::filter(grepl("args", name)) |>
     dplyr::mutate(model = sub("_args", "", name),
-                  args  = purrr::map(name, ~envir[[.x]])) %>%
-    dplyr::filter(grepl(model_name, model)) %>%
-    tidyr::unnest(args) %>%
-    dplyr::select(model:original) %>%
+                  args  = purrr::map(name, ~envir[[.x]])) |>
+    dplyr::filter(grepl(model_name, model)) |>
+    tidyr::unnest(args) |>
+    dplyr::select(model:original) |>
     dplyr::full_join(get_arg_defaults(model_name),
-                     by = c("model", "engine", "parsnip", "original")) %>%
+                     by = c("model", "engine", "parsnip", "original")) |>
     dplyr::mutate(original = dplyr::if_else(!is.na(default),
                                             paste0(original, " (", default, ")"),
-                                            original)) %>%
+                                            original)) |>
     dplyr::select(-default)
 
-  convert_df <- args %>%
-    dplyr::select(-model) %>%
+  convert_df <- args |>
+    dplyr::select(-model) |>
     tidyr::pivot_wider(names_from = engine, values_from = original)
 
-  convert_df %>%
+  convert_df |>
     knitr::kable(col.names = paste0("**", colnames(convert_df), "**"))
 
 }
@@ -112,9 +113,9 @@ get_dials <- function(x) {
 # Write text about modes
 
 descr_models <- function(mod, eng) {
-  res <- get_from_env(mod) %>%
-    dplyr::filter(engine == eng) %>%
-    dplyr::distinct() %>%
+  res <- get_from_env(mod) |>
+    dplyr::filter(engine == eng) |>
+    dplyr::distinct() |>
     purrr::pluck("mode")
 
   if (length(res) == 1) {
@@ -127,14 +128,14 @@ descr_models <- function(mod, eng) {
 
 uses_extension <- function(mod, eng, mod_mode) {
   exts <-
-    model_info_table |>
+    utils::read.delim(system.file("models.tsv", package = "parsnip")) |>
     dplyr::filter(
       model == mod & 
         engine == eng & 
         mode == mod_mode & 
         pkg %in% parsnip:::extensions()
-    ) %>% 
-    dplyr::distinct(pkg) %>% 
+    ) |> 
+    dplyr::distinct(pkg) |> 
     purrr::pluck("pkg")
   
   num_ext <- length(exts)

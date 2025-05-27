@@ -35,7 +35,7 @@ single penalty value. For this reason, models that have glmnet engines
 require the user to always specify a single penalty value when the model
 is defined. For example, for linear regression:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = 1) \%>\% set_engine("glmnet")
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = 1) |> set_engine("glmnet")
 }\if{html}{\out{</div>}}
 
 When the \code{predict()} method is called, it automatically uses the penalty
@@ -44,8 +44,8 @@ that was given when the model was defined. For example:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 fit <- 
-  linear_reg(penalty = 1) \%>\% 
-  set_engine("glmnet") \%>\% 
+  linear_reg(penalty = 1) |> 
+  set_engine("glmnet") |> 
   fit(mpg ~ ., data = mtcars)
 
 # predict at penalty = 1
@@ -76,8 +76,8 @@ multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01))
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# unnested:
-multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01)) \%>\% 
-  add_rowindex() \%>\% 
+multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01)) |> 
+  add_rowindex() |> 
   unnest(cols = ".pred")
 }\if{html}{\out{</div>}}
 
@@ -95,8 +95,8 @@ multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01)) \%>\%
 
 It may appear odd that the \code{lambda} value does not get used in the fit:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = 1) \%>\% 
-  set_engine("glmnet") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg(penalty = 1) |> 
+  set_engine("glmnet") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -142,8 +142,8 @@ engine-specific option:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{coef_path_values <- c(0, 10^seq(-5, 1, length.out = 7))
 
 fit_ridge <- 
-  linear_reg(penalty = 1, mixture = 0) \%>\% 
-  set_engine("glmnet", path_values = coef_path_values) \%>\% 
+  linear_reg(penalty = 1, mixture = 0) |> 
+  set_engine("glmnet", path_values = coef_path_values) |> 
   fit(mpg ~ ., data = mtcars)
 
 all.equal(sort(fit_ridge$fit$lambda), coef_path_values)

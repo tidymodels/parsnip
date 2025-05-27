@@ -1,27 +1,29 @@
+skip_if_not_installed("modeldata")
+
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
 
 lm_fit <-
-  linear_reg(mode = "regression") %>%
-  set_engine("lm") %>%
+  linear_reg(mode = "regression") |>
+  set_engine("lm") |>
   fit(compounds ~ ., data = hpc)
 
 class_dat <- airquality[complete.cases(airquality),]
 class_dat$Ozone <- factor(ifelse(class_dat$Ozone >= 31, "high", "low"))
 
 lr_fit <-
-  logistic_reg() %>%
-  set_engine("glm") %>%
+  logistic_reg() |>
+  set_engine("glm") |>
   fit(Ozone ~ ., data = class_dat)
 
 class_dat2 <- airquality[complete.cases(airquality),]
 class_dat2$Ozone <- factor(ifelse(class_dat2$Ozone >= 31, "high+values", "2low"))
 
 lr_fit_2 <-
-  logistic_reg() %>%
-  set_engine("glm") %>%
+  logistic_reg() |>
+  set_engine("glm") |>
   fit(Ozone ~ ., data = class_dat2)
 
 # ------------------------------------------------------------------------------
@@ -54,21 +56,21 @@ test_that('ordinal classification predictions', {
       200,
       ~  -0.5    +  0.6 * abs(A),
       ~ ifelse(A > 0 & B > 0, 1.0 + 0.2 * A / B, - 2),
-      ~ -0.6 * A + 0.50 * B -  A * B) %>%
+      ~ -0.6 * A + 0.50 * B -  A * B) |>
     dplyr::mutate(class = as.ordered(class))
   dat_te <-
     modeldata::sim_multinomial(
       5,
       ~  -0.5    +  0.6 * abs(A),
       ~ ifelse(A > 0 & B > 0, 1.0 + 0.2 * A / B, - 2),
-      ~ -0.6 * A + 0.50 * B -  A * B) %>%
+      ~ -0.6 * A + 0.50 * B -  A * B) |>
     dplyr::mutate(class = as.ordered(class))
 
   ###
 
   mod_f_fit <-
-    decision_tree() %>%
-    set_mode("classification") %>%
+    decision_tree() |>
+    set_mode("classification") |>
     fit(class ~ ., data = dat_tr)
   expect_true("ordered" %in% names(mod_f_fit))
   mod_f_pred <- predict(mod_f_fit, dat_te)
@@ -77,9 +79,9 @@ test_that('ordinal classification predictions', {
   ###
 
   mod_xy_fit <-
-    decision_tree() %>%
-    set_mode("classification") %>%
-    fit_xy(x = dat_tr %>% dplyr::select(-class), dat_tr$class)
+    decision_tree() |>
+    set_mode("classification") |>
+    fit_xy(x = dat_tr |> dplyr::select(-class), dat_tr$class)
 
   expect_true("ordered" %in% names(mod_xy_fit))
   mod_xy_pred <- predict(mod_xy_fit, dat_te)
@@ -108,8 +110,8 @@ test_that('predict(type = "prob") with level "class" (see #720)', {
   )
 
   expect_no_condition(
-    mod <- logistic_reg() %>%
-      set_mode(mode = "classification") %>%
+    mod <- logistic_reg() |>
+      set_mode(mode = "classification") |>
       fit(boop ~ bop + beep, data = x)
   )
 
@@ -129,26 +131,26 @@ test_that('non-factor classification', {
 
   expect_snapshot(
     error = TRUE,
-    logistic_reg() %>%
-      set_engine("glm") %>%
+    logistic_reg() |>
+      set_engine("glm") |>
       fit(class ~ .,
-          data = hpc %>% dplyr::mutate(class = class == "VF"))
+          data = hpc |> dplyr::mutate(class = class == "VF"))
   )
   expect_snapshot(
     error = TRUE,
-    logistic_reg() %>%
-      set_engine("glm") %>%
+    logistic_reg() |>
+      set_engine("glm") |>
       fit(class ~ .,
-          data = hpc %>% dplyr::mutate(class = ifelse(class == "VF", 1, 0)))
+          data = hpc |> dplyr::mutate(class = ifelse(class == "VF", 1, 0)))
   )
 
   skip_if_not_installed("glmnet")
   expect_snapshot(
     error = TRUE,
-    multinom_reg() %>%
-      set_engine("glmnet") %>%
+    multinom_reg() |>
+      set_engine("glmnet") |>
       fit(class ~ .,
-          data = hpc %>% dplyr::mutate(class = as.character(class)))
+          data = hpc |> dplyr::mutate(class = as.character(class)))
   )
 })
 
@@ -156,8 +158,8 @@ test_that("predict() works for model fit with fit_xy() (#1166)", {
   skip_if_not_installed("xgboost")
   skip_on_cran()
 
-  spec <- boost_tree() %>%
-    set_mode("regression") %>%
+  spec <- boost_tree() |>
+    set_mode("regression") |>
     set_engine("xgboost")
 
   tree_fit <- fit(spec, mpg ~ ., data = mtcars)

@@ -26,9 +26,9 @@ and 100.
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(trees = integer(), min_n = integer(), sample_size = numeric()) \%>\% 
-  set_engine("C5.0") \%>\% 
-  set_mode("classification") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(trees = integer(), min_n = integer(), sample_size = numeric()) |> 
+  set_engine("C5.0") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

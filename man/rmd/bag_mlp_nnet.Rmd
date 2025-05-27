@@ -1,25 +1,32 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("bag_mlp", "nnet")`
 
 ## Tuning Parameters
 
-```{r nnet-param-info, echo = FALSE}
+```{r}
+#| label: nnet-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("penalty", "hidden_units", "epochs"),
                  default = c("0.0", "10L", "1000L"))
 
 param <-
- bag_mlp() %>% 
-  set_engine("nnet") %>% 
-  set_mode("regression") %>% 
+ bag_mlp() |> 
+  set_engine("nnet") |> 
+  set_mode("regression") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r nnet-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: nnet-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -29,12 +36,13 @@ These defaults are set by the `baguette` package and are different than those in
 
 `r uses_extension("bag_mlp", "nnet", "classification")`
 
-```{r nnet-cls}
+```{r}
+#| label: nnet-cls
 library(baguette)
 
-bag_mlp(penalty = double(1), hidden_units = integer(1)) %>% 
-  set_engine("nnet") %>% 
-  set_mode("classification") %>% 
+bag_mlp(penalty = double(1), hidden_units = integer(1)) |> 
+  set_engine("nnet") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -43,27 +51,31 @@ bag_mlp(penalty = double(1), hidden_units = integer(1)) %>%
 
 `r uses_extension("bag_mlp", "nnet", "regression")`
 
-```{r nnet-reg}
+```{r}
+#| label: nnet-reg
 library(baguette)
 
-bag_mlp(penalty = double(1), hidden_units = integer(1)) %>% 
-  set_engine("nnet") %>% 
-  set_mode("regression") %>% 
+bag_mlp(penalty = double(1), hidden_units = integer(1)) |> 
+  set_engine("nnet") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 

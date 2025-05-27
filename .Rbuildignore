@@ -20,3 +20,5 @@ derby.log
 ^LICENSE\.md$
 ^man-roxygen$
 ^vignettes/articles$
+^[\.]?air\.toml$
+^\.vscode$

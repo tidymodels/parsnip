@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("discrim_linear", "mda")`
@@ -6,20 +8,25 @@
 ## Tuning Parameters
 
 
-```{r mda-param-info, echo = FALSE}
+```{r}
+#| label: mda-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("penalty"),
                  default = c("1.0"))
 
 param <-
-  discrim_linear() %>% 
-  set_engine("mda") %>% 
+  discrim_linear() |> 
+  set_engine("mda") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameter:
 
-```{r mda-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: mda-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -27,25 +34,29 @@ param$item
 
 `r uses_extension("discrim_linear", "mda", "classification")`
 
-```{r mda-cls}
+```{r}
+#| label: mda-cls
 library(discrim)
 
-discrim_linear(penalty = numeric(0)) %>% 
-  set_engine("mda") %>% 
+discrim_linear(penalty = numeric(0)) |> 
+  set_engine("mda") |> 
   translate()
 ```
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-zv.Rmd"}
+```{r}
+#| child: template-zv.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## References

@@ -511,12 +511,12 @@ update(model, mtry = 1, fresh = TRUE)
 
 param_values <- tibble::tibble(mtry = 10, tree_depth = 5)
 
-model \%>\% update(param_values)
-model \%>\% update(param_values, mtry = 3)
+model |> update(param_values)
+model |> update(param_values, mtry = 3)
 
 param_values$verbose <- 0
 # Fails due to engine argument
-# model \%>\% update(param_values)
+# model |> update(param_values)
 
 model <- linear_reg(penalty = 10, mixture = 0.1)
 model

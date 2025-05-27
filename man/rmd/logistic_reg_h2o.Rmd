@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 
@@ -6,24 +8,31 @@
 
 ## Tuning Parameters
 
-```{r h2o-param-info, echo = FALSE}
+```{r}
+#| label: h2o-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("penalty", "mixture"),
                  default = c("see below", "see below"))
 
 param <-
-logistic_reg() %>% 
-  set_engine("h2o") %>% 
+logistic_reg() |> 
+  set_engine("h2o") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r h2o-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: h2o-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
-```{r, child = "template-h2o-glm-penalty.Rmd", include = FALSE}
+```{r}
+#| child: template-h2o-glm-penalty.Rmd
+#| include: false
 ```
 
 
@@ -31,26 +40,30 @@ param$item
 
 [agua::h2o_train_glm()] for `logistic_reg()` is a wrapper around [h2o::h2o.glm()]. h2o will automatically picks the link function and distribution family or binomial responses. 
 
-```{r h2o-reg}
-logistic_reg() %>% 
-  set_engine("h2o") %>% 
+```{r}
+#| label: h2o-reg
+logistic_reg() |> 
+  set_engine("h2o") |> 
   translate()
 ```
 
 To use a non-default argument in [h2o::h2o.glm()], pass in as an engine argument to `set_engine()`:
 
-```{r h2o-reg-engine}
-logistic_reg() %>% 
-  set_engine("h2o", compute_p_values = TRUE) %>% 
+```{r}
+#| label: h2o-reg-engine
+logistic_reg() |> 
+  set_engine("h2o", compute_p_values = TRUE) |> 
   translate()
 ```
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 By default, [h2o::h2o.glm()] uses the argument `standardize = TRUE` to center and scale all numeric columns. 
@@ -58,10 +71,12 @@ By default, [h2o::h2o.glm()] uses the argument `standardize = TRUE` to center an
 
 ## Initializing h2o 
 
-```{r child = "template-h2o-init.Rmd"}
+```{r}
+#| child: template-h2o-init.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-bundle.Rmd"}
+```{r}
+#| child: template-bundle.Rmd
 ```

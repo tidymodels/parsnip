@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("linear_reg", "quantreg")`
@@ -13,10 +15,11 @@ This engine has no tuning parameters.
 
 This model only works with the `"quantile regression"` model and requires users to specify which areas of the distribution to predict via the `quantile_levels` argument. For example: 
 
-```{r quantreg-reg}
-linear_reg() %>% 
-  set_engine("quantreg") %>% 
-  set_mode("quantile regression", quantile_levels = (1:3) / 4) %>% 
+```{r}
+#| label: quantreg-reg
+linear_reg() |> 
+  set_engine("quantreg") |> 
+  set_mode("quantile regression", quantile_levels = (1:3) / 4) |> 
   translate()
 ```
 
@@ -26,20 +29,21 @@ When multiple quantile levels are predicted, there are multiple predicted values
 
 For example: 
 
-```{r example}
+```{r}
+#| label: example
 library(modeldata)
 rlang::check_installed("quantreg")
 
 n <- nrow(Chicago)
-Chicago <- Chicago %>% select(ridership, Clark_Lake)
+Chicago <- Chicago |> select(ridership, Clark_Lake)
 
 Chicago_train <- Chicago[1:(n - 7), ]
 Chicago_test  <- Chicago[(n - 6):n, ]
 
 qr_fit <- 
-  linear_reg() %>% 
-  set_engine("quantreg") %>% 
-  set_mode("quantile regression", quantile_levels = (1:3) / 4) %>% 
+  linear_reg() |> 
+  set_engine("quantreg") |> 
+  set_mode("quantile regression", quantile_levels = (1:3) / 4) |> 
   fit(ridership ~ Clark_Lake, data = Chicago_train)
 qr_fit
 
@@ -49,7 +53,8 @@ qr_pred
 
 We can unnest these values and/or convert them to a rectangular format:  
 
-```{r example-format}
+```{r}
+#| label: example-format
 as_tibble(qr_pred$.pred_quantile)
 
 as.matrix(qr_pred$.pred_quantile)
@@ -57,17 +62,20 @@ as.matrix(qr_pred$.pred_quantile)
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 ## Examples 

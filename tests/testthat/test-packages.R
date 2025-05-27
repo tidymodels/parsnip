@@ -7,7 +7,7 @@ test_that('required packages', {
   rlang::local_options(lifecycle_verbosity = "quiet")
 
   glmn <-
-    linear_reg() %>%
+    linear_reg() |>
     set_engine("glmnet")
   expect_equal(required_pkgs(glmn), c("parsnip", "glmnet"))
   expect_equal(required_pkgs(glmn, infra = FALSE), c("glmnet"))
@@ -17,8 +17,8 @@ test_that('required packages', {
   })
 
   lm_fit <-
-    linear_reg() %>%
-    set_engine("lm") %>%
+    linear_reg() |>
+    set_engine("lm") |>
     fit(mpg ~ ., data = mtcars)
 
   expect_equal(required_pkgs(lm_fit), c("parsnip", "stats"))
@@ -32,6 +32,8 @@ test_that('required packages', {
 # ------------------------------------------------------------------------------
 
 test_that('missing packages', {
+  skip_if_not_installed("earth")
+
   has_earth <- parsnip:::is_installed("earth")
 
   if (has_earth) {

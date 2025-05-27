@@ -1,62 +1,74 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("decision_tree", "spark")`
 
 ## Tuning Parameters
 
-```{r spark-param-info, echo = FALSE}
+```{r}
+#| label: spark-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("tree_depth", "min_n"),
                  default = c("5L", "1L"))
 
 param <-
- decision_tree() %>% 
-  set_engine("spark") %>% 
-  set_mode("regression") %>% 
+ decision_tree() |> 
+  set_engine("spark") |> 
+  set_mode("regression") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r spark-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: spark-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
 ## Translation from parsnip to the original package (classification)
 
-```{r spark-cls}
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("spark") %>% 
-  set_mode("classification") %>% 
+```{r}
+#| label: spark-cls
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("spark") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
 
 ## Translation from parsnip to the original package (regression)
 
-```{r spark-reg}
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("spark") %>% 
-  set_mode("regression") %>% 
+```{r}
+#| label: spark-reg
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("spark") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 Note that, for spark engines, the `case_weight` argument value should be a character string to specify the column with the numeric case weights. 
 
 ## Other details
 
-```{r child = "template-spark-notes.Rmd"}
+```{r}
+#| child: template-spark-notes.Rmd
 ```
 
 ## References

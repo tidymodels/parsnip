@@ -5,7 +5,7 @@ format_spark_probs <- function(results, object) {
   p <- ncol(results)
   lvl <- colnames(results)
   names(lvl) <- paste0("pred_", object$fit$index_labels)
-  results %>% dplyr::rename(!!!syms(lvl))
+  results |> dplyr::rename(!!!syms(lvl))
 }
 
 format_spark_class <- function(results, object) {

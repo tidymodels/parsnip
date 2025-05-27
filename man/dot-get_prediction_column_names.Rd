@@ -19,13 +19,13 @@ A list with elements \code{"estimate"} and \code{"probabilities"}.
 columns for the primary prediction types for a model.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check() & rlang::is_installed("modeldata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(dplyr)
 library(modeldata)
 data("two_class_dat")
 
 levels(two_class_dat$Class)
-lr_fit <- logistic_reg() \%>\% fit(Class ~ ., data = two_class_dat)
+lr_fit <- logistic_reg() |> fit(Class ~ ., data = two_class_dat)
 
 .get_prediction_column_names(lr_fit)
 .get_prediction_column_names(lr_fit, syms = TRUE)

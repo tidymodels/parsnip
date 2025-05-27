@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("poisson_reg", "stan")`
@@ -24,11 +26,12 @@ See [rstan::sampling()] and [rstanarm::priors()] for more information on these a
 
 `r uses_extension("poisson_reg", "stan", "regression")`
 
-```{r stan-csl}
+```{r}
+#| label: stan-csl
 library(poissonreg)
 
-poisson_reg() %>% 
-  set_engine("stan") %>% 
+poisson_reg() |> 
+  set_engine("stan") |> 
   translate()
 ```
 
@@ -36,7 +39,8 @@ Note that the `refresh` default prevents logging of the estimation process. Chan
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
 ## Other details
@@ -45,7 +49,8 @@ For prediction, the `"stan"` engine can compute posterior intervals analogous to
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Examples 

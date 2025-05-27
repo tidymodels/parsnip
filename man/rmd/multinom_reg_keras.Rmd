@@ -1,24 +1,31 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("multinom_reg", "keras")`
 
 ## Tuning Parameters
 
-```{r keras-param-info, echo = FALSE}
+```{r}
+#| label: keras-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("penalty"),
                  default = c("0.0"))
 
 param <-
-  multinom_reg() %>% 
-  set_engine("keras") %>% 
+  multinom_reg() |> 
+  set_engine("keras") |> 
   make_parameter_list(defaults)
 ```
 
 This model has one tuning parameter:
 
-```{r keras-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: keras-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -26,9 +33,10 @@ For `penalty`, the amount of regularization is _only_ L2 penalty (i.e., ridge or
 
 ## Translation from parsnip to the original package
 
-```{r keras-csl}
-multinom_reg(penalty = double(1)) %>% 
-  set_engine("keras") %>% 
+```{r}
+#| label: keras-csl
+multinom_reg(penalty = double(1)) |> 
+  set_engine("keras") |> 
   translate()
 ```
 
@@ -36,20 +44,24 @@ multinom_reg(penalty = double(1)) %>%
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-bundle.Rmd"}
+```{r}
+#| child: template-bundle.Rmd
 ```
 
 ## Examples 

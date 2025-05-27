@@ -1,51 +1,64 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("multinom_reg", "h2o")`
 
 ## Tuning Parameters
 
-```{r h2o-param-info, echo = FALSE}
+```{r}
+#| label: h2o-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("penalty", "mixture"),
                  default = c("see below", "see below"))
 
 param <-
-multinom_reg() %>% 
-  set_engine("h2o") %>% 
+multinom_reg() |> 
+  set_engine("h2o") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r h2o-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: h2o-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
-```{r, child = "template-h2o-glm-penalty.Rmd", include = FALSE}
+```{r}
+#| child: template-h2o-glm-penalty.Rmd
+#| include: false
 ```
 
 ## Translation from parsnip to the original package
 
 [agua::h2o_train_glm()] for `multinom_reg()` is a wrapper around [h2o::h2o.glm()] with `family = 'multinomial'`. 
 
-```{r h2o-cls}
-multinom_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("h2o") %>% 
+```{r}
+#| label: h2o-cls
+multinom_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("h2o") |> 
   translate()
 ```
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 By default, [h2o::h2o.glm()] uses the argument `standardize = TRUE` to center and scale the data. 
 
 ## Initializing h2o 
 
-```{r child = "template-h2o-init.Rmd"}
+```{r}
+#| child: template-h2o-init.Rmd
 ```

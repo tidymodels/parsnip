@@ -1,14 +1,12 @@
-data(two_class_dat, package = "modeldata")
-
-# ------------------------------------------------------------------------------
-
+skip_if_not_installed("modeldata")
 
 test_that('regression', {
   skip_if_not_installed("mgcv")
+  skip_if_not_installed("modeldata")
 
   reg_mod <-
-    gen_additive_mod(select_features = TRUE) %>%
-    set_engine("mgcv") %>%
+    gen_additive_mod(select_features = TRUE) |>
+    set_engine("mgcv") |>
     set_mode("regression")
 
   expect_no_condition(
@@ -50,8 +48,8 @@ test_that('classification', {
   skip_if_not_installed("mgcv")
 
   cls_mod <-
-    gen_additive_mod(adjust_deg_free = 1.5) %>%
-    set_engine("mgcv") %>%
+    gen_additive_mod(adjust_deg_free = 1.5) |>
+    set_engine("mgcv") |>
     set_mode("classification")
 
   expect_no_condition(

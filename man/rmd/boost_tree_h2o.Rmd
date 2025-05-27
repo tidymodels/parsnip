@@ -1,26 +1,33 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("boost_tree", "h2o")`
 
 ## Tuning Parameters
 
-```{r h2o-param-info, echo = FALSE}
+```{r}
+#| label: h2o-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("mtry", "trees", "tree_depth", "learn_rate", "sample_size", "min_n",  "loss_reduction", "stop_iter"),
                  default = c(1, 50L, 6, 0.3, 1, 1, 0, 0))
 
 # For this model, this is the same for all modes
 param <-
- boost_tree() %>% 
-  set_engine("h2o") %>% 
-  set_mode("regression") %>% 
+ boost_tree() |> 
+  set_engine("h2o") |> 
+  set_mode("regression") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r h2o-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: h2o-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -34,13 +41,14 @@ param$item
 
 `r uses_extension("boost_tree", "h2o", "regression")`
 
-```{r h2o-reg}
+```{r}
+#| label: h2o-reg
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric(), stop_iter = integer()
-) %>%
-  set_engine("h2o") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("h2o") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -48,35 +56,40 @@ boost_tree(
 
 `r uses_extension("boost_tree", "h2o", "classification")`
 
-```{r h2o-cls}
+```{r}
+#| label: h2o-cls
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric(), stop_iter = integer()
-) %>% 
-  set_engine("h2o") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("h2o") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
 
 ## Preprocessing
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 Non-numeric predictors (i.e., factors) are internally converted to numeric. In the classification context, non-numeric outcomes (i.e., factors) are also internally converted to numeric. 
 
 ## Interpreting `mtry`
 
-```{r child = "template-mtry-prop.Rmd"}
+```{r}
+#| child: template-mtry-prop.Rmd
 ```
 
 ## Initializing h2o 
 
-```{r child = "template-h2o-init.Rmd"}
+```{r}
+#| child: template-h2o-init.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-bundle.Rmd"}
+```{r}
+#| child: template-bundle.Rmd
 ```

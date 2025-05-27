@@ -44,7 +44,7 @@ stores model objects after seeing the data and applying a model.
 
 # Keep the `x` matrix if the data are not too big.
 spec_obj <-
-  linear_reg() \%>\%
+  linear_reg() |>
   set_engine("lm", x = ifelse(.obs() < 500, TRUE, FALSE))
 spec_obj
 

@@ -1,3 +1,5 @@
+skip_if_not_installed("modeldata")
+
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # to go from lm_object$x results to our format
@@ -348,7 +350,7 @@ test_that("numeric x and factor y", {
   )
 
   expect_no_error(
-    observed2 <- .convert_form_to_xy_fit(class ~ ., data = hpc %>% mutate(x = NA))
+    observed2 <- .convert_form_to_xy_fit(class ~ ., data = hpc |> mutate(x = NA))
   )
   expect_equal(hpc$class[logical()], observed2$y)
   expect_s3_class(observed2$terms, "terms")
@@ -618,6 +620,8 @@ test_that("bad args", {
 ## -----------------------------------------------------------------------------
 
 test_that("convert to matrix", {
+  skip_if_not_installed("modeldata")
+
   expect_true(inherits(parsnip::maybe_matrix(mtcars), "matrix"))
   expect_true(inherits(parsnip::maybe_matrix(tibble::as_tibble(mtcars)), "matrix"))
   expect_true(inherits(parsnip::maybe_matrix(as.matrix(mtcars)), "matrix"))

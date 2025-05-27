@@ -1,26 +1,33 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("decision_tree", "partykit")`
 
 ## Tuning Parameters
 
-```{r partykit-param-info, echo = FALSE}
+```{r}
+#| label: partykit-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("tree_depth", "min_n"),
                  default = c("see below", "20L"))
 
 param <-
- decision_tree() %>% 
-  set_engine("partykit") %>% 
-  set_mode("regression") %>% 
-  make_parameter_list(defaults) %>% 
+ decision_tree() |> 
+  set_engine("partykit") |> 
+  set_mode("regression") |> 
+  make_parameter_list(defaults) |> 
   distinct()
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r partykit-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: partykit-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -34,12 +41,13 @@ An engine-specific parameter for this model is:
 
 `r uses_extension("decision_tree", "partykit", "regression")`
 
-```{r partykit-creg}
+```{r}
+#| label: partykit-creg
 library(bonsai)
 
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("partykit") %>% 
-  set_mode("regression") %>% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("partykit") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -47,12 +55,13 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 
 `r uses_extension("decision_tree", "partykit", "classification")`
 
-```{r partykit-class}
+```{r}
+#| label: partykit-class
 library(bonsai)
 
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("partykit") %>% 
-  set_mode("classification") %>% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("partykit") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -62,12 +71,13 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 
 `r uses_extension("decision_tree", "partykit", "censored regression")`
 
-```{r party-creg}
+```{r}
+#| label: party-creg
 library(censored)
 
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("partykit") %>% 
-  set_mode("censored regression") %>% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("partykit") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 
@@ -75,12 +85,14 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## Other details
 
-```{r child = "template-survival-median.Rmd"}
+```{r}
+#| child: template-survival-median.Rmd
 ```
 
 ## References

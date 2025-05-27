@@ -148,7 +148,7 @@ deharmonize <- function(args, key) {
   parsn <- tibble::new_tibble(parsn, nrow = length(args))
 
   merged <-
-    dplyr::left_join(parsn, key, by = "parsnip") %>%
+    dplyr::left_join(parsn, key, by = "parsnip") |>
     dplyr::arrange(order)
 
   merged <- merged[!duplicated(merged$order),]
@@ -177,23 +177,23 @@ add_methods <- function(x, engine) {
 #' @return A tibble with columns `user`, `parsnip`, and `engine`, or a list
 #' with named character vectors `user_to_parsnip` and `parsnip_to_engine`.
 #' @keywords internal
-#' @examplesIf !parsnip:::is_cran_check()
+#' @examplesIf !parsnip:::is_cran_check() & rlang::is_installed("dials")
 #' mod <-
-#'  linear_reg(penalty = tune("regularization"), mixture = tune()) %>%
+#'  linear_reg(penalty = tune("regularization"), mixture = tune()) |>
 #'  set_engine("glmnet")
 #'
-#' mod %>% .model_param_name_key()
+#' mod |> .model_param_name_key()
 #'
-#' rn <- mod %>% .model_param_name_key(as_tibble = FALSE)
+#' rn <- mod |> .model_param_name_key(as_tibble = FALSE)
 #' rn
 #'
 #' grid <- tidyr::crossing(regularization = c(0, 1), mixture = (0:3) / 3)
 #'
-#' grid %>%
+#' grid |>
 #'   dplyr::rename(!!!rn$user_to_parsnip)
 #'
-#' grid %>%
-#'   dplyr::rename(!!!rn$user_to_parsnip) %>%
+#' grid |>
+#'   dplyr::rename(!!!rn$user_to_parsnip) |>
 #'   dplyr::rename(!!!rn$parsnip_to_engine)
 #' @export
 .model_param_name_key <- function(object, as_tibble = TRUE) {
@@ -205,12 +205,12 @@ add_methods <- function(x, engine) {
   }
 
   # To translate from given names/ids in grid to parsnip names:
-  params <- object %>% hardhat::extract_parameter_set_dials()
-  params <- tibble::as_tibble(params) %>%
+  params <- object |> hardhat::extract_parameter_set_dials()
+  params <- tibble::as_tibble(params) |>
     dplyr::select(user = id, parsnip = name)
   # Go from parsnip names to engine names
-  arg_key <- get_from_env(paste0(class(object)[1], "_args")) %>%
-    dplyr::filter(engine == object$engine) %>%
+  arg_key <- get_from_env(paste0(class(object)[1], "_args")) |>
+    dplyr::filter(engine == object$engine) |>
     dplyr::select(engine = original, parsnip)
 
   res <- dplyr::left_join(params, arg_key, by = "parsnip")

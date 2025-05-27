@@ -81,19 +81,19 @@ reformat_coefs <- function(x, p, penalty) {
 }
 
 top_coefs <- function(x, top_n = 5) {
-  x %>%
-    dplyr::group_by(term) %>%
-    dplyr::arrange(term, dplyr::desc(abs(estimate))) %>%
-    dplyr::slice(1) %>%
-    dplyr::ungroup() %>%
-    dplyr::arrange(dplyr::desc(abs(estimate))) %>%
+  x |>
+    dplyr::group_by(term) |>
+    dplyr::arrange(term, dplyr::desc(abs(estimate))) |>
+    dplyr::slice(1) |>
+    dplyr::ungroup() |>
+    dplyr::arrange(dplyr::desc(abs(estimate))) |>
     dplyr::slice(seq_len(top_n))
 }
 
 autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L,
                             call = rlang::caller_env(), ...) {
   tidy_coefs <-
-    map_glmnet_coefs(x, call = call) %>%
+    map_glmnet_coefs(x, call = call) |>
     dplyr::filter(penalty >= min_penalty)
 
   actual_min_penalty <- min(tidy_coefs$penalty)
@@ -108,32 +108,32 @@ autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L,
   # Keep the large values
   if (has_groups) {
     label_coefs <-
-      tidy_coefs %>%
-      dplyr::group_nest(class) %>%
-      dplyr::mutate(data = purrr::map(data, top_coefs, top_n = top_n)) %>%
-      dplyr::select(class, data) %>%
+      tidy_coefs |>
+      dplyr::group_nest(class) |>
+      dplyr::mutate(data = purrr::map(data, top_coefs, top_n = top_n)) |>
+      dplyr::select(class, data) |>
       tidyr::unnest(cols = data)
   } else {
     if (is.null(best_penalty)) {
-      label_coefs <- tidy_coefs %>%
+      label_coefs <- tidy_coefs |>
         top_coefs(top_n)
     } else {
-      label_coefs <- tidy_coefs %>%
-        dplyr::filter(penalty > best_penalty) %>%
-        dplyr::filter(penalty == min(penalty)) %>%
-        dplyr::arrange(dplyr::desc(abs(estimate))) %>%
+      label_coefs <- tidy_coefs |>
+        dplyr::filter(penalty > best_penalty) |>
+        dplyr::filter(penalty == min(penalty)) |>
+        dplyr::arrange(dplyr::desc(abs(estimate))) |>
         dplyr::slice(seq_len(top_n))
     }
   }
 
   label_coefs <-
-    label_coefs %>%
-    dplyr::mutate(penalty = best_penalty %||% actual_min_penalty) %>%
+    label_coefs |>
+    dplyr::mutate(penalty = best_penalty %||% actual_min_penalty) |>
     dplyr::mutate(label = gsub(".pred_no_", "", term))
 
   # plot the paths and highlight the large values
   p <-
-    tidy_coefs %>%
+    tidy_coefs |>
     ggplot2::ggplot(ggplot2::aes(x = penalty, y = estimate, group = term, col = term))
 
   if (has_groups) {

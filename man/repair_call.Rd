@@ -31,8 +31,8 @@ functions and methods.
 \dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 fitted_model <-
-  linear_reg() \%>\%
-  set_engine("lm", model = TRUE) \%>\%
+  linear_reg() |>
+  set_engine("lm", model = TRUE) |>
   fit(mpg ~ ., data = mtcars)
 
 # In this call, note that `data` is not `mtcars` and the `model = ~TRUE`

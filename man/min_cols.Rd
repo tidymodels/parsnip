@@ -31,16 +31,16 @@ fit.  These functions check the possible range of the data and adjust them
 if needed (with a warning).
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-nearest_neighbor(neighbors= 100) \%>\%
-  set_engine("kknn") \%>\%
-  set_mode("regression") \%>\%
+\dontshow{if (!parsnip:::is_cran_check() & rlang::is_installed("kknn")  & rlang::is_installed("ranger")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+nearest_neighbor(neighbors= 100) |>
+  set_engine("kknn") |>
+  set_mode("regression") |>
   translate()
 
 library(ranger)
-rand_forest(mtry = 2, min_n = 100, trees = 3) \%>\%
-  set_engine("ranger") \%>\%
-  set_mode("regression") \%>\%
+rand_forest(mtry = 2, min_n = 100, trees = 3) |>
+  set_engine("ranger") |>
+  set_mode("regression") |>
   fit(mpg ~ ., data = mtcars)
 \dontshow{\}) # examplesIf}
 }

@@ -105,16 +105,16 @@ survreg_quant <- function(results, object) {
   p <- ncol(results)
   colnames(results) <- names0(p)
   results <-
-    results %>%
-    as_tibble() %>%
-    mutate(.row = seq_len(n)) %>%
-    gather(.label, .pred, -.row) %>%
-    arrange(.row, .label) %>%
-    mutate(.quantile = rep(pctl, n)) %>%
+    results |>
+    as_tibble() |>
+    mutate(.row = seq_len(n)) |>
+    gather(.label, .pred, -.row) |>
+    arrange(.row, .label) |>
+    mutate(.quantile = rep(pctl, n)) |>
     dplyr::select(-.label)
   .row <- results[[".row"]]
   results <-
-    results %>%
+    results |>
     dplyr::select(-.row)
   results <- split(results, .row)
   names(results) <- NULL

@@ -1,25 +1,32 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("survival_reg", "flexsurv")`
 
 ## Tuning Parameters
 
-```{r flexsurv-param-info, echo = FALSE}
+```{r}
+#| label: flexsurv-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("dist"),
                  default = c("'weibull'"))
 
 param <-
-  survival_reg() %>%
-  set_engine("flexsurv") %>%
-  set_mode("censored regression") %>%
+  survival_reg() |>
+  set_engine("flexsurv") |>
+  set_mode("censored regression") |>
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r flexsurv-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: flexsurv-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -27,12 +34,13 @@ param$item
 
 `r uses_extension("survival_reg", "flexsurv", "censored regression")`
 
-```{r flexsurv-creg}
+```{r}
+#| label: flexsurv-creg
 library(censored)
 
-survival_reg(dist = character(1)) %>% 
-  set_engine("flexsurv") %>% 
-  set_mode("censored regression") %>% 
+survival_reg(dist = character(1)) |> 
+  set_engine("flexsurv") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 
@@ -42,17 +50,20 @@ The main interface for this model uses the formula method since the model specif
 
 For this engine, stratification cannot be specified via [`survival::strata()`], please see [flexsurv::flexsurvreg()] for alternative specifications.
 
-```{r child = "template-survival-mean.Rmd"}
+```{r}
+#| child: template-survival-mean.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 

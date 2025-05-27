@@ -1,3 +1,5 @@
+skip_if_not_installed("modeldata")
+
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
@@ -11,7 +13,7 @@ te_dat <- dat[141:150, ]
 # ------------------------------------------------------------------------------
 
 basic_mod <-
-  multinom_reg() %>%
+  multinom_reg() |>
   set_engine("nnet", penalty = .1)
 
 ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
@@ -91,8 +93,8 @@ test_that('classification probabilities', {
     )
 
   nnet_pred <-
-    predict(extract_fit_engine(lr_fit), as.matrix(te_dat[, -5]), type = "prob") %>%
-    as_tibble(.name_repair = "minimal") %>%
+    predict(extract_fit_engine(lr_fit), as.matrix(te_dat[, -5]), type = "prob") |>
+    as_tibble(.name_repair = "minimal") |>
     setNames(paste0(".pred_", lr_fit$lvl))
 
   parsnip_pred <- predict(lr_fit, te_dat[, -5], type = "prob")
@@ -114,10 +116,10 @@ test_that('prob prediction with 1 row', {
     )
 
   nnet_pred <-
-    predict(extract_fit_engine(lr_fit), as.matrix(te_dat[1, -5]), type = "prob") %>%
-    as.matrix() %>%
-    t() %>%
-    tibble::as_tibble(.name_repair = "minimal") %>%
+    predict(extract_fit_engine(lr_fit), as.matrix(te_dat[1, -5]), type = "prob") |>
+    as.matrix() |>
+    t() |>
+    tibble::as_tibble(.name_repair = "minimal") |>
     setNames(paste0(".pred_", lr_fit$lvl))
 
   parsnip_pred <- predict(lr_fit, te_dat[1, -5], type = "prob")

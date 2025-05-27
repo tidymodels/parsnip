@@ -21,8 +21,8 @@ The `penalty` parameter has no default and requires a single numeric value. For 
 
 
 ``` r
-linear_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("glmnet") %>% 
+linear_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("glmnet") |> 
   translate()
 ```
 

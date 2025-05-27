@@ -26,9 +26,9 @@ nearest_neighbor(
   neighbors = integer(1),
   weight_func = character(1),
   dist_power = double(1)
-) %>%  
-  set_engine("kknn") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("kknn") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -57,9 +57,9 @@ nearest_neighbor(
   neighbors = integer(1),
   weight_func = character(1),
   dist_power = double(1)
-) %>% 
-  set_engine("kknn") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("kknn") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

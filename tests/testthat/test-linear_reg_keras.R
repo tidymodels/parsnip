@@ -1,13 +1,15 @@
+skip_if_not_installed("modeldata")
+
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
 basic_mod <-
-  linear_reg() %>%
+  linear_reg() |>
   set_engine("keras", epochs = 50, verbose = 0)
 
 ridge_mod <-
-  linear_reg(penalty = 0.1) %>%
+  linear_reg(penalty = 0.1) |>
   set_engine("keras", epochs = 50, verbose = 0)
 
 ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
@@ -100,7 +102,7 @@ test_that('regression prediction', {
   colnames(keras_pred) <- ".pred"
 
   keras_pred <-
-    keras_pred %>%
+    keras_pred |>
     as_tibble()
   parsnip_pred <- predict(lm_fit, hpc[1:3,2:4])
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))

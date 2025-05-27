@@ -39,8 +39,8 @@ The \strong{multilevelmod} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
 
-poisson_reg(engine = "stan_glmer") \%>\% 
-  set_engine("stan_glmer") \%>\% 
+poisson_reg(engine = "stan_glmer") |> 
+  set_engine("stan_glmer") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -101,8 +101,8 @@ With parsnip, we suggest using the formula method when fitting:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
-poisson_reg() \%>\% 
-  set_engine("stan_glmer") \%>\% 
+poisson_reg() |> 
+  set_engine("stan_glmer") |> 
   fit(y ~ time + x + (1 | subject), data = longitudinal_counts)
 }\if{html}{\out{</div>}}
 
@@ -113,13 +113,13 @@ workflow. In this case, you can add the appropriate columns using
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 glmer_spec <- 
-  poisson_reg() \%>\% 
+  poisson_reg() |> 
   set_engine("stan_glmer")
 
 glmer_wflow <- 
-  workflow() \%>\% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = y, predictors = c(time, x, subject)) \%>\% 
+  add_variables(outcomes = y, predictors = c(time, x, subject)) |> 
   add_model(glmer_spec, formula = y ~ time + x + (1 | subject))
 
 fit(glmer_wflow, data = longitudinal_counts)

@@ -19,9 +19,9 @@ This model has 2 tuning parameters:
 
 
 ``` r
-gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>% 
-  set_engine("mgcv") %>% 
-  set_mode("regression") %>% 
+gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) |> 
+  set_engine("mgcv") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -43,9 +43,9 @@ gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>%
 
 
 ``` r
-gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>% 
-  set_engine("mgcv") %>% 
-  set_mode("classification") %>% 
+gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) |> 
+  set_engine("mgcv") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -71,9 +71,9 @@ This model should be used with a model formula so that smooth terms can be speci
 
 ``` r
 library(mgcv)
-gen_additive_mod() %>% 
-  set_engine("mgcv") %>% 
-  set_mode("regression") %>% 
+gen_additive_mod() |> 
+  set_engine("mgcv") |> 
+  set_mode("regression") |> 
   fit(mpg ~ wt + gear + cyl + s(disp, k = 10), data = mtcars)
 ```
 
@@ -101,14 +101,14 @@ When using a workflow, pass the _model formula_ to [workflows::add_model()]'s `f
 
 ``` r
 spec <- 
-  gen_additive_mod() %>% 
-  set_engine("mgcv") %>% 
+  gen_additive_mod() |> 
+  set_engine("mgcv") |> 
   set_mode("regression")
 
-workflow() %>% 
-  add_model(spec, formula = mpg ~ wt + gear + cyl + s(disp, k = 10)) %>% 
-  add_formula(mpg ~ wt + gear + cyl + disp) %>% 
-  fit(data = mtcars) %>% 
+workflow() |> 
+  add_model(spec, formula = mpg ~ wt + gear + cyl + s(disp, k = 10)) |> 
+  add_formula(mpg ~ wt + gear + cyl + disp) |> 
+  fit(data = mtcars) |> 
   extract_fit_engine()
 ```
 

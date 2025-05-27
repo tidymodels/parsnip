@@ -1,44 +1,53 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("decision_tree", "rpart")`
 
 ## Tuning Parameters
 
-```{r rpart-param-info, echo = FALSE}
+```{r}
+#| label: rpart-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("tree_depth", "min_n", "cost_complexity"),
                  default = c("30L", "2L", "0.01"))
 
 param <-
- decision_tree() %>% 
-  set_engine("rpart") %>% 
-  set_mode("regression") %>% 
+ decision_tree() |> 
+  set_engine("rpart") |> 
+  set_mode("regression") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r rpart-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: rpart-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
 ## Translation from parsnip to the original package (classification)
 
-```{r rpart-cls}
-decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
-  set_engine("rpart") %>% 
-  set_mode("classification") %>% 
+```{r}
+#| label: rpart-cls
+decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
+  set_engine("rpart") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
 
 ## Translation from parsnip to the original package (regression)
 
-```{r rpart-reg}
-decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
-  set_engine("rpart") %>% 
-  set_mode("regression") %>% 
+```{r}
+#| label: rpart-reg
+decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
+  set_engine("rpart") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -47,37 +56,42 @@ decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = dou
 
 `r uses_extension("decision_tree", "rpart", "censored regression")`
 
-```{r rpart-cens-reg}
+```{r}
+#| label: rpart-cens-reg
 library(censored)
 
 decision_tree(
   tree_depth = integer(1),
   min_n = integer(1),
   cost_complexity = double(1)
-) %>% 
-  set_engine("rpart") %>% 
-  set_mode("censored regression") %>% 
+) |> 
+  set_engine("rpart") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 
 ## Preprocessing requirements
 
-```{r child = "template-tree-split-factors.Rmd"}
+```{r}
+#| child: template-tree-split-factors.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Other details
 
-```{r child = "template-survival-mean.Rmd"}
+```{r}
+#| child: template-survival-mean.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 ## Examples 

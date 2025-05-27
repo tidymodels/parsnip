@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("linear_reg", "glm")`
@@ -9,35 +11,40 @@ This engine has no tuning parameters but you can set the `family` parameter (and
 
 ## Translation from parsnip to the original package
 
-```{r glm-reg}
-linear_reg() %>% 
-  set_engine("glm") %>% 
+```{r}
+#| label: glm-reg
+linear_reg() |> 
+  set_engine("glm") |> 
   translate()
 ```
 
 To use a non-default `family` and/or `link`, pass in as an argument to `set_engine()`:
 
-```{r glm-reg-engine}
-linear_reg() %>% 
-  set_engine("glm", family = stats::poisson(link = "sqrt")) %>% 
+```{r}
+#| label: glm-reg-engine
+linear_reg() |> 
+  set_engine("glm", family = stats::poisson(link = "sqrt")) |> 
   translate()
 ```
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 _However_, the documentation in [stats::glm()] assumes that is specific type of case weights are being used:"Non-NULL weights can be used to indicate that different observations have different dispersions (with the values in weights being inversely proportional to the dispersions); or equivalently, when the elements of weights are positive integers `w_i`, that each response `y_i` is the mean of `w_i` unit-weight observations. For a binomial GLM prior weights are used to give the number of trials when the response is the proportion of successes: they would rarely be used for a Poisson GLM."
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 

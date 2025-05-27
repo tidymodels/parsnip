@@ -1,24 +1,31 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("mlp", "nnet")`
 
 ## Tuning Parameters
 
-```{r nnet-param-info, echo = FALSE}
+```{r}
+#| label: nnet-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("hidden_units", "penalty", "epochs"),
                  default = c("none", "0.0", "100L"))
 
 param <-
-  mlp() %>% 
-  set_engine("nnet") %>% 
+  mlp() |> 
+  set_engine("nnet") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r nnet-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: nnet-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -27,14 +34,15 @@ Note that, in [nnet::nnet()], the maximum number of parameters is an argument wi
 
 ## Translation from parsnip to the original package (regression)
 
-```{r nnet-reg}
+```{r}
+#| label: nnet-reg
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
   epochs = integer(1)
-) %>%  
-  set_engine("nnet") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("nnet") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -42,34 +50,39 @@ Note that parsnip automatically sets linear activation in the last layer.
 
 ## Translation from parsnip to the original package (classification)
 
-```{r nnet-cls}
+```{r}
+#| label: nnet-cls
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
   epochs = integer(1)
-) %>% 
-  set_engine("nnet") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("nnet") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 ## Examples 

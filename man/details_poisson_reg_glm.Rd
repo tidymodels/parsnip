@@ -19,8 +19,8 @@ The \strong{poissonreg} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
 
-poisson_reg() \%>\%
-  set_engine("glm") \%>\%
+poisson_reg() |>
+  set_engine("glm") |>
   translate()
 }\if{html}{\out{</div>}}
 

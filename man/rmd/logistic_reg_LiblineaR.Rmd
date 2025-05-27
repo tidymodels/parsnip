@@ -1,24 +1,31 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("logistic_reg", "LiblineaR")`
 
 ## Tuning Parameters
 
-```{r LiblineaR-param-info, echo = FALSE}
+```{r}
+#| label: LiblineaR-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("penalty", "mixture"),
                  default = c("see below", "0"))
 
 param <-
-logistic_reg() %>% 
-  set_engine("LiblineaR") %>% 
+logistic_reg() |> 
+  set_engine("LiblineaR") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r LiblineaR-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: LiblineaR-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -28,23 +35,27 @@ Be aware that the `LiblineaR` engine regularizes the intercept. Other regularize
 
 ## Translation from parsnip to the original package
 
-```{r LiblineaR-cls}
-logistic_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("LiblineaR") %>% 
+```{r}
+#| label: LiblineaR-cls
+logistic_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("LiblineaR") |> 
   translate()
 ```
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-same-scale.Rmd"}
+```{r}
+#| child: template-same-scale.Rmd
 ```
 
 ## Sparse Data
 
-```{r child = "template-uses-sparse-data.Rmd"}
+```{r}
+#| child: template-uses-sparse-data.Rmd
 ```
 
 ## Examples 

@@ -15,8 +15,8 @@ The **poissonreg** extension package is required to fit this model.
 ``` r
 library(poissonreg)
 
-poisson_reg() %>%
-  set_engine("glm") %>%
+poisson_reg() |>
+  set_engine("glm") |>
   translate()
 ```
 

@@ -10,7 +10,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r ex_setup, include=FALSE}
+```{r}
+#| label: ex_setup
+#| include: false
 knitr::opts_chunk$set(
   message = FALSE,
   digits = 3,
@@ -38,7 +40,8 @@ parsnip tries to solve this by providing similar interfaces to models. For examp
 
 Rather than remembering these values, a common interface to these models can be used with
 
-```{r rf-ex}
+```{r}
+#| label: rf-ex
 library(parsnip)
 rf_mod <- rand_forest(trees = 2000)
 ``` 
@@ -58,7 +61,8 @@ The parsnip package, similar to ggplot2, dplyr and recipes, separates the specif
 
 There are times where you would like to change a parameter from its default but you are not sure what the final value will be. This is the basis for _model tuning_ where we use the [tune](https://tune.tidymodels.org/) package. Since the model is not executing when created, these types of parameters can be changed using the `tune()` function. This provides a simple placeholder for the value. 
 
-```{r rf-tune}
+```{r}
+#| label: rf-tune
 tune_mtry <- rand_forest(trees = 2000, mtry = tune())
 tune_mtry
 ```
@@ -75,15 +79,17 @@ Commonly used arguments to the modeling functions have their parameters exposed 
 
 The arguments to the default function are:
 
-```{r rf-def}
+```{r}
+#| label: rf-def
 args(rand_forest)
 ```
 
 However, there might be other arguments that you would like to change or allow to vary. These are accessible using `set_engine`. For example, `ranger()` from the ranger package has an option to set the internal random number seed. To set this to a specific value: 
 
-```{r rf-seed}
+```{r}
+#| label: rf-seed
 rf_with_seed <- 
-  rand_forest(trees = 2000, mtry = tune(), mode = "regression") %>%
+  rand_forest(trees = 2000, mtry = tune(), mode = "regression") |>
   set_engine("ranger", seed = 63233)
 rf_with_seed
 ```
@@ -98,10 +104,11 @@ To fit the model, you must:
 
 For example, `rf_with_seed` above is not ready for fitting due the `tune()` parameter. We can set that parameter's value and then create the model fit: 
 
-```{r, eval = FALSE}
-rf_with_seed %>% 
-  set_args(mtry = 4) %>% 
-  set_engine("ranger") %>%
+```{r}
+#| eval: false
+rf_with_seed |> 
+  set_args(mtry = 4) |> 
+  set_engine("ranger") |>
   fit(mpg ~ ., data = mtcars)
 ```
 
@@ -127,11 +134,12 @@ rf_with_seed %>%
 
 Or, using the `randomForest` package: 
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 set.seed(56982)
-rf_with_seed %>% 
-  set_args(mtry = 4) %>% 
-  set_engine("randomForest") %>%
+rf_with_seed |> 
+  set_args(mtry = 4) |> 
+  set_engine("randomForest") |>
   fit(mpg ~ ., data = mtcars)
 ```
 

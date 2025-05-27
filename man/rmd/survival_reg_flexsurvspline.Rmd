@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("survival_reg", "flexsurvspline")`
@@ -13,12 +15,13 @@ This model has one engine-specific tuning parameter:
 
 `r uses_extension("survival_reg", "flexsurvspline", "censored regression")`
 
-```{r flexsurvspline-creg}
+```{r}
+#| label: flexsurvspline-creg
 library(censored)
 
-survival_reg() %>% 
-  set_engine("flexsurvspline") %>% 
-  set_mode("censored regression") %>% 
+survival_reg() |> 
+  set_engine("flexsurvspline") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 
@@ -28,18 +31,21 @@ The main interface for this model uses the formula method since the model specif
 
 For this engine, stratification cannot be specified via [`survival::strata()`], please see [flexsurv::flexsurvspline()] for alternative specifications.
 
-```{r child = "template-survival-mean.Rmd"}
+```{r}
+#| child: template-survival-mean.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
 

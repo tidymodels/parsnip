@@ -1,10 +1,11 @@
-hpc <- hpc_data[1:150, c(2:5, 8)]
+skip_if_not_installed("modeldata")
 
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 num_pred <- names(hpc)[1:4]
 
 hpc_keras <-
-  mlp(mode = "classification", hidden_units = 2, epochs = 10) %>%
+  mlp(mode = "classification", hidden_units = 2, epochs = 10) |>
   set_engine("keras", verbose = 0)
 
 nn_dat <- read.csv("nnet_test.txt")
@@ -72,7 +73,7 @@ test_that('keras classification prediction', {
     # -1 to assign with keras' zero indexing
     xy_pred <- apply(xy_pred, 1, which.max) - 1
   } else {
-    xy_pred <- xy_pred %>% keras::k_argmax() %>% as.integer()
+    xy_pred <- xy_pred |> keras::k_argmax() |> as.integer()
   }
 
   xy_pred <- factor(levels(hpc$class)[xy_pred + 1], levels = levels(hpc$class))
@@ -93,7 +94,7 @@ test_that('keras classification prediction', {
     # -1 to assign with keras' zero indexing
     form_pred <- apply(form_pred, 1, which.max) - 1
   } else {
-    form_pred <- form_pred %>% keras::k_argmax() %>% as.integer()
+    form_pred <- form_pred |> keras::k_argmax() |> as.integer()
   }
 
   form_pred <- factor(levels(hpc$class)[form_pred + 1], levels = levels(hpc$class))
@@ -144,11 +145,11 @@ mtcars <- as.data.frame(scale(mtcars))
 
 num_pred <- names(mtcars)[3:6]
 
-car_basic <- mlp(mode = "regression", epochs = 10) %>%
+car_basic <- mlp(mode = "regression", epochs = 10) |>
   set_engine("keras", verbose = 0)
 
 bad_keras_reg <-
-  mlp(mode = "regression") %>%
+  mlp(mode = "regression") |>
   set_engine("keras", min.node.size = -10, verbose = 0)
 
 # ------------------------------------------------------------------------------
@@ -185,7 +186,7 @@ test_that('keras regression prediction', {
   skip_if(!is_tf_ok())
 
   xy_fit <- parsnip::fit_xy(
-    mlp(mode = "regression", hidden_units = 2, epochs = 500, penalty = .1) %>%
+    mlp(mode = "regression", hidden_units = 2, epochs = 500, penalty = .1) |>
       set_engine("keras", verbose = 0),
     x = mtcars[, c("cyl", "disp")],
     y = mtcars$mpg,
@@ -218,8 +219,8 @@ test_that('multivariate nnet formula', {
   skip_if(!is_tf_ok())
 
   nnet_form <-
-    mlp(mode = "regression", hidden_units = 3, penalty = 0.01)  %>%
-    set_engine("keras", verbose = 0) %>%
+    mlp(mode = "regression", hidden_units = 3, penalty = 0.01)  |>
+    set_engine("keras", verbose = 0) |>
     parsnip::fit(
       cbind(V1, V2, V3) ~ .,
       data = nn_dat[-(1:5),]
@@ -232,8 +233,8 @@ test_that('multivariate nnet formula', {
   keras::backend()$clear_session()
 
   nnet_xy <-
-    mlp(mode = "regression", hidden_units = 3, penalty = 0.01)  %>%
-    set_engine("keras", verbose = 0) %>%
+    mlp(mode = "regression", hidden_units = 3, penalty = 0.01)  |>
+    set_engine("keras", verbose = 0) |>
     parsnip::fit_xy(
       x = nn_dat[-(1:5), -(1:3)],
       y = nn_dat[-(1:5),   1:3 ]
@@ -261,8 +262,8 @@ test_that('all keras activation functions', {
     set.seed(1)
     try(
       mlp(mode = "classification", hidden_units = 2, penalty = 0.01, epochs = 2,
-          activation = !!fn)  %>%
-        set_engine("keras", verbose = 0) %>%
+          activation = !!fn)  |>
+        set_engine("keras", verbose = 0) |>
         parsnip::fit(Class ~ A + B, data = modeldata::two_class_dat),
       silent = TRUE)
 
@@ -279,8 +280,8 @@ test_that('all keras activation functions', {
   expect_snapshot(
     error = TRUE,
     mlp(mode = "classification", hidden_units = 2, penalty = 0.01, epochs = 2,
-          activation = "invalid")  %>%
-      set_engine("keras", verbose = 0) %>%
+          activation = "invalid")  |>
+      set_engine("keras", verbose = 0) |>
       parsnip::fit(Class ~ A + B, data = modeldata::two_class_dat)
   )
 })

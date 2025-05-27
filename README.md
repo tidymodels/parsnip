@@ -12,6 +12,8 @@ coverage](https://codecov.io/gh/tidymodels/parsnip/branch/main/graph/badge.svg)]
 status](https://www.r-pkg.org/badges/version/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![Downloads](https://cranlogs.r-pkg.org/badges/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![Codecov test
+coverage](https://codecov.io/gh/tidymodels/parsnip/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/parsnip)
 <!-- badges: end -->
 
 ## Introduction
@@ -99,8 +101,8 @@ Using the example above, the parsnip approach would be:
 ``` r
 library(parsnip)
 
-rand_forest(mtry = 10, trees = 2000) %>%
-  set_engine("ranger", importance = "impurity") %>%
+rand_forest(mtry = 10, trees = 2000) |>
+  set_engine("ranger", importance = "impurity") |>
   set_mode("regression")
 #> Random Forest Model Specification (regression)
 #> 
@@ -118,8 +120,8 @@ The engine can be easily changed. To use Spark, the change is
 straightforward:
 
 ``` r
-rand_forest(mtry = 10, trees = 2000) %>%
-  set_engine("spark") %>%
+rand_forest(mtry = 10, trees = 2000) |>
+  set_engine("spark") |>
   set_mode("regression")
 #> Random Forest Model Specification (regression)
 #> 
@@ -134,9 +136,9 @@ Either one of these model specifications can be fit in the same way:
 
 ``` r
 set.seed(192)
-rand_forest(mtry = 10, trees = 2000) %>%
-  set_engine("ranger", importance = "impurity") %>%
-  set_mode("regression") %>%
+rand_forest(mtry = 10, trees = 2000) |>
+  set_engine("ranger", importance = "impurity") |>
+  set_mode("regression") |>
   fit(mpg ~ ., data = mtcars)
 #> parsnip model object
 #> 
@@ -158,7 +160,7 @@ rand_forest(mtry = 10, trees = 2000) %>%
 ```
 
 A list of all parsnip models across different CRAN packages can be found
-at <https://www.tidymodels.org/find/parsnip>.
+at <https://www.tidymodels.org/find/parsnip/>.
 
 ## Contributing
 

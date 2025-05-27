@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("discrim_regularized", "klaR")`
@@ -6,20 +8,25 @@
 ## Tuning Parameters
 
 
-```{r klaR-param-info, echo = FALSE}
+```{r}
+#| label: klaR-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("frac_identity", "frac_common_cov"),
                  default = c("(see below)", "(see below)"))
 
 param <-
-  discrim_regularized() %>% 
-  set_engine("klaR") %>% 
+  discrim_regularized() |> 
+  set_engine("klaR") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameter:
 
-```{r klaR-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: klaR-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -35,25 +42,29 @@ Some special cases for the RDA model:
 
 `r uses_extension("discrim_regularized", "klaR", "classification")`
 
-```{r klaR-cls}
+```{r}
+#| label: klaR-cls
 library(discrim)
 
-discrim_regularized(frac_identity = numeric(0), frac_common_cov = numeric(0)) %>% 
-  set_engine("klaR") %>% 
+discrim_regularized(frac_identity = numeric(0), frac_common_cov = numeric(0)) |> 
+  set_engine("klaR") |> 
   translate()
 ```
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-zv-conditional.Rmd"}
+```{r}
+#| child: template-zv-conditional.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

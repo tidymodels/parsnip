@@ -1,11 +1,15 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("bart", "dbarts")`
 
 ## Tuning Parameters
 
-```{r bart-param-info, echo = FALSE}
+```{r}
+#| label: bart-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("trees", "prior_terminal_node_coef",
                              "prior_terminal_node_expo", "prior_outcome_range"),
@@ -13,15 +17,18 @@ defaults <-
   )
 
 param <-
- bart() %>% 
-  set_engine("dbarts") %>% 
-  set_mode("regression") %>% 
+ bart() |> 
+  set_engine("dbarts") |> 
+  set_mode("regression") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r bart-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: bart-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -47,36 +54,39 @@ Some relevant arguments that can be passed to `set_engine()`:
 
 ## Translation from parsnip to the original package (classification)
 
-```{r bart-cls}
+```{r}
+#| label: bart-cls
 bart(
   trees = integer(1),
   prior_terminal_node_coef = double(1),
   prior_terminal_node_expo = double(1),
   prior_outcome_range = double(1)
-) %>% 
-  set_engine("dbarts") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("dbarts") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
 
 ## Translation from parsnip to the original package (regression)
 
-```{r bart-reg}
+```{r}
+#| label: bart-reg
 bart(
   trees = integer(1),
   prior_terminal_node_coef = double(1),
   prior_terminal_node_expo = double(1),
   prior_outcome_range = double(1)
-) %>% 
-  set_engine("dbarts") %>% 
-  set_mode("regression") %>% 
+) |> 
+  set_engine("dbarts") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"} 
+```{r} 
+#| child: template-makes-dummies.Rmd
 ```
 
 [dbarts::bart()] will also convert the factors to indicators if the user does not create them first. 

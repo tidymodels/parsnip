@@ -43,8 +43,8 @@ improvement before stopping. (default: 5L).
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1)) \%>\% 
-  set_engine("brulee") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1)) |> 
+  set_engine("brulee") |> 
   translate()
 }\if{html}{\out{</div>}}
 

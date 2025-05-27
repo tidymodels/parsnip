@@ -1,8 +1,8 @@
 test_that('regression models', {
-  x <- linear_reg() %>% set_engine("lm")
+  x <- linear_reg() |> set_engine("lm")
 
-  reg_form <- x %>% fit(mpg ~ ., data = mtcars)
-  reg_xy <- x %>% fit_xy(mtcars[, -1], mtcars$mpg)
+  reg_form <- x |> fit(mpg ~ ., data = mtcars)
+  reg_xy <- x |> fit_xy(mtcars[, -1], mtcars$mpg)
 
   expect_equal(
     colnames(augment(reg_form, head(mtcars))),
@@ -48,11 +48,13 @@ test_that('regression models', {
 
 
 test_that('classification models', {
-  data(two_class_dat, package = "modeldata")
-  x <- logistic_reg() %>% set_engine("glm")
+  skip_if_not_installed("modeldata")
 
-  cls_form <- x %>% fit(Class ~ ., data = two_class_dat)
-  cls_xy <- x %>% fit_xy(two_class_dat[, -3], two_class_dat$Class)
+  data(two_class_dat, package = "modeldata")
+  x <- logistic_reg() |> set_engine("glm")
+
+  cls_form <- x |> fit(Class ~ ., data = two_class_dat)
+  cls_xy <- x |> fit_xy(two_class_dat[, -3], two_class_dat$Class)
 
   expect_equal(
     colnames(augment(cls_form, head(two_class_dat))),
@@ -81,10 +83,11 @@ test_that('classification models', {
 
 test_that('augment for model without class probabilities', {
   skip_if_not_installed("LiblineaR")
+  skip_if_not_installed("modeldata")
 
   data(two_class_dat, package = "modeldata")
-  x <- svm_linear(mode = "classification") %>% set_engine("LiblineaR")
-  cls_form <- x %>% fit(Class ~ ., data = two_class_dat)
+  x <- svm_linear(mode = "classification") |> set_engine("LiblineaR")
+  cls_form <- x |> fit(Class ~ ., data = two_class_dat)
 
   expect_equal(
     colnames(augment(cls_form, head(two_class_dat))),
@@ -99,9 +102,9 @@ test_that('quantile regression models', {
   probs_1 <- (1:5)/5
 
   expect_snapshot(
-    linear_reg() %>% set_mode("quantile regression", quantile_levels = probs_1)
+    linear_reg() |> set_mode("quantile regression", quantile_levels = probs_1)
   )
   expect_snapshot(
-    linear_reg() %>% set_mode("regression", quantile_levels = probs_1)
+    linear_reg() |> set_mode("regression", quantile_levels = probs_1)
   )
 })

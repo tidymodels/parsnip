@@ -37,9 +37,9 @@ available columns.
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
   stop_iter = integer()
-) \%>\%
-  set_engine("xgboost") \%>\%
-  set_mode("regression") \%>\%
+) |>
+  set_engine("xgboost") |>
+  set_mode("regression") |>
   translate()
 }\if{html}{\out{</div>}}
 
@@ -72,9 +72,9 @@ available columns.
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
   stop_iter = integer()
-) \%>\% 
-  set_engine("xgboost") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("xgboost") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -152,7 +152,7 @@ elements in \code{params}. For example, pass a non-default evaluation metric
 like this:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# good
-boost_tree() \%>\%
+boost_tree() |>
   set_engine("xgboost", eval_metric = "mae")
 }\if{html}{\out{</div>}}
 
@@ -167,7 +167,7 @@ boost_tree() \%>\%
 …rather than this:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# bad
-boost_tree() \%>\%
+boost_tree() |>
   set_engine("xgboost", params = list(eval_metric = "mae"))
 }\if{html}{\out{</div>}}
 

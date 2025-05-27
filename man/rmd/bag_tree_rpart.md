@@ -28,9 +28,9 @@ The **baguette** extension package is required to fit this model.
 ``` r
 library(baguette)
 
-bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
-  set_engine("rpart") %>% 
-  set_mode("classification") %>% 
+bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
+  set_engine("rpart") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -59,9 +59,9 @@ The **baguette** extension package is required to fit this model.
 ``` r
 library(baguette)
 
-bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
-  set_engine("rpart") %>% 
-  set_mode("regression") %>% 
+bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
+  set_engine("rpart") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -89,9 +89,9 @@ The **censored** extension package is required to fit this model.
 ``` r
 library(censored)
 
-bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
-  set_engine("rpart") %>% 
-  set_mode("censored regression") %>% 
+bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
+  set_engine("rpart") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 

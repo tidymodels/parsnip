@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("naive_Bayes", "h2o")`
@@ -6,20 +8,25 @@
 ## Tuning Parameters
 
 
-```{r h2o-param-info, echo = FALSE}
+```{r}
+#| label: h2o-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("Laplace"),
                  default = c("0.0"))
 
 param <-
-  naive_Bayes() %>% 
-  set_engine("h2o") %>% 
+  naive_Bayes() |> 
+  set_engine("h2o") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameter:
 
-```{r h2o-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: h2o-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -40,18 +47,21 @@ param$item
 
 [agua::h2o_train_nb()] is a wrapper around [h2o::h2o.naiveBayes()]. 
 
-```{r h2o-cls}
-naive_Bayes(Laplace = numeric(0)) %>% 
-  set_engine("h2o") %>% 
+```{r}
+#| label: h2o-cls
+naive_Bayes(Laplace = numeric(0)) |> 
+  set_engine("h2o") |> 
   translate()
 ```
 
 ## Initializing h2o 
 
-```{r child = "template-h2o-init.Rmd"}
+```{r}
+#| child: template-h2o-init.Rmd
 ```
 
 ## Saving fitted model objects
 
-```{r child = "template-bundle.Rmd"}
+```{r}
+#| child: template-bundle.Rmd
 ```

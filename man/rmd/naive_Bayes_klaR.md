@@ -24,8 +24,8 @@ The **discrim** extension package is required to fit this model.
 ``` r
 library(discrim)
 
-naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) %>% 
-  set_engine("klaR") %>% 
+naive_Bayes(smoothness = numeric(0), Laplace = numeric(0)) |> 
+  set_engine("klaR") |> 
   translate()
 ```
 

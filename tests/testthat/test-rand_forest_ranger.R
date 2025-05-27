@@ -1,3 +1,5 @@
+skip_if_not_installed("modeldata")
+
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
@@ -5,11 +7,11 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 lending_club <- head(lending_club, 200)
 num_pred <- c("funded_amnt", "annual_inc", "num_il_tl")
 
-lc_basic <- rand_forest(mode = "classification") %>% set_engine("ranger")
-lc_ranger <- rand_forest(mode = "classification") %>% set_engine("ranger", seed = 144)
+lc_basic <- rand_forest(mode = "classification") |> set_engine("ranger")
+lc_ranger <- rand_forest(mode = "classification") |> set_engine("ranger", seed = 144)
 
-bad_ranger_cls <- rand_forest(mode = "classification") %>% set_engine("ranger", replace = "bad")
-bad_rf_cls <- rand_forest(mode = "classification") %>% set_engine("ranger", sampsize = -10)
+bad_ranger_cls <- rand_forest(mode = "classification") |> set_engine("ranger", replace = "bad")
+bad_rf_cls <- rand_forest(mode = "classification") |> set_engine("ranger", sampsize = -10)
 
 # ------------------------------------------------------------------------------
 
@@ -71,7 +73,7 @@ test_that('ranger classification prediction', {
   skip_if_not_installed("ranger")
 
   xy_fit <- fit_xy(
-    rand_forest() %>% set_mode("classification") %>% set_engine("ranger"),
+    rand_forest() |> set_mode("classification") |> set_engine("ranger"),
     x = lending_club[, num_pred],
     y = lending_club$Class,
     control = ctrl
@@ -86,7 +88,7 @@ test_that('ranger classification prediction', {
   )
 
   form_fit <- fit(
-    rand_forest() %>% set_mode("classification") %>% set_engine("ranger"),
+    rand_forest() |> set_mode("classification") |> set_engine("ranger"),
     Class ~ funded_amnt + int_rate,
     data = lending_club,
 
@@ -109,7 +111,7 @@ test_that('ranger classification probabilities', {
   skip_if_not_installed("ranger")
 
   xy_fit <- fit_xy(
-    rand_forest() %>% set_mode("classification") %>% set_engine("ranger", seed = 3566),
+    rand_forest() |> set_mode("classification") |> set_engine("ranger", seed = 3566),
     x = lending_club[, num_pred],
     y = lending_club$Class,
 
@@ -128,7 +130,7 @@ test_that('ranger classification probabilities', {
   expect_equal(xy_pred[1,], one_row)
 
   form_fit <- fit(
-    rand_forest() %>% set_mode("classification") %>% set_engine("ranger", seed = 3566),
+    rand_forest() |> set_mode("classification") |> set_engine("ranger", seed = 3566),
     Class ~ funded_amnt + int_rate,
     data = lending_club,
 
@@ -144,7 +146,7 @@ test_that('ranger classification probabilities', {
   )
 
   no_prob_model <- fit_xy(
-    rand_forest(mode = "classification") %>% set_engine("ranger", probability = FALSE),
+    rand_forest(mode = "classification") |> set_engine("ranger", probability = FALSE),
     x = lending_club[, num_pred],
     y = lending_club$Class,
     control = ctrl
@@ -160,10 +162,10 @@ test_that('ranger classification probabilities', {
 
 num_pred <- names(mtcars)[3:6]
 
-car_basic <- rand_forest(mode = "regression") %>% set_engine("ranger")
+car_basic <- rand_forest(mode = "regression") |> set_engine("ranger")
 
-bad_ranger_reg <- rand_forest(mode = "regression") %>% set_engine("ranger", replace = "bad")
-bad_rf_reg <- rand_forest(mode = "regression") %>% set_engine("ranger", sampsize = -10)
+bad_ranger_reg <- rand_forest(mode = "regression") |> set_engine("ranger", replace = "bad")
+bad_rf_reg <- rand_forest(mode = "regression") |> set_engine("ranger", sampsize = -10)
 
 # ------------------------------------------------------------------------------
 
@@ -227,7 +229,7 @@ test_that('ranger regression prediction', {
 
 
 test_that('ranger regression intervals', {
-
+  skip_if_not_installed("modeldata")
   skip_if_not_installed("ranger")
 
   data(ames, package = "modeldata")
@@ -236,7 +238,7 @@ test_that('ranger regression intervals', {
 
   set.seed(1)
   xy_fit <- fit_xy(
-    rand_forest(mode = "regression") %>% set_engine("ranger", keep.inbag = TRUE),
+    rand_forest(mode = "regression") |> set_engine("ranger", keep.inbag = TRUE),
     x = ames_x[-(1:3), ],
     y = ames$Sale_Price,
     control = ctrl
@@ -269,7 +271,7 @@ test_that('additional descriptor tests', {
   skip_if_not_installed("ranger")
 
   descr_xy <- fit_xy(
-    rand_forest(mode = "regression", mtry = floor(sqrt(.cols())) + 1) %>%
+    rand_forest(mode = "regression", mtry = floor(sqrt(.cols())) + 1) |>
       set_engine("ranger"),
     x = mtcars[, -1],
     y = mtcars$mpg,
@@ -278,7 +280,7 @@ test_that('additional descriptor tests', {
   expect_equal(extract_fit_engine(descr_xy)$mtry, 4)
 
   descr_f <- fit(
-    rand_forest(mode = "regression", mtry = floor(sqrt(.cols())) + 1) %>%
+    rand_forest(mode = "regression", mtry = floor(sqrt(.cols())) + 1) |>
       set_engine("ranger"),
     mpg ~ ., data = mtcars,
     control = ctrl
@@ -286,7 +288,7 @@ test_that('additional descriptor tests', {
   expect_equal(extract_fit_engine(descr_f)$mtry, 4)
 
   descr_xy <- fit_xy(
-    rand_forest(mode = "regression", mtry = floor(sqrt(.cols())) + 1) %>%
+    rand_forest(mode = "regression", mtry = floor(sqrt(.cols())) + 1) |>
       set_engine("ranger"),
     x = mtcars[, -1],
     y = mtcars$mpg,
@@ -295,7 +297,7 @@ test_that('additional descriptor tests', {
   expect_equal(extract_fit_engine(descr_xy)$mtry, 4)
 
   descr_f <- fit(
-    rand_forest(mode = "regression", mtry = floor(sqrt(.cols())) + 1) %>%
+    rand_forest(mode = "regression", mtry = floor(sqrt(.cols())) + 1) |>
       set_engine("ranger"),
     mpg ~ ., data = mtcars,
     control = ctrl
@@ -307,7 +309,7 @@ test_that('additional descriptor tests', {
   exp_wts <- rlang::quo(c(min(.lvls()), 20, 10, 1))
 
   descr_other_xy <- fit_xy(
-    rand_forest(mode = "classification", mtry = 2) %>%
+    rand_forest(mode = "classification", mtry = 2) |>
       set_engine("ranger", class.weights = c(min(.lvls()), 20, 10, 1)),
     x = hpc[, 1:4],
     y = hpc$class,
@@ -318,7 +320,7 @@ test_that('additional descriptor tests', {
                ignore_formula_env = TRUE)
 
   descr_other_f <- fit(
-    rand_forest(mode = "classification", mtry = 2) %>%
+    rand_forest(mode = "classification", mtry = 2) |>
       set_engine("ranger", class.weights = c(min(.lvls()), 20, 10, 1)),
     class ~ ., data = hpc,
     control = ctrl
@@ -328,7 +330,7 @@ test_that('additional descriptor tests', {
                ignore_formula_env = TRUE)
 
   descr_other_xy <- fit_xy(
-    rand_forest(mode = "classification", mtry = 2) %>%
+    rand_forest(mode = "classification", mtry = 2) |>
       set_engine("ranger", class.weights = c(min(.lvls()), 20, 10, 1)),
     x = hpc[, 1:4],
     y = hpc$class,
@@ -339,7 +341,7 @@ test_that('additional descriptor tests', {
                ignore_formula_env = TRUE)
 
   descr_other_f <- fit(
-    rand_forest(mode = "classification", mtry = 2) %>%
+    rand_forest(mode = "classification", mtry = 2) |>
       set_engine("ranger", class.weights = c(min(.lvls()), 20, 10, 1)),
     class ~ ., data = hpc,
     control = ctrl
@@ -355,7 +357,7 @@ test_that('ranger classification prediction', {
   skip_if_not_installed("ranger")
 
   xy_class_fit <-
-    rand_forest() %>% set_mode("classification")  %>% set_engine("ranger") %>%
+    rand_forest() |> set_mode("classification")  |> set_engine("ranger") |>
     fit_xy(
       x = hpc[, 1:4],
       y = hpc$class,
@@ -375,9 +377,9 @@ test_that('ranger classification prediction', {
   )
 
   xy_prob_fit <-
-    rand_forest() %>%
-    set_mode("classification") %>%
-    set_engine("ranger") %>%
+    rand_forest() |>
+    set_mode("classification") |>
+    set_engine("ranger") |>
     fit_xy(
       x = hpc[, 1:4],
       y = hpc$class,
@@ -408,7 +410,7 @@ test_that('ranger classification intervals', {
   skip_if_not_installed("ranger")
 
   lc_fit <- fit(
-    rand_forest(mode = "classification") %>%
+    rand_forest(mode = "classification") |>
       set_engine("ranger", keep.inbag = TRUE, probability = TRUE),
     Class ~ funded_amnt + int_rate,
     data = lending_club,
@@ -449,16 +451,16 @@ test_that('ranger and sparse matrices', {
   mtcar_smat <- Matrix::Matrix(mtcar_mat, sparse = TRUE)
 
   rf_spec <-
-    rand_forest(trees = 10) %>%
-    set_engine("ranger", seed = 2) %>%
+    rand_forest(trees = 10) |>
+    set_engine("ranger", seed = 2) |>
     set_mode("regression")
 
   set.seed(1)
-  from_df <- rf_spec %>% fit_xy(mtcar_x, mtcars$mpg)
+  from_df <- rf_spec |> fit_xy(mtcar_x, mtcars$mpg)
   set.seed(1)
-  from_mat <- rf_spec %>% fit_xy(mtcar_mat, mtcars$mpg)
+  from_mat <- rf_spec |> fit_xy(mtcar_mat, mtcars$mpg)
   set.seed(1)
-  from_sparse <- rf_spec %>% fit_xy(mtcar_smat, mtcars$mpg)
+  from_sparse <- rf_spec |> fit_xy(mtcar_smat, mtcars$mpg)
 
   expect_equal(extract_fit_engine(from_df), extract_fit_engine(from_mat))
   expect_equal(extract_fit_engine(from_df), extract_fit_engine(from_sparse))
@@ -475,15 +477,15 @@ test_that('argument checks for data dimensions', {
   penguins <- na.omit(penguins)
 
   spec <-
-    rand_forest(mtry = 1000, min_n = 1000, trees = 5) %>%
-    set_engine("ranger") %>%
+    rand_forest(mtry = 1000, min_n = 1000, trees = 5) |>
+    set_engine("ranger") |>
     set_mode("regression")
 
   expect_snapshot(
-    f_fit  <- spec %>% fit(body_mass_g ~ ., data = penguins)
+    f_fit  <- spec |> fit(body_mass_g ~ ., data = penguins)
   )
   expect_snapshot(
-    xy_fit <- spec %>% fit_xy(x = penguins[, -6], y = penguins$body_mass_g)
+    xy_fit <- spec |> fit_xy(x = penguins[, -6], y = penguins$body_mass_g)
   )
 
 

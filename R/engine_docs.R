@@ -36,8 +36,8 @@ knit_engine_docs <- function(pattern = NULL) {
     errors <- res[which(is_error)]
     error_nms <- basename(files)[which(is_error)]
     errors <-
-      purrr::map_chr(errors, ~ cli::ansi_strip(as.character(.x))) %>%
-      purrr::map2_chr(error_nms, ~ paste0(.y, ": ", .x)) %>%
+      purrr::map_chr(errors, ~ cli::ansi_strip(as.character(.x))) |>
+      purrr::map2_chr(error_nms, ~ paste0(.y, ": ", .x)) |>
       purrr::map_chr(~ gsub("Error in .f(.x[[i]], ...) :", "", .x, fixed = TRUE))
     cat("There were failures duing knitting:\n\n")
     cat(errors)
@@ -87,17 +87,17 @@ extensions <- function() {
 update_model_info_file <- function(path = "inst/models.tsv") {
   mods <- get_from_env("models")
   info <-
-    purrr::map(mods, ~ get_from_env(.x) %>% dplyr::mutate(model = .x)) %>%
-    purrr::list_rbind() %>%
-    dplyr::arrange(model, mode, engine) %>%
+    purrr::map(mods, \(x) get_from_env(x) |> dplyr::mutate(model = x)) |>
+    purrr::list_rbind() |>
+    dplyr::arrange(model, mode, engine) |>
     dplyr::select(model, mode, engine)
   exts <-
     purrr::map(
       mods,
-      ~ get_from_env(paste0(.x, "_pkgs")) %>% dplyr::mutate(model = .x)
-    ) %>%
-    purrr::list_rbind() %>%
-    tidyr::unnest(cols = "pkg") %>%
+      \(x) get_from_env(paste0(x, "_pkgs")) |> dplyr::mutate(model = x)
+    ) |>
+    purrr::list_rbind() |>
+    tidyr::unnest(cols = "pkg") |>
     dplyr::inner_join(tibble::tibble(pkg = extensions()), by = "pkg")
 
   info <- dplyr::left_join(info, exts, by = c("model", "engine", "mode"))
@@ -175,12 +175,12 @@ find_engine_files <- function(mod) {
   # reorder based on default and name
   non_defaults <- dplyr::filter(eng, default == "")
   non_defaults <-
-    non_defaults %>%
-    dplyr::arrange(tolower(engine)) %>%
+    non_defaults |>
+    dplyr::arrange(tolower(engine)) |>
     dplyr::mutate(.order = dplyr::row_number() + 1)
   eng <-
-    dplyr::filter(eng, default != "") %>%
-    dplyr::mutate(.order = 1) %>%
+    dplyr::filter(eng, default != "") |>
+    dplyr::mutate(.order = 1) |>
     dplyr::bind_rows(non_defaults)
 
   eng
@@ -208,7 +208,7 @@ make_engine_list <- function(mod) {
   }
 
   exts <-
-    model_info_table |>
+    utils::read.delim(system.file("models.tsv", package = "parsnip")) |>
     dplyr::filter(model == mod) |>
     dplyr::group_by(engine, mode) |>
     dplyr::summarize(extensions = sum(!is.na(pkg)), .groups = "drop") |>
@@ -219,10 +219,10 @@ make_engine_list <- function(mod) {
 
 
   eng_table <-
-    eng %>%
-    dplyr::arrange(.order) %>%
-    dplyr::select(-mode) %>%
-    dplyr::distinct(engine, .keep_all = TRUE) %>%
+    eng |>
+    dplyr::arrange(.order) |>
+    dplyr::select(-mode) |>
+    dplyr::distinct(engine, .keep_all = TRUE) |>
     dplyr::mutate(
       item = glue::glue("  \\item \\code{\\link[|topic|]{|engine|}|default||has_ext|}",
                         .open = "|", .close = "|")
@@ -231,11 +231,11 @@ make_engine_list <- function(mod) {
   notes <- paste0("\n", cli::symbol$sup_1, " The default engine.")
   if (any(exts$has_ext != "")) {
     if (dplyr::n_distinct(exts$mode) > 1) {
-      ext_modes <- exts %>%
-        dplyr::filter(has_ext != "") %>%
-        dplyr::pull(mode) %>%
-        unique() %>%
-        sort() %>%
+      ext_modes <- exts |>
+        dplyr::filter(has_ext != "") |>
+        dplyr::pull(mode) |>
+        unique() |>
+        sort() |>
         combine_words()
       notes <- paste0(
         notes, " ",
@@ -335,5 +335,5 @@ list_md_problems <- function() {
     tibble(basename(file), line, problem)
   }
 
-  purrr::map(md_files, get_errors) %>% purrr::list_rbind()
+  purrr::map(md_files, get_errors) |> purrr::list_rbind()
 }

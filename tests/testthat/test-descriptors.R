@@ -1,4 +1,6 @@
-hpc <- hpc_data[1:150, c(2:5, 8)] %>% as.data.frame()
+skip_if_not_installed("modeldata")
+
+hpc <- hpc_data[1:150, c(2:5, 8)] |> as.data.frame()
 
 # ------------------------------------------------------------------------------
 
@@ -50,23 +52,23 @@ test_that("requires_descrs", {
   expect_true(parsnip:::requires_descrs(rand_forest(mtry = fn2())))
 
   # descriptors in `eng_args`
-  expect_false(parsnip:::requires_descrs(rand_forest() %>% set_engine("ranger", arrrg = 3)))
-  expect_false(parsnip:::requires_descrs(rand_forest() %>% set_engine("ranger", arrrg = tune())))
-  expect_true(parsnip:::requires_descrs(rand_forest() %>% set_engine("ranger", arrrg = .obs())))
-  expect_false(parsnip:::requires_descrs(rand_forest() %>% set_engine("ranger", arrrg = expr(3))))
-  expect_true(parsnip:::requires_descrs(rand_forest() %>% set_engine("ranger", arrrg = fn())))
-  expect_true(parsnip:::requires_descrs(rand_forest() %>% set_engine("ranger", arrrg = fn2())))
+  expect_false(parsnip:::requires_descrs(rand_forest() |> set_engine("ranger", arrrg = 3)))
+  expect_false(parsnip:::requires_descrs(rand_forest() |> set_engine("ranger", arrrg = tune())))
+  expect_true(parsnip:::requires_descrs(rand_forest() |> set_engine("ranger", arrrg = .obs())))
+  expect_false(parsnip:::requires_descrs(rand_forest() |> set_engine("ranger", arrrg = expr(3))))
+  expect_true(parsnip:::requires_descrs(rand_forest() |> set_engine("ranger", arrrg = fn())))
+  expect_true(parsnip:::requires_descrs(rand_forest() |> set_engine("ranger", arrrg = fn2())))
 
   # mixed
   expect_true(
     parsnip:::requires_descrs(
-      rand_forest(mtry = 3) %>% set_engine("ranger", arrrg = fn2())
+      rand_forest(mtry = 3) |> set_engine("ranger", arrrg = fn2())
     )
   )
 
   expect_true(
     parsnip:::requires_descrs(
-      rand_forest(mtry = .cols()) %>% set_engine("ranger", arrrg = 3)
+      rand_forest(mtry = .cols()) |> set_engine("ranger", arrrg = 3)
     )
   )
 })
@@ -202,13 +204,13 @@ test_that("system-level descriptor tests", {
   skip_on_cran()
 
   expect_no_condition(
-    boost_tree(mode = "regression", mtry = .cols()) %>%
-      set_engine("xgboost") %>%
+    boost_tree(mode = "regression", mtry = .cols()) |>
+      set_engine("xgboost") |>
       fit_xy(x = mtcars[, -1], y = mtcars$mpg)
   )
   expect_no_condition(
-    boost_tree(mode = "regression", mtry = .cols()) %>%
-      set_engine("xgboost") %>%
+    boost_tree(mode = "regression", mtry = .cols()) |>
+      set_engine("xgboost") |>
       fit(mpg ~ ., data = mtcars)
   )
 

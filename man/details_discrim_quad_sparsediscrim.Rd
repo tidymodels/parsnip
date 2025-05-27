@@ -35,8 +35,8 @@ The \strong{discrim} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
 
-discrim_quad(regularization_method = character(0)) \%>\% 
-  set_engine("sparsediscrim") \%>\% 
+discrim_quad(regularization_method = character(0)) |> 
+  set_engine("sparsediscrim") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -49,7 +49,7 @@ discrim_quad(regularization_method = character(0)) \%>\%
 ## 
 ## Model fit template:
 ## discrim::fit_regularized_quad(x = missing_arg(), y = missing_arg(), 
-##     regularization_method = character(0))
+##     method = character(0))
 }\if{html}{\out{</div>}}
 }
 

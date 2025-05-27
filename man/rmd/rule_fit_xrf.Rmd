@@ -1,24 +1,31 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("rule_fit", "xrf")`
 
 ## Tuning Parameters
 
-```{r xrf-param-info, echo = FALSE}
+```{r}
+#| label: xrf-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("tree_depth", "trees", "learn_rate", "mtry",       "min_n", "loss_reduction", "sample_size", "stop_iter", "penalty"),
                  default = c("6L",           "15L",        "0.3",  "see below", "1L",    "0.0",            "1.0",         "Inf",       "0.1"))
 
 param <-
-  rule_fit() %>% 
-  set_engine("xrf") %>% 
+  rule_fit() |> 
+  set_engine("xrf") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r xrf-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: xrf-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -27,7 +34,8 @@ param$item
 
 `r uses_extension("rule_fit", "xrf", "regression")`
 
-```{r xrf-reg}
+```{r}
+#| label: xrf-reg
 library(rules)
 
 rule_fit(
@@ -39,9 +47,9 @@ rule_fit(
   loss_reduction = numeric(1),
   sample_size = numeric(1),
   penalty = numeric(1)
-) %>%
-  set_engine("xrf") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("xrf") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -50,7 +58,8 @@ rule_fit(
 `r uses_extension("rule_fit", "xrf", "classification")`
 
 
-```{r xrf-cls}
+```{r}
+#| label: xrf-cls
 library(rules)
 
 rule_fit(
@@ -62,9 +71,9 @@ rule_fit(
   loss_reduction = numeric(1),
   sample_size = numeric(1),
   penalty = numeric(1)
-) %>%
-  set_engine("xrf") %>%
-  set_mode("classification") %>%
+) |>
+  set_engine("xrf") |>
+  set_mode("classification") |>
   translate()
 ```
 
@@ -85,24 +94,28 @@ These differences will create a disparity in the values of the `penalty` argumen
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
 ## Other details
 
 ### Interpreting `mtry`
 
-```{r child = "template-mtry-prop.Rmd"}
+```{r}
+#| child: template-mtry-prop.Rmd
 ```
 
 ### Early stopping
 
-```{r child = "template-early-stopping.Rmd"}
+```{r}
+#| child: template-early-stopping.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

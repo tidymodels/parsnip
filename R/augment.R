@@ -37,17 +37,17 @@
 #' @references
 #' \url{https://www.tidymodels.org/learn/statistics/survival-metrics/}
 #' @export
-#' @examplesIf !parsnip:::is_cran_check()
+#' @examplesIf !parsnip:::is_cran_check() & rlang::is_installed("modeldata")
 #' car_trn <- mtcars[11:32,]
 #' car_tst <- mtcars[ 1:10,]
 #'
 #' reg_form <-
-#'   linear_reg() %>%
-#'   set_engine("lm") %>%
+#'   linear_reg() |>
+#'   set_engine("lm") |>
 #'   fit(mpg ~ ., data = car_trn)
 #' reg_xy <-
-#'   linear_reg() %>%
-#'   set_engine("lm") %>%
+#'   linear_reg() |>
+#'   set_engine("lm") |>
 #'   fit_xy(car_trn[, -1], car_trn$mpg)
 #'
 #' augment(reg_form, car_tst)
@@ -63,12 +63,12 @@
 #' cls_tst <- two_class_dat[  1:10 , ]
 #'
 #' cls_form <-
-#'   logistic_reg() %>%
-#'   set_engine("glm") %>%
+#'   logistic_reg() |>
+#'   set_engine("glm") |>
 #'   fit(Class ~ ., data = cls_trn)
 #' cls_xy <-
-#'   logistic_reg() %>%
-#'   set_engine("glm") %>%
+#'   logistic_reg() |>
+#'   set_engine("glm") |>
 #'   fit_xy(cls_trn[, -3],
 #'   cls_trn$Class)
 #'

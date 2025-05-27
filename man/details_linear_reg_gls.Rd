@@ -20,9 +20,9 @@ The \strong{multilevelmod} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(multilevelmod)
 
-linear_reg() \%>\% 
-  set_engine("gls") \%>\% 
-  set_mode("regression") \%>\% 
+linear_reg() |> 
+  set_engine("gls") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -57,8 +57,8 @@ library(nlme)
 
 data("riesby")
 
-linear_reg() \%>\% 
-  set_engine("gls", correlation =  corCompSymm(form = ~ 1 | subject)) \%>\% 
+linear_reg() |> 
+  set_engine("gls", correlation =  corCompSymm(form = ~ 1 | subject)) |> 
   fit(depr_score ~ week, data = riesby)
 }\if{html}{\out{</div>}}
 
@@ -89,13 +89,13 @@ workflow. In this case, you can add the appropriate columns using
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
 
 gls_spec <- 
-  linear_reg() \%>\% 
+  linear_reg() |> 
   set_engine("gls", correlation =  corCompSymm(form = ~ 1 | subject))
 
 gls_wflow <- 
-  workflow() \%>\% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = depr_score, predictors = c(week, subject)) \%>\% 
+  add_variables(outcomes = depr_score, predictors = c(week, subject)) |> 
   add_model(gls_spec, formula = depr_score ~ week)
 
 fit(gls_wflow, data = riesby)

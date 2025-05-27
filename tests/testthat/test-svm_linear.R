@@ -1,32 +1,34 @@
+skip_if_not_installed("modeldata")
+
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 # ------------------------------------------------------------------------------
 
 test_that('updating', {
   expect_snapshot(
-    svm_linear(mode = "regression", cost = 2) %>%
-      set_engine("kernlab", cross = 10) %>%
+    svm_linear(mode = "regression", cost = 2) |>
+      set_engine("kernlab", cross = 10) |>
       update(cross = tune(), cost = tune())
   )
 })
 
 test_that('bad input', {
-  expect_snapshot(error = TRUE, translate(svm_linear(mode = "regression") %>% set_engine( NULL)))
+  expect_snapshot(error = TRUE, translate(svm_linear(mode = "regression") |> set_engine( NULL)))
   expect_snapshot(error = TRUE, svm_linear(mode = "reallyunknown"))
-  expect_snapshot(error = TRUE, translate(svm_linear(mode = "regression") %>% set_engine("LiblineaR", type = 3)))
-  expect_snapshot(error = TRUE, translate(svm_linear(mode = "classification") %>% set_engine("LiblineaR", type = 11)))
+  expect_snapshot(error = TRUE, translate(svm_linear(mode = "regression") |> set_engine("LiblineaR", type = 3)))
+  expect_snapshot(error = TRUE, translate(svm_linear(mode = "classification") |> set_engine("LiblineaR", type = 11)))
 })
 
 # ------------------------------------------------------------------------------
 
 reg_mod <-
-  svm_linear(mode = "regression", cost = 1/4) %>%
-  set_engine("LiblineaR") %>%
+  svm_linear(mode = "regression", cost = 1/4) |>
+  set_engine("LiblineaR") |>
   set_mode("regression")
 
 cls_mod <-
-  svm_linear(mode = "classification", cost = 1/8) %>%
-  set_engine("LiblineaR") %>%
+  svm_linear(mode = "classification", cost = 1/8) |>
+  set_engine("LiblineaR") |>
   set_mode("classification")
 
 ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
@@ -68,7 +70,7 @@ test_that('linear svm regression prediction: LiblineaR', {
 
   skip_if_not_installed("LiblineaR")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] %>%
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
     droplevels()
 
   ind <- c(2, 1, 143)
@@ -113,7 +115,7 @@ test_that('linear svm classification: LiblineaR', {
 
   skip_if_not_installed("LiblineaR")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] %>%
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
     droplevels()
 
   ind <- c(2, 1, 143)
@@ -143,7 +145,7 @@ test_that('linear svm classification prediction: LiblineaR', {
 
   skip_if_not_installed("LiblineaR")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] %>%
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
     droplevels()
 
   ind <- c(4, 55, 143)
@@ -192,13 +194,13 @@ test_that('linear svm classification prediction: LiblineaR', {
 # ------------------------------------------------------------------------------
 
 reg_mod <-
-  svm_linear(mode = "regression", cost = 1/4) %>%
-  set_engine("kernlab") %>%
+  svm_linear(mode = "regression", cost = 1/4) |>
+  set_engine("kernlab") |>
   set_mode("regression")
 
 cls_mod <-
-  svm_linear(mode = "classification", cost = 1/8) %>%
-  set_engine("kernlab") %>%
+  svm_linear(mode = "classification", cost = 1/8) |>
+  set_engine("kernlab") |>
   set_mode("classification")
 
 ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
@@ -236,7 +238,7 @@ test_that('linear svm regression prediction: kernlab', {
 
   skip_if_not_installed("kernlab")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] %>%
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
     droplevels()
 
   ind <- c(2, 1, 143)
@@ -281,7 +283,7 @@ test_that('linear svm classification: kernlab', {
 
   skip_if_not_installed("kernlab")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] %>%
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
     droplevels()
 
   ind <- c(2, 1, 143)
@@ -311,7 +313,7 @@ test_that('linear svm classification prediction: kernlab', {
 
   skip_if_not_installed("kernlab")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] %>%
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
     droplevels()
 
   ind <- c(4, 55, 143)
@@ -347,8 +349,8 @@ test_that('linear svm classification prediction: kernlab', {
 
   library(kernlab)
   kern_probs <-
-    kernlab::predict(extract_fit_engine(cls_form), hpc_no_m[ind, -5], type = "probabilities") %>%
-    as_tibble() %>%
+    kernlab::predict(extract_fit_engine(cls_form), hpc_no_m[ind, -5], type = "probabilities") |>
+    as_tibble() |>
     setNames(c('.pred_VF', '.pred_F', '.pred_L'))
 
   parsnip_probs <- predict(cls_form, hpc_no_m[ind, -5], type = "prob")

@@ -9,7 +9,7 @@ test_that('flexsurv execution', {
   skip_if_not_installed("flexsurv")
 
   rlang::local_options(lifecycle_verbosity = "quiet")
-  surv_basic <- surv_reg() %>% set_engine("flexsurv")
+  surv_basic <- surv_reg() |> set_engine("flexsurv")
 
   expect_no_condition(
     res <- fit(
@@ -45,7 +45,7 @@ test_that('flexsurv prediction', {
   skip_if_not_installed("flexsurv")
 
   rlang::local_options(lifecycle_verbosity = "quiet")
-  surv_basic <- surv_reg() %>% set_engine("flexsurv")
+  surv_basic <- surv_reg() |> set_engine("flexsurv")
 
   res <- fit(
     surv_basic,

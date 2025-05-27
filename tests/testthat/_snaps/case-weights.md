@@ -1,7 +1,7 @@
 # case weights with formula method -- unregistered model spec
 
     Code
-      bag_mars("regression") %>% fit(Sale_Price ~ Longitude + Latitude, data = ames,
+      fit(bag_mars("regression"), Sale_Price ~ Longitude + Latitude, data = ames,
       case_weights = wts)
     Condition
       Error in `case_weights_allowed()`:

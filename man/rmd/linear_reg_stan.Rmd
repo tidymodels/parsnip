@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("linear_reg", "stan")`
@@ -22,9 +24,10 @@ See [rstan::sampling()] and [rstanarm::priors()] for more information on these a
 
 ## Translation from parsnip to the original package
 
-```{r stan-csl}
-linear_reg() %>% 
-  set_engine("stan") %>% 
+```{r}
+#| label: stan-csl
+linear_reg() |> 
+  set_engine("stan") |> 
   translate()
 ```
 
@@ -32,7 +35,8 @@ Note that the `refresh` default prevents logging of the estimation process. Chan
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
 ## Other details
@@ -41,7 +45,8 @@ For prediction, the `"stan"` engine can compute posterior  intervals analogous t
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Examples 

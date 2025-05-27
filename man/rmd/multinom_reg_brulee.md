@@ -30,8 +30,8 @@ Other engine arguments of interest:
 
 
 ``` r
-multinom_reg(penalty = double(1)) %>% 
-  set_engine("brulee") %>% 
+multinom_reg(penalty = double(1)) |> 
+  set_engine("brulee") |> 
   translate()
 ```
 

@@ -23,7 +23,7 @@ parsnip_spec_add_in <- function() {
   make_spec <- function(x, tune_args) {
     if (tune_args) {
       nms <- x$parameters[[1]]$parameter
-      args <- purrr::map(nms, ~ rlang::call2("tune"))
+      args <- purrr::map(nms, \(x) rlang::call2("tune"))
       names(args) <- nms
     } else {
       args <- NULL
@@ -47,11 +47,11 @@ parsnip_spec_add_in <- function() {
     chr_1 <- paste(obj_nm, "<-\n ", chr_1)
     chr_2 <- paste0("set_engine('", x$engine, "')")
 
-    res <- paste0(chr_1, " %>%\n  ", chr_2)
+    res <- paste0(chr_1, " |>\n  ", chr_2)
 
     if (!x$single_mode) {
       chr_3 <- paste0("set_mode('", x$mode, "')")
-      res <- paste0(res, " %>%\n  ", chr_3)
+      res <- paste0(res, " |>\n  ", chr_3)
     }
 
     res

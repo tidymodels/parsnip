@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("linear_reg", "lme")`
@@ -11,16 +13,18 @@ This model has no tuning parameters.
 
 `r uses_extension("linear_reg", "lme", "regression")`
 
-```{r lme-csl}
+```{r}
+#| label: lme-csl
 library(multilevelmod)
 
-linear_reg() %>% 
-  set_engine("lme") %>% 
-  set_mode("regression") %>% 
+linear_reg() |> 
+  set_engine("lme") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
-```{r child = "template-no-pooling.Rmd"}
+```{r}
+#| child: template-no-pooling.Rmd
 ```
 
 ## Preprocessing requirements
@@ -37,8 +41,8 @@ With parsnip, we suggest using the _fixed effects_ formula method when fitting, 
 library(tidymodels)
 data("riesby")
 
-linear_reg() %>% 
-  set_engine("lme", random =  ~ 1|subject) %>% 
+linear_reg() |> 
+  set_engine("lme", random =  ~ 1|subject) |> 
   fit(depr_score ~ week, data = riesby)
 ```
 
@@ -48,13 +52,13 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 library(tidymodels)
 
 lme_spec <- 
-  linear_reg() %>% 
+  linear_reg() |> 
   set_engine("lme", random =  ~ 1|subject)
 
 lme_wflow <- 
-  workflow() %>% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = depr_score, predictors = c(week, subject)) %>% 
+  add_variables(outcomes = depr_score, predictors = c(week, subject)) |> 
   add_model(lme_spec, formula = depr_score ~ week)
 
 fit(lme_wflow, data = riesby)
@@ -62,7 +66,8 @@ fit(lme_wflow, data = riesby)
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

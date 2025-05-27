@@ -24,8 +24,8 @@ The choice of `mixture` depends on the engine parameter `solver`, which is autom
 
 
 ``` r
-multinom_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("h2o") %>% 
+multinom_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("h2o") |> 
   translate()
 ```
 

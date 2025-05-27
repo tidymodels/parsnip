@@ -30,8 +30,8 @@ Other engine arguments of interest:
 
 
 ``` r
-logistic_reg(penalty = double(1)) %>% 
-  set_engine("brulee") %>% 
+logistic_reg(penalty = double(1)) |> 
+  set_engine("brulee") |> 
   translate()
 ```
 

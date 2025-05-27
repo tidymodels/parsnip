@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("proportional_hazards", "survival")`
@@ -11,12 +13,13 @@ This model has no tuning parameters.
 
 `r uses_extension("proportional_hazards", "survival", "censored regression")`
 
-```{r survival-creg}
+```{r}
+#| label: survival-creg
 library(censored)
 
-proportional_hazards() %>% 
-  set_engine("survival") %>% 
-  set_mode("censored regression") %>% 
+proportional_hazards() |> 
+  set_engine("survival") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 
@@ -33,26 +36,29 @@ For example, in this model, the numeric column `rx` is used to estimate two diff
 ```{r}
 library(survival)
 
-proportional_hazards() %>% 
-  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) %>% 
-  extract_fit_engine() %>% 
+proportional_hazards() |> 
+  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) |> 
+  extract_fit_engine() |> 
   # Two different hazards for each value of 'rx'
   basehaz()
 ```
 
 Note that columns used in the `strata()` function will not be estimated in the regular portion of the model (i.e., within the linear predictor).
 
-```{r child = "template-survival-mean.Rmd"}
+```{r}
+#| child: template-survival-mean.Rmd
 ```
 
 ## Linear predictor values
 
-```{r child = "template-censored-linear-predictor.Rmd"}
+```{r}
+#| child: template-censored-linear-predictor.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## References

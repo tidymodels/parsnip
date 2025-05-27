@@ -37,8 +37,8 @@ The \strong{discrim} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(discrim)
 
-discrim_linear(regularization_method = character(0)) \%>\% 
-  set_engine("sparsediscrim") \%>\% 
+discrim_linear(regularization_method = character(0)) |> 
+  set_engine("sparsediscrim") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -51,7 +51,7 @@ discrim_linear(regularization_method = character(0)) \%>\%
 ## 
 ## Model fit template:
 ## discrim::fit_regularized_linear(x = missing_arg(), y = missing_arg(), 
-##     regularization_method = character(0))
+##     method = character(0))
 }\if{html}{\out{</div>}}
 }
 

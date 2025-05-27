@@ -1,4 +1,6 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("discrim_linear", "sda")`
@@ -21,25 +23,29 @@ However, there are a few engine-specific parameters that can be set or optimized
 
 `r uses_extension("discrim_linear", "sda", "classification")`
 
-```{r sda-cls}
+```{r}
+#| label: sda-cls
 library(discrim)
 
-discrim_linear() %>% 
-  set_engine("sda") %>% 
+discrim_linear() |> 
+  set_engine("sda") |> 
   translate()
 ```
 
 ## Preprocessing requirements
 
-```{r child = "template-makes-dummies.Rmd"}
+```{r}
+#| child: template-makes-dummies.Rmd
 ```
 
-```{r child = "template-zv.Rmd"}
+```{r}
+#| child: template-zv.Rmd
 ```
 
 ## Case weights
 
-```{r child = "template-no-case-weights.Rmd"}
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## References

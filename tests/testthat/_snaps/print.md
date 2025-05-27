@@ -24,7 +24,7 @@
 ---
 
     Code
-      rand_forest() %>% set_mode("regression")
+      set_mode(rand_forest(), "regression")
     Output
       Random Forest Model Specification (regression)
       
@@ -34,7 +34,7 @@
 ---
 
     Code
-      logistic_reg() %>% set_engine("glmnet", penalty = 0.5)
+      set_engine(logistic_reg(), "glmnet", penalty = 0.5)
     Output
       Logistic Regression Model Specification (classification)
       
@@ -47,7 +47,7 @@
 ---
 
     Code
-      mlp() %>% set_mode("classification") %>% translate()
+      translate(set_mode(mlp(), "classification"))
     Output
       Single Layer Neural Network Model Specification (classification)
       

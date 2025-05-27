@@ -44,8 +44,8 @@ returns the names of the arguments to \code{multi_predict()} for this model
 (if any).
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-lm_model_idea <- linear_reg() \%>\% set_engine("lm")
+\dontshow{if (!parsnip:::is_cran_check() & rlang::is_installed("kknn")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+lm_model_idea <- linear_reg() |> set_engine("lm")
 has_multi_predict(lm_model_idea)
 lm_model_fit <- fit(lm_model_idea, mpg ~ ., data = mtcars)
 has_multi_predict(lm_model_fit)
@@ -55,8 +55,8 @@ multi_predict_args(lm_model_fit)
 library(kknn)
 
 knn_fit <-
-  nearest_neighbor(mode = "regression", neighbors = 5) \%>\%
-  set_engine("kknn") \%>\%
+  nearest_neighbor(mode = "regression", neighbors = 5) |>
+  set_engine("kknn") |>
   fit(mpg ~ ., mtcars)
 
 multi_predict_args(knn_fit)

@@ -11,8 +11,8 @@ This engine has no tuning parameters but you can set the `family` parameter (and
 
 
 ``` r
-linear_reg() %>% 
-  set_engine("glm") %>% 
+linear_reg() |> 
+  set_engine("glm") |> 
   translate()
 ```
 
@@ -30,8 +30,8 @@ To use a non-default `family` and/or `link`, pass in as an argument to `set_engi
 
 
 ``` r
-linear_reg() %>% 
-  set_engine("glm", family = stats::poisson(link = "sqrt")) %>% 
+linear_reg() |> 
+  set_engine("glm", family = stats::poisson(link = "sqrt")) |> 
   translate()
 ```
 

@@ -1,26 +1,33 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("boost_tree", "xgboost")`
 
 ## Tuning Parameters
 
-```{r xgboost-param-info, echo = FALSE}
+```{r}
+#| label: xgboost-param-info
+#| echo: false
 defaults <- 
   tibble::tibble(parsnip = c("tree_depth", "trees", "learn_rate", "mtry", "min_n", "loss_reduction", "sample_size", "stop_iter"),
                  default = c("6L", "15L", "0.3", "see below", "1L", "0.0", "1.0", "Inf"))
 
 # For this model, this is the same for all modes
 param <-
- boost_tree() %>% 
-  set_engine("xgboost") %>% 
-  set_mode("regression") %>% 
+ boost_tree() |> 
+  set_engine("xgboost") |> 
+  set_mode("regression") |> 
   make_parameter_list(defaults)
 ```
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r xgboost-param-list, echo = FALSE, results = "asis"}
+```{r}
+#| label: xgboost-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -28,27 +35,29 @@ For `mtry`, the default value of `NULL` translates to using all available column
 
 ## Translation from parsnip to the original package (regression)
 
-```{r xgboost-reg}
+```{r}
+#| label: xgboost-reg
 boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
   stop_iter = integer()
-) %>%
-  set_engine("xgboost") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("xgboost") |>
+  set_mode("regression") |>
   translate()
 ```
 
 ## Translation from parsnip to the original package (classification)
 
-```{r xgboost-cls}
+```{r}
+#| label: xgboost-cls
 boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
   stop_iter = integer()
-) %>% 
-  set_engine("xgboost") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("xgboost") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -62,12 +71,14 @@ For classification, non-numeric outcomes (i.e., factors) are internally converte
 
 ## Case weights
 
-```{r child = "template-uses-case-weights.Rmd"}
+```{r}
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Sparse Data
 
-```{r child = "template-uses-sparse-data.Rmd"}
+```{r}
+#| child: template-uses-sparse-data.Rmd
 ```
 
 ## Other details
@@ -78,7 +89,7 @@ The xgboost function that parsnip indirectly wraps, [xgboost::xgb.train()], take
 
 ```{r}
 # good
-boost_tree() %>%
+boost_tree() |>
   set_engine("xgboost", eval_metric = "mae")
 ```
 
@@ -86,7 +97,7 @@ boost_tree() %>%
 
 ```{r}
 # bad
-boost_tree() %>%
+boost_tree() |>
   set_engine("xgboost", params = list(eval_metric = "mae"))
 ```
 
@@ -102,12 +113,14 @@ By default, the model is trained without parallel processing. This can be change
 
 ### Interpreting `mtry`
 
-```{r child = "template-mtry-prop.Rmd"}
+```{r}
+#| child: template-mtry-prop.Rmd
 ```
 
 ### Early stopping
 
-```{r child = "template-early-stopping.Rmd"}
+```{r}
+#| child: template-early-stopping.Rmd
 ```
 
 Note that, since the `validation` argument provides an alternative interface to `watchlist`, the `watchlist` argument is guarded by parsnip and will be ignored (with a warning) if passed.
@@ -118,10 +131,12 @@ parsnip chooses the objective function based on the characteristics of the outco
 
 ## Saving fitted model objects
 
-```{r child = "template-butcher.Rmd"}
+```{r}
+#| child: template-butcher.Rmd
 ```
 
-```{r child = "template-bundle.Rmd"}
+```{r}
+#| child: template-bundle.Rmd
 ```
 
 ## Examples 
