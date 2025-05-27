@@ -12,6 +12,7 @@ test_that('bad input', {
 
 test_that('check_args() works', {
   skip_if_not_installed("kknn")
+  skip_if_not_installed("modeldata")
 
   hpc <- hpc_data[1:150, c(2:5, 8)]
 

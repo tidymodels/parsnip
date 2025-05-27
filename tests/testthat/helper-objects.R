@@ -1,4 +1,3 @@
-
 ctrl          <- control_parsnip(verbosity = 1, catch = FALSE)
 caught_ctrl   <- control_parsnip(verbosity = 1, catch = TRUE)
 quiet_ctrl    <- control_parsnip(verbosity = 0, catch = TRUE)
@@ -27,6 +26,41 @@ if (rlang::is_installed("modeldata")) {
   data("lending_club")
   data("hpc_data")
   data(two_class_dat, package = "modeldata")
+
+  # ------------------------------------------------------------------------------
+
+  hpc <- hpc_data[1:150, c(2:5, 8)]
+  num_hpc_pred <- names(hpc)[1:4]
+  class_tab <- table(hpc$class, dnn = NULL)
+  hpc_bad <-
+    hpc |>
+    dplyr::mutate(big_num = Inf)
+
+  set.seed(352)
+  mlp_dat <- hpc[order(runif(150)),]
+
+  tr_mlp_dat <- mlp_dat[1:140, ]
+  te_mlp_dat <- mlp_dat[141:150, ]
+
+  mars_hpc_pred_list <- colnames(hpc)[1:3]
+  mlp_hpc_pred_list <- names(hpc)[1:4]
+  nnet_hpc_pred_list <- names(hpc)[1:4]
+
+  hpc_nnet_dat <- hpc_data[1:150, c(2:5, 8)]
+
+  # ------------------------------------------------------------------------------
+
+  lm_fit <-
+    linear_reg(mode = "regression") |>
+    set_engine("lm") |>
+    fit(compounds ~ ., data = hpc)
+
+  lending_club <-
+    lending_club |>
+    dplyr::slice(1:200) |>
+    dplyr::mutate(big_num = Inf)
+
+  lending_lvl <- levels(lending_club$Class)
 
   # ------------------------------------------------------------------------------
   # for quantile regression tests

@@ -60,7 +60,7 @@
 #' `allow_sparse_x` column of [parsnip::get_encoding()] for sparse input
 #' compatibility.
 #'
-#' @examplesIf !parsnip:::is_cran_check()
+#' @examplesIf !parsnip:::is_cran_check() & rlang::is_installed("modeldata")
 #' # Although `glm()` only has a formula interface, different
 #' # methods for specifying the model can be used
 #'

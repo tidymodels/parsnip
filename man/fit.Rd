@@ -110,7 +110,7 @@ Sparse data is supported, with the use of the \code{x} argument in \code{fit_xy(
 compatibility.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check() & rlang::is_installed("modeldata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Although `glm()` only has a formula interface, different
 # methods for specifying the model can be used
 

@@ -586,7 +586,7 @@ is_cran_check <- function() {
 #' @param x A fitted parsnip model (class `"model_fit"`) or a fitted workflow.
 #' @param syms Should the column names be converted to symbols? Defaults to `FALSE`.
 #' @return A list with elements `"estimate"` and `"probabilities"`.
-#' @examplesIf !parsnip:::is_cran_check()
+#' @examplesIf !parsnip:::is_cran_check() & rlang::is_installed("modeldata")
 #' library(dplyr)
 #' library(modeldata)
 #' data("two_class_dat")

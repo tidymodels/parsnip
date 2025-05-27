@@ -31,7 +31,7 @@ fit.  These functions check the possible range of the data and adjust them
 if needed (with a warning).
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check() & rlang::is_installed("kknn")  & rlang::is_installed("ranger")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 nearest_neighbor(neighbors= 100) |>
   set_engine("kknn") |>
   set_mode("regression") |>

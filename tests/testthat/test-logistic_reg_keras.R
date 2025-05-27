@@ -1,14 +1,4 @@
-set.seed(352)
-dat <-
-  lending_club |>
-  dplyr::group_by(Class) |>
-  dplyr::sample_n(500) |>
-  dplyr::ungroup() |>
-  dplyr::select(Class, funded_amnt, int_rate)
-dat <- dat[order(runif(nrow(dat))),]
-
-tr_dat <- dat[1:995, ]
-te_dat <- dat[996:1000, ]
+skip_if_not_installed("modeldata")
 
 # ------------------------------------------------------------------------------
 
@@ -28,6 +18,18 @@ test_that('model fitting', {
   skip_on_cran()
   skip_if_not_installed("keras")
   skip_if(!is_tf_ok())
+
+  set.seed(352)
+  dat <-
+    lending_club |>
+    dplyr::group_by(Class) |>
+    dplyr::sample_n(500) |>
+    dplyr::ungroup() |>
+    dplyr::select(Class, funded_amnt, int_rate)
+  dat <- dat[order(runif(nrow(dat))),]
+
+  tr_dat <- dat[1:995, ]
+  te_dat <- dat[996:1000, ]
 
   set_tf_seed(257)
 
@@ -94,6 +96,18 @@ test_that('classification prediction', {
   skip_if_not_installed("keras")
   skip_if(!is_tf_ok())
 
+  set.seed(352)
+  dat <-
+    lending_club |>
+    dplyr::group_by(Class) |>
+    dplyr::sample_n(500) |>
+    dplyr::ungroup() |>
+    dplyr::select(Class, funded_amnt, int_rate)
+  dat <- dat[order(runif(nrow(dat))),]
+
+  tr_dat <- dat[1:995, ]
+  te_dat <- dat[996:1000, ]
+
   library(keras)
 
   set.seed(257)
@@ -138,6 +152,18 @@ test_that('classification probabilities', {
   skip_on_cran()
   skip_if_not_installed("keras")
   skip_if(!is_tf_ok())
+
+  set.seed(352)
+  dat <-
+    lending_club |>
+    dplyr::group_by(Class) |>
+    dplyr::sample_n(500) |>
+    dplyr::ungroup() |>
+    dplyr::select(Class, funded_amnt, int_rate)
+  dat <- dat[order(runif(nrow(dat))),]
+
+  tr_dat <- dat[1:995, ]
+  te_dat <- dat[996:1000, ]
 
   library(keras)
 

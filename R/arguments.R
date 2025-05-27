@@ -317,7 +317,7 @@ make_xy_call <- function(object, target, env, call = rlang::caller_env()) {
 #' @param offset A number subtracted off of the number of rows available in the
 #' data.
 #' @return An integer (and perhaps a warning).
-#' @examplesIf !parsnip:::is_cran_check()
+#' @examplesIf !parsnip:::is_cran_check() & rlang::is_installed("kknn")  & rlang::is_installed("ranger")
 
 #' nearest_neighbor(neighbors= 100) |>
 #'   set_engine("kknn") |>

@@ -1,3 +1,5 @@
+skip_if_not_installed("modeldata")
+
 test_that('linear quantile regression via quantreg - single quantile', {
   skip_if_not_installed("quantreg")
   skip_if_not_installed("hardhat", minimum_version = "1.4.0.9002")

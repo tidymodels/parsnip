@@ -1,5 +1,6 @@
-hpc <- hpc_data[1:150, c(2:5, 8)]
+skip_if_not_installed("modeldata")
 
+hpc <- hpc_data[1:150, c(2:5, 8)]
 
 num_pred <- names(hpc)[1:4]
 

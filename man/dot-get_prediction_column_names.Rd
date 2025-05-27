@@ -19,7 +19,7 @@ A list with elements \code{"estimate"} and \code{"probabilities"}.
 columns for the primary prediction types for a model.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check() & rlang::is_installed("modeldata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(dplyr)
 library(modeldata)
 data("two_class_dat")

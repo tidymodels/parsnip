@@ -1,7 +1,4 @@
-
-
-# ------------------------------------------------------------------------------
-
+skip_if_not_installed("modeldata")
 
 test_that('regression', {
   skip_if_not_installed("mgcv")

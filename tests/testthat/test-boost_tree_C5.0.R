@@ -1,3 +1,5 @@
+skip_if_not_installed("modeldata")
+
 lending_club <- head(lending_club, 200)
 lending_club_fail <-
   lending_club |>

@@ -1,3 +1,5 @@
+skip_if_not_installed("modeldata")
+
 test_that("sparse tibble can be passed to `fit() - supported", {
   skip_if_not_installed("xgboost")
   skip_on_cran()
