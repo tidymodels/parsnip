@@ -1,5 +1,9 @@
 # parsnip (development version)
 
+* Moved to using the base R pipe. 
+* Required changes to pass CRAN's "no suggests" check.
+* Avoid warnings/failures when reading package files via `system.file()`. This means that we are not going to use parsnip's `models.tsv` in factor of using an internal tibble. (#1271)
+
 # parsnip 1.3.1
 
 ## Bug Fixes
