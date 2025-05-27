@@ -48,7 +48,7 @@
 #' section.
 #'
 #' @name extract-parsnip
-#' @examplesIf !parsnip:::is_cran_check()
+#' @examplesIf !parsnip:::is_cran_check() & rlang::is_installed("dials")
 #' lm_spec <- linear_reg() |> set_engine("lm")
 #' lm_fit <- fit(lm_spec, mpg ~ ., data = mtcars)
 #'

@@ -301,6 +301,7 @@ test_that("arguments (svm_rbf)", {
 # ------------------------------------------------------------------------------
 
 test_that("translate tuning paramter names", {
+  skip_if_not_installed("dials")
 
   mod <- boost_tree(trees = tune("number of trees"), min_n = tune(), tree_depth = 3)
 

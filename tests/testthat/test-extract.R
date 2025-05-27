@@ -1,3 +1,5 @@
+skip_if_not_installed("dials")
+
 test_that('extract', {
   x <- linear_reg() |> set_engine("lm") |> fit(mpg ~ ., data = mtcars)
   x_no_spec <- x
