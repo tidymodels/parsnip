@@ -177,7 +177,7 @@ add_methods <- function(x, engine) {
 #' @return A tibble with columns `user`, `parsnip`, and `engine`, or a list
 #' with named character vectors `user_to_parsnip` and `parsnip_to_engine`.
 #' @keywords internal
-#' @examplesIf !parsnip:::is_cran_check()
+#' @examplesIf !parsnip:::is_cran_check() & rlang::is_installed("dials")
 #' mod <-
 #'  linear_reg(penalty = tune("regularization"), mixture = tune()) |>
 #'  set_engine("glmnet")
