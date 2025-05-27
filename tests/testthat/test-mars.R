@@ -191,7 +191,7 @@ test_that('classification', {
     glm_mars <-
       mars(mode = "classification")  |>
       set_engine("earth") |>
-      fit(Class ~ ., data = lending_club[-(1:5),])
+      fit(Class ~ ., data = modeldata::lending_club[-(1:5),])
   )
   expect_true(!is.null(extract_fit_engine(glm_mars)$glm.list))
   parsnip_pred <- predict(glm_mars, new_data = lending_club[1:5, -ncol(lending_club)], type = "prob")

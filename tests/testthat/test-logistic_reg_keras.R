@@ -21,7 +21,7 @@ test_that('model fitting', {
 
   set.seed(352)
   dat <-
-    lending_club |>
+    modeldata::lending_club |>
     dplyr::group_by(Class) |>
     dplyr::sample_n(500) |>
     dplyr::ungroup() |>
@@ -98,7 +98,7 @@ test_that('classification prediction', {
 
   set.seed(352)
   dat <-
-    lending_club |>
+    modeldata::lending_club |>
     dplyr::group_by(Class) |>
     dplyr::sample_n(500) |>
     dplyr::ungroup() |>
@@ -155,7 +155,7 @@ test_that('classification probabilities', {
 
   set.seed(352)
   dat <-
-    lending_club |>
+    modeldata::lending_club |>
     dplyr::group_by(Class) |>
     dplyr::sample_n(500) |>
     dplyr::ungroup() |>
