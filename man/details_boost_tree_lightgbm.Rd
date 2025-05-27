@@ -166,7 +166,7 @@ The \code{sample_size} argument is translated to the \code{bagging_fraction}
 parameter in the \code{param} argument of \code{lgb.train}. The argument is
 interpreted by lightgbm as a \emph{proportion} rather than a count, so bonsai
 internally reparameterizes the \code{sample_size} argument with
-\code{\link[dials:trees]{dials::sample_prop()}} during tuning.
+\code{\link[dials:sample_prop]{dials::sample_prop()}} during tuning.
 
 To effectively enable bagging, the user would also need to set the
 \code{bagging_freq} argument to lightgbm. \code{bagging_freq} defaults to 0, which
