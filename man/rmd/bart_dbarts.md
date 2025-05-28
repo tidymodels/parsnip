@@ -41,7 +41,7 @@ Some relevant arguments that can be passed to `set_engine()`:
 
 
 ``` r
-bart(
+parsnip::bart(
   trees = integer(1),
   prior_terminal_node_coef = double(1),
   prior_terminal_node_expo = double(1),
@@ -49,13 +49,25 @@ bart(
 ) |> 
   set_engine("dbarts") |> 
   set_mode("classification") |> 
-  translate()
+  translate() |> 
+  print_model_spec()
 ```
 
 ```
+## BART Model Specification (classification)
 ## 
-## Call:
-## NULL
+## Main Arguments:
+##   trees = integer(1)
+##   prior_terminal_node_coef = double(1)
+##   prior_terminal_node_expo = double(1)
+##   prior_outcome_range = double(1)
+## 
+## Computational engine: dbarts 
+## 
+## Model fit template:
+## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1), 
+##     base = double(1), power = double(1), k = double(1), verbose = FALSE, 
+##     keeptrees = TRUE, keepcall = FALSE)
 ```
 
 
@@ -63,7 +75,7 @@ bart(
 
 
 ``` r
-bart(
+parsnip::bart(
   trees = integer(1),
   prior_terminal_node_coef = double(1),
   prior_terminal_node_expo = double(1),
@@ -71,13 +83,25 @@ bart(
 ) |> 
   set_engine("dbarts") |> 
   set_mode("regression") |> 
-  translate()
+  translate()|> 
+  print_model_spec()
 ```
 
 ```
+## BART Model Specification (regression)
 ## 
-## Call:
-## NULL
+## Main Arguments:
+##   trees = integer(1)
+##   prior_terminal_node_coef = double(1)
+##   prior_terminal_node_expo = double(1)
+##   prior_outcome_range = double(1)
+## 
+## Computational engine: dbarts 
+## 
+## Model fit template:
+## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1), 
+##     base = double(1), power = double(1), k = double(1), verbose = FALSE, 
+##     keeptrees = TRUE, keepcall = FALSE)
 ```
 
 ## Preprocessing requirements

@@ -1,12 +1,10 @@
-data(cancer, package = "survival")
 
-basic_form <- survival::Surv(time, status) ~ age
-complete_form <- survival::Surv(time) ~ age
 
 # ------------------------------------------------------------------------------
 
 test_that('flexsurv execution', {
   skip_if_not_installed("flexsurv")
+  skip_if_not_installed("survival")
 
   rlang::local_options(lifecycle_verbosity = "quiet")
   surv_basic <- surv_reg() |> set_engine("flexsurv")
@@ -43,6 +41,8 @@ test_that('flexsurv execution', {
 
 test_that('flexsurv prediction', {
   skip_if_not_installed("flexsurv")
+  skip_if_not_installed("survival")
+
 
   rlang::local_options(lifecycle_verbosity = "quiet")
   surv_basic <- surv_reg() |> set_engine("flexsurv")

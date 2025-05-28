@@ -113,3 +113,17 @@ if (rlang::is_installed("modeldata")) {
   }
 }
 
+if (rlang::is_installed("survival")) {
+  data(cancer, package = "survival")
+  basic_form <- survival::Surv(time, status) ~ age
+  complete_form <- survival::Surv(time) ~ age
+
+  if (R.Version()$major < "4") {
+    data(lung, package = 'survival')
+  } else {
+    data(cancer, package = 'survival')
+  }
+
+  basic_form <- survival::Surv(time, status) ~ group
+  complete_form <- survival::Surv(time) ~ group
+}
