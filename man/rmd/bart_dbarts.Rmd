@@ -56,7 +56,7 @@ Some relevant arguments that can be passed to `set_engine()`:
 
 ```{r}
 #| label: bart-cls
-bart(
+parsnip::bart(
   trees = integer(1),
   prior_terminal_node_coef = double(1),
   prior_terminal_node_expo = double(1),
@@ -64,7 +64,8 @@ bart(
 ) |> 
   set_engine("dbarts") |> 
   set_mode("classification") |> 
-  translate()
+  translate() |> 
+  print_model_spec()
 ```
 
 
@@ -72,7 +73,7 @@ bart(
 
 ```{r}
 #| label: bart-reg
-bart(
+parsnip::bart(
   trees = integer(1),
   prior_terminal_node_coef = double(1),
   prior_terminal_node_expo = double(1),
@@ -80,7 +81,8 @@ bart(
 ) |> 
   set_engine("dbarts") |> 
   set_mode("regression") |> 
-  translate()
+  translate()|> 
+  print_model_spec()
 ```
 
 ## Preprocessing requirements
