@@ -552,7 +552,7 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
 #' @param weights An optional numeric vector of case weights. Note
 #'  that the data used for the case weights will not be used as a
 #'  splitting variable in the model (see
-#'  \url{https://www.rulequest.com/see5-info.html} for
+#'  `https://www.rulequest.com/see5-info.html` for
 #'  Quinlan's notes on case weights).
 #' @param minCases An integer for the smallest number of samples
 #'  that must be put in at least two of the splits.
