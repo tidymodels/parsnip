@@ -172,7 +172,7 @@ set_fit(
     data = c(formula = "x", data = "data"),
     protect = c("x", "data"),
     func = c(pkg = "kernlab", fun = "ksvm"),
-    defaults = list(kernel = "vanilladot")
+    defaults = list(kernel = "vanilladot", kpar = list())
   )
 )
 
@@ -185,7 +185,7 @@ set_fit(
     data = c(formula = "x", data = "data"),
     protect = c("x", "data"),
     func = c(pkg = "kernlab", fun = "ksvm"),
-    defaults = list(kernel = "vanilladot")
+    defaults = list(kernel = "vanilladot", kpar = list())
   )
 )
 
