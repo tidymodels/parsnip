@@ -1966,6 +1966,9 @@
       $kernel
       [1] "vanilladot"
       
+      $kpar
+      list()
+      
 
 ---
 
@@ -1985,6 +1988,9 @@
       
       $kernel
       [1] "vanilladot"
+      
+      $kpar
+      list()
       
 
 # arguments (svm_poly)
