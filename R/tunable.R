@@ -228,8 +228,8 @@ brulee_mlp_args <-
       list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/5)),
       list(pkg = "dials", fun = "momentum", range = c(0.50, 0.95)),
       list(pkg = "dials", fun = "batch_size"),
-      list(pkg = "dials", fun = "stop_iter"),
       list(pkg = "dials", fun = "class_weights"),
+      list(pkg = "dials", fun = "stop_iter"),
       list(pkg = "dials", fun = "rate_schedule", values = tune_sched)
     )
   ) |>

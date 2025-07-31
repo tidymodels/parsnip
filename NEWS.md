@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* Bug fix in how tunable parameters were configured for brulee neural networks. 
+
 # parsnip 1.3.2
 
 * Switch to base R pipe
