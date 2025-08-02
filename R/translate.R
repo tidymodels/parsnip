@@ -206,6 +206,14 @@ add_methods <- function(x, engine) {
 
   # To translate from given names/ids in grid to parsnip names:
   params <- object |> hardhat::extract_parameter_set_dials()
+  if (nrow(params) == 0) {
+    res <- tibble::new_tibble(list(
+      user = character(0),
+      parsnip = character(0),
+      engine = character(0)
+    ))
+    return(res)
+  }
   params <- tibble::as_tibble(params) |>
     dplyr::select(user = id, parsnip = name)
   # Go from parsnip names to engine names
