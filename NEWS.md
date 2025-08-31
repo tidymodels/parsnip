@@ -1,4 +1,4 @@
-# parsnip (development version)
+# parsnip 1.3.3
 
 * Bug fix in how tunable parameters were configured for brulee neural networks. 
 
