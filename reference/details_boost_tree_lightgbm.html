@@ -11,7 +11,7 @@ All trees in the ensemble are combined to produce a final prediction."><meta pro
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -217,7 +217,7 @@ that the booster will perform bagging at every <code>k</code>th boosting iterati
 Thus, by default, the <code>sample_size</code> argument would be ignored without
 setting this argument manually. Other boosting libraries, like xgboost,
 do not have an analogous argument to <code>bagging_freq</code> and use <code>k = 1</code> when
-the analogue to <code>bagging_fraction</code> is in $(0, 1)$. <em>bonsai will thus
+the analogue to <code>bagging_fraction</code> is in $<code>(0, 1)</code>$. <em>bonsai will thus
 automatically set</em> <code>bagging_freq = 1</code> <em>in</em> <code>set_engine("lightgbm", ...)</code>
 if <code>sample_size</code> (i.e. <code>bagging_fraction</code>) is not equal to 1 and no
 <code>bagging_freq</code> value is supplied. This default can be overridden by

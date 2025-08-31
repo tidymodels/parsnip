@@ -13,7 +13,7 @@ affected by very large model residuals."><meta property="og:image" content="http
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,7 +91,7 @@ affected by very large model residuals.</p>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="do">##</span></span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="do">## Model fit template:</span></span>
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="do">## kernlab::ksvm(x = missing_arg(), data = missing_arg(), C = double(1),</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="do">##     epsilon = double(1), kernel = "vanilladot")</span></span></code></pre><p></p></div>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="do">##     epsilon = double(1), kernel = "vanilladot", kpar = list())</span></span></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -113,7 +113,7 @@ affected by very large model residuals.</p>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="do">##</span></span>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="do">## Model fit template:</span></span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="do">## kernlab::ksvm(x = missing_arg(), data = missing_arg(), C = double(1),</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="do">##     kernel = "vanilladot", prob.model = TRUE)</span></span></code></pre><p></p></div>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="do">##     kernel = "vanilladot", kpar = list(), prob.model = TRUE)</span></span></code></pre><p></p></div>
 <p>The <code>margin</code> parameter does not apply to classification models.</p>
 <p>Note that the <code>"kernlab"</code> engine does not naturally estimate class
 probabilities. To produce them, the decision values of the model are
