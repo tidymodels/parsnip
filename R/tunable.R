@@ -1,10 +1,8 @@
-
 # Unit tests are in extratests
 # nocov start
 
 #' @export
 tunable.model_spec <- function(x, ...) {
-
   mod_env <- get_model_env()
 
   if (is.null(x$engine)) {
@@ -13,9 +11,14 @@ tunable.model_spec <- function(x, ...) {
 
   arg_name <- paste0(mod_type(x), "_args")
   if (!(any(arg_name == names(mod_env)))) {
-    stop("The `parsnip` model database doesn't know about the arguments for ",
-         "model `", mod_type(x), "`. Was it registered?",
-         sep = "", call. = FALSE)
+    stop(
+      "The `parsnip` model database doesn't know about the arguments for ",
+      "model `",
+      mod_type(x),
+      "`. Was it registered?",
+      sep = "",
+      call. = FALSE
+    )
   }
 
   arg_vals <- mod_env[[arg_name]]
@@ -28,7 +31,10 @@ tunable.model_spec <- function(x, ...) {
 
   extra_args_tbl <-
     tibble::new_tibble(
-      list(name = extra_args, call_info = vector("list", vctrs::vec_size(extra_args))),
+      list(
+        name = extra_args,
+        call_info = vector("list", vctrs::vec_size(extra_args))
+      ),
       nrow = vctrs::vec_size(extra_args)
     )
 
@@ -57,7 +63,7 @@ add_engine_parameters <- function(pset, engines) {
   is_engine_param <- pset$name %in% engines$name
   if (any(is_engine_param)) {
     engine_names <- pset$name[is_engine_param]
-    pset <- pset[!is_engine_param,]
+    pset <- pset[!is_engine_param, ]
     pset <-
       dplyr::bind_rows(pset, engines |> dplyr::filter(name %in% engines$name))
   }
@@ -213,9 +219,22 @@ tune_sched <- c("none", "decay_time", "decay_expo", "cyclic", "step")
 
 brulee_mlp_args <-
   tibble::tibble(
-    name = c('epochs', 'hidden_units', 'hidden_units_2', 'activation', 'activation_2',
-             'penalty', 'mixture', 'dropout', 'learn_rate', 'momentum', 'batch_size',
-             'class_weights', 'stop_iter', 'rate_schedule'),
+    name = c(
+      'epochs',
+      'hidden_units',
+      'hidden_units_2',
+      'activation',
+      'activation_2',
+      'penalty',
+      'mixture',
+      'dropout',
+      'learn_rate',
+      'momentum',
+      'batch_size',
+      'class_weights',
+      'stop_iter',
+      'rate_schedule'
+    ),
     call_info = list(
       list(pkg = "dials", fun = "epochs", range = c(5L, 500L)),
       list(pkg = "dials", fun = "hidden_units", range = c(2L, 50L)),
@@ -225,9 +244,9 @@ brulee_mlp_args <-
       list(pkg = "dials", fun = "penalty"),
       list(pkg = "dials", fun = "mixture"),
       list(pkg = "dials", fun = "dropout"),
-      list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/5)),
-      list(pkg = "dials", fun = "momentum", range = c(0.50, 0.95)),
-      list(pkg = "dials", fun = "batch_size"),
+      list(pkg = "dials", fun = "learn_rate", range = c(-3, -1 / 5)),
+      list(pkg = "dials", fun = "momentum", range = c(0.00, 0.99)),
+      list(pkg = "dials", fun = "batch_size", range = c(3L, 8L)),
       list(pkg = "dials", fun = "class_weights"),
       list(pkg = "dials", fun = "stop_iter"),
       list(pkg = "dials", fun = "rate_schedule", values = tune_sched)
@@ -237,8 +256,13 @@ brulee_mlp_args <-
 
 brulee_mlp_only_args <-
   tibble::tibble(
-    name =
-      c('hidden_units', 'hidden_units_2', 'activation', 'activation_2', 'dropout')
+    name = c(
+      'hidden_units',
+      'hidden_units_2',
+      'activation',
+      'activation_2',
+      'dropout'
+    )
   )
 
 # ------------------------------------------------------------------------------
@@ -256,7 +280,11 @@ tunable.linear_reg <- function(x, ...) {
       dplyr::filter(name != "class_weights") |>
       dplyr::mutate(
         component = "linear_reg",
-        component_id = ifelse(name %in% names(formals("linear_reg")), "main", "engine")
+        component_id = ifelse(
+          name %in% names(formals("linear_reg")),
+          "main",
+          "engine"
+        )
       ) |>
       dplyr::select(name, call_info, source, component, component_id)
   }
@@ -277,7 +305,11 @@ tunable.logistic_reg <- function(x, ...) {
       dplyr::anti_join(brulee_mlp_only_args, by = "name") |>
       dplyr::mutate(
         component = "logistic_reg",
-        component_id = ifelse(name %in% names(formals("logistic_reg")), "main", "engine")
+        component_id = ifelse(
+          name %in% names(formals("logistic_reg")),
+          "main",
+          "engine"
+        )
       ) |>
       dplyr::select(name, call_info, source, component, component_id)
   }
@@ -296,7 +328,11 @@ tunable.multinom_reg <- function(x, ...) {
       dplyr::anti_join(brulee_mlp_only_args, by = "name") |>
       dplyr::mutate(
         component = "multinom_reg",
-        component_id = ifelse(name %in% names(formals("multinom_reg")), "main", "engine")
+        component_id = ifelse(
+          name %in% names(formals("multinom_reg")),
+          "main",
+          "engine"
+        )
       ) |>
       dplyr::select(name, call_info, source, component, component_id)
   }
@@ -311,7 +347,7 @@ tunable.boost_tree <- function(x, ...) {
     res$call_info[res$name == "sample_size"] <-
       list(list(pkg = "dials", fun = "sample_prop"))
     res$call_info[res$name == "learn_rate"] <-
-      list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1/2)))
+      list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1 / 2)))
   } else if (x$engine == "C5.0") {
     res <- add_engine_parameters(res, c5_boost_engine_args)
     res$call_info[res$name == "trees"] <-
@@ -357,9 +393,11 @@ tunable.decision_tree <- function(x, ...) {
     res <- add_engine_parameters(res, c5_tree_engine_args)
   } else if (x$engine == "partykit") {
     res <-
-      add_engine_parameters(res,
-                            partykit_engine_args |>
-                              dplyr::mutate(component = "decision_tree"))
+      add_engine_parameters(
+        res,
+        partykit_engine_args |>
+          dplyr::mutate(component = "decision_tree")
+      )
   }
   res
 }
@@ -386,7 +424,7 @@ tunable.mlp <- function(x, ...) {
       ) |>
       dplyr::select(name, call_info, source, component, component_id)
     if (x$engine == "brulee") {
-      res <- res[!grepl("_2", res$name),]
+      res <- res[!grepl("_2", res$name), ]
     }
   }
   res
@@ -402,4 +440,3 @@ tunable.survival_reg <- function(x, ...) {
 }
 
 # nocov end
-
