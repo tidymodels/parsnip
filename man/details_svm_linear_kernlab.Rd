@@ -43,7 +43,7 @@ Parsnip changes the default range for \code{cost} to \code{c(-10, 5)}.
 ## 
 ## Model fit template:
 ## kernlab::ksvm(x = missing_arg(), data = missing_arg(), C = double(1), 
-##     epsilon = double(1), kernel = "vanilladot")
+##     epsilon = double(1), kernel = "vanilladot", kpar = list())
 }\if{html}{\out{</div>}}
 }
 
@@ -66,7 +66,7 @@ Parsnip changes the default range for \code{cost} to \code{c(-10, 5)}.
 ## 
 ## Model fit template:
 ## kernlab::ksvm(x = missing_arg(), data = missing_arg(), C = double(1), 
-##     kernel = "vanilladot", prob.model = TRUE)
+##     kernel = "vanilladot", kpar = list(), prob.model = TRUE)
 }\if{html}{\out{</div>}}
 
 The \code{margin} parameter does not apply to classification models.

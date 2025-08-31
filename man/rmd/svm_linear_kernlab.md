@@ -39,7 +39,7 @@ svm_linear(
 ## 
 ## Model fit template:
 ## kernlab::ksvm(x = missing_arg(), data = missing_arg(), C = double(1), 
-##     epsilon = double(1), kernel = "vanilladot")
+##     epsilon = double(1), kernel = "vanilladot", kpar = list())
 ```
 
 ## Translation from parsnip to the original package (classification)
@@ -64,7 +64,7 @@ svm_linear(
 ## 
 ## Model fit template:
 ## kernlab::ksvm(x = missing_arg(), data = missing_arg(), C = double(1), 
-##     kernel = "vanilladot", prob.model = TRUE)
+##     kernel = "vanilladot", kpar = list(), prob.model = TRUE)
 ```
 
 The `margin` parameter does not apply to classification models. 

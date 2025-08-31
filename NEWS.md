@@ -1,6 +1,10 @@
-# parsnip (development version)
+# parsnip 1.3.3
 
 * Bug fix in how tunable parameters were configured for brulee neural networks. 
+
+* A change to make linear SVM models more quiet. 
+
+* A few default parameter ranges were changed for brulee neural network models. 
 
 # parsnip 1.3.2
 
