@@ -6,7 +6,7 @@
 \description{
 \code{\link[Cubist:cubist.default]{Cubist::cubist()}} fits a model that derives simple feature rules from a tree
 ensemble and uses creates regression models within each rule.
-\code{\link[rules:rules-internal]{rules::cubist_fit()}} is a wrapper around this function.
+\code{\link[rules:cubist_fit]{rules::cubist_fit()}} is a wrapper around this function.
 }
 \details{
 For this engine, there is a single mode: regression

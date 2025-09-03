@@ -29,7 +29,7 @@ performance assessment and potential early stopping.
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-\code{\link[agua:h2o_train]{agua::h2o_train_auto()}} is a wrapper around
+\code{\link[agua:h2o_train_auto]{agua::h2o_train_auto()}} is a wrapper around
 \code{\link[h2o:h2o.automl]{h2o::h2o.automl()}}.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{auto_ml() |>  
