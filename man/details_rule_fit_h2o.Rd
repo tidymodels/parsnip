@@ -5,7 +5,7 @@
 \title{RuleFit models via h2o}
 \description{
 \code{\link[h2o:h2o.rulefit]{h2o::h2o.rulefit()}} fits a model that derives simple feature rules from a tree
-ensemble and uses the rules as features to a regularized (LASSO) model. \code{\link[agua:h2o_train_rule]{agua::h2o_train_rule()}}
+ensemble and uses the rules as features to a regularized (LASSO) model. \code{\link[agua:h2o_train]{agua::h2o_train_rule()}}
 is a wrapper around this function.
 }
 \details{
@@ -38,7 +38,7 @@ of: “rules_and_linear”, “rules”, “linear”, defaults to
 
 \subsection{Translation from parsnip to the underlying model call (regression)}{
 
-\code{\link[agua:h2o_train_rule]{agua::h2o_train_rule()}} is a wrapper around
+\code{\link[agua:h2o_train]{agua::h2o_train_rule()}} is a wrapper around
 \code{\link[h2o:h2o.rulefit]{h2o::h2o.rulefit()}}.
 
 The \strong{agua} extension package is required to fit this model.
@@ -73,7 +73,7 @@ rule_fit(
 
 \subsection{Translation from parsnip to the underlying model call (classification)}{
 
-\code{\link[agua:h2o_train_rule]{agua::h2o_train_rule()}} for \code{rule_fit()} is a
+\code{\link[agua:h2o_train]{agua::h2o_train_rule()}} for \code{rule_fit()} is a
 wrapper around \code{\link[h2o:h2o.rulefit]{h2o::h2o.rulefit()}}.
 
 The \strong{agua} extension package is required to fit this model.

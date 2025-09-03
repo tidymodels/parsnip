@@ -28,7 +28,7 @@ regression.
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-\code{\link[agua:h2o_train_rf]{agua::h2o_train_rf()}} is a wrapper around
+\code{\link[agua:h2o_train]{agua::h2o_train_rf()}} is a wrapper around
 \code{\link[h2o:h2o.randomForest]{h2o::h2o.randomForest()}}.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{rand_forest(

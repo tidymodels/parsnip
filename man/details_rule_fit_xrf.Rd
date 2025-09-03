@@ -5,7 +5,7 @@
 \title{RuleFit models via xrf}
 \description{
 \code{\link[xrf:xrf]{xrf::xrf()}} fits a model that derives simple feature rules from a tree
-ensemble and uses the rules as features to a regularized model. \code{\link[rules:xrf_fit]{rules::xrf_fit()}}
+ensemble and uses the rules as features to a regularized model. \code{\link[rules:rules-internal]{rules::xrf_fit()}}
 is a wrapper around this function.
 }
 \details{
