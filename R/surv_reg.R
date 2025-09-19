@@ -27,7 +27,6 @@
 #' @keywords internal
 #' @export
 surv_reg <- function(mode = "regression", engine = "survival", dist = NULL) {
-
   lifecycle::deprecate_stop("1.4.0", "surv_reg()", "survival_reg()")
 
     args <- list(
