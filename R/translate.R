@@ -30,13 +30,13 @@
 #' @examplesIf !parsnip:::is_cran_check()
 #' lm_spec <- linear_reg(penalty = 0.01)
 #'
-#' # `penalty` is tranlsated to `lambda`
+#' # `penalty` is translated to `lambda`
 #' translate(lm_spec, engine = "glmnet")
 #'
 #' # `penalty` not applicable for this model.
 #' translate(lm_spec, engine = "lm")
 #'
-#' # `penalty` is tranlsated to `reg_param`
+#' # `penalty` is translated to `reg_param`
 #' translate(lm_spec, engine = "spark")
 #'
 #' # with a placeholder for an unknown argument value:
