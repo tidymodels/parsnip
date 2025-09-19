@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* `surv_reg()` is now defunct and will error if called. Please use `survival_reg()` instead (#1206).
+
 # parsnip 1.3.3
 
 * Bug fix in how tunable parameters were configured for brulee neural networks. 
