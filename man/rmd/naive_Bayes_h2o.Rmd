@@ -54,6 +54,17 @@ naive_Bayes(Laplace = numeric(0)) |>
   translate()
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("naive_Bayes_predict") |>
+  dplyr::filter(engine == "h2o") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Initializing h2o 
 
 ```{r}

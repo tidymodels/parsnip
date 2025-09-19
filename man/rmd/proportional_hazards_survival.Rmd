@@ -61,6 +61,17 @@ Note that columns used in the `strata()` function will not be estimated in the r
 #| child: template-uses-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("proportional_hazards_predict") |>
+  dplyr::filter(engine == "survival") |>
+  dplyr::select(mode, type)
+
+```
+
 ## References
 
 - Andersen P, Gill R. 1982. Cox's regression model for counting processes, a large sample study. _Annals of Statistics_ 10, 1100-1120.

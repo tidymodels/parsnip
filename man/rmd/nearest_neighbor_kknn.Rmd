@@ -82,6 +82,16 @@ The "Fitting and Predicting with parsnip" article contains [examples](https://pa
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("nearest_neighbor_predict") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Saving fitted model objects
 
 ```{r}

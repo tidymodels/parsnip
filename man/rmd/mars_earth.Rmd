@@ -68,6 +68,16 @@ An alternate method for using MARs for categorical outcomes can be found in [dis
 
 Note that the `earth` package documentation has: "In the current implementation, _building models with weights can be slow_."
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("mars_predict") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Saving fitted model objects
 
 ```{r}

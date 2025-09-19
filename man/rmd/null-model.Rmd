@@ -21,3 +21,12 @@ null_model() |>
   translate()
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("null_model_predict") |>
+  dplyr::select(mode, type)
+
+```

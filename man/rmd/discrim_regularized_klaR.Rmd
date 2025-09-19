@@ -67,6 +67,16 @@ discrim_regularized(frac_identity = numeric(0), frac_common_cov = numeric(0)) |>
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("discrim_regularized_predict") |>
+  dplyr::select(mode, type)
+
+```
+
 ## References
 
  - Friedman, J (1989). Regularized Discriminant Analysis. _Journal of the American Statistical Association_, 84, 165-175.

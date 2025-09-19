@@ -118,6 +118,17 @@ These differences will create a disparity in the values of the `penalty` argumen
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("rule_fit_predict") |>
+  dplyr::filter(engine == "xrf") |>
+  dplyr::select(mode, type)
+
+```
+
 ## References
 
  - Friedman and Popescu. "Predictive learning via rule ensembles." Ann. Appl. Stat. 2 (3) 916- 954, September 2008

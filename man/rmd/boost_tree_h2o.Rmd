@@ -82,6 +82,17 @@ Non-numeric predictors (i.e., factors) are internally converted to numeric. In t
 #| child: template-mtry-prop.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(stringr::(str_starts(engine, "h2o"))) |>
+  dplyr::select(mode, type)
+
+```
+
 ## Initializing h2o 
 
 ```{r}

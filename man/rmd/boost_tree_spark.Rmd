@@ -73,6 +73,17 @@ boost_tree(
 
 Note that, for spark engines, the `case_weight` argument value should be a character string to specify the column with the numeric case weights. 
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(engine == "spark") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Other details
 
 ```{r}

@@ -78,6 +78,16 @@ bag_mlp(penalty = double(1), hidden_units = integer(1)) |>
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("bag_mlp_predict") |>
+  dplyr::select(mode, type)
+
+```
+
 
 ## References
 
