@@ -15,8 +15,18 @@ to use for fitting. Possible engines are listed below. The default for this
 model is \code{"parsnip"}.}
 }
 \description{
+Fit a single mean or largest class model. \code{null_model()} is the user-facing
+function that relies on the underlying computational function, \code{nullmodel()}.
+}
+\details{
 \code{null_model()} defines a simple, non-informative model. It doesn't have any
 main arguments. This function can fit classification and regression models.
+
+\code{null_model()} emulates other model building functions, but returns the
+simplest model possible given a training set: a single mean for numeric
+outcomes and the most prevalent class for factor outcomes. When class
+probabilities are requested, the percentage of the training set samples with
+the most prevalent class is returned.
 }
 \section{Engine Details}{
 Engines may have pre-set default arguments when executing the model fit
