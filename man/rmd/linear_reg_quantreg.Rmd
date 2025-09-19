@@ -66,6 +66,17 @@ as.matrix(qr_pred$.pred_quantile)
 #| child: template-makes-dummies.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("linear_reg_predict") |>
+  dplyr::filter(engine == "quantreg") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Case weights
 
 ```{r}

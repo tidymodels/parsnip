@@ -75,6 +75,17 @@ For classification, non-numeric outcomes (i.e., factors) are internally converte
 #| child: template-uses-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(engine == "xgboost") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Sparse Data
 
 ```{r}

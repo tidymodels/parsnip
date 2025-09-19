@@ -52,6 +52,17 @@ logistic_reg(penalty = double(1), mixture = double(1)) |>
 #| child: template-same-scale.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("logistic_reg_predict") |>
+  dplyr::filter(engine == "LiblineaR") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Sparse Data
 
 ```{r}

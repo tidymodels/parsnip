@@ -78,6 +78,17 @@ Note that the `LiblineaR` engine does not produce class probabilities. When opti
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("svm_linear_predict") |>
+  dplyr::filter(engine == "LiblineaR") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Sparse Data
 
 ```{r}

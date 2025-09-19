@@ -99,6 +99,16 @@ To learn more about the differences between these formulas, see [`?model_formula
 #| child: template-uses-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("gen_additive_mod_predict") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Saving fitted model objects
 
 ```{r}

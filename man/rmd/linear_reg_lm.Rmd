@@ -34,6 +34,17 @@ _However_, the documentation in [stats::lm()] assumes that is specific type of c
 
 Depending on your application, the degrees of freedom for the model (and other statistics) might be incorrect. 
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("linear_reg_predict") |>
+  dplyr::filter(engine == "lm") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Saving fitted model objects
 
 ```{r}

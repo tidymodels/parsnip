@@ -82,6 +82,17 @@ decision_tree(
 #| child: template-uses-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("decision_tree_predict") |>
+  dplyr::filter(engine == "rpart") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Other details
 
 ```{r}

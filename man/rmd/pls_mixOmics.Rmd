@@ -101,6 +101,16 @@ This package is available via the Bioconductor repository and is not accessible 
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("pls") |>
+  dplyr::select(mode, type)
+
+```
+
 ## References
 
  - Rohart F and Gautier B and Singh A and Le Cao K-A  (2017). "mixOmics: An R package for 'omics feature selection and multiple data integration." PLoS computational biology, 13(11), e1005752.

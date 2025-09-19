@@ -54,6 +54,16 @@ cubist_rules(
 #| child: template-tree-split-factors.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("cubist_rules_predict") |>
+  dplyr::select(mode, type)
+
+```
+
 ## References
 
  - Quinlan R (1992). "Learning with Continuous Classes." Proceedings of the 5th Australian Joint Conference On Artificial Intelligence, pp. 343-348.

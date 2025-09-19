@@ -89,6 +89,17 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 #| child: template-uses-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("bag_mars_predict") |>
+  dplyr::filter(engine == "rpart") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Other details
 
 ```{r}
