@@ -23,7 +23,8 @@
 #'
 #'  * `mixture = 1` specifies a pure lasso model,
 #'  * `mixture = 0`  specifies a ridge regression model, and
-#'  * `0 < mixture < 1` specifies an elastic net model, interpolating lasso and ridge.
+#'  * `0 < mixture < 1` specifies an elastic net model,
+#'    interpolating lasso and ridge.
 #'
 #'  Available for specific engines only.
 #'
@@ -123,9 +124,11 @@ check_args.ordinal_reg <- function(object, call = rlang::caller_env()) {
 
 #' @export
 translate.ordinal_reg <- function(x, engine = x$engine, ...) {
+  dots <- list(...)
+
   x <- translate.default(x, engine, ...)
 
-  # adapted from `translate.linear_reg`
+  # adapted from `.check_glmnet_penalty_fit()`
   if (engine == "ordinalNet") {
     pen <- rlang::eval_tidy(x$args$penalty)
     if (length(pen) != 1) {
@@ -135,14 +138,44 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
         (or a value of {.fn tune}).",
           "!" = "There are {length(pen)} value{?s} for {.arg penalty}.",
           "i" = "To try multiple values for total regularization, use the
-        {.pkg tune} package."#,
-          # "i" = "To predict multiple penalties, use {.fn multi_predict}."
+        {.pkg tune} package.",
+          "i" = "To predict multiple penalties, use {.fn multi_predict}."
         ),
         call = rlang::caller_env()
       )
     }
 
-    # x <- set_glmnet_penalty_path(x)
+    # adapted from `set_glmnet_penalty_path()`
+    if (any(names(x$eng_args) == "path_values")) {
+      x$method$fit$args$lambdaVals <- x$eng_args$path_values
+      x$eng_args$path_values <- NULL
+      x$method$fit$args$path_values <- NULL
+    } else {
+    # } else if (! rlang::is_call(x$method$fit$args$lambdaVals)) {
+      # REVIEW: `ordinalNet` models won't use values of `lambdaVals` at
+      # predict-time outside the range used at fit-time. To enable a prediction
+      # using a practical range of penalties _including the `penalty` value used
+      # to fit_ (assuming a path wasn't specified), the code below passes values
+      # to `ordinalNet()` arguments that ensure an extensive path that includes
+      # the value passed to `penalty` (stored in `lambdaVals`). The alternative,
+      # which i find equally reasonable, is to do nothing and disallow
+      # predictions using any but the specified `penalty` parameter. Local
+      # experiments suggest that, in contrast to `glmnet`, obtaining estimates
+      # for the whole path can be much more expensive than for a single value.
+      # The internal path calculation yields a maximum penalty that zeroes out
+      # all penalized coefficients, so by including 0 we ensure that all values
+      # can be interpolated.
+      x$method$fit$args$nLambda <- 120L
+      # x$method$fit$args$lambdaMinRatio <- x$method$fit$args$lambdaVals[1L]
+      x$method$fit$args$lambdaMinRatio <-
+        if (x$method$fit$args$lambdaVals[1L] == 0) {
+          rlang::eval_tidy(.00001)
+        } else {
+          rlang::eval_tidy(x$method$fit$args$lambdaVals)
+        }
+      x$method$fit$args$includeLambda0 <- TRUE
+      x$method$fit$args$lambdaVals <- NULL
+    }
 
     # Since the `fit` information is gone for the penalty, we need to have an
     # evaluated value for the parameter.
@@ -156,7 +189,6 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
 
     # # translate odds link options
     # if (! is.null(x$method$fit$args$family)) {
-    #   save(x, file = "~/Downloads/ordinalNet.rda")
     #   fam <- quo_get_expr(x$method$fit$args$family)
     #   fam <- match.arg(fam, c(
     #     "cumulative_logits",

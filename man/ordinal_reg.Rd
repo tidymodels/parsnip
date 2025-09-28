@@ -29,7 +29,8 @@ proportion of L1 regularization (i.e. lasso) in the model.
 \itemize{
 \item \code{mixture = 1} specifies a pure lasso model,
 \item \code{mixture = 0}  specifies a ridge regression model, and
-\item \verb{0 < mixture < 1} specifies an elastic net model, interpolating lasso and ridge.
+\item \verb{0 < mixture < 1} specifies an elastic net model,
+interpolating lasso and ridge.
 }
 
 Available for specific engines only.}
