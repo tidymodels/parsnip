@@ -114,8 +114,10 @@ check_args.ordinal_reg <- function(object, call = rlang::caller_env()) {
   args <- lapply(object$args, rlang::eval_tidy)
 
   # copied from `check_args.linear_reg`
-  check_number_decimal(args$mixture, min = 0, max = 1, allow_null = TRUE, call = call, arg = "mixture")
-  check_number_decimal(args$penalty, min = 0, allow_null = TRUE, call = call, arg = "penalty")
+  check_number_decimal(args$mixture, min = 0, max = 1,
+                       allow_null = TRUE, call = call, arg = "mixture")
+  check_number_decimal(args$penalty, min = 0,
+                       allow_null = TRUE, call = call, arg = "penalty")
 
   invisible(object)
 }
@@ -134,11 +136,11 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
     if (length(pen) != 1) {
       cli::cli_abort(
         c(
-          "x" = "For the ordinalNet engine, {.arg penalty} must be a single number
-        (or a value of {.fn tune}).",
+          "x" = "For the ordinalNet engine, {.arg penalty} must be
+          a single number (or a value of {.fn tune}).",
           "!" = "There are {length(pen)} value{?s} for {.arg penalty}.",
-          "i" = "To try multiple values for total regularization, use the
-        {.pkg tune} package.",
+          "i" = "To try multiple values for total regularization,
+          use the {.pkg tune} package.",
           "i" = "To predict multiple penalties, use {.fn multi_predict}."
         ),
         call = rlang::caller_env()
@@ -166,17 +168,16 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
       # all penalized coefficients, so by including 0 we ensure that all values
       # can be interpolated.
       x$method$fit$args$nLambda <- 120L
-      # x$method$fit$args$lambdaMinRatio <- x$method$fit$args$lambdaVals[1L]
-      x$method$fit$args$lambdaMinRatio <-
-        if (x$method$fit$args$lambdaVals[1L] == 0) {
-          rlang::eval_tidy(.00001)
-        } else {
-          rlang::eval_tidy(x$method$fit$args$lambdaVals)
-        }
+      min_lambda <- if (rlang::is_call(x$method$fit$args$lambdaVals) ||
+                        0 %in% x$method$fit$args$lambdaVals) {
+        1e-08
+      } else {
+        min(x$method$fit$args$lambdaVals)
+      }
+      x$method$fit$args$lambdaMinRatio <- min_lambda
       x$method$fit$args$includeLambda0 <- TRUE
       x$method$fit$args$lambdaVals <- NULL
     }
-
     # Since the `fit` information is gone for the penalty, we need to have an
     # evaluated value for the parameter.
     x$args$penalty <- rlang::eval_tidy(x$args$penalty)
