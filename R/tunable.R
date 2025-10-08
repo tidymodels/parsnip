@@ -514,11 +514,11 @@ tunable.survival_reg <- function(x, ...) {
 #' @export
 tunable.ordinal_reg <- function(x, ...) {
   res <- NextMethod()
-  # TODO: Check that this is necessary.
+  # REVIEW: Check that this is necessary.
   if (x$engine == "polr") {
     res <- add_engine_parameters(res, polr_engine_args)
   }
-  # TODO: Check that this is necessary.
+  # REVIEW: Check that this is necessary.
   if (x$engine == "ordinalNet") {
     res <- add_engine_parameters(res, ordinalNet_engine_args)
   }
