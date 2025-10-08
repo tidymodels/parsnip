@@ -91,6 +91,21 @@ c5_tree_engine_args <-
     component_id = "engine"
   )
 
+rpartScore_engine_args <-
+  tibble::tibble(
+    name = c(
+      "split",
+      "prune"
+    ),
+    call_info = list(
+      list(pkg = "ordered", fun = "split_func"),
+      list(pkg = "ordered", fun = "prune_func")
+    ),
+    source = "model_spec",
+    component = "decision_tree",
+    component_id = "engine"
+  )
+
 c5_boost_engine_args <- c5_tree_engine_args
 c5_boost_engine_args$component <- "boost_tree"
 
@@ -183,6 +198,29 @@ aorsf_engine_args <-
     ),
     call_info = list(
       list(pkg = "dials", fun = "conditional_min_criterion")
+    ),
+    source = "model_spec",
+    component = "rand_forest",
+    component_id = "engine"
+  )
+
+ordinalForest_engine_args <-
+  tibble::tibble(
+    name = c(
+      "naive",
+      "nsets",
+      "npermtrial",
+      "ntreeperdiv",
+      "nbest",
+      "perffunction"
+    ),
+    call_info = list(
+      list(pkg = "ordered", fun = "naive_scores"),
+      list(pkg = "ordered", fun = "num_scores"),
+      list(pkg = "ordered", fun = "num_score_perms"),
+      list(pkg = "ordered", fun = "num_score_trees"),
+      list(pkg = "ordered", fun = "num_scores_best"),
+      list(pkg = "ordered", fun = "ord_metric")
     ),
     source = "model_spec",
     component = "rand_forest",
@@ -428,6 +466,8 @@ tunable.decision_tree <- function(x, ...) {
         partykit_engine_args |>
           dplyr::mutate(component = "decision_tree")
       )
+  } else if (x$engine == "rpartScore") {
+    res <- add_engine_parameters(res, rpartScore_engine_args)
   }
   res
 }

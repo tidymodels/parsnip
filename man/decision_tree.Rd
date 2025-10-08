@@ -9,9 +9,7 @@ decision_tree(
   engine = "rpart",
   cost_complexity = NULL,
   tree_depth = NULL,
-  min_n = NULL,
-  split_func = NULL,
-  prune_func = NULL
+  min_n = NULL
 )
 }
 \arguments{
@@ -29,13 +27,6 @@ parameter (a.k.a. \code{Cp}) used by CART models (specific engines only).}
 
 \item{min_n}{An integer for the minimum number of data points
 in a node that are required for the node to be split further.}
-
-\item{split_func}{The splitting function, one of \code{"abs"} (absolute) or
-\code{"quad"} (quadratic); see \code{?rpartScore::rpartScore()}.}
-
-\item{prune_func}{The pruning measure, one of \code{"mr"} (total misclassification
-rate) or \code{"mc"} (total misclassification cost); see
-\code{?rpartScore::rpartScore()}.}
 }
 \description{
 \code{decision_tree()} defines a model as a set of \verb{if/then} statements that

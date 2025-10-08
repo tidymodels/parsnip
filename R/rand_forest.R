@@ -18,10 +18,6 @@
 #' @param trees An integer for the number of trees contained in the ensemble.
 #' @param min_n An integer for the minimum number of data points in a node that
 #'   are required for the node to be split further.
-#' @param
-#' naive_scores,num_scores,num_score_trees,num_score_perms,num_scores_best,ord_metric
-#' Arguments specific to [ordinalForest::ordfor()]; respectively passed to
-#' `naive`, `nsets`, `ntreeperdiv`, `npermtrial`, `nbest`, and `perffunction`.
 #'
 #' @templateVar modeltype rand_forest
 #' @template spec-details
@@ -38,20 +34,12 @@
 
 rand_forest <-
   function(mode = "unknown", engine = "ranger",
-           mtry = NULL, trees = NULL, min_n = NULL,
-           naive_scores = NULL, num_scores = NULL, num_score_trees = NULL,
-           num_score_perms = NULL, num_scores_best = NULL, ord_metric = NULL) {
+           mtry = NULL, trees = NULL, min_n = NULL) {
 
     args <- list(
       mtry   = enquo(mtry),
       trees  = enquo(trees),
-      min_n  = enquo(min_n),
-      naive_scores    = enquo(naive_scores),
-      num_scores      = enquo(num_scores),
-      num_score_trees = enquo(num_score_trees),
-      num_score_perms = enquo(num_score_perms),
-      num_scores_best = enquo(num_scores_best),
-      ord_metric      = enquo(ord_metric)
+      min_n  = enquo(min_n)
     )
 
     new_model_spec(
@@ -75,20 +63,12 @@ update.rand_forest <-
   function(object,
            parameters = NULL,
            mtry = NULL, trees = NULL, min_n = NULL,
-           naive_scores = NULL, num_scores = NULL, num_score_trees = NULL,
-           num_score_perms = NULL, num_scores_best = NULL, ord_metric = NULL,
            fresh = FALSE, ...) {
 
     args <- list(
       mtry   = enquo(mtry),
       trees  = enquo(trees),
-      min_n  = enquo(min_n),
-      naive_scores    = enquo(naive_scores),
-      num_scores      = enquo(num_scores),
-      num_score_trees = enquo(num_score_trees),
-      num_score_perms = enquo(num_score_perms),
-      num_scores_best = enquo(num_scores_best),
-      ord_metric      = enquo(ord_metric)
+      min_n  = enquo(min_n)
     )
 
     update_spec(
@@ -112,7 +92,7 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
 
   x <- translate.default(x, engine, ...)
 
-  ## -----------------------------------------------------------------------------
+  ## ---------------------------------------------------------------------------
 
   # slightly cleaner code using
   arg_vals <- x$method$fit$args
@@ -155,7 +135,7 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
     }
   }
 
-  ## -----------------------------------------------------------------------------
+  ## ---------------------------------------------------------------------------
   # Protect some arguments based on data dimensions
 
   if (any(names(arg_vals) == "mtry") & engine != "partykit") {
@@ -176,7 +156,7 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
       rlang::call2("min_rows", arg_vals$min_instances_per_node, expr(x))
   }
 
-  ## -----------------------------------------------------------------------------
+  ## ---------------------------------------------------------------------------
 
   x$method$fit$args <- arg_vals
 

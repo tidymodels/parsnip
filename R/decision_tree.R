@@ -18,11 +18,6 @@
 #' @param tree_depth An integer for maximum depth of the tree.
 #' @param min_n An integer for the minimum number of data points
 #'  in a node that are required for the node to be split further.
-#' @param split_func The splitting function, one of `"abs"` (absolute) or
-#'   `"quad"` (quadratic); see `?rpartScore::rpartScore()`.
-#' @param prune_func The pruning measure, one of `"mr"` (total misclassification
-#'   rate) or `"mc"` (total misclassification cost); see
-#'   `?rpartScore::rpartScore()`.
 #'
 #' @templateVar modeltype decision_tree
 #' @template spec-details
@@ -39,15 +34,12 @@
 
 decision_tree <-
   function(mode = "unknown", engine = "rpart", cost_complexity = NULL,
-           tree_depth = NULL, min_n = NULL,
-           split_func = NULL, prune_func = NULL) {
+           tree_depth = NULL, min_n = NULL) {
 
     args <- list(
       cost_complexity   = enquo(cost_complexity),
       tree_depth  = enquo(tree_depth),
-      min_n  = enquo(min_n),
-      split_func = enquo(split_func),
-      prune_func = enquo(prune_func)
+      min_n  = enquo(min_n)
     )
 
     new_model_spec(
@@ -71,15 +63,12 @@ update.decision_tree <-
   function(object,
            parameters = NULL,
            cost_complexity = NULL, tree_depth = NULL, min_n = NULL,
-           split_func = NULL, prune_func = NULL,
            fresh = FALSE, ...) {
 
     args <- list(
       cost_complexity   = enquo(cost_complexity),
       tree_depth  = enquo(tree_depth),
-      min_n  = enquo(min_n),
-      split_func = enquo(split_func),
-      prune_func = enquo(prune_func)
+      min_n  = enquo(min_n)
     )
 
     update_spec(

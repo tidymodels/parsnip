@@ -9,13 +9,7 @@ rand_forest(
   engine = "ranger",
   mtry = NULL,
   trees = NULL,
-  min_n = NULL,
-  naive_scores = NULL,
-  num_scores = NULL,
-  num_score_trees = NULL,
-  num_score_perms = NULL,
-  num_scores_best = NULL,
-  ord_metric = NULL
+  min_n = NULL
 )
 }
 \arguments{
@@ -33,9 +27,6 @@ sampled at each split when creating the tree models.}
 
 \item{min_n}{An integer for the minimum number of data points in a node that
 are required for the node to be split further.}
-
-\item{naive_scores, num_scores, num_score_trees, num_score_perms, num_scores_best, ord_metric}{Arguments specific to \code{\link[ordinalForest:ordfor]{ordinalForest::ordfor()}}; respectively passed to
-\code{naive}, \code{nsets}, \code{ntreeperdiv}, \code{npermtrial}, \code{nbest}, and \code{perffunction}.}
 }
 \description{
 \code{rand_forest()} defines a model that creates a large number of decision
