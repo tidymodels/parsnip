@@ -441,6 +441,8 @@ tunable.rand_forest <- function(x, ...) {
     res <- add_engine_parameters(res, partykit_engine_args)
   } else if (x$engine == "aorsf") {
     res <- add_engine_parameters(res, aorsf_engine_args)
+  } else if (x$engine == "ordinalForest") {
+    res <- add_engine_parameters(res, ordinalForest_engine_args)
   }
   res
 }
