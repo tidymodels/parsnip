@@ -454,6 +454,10 @@ to weight distances between samples. Valid choices are: \code{"rectangular"},
 \item{dist_power}{A single number for the parameter used in
 calculating Minkowski distance.}
 
+\item{ordinal_link}{The ordinal link function.}
+
+\item{odds_link}{The odds or probability link function.}
+
 \item{predictor_prop}{The maximum proportion of original predictors that can
 have \emph{non-zero} coefficients for each PLS component (via regularization).
 This value is used for all PLS components for X.}

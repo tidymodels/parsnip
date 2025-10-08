@@ -12,6 +12,7 @@
 #' @inheritParams mlp
 #' @inheritParams multinom_reg
 #' @inheritParams nearest_neighbor
+#' @inheritParams ordinal_reg
 #' @inheritParams proportional_hazards
 #' @inheritParams rand_forest
 #' @inheritParams surv_reg
