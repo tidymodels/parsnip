@@ -192,14 +192,14 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
     # if (! is.null(x$method$fit$args$family)) {
     #   fam <- quo_get_expr(x$method$fit$args$family)
     #   fam <- match.arg(fam, c(
-    #     "cumulative_logits",
+    #     "cumulative_link",
     #     "adjacent_categories",
     #     "continuation_ratio",
     #     "stopping_ratio"
     #   ))
     #   fam <- switch(
     #     fam,
-    #     cumulative_logits = "cumulative",
+    #     cumulative_link = "cumulative",
     #     adjacent_categories = "acat",
     #     continuation_ratio = "cratio",
     #     stopping_ratio = "sratio"
