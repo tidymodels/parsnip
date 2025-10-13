@@ -130,6 +130,21 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
 
   x <- translate.default(x, engine, ...)
 
+  # REVIEW: What's the preferred way to flag when a legitimate model parameter
+  # is passed a value that the engine doesn't accept?
+  if (engine == "polr") {
+    oddslink <- rlang::eval_tidy(x$args$odds_link)
+    if (! is.null(oddslink) && oddslink != "cumulative_logits") {
+      cli::cli_warn(
+        c(
+          "!" = "The polr engine uses the cumulative logits odds link;
+          {.arg odds_link} will be ignored."
+        ),
+        call = rlang::caller_env()
+      )
+    }
+  }
+
   # adapted from `.check_glmnet_penalty_fit()`
   if (engine == "ordinalNet") {
     pen <- rlang::eval_tidy(x$args$penalty)
