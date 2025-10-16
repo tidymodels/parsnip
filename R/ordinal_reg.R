@@ -190,12 +190,14 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
       # all penalized coefficients, so by including 0 we ensure that all values
       # can be interpolated.
       x$method$fit$args$nLambda <- 120L
-      min_lambda <- if (rlang::is_call(x$method$fit$args$lambdaVals) ||
-                        0 %in% x$method$fit$args$lambdaVals) {
-        1e-08
-      } else {
-        min(x$method$fit$args$lambdaVals)
-      }
+      min_lambda <-
+        if (rlang::is_call(x$method$fit$args$lambdaVals) ||
+            is.null(x$method$fit$args$lambdaVals) ||
+            0 %in% x$method$fit$args$lambdaVals) {
+          1e-08
+        } else {
+          min(x$method$fit$args$lambdaVals)
+        }
       x$method$fit$args$lambdaMinRatio <- min_lambda
       x$method$fit$args$includeLambda0 <- TRUE
       x$method$fit$args$lambdaVals <- NULL
