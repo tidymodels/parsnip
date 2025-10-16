@@ -198,10 +198,10 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
     x$args$penalty <- rlang::eval_tidy(x$args$penalty)
 
     # REVIEW: Below is an alternative solution to
-    # `ordered::ordinal_net_score_wrapper`. It works in my examples. It seems
+    # `ordered::ordinalNet_wrapper()`. It works in my examples. It seems
     # disfavored because it lives in {parsnip} rather than in {ordered}, but
-    # there may be other considerations that make it preferable (or there may
-    # be a better way than either.)
+    # there may be other considerations that make it preferable (or there may be
+    # a better way than either.)
 
     # # translate odds link options
     # if (! is.null(x$method$fit$args$family)) {

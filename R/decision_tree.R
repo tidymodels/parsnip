@@ -120,6 +120,13 @@ translate.decision_tree <- function(x, engine = x$engine, ...) {
 
   x$method$fit$args <- arg_vals
 
+  # REVIEW: It should work to convert the ordinal response variable to integer
+  # here rather than using `ordered::rpartScore_wrapper()`. Is this preferable?
+  # As with `translate.ordinal_reg()`, the trade off as i see it is between
+  # making `translate()` work as intuited and reducing reliance on wrappers
+  # versus keeping the engine-specific tools in the extension rather than in
+  # parsnip.
+
   x
 }
 
