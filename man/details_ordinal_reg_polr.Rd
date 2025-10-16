@@ -2,7 +2,7 @@
 % Please edit documentation in R/ordinal_reg_polr.R
 \name{details_ordinal_reg_polr}
 \alias{details_ordinal_reg_polr}
-\title{Ordinal regression}
+\title{Ordinal regression via polr}
 \description{
 \code{\link[MASS:polr]{MASS::polr()}} fits a cumulative-link ordinal regression model.
 }
