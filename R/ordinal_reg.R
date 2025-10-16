@@ -134,10 +134,10 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
   # is passed a value that the engine doesn't accept?
   if (engine == "polr") {
     oddslink <- rlang::eval_tidy(x$args$odds_link)
-    if (! is.null(oddslink) && oddslink != "cumulative_logits") {
+    if (! is.null(oddslink) && oddslink != "cumulative_link") {
       cli::cli_warn(
         c(
-          "!" = "The polr engine uses the cumulative logits odds link;
+          "!" = "The polr engine uses the cumulative link odds link;
           {.arg odds_link} will be ignored."
         ),
         call = rlang::caller_env()
@@ -147,19 +147,26 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
 
   # adapted from `.check_glmnet_penalty_fit()`
   if (engine == "ordinalNet") {
+
     pen <- rlang::eval_tidy(x$args$penalty)
-    if (length(pen) != 1) {
-      cli::cli_abort(
-        c(
-          "x" = "For the ordinalNet engine, {.arg penalty} must be
-          a single number (or a value of {.fn tune}).",
-          "!" = "There are {length(pen)} value{?s} for {.arg penalty}.",
-          "i" = "To try multiple values for total regularization,
-          use the {.pkg tune} package.",
-          "i" = "To predict multiple penalties, use {.fn multi_predict}."
-        ),
-        call = rlang::caller_env()
+    if (length(pen) >= 1L) {
+      msg <- c(
+        "x" = "The ordinalNet engine ignores {.arg penalty} in favor of a
+          path that enables prediction at interpolated penalty values.",
+        "!" = "{.arg penalty} was passed {length(pen)} value{?s}.",
+        "i" = "Use `path_values` to override the default path."
       )
+      if (length(pen) > 1L) {
+        msg <- c(
+          msg,
+          c(
+            "i" = "To specify multiple values for total regularization,
+              use the {.pkg tune} package.",
+            "i" = "To predict multiple penalties, use {.fn multi_predict}."
+          )
+        )
+      }
+      cli::cli_warn(msg, call = rlang::caller_env())
     }
 
     # adapted from `set_glmnet_penalty_path()`
