@@ -56,6 +56,7 @@ reference:
       - naive_Bayes
       - nearest_neighbor
       - null_model
+      - ordinal_reg
       - pls
       - poisson_reg
       - proportional_hazards
