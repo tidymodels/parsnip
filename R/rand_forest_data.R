@@ -157,6 +157,10 @@ grf_conf_int <- function(
   res
 }
 
+qrf_quantile_convert <- function(x, object) {
+  matrix_to_quantile_pred(x$predictions, object)
+}
+
 # ------------------------------------------------------------------------------
 
 set_new_model("rand_forest")
@@ -846,6 +850,51 @@ set_pred(
     args = list(
       object = quote(object),
       new_data = quote(new_data)
+    )
+  )
+)
+
+set_fit(
+  model = "rand_forest",
+  eng = "grf",
+  mode = "quantile regression",
+  value = list(
+    interface = "data.frame",
+    data = c(x = "X", y = "Y", weights = "case.weights"),
+    protect = c("x", "y", "weights"),
+    func = c(pkg = "grf", fun = "quantile_forest"),
+    defaults = list(
+      num.threads = 1,
+      quantiles = quote(quantile_levels)
+    )
+  )
+)
+
+set_encoding(
+  model = "rand_forest",
+  eng = "grf",
+  mode = "quantile regression",
+  options = list(
+    predictor_indicators = "one_hot",
+    compute_intercept = FALSE,
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_pred(
+  model = "rand_forest",
+  eng = "grf",
+  mode = "quantile regression",
+  type = "quantile",
+  value = list(
+    pre = NULL,
+    post = qrf_quantile_convert,
+    func = c(fun = "predict"),
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data),
+      quantiles = NULL
     )
   )
 )
