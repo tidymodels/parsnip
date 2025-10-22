@@ -28,7 +28,7 @@ the default value of \code{mtry} is \code{min(ceiling(sqrt(p) + 20), p)}.
 \subsection{Translation from parsnip to the original package (regression)}{
 
 See
-\href{\%22https://grf-labs.github.io/grf/reference/regression_forest.html}{\code{?regression_forest}}
+\href{https://grf-labs.github.io/grf/reference/regression_forest.html}{\code{?regression_forest}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{rand_forest(
   mtry = integer(1),
@@ -60,7 +60,7 @@ See
 \subsection{Translation from parsnip to the original package (classification)}{
 
 See
-\href{\%22https://grf-labs.github.io/grf/reference/probability_forest.html}{\code{?probability_forest}}
+\href{https://grf-labs.github.io/grf/reference/probability_forest.html}{\code{?probability_forest}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{rand_forest(
   mtry = integer(1),
@@ -92,7 +92,7 @@ See
 \subsection{Translation from parsnip to the original package (quantile regression)}{
 
 See
-\href{\%22https://grf-labs.github.io/grf/reference/quantile_forest.html}{\code{?quantile_forest}}
+\href{https://grf-labs.github.io/grf/reference/quantile_forest.html}{\code{?quantile_forest}}
 
 When specifying \emph{any} quantile regression model, the user must specify
 the quantile levels \emph{a priori}.

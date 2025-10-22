@@ -19,7 +19,7 @@ This model has 3 tuning parameters:
 
 ## Translation from parsnip to the original package (regression)
 
-See [`?regression_forest`]("https://grf-labs.github.io/grf/reference/regression_forest.html)
+See [`?regression_forest`](https://grf-labs.github.io/grf/reference/regression_forest.html)
 
 
 ``` r
@@ -52,7 +52,7 @@ rand_forest(
 
 ## Translation from parsnip to the original package (classification)
 
-See [`?probability_forest`]("https://grf-labs.github.io/grf/reference/probability_forest.html)
+See [`?probability_forest`](https://grf-labs.github.io/grf/reference/probability_forest.html)
 
 
 ``` r
@@ -85,7 +85,7 @@ rand_forest(
 
 ## Translation from parsnip to the original package (quantile regression)
 
-See [`?quantile_forest`]("https://grf-labs.github.io/grf/reference/quantile_forest.html)
+See [`?quantile_forest`](https://grf-labs.github.io/grf/reference/quantile_forest.html)
 
 When specifying _any_ quantile regression model, the user must specify the quantile levels _a priori_. 
 
