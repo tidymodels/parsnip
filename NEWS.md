@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* Enable generalized random forest (`grf`) models for classification, regression, and quantile regression modes. (#1288)
+
 # parsnip 1.3.3
 
 * Bug fix in how tunable parameters were configured for brulee neural networks. 
