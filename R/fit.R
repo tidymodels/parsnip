@@ -109,12 +109,13 @@
 #' @export
 #' @export fit.model_spec
 fit.model_spec <-
-  function(object,
-           formula,
-           data,
-           case_weights = NULL,
-           control = control_parsnip(),
-           ...
+  function(
+    object,
+    formula,
+    data,
+    case_weights = NULL,
+    control = control_parsnip(),
+    ...
   ) {
     if (object$mode == "unknown") {
       cli::cli_abort(
@@ -135,7 +136,6 @@ fit.model_spec <-
     }
     check_formula(formula)
 
-
     if (is_sparse_matrix(data)) {
       data <- sparsevctrs::coerce_to_sparse_tibble(data, rlang::caller_env(0))
     }
@@ -153,12 +153,14 @@ fit.model_spec <-
       eng_vals <- possible_engines(object)
       object$engine <- eng_vals[1]
       if (control$verbosity > 0) {
-       cli::cli_warn("Engine set to {.val {object$engine}}.")
+        cli::cli_warn("Engine set to {.val {object$engine}}.")
       }
     }
 
     if (all(c("x", "y") %in% names(dots))) {
-      cli::cli_abort("{.fn fit.model_spec} is for the formula methods. Use {.fn fit_xy} instead.")
+      cli::cli_abort(
+        "{.fn fit.model_spec} is for the formula methods. Use {.fn fit_xy} instead."
+      )
     }
     cl <- match.call(expand.dots = TRUE)
     # Create an environment with the evaluated argument objects. This will be
@@ -186,11 +188,12 @@ fit.model_spec <-
     fit_interface <-
       check_interface(eval_env$formula, eval_env$data, cl, object)
 
-    if (object$engine == "spark" && !inherits(eval_env$data, "tbl_spark"))
+    if (object$engine == "spark" && !inherits(eval_env$data, "tbl_spark")) {
       cli::cli_abort(
-          "spark objects can only be used with the formula interface to {.fn fit}
+        "spark objects can only be used with the formula interface to {.fn fit}
            with a spark data object."
-        )
+      )
+    }
 
     # populate `method` with the details for this model type
     object <- add_methods(object, engine = object$engine)
@@ -208,30 +211,27 @@ fit.model_spec <-
       switch(
         interfaces,
         # homogeneous combinations:
-        formula_formula =
-          form_form(
-            object = object,
-            control = control,
-            env = eval_env
-          ),
+        formula_formula = form_form(
+          object = object,
+          control = control,
+          env = eval_env
+        ),
 
         # heterogenous combinations
-        formula_matrix =
-          form_xy(
-            object = object,
-            control = control,
-            env = eval_env,
-            target = object$method$fit$interface,
-            ...
-          ),
-        formula_data.frame =
-          form_xy(
-            object = object,
-            control = control,
-            env = eval_env,
-            target = object$method$fit$interface,
-            ...
-          ),
+        formula_matrix = form_xy(
+          object = object,
+          control = control,
+          env = eval_env,
+          target = object$method$fit$interface,
+          ...
+        ),
+        formula_data.frame = form_xy(
+          object = object,
+          control = control,
+          env = eval_env,
+          target = object$method$fit$interface,
+          ...
+        ),
 
         cli::cli_abort("{.val {interfaces}} is unknown.")
       )
@@ -239,7 +239,7 @@ fit.model_spec <-
     model_classes <- class(res$fit)
     class(res) <- c(paste0("_", model_classes[1]), "model_fit")
     res
-}
+  }
 
 # ------------------------------------------------------------------------------
 
@@ -247,12 +247,13 @@ fit.model_spec <-
 #' @export
 #' @export fit_xy.model_spec
 fit_xy.model_spec <-
-  function(object,
-           x,
-           y,
-           case_weights = NULL,
-           control = control_parsnip(),
-           ...
+  function(
+    object,
+    x,
+    y,
+    case_weights = NULL,
+    control = control_parsnip(),
+    ...
   ) {
     if (object$mode == "unknown") {
       cli::cli_abort(
@@ -329,32 +330,32 @@ fit_xy.model_spec <-
       switch(
         interfaces,
         # homogeneous combinations:
-        matrix_matrix = , data.frame_matrix =
-          xy_xy(
-            object = object,
-            env = eval_env,
-            control = control,
-            target = "matrix",
-            ...
-          ),
+        matrix_matrix = ,
+        data.frame_matrix = xy_xy(
+          object = object,
+          env = eval_env,
+          control = control,
+          target = "matrix",
+          ...
+        ),
 
-        data.frame_data.frame = , matrix_data.frame =
-          xy_xy(
-            object = object,
-            env = eval_env,
-            control = control,
-            target = "data.frame",
-            ...
-          ),
+        data.frame_data.frame = ,
+        matrix_data.frame = xy_xy(
+          object = object,
+          env = eval_env,
+          control = control,
+          target = "data.frame",
+          ...
+        ),
 
         # heterogenous combinations
-        matrix_formula = ,  data.frame_formula =
-          xy_form(
-            object = object,
-            env = eval_env,
-            control = control,
-            ...
-          ),
+        matrix_formula = ,
+        data.frame_formula = xy_form(
+          object = object,
+          env = eval_env,
+          control = control,
+          ...
+        ),
         cli::cli_abort("{.val {interfaces}} is unknown.")
       )
     res$censor_probs <- reverse_km(object, eval_env)
@@ -368,7 +369,9 @@ fit_xy.model_spec <-
 eval_mod <- function(e, capture = FALSE, catch = FALSE, envir = NULL, ...) {
   if (capture) {
     if (catch) {
-      junk <- capture.output(res <- try(eval_tidy(e, env = envir, ...), silent = TRUE))
+      junk <- capture.output(
+        res <- try(eval_tidy(e, env = envir, ...), silent = TRUE)
+      )
     } else {
       junk <- capture.output(res <- eval_tidy(e, env = envir, ...))
     }
@@ -391,13 +394,13 @@ check_interface <- function(formula, data, cl, model, call = caller_env()) {
   # Determine the `fit()` interface
   form_interface <- !is.null(formula) & !is.null(data)
 
-  if (form_interface)
+  if (form_interface) {
     return("formula")
+  }
   cli::cli_abort("Error when checking the interface.", call = call)
 }
 
 check_xy_interface <- function(x, y, cl, model, call = caller_env()) {
-
   sparse_ok <- allow_sparse(model)
   sparse_x <- inherits(x, "dgCMatrix")
   if (!sparse_ok & sparse_x) {
