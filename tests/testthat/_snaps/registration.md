@@ -367,7 +367,7 @@
       
        engines: 
          classification:      grf1, randomForest, ranger1, spark
-         quantile regression: grf1
+         quantile regression: grf
          regression:          grf1, randomForest, ranger1, spark
       
       1The model can use case weights.
