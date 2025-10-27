@@ -727,7 +727,7 @@ set_fit(
   value = list(
     interface = "data.frame",
     data = c(x = "X", y = "Y", weights = "sample.weights"),
-    protect = c("x", "y", "weights"),
+    protect = c("X", "Y", "weights"),
     func = c(pkg = "grf", fun = "probability_forest"),
     defaults = list(
       num.threads = 1
@@ -753,8 +753,8 @@ set_fit(
   mode = "regression",
   value = list(
     interface = "data.frame",
-    data = c(x = "X", y = "Y", weights = "case.weights"),
-    protect = c("x", "y", "weights"),
+    data = c(x = "X", y = "Y", weights = "sample.weights"),
+    protect = c("X", "Y", "weights"),
     func = c(pkg = "grf", fun = "regression_forest"),
     defaults = list(
       num.threads = 1
@@ -860,8 +860,8 @@ set_fit(
   mode = "quantile regression",
   value = list(
     interface = "data.frame",
-    data = c(x = "X", y = "Y", weights = "case.weights"),
-    protect = c("x", "y", "weights"),
+    data = c(x = "X", y = "Y"),
+    protect = c("X", "Y"),
     func = c(pkg = "grf", fun = "quantile_forest"),
     defaults = list(
       num.threads = 1,
