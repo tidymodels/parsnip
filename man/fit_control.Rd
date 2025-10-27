@@ -32,7 +32,7 @@ output and computations
 \code{fit_control()} is deprecated in favor of \code{control_parsnip()}.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 fit_control(verbosity = 2L)
 \dontshow{\}) # examplesIf}
 }

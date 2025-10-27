@@ -44,7 +44,7 @@ rand_forest(
 ## Computational engine: grf 
 ## 
 ## Model fit template:
-## grf::regression_forest(x = missing_arg(), y = missing_arg(), 
+## grf::regression_forest(X = missing_arg(), Y = missing_arg(), 
 ##     weights = missing_arg(), mtry = min_cols(~integer(1), x), 
 ##     num.trees = integer(1), min.node.size = min_rows(~integer(1), 
 ##         x), num.threads = 1)
@@ -77,7 +77,7 @@ rand_forest(
 ## Computational engine: grf 
 ## 
 ## Model fit template:
-## grf::probability_forest(x = missing_arg(), y = missing_arg(), 
+## grf::probability_forest(X = missing_arg(), Y = missing_arg(), 
 ##     weights = missing_arg(), mtry = min_cols(~integer(1), x), 
 ##     num.trees = integer(1), min.node.size = min_rows(~integer(1), 
 ##         x), num.threads = 1)
@@ -112,10 +112,9 @@ rand_forest(
 ## Computational engine: grf 
 ## 
 ## Model fit template:
-## grf::quantile_forest(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
-##     mtry = min_cols(~integer(1), x), num.trees = integer(1), 
-##     min.node.size = min_rows(~integer(1), x), num.threads = 1, 
-##     quantiles = quantile_levels)
+## grf::quantile_forest(X = missing_arg(), Y = missing_arg(), mtry = min_cols(~integer(1), 
+##     x), num.trees = integer(1), min.node.size = min_rows(~integer(1), 
+##     x), num.threads = 1, quantiles = quantile_levels)
 ```
 
 ```
@@ -125,6 +124,8 @@ rand_forest(
 ## Preprocessing requirements
 
 This method _does_ require qualitative predictors to be converted to a numeric format (manually). When using parsnip, a one-hot encoding is automatically used to do this. 
+
+If there are missing values in the predictors, the model will use case-wise deletion to remove them. 
 
 ## Other notes
 

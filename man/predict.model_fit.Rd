@@ -138,7 +138,7 @@ produces. Set \code{increasing = FALSE} to suppress this behavior.
 }
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 library(dplyr)
 
 lm_model <-

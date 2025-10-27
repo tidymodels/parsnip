@@ -56,7 +56,7 @@ class \code{"quantile_pred"} and can be unnested using \code{\link[tidyr:unnest]
 }
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check() & rlang::is_installed("modeldata")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check() & rlang::is_installed("modeldata")) withAutoprint(\{ # examplesIf}
 car_trn <- mtcars[11:32,]
 car_tst <- mtcars[ 1:10,]
 

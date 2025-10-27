@@ -85,6 +85,8 @@ rand_forest(
 
 This method _does_ require qualitative predictors to be converted to a numeric format (manually). When using parsnip, a one-hot encoding is automatically used to do this. 
 
+If there are missing values in the predictors, the model will use case-wise deletion to remove them. 
+
 ## Other notes
 
 By default, parallel processing is turned off. When tuning, it is more efficient to parallelize over the resamples and tuning parameters. To parallelize the construction of the trees within the `grf` model, change the `num.threads` argument via [set_engine()]. 

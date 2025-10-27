@@ -42,7 +42,7 @@ to understand what the underlying syntax would be. It should not be used
 to modify the model specification.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 lm_spec <- linear_reg(penalty = 0.01)
 
 # `penalty` is translated to `lambda`

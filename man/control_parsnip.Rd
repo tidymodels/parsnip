@@ -27,7 +27,7 @@ Pass options to the \code{\link[=fit.model_spec]{fit.model_spec()}} function to 
 output and computations
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 control_parsnip(verbosity = 2L)
 \dontshow{\}) # examplesIf}
 }

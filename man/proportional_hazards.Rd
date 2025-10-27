@@ -65,7 +65,7 @@ survival model be specified via the formula interface.
 Proportional hazards models include the Cox model.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 show_engines("proportional_hazards")
 
 proportional_hazards(mode = "censored regression")
