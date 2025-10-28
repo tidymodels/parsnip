@@ -59,7 +59,6 @@ Suggests:
     modeldata,
     nlme,
     prodlim,
-    quantreg,
     ranger (>= 0.12.0),
     remotes,
     rmarkdown,
