@@ -29,9 +29,13 @@ test_that("arguments (boost_tree)", {
 
   expect_snapshot(translate_args(basic_class |> set_engine("xgboost")))
   expect_snapshot(translate_args(basic_class |> set_engine("C5.0")))
-  expect_snapshot(translate_args(basic_class |> set_engine("C5.0", rules = TRUE)))
+  expect_snapshot(translate_args(
+    basic_class |> set_engine("C5.0", rules = TRUE)
+  ))
 
-  expect_snapshot(translate_args(basic_reg |> set_engine("xgboost", print_every_n = 10L)))
+  expect_snapshot(translate_args(
+    basic_reg |> set_engine("xgboost", print_every_n = 10L)
+  ))
 
   expect_snapshot(translate_args(trees |> set_engine("C5.0")))
   expect_snapshot(translate_args(trees |> set_engine("xgboost")))
@@ -44,14 +48,21 @@ test_that("arguments (boost_tree)", {
 test_that("arguments (decision_tree)", {
   basic_class <- decision_tree(mode = "classification")
   basic_reg <- decision_tree(mode = "regression")
-  cost_complexity <- decision_tree(cost_complexity = 15, mode = "classification")
+  cost_complexity <- decision_tree(
+    cost_complexity = 15,
+    mode = "classification"
+  )
   split_num <- decision_tree(min_n = 15, mode = "classification")
 
   expect_snapshot(translate_args(basic_class |> set_engine("rpart")))
   expect_snapshot(translate_args(basic_class |> set_engine("C5.0")))
-  expect_snapshot(translate_args(basic_class |> set_engine("C5.0", rules = TRUE)))
+  expect_snapshot(translate_args(
+    basic_class |> set_engine("C5.0", rules = TRUE)
+  ))
 
-  expect_snapshot(translate_args(basic_reg |> set_engine("rpart", model = TRUE)))
+  expect_snapshot(translate_args(
+    basic_reg |> set_engine("rpart", model = TRUE)
+  ))
 
   expect_snapshot(translate_args(cost_complexity |> set_engine("rpart")))
 
@@ -65,7 +76,9 @@ test_that("arguments (default)", {
   basic <- null_model(mode = "regression")
 
   expect_snapshot(translate_args(basic |> set_engine("parsnip")))
-  expect_snapshot(translate_args(basic |> set_engine("parsnip", keepxy = FALSE)))
+  expect_snapshot(translate_args(
+    basic |> set_engine("parsnip", keepxy = FALSE)
+  ))
 })
 
 # translate.linear_reg ---------------------------------------------------------
@@ -78,9 +91,13 @@ test_that("arguments (linear_reg)", {
   expect_snapshot(translate_args(basic |> set_engine("lm")))
   expect_snapshot(translate_args(basic |> set_engine("lm", model = FALSE)))
   expect_snapshot(translate_args(basic |> set_engine("glm")))
-  expect_snapshot(translate_args(basic |> set_engine("glm", family = "quasipoisson")))
+  expect_snapshot(translate_args(
+    basic |> set_engine("glm", family = "quasipoisson")
+  ))
   expect_snapshot(translate_args(basic |> set_engine("stan")))
-  expect_snapshot(translate_args(basic |> set_engine("stan", chains = 1, iter = 5)))
+  expect_snapshot(translate_args(
+    basic |> set_engine("stan", chains = 1, iter = 5)
+  ))
   expect_snapshot(translate_args(basic |> set_engine("spark")))
   expect_snapshot(translate_args(basic |> set_engine("spark", max_iter = 20)))
   expect_snapshot(translate_args(basic |> set_engine("glmnet")), error = TRUE)
@@ -91,7 +108,9 @@ test_that("arguments (linear_reg)", {
 
   expect_snapshot(translate_args(penalty |> set_engine("glmnet")))
   expect_snapshot(translate_args(penalty |> set_engine("glmnet", nlambda = 10)))
-  expect_snapshot(translate_args(penalty |> set_engine("glmnet", path_values = 4:2)))
+  expect_snapshot(translate_args(
+    penalty |> set_engine("glmnet", path_values = 4:2)
+  ))
   expect_snapshot(translate_args(penalty |> set_engine("spark")))
 })
 
@@ -111,7 +130,9 @@ test_that("arguments (logistic_reg)", {
   expect_snapshot(translate_args(basic |> set_engine("LiblineaR")))
   expect_snapshot(translate_args(basic |> set_engine("LiblineaR", bias = 0)))
   expect_snapshot(translate_args(basic |> set_engine("stan")))
-  expect_snapshot(translate_args(basic |> set_engine("stan", chains = 1, iter = 5)))
+  expect_snapshot(translate_args(
+    basic |> set_engine("stan", chains = 1, iter = 5)
+  ))
   expect_snapshot(translate_args(basic |> set_engine("spark")))
   expect_snapshot(translate_args(basic |> set_engine("spark", max_iter = 20)))
 
@@ -120,11 +141,16 @@ test_that("arguments (logistic_reg)", {
 
   expect_snapshot(translate_args(penalty |> set_engine("glmnet")))
   expect_snapshot(translate_args(penalty |> set_engine("glmnet", nlambda = 10)))
-  expect_snapshot(translate_args(penalty |> set_engine("glmnet", path_values = 4:2)))
+  expect_snapshot(translate_args(
+    penalty |> set_engine("glmnet", path_values = 4:2)
+  ))
   expect_snapshot(translate_args(penalty |> set_engine("LiblineaR")))
   expect_snapshot(translate_args(penalty |> set_engine("spark")))
 
-  expect_snapshot(translate_args(mixture_v |> set_engine("glmnet")), error = TRUE)
+  expect_snapshot(
+    translate_args(mixture_v |> set_engine("glmnet")),
+    error = TRUE
+  )
   expect_snapshot(translate_args(mixture_v |> set_engine("LiblineaR")))
   expect_snapshot(translate_args(mixture_v |> set_engine("spark")))
 })
@@ -152,16 +178,23 @@ test_that("arguments (mlp)", {
   all_args <-
     mlp(
       mode = "classification",
-      epochs = 2, hidden_units = 4, penalty = 0.0001,
-      dropout = 0, activation = "softmax"
+      epochs = 2,
+      hidden_units = 4,
+      penalty = 0.0001,
+      dropout = 0,
+      activation = "softmax"
     )
 
   expect_snapshot(translate_args(hidden_units |> set_engine("nnet")))
   expect_snapshot(translate_args(hidden_units |> set_engine("keras")))
 
   expect_snapshot(translate_args(no_hidden_units |> set_engine("nnet")))
-  expect_snapshot(translate_args(no_hidden_units |> set_engine("nnet", abstol = tune())))
-  expect_snapshot(translate_args(no_hidden_units |> set_engine("keras", validation_split = 0.2)))
+  expect_snapshot(translate_args(
+    no_hidden_units |> set_engine("nnet", abstol = tune())
+  ))
+  expect_snapshot(translate_args(
+    no_hidden_units |> set_engine("keras", validation_split = 0.2)
+  ))
 
   expect_snapshot(translate_args(hess |> set_engine("nnet", Hess = TRUE)))
 
@@ -180,7 +213,9 @@ test_that("arguments (multinom_reg)", {
   expect_snapshot(translate_args(basic |> set_engine("glmnet")), error = TRUE)
   expect_snapshot(translate_args(mixture |> set_engine("glmnet")))
   expect_snapshot(translate_args(penalty |> set_engine("glmnet")))
-  expect_snapshot(translate_args(penalty |> set_engine("glmnet", path_values = 4:2)))
+  expect_snapshot(translate_args(
+    penalty |> set_engine("glmnet", path_values = 4:2)
+  ))
   expect_snapshot(translate_args(penalty |> set_engine("glmnet", nlambda = 10)))
   expect_snapshot(translate_args(mixture_v |> set_engine("glmnet")))
 })
@@ -191,12 +226,17 @@ test_that("arguments (nearest_neighbor)", {
 
   basic <- nearest_neighbor(mode = "regression")
   neighbors <- nearest_neighbor(mode = "classification", neighbors = 2)
-  weight_func <- nearest_neighbor(mode = "classification", weight_func = "triangular")
+  weight_func <- nearest_neighbor(
+    mode = "classification",
+    weight_func = "triangular"
+  )
   dist_power <- nearest_neighbor(mode = "classification", dist_power = 2)
 
   expect_snapshot(translate_args(basic |> set_engine("kknn")))
   expect_snapshot(translate_args(neighbors |> set_engine("kknn")))
-  expect_snapshot(translate_args(neighbors |> set_engine("kknn", scale = FALSE)))
+  expect_snapshot(translate_args(
+    neighbors |> set_engine("kknn", scale = FALSE)
+  ))
   expect_snapshot(translate_args(weight_func |> set_engine("kknn")))
   expect_snapshot(translate_args(dist_power |> set_engine("kknn")))
 })
@@ -212,9 +252,7 @@ test_that("arguments (proportional_hazards)", {
   # this is empty because the engines are not defined in parsnip
   expect_snapshot(basic |> translate_args())
   # but we can check for the error if there is no penalty for glmnet
-  expect_snapshot(error = TRUE,
-    basic_incomplete |> translate_args()
-  )
+  expect_snapshot(error = TRUE, basic_incomplete |> translate_args())
 })
 
 # translate.rand_forest --------------------------------------------------------
@@ -224,35 +262,27 @@ test_that("arguments (rand_forest)", {
   trees <- rand_forest(mode = "classification", trees = 1000)
   min_n <- rand_forest(mode = "regression", min_n = 5)
 
-  expect_snapshot(translate_args(basic |> set_engine("randomForest", norm.votes = FALSE)))
-  expect_snapshot(translate_args(basic |> set_engine("spark", min_info_gain = 2)))
+  expect_snapshot(translate_args(
+    basic |> set_engine("randomForest", norm.votes = FALSE)
+  ))
+  expect_snapshot(translate_args(
+    basic |> set_engine("spark", min_info_gain = 2)
+  ))
 
   expect_snapshot(translate_args(mtry |> set_engine("ranger")))
   expect_snapshot(translate_args(mtry |> set_engine("randomForest")))
   expect_snapshot(translate_args(mtry |> set_engine("spark")))
 
   expect_snapshot(translate_args(trees |> set_engine("ranger")))
-  expect_snapshot(translate_args(trees |> set_engine("ranger", importance = "impurity")))
+  expect_snapshot(translate_args(
+    trees |> set_engine("ranger", importance = "impurity")
+  ))
   expect_snapshot(translate_args(trees |> set_engine("randomForest")))
   expect_snapshot(translate_args(trees |> set_engine("spark")))
 
   expect_snapshot(translate_args(min_n |> set_engine("ranger")))
   expect_snapshot(translate_args(min_n |> set_engine("randomForest")))
   expect_snapshot(translate_args(min_n |> set_engine("spark")))
-})
-
-# translate.surv_reg -----------------------------------------------------------
-test_that("arguments (surv_reg)", {
-  rlang::local_options(lifecycle_verbosity = "quiet")
-
-  basic <- surv_reg()
-  normal <- surv_reg(dist = "lnorm")
-  dist_v <- surv_reg(dist = tune())
-
-  expect_snapshot(translate_args(basic  |> set_engine("flexsurv")))
-  expect_snapshot(translate_args(basic  |> set_engine("flexsurv", cl = .99)))
-  expect_snapshot(translate_args(normal |> set_engine("flexsurv")))
-  expect_snapshot(translate_args(dist_v |> set_engine("flexsurv")))
 })
 
 # translate.survival_reg -----------------------------------------------------------
@@ -263,7 +293,6 @@ test_that("arguments (survival_reg)", {
 
   # this is empty because the engines are not defined in parsnip
   expect_snapshot(basic |> translate_args())
-
 })
 
 # translate.svm_linear ---------------------------------------------------------
@@ -303,7 +332,11 @@ test_that("arguments (svm_rbf)", {
 test_that("translate tuning paramter names", {
   skip_if_not_installed("dials")
 
-  mod <- boost_tree(trees = tune("number of trees"), min_n = tune(), tree_depth = 3)
+  mod <- boost_tree(
+    trees = tune("number of trees"),
+    min_n = tune(),
+    tree_depth = 3
+  )
 
   expect_snapshot(.model_param_name_key(mod))
   expect_snapshot(.model_param_name_key(mod, as_tibble = FALSE))

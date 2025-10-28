@@ -89,7 +89,7 @@ rule_fit(argument = !!value)
 }\if{html}{\out{</div>}}
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 show_engines("rule_fit")
 
 rule_fit()

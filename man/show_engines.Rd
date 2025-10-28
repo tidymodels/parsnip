@@ -19,7 +19,7 @@ the \pkg{poissonreg} package adds additional engines for the \code{\link[=poisso
 model and these are not available unless \pkg{poissonreg} is loaded.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 show_engines("linear_reg")
 \dontshow{\}) # examplesIf}
 }
