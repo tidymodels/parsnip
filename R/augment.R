@@ -86,15 +86,17 @@
 #'
 #' # ------------------------------------------------------------------------------
 #'
-#' # Quantile regression example
-#' qr_form <-
-#'   linear_reg() |>
-#'   set_engine("quantreg") |>
-#'   set_mode("quantile regression", quantile_levels = c(0.25, 0.5, 0.75)) |>
-#'   fit(mpg ~ ., data = car_trn)
+#' if (rlang::is_installed("quantreg")) {
+#'   # Quantile regression example
+#'   qr_form <-
+#'     linear_reg() |>
+#'     set_engine("quantreg") |>
+#'     set_mode("quantile regression", quantile_levels = c(0.25, 0.5, 0.75)) |>
+#'     fit(mpg ~ ., data = car_trn)
 #'
-#' augment(qr_form, car_tst)
-#' augment(qr_form, car_tst[, -1])
+#'   augment(qr_form, car_tst)
+#'   augment(qr_form, car_tst[, -1])
+#' }
 #'
 augment.model_fit <- function(x, new_data, eval_time = NULL, ...) {
   new_data <- tibble::new_tibble(new_data)
