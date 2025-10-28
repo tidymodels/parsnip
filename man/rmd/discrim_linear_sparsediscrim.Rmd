@@ -65,6 +65,17 @@ discrim_linear(regularization_method = character(0)) |>
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("discrim_linear_predict") |>
+  dplyr::filter(engine == "sparsediscrim") |>
+  dplyr::select(mode, type)
+
+```
+
 ## References
 
 

@@ -58,6 +58,17 @@ linear_reg(penalty = double(1)) |>
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("linear_reg_predict") |>
+  dplyr::filter(engine == "keras") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-keras) for `linear_reg()` with the `"keras"` engine.

@@ -72,3 +72,14 @@ The reason for this is that [workflows::add_formula()] will try to create the mo
 ```{r}
 #| child: template-uses-case-weights.Rmd
 ```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("poisson_reg_predict") |>
+  dplyr::filter(engine == "hurdle") |>
+  dplyr::select(mode, type)
+
+```

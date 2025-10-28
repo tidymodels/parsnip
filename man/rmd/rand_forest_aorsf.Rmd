@@ -89,6 +89,17 @@ rand_forest() |>
 #| child: template-uses-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "aorsf") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Other details
 
 Predictions of survival probability at a time exceeding the maximum observed event time are the predicted survival probability at the maximum observed time in the training data.

@@ -69,6 +69,16 @@ rand_forest(
 #| child: template-tree-split-factors.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "h2o") |>
+  dplyr::select(mode, type)
+
+```
 
 ## Initializing h2o 
 

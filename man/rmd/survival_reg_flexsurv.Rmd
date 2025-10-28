@@ -66,6 +66,16 @@ For this engine, stratification cannot be specified via [`survival::strata()`], 
 #| child: template-butcher.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("survival_reg_predict") |>
+  dplyr::filter(engine == "flexsurv") |>
+  dplyr::select(mode, type)
+
+```
 
 ## References
 

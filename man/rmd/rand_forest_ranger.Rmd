@@ -97,6 +97,16 @@ While this engine supports sparse data as an input, it doesn't use it any differ
 #| child: template-butcher.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "ranger") |>
+  dplyr::select(mode, type)
+
+```
 
 ## Examples 
 

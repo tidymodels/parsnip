@@ -41,6 +41,16 @@ For this engine, stratification cannot be specified via [`survival::strata()`], 
 #| child: template-uses-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("survival_reg_predict") |>
+  dplyr::filter(engine == "flexsurvspline") |>
+  dplyr::select(mode, type)
+
+```
 
 ## Saving fitted model objects
 
