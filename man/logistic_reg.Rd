@@ -67,7 +67,7 @@ This model fits a classification model for binary outcomes; for
 multiclass outcomes, see \code{\link[=multinom_reg]{multinom_reg()}}.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 show_engines("logistic_reg")
 
 logistic_reg()
