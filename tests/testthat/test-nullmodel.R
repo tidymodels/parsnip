@@ -147,3 +147,85 @@ test_that("check_args() works", {
   # Here for completeness, no checking is done
   expect_true(TRUE)
 })
+
+# ------------------------------------------------------------------------------
+
+test_that("null_model works with sparse matrix data - regression", {
+  skip_if_not_installed("sparsevctrs")
+
+  # Make materialization of sparse vectors throw an error
+  withr::local_options("sparsevctrs.verbose_materialize" = 3)
+
+  hotel_data <- sparse_hotel_rates()
+
+  spec <- null_model(mode = "regression") |>
+    set_engine("parsnip")
+
+  expect_no_error(
+    null_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
+  )
+
+  expect_no_error(
+    preds <- predict(null_fit, hotel_data)
+  )
+
+  # All predictions should be the mean of the outcome
+  expect_true(all(preds$.pred == preds$.pred[1]))
+})
+
+test_that("null_model works with sparse matrix data - classification", {
+  skip_if_not_installed("sparsevctrs")
+
+  # Make materialization of sparse vectors throw an error
+  withr::local_options("sparsevctrs.verbose_materialize" = 3)
+
+  hotel_data <- sparse_hotel_rates()
+
+  # Create a factor outcome for classification
+  y_class <- factor(ifelse(hotel_data[, 1] > median(hotel_data[, 1]), "high", "low"))
+
+  spec <- null_model(mode = "classification") |>
+    set_engine("parsnip")
+
+  expect_no_error(
+    null_fit <- fit_xy(spec, x = hotel_data[, -1], y = y_class)
+  )
+
+  expect_no_error(
+    preds <- predict(null_fit, hotel_data)
+  )
+
+  # All predictions should be the same (most prevalent class)
+  expect_true(all(preds$.pred_class == preds$.pred_class[1]))
+
+  expect_no_error(
+    probs <- predict(null_fit, hotel_data, type = "prob")
+  )
+
+  # All probability predictions should be identical
+  expect_true(all(probs$.pred_high == probs$.pred_high[1]))
+  expect_true(all(probs$.pred_low == probs$.pred_low[1]))
+})
+
+test_that("null_model works with sparse tibble data - regression", {
+  skip_if_not_installed("sparsevctrs")
+
+  # Make materialization of sparse vectors throw an error
+  withr::local_options("sparsevctrs.verbose_materialize" = 3)
+
+  hotel_data <- sparse_hotel_rates(tibble = TRUE)
+
+  spec <- null_model(mode = "regression") |>
+    set_engine("parsnip")
+
+  expect_no_error(
+    null_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
+  )
+
+  expect_no_error(
+    preds <- predict(null_fit, hotel_data)
+  )
+
+  # All predictions should be the mean of the outcome
+  expect_true(all(preds$.pred == preds$.pred[1]))
+})

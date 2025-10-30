@@ -29,7 +29,7 @@ set_encoding(
     predictor_indicators = "traditional",
     compute_intercept = FALSE,
     remove_intercept = FALSE,
-    allow_sparse_x = FALSE
+    allow_sparse_x = TRUE
   )
 )
 
@@ -53,7 +53,7 @@ set_encoding(
     predictor_indicators = "traditional",
     compute_intercept = FALSE,
     remove_intercept = FALSE,
-    allow_sparse_x = FALSE
+    allow_sparse_x = TRUE
   )
 )
 
