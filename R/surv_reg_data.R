@@ -1,3 +1,4 @@
+# nocov
 
 set_new_model("surv_reg")
 set_model_mode("surv_reg", "regression")
@@ -50,12 +51,11 @@ set_pred(
     pre = NULL,
     post = flexsurv_mean,
     func = c(fun = "summary"),
-    args =
-      list(
-        object = expr(object$fit),
-        newdata = expr(new_data),
-        type = "mean"
-      )
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data),
+      type = "mean"
+    )
   )
 )
 
@@ -106,11 +106,12 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = expr(object$fit),
-        newdata = expr(new_data),
-        type = "response"
-      )
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data),
+      type = "response"
+    )
   )
 )
+
+# nocov end
