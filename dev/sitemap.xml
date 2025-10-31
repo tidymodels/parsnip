@@ -118,6 +118,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_proportional_hazards_glmnet.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_proportional_hazards_survival.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_aorsf.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_grf.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_h2o.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_partykit.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_randomForest.html</loc></url>

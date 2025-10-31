@@ -214,11 +214,12 @@ and tuning.</p>
 <span class="r-in"><span><span class="co"># Show the information about a model:</span></span></span>
 <span class="r-in"><span><span class="fu">show_model_info</span><span class="op">(</span><span class="st">"rand_forest"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Information for `rand_forest`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  modes: unknown, classification, regression, censored regression </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  modes: unknown, classification, regression, censored regression, quantile regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  engines: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    classification: randomForest, ranger¹, spark</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    regression:     randomForest, ranger¹, spark</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    classification:      grf¹, randomForest, ranger¹, spark</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    quantile regression: grf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    regression:          grf¹, randomForest, ranger¹, spark</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ¹The model can use case weights.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -235,24 +236,34 @@ and tuning.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       mtry  --&gt; feature_subset_strategy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       trees --&gt; num_trees</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       min_n --&gt; min_instances_per_node</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    grf:          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       mtry  --&gt; mtry</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       trees --&gt; num.trees</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       min_n --&gt; min.node.size</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  fit modules:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          engine           mode</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          ranger classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          ranger     regression</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    randomForest classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    randomForest     regression</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           spark classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           spark     regression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          engine                mode</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          ranger      classification</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          ranger          regression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    randomForest      classification</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    randomForest          regression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           spark      classification</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           spark          regression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             grf      classification</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             grf          regression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             grf quantile regression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  prediction modules:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              mode       engine                    methods</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    classification randomForest           class, prob, raw</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    classification       ranger class, conf_int, prob, raw</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    classification        spark                class, prob</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        regression randomForest               numeric, raw</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        regression       ranger     conf_int, numeric, raw</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        regression        spark                    numeric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   mode       engine                    methods</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         classification          grf      class, conf_int, prob</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         classification randomForest           class, prob, raw</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         classification       ranger class, conf_int, prob, raw</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         classification        spark                class, prob</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    quantile regression          grf                   quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             regression          grf          conf_int, numeric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             regression randomForest               numeric, raw</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             regression       ranger     conf_int, numeric, raw</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             regression        spark                    numeric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

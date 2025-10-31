@@ -102,7 +102,7 @@ to modify the model specification.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lm_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># `penalty` is tranlsated to `lambda`</span></span></span>
+<span class="r-in"><span><span class="co"># `penalty` is translated to `lambda`</span></span></span>
 <span class="r-in"><span><span class="fu">translate</span><span class="op">(</span><span class="va">lm_spec</span>, engine <span class="op">=</span> <span class="st">"glmnet"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Model Specification (regression)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -127,7 +127,7 @@ to modify the model specification.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model fit template:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> stats::lm(formula = missing_arg(), data = missing_arg(), weights = missing_arg())</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># `penalty` is tranlsated to `reg_param`</span></span></span>
+<span class="r-in"><span><span class="co"># `penalty` is translated to `reg_param`</span></span></span>
 <span class="r-in"><span><span class="fu">translate</span><span class="op">(</span><span class="va">lm_spec</span>, engine <span class="op">=</span> <span class="st">"spark"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Model Specification (regression)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

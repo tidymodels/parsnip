@@ -46,9 +46,11 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="parsnip-development-version">parsnip (development version)<a class="anchor" aria-label="anchor" href="#parsnip-development-version"></a></h2>
-</div>
+<ul><li><p>Enable generalized random forest (<code>grf</code>) models for classification, regression, and quantile regression modes. (<a href="https://github.com/tidymodels/parsnip/issues/1288" class="external-link">#1288</a>)</p></li>
+<li><p><code><a href="../reference/surv_reg.html">surv_reg()</a></code> is now defunct and will error if called. Please use <code><a href="../reference/survival_reg.html">survival_reg()</a></code> instead (<a href="https://github.com/tidymodels/parsnip/issues/1206" class="external-link">#1206</a>).</p></li>
+</ul></div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.3.3" id="parsnip-133">parsnip 1.3.3<a class="anchor" aria-label="anchor" href="#parsnip-133"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.3.3" id="parsnip-133">parsnip 1.3.3<a class="anchor" aria-label="anchor" href="#parsnip-133"></a></h2><p class="text-muted">CRAN release: 2025-08-31</p>
 <ul><li><p>Bug fix in how tunable parameters were configured for brulee neural networks.</p></li>
 <li><p>A change to make linear SVM models more quiet.</p></li>
 <li><p>A few default parameter ranges were changed for brulee neural network models.</p></li>
