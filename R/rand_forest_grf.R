@@ -1,7 +1,7 @@
-#' Random forests via grf
+#' Generalized random forests via grf
 #'
 #' The \pkg{grf} fits models that create a large number of decision
-#' trees, each independent of the others. The final prediction uses all
+#' trees, each independent of the others. The final prediction uses
 #' predictions from the individual trees and combines them.
 #'
 #' @includeRmd man/rmd/rand_forest_grf.md details

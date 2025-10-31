@@ -148,7 +148,7 @@ grf_conf_int <- function(
       res <- vctrs::vec_cbind(res, std_err)
     }
   } else {
-    rlang::abort(
+    cli::cli_abort(
       "No confidence interval implementation for objects with class(es)
       {.cls {class(object$fit)[1]}}"
     )

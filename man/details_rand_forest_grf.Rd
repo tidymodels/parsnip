@@ -2,10 +2,10 @@
 % Please edit documentation in R/rand_forest_grf.R
 \name{details_rand_forest_grf}
 \alias{details_rand_forest_grf}
-\title{Random forests via grf}
+\title{Generalized random forests via grf}
 \description{
 The \pkg{grf} fits models that create a large number of decision
-trees, each independent of the others. The final prediction uses all
+trees, each independent of the others. The final prediction uses
 predictions from the individual trees and combines them.
 }
 \details{
