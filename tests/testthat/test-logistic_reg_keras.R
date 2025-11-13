@@ -1,3 +1,4 @@
+skip("waiting for keras3")
 skip_if_not_installed("modeldata")
 
 # ------------------------------------------------------------------------------
