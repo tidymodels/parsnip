@@ -553,6 +553,7 @@ The following examples use consistent data sets throughout. For regression, we u
   Now we create the model fit object:
 
   ```{r}
+  #| eval: false
   set.seed(1)
   linreg_reg_fit <- linreg_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   linreg_reg_fit
@@ -561,6 +562,7 @@ The following examples use consistent data sets throughout. For regression, we u
   The holdout data can be predicted:
 
   ```{r}
+  #| eval: false
   predict(linreg_reg_fit, Chicago_test)
   ```
     
@@ -791,6 +793,7 @@ The following examples use consistent data sets throughout. For regression, we u
   Now we create the model fit object:
 
   ```{r}
+  #| eval: false
   set.seed(1)
   logreg_cls_fit <- logreg_cls_spec |> fit(Class ~ ., data = data_train)
   logreg_cls_fit
@@ -799,6 +802,7 @@ The following examples use consistent data sets throughout. For regression, we u
   The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
 
   ```{r}
+  #| eval: false
   bind_cols(
     predict(logreg_cls_fit, data_test),
     predict(logreg_cls_fit, data_test, type = "prob")
@@ -1103,6 +1107,7 @@ The following examples use consistent data sets throughout. For regression, we u
   Now we create the model fit object:
 
   ```{r}
+  #| eval: false
   set.seed(1)
   mlp_reg_fit <- mlp_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   mlp_reg_fit
@@ -1111,6 +1116,7 @@ The following examples use consistent data sets throughout. For regression, we u
   The holdout data can be predicted:
 
   ```{r}
+  #| eval: false
   predict(mlp_reg_fit, Chicago_test)
   ```
 
@@ -1136,6 +1142,7 @@ The following examples use consistent data sets throughout. For regression, we u
   Now we create the model fit object:
 
   ```{r}
+  #| eval: false
   set.seed(1)
   mlp_cls_fit <- mlp_cls_spec |> fit(Class ~ ., data = data_train)
   mlp_cls_fit
@@ -1144,6 +1151,7 @@ The following examples use consistent data sets throughout. For regression, we u
   The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
 
   ```{r}
+  #| eval: false
   bind_cols(
     predict(mlp_cls_fit, data_test),
     predict(mlp_cls_fit, data_test, type = "prob")
@@ -1365,6 +1373,7 @@ The following examples use consistent data sets throughout. For regression, we u
   Now we create the model fit object:
 
   ```{r}
+  #| eval: false
   set.seed(1)
   mr_cls_fit <- mr_cls_spec |> fit(island ~ ., data = penguins_train)
   mr_cls_fit
@@ -1373,6 +1382,7 @@ The following examples use consistent data sets throughout. For regression, we u
   The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
 
   ```{r}
+  #| eval: false
   bind_cols(
     predict(mr_cls_fit, penguins_test),
     predict(mr_cls_fit, penguins_test, type = "prob")
