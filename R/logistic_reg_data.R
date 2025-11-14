@@ -40,12 +40,11 @@ set_pred(
     pre = NULL,
     post = prob_to_class_2,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "response"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "response"
+    )
   )
 )
 
@@ -62,12 +61,11 @@ set_pred(
       x
     },
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "response"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "response"
+    )
   )
 )
 
@@ -80,11 +78,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data)
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
   )
 )
 
@@ -97,13 +94,12 @@ set_pred(
     pre = NULL,
     post = logistic_lp_to_conf_int,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        se.fit = TRUE,
-        type = "link"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      se.fit = TRUE,
+      type = "link"
+    )
   )
 )
 
@@ -163,13 +159,15 @@ set_pred(
     pre = NULL,
     post = organize_glmnet_class,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = expr(object$fit),
-        newx = expr(as.matrix(new_data[, rownames(object$fit$beta), drop = FALSE])),
-        type = "response",
-        s = expr(object$spec$args$penalty)
-      )
+    args = list(
+      object = expr(object$fit),
+      newx = expr(as.matrix(new_data[,
+        rownames(object$fit$beta),
+        drop = FALSE
+      ])),
+      type = "response",
+      s = expr(object$spec$args$penalty)
+    )
   )
 )
 
@@ -182,13 +180,12 @@ set_pred(
     pre = NULL,
     post = organize_glmnet_prob,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newx = quote(as.matrix(new_data)),
-        type = "response",
-        s = quote(object$spec$args$penalty)
-      )
+    args = list(
+      object = quote(object$fit),
+      newx = quote(as.matrix(new_data)),
+      type = "response",
+      s = quote(object$spec$args$penalty)
+    )
   )
 )
 
@@ -201,11 +198,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newx = quote(as.matrix(new_data))
-      )
+    args = list(
+      object = quote(object$fit),
+      newx = quote(as.matrix(new_data))
+    )
   )
 )
 
@@ -266,11 +262,10 @@ set_pred(
     pre = NULL,
     post = liblinear_preds,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newx = expr(as.matrix(new_data))
-      )
+    args = list(
+      object = quote(object$fit),
+      newx = expr(as.matrix(new_data))
+    )
   )
 )
 
@@ -283,12 +278,11 @@ set_pred(
     pre = NULL,
     post = liblinear_probs,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newx = expr(as.matrix(new_data)),
-        proba = TRUE
-      )
+    args = list(
+      object = quote(object$fit),
+      newx = expr(as.matrix(new_data)),
+      proba = TRUE
+    )
   )
 )
 
@@ -303,7 +297,8 @@ set_pred(
     func = c(fun = "predict"),
     args = list(
       object = quote(object$fit),
-      newx = quote(new_data))
+      newx = quote(new_data)
+    )
   )
 )
 
@@ -339,10 +334,9 @@ set_fit(
     data = c(formula = "formula", data = "x", weights = "weight_col"),
     protect = c("x", "formula", "weights"),
     func = c(pkg = "sparklyr", fun = "ml_logistic_regression"),
-    defaults =
-      list(
-        family = "binomial"
-      )
+    defaults = list(
+      family = "binomial"
+    )
   )
 )
 
@@ -367,11 +361,10 @@ set_pred(
     pre = NULL,
     post = format_spark_class,
     func = c(pkg = "sparklyr", fun = "ml_predict"),
-    args =
-      list(
-        x = quote(object$fit),
-        dataset = quote(new_data)
-      )
+    args = list(
+      x = quote(object$fit),
+      dataset = quote(new_data)
+    )
   )
 )
 
@@ -384,11 +377,10 @@ set_pred(
     pre = NULL,
     post = format_spark_probs,
     func = c(pkg = "sparklyr", fun = "ml_predict"),
-    args =
-      list(
-        x = quote(object$fit),
-        dataset = quote(new_data)
-      )
+    args = list(
+      x = quote(object$fit),
+      dataset = quote(new_data)
+    )
   )
 )
 
@@ -440,11 +432,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = "parsnip", fun = "keras_predict_classes"),
-    args =
-      list(
-        object = quote(object),
-        x = quote(as.matrix(new_data))
-      )
+    args = list(
+      object = quote(object),
+      x = quote(as.matrix(new_data))
+    )
   )
 )
 
@@ -461,11 +452,10 @@ set_pred(
       x
     },
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        x = quote(as.matrix(new_data))
-      )
+    args = list(
+      object = quote(object$fit),
+      x = quote(as.matrix(new_data))
+    )
   )
 )
 
@@ -511,11 +501,10 @@ set_pred(
       unname(x)
     },
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data)
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
   )
 )
 
@@ -533,11 +522,10 @@ set_pred(
       x
     },
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data)
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
   )
 )
 
@@ -551,11 +539,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data)
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
   )
 )
 
@@ -569,17 +556,15 @@ set_pred(
     post = function(results, object) {
       res_2 <-
         tibble(
-          lo =
-            convert_stan_interval(
-              results,
-              level = object$spec$method$pred$conf_int$extras$level
-            ),
-          hi =
-            convert_stan_interval(
-              results,
-              level = object$spec$method$pred$conf_int$extras$level,
-              lower = FALSE
-            ),
+          lo = convert_stan_interval(
+            results,
+            level = object$spec$method$pred$conf_int$extras$level
+          ),
+          hi = convert_stan_interval(
+            results,
+            level = object$spec$method$pred$conf_int$extras$level,
+            lower = FALSE
+          ),
         )
       res_1 <- res_2
       res_1$lo <- 1 - res_2$hi
@@ -596,11 +581,10 @@ set_pred(
       res
     },
     func = c(pkg = "parsnip", fun = "stan_conf_int"),
-    args =
-      list(
-        object = expr(object$fit),
-        newdata = expr(new_data)
-      )
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data)
+    )
   )
 )
 
@@ -614,17 +598,15 @@ set_pred(
     post = function(results, object) {
       res_2 <-
         tibble(
-          lo =
-            convert_stan_interval(
-              results,
-              level = object$spec$method$pred$pred_int$extras$level
-            ),
-          hi =
-            convert_stan_interval(
-              results,
-              level = object$spec$method$pred$pred_int$extras$level,
-              lower = FALSE
-            ),
+          lo = convert_stan_interval(
+            results,
+            level = object$spec$method$pred$pred_int$extras$level
+          ),
+          hi = convert_stan_interval(
+            results,
+            level = object$spec$method$pred$pred_int$extras$level,
+            lower = FALSE
+          ),
         )
       res_1 <- res_2
       res_1$lo <- 1 - res_2$hi
@@ -635,22 +617,21 @@ set_pred(
       colnames(res_2) <- c(lo_nms[2], hi_nms[2])
       res <- bind_cols(res_1, res_2)
 
-      if (object$spec$method$pred$pred_int$extras$std_error)
+      if (object$spec$method$pred$pred_int$extras$std_error) {
         res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
+      }
       res
     },
     func = c(pkg = "rstanarm", fun = "posterior_predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        seed = expr(sample.int(10^5, 1))
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      seed = expr(sample.int(10^5, 1))
+    )
   )
 )
 
 # ------------------------------------------------------------------------------
-
 
 set_model_engine("logistic_reg", "classification", "brulee")
 set_dependency("logistic_reg", "brulee", "brulee")
@@ -706,12 +687,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "class"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "class"
+    )
   )
 )
 
@@ -724,12 +704,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "prob"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "prob"
+    )
   )
 )
-

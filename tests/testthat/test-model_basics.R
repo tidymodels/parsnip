@@ -97,6 +97,4 @@ test_that('basic object classes and print methods', {
   expect_snapshot(print(svm_rbf()))
   expect_true(inherits(svm_rbf(engine = 'kernlab'), 'svm_rbf'))
   expect_true(inherits(svm_rbf(engine = 'liquidSVM'), 'svm_rbf'))
-
 })
-

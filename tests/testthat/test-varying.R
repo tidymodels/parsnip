@@ -20,7 +20,7 @@ test_that('main parsnip arguments', {
   exp_2$varying[1] <- TRUE
   expect_equal(mod_2, exp_2)
 
-  mod_3 <- rand_forest(mtry = varying(), trees  = varying()) |>
+  mod_3 <- rand_forest(mtry = varying(), trees = varying()) |>
     varying_args()
 
   exp_3 <- exp_2
@@ -45,7 +45,7 @@ test_that('other parsnip arguments', {
 
   expect_equal(other_1, exp_1)
 
-  other_2 <- rand_forest(min_n = varying())  |>
+  other_2 <- rand_forest(min_n = varying()) |>
     set_engine("ranger", sample.fraction = varying()) |>
     varying_args()
 
@@ -60,20 +60,20 @@ test_that('other parsnip arguments', {
 
   # We can detect these as varying, but they won't actually
   # be used in this way
-  other_3 <- rand_forest()  |>
+  other_3 <- rand_forest() |>
     set_engine("ranger", strata = Class, sampsize = c(varying(), varying())) |>
     varying_args()
 
   exp_3 <- tibble(
-      name = c("mtry", "trees", "min_n", "strata", "sampsize"),
-      varying = c(rep(FALSE, 4), TRUE),
-      id = rep("rand_forest", 5),
-      type = rep("model_spec", 5)
-    )
+    name = c("mtry", "trees", "min_n", "strata", "sampsize"),
+    varying = c(rep(FALSE, 4), TRUE),
+    id = rep("rand_forest", 5),
+    type = rep("model_spec", 5)
+  )
 
   expect_equal(other_3, exp_3)
 
-  other_4 <- rand_forest()  |>
+  other_4 <- rand_forest() |>
     set_engine("ranger", strata = Class, sampsize = c(12, varying())) |>
     varying_args()
 

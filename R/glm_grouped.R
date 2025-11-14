@@ -115,6 +115,11 @@ glm_grouped <- function(formula, data, weights, ...) {
       values_from = "..weights",
       values_fill = 0L
     )
-  cl <- rlang::call2("glm", rlang::expr(formula), data = rlang::expr(data), !!!opts)
+  cl <- rlang::call2(
+    "glm",
+    rlang::expr(formula),
+    data = rlang::expr(data),
+    !!!opts
+  )
   rlang::eval_tidy(cl)
 }

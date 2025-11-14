@@ -1,4 +1,3 @@
-
 set_new_model("bart")
 
 set_model_mode("bart", "classification")
@@ -101,12 +100,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = "parsnip", fun = "dbart_predict_calc"),
-    args =
-      list(
-        obj = quote(object),
-        new_data =  quote(new_data),
-        type = "numeric"
-      )
+    args = list(
+      obj = quote(object),
+      new_data = quote(new_data),
+      type = "numeric"
+    )
   )
 )
 
@@ -119,9 +117,7 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = "parsnip", fun = "dbart_predict_calc"),
-    args =
-      list(obj = quote(object),
-           new_data =  quote(new_data))
+    args = list(obj = quote(object), new_data = quote(new_data))
   )
 )
 
@@ -135,14 +131,13 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = "parsnip", fun = "dbart_predict_calc"),
-    args =
-      list(
-        obj = expr(object),
-        new_data = expr(new_data),
-        type = "conf_int",
-        level = expr(level),
-        std_err = expr(std_error)
-      )
+    args = list(
+      obj = expr(object),
+      new_data = expr(new_data),
+      type = "conf_int",
+      level = expr(level),
+      std_err = expr(std_error)
+    )
   )
 )
 set_pred(
@@ -154,14 +149,13 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = "parsnip", fun = "dbart_predict_calc"),
-    args =
-      list(
-        obj = expr(object),
-        new_data = expr(new_data),
-        type = "pred_int",
-        level = expr(level),
-        std_err = expr(std_error)
-      )
+    args = list(
+      obj = expr(object),
+      new_data = expr(new_data),
+      type = "pred_int",
+      level = expr(level),
+      std_err = expr(std_error)
+    )
   )
 )
 
@@ -175,12 +169,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = "parsnip", fun = "dbart_predict_calc"),
-    args =
-      list(
-        obj = quote(object),
-        new_data =  quote(new_data),
-        type = "class"
-      )
+    args = list(
+      obj = quote(object),
+      new_data = quote(new_data),
+      type = "class"
+    )
   )
 )
 
@@ -193,12 +186,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = "parsnip", fun = "dbart_predict_calc"),
-    args =
-      list(
-        obj = quote(object),
-        new_data =  quote(new_data),
-        type = "prob"
-      )
+    args = list(
+      obj = quote(object),
+      new_data = quote(new_data),
+      type = "prob"
+    )
   )
 )
 
@@ -212,14 +204,13 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = "parsnip", fun = "dbart_predict_calc"),
-    args =
-      list(
-        obj = expr(object),
-        new_data = expr(new_data),
-        type = "conf_int",
-        level = expr(level),
-        std_err = expr(std_error)
-      )
+    args = list(
+      obj = expr(object),
+      new_data = expr(new_data),
+      type = "conf_int",
+      level = expr(level),
+      std_err = expr(std_error)
+    )
   )
 )
 set_pred(
@@ -231,14 +222,13 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = "parsnip", fun = "dbart_predict_calc"),
-    args =
-      list(
-        obj = expr(object),
-        new_data = expr(new_data),
-        type = "pred_int",
-        level = expr(level),
-        std_err = expr(std_error)
-      )
+    args = list(
+      obj = expr(object),
+      new_data = expr(new_data),
+      type = "pred_int",
+      level = expr(level),
+      std_err = expr(std_error)
+    )
   )
 )
 
@@ -251,10 +241,9 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = "parsnip", fun = "dbart_predict_calc"),
-    args =
-      list(
-        obj = quote(object),
-        new_data =  quote(new_data)
-      )
+    args = list(
+      obj = quote(object),
+      new_data = quote(new_data)
+    )
   )
 )

@@ -38,7 +38,7 @@ is_missing_arg <- function(x) {
 # these checks.
 engine_filter_condition <- function(engine, user_specified_engine, data) {
   # use !isTRUE so that result is TRUE if is.null(user_specified_engine)
-  if (!isTRUE(user_specified_engine) || is.null(engine))  {
+  if (!isTRUE(user_specified_engine) || is.null(engine)) {
     return(TRUE)
   }
 
@@ -48,7 +48,7 @@ engine_filter_condition <- function(engine, user_specified_engine, data) {
 # analogous helper for modes to `engine_filter_condition()`
 mode_filter_condition <- function(mode, user_specified_mode, data) {
   # use !isTRUE so that result is TRUE if is.null(user_specified_mode)
-  if (!isTRUE(user_specified_mode) || is.null(mode))  {
+  if (!isTRUE(user_specified_mode) || is.null(mode)) {
     return(TRUE)
   }
 
@@ -91,43 +91,47 @@ mode_filter_condition <- function(mode, user_specified_mode, data) {
 #' @export
 #' @keywords internal
 #' @rdname extension-check-helpers
-spec_is_possible <- function(spec,
-                             engine = spec$engine,
-                             user_specified_engine = spec$user_specified_engine,
-                             mode = spec$mode,
-                             user_specified_mode = spec$user_specified_mode) {
+spec_is_possible <- function(
+  spec,
+  engine = spec$engine,
+  user_specified_engine = spec$user_specified_engine,
+  mode = spec$mode,
+  user_specified_mode = spec$user_specified_mode
+) {
   cls <- class(spec)[[1]]
 
   model_env <- rlang::env_get(get_model_env(), cls)
   model_env_matches <- model_env
   model_env_matches$model <- cls
   model_info_table_matches <-
-    vctrs::vec_slice(model_info_table,
-                     model_info_table$model == cls)
+    vctrs::vec_slice(model_info_table, model_info_table$model == cls)
 
   if (isTRUE(user_specified_engine) && !is.null(engine)) {
     model_env_matches <-
-      vctrs::vec_slice(model_env_matches,
-                       model_env_matches$engine == engine)
+      vctrs::vec_slice(model_env_matches, model_env_matches$engine == engine)
 
     model_info_table_matches <-
-      vctrs::vec_slice(model_info_table_matches,
-                       model_info_table_matches$engine == engine)
+      vctrs::vec_slice(
+        model_info_table_matches,
+        model_info_table_matches$engine == engine
+      )
   }
 
   if (isTRUE(user_specified_mode) && !is.null(mode)) {
     model_env_matches <-
-      vctrs::vec_slice(model_env_matches,
-                       model_env_matches$mode == mode)
+      vctrs::vec_slice(model_env_matches, model_env_matches$mode == mode)
 
     model_info_table_matches <-
-      vctrs::vec_slice(model_info_table_matches,
-                       model_info_table_matches$mode == mode)
+      vctrs::vec_slice(
+        model_info_table_matches,
+        model_info_table_matches$mode == mode
+      )
   }
 
-
-  if (vctrs::vec_size(model_env_matches) > 0 ||
-      vctrs::vec_size(model_info_table_matches) > 0) {
+  if (
+    vctrs::vec_size(model_env_matches) > 0 ||
+      vctrs::vec_size(model_info_table_matches) > 0
+  ) {
     return(TRUE)
   }
 
@@ -138,11 +142,13 @@ spec_is_possible <- function(spec,
 #' @export
 #' @keywords internal
 #' @rdname extension-check-helpers
-spec_is_loaded <- function(spec,
-                           engine = spec$engine,
-                           user_specified_engine = spec$user_specified_engine,
-                           mode = spec$mode,
-                           user_specified_mode = spec$user_specified_mode) {
+spec_is_loaded <- function(
+  spec,
+  engine = spec$engine,
+  user_specified_engine = spec$user_specified_engine,
+  mode = spec$mode,
+  user_specified_mode = spec$user_specified_mode
+) {
   cls <- class(spec)[[1]]
 
   avail <- get_from_env(cls)
@@ -151,7 +157,11 @@ spec_is_loaded <- function(spec,
     return(FALSE)
   }
 
-  engine_condition <- engine_filter_condition(engine, user_specified_engine, avail)
+  engine_condition <- engine_filter_condition(
+    engine,
+    user_specified_engine,
+    avail
+  )
   mode_condition <- mode_filter_condition(mode, user_specified_mode, avail)
 
   avail <- avail |>
@@ -179,25 +189,40 @@ is_printable_spec <- function(x) {
 #' @export
 #' @keywords internal
 #' @rdname extension-check-helpers
-prompt_missing_implementation <- function(spec,
-                                          engine = spec$engine,
-                                          user_specified_engine = spec$user_specified_engine,
-                                          mode = spec$mode,
-                                          user_specified_mode = spec$user_specified_mode,
-                                          prompt, ...) {
+prompt_missing_implementation <- function(
+  spec,
+  engine = spec$engine,
+  user_specified_engine = spec$user_specified_engine,
+  mode = spec$mode,
+  user_specified_mode = spec$user_specified_mode,
+  prompt,
+  ...
+) {
   cls <- class(spec)[[1]]
 
   avail <- get_from_env(cls)
 
-  engine_condition <- engine_filter_condition(engine, user_specified_engine, avail)
+  engine_condition <- engine_filter_condition(
+    engine,
+    user_specified_engine,
+    avail
+  )
   mode_condition <- mode_filter_condition(mode, user_specified_mode, avail)
 
   if (!is.null(avail)) {
     avail <- vctrs::vec_slice(avail, mode_condition & engine_condition)
   }
 
-  engine_condition_all <- engine_filter_condition(engine, user_specified_engine, model_info_table)
-  mode_condition_all <- mode_filter_condition(mode, user_specified_mode, model_info_table)
+  engine_condition_all <- engine_filter_condition(
+    engine,
+    user_specified_engine,
+    model_info_table
+  )
+  mode_condition_all <- mode_filter_condition(
+    mode,
+    user_specified_mode,
+    model_info_table
+  )
 
   all <-
     vctrs::vec_slice(
@@ -210,13 +235,15 @@ prompt_missing_implementation <- function(spec,
 
   all <- all[setdiff(names(all), "model")]
 
-  if (!isTRUE(user_specified_mode)) {mode <- ""}
+  if (!isTRUE(user_specified_mode)) {
+    mode <- ""
+  }
 
   msg <- c(
     "!" = "{.pkg parsnip} could not locate an implementation for `{cls}` {mode} \\
            model specifications{if (isTRUE(user_specified_engine)) {
            paste0(' using the `', engine, '` engine')} else {''}}."
-    )
+  )
 
   if (nrow(avail) == 0 && nrow(all) > 0) {
     pkgs <- unique(all$pkg)
@@ -224,8 +251,10 @@ prompt_missing_implementation <- function(spec,
     msg <-
       c(
         msg,
-        "i" = paste0("{cli::qty(pkgs)}The parsnip extension package{?s} {.pkg {pkgs}}",
-                     " implemen{?ts/t} support for this specification."),
+        "i" = paste0(
+          "{cli::qty(pkgs)}The parsnip extension package{?s} {.pkg {pkgs}}",
+          " implemen{?ts/t} support for this specification."
+        ),
         "i" = "Please install (if needed) and load to continue."
       )
   }
@@ -324,7 +353,9 @@ update_dot_check <- function(...) {
   dots <- enquos(...)
 
   if (length(dots) > 0) {
-    cli::cli_abort("The extra argument{?s} {.arg {names(dots)}} will be ignored.")
+    cli::cli_abort(
+      "The extra argument{?s} {.arg {names(dots)}} will be ignored."
+    )
   }
 
   invisible(NULL)
@@ -335,15 +366,27 @@ update_dot_check <- function(...) {
 #' @export
 #' @keywords internal
 #' @rdname add_on_exports
-new_model_spec <- function(cls, args, eng_args, mode, user_specified_mode = TRUE,
-                           method, engine, user_specified_engine = TRUE) {
+new_model_spec <- function(
+  cls,
+  args,
+  eng_args,
+  mode,
+  user_specified_mode = TRUE,
+  method,
+  engine,
+  user_specified_engine = TRUE
+) {
   # determine if the model specification could feasibly match any entry
   # in the union of the parsnip model environment and model_info_table.
   # if not, trigger an error based on the (possibly inferred) model spec slots.
   out <- list(
-    args = args, eng_args = eng_args,
-    mode = mode, user_specified_mode = user_specified_mode, method = method,
-    engine = engine, user_specified_engine = user_specified_engine
+    args = args,
+    eng_args = eng_args,
+    mode = mode,
+    user_specified_mode = user_specified_mode,
+    method = method,
+    engine = engine,
+    user_specified_engine = user_specified_engine
   )
   class(out) <- make_classes(cls)
 
@@ -361,18 +404,28 @@ check_outcome <- function(y, spec) {
     return(invisible(NULL))
   }
 
-  has_no_outcome <- if (is.atomic(y)) {is.null(y)} else {length(y) == 0}
+  has_no_outcome <- if (is.atomic(y)) {
+    is.null(y)
+  } else {
+    length(y) == 0
+  }
   if (isTRUE(has_no_outcome)) {
     cli::cli_abort(
-      c("!" = "{.fun {class(spec)[1]}} was unable to find an outcome.",
+      c(
+        "!" = "{.fun {class(spec)[1]}} was unable to find an outcome.",
         "i" = "Ensure that you have specified an outcome column and that it \\
-               hasn't been removed in pre-processing."),
+               hasn't been removed in pre-processing."
+      ),
       call = NULL
     )
   }
 
   if (spec$mode == "regression") {
-    outcome_is_numeric <- if (is.atomic(y)) {is.numeric(y)} else {all(map_lgl(y, is.numeric))}
+    outcome_is_numeric <- if (is.atomic(y)) {
+      is.numeric(y)
+    } else {
+      all(map_lgl(y, is.numeric))
+    }
     if (!outcome_is_numeric) {
       cli::cli_abort(
         "For a regression model, the outcome should be {.cls numeric}, not
@@ -382,7 +435,11 @@ check_outcome <- function(y, spec) {
   }
 
   if (spec$mode == "classification") {
-    outcome_is_factor <- if (is.atomic(y)) {is.factor(y)} else {all(map_lgl(y, is.factor))}
+    outcome_is_factor <- if (is.atomic(y)) {
+      is.factor(y)
+    } else {
+      all(map_lgl(y, is.factor))
+    }
     if (!outcome_is_factor) {
       cli::cli_abort(
         "For a classification model, the outcome should be a {.cls factor}, not
@@ -390,7 +447,9 @@ check_outcome <- function(y, spec) {
       )
     }
 
-    if (inherits(spec, "logistic_reg") && is.atomic(y) && length(levels(y)) > 2) {
+    if (
+      inherits(spec, "logistic_reg") && is.atomic(y) && length(levels(y)) > 2
+    ) {
       # warn rather than error since some engines handle this case by binning
       # all but the first level as the non-event, so this may be intended
       cli::cli_warn(c(
@@ -425,16 +484,25 @@ check_final_param <- function(x, call = rlang::caller_env()) {
     return(invisible(x))
   }
   if (!is.list(x) & !tibble::is_tibble(x)) {
-    cli::cli_abort("The parameter object should be a list or tibble.", call = call)
+    cli::cli_abort(
+      "The parameter object should be a list or tibble.",
+      call = call
+    )
   }
   if (tibble::is_tibble(x) && nrow(x) > 1) {
-    cli::cli_abort("The parameter tibble should have a single row.", call = call)
+    cli::cli_abort(
+      "The parameter tibble should have a single row.",
+      call = call
+    )
   }
   if (tibble::is_tibble(x)) {
     x <- as.list(x)
   }
   if (length(names) == 0 || any(names(x) == "")) {
-    cli::cli_abort("All values in {.arg parameters} should have a name.", call = call)
+    cli::cli_abort(
+      "All values in {.arg parameters} should have a name.",
+      call = call
+    )
   }
 
   invisible(x)
@@ -495,14 +563,16 @@ update_engine_parameters <- function(eng_args, fresh, ...) {
 stan_conf_int <- function(object, newdata) {
   check_installs(list(method = list(libs = "rstanarm")))
   if (utils::packageVersion("rstanarm") >= "2.21.1") {
-    fn <- rlang::call2("posterior_epred",
+    fn <- rlang::call2(
+      "posterior_epred",
       .ns = "rstanarm",
       object = expr(object),
       newdata = expr(newdata),
       seed = expr(sample.int(10^5, 1))
     )
   } else {
-    fn <- rlang::call2("posterior_linpred",
+    fn <- rlang::call2(
+      "posterior_linpred",
       .ns = "rstanarm",
       object = expr(object),
       newdata = expr(newdata),
@@ -570,8 +640,7 @@ check_for_newdata <- function(..., call = rlang::caller_env()) {
 is_cran_check <- function() {
   if (identical(Sys.getenv("NOT_CRAN"), "true")) {
     FALSE
-  }
-  else {
+  } else {
     Sys.getenv("_R_CHECK_PACKAGE_NAME_", "") != ""
   }
 }
@@ -599,8 +668,10 @@ is_cran_check <- function() {
 #' @export
 .get_prediction_column_names <- function(x, syms = FALSE) {
   if (!inherits(x, c("model_fit", "workflow"))) {
-    cli::cli_abort("{.arg x} should be an object with class {.cls model_fit} or
-                    {.cls workflow}, not {.obj_type_friendly {x}}.")
+    cli::cli_abort(
+      "{.arg x} should be an object with class {.cls model_fit} or
+                    {.cls workflow}, not {.obj_type_friendly {x}}."
+    )
   }
 
   if (inherits(x, "workflow")) {
@@ -619,10 +690,12 @@ is_cran_check <- function() {
     purrr::pluck("type")
 
   if (length(predict_types) == 0) {
-    cli::cli_abort("Prediction information could not be found for this
+    cli::cli_abort(
+      "Prediction information could not be found for this
                    {.fn {model_type}} with engine {.val {model_engine}} and mode
                    {.val {model_mode}}. Does a parsnip extension package need to
-                   be loaded?")
+                   be loaded?"
+    )
   }
 
   res <- list(estimate = character(0), probabilities = character(0))

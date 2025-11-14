@@ -34,15 +34,17 @@
 #' }
 #' @export
 ctree_train <-
-  function(formula,
-           data,
-           weights = NULL,
-           minsplit = 20L,
-           maxdepth = Inf,
-           teststat = "quadratic",
-           testtype = "Bonferroni",
-           mincriterion = 0.95,
-           ...) {
+  function(
+    formula,
+    data,
+    weights = NULL,
+    minsplit = 20L,
+    maxdepth = Inf,
+    teststat = "quadratic",
+    testtype = "Bonferroni",
+    mincriterion = 0.95,
+    ...
+  ) {
     rlang::check_installed("partykit")
     opts <- rlang::list2(...)
 
@@ -76,9 +78,11 @@ ctree_train <-
         !!!opts
       )
     if (!is.null(weights)) {
-      if (!is.vector(weights) ||
+      if (
+        !is.vector(weights) ||
           !is.integer(weights) ||
-          length(weights) != nrow(data)) {
+          length(weights) != nrow(data)
+      ) {
         cli::cli_abort(
           "{.arg weights} should be an integer vector with size the same
            as the number of rows of {.arg data}."
@@ -103,22 +107,24 @@ ctree_train <-
 #' @rdname ctree_train
 #' @export
 cforest_train <-
-  function(formula,
-           data,
-           weights = NULL,
-           minsplit = 20L,
-           maxdepth = Inf,
-           teststat = "quadratic",
-           testtype = "Univariate",
-           mincriterion = 0,
-           mtry = ceiling(sqrt(ncol(data) - 1)),
-           ntree = 500L,
-           ...) {
+  function(
+    formula,
+    data,
+    weights = NULL,
+    minsplit = 20L,
+    maxdepth = Inf,
+    teststat = "quadratic",
+    testtype = "Univariate",
+    mincriterion = 0,
+    mtry = ceiling(sqrt(ncol(data) - 1)),
+    ntree = 500L,
+    ...
+  ) {
     rlang::check_installed("partykit")
     force(mtry)
     opts <- rlang::list2(...)
 
-    mtry     <- max_mtry_formula(mtry, formula, data)
+    mtry <- max_mtry_formula(mtry, formula, data)
     minsplit <- min(minsplit, nrow(data))
 
     if (any(names(opts) == "control")) {
@@ -156,9 +162,11 @@ cforest_train <-
       )
 
     if (!is.null(weights)) {
-      if (!is.vector(weights) ||
+      if (
+        !is.vector(weights) ||
           !is.numeric(weights) ||
-          length(weights) != nrow(data)) {
+          length(weights) != nrow(data)
+      ) {
         cli::cli_abort(
           "{.arg weights} should be a numeric vector with size the same as
            the number of rows of {.arg data}."

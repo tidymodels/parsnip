@@ -44,8 +44,9 @@
 #'
 #' @export
 
-translate <- function(x, ...)
+translate <- function(x, ...) {
   UseMethod("translate")
+}
 
 #' @rdname translate
 #' @export
@@ -108,11 +109,22 @@ get_model_spec <- function(model, mode, engine) {
 
   libs <- rlang::env_get(m_env, paste0(model, "_pkgs"))
   libs <- vctrs::vec_slice(libs$pkg, libs$engine == engine)
-  res$libs <- if (length(libs) > 0) {libs[[1]]} else {NULL}
+  res$libs <- if (length(libs) > 0) {
+    libs[[1]]
+  } else {
+    NULL
+  }
 
   fits <- rlang::env_get(m_env, paste0(model, "_fit"))
-  fits <- vctrs::vec_slice(fits$value, fits$mode == mode & fits$engine == engine)
-  res$fit <- if (length(fits) > 0) {fits[[1]]} else {NULL}
+  fits <- vctrs::vec_slice(
+    fits$value,
+    fits$mode == mode & fits$engine == engine
+  )
+  res$fit <- if (length(fits) > 0) {
+    fits[[1]]
+  } else {
+    NULL
+  }
 
   preds <- rlang::env_get(m_env, paste0(model, "_predict"))
   where <- preds$mode == mode & preds$engine == engine
@@ -151,7 +163,7 @@ deharmonize <- function(args, key) {
     dplyr::left_join(parsn, key, by = "parsnip") |>
     dplyr::arrange(order)
 
-  merged <- merged[!duplicated(merged$order),]
+  merged <- merged[!duplicated(merged$order), ]
 
   names(args) <- merged$original
   args[!is.na(merged$original)]
@@ -222,4 +234,3 @@ add_methods <- function(x, engine) {
   }
   res
 }
-

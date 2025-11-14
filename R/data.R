@@ -11,4 +11,3 @@
 #' @examplesIf !parsnip:::is_cran_check()
 #' data(model_db)
 NULL
-

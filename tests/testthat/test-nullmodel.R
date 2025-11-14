@@ -3,11 +3,15 @@ skip_if_not_installed("modeldata")
 hpc <- hpc_data[1:150, c(2:5, 8)] |> as.data.frame()
 
 test_that('bad input', {
-  expect_snapshot(error = TRUE, translate(null_model(mode = "regression") |> set_engine()))
+  expect_snapshot(
+    error = TRUE,
+    translate(null_model(mode = "regression") |> set_engine())
+  )
   expect_snapshot(error = TRUE, translate(null_model() |> set_engine("wat?")))
   expect_warning(
     translate(
-      null_model(mode = "regression") |> set_engine("parsnip", x = hpc[,1:3], y = hpc$class)
+      null_model(mode = "regression") |>
+        set_engine("parsnip", x = hpc[, 1:3], y = hpc$class)
     ),
     class = "parsnip_protected_arg_warning"
   )
@@ -21,7 +25,6 @@ hpc_bad_form <- as.formula(class ~ term)
 # ------------------------------------------------------------------------------
 
 test_that('nullmodel execution', {
-
   expect_no_condition(
     res <- fit(
       null_model(mode = "regression") |> set_engine("parsnip"),
@@ -76,15 +79,12 @@ test_that('nullmodel execution', {
       data = hpc
     )
   )
-
 })
 
 test_that('nullmodel prediction', {
-
   uni_pred <- tibble(.pred = rep(30.1, 5))
   inl_pred <- rep(30.1, 5)
-  mw_pred <- tibble(gear = rep(3.6875, 5),
-                    carb = rep(2.8125, 5))
+  mw_pred <- tibble(gear = rep(3.6875, 5), carb = rep(2.8125, 5))
 
   res_xy <- fit_xy(
     null_model(mode = "regression") |> set_engine("parsnip"),
@@ -92,18 +92,18 @@ test_that('nullmodel prediction', {
     y = hpc$num_pending
   )
 
-  expect_equal(uni_pred,
-               predict(res_xy, new_data = hpc[1:5, num_pred]),
-               tolerance = .01)
+  expect_equal(
+    uni_pred,
+    predict(res_xy, new_data = hpc[1:5, num_pred]),
+    tolerance = .01
+  )
 
   res_form <- fit(
     null_model(mode = "regression") |> set_engine("parsnip"),
     num_pending ~ log(compounds) + class,
     data = hpc
   )
-  expect_equal(inl_pred,
-               predict(res_form, hpc[1:5, ])$.pred,
-               tolerance = .01)
+  expect_equal(inl_pred, predict(res_form, hpc[1:5, ])$.pred, tolerance = .01)
 
   # Multivariate y
   res <- fit(
@@ -121,7 +121,6 @@ test_that('nullmodel prediction', {
 # ------------------------------------------------------------------------------
 
 test_that('classification', {
-
   expect_no_condition(
     null_model <- null_model(mode = "classification") |>
       set_engine("parsnip") |>
@@ -182,7 +181,11 @@ test_that("null_model works with sparse matrix data - classification", {
   hotel_data <- sparse_hotel_rates()
 
   # Create a factor outcome for classification
-  y_class <- factor(ifelse(hotel_data[, 1] > median(hotel_data[, 1]), "high", "low"))
+  y_class <- factor(ifelse(
+    hotel_data[, 1] > median(hotel_data[, 1]),
+    "high",
+    "low"
+  ))
 
   spec <- null_model(mode = "classification") |>
     set_engine("parsnip")

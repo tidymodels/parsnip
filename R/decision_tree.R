@@ -33,13 +33,17 @@
 #' @export
 
 decision_tree <-
-  function(mode = "unknown", engine = "rpart", cost_complexity = NULL,
-           tree_depth = NULL, min_n = NULL) {
-
+  function(
+    mode = "unknown",
+    engine = "rpart",
+    cost_complexity = NULL,
+    tree_depth = NULL,
+    min_n = NULL
+  ) {
     args <- list(
-      cost_complexity   = enquo(cost_complexity),
-      tree_depth  = enquo(tree_depth),
-      min_n  = enquo(min_n)
+      cost_complexity = enquo(cost_complexity),
+      tree_depth = enquo(tree_depth),
+      min_n = enquo(min_n)
     )
 
     new_model_spec(
@@ -60,15 +64,19 @@ decision_tree <-
 #' @rdname parsnip_update
 #' @export
 update.decision_tree <-
-  function(object,
-           parameters = NULL,
-           cost_complexity = NULL, tree_depth = NULL, min_n = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    cost_complexity = NULL,
+    tree_depth = NULL,
+    min_n = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
-      cost_complexity   = enquo(cost_complexity),
-      tree_depth  = enquo(tree_depth),
-      min_n  = enquo(min_n)
+      cost_complexity = enquo(cost_complexity),
+      tree_depth = enquo(tree_depth),
+      min_n = enquo(min_n)
     )
 
     update_spec(
@@ -113,7 +121,11 @@ translate.decision_tree <- function(x, engine = x$engine, ...) {
   }
   if (any(names(arg_vals) == "min_instances_per_node")) {
     arg_vals$min_instances_per_node <-
-      rlang::call2("min_rows", rlang::eval_tidy(arg_vals$min_instances_per_node), expr(x))
+      rlang::call2(
+        "min_rows",
+        rlang::eval_tidy(arg_vals$min_instances_per_node),
+        expr(x)
+      )
   }
 
   ## -----------------------------------------------------------------------------

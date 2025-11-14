@@ -9,13 +9,15 @@
 #' @method predict_quantile model_fit
 #' @export predict_quantile.model_fit
 #' @export
-predict_quantile.model_fit <- function(object,
-                                       new_data,
-                                       quantile_levels = NULL,
-                                       quantile = deprecated(),
-                                       interval = "none",
-                                       level = 0.95,
-                                       ...) {
+predict_quantile.model_fit <- function(
+  object,
+  new_data,
+  quantile_levels = NULL,
+  quantile = deprecated(),
+  interval = "none",
+  level = 0.95,
+  ...
+) {
   check_dots_empty()
   check_spec_pred_type(object, "quantile")
 
@@ -28,7 +30,6 @@ predict_quantile.model_fit <- function(object,
     quantile_levels <- quantile
   }
 
-
   if (inherits(object$fit, "try-error")) {
     cli::cli_warn("Model fit failed; cannot make predictions.")
     return(NULL)
@@ -36,13 +37,15 @@ predict_quantile.model_fit <- function(object,
 
   if (object$spec$mode == "quantile regression") {
     if (!is.null(quantile_levels)) {
-      cli::cli_abort("When the mode is {.val quantile regression},
+      cli::cli_abort(
+        "When the mode is {.val quantile regression},
                      {.arg quantile_levels} are specified by {.fn set_mode}.",
-                     call = rlang::call2("predict"))
+        call = rlang::call2("predict")
+      )
     }
   } else {
     if (is.null(quantile_levels)) {
-      quantile_levels <- (1:9)/10
+      quantile_levels <- (1:9) / 10
     }
     hardhat::check_quantile_levels(quantile_levels)
     # Pass some extra arguments to be used in post-processor
@@ -61,7 +64,7 @@ predict_quantile.model_fit <- function(object,
   res <- eval_tidy(pred_call)
 
   # post-process the predictions
-  if(!is.null(object$spec$method$pred$quantile$post)) {
+  if (!is.null(object$spec$method$pred$quantile$post)) {
     res <- object$spec$method$pred$quantile$post(res, object)
   }
 
@@ -72,6 +75,6 @@ predict_quantile.model_fit <- function(object,
 # @keywords internal
 # @rdname other_predict
 # @inheritParams predict.model_fit
-predict_quantile <- function (object, ...) {
+predict_quantile <- function(object, ...) {
   UseMethod("predict_quantile")
 }

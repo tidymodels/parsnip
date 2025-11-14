@@ -1,12 +1,10 @@
-
 test_that('case weights with xy method', {
-
   skip_if_not_installed("C50")
   skip_if_not_installed("modeldata")
   data("two_class_dat", package = "modeldata")
 
   wts <- runif(nrow(two_class_dat))
-  wts <- ifelse(wts < 1/5, 0, 1)
+  wts <- ifelse(wts < 1 / 5, 0, 1)
   two_class_subset <- two_class_dat[wts != 0, ]
   wts <- importance_weights(wts)
 
@@ -45,13 +43,12 @@ test_that('case weights with xy method', {
 
 
 test_that('case weights with xy method - non-standard argument names', {
-
   skip_if_not_installed("ranger")
   skip_if_not_installed("modeldata")
   data("two_class_dat", package = "modeldata")
 
   wts <- runif(nrow(two_class_dat))
-  wts <- ifelse(wts < 1/5, 0, 1)
+  wts <- ifelse(wts < 1 / 5, 0, 1)
   two_class_subset <- two_class_dat[wts != 0, ]
   wts <- importance_weights(wts)
 
@@ -82,14 +79,13 @@ test_that('case weights with xy method - non-standard argument names', {
 })
 
 test_that('case weights with formula method', {
-
   skip_if_not_installed("modeldata")
   data("ames", package = "modeldata")
   ames$Sale_Price <- log10(ames$Sale_Price)
 
   set.seed(1)
   wts <- runif(nrow(ames))
-  wts <- ifelse(wts < 1/5, 0L, 1L)
+  wts <- ifelse(wts < 1 / 5, 0L, 1L)
   ames_subset <- ames[wts != 0, ]
   wts <- frequency_weights(wts)
 
@@ -107,14 +103,13 @@ test_that('case weights with formula method', {
 })
 
 test_that('case weights with formula method -- unregistered model spec', {
-
   skip_if_not_installed("modeldata")
   data("ames", package = "modeldata")
   ames$Sale_Price <- log10(ames$Sale_Price)
 
   set.seed(1)
   wts <- runif(nrow(ames))
-  wts <- ifelse(wts < 1/5, 0L, 1L)
+  wts <- ifelse(wts < 1 / 5, 0L, 1L)
   ames_subset <- ames[wts != 0, ]
   wts <- frequency_weights(wts)
 
@@ -126,14 +121,13 @@ test_that('case weights with formula method -- unregistered model spec', {
 })
 
 test_that('case weights with formula method that goes through `fit_xy()`', {
-
   skip_if_not_installed("modeldata")
   data("ames", package = "modeldata")
   ames$Sale_Price <- log10(ames$Sale_Price)
 
   set.seed(1)
   wts <- runif(nrow(ames))
-  wts <- ifelse(wts < 1/5, 0L, 1L)
+  wts <- ifelse(wts < 1 / 5, 0L, 1L)
   ames_subset <- ames[wts != 0, ]
   wts <- frequency_weights(wts)
 
@@ -144,7 +138,8 @@ test_that('case weights with formula method that goes through `fit_xy()`', {
         x = ames[c("Longitude", "Latitude")],
         y = ames$Sale_Price,
         case_weights = wts
-  ))
+      )
+  )
 
   lm_sub_fit <-
     linear_reg() |>

@@ -31,12 +31,16 @@
 #' mars(mode = "regression", num_terms = 5)
 #' @export
 mars <-
-  function(mode = "unknown", engine = "earth",
-           num_terms = NULL, prod_degree = NULL, prune_method = NULL) {
-
+  function(
+    mode = "unknown",
+    engine = "earth",
+    num_terms = NULL,
+    prod_degree = NULL,
+    prune_method = NULL
+  ) {
     args <- list(
-      num_terms    = enquo(num_terms),
-      prod_degree  = enquo(prod_degree),
+      num_terms = enquo(num_terms),
+      prod_degree = enquo(prod_degree),
       prune_method = enquo(prune_method)
     )
 
@@ -58,14 +62,18 @@ mars <-
 #' @rdname parsnip_update
 #' @export
 update.mars <-
-  function(object,
-           parameters = NULL,
-           num_terms = NULL, prod_degree = NULL, prune_method = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    num_terms = NULL,
+    prod_degree = NULL,
+    prune_method = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
-      num_terms    = enquo(num_terms),
-      prod_degree  = enquo(prod_degree),
+      num_terms = enquo(num_terms),
+      prod_degree = enquo(prod_degree),
       prune_method = enquo(prune_method)
     )
 
@@ -106,12 +114,29 @@ translate.mars <- function(x, engine = x$engine, ...) {
 
 #' @export
 check_args.mars <- function(object, call = rlang::caller_env()) {
-
   args <- lapply(object$args, rlang::eval_tidy)
 
-  check_number_whole(args$prod_degree, min = 1, allow_null = TRUE, call = call, arg = "prod_degree")
-  check_number_whole(args$num_terms, min = 1, allow_null = TRUE, call = call, arg = "num_terms")
-  check_string(args$prune_method, allow_empty = FALSE, allow_null = TRUE, call = call, arg = "prune_method")
+  check_number_whole(
+    args$prod_degree,
+    min = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "prod_degree"
+  )
+  check_number_whole(
+    args$num_terms,
+    min = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "num_terms"
+  )
+  check_string(
+    args$prune_method,
+    allow_empty = FALSE,
+    allow_null = TRUE,
+    call = call,
+    arg = "prune_method"
+  )
 
   invisible(object)
 }
@@ -147,8 +172,9 @@ multi_predict._earth <-
   function(object, new_data, type = NULL, num_terms = NULL, ...) {
     load_libs(object, quiet = TRUE, attach = TRUE)
 
-    if (is.null(num_terms))
+    if (is.null(num_terms)) {
       num_terms <- object$fit$selected.terms[-1]
+    }
 
     num_terms <- sort(num_terms)
 
@@ -157,13 +183,16 @@ multi_predict._earth <-
     call_names <- names(object$fit$call)
     call_names <- call_names[!(call_names %in% c("", "x", "y"))]
     for (i in call_names) {
-      if (is_quosure(object$fit$call[[i]]))
+      if (is_quosure(object$fit$call[[i]])) {
         object$fit$call[[i]] <- eval_tidy(object$fit$call[[i]])
+      }
     }
 
     msg <-
-      c("x" = "Please use {.code keepxy = TRUE} as an option to enable submodel
-                     predictions with earth.")
+      c(
+        "x" = "Please use {.code keepxy = TRUE} as an option to enable submodel
+                     predictions with earth."
+      )
     if (any(names(object$fit$call) == "keepxy")) {
       if (!isTRUE(object$fit$call$keepxy)) {
         cli::cli_abort(msg)
@@ -181,8 +210,14 @@ multi_predict._earth <-
     }
 
     res <-
-      map(num_terms, earth_by_terms, object = object,
-          new_data = new_data, type = type, ...) |>
+      map(
+        num_terms,
+        earth_by_terms,
+        object = object,
+        new_data = new_data,
+        type = type,
+        ...
+      ) |>
       purrr::list_rbind()
     res <- arrange(res, .row, num_terms)
     res <- split(res[, -1], res$.row)

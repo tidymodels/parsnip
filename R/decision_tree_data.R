@@ -121,12 +121,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = NULL, fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "class"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "class"
+    )
   )
 )
 
@@ -221,12 +220,11 @@ set_pred(
       as_tibble(x)
     },
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "prob"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "prob"
+    )
   )
 )
 
@@ -240,8 +238,7 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args = list(object = quote(object$fit),
-                newdata = quote(new_data))
+    args = list(object = quote(object$fit), newdata = quote(new_data))
   )
 )
 
@@ -278,8 +275,7 @@ set_fit(
     data = c(formula = "formula", data = "x"),
     protect = c("x", "formula"),
     func = c(pkg = "sparklyr", fun = "ml_decision_tree_regressor"),
-    defaults =
-      list(seed = expr(sample.int(10 ^ 5, 1)))
+    defaults = list(seed = expr(sample.int(10^5, 1)))
   )
 )
 
@@ -304,8 +300,7 @@ set_fit(
     data = c(formula = "formula", data = "x"),
     protect = c("x", "formula"),
     func = c(pkg = "sparklyr", fun = "ml_decision_tree_classifier"),
-    defaults =
-      list(seed = expr(sample.int(10 ^ 5, 1)))
+    defaults = list(seed = expr(sample.int(10^5, 1)))
   )
 )
 

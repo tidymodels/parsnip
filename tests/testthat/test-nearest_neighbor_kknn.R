@@ -5,15 +5,16 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 num_pred <- c("compounds", "iterations", "num_pending")
 hpc_bad_form <- as.formula(class ~ term)
-hpc_basic <- nearest_neighbor(mode = "classification",
-                               neighbors = 8,
-                               weight_func = "triangular") |>
+hpc_basic <- nearest_neighbor(
+  mode = "classification",
+  neighbors = 8,
+  weight_func = "triangular"
+) |>
   set_engine("kknn")
 
 # ------------------------------------------------------------------------------
 
 test_that('kknn execution', {
-
   skip_if_not_installed("kknn")
   library(kknn)
 
@@ -40,11 +41,9 @@ test_that('kknn execution', {
       control = ctrl
     )
   )
-
 })
 
 test_that('kknn prediction', {
-
   skip_if_not_installed("kknn")
   library(kknn)
 
@@ -61,7 +60,10 @@ test_that('kknn prediction', {
     newdata = hpc[1:5, num_pred]
   )
 
-  expect_equal(tibble(.pred_class = uni_pred), predict(res_xy, hpc[1:5, num_pred]))
+  expect_equal(
+    tibble(.pred_class = uni_pred),
+    predict(res_xy, hpc[1:5, num_pred])
+  )
 
   # nominal
   res_xy_nom <- fit_xy(
@@ -78,7 +80,11 @@ test_that('kknn prediction', {
 
   expect_equal(
     uni_pred_nom,
-    predict(res_xy_nom, hpc[1:5, c("input_fields", "iterations")], type = "class")$.pred_class
+    predict(
+      res_xy_nom,
+      hpc[1:5, c("input_fields", "iterations")],
+      type = "class"
+    )$.pred_class
   )
 
   # continuous - formula interface
@@ -91,15 +97,17 @@ test_that('kknn prediction', {
 
   form_pred <- predict(
     extract_fit_engine(res_form),
-    newdata = hpc[1:5,]
+    newdata = hpc[1:5, ]
   )
 
-  expect_equal(form_pred, predict(res_form, hpc[1:5, c("compounds", "class")])$.pred)
+  expect_equal(
+    form_pred,
+    predict(res_form, hpc[1:5, c("compounds", "class")])$.pred
+  )
 })
 
 
 test_that('kknn multi-predict', {
-
   skip_if_not_installed("kknn")
   library(kknn)
 
@@ -115,8 +123,10 @@ test_that('kknn multi-predict', {
   )
 
   pred_multi <- multi_predict(res_xy, hpc[hpc_te, num_pred], neighbors = k_vals)
-  expect_equal(pred_multi |> tidyr::unnest(cols = c(.pred)) |> nrow(),
-               length(hpc_te) * length(k_vals))
+  expect_equal(
+    pred_multi |> tidyr::unnest(cols = c(.pred)) |> nrow(),
+    length(hpc_te) * length(k_vals)
+  )
   expect_equal(pred_multi |> nrow(), length(hpc_te))
 
   pred_uni <- predict(res_xy, hpc[hpc_te, num_pred])
@@ -129,11 +139,16 @@ test_that('kknn multi-predict', {
     dplyr::select(.pred_class)
   expect_equal(pred_uni, pred_uni_obs)
 
-
-  prob_multi <- multi_predict(res_xy, hpc[hpc_te, num_pred],
-                              neighbors = k_vals, type = "prob")
-  expect_equal(prob_multi |> tidyr::unnest(cols = c(.pred)) |> nrow(),
-               length(hpc_te) * length(k_vals))
+  prob_multi <- multi_predict(
+    res_xy,
+    hpc[hpc_te, num_pred],
+    neighbors = k_vals,
+    type = "prob"
+  )
+  expect_equal(
+    prob_multi |> tidyr::unnest(cols = c(.pred)) |> nrow(),
+    length(hpc_te) * length(k_vals)
+  )
   expect_equal(prob_multi |> nrow(), length(hpc_te))
 
   prob_uni <- predict(res_xy, hpc[hpc_te, num_pred], type = "prob")
@@ -156,12 +171,15 @@ test_that('kknn multi-predict', {
     nearest_neighbor(mode = "regression", neighbors = 3) |>
       set_engine("kknn"),
     control = ctrl,
-    mpg ~ ., data = mtcars[-cars_te, ]
+    mpg ~ .,
+    data = mtcars[-cars_te, ]
   )
 
   pred_multi <- multi_predict(res_xy, mtcars[cars_te, -1], neighbors = k_vals)
-  expect_equal(pred_multi |> tidyr::unnest(cols = c(.pred)) |> nrow(),
-               length(cars_te) * length(k_vals))
+  expect_equal(
+    pred_multi |> tidyr::unnest(cols = c(.pred)) |> nrow(),
+    length(cars_te) * length(k_vals)
+  )
   expect_equal(pred_multi |> nrow(), length(cars_te))
 
   pred_uni <- predict(res_xy, mtcars[cars_te, -1])
@@ -191,15 +209,13 @@ test_that('argument checks for data dimensions', {
     set_mode("regression")
 
   expect_snapshot(
-    f_fit  <- spec |> fit(body_mass_g ~ ., data = penguins)
+    f_fit <- spec |> fit(body_mass_g ~ ., data = penguins)
   )
 
   expect_snapshot(
     xy_fit <- spec |> fit_xy(x = penguins[, -6], y = penguins$body_mass_g)
   )
 
-  expect_equal(extract_fit_engine(f_fit)$best.parameters$k,  nrow(penguins) - 5)
+  expect_equal(extract_fit_engine(f_fit)$best.parameters$k, nrow(penguins) - 5)
   expect_equal(extract_fit_engine(xy_fit)$best.parameters$k, nrow(penguins) - 5)
-
 })
-
