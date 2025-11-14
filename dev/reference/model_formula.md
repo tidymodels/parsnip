@@ -1,0 +1,86 @@
+# Formulas with special terms in tidymodels
+
+In R, formulas provide a compact, symbolic notation to specify model
+terms. Many modeling functions in R make use of
+["specials"](https://rdrr.io/r/stats/terms.formula.html), or nonstandard
+notations used in formulas. Specials are defined and handled as a
+special case by a given modeling package. For example, the mgcv package,
+which provides support for [generalized additive
+models](https://parsnip.tidymodels.org/dev/reference/gen_additive_mod.md)
+in R, defines a function [`s()`](https://rdrr.io/pkg/mgcv/man/s.html) to
+be in-lined into formulas. It can be used like so:
+
+    mgcv::gam(mpg ~ wt + s(disp, k = 5), data = mtcars)
+
+In this example, the [`s()`](https://rdrr.io/pkg/mgcv/man/s.html)
+special defines a smoothing term that the mgcv package knows to look for
+when preprocessing model input.
+
+The parsnip package can handle most specials without issue. The
+analogous code for specifying this generalized additive model [with the
+parsnip "mgcv"
+engine](https://parsnip.tidymodels.org/dev/reference/details_gen_additive_mod_mgcv.md)
+looks like:
+
+    gen_additive_mod() |>
+      set_mode("regression") |>
+      set_engine("mgcv") |>
+      fit(mpg ~ wt + s(disp, k = 5), data = mtcars)
+
+However, parsnip is often used in conjunction with the greater
+tidymodels package ecosystem, which defines its own pre-processing
+infrastructure and functionality via packages like hardhat and recipes.
+The specials defined in many modeling packages introduce conflicts with
+that infrastructure.
+
+To support specials while also maintaining consistent syntax elsewhere
+in the ecosystem, **tidymodels delineates between two types of formulas:
+preprocessing formulas and model formulas**. Preprocessing formulas
+specify the input variables, while model formulas determine the model
+structure.
+
+## Example
+
+To create the preprocessing formula from the model formula, just remove
+the specials, retaining references to input variables themselves. For
+example:
+
+    model_formula <- mpg ~ wt + s(disp, k = 5)
+    preproc_formula <- mpg ~ wt + disp
+
+- **With parsnip,** use the model formula:
+
+      model_spec <-
+        gen_additive_mod() |>
+        set_mode("regression") |>
+        set_engine("mgcv")
+
+      model_spec |>
+        fit(model_formula, data = mtcars)
+
+- **With recipes**, use the preprocessing formula only:
+
+      library(recipes)
+
+      recipe(preproc_formula, mtcars)
+
+  The recipes package supplies a large variety of preprocessing
+  techniques that may replace the need for specials altogether, in some
+  cases.
+
+- **With workflows,** use the preprocessing formula everywhere, but pass
+  the model formula to the `formula` argument in `add_model()`:
+
+      library(workflows)
+
+      wflow <-
+        workflow() |>
+        add_formula(preproc_formula) |>
+        add_model(model_spec, formula = model_formula)
+
+      fit(wflow, data = mtcars)
+
+  The workflow will then pass the model formula to parsnip, using the
+  preprocessor formula elsewhere. We would still use the preprocessing
+  formula if we had added a recipe preprocessor using `add_recipe()`
+  instead a formula via `add_formula()`.
