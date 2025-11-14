@@ -58,13 +58,15 @@ set_pred(
     pre = NULL,
     post = organize_multnet_class,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newx = quote(as.matrix(new_data[, rownames(object$fit$beta[[1]]), drop = FALSE])),
-        type = "class",
-        s = quote(object$spec$args$penalty)
-      )
+    args = list(
+      object = quote(object$fit),
+      newx = quote(as.matrix(new_data[,
+        rownames(object$fit$beta[[1]]),
+        drop = FALSE
+      ])),
+      type = "class",
+      s = quote(object$spec$args$penalty)
+    )
   )
 )
 
@@ -77,13 +79,15 @@ set_pred(
     pre = NULL,
     post = organize_multnet_prob,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = expr(object$fit),
-        newx = expr(as.matrix(new_data[, rownames(object$fit$beta[[1]]), drop = FALSE])),
-        type = "response",
-        s = expr(object$spec$args$penalty)
-      )
+    args = list(
+      object = expr(object$fit),
+      newx = expr(as.matrix(new_data[,
+        rownames(object$fit$beta[[1]]),
+        drop = FALSE
+      ])),
+      type = "response",
+      s = expr(object$spec$args$penalty)
+    )
   )
 )
 
@@ -96,11 +100,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newx = quote(as.matrix(new_data))
-      )
+    args = list(
+      object = quote(object$fit),
+      newx = quote(as.matrix(new_data))
+    )
   )
 )
 
@@ -161,11 +164,10 @@ set_pred(
     pre = NULL,
     post = format_spark_class,
     func = c(pkg = "sparklyr", fun = "ml_predict"),
-    args =
-      list(
-        x = quote(object$fit),
-        dataset = quote(new_data)
-      )
+    args = list(
+      x = quote(object$fit),
+      dataset = quote(new_data)
+    )
   )
 )
 
@@ -179,11 +181,10 @@ set_pred(
     pre = NULL,
     post = format_spark_probs,
     func = c(pkg = "sparklyr", fun = "ml_predict"),
-    args =
-      list(
-        x = quote(object$fit),
-        dataset = quote(new_data)
-      )
+    args = list(
+      x = quote(object$fit),
+      dataset = quote(new_data)
+    )
   )
 )
 
@@ -236,9 +237,7 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = "parsnip", fun = "keras_predict_classes"),
-    args =
-      list(object = quote(object),
-           x = quote(as.matrix(new_data)))
+    args = list(object = quote(object), x = quote(as.matrix(new_data)))
   )
 )
 
@@ -255,9 +254,7 @@ set_pred(
       x
     },
     func = c(fun = "predict"),
-    args =
-      list(object = quote(object$fit),
-           x = quote(as.matrix(new_data)))
+    args = list(object = quote(object$fit), x = quote(as.matrix(new_data)))
   )
 )
 
@@ -309,12 +306,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "class"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "class"
+    )
   )
 )
 
@@ -327,12 +323,11 @@ set_pred(
     pre = NULL,
     post = organize_nnet_prob,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "prob"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "prob"
+    )
   )
 )
 
@@ -345,17 +340,15 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data)
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
   )
 )
 
 
 # ------------------------------------------------------------------------------
-
 
 set_model_engine("multinom_reg", "classification", "brulee")
 set_dependency("multinom_reg", "brulee", "brulee")
@@ -412,12 +405,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "class"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "class"
+    )
   )
 )
 
@@ -430,11 +422,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "prob"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "prob"
+    )
   )
 )

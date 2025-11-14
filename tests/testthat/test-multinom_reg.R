@@ -13,11 +13,15 @@ test_that('updating', {
 
 test_that('bad input', {
   expect_snapshot(error = TRUE, multinom_reg(mode = "regression"))
-  expect_snapshot(error = TRUE, translate(multinom_reg(penalty = 0.1) |> set_engine("wat?")))
+  expect_snapshot(
+    error = TRUE,
+    translate(multinom_reg(penalty = 0.1) |> set_engine("wat?"))
+  )
   expect_snapshot(error = TRUE, multinom_reg(penalty = 0.1) |> set_engine())
   expect_warning(
     translate(
-      multinom_reg(penalty = 0.1) |> set_engine("glmnet", x = hpc[,1:3], y = hpc$class)
+      multinom_reg(penalty = 0.1) |>
+        set_engine("glmnet", x = hpc[, 1:3], y = hpc$class)
     ),
     class = "parsnip_protected_arg_warning"
   )
@@ -49,7 +53,6 @@ test_that('check_args() works', {
 # ------------------------------------------------------------------------------
 
 test_that("tunables", {
-
   expect_snapshot(
     multinom_reg() |>
       tunable()
@@ -78,5 +81,4 @@ test_that("tunables", {
       set_engine("keras") |>
       tunable()
   )
-
 })

@@ -38,7 +38,9 @@ knit_engine_docs <- function(pattern = NULL) {
     errors <-
       purrr::map_chr(errors, ~ cli::ansi_strip(as.character(.x))) |>
       purrr::map2_chr(error_nms, ~ paste0(.y, ": ", .x)) |>
-      purrr::map_chr(~ gsub("Error in .f(.x[[i]], ...) :", "", .x, fixed = TRUE))
+      purrr::map_chr(
+        ~ gsub("Error in .f(.x[[i]], ...) :", "", .x, fixed = TRUE)
+      )
     cat("There were failures duing knitting:\n\n")
     cat(errors)
     cat("\n\n")
@@ -58,8 +60,17 @@ knit_engine_docs <- function(pattern = NULL) {
 # ------------------------------------------------------------------------------
 
 extensions <- function() {
-  c("baguette", "censored", "discrim", "multilevelmod", "plsmod",
-    "poissonreg", "rules", "bonsai", "agua")
+  c(
+    "baguette",
+    "censored",
+    "discrim",
+    "multilevelmod",
+    "plsmod",
+    "poissonreg",
+    "rules",
+    "bonsai",
+    "agua"
+  )
 }
 
 # ------------------------------------------------------------------------------
@@ -107,7 +118,6 @@ update_model_info_file <- function(path = "inst/models.tsv") {
 }
 
 # ------------------------------------------------------------------------------
-
 
 #' Tools for documenting engines
 #'
@@ -217,15 +227,17 @@ make_engine_list <- function(mod) {
     )
   eng <- dplyr::left_join(eng, exts, by = "engine")
 
-
   eng_table <-
     eng |>
     dplyr::arrange(.order) |>
     dplyr::select(-mode) |>
     dplyr::distinct(engine, .keep_all = TRUE) |>
     dplyr::mutate(
-      item = glue::glue("  \\item \\code{\\link[|topic|]{|engine|}|default||has_ext|}",
-                        .open = "|", .close = "|")
+      item = glue::glue(
+        "  \\item \\code{\\link[|topic|]{|engine|}|default||has_ext|}",
+        .open = "|",
+        .close = "|"
+      )
     )
 
   notes <- paste0("\n", cli::symbol$sup_1, " The default engine.")
@@ -238,18 +250,29 @@ make_engine_list <- function(mod) {
         sort() |>
         combine_words()
       notes <- paste0(
-        notes, " ",
-        cli::symbol$sup_2, " Requires a parsnip extension package for ",
-        ext_modes, ".")
+        notes,
+        " ",
+        cli::symbol$sup_2,
+        " Requires a parsnip extension package for ",
+        ext_modes,
+        "."
+      )
     } else {
-      notes <- paste0(notes, " ", cli::symbol$sup_2, " Requires a parsnip extension package.")
+      notes <- paste0(
+        notes,
+        " ",
+        cli::symbol$sup_2,
+        " Requires a parsnip extension package."
+      )
     }
   }
 
-
   items <- glue::glue_collapse(eng_table$item, sep = "\n")
-  res <- glue::glue("|main|\n\\itemize{\n|items|\n}\n\n |notes|",
-                    .open = "|", .close = "|")
+  res <- glue::glue(
+    "|main|\n\\itemize{\n|items|\n}\n\n |notes|",
+    .open = "|",
+    .close = "|"
+  )
   res
 }
 
@@ -263,21 +286,26 @@ get_default_engine <- function(mod, pkg = "parsnip") {
 
 #' @export
 #' @rdname  doc-tools
-make_seealso_list <- function(mod, pkg= "parsnip") {
+make_seealso_list <- function(mod, pkg = "parsnip") {
   requireNamespace(pkg, quietly = TRUE)
   eng <- find_engine_files(mod)
 
-  main <- c("\\code{\\link[=fit.model_spec]{fit()}}",
-            "\\code{\\link[=set_engine]{set_engine()}}",
-            "\\code{\\link[=update]{update()}}")
+  main <- c(
+    "\\code{\\link[=fit.model_spec]{fit()}}",
+    "\\code{\\link[=set_engine]{set_engine()}}",
+    "\\code{\\link[=update]{update()}}"
+  )
 
   if (length(eng) == 0) {
     return(paste0(main, collapse = ", "))
   }
 
   res <-
-    glue::glue("\\code{\\link[|eng$topic|]{|eng$engine| engine details}}",
-               .open = "|", .close = "|")
+    glue::glue(
+      "\\code{\\link[|eng$topic|]{|eng$engine| engine details}}",
+      .open = "|",
+      .close = "|"
+    )
 
   if (pkg != "parsnip") {
     main <- NULL

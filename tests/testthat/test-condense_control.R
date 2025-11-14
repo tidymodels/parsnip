@@ -15,9 +15,7 @@ test_that("condense_control works", {
   )
 
   ctrl$anotherone <- 2
-  expect_snapshot(error = TRUE,
-    condense_control(control_parsnip(), ctrl)
-  )
+  expect_snapshot(error = TRUE, condense_control(control_parsnip(), ctrl))
 
   # Emulate being called from one of the upstream control_* functions
   control_test <- function(control = control_parsnip()) {

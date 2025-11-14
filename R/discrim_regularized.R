@@ -45,9 +45,12 @@
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_regularized")}
 #' @export
 discrim_regularized <-
-  function(mode = "classification", frac_common_cov = NULL, frac_identity = NULL,
-           engine = "klaR") {
-
+  function(
+    mode = "classification",
+    frac_common_cov = NULL,
+    frac_identity = NULL,
+    engine = "klaR"
+  ) {
     args <- list(
       frac_common_cov = rlang::enquo(frac_common_cov),
       frac_identity = rlang::enquo(frac_identity)
@@ -72,11 +75,13 @@ discrim_regularized <-
 #' @inheritParams discrim_regularized
 #' @export
 update.discrim_regularized <-
-  function(object,
-           frac_common_cov = NULL,
-           frac_identity = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    frac_common_cov = NULL,
+    frac_identity = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
       frac_common_cov = rlang::enquo(frac_common_cov),
       frac_identity = rlang::enquo(frac_identity)
@@ -96,12 +101,25 @@ update.discrim_regularized <-
 
 #' @export
 check_args.discrim_regularized <- function(object, call = rlang::caller_env()) {
-
   args <- lapply(object$args, rlang::eval_tidy)
 
-  check_number_decimal(args$frac_common_cov, min = 0, max = 1, allow_null = TRUE, call = call, arg = "frac_common_cov")
-  check_number_decimal(args$frac_identity, min = 0, max = 1, allow_null = TRUE, call = call, arg = "frac_identity")
-  
+  check_number_decimal(
+    args$frac_common_cov,
+    min = 0,
+    max = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "frac_common_cov"
+  )
+  check_number_decimal(
+    args$frac_identity,
+    min = 0,
+    max = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "frac_identity"
+  )
+
   invisible(object)
 }
 
@@ -110,4 +128,3 @@ check_args.discrim_regularized <- function(object, call = rlang::caller_env()) {
 
 set_new_model("discrim_regularized")
 set_model_mode("discrim_regularized", "classification")
-

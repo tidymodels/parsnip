@@ -22,7 +22,10 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_snapshot(error = TRUE, translate(mars(mode = "regression") |> set_engine()))
+  expect_snapshot(
+    error = TRUE,
+    translate(mars(mode = "regression") |> set_engine())
+  )
   expect_snapshot(error = TRUE, translate(mars() |> set_engine("wat?")))
 })
 
@@ -78,26 +81,45 @@ test_that('mars execution', {
     )
   )
   parsnip:::load_libs(res, attach = TRUE)
-
 })
 
 test_that('mars prediction', {
   skip_if_not_installed("earth")
 
-  uni_pred <- c(30.1466666666667, 30.1466666666667, 30.1466666666667,
-                30.1466666666667, 30.1466666666667)
-  inl_pred <- c(538.268789262046, 141.024903718634, 141.024903718634,
-                141.024903718634, 141.024903718634)
+  uni_pred <- c(
+    30.1466666666667,
+    30.1466666666667,
+    30.1466666666667,
+    30.1466666666667,
+    30.1466666666667
+  )
+  inl_pred <- c(
+    538.268789262046,
+    141.024903718634,
+    141.024903718634,
+    141.024903718634,
+    141.024903718634
+  )
   mv_pred <-
     structure(
-      list(compounds =
-             c(371.334864384913, 129.475162245595, 256.094366313268,
-               129.475162245595, 129.475162245595),
-           input_fields =
-             c(430.476046435458, 158.833790342308, 218.07635084308,
-               158.833790342308, 158.833790342308)
+      list(
+        compounds = c(
+          371.334864384913,
+          129.475162245595,
+          256.094366313268,
+          129.475162245595,
+          129.475162245595
+        ),
+        input_fields = c(
+          430.476046435458,
+          158.833790342308,
+          218.07635084308,
+          158.833790342308,
+          158.833790342308
+        )
       ),
-      class = "data.frame", row.names = c(NA, -5L)
+      class = "data.frame",
+      row.names = c(NA, -5L)
     )
 
   res_xy <- fit_xy(
@@ -125,7 +147,7 @@ test_that('mars prediction', {
   )
   expect_equal(
     setNames(mv_pred, paste0(".pred_", names(mv_pred))) |> as.data.frame(),
-    predict(res_mv, hpc[1:5,]) |> as.data.frame()
+    predict(res_mv, hpc[1:5, ]) |> as.data.frame()
   )
 })
 
@@ -145,38 +167,52 @@ test_that('submodel prediction', {
   parsnip:::load_libs(reg_fit$spec, quiet = TRUE, attach = TRUE)
   tmp_reg <- extract_fit_engine(reg_fit)
   tmp_reg$call[["pmethod"]] <- eval_tidy(tmp_reg$call[["pmethod"]])
-  tmp_reg$call[["keepxy"]]  <- eval_tidy(tmp_reg$call[["keepxy"]])
-  tmp_reg$call[["nprune"]]  <- eval_tidy(tmp_reg$call[["nprune"]])
-
+  tmp_reg$call[["keepxy"]] <- eval_tidy(tmp_reg$call[["keepxy"]])
+  tmp_reg$call[["nprune"]] <- eval_tidy(tmp_reg$call[["nprune"]])
 
   pruned_reg <- update(tmp_reg, nprune = 5)
-  pruned_reg_pred <- predict(pruned_reg, mtcars[1:4, -1])[,1]
+  pruned_reg_pred <- predict(pruned_reg, mtcars[1:4, -1])[, 1]
 
   mp_res <- multi_predict(reg_fit, new_data = mtcars[1:4, -1], num_terms = 5)
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred"]], pruned_reg_pred)
 
   full_churn <- wa_churn[complete.cases(wa_churn), ]
-  vars <- c("female", "tenure", "total_charges", "phone_service", "monthly_charges")
+  vars <- c(
+    "female",
+    "tenure",
+    "total_charges",
+    "phone_service",
+    "monthly_charges"
+  )
   class_fit <-
-    mars(mode = "classification", prune_method = "none")  |>
+    mars(mode = "classification", prune_method = "none") |>
     set_engine("earth", keepxy = TRUE) |>
-    fit(churn ~ .,
-        data = full_churn[-(1:4), c("churn", vars)])
+    fit(churn ~ ., data = full_churn[-(1:4), c("churn", vars)])
 
   cls_fit <- extract_fit_engine(class_fit)
   cls_fit$call[["pmethod"]] <- eval_tidy(cls_fit$call[["pmethod"]])
-  cls_fit$call[["keepxy"]]  <- eval_tidy(cls_fit$call[["keepxy"]])
-  cls_fit$call[["glm"]]  <- eval_tidy(cls_fit$call[["glm"]])
+  cls_fit$call[["keepxy"]] <- eval_tidy(cls_fit$call[["keepxy"]])
+  cls_fit$call[["glm"]] <- eval_tidy(cls_fit$call[["glm"]])
 
   pruned_cls <- update(cls_fit, nprune = 5)
-  pruned_cls_pred <- predict(pruned_cls, full_churn[1:4, vars], type = "response")[,1]
+  pruned_cls_pred <- predict(
+    pruned_cls,
+    full_churn[1:4, vars],
+    type = "response"
+  )[, 1]
 
-  mp_res <- multi_predict(class_fit, new_data = full_churn[1:4, vars], num_terms = 5, type = "prob")
+  mp_res <- multi_predict(
+    class_fit,
+    new_data = full_churn[1:4, vars],
+    num_terms = 5,
+    type = "prob"
+  )
   mp_res <- do.call("rbind", mp_res$.pred)
   expect_equal(mp_res[[".pred_No"]], pruned_cls_pred)
 
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     multi_predict(reg_fit, newdata = mtcars[1:4, -1], num_terms = 5)
   )
 })
@@ -189,16 +225,25 @@ test_that('classification', {
 
   expect_no_condition(
     glm_mars <-
-      mars(mode = "classification")  |>
+      mars(mode = "classification") |>
       set_engine("earth") |>
-      fit(Class ~ ., data = modeldata::lending_club[-(1:5),])
+      fit(Class ~ ., data = modeldata::lending_club[-(1:5), ])
   )
   expect_true(!is.null(extract_fit_engine(glm_mars)$glm.list))
-  parsnip_pred <- predict(glm_mars, new_data = lending_club[1:5, -ncol(lending_club)], type = "prob")
+  parsnip_pred <- predict(
+    glm_mars,
+    new_data = lending_club[1:5, -ncol(lending_club)],
+    type = "prob"
+  )
 
   earth_pred <-
-    c(0.95631355972526, 0.971917781277731, 0.894245392500336, 0.962667553751077,
-      0.985827594261896)
+    c(
+      0.95631355972526,
+      0.971917781277731,
+      0.894245392500336,
+      0.962667553751077,
+      0.985827594261896
+    )
 
   expect_equal(parsnip_pred$.pred_good, earth_pred)
 })

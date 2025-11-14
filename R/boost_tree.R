@@ -53,13 +53,18 @@
 #' boost_tree(mode = "classification", trees = 20)
 #' @export
 boost_tree <-
-  function(mode = "unknown",
-           engine = "xgboost",
-           mtry = NULL, trees = NULL, min_n = NULL,
-           tree_depth = NULL, learn_rate = NULL,
-           loss_reduction = NULL,
-           sample_size = NULL,
-           stop_iter = NULL) {
+  function(
+    mode = "unknown",
+    engine = "xgboost",
+    mtry = NULL,
+    trees = NULL,
+    min_n = NULL,
+    tree_depth = NULL,
+    learn_rate = NULL,
+    loss_reduction = NULL,
+    sample_size = NULL,
+    stop_iter = NULL
+  ) {
     args <- list(
       mtry = enquo(mtry),
       trees = enquo(trees),
@@ -89,14 +94,20 @@ boost_tree <-
 #' @rdname parsnip_update
 #' @export
 update.boost_tree <-
-  function(object,
-           parameters = NULL,
-           mtry = NULL, trees = NULL, min_n = NULL,
-           tree_depth = NULL, learn_rate = NULL,
-           loss_reduction = NULL, sample_size = NULL,
-           stop_iter = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    mtry = NULL,
+    trees = NULL,
+    min_n = NULL,
+    tree_depth = NULL,
+    learn_rate = NULL,
+    loss_reduction = NULL,
+    sample_size = NULL,
+    stop_iter = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
       mtry = enquo(mtry),
       trees = enquo(trees),
@@ -149,7 +160,11 @@ translate.boost_tree <- function(x, engine = x$engine, ...) {
   # min_n parameters
   if (any(names(arg_vals) == "min_instances_per_node")) {
     arg_vals$min_instances_per_node <-
-      rlang::call2("min_rows", rlang::eval_tidy(arg_vals$min_instances_per_node), expr(x))
+      rlang::call2(
+        "min_rows",
+        rlang::eval_tidy(arg_vals$min_instances_per_node),
+        expr(x)
+      )
   }
 
   ## -----------------------------------------------------------------------------
@@ -163,13 +178,37 @@ translate.boost_tree <- function(x, engine = x$engine, ...) {
 
 #' @export
 check_args.boost_tree <- function(object, call = rlang::caller_env()) {
-
   args <- lapply(object$args, rlang::eval_tidy)
 
-  check_number_whole(args$trees, min = 0, allow_null = TRUE, call = call, arg = "trees")
-  check_number_decimal(args$sample_size, min = 0, max = 1, allow_null = TRUE, call = call, arg = "sample_size")
-  check_number_whole(args$tree_depth, min = 0, allow_null = TRUE, call = call, arg = "tree_depth")
-  check_number_whole(args$min_n, min = 0, allow_null = TRUE, call = call, arg = "min_n")
+  check_number_whole(
+    args$trees,
+    min = 0,
+    allow_null = TRUE,
+    call = call,
+    arg = "trees"
+  )
+  check_number_decimal(
+    args$sample_size,
+    min = 0,
+    max = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "sample_size"
+  )
+  check_number_whole(
+    args$tree_depth,
+    min = 0,
+    allow_null = TRUE,
+    call = call,
+    arg = "tree_depth"
+  )
+  check_number_whole(
+    args$min_n,
+    min = 0,
+    allow_null = TRUE,
+    call = call,
+    arg = "min_n"
+  )
 
   invisible(object)
 }
@@ -215,12 +254,23 @@ check_args.boost_tree <- function(object, call = rlang::caller_env()) {
 #' @keywords internal
 #' @export
 xgb_train <- function(
-    x, y, weights = NULL,
-    max_depth = 6, nrounds = 15, eta  = 0.3, colsample_bynode = NULL,
-    colsample_bytree = NULL, min_child_weight = 1, gamma = 0, subsample = 1,
-    validation = 0, early_stop = NULL, counts = TRUE,
-    event_level = c("first", "second"), ...) {
-
+  x,
+  y,
+  weights = NULL,
+  max_depth = 6,
+  nrounds = 15,
+  eta = 0.3,
+  colsample_bynode = NULL,
+  colsample_bytree = NULL,
+  min_child_weight = 1,
+  gamma = 0,
+  subsample = 1,
+  validation = 0,
+  early_stop = NULL,
+  counts = TRUE,
+  event_level = c("first", "second"),
+  ...
+) {
   event_level <- rlang::arg_match(event_level, c("first", "second"))
   others <- list(...)
 
@@ -243,11 +293,13 @@ xgb_train <- function(
   p <- ncol(x)
 
   x <-
-    as_xgb_data(x, y,
-                validation = validation,
-                event_level = event_level,
-                weights = weights)
-
+    as_xgb_data(
+      x,
+      y,
+      validation = validation,
+      event_level = event_level,
+      weights = weights
+    )
 
   if (!is.numeric(subsample) || subsample < 0 || subsample > 1) {
     cli::cli_abort("{.arg subsample} should be on [0, 1].")
@@ -268,9 +320,9 @@ xgb_train <- function(
   if (min_child_weight > n) {
     cli::cli_warn(
       c(
-       "!" = "{min_child_weight} samples were requested but there were {n} rows
+        "!" = "{min_child_weight} samples were requested but there were {n} rows
               in the data.",
-       "i" = "{n} will be used."
+        "i" = "{n} will be used."
       )
     )
     min_child_weight <- min(min_child_weight, n)
@@ -289,14 +341,14 @@ xgb_train <- function(
   others <- process_others(others, arg_list)
 
   main_args <- c(
-      list(
-        data = quote(x$data),
-        watchlist = quote(x$watchlist),
-        params = arg_list,
-        nrounds = nrounds,
-        early_stopping_rounds = early_stop
-      ),
-      others
+    list(
+      data = quote(x$data),
+      watchlist = quote(x$watchlist),
+      params = arg_list,
+      nrounds = nrounds,
+      early_stopping_rounds = early_stop
+    ),
+    others
   )
 
   if (is.null(main_args$objective)) {
@@ -365,7 +417,7 @@ recalc_param <- function(x, counts, denom) {
   } else {
     if (counts) {
       maybe_proportion(x, nm)
-      x <- min(denom, x)/denom
+      x <- min(denom, x) / denom
     }
   }
   x
@@ -399,14 +451,26 @@ xgb_predict <- function(object, new_data, ...) {
   x <- switch(
     object$params$objective %||% 3L,
     "binary:logitraw" = stats::binomial()$linkinv(res),
-    "multi:softprob" = matrix(res, ncol = object$params$num_class, byrow = TRUE),
-    res)
+    "multi:softprob" = matrix(
+      res,
+      ncol = object$params$num_class,
+      byrow = TRUE
+    ),
+    res
+  )
 
   x
 }
 
 
-as_xgb_data <- function(x, y, validation = 0, weights = NULL, event_level = "first", ...) {
+as_xgb_data <- function(
+  x,
+  y,
+  validation = 0,
+  weights = NULL,
+  event_level = "first",
+  ...
+) {
   lvls <- levels(y)
   n <- nrow(x)
 
@@ -450,7 +514,6 @@ as_xgb_data <- function(x, y, validation = 0, weights = NULL, event_level = "fir
         missing = NA,
         info = info_list
       )
-
     } else {
       info_list <- list(label = y)
       if (!is.null(weights)) {
@@ -470,7 +533,7 @@ as_xgb_data <- function(x, y, validation = 0, weights = NULL, event_level = "fir
   list(data = dat, watchlist = watch_list)
 }
 
-get_event_level <- function(model_spec){
+get_event_level <- function(model_spec) {
   if ("event_level" %in% names(model_spec$eng_args)) {
     event_level <- get_expr(model_spec$eng_args$event_level)
   } else {
@@ -492,15 +555,22 @@ multi_predict._xgb.Booster <-
     trees <- sort(trees)
 
     if (is.null(type)) {
-      if (object$spec$mode == "classification")
+      if (object$spec$mode == "classification") {
         type <- "class"
-      else
+      } else {
         type <- "numeric"
+      }
     }
 
     res <-
-      map(trees, xgb_by_tree, object = object, new_data = new_data,
-          type = type, ...) |>
+      map(
+        trees,
+        xgb_by_tree,
+        object = object,
+        new_data = new_data,
+        type = type,
+        ...
+      ) |>
       purrr::list_rbind()
     res <- arrange(res, .row, trees)
     res <- split(res[, -1], res$.row)
@@ -582,10 +652,8 @@ C5.0_train <-
       cli::cli_abort("There are zero rows in the predictor set.")
     }
 
-
     ctrl <- call2("C5.0Control", .ns = "C50")
     if (minCases > n) {
-
       cli::cli_warn(
         c(
           "!" = "{minCases} samples were requested but there were {n} rows in the data.",
@@ -616,16 +684,24 @@ C5.0_train <-
 #' @rdname multi_predict
 multi_predict._C5.0 <-
   function(object, new_data, type = NULL, trees = NULL, ...) {
-    if (is.null(trees))
+    if (is.null(trees)) {
       trees <- min(object$fit$trials)
+    }
     trees <- sort(trees)
 
-    if (is.null(type))
+    if (is.null(type)) {
       type <- "class"
+    }
 
     res <-
-      map(trees, C50_by_tree, object = object,
-          new_data = new_data, type = type, ...) |>
+      map(
+        trees,
+        C50_by_tree,
+        object = object,
+        new_data = new_data,
+        type = type,
+        ...
+      ) |>
       purrr::list_rbind()
     res <- arrange(res, .row, trees)
     res <- split(res[, -1], res$.row)
@@ -648,5 +724,3 @@ C50_by_tree <- function(tree, object, new_data, type, ...) {
   pred[[".row"]] <- seq_len(nrow(new_data))
   pred[, c(".row", "trees", nms)]
 }
-
-

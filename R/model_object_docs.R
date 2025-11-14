@@ -221,4 +221,3 @@ NULL
 #'
 #' nrow(fit_obj$fit$x)
 NULL
-

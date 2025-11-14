@@ -19,12 +19,12 @@ test_that('bad input', {
 # ------------------------------------------------------------------------------
 
 reg_mod <-
-  svm_poly(mode = "regression", degree = 1, cost = 1/4) |>
+  svm_poly(mode = "regression", degree = 1, cost = 1 / 4) |>
   set_engine("kernlab") |>
   set_mode("regression")
 
 cls_mod <-
-  svm_poly(mode = "classification", degree = 2, cost = 1/8) |>
+  svm_poly(mode = "classification", degree = 2, cost = 1 / 8) |>
   set_engine("kernlab") |>
   set_mode("classification")
 
@@ -33,14 +33,13 @@ ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
 # ------------------------------------------------------------------------------
 
 test_that('svm poly regression', {
-
   skip_if_not_installed("kernlab")
 
   expect_no_condition(
     res <- fit_xy(
       reg_mod,
       control = ctrl,
-      x = hpc[,2:4],
+      x = hpc[, 2:4],
       y = hpc$compounds
     )
   )
@@ -56,12 +55,10 @@ test_that('svm poly regression', {
       control = ctrl
     )
   )
-
 })
 
 
 test_that('svm poly regression prediction', {
-
   skip_if_not_installed("kernlab")
 
   reg_form <-
@@ -79,16 +76,18 @@ test_that('svm poly regression prediction', {
   kern_pred <-
     structure(
       list(
-        .pred = c(164.4739, 139.8284, 133.8760)),
-      row.names = c(NA,-3L),
+        .pred = c(164.4739, 139.8284, 133.8760)
+      ),
+      row.names = c(NA, -3L),
       class = c("tbl_df", "tbl", "data.frame")
     )
 
   parsnip_pred <- predict(reg_form, hpc[1:3, -c(1, 5)])
-  expect_equal(as.data.frame(kern_pred),
-               as.data.frame(parsnip_pred),
-               tolerance = .0001)
-
+  expect_equal(
+    as.data.frame(kern_pred),
+    as.data.frame(parsnip_pred),
+    tolerance = .0001
+  )
 
   reg_xy_form <-
     fit_xy(
@@ -97,18 +96,22 @@ test_that('svm poly regression prediction', {
       y = hpc$compounds,
       control = ctrl
     )
-  expect_equal(extract_fit_engine(reg_form)@alphaindex, extract_fit_engine(reg_xy_form)@alphaindex)
+  expect_equal(
+    extract_fit_engine(reg_form)@alphaindex,
+    extract_fit_engine(reg_xy_form)@alphaindex
+  )
 
   parsnip_xy_pred <- predict(reg_xy_form, hpc[1:3, -c(1, 5)])
-  expect_equal(as.data.frame(kern_pred),
-               as.data.frame(parsnip_xy_pred),
-               tolerance = .0001)
+  expect_equal(
+    as.data.frame(kern_pred),
+    as.data.frame(parsnip_xy_pred),
+    tolerance = .0001
+  )
 })
 
 # ------------------------------------------------------------------------------
 
 test_that('svm poly classification', {
-
   skip_if_not_installed("kernlab")
 
   expect_no_condition(
@@ -128,15 +131,13 @@ test_that('svm poly classification', {
       control = ctrl
     )
   )
-
 })
 
 
 test_that('svm poly classification probabilities', {
-
   skip_if_not_installed("kernlab")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128), ] |>
     droplevels()
 
   ind <- c(1, 2, 143)
@@ -155,8 +156,11 @@ test_that('svm poly classification probabilities', {
   kern_class <-
     structure(
       list(
-        .pred_class = .pred_factor),
-      row.names = c(NA, -3L), class = c("tbl_df", "tbl", "data.frame"))
+        .pred_class = .pred_factor
+      ),
+      row.names = c(NA, -3L),
+      class = c("tbl_df", "tbl", "data.frame")
+    )
 
   parsnip_class <- predict(cls_form, hpc_no_m[ind, -5])
   expect_equal(kern_class, parsnip_class)
@@ -169,11 +173,18 @@ test_that('svm poly classification probabilities', {
       y = hpc_no_m$class,
       control = ctrl
     )
-  expect_equal(extract_fit_engine(cls_form)@alphaindex, extract_fit_engine(cls_xy_form)@alphaindex)
+  expect_equal(
+    extract_fit_engine(cls_form)@alphaindex,
+    extract_fit_engine(cls_xy_form)@alphaindex
+  )
 
   library(kernlab)
   kern_probs <-
-    kernlab::predict(extract_fit_engine(cls_form), hpc_no_m[ind, -5], type = "probabilities") |>
+    kernlab::predict(
+      extract_fit_engine(cls_form),
+      hpc_no_m[ind, -5],
+      type = "probabilities"
+    ) |>
     as_tibble() |>
     setNames(c('.pred_VF', '.pred_F', '.pred_L'))
 

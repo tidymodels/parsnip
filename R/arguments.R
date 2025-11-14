@@ -61,8 +61,9 @@ set_args <- function(object, ...) {
 #' @export
 set_args.model_spec <- function(object, ...) {
   the_dots <- enquos(...)
-  if (length(the_dots) == 0)
+  if (length(the_dots) == 0) {
     cli::cli_abort("Please pass at least one named argument.")
+  }
   main_args <- names(object$args)
   new_args <- names(the_dots)
   for (i in new_args) {
@@ -85,7 +86,7 @@ set_args.model_spec <- function(object, ...) {
 }
 
 #' @export
-set_args.default <- function(object,...) {
+set_args.default <- function(object, ...) {
   error_set_object(object, func = "set_args")
 
   invisible(FALSE)
@@ -114,19 +115,22 @@ set_mode.model_spec <- function(object, mode, quantile_levels = NULL, ...) {
   # determine if the model specification could feasibly match any entry
   # in the union of the parsnip model environment and model_info_table.
   # if not, trigger an error based on the (possibly inferred) model spec slots.
-  if (!spec_is_possible(spec = object,
-                        mode = mode, user_specified_mode = TRUE)) {
+  if (
+    !spec_is_possible(spec = object, mode = mode, user_specified_mode = TRUE)
+  ) {
     check_spec_mode_engine_val(cls, object$engine, mode)
   }
 
   object$mode <- mode
   object$user_specified_mode <- TRUE
   if (mode == "quantile regression") {
-      hardhat::check_quantile_levels(quantile_levels)
+    hardhat::check_quantile_levels(quantile_levels)
   } else {
     if (!is.null(quantile_levels)) {
-      cli::cli_warn("{.arg quantile_levels} is only used when the mode is
-                     {.val quantile regression}.")
+      cli::cli_warn(
+        "{.arg quantile_levels} is only used when the mode is
+                     {.val quantile regression}."
+      )
     }
   }
 
@@ -146,8 +150,9 @@ set_mode.default <- function(object, mode, ...) {
 maybe_eval <- function(x) {
   # if descriptors are in `x`, eval fails
   y <- try(rlang::eval_tidy(x), silent = TRUE)
-  if (inherits(y, "try-error"))
+  if (inherits(y, "try-error")) {
     y <- x
+  }
   y
 }
 
@@ -157,7 +162,7 @@ maybe_eval <- function(x) {
 #' @param spec A [model specification][model_spec].
 #' @param ... Not used.
 eval_args <- function(spec, ...) {
-  spec$args   <- purrr::map(spec$args,   maybe_eval)
+  spec$args <- purrr::map(spec$args, maybe_eval)
   spec$eng_args <- purrr::map(spec$eng_args, maybe_eval)
   spec
 }
@@ -192,14 +197,20 @@ eval_args <- function(spec, ...) {
 make_call <- function(fun, ns, args, ...) {
   # remove any null or placeholders (`missing_args`) that remain
   discard <-
-    vapply(args, function(x)
-      is_missing_arg(x) | is.null(x), logical(1))
+    vapply(
+      args,
+      function(x) {
+        is_missing_arg(x) | is.null(x)
+      },
+      logical(1)
+    )
   args <- args[!discard]
 
   if (!is.null(ns) & !is.na(ns)) {
     out <- call2(fun, !!!args, .ns = ns)
-  } else
+  } else {
     out <- call2(fun, !!!args)
+  }
   out
 }
 
@@ -240,11 +251,11 @@ make_form_call <- function(object, env = NULL) {
 
   # add data arguments
   for (i in seq_along(data_args)) {
-    fit_args[[ unname(data_args[i]) ]] <- sym(names(data_args)[i])
+    fit_args[[unname(data_args[i])]] <- sym(names(data_args)[i])
   }
 
   # sub in actual formula
-  fit_args[[ unname(data_args["formula"]) ]]  <- env$formula
+  fit_args[[unname(data_args["formula"])]] <- env$formula
 
   # TODO remove weights col from data?
   if (object$engine == "spark") {
@@ -277,8 +288,8 @@ make_xy_call <- function(object, target, env, call = rlang::caller_env()) {
     data_args <- object$method$fit$data
   }
 
-  object$method$fit$args[[ unname(data_args["y"]) ]] <- rlang::expr(y)
-  object$method$fit$args[[ unname(data_args["x"]) ]] <-
+  object$method$fit$args[[unname(data_args["y"])]] <- rlang::expr(y)
+  object$method$fit$args[[unname(data_args["x"])]] <-
     switch(
       target,
       none = rlang::expr(x),
@@ -288,7 +299,9 @@ make_xy_call <- function(object, target, env, call = rlang::caller_env()) {
       cli::cli_abort("Invalid data type target: {target}.", call = call)
     )
   if (uses_weights) {
-    object$method$fit$args[[ unname(data_args["weights"]) ]] <- rlang::expr(weights)
+    object$method$fit$args[[unname(data_args["weights"])]] <- rlang::expr(
+      weights
+    )
   }
 
   fit_call <- make_call(

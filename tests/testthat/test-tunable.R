@@ -4,16 +4,18 @@ test_that('brulee has mixture object', {
   mlp_spec <-
     mlp(
       hidden_units = tune(),
-      activation =  tune(),
+      activation = tune(),
       penalty = tune(),
       learn_rate = tune(),
       epoch = 2000
     ) |>
     set_mode("regression") |>
-    set_engine("brulee",
-               stop_iter = tune(),
-               mixture = tune(),
-               rate_schedule = tune())
+    set_engine(
+      "brulee",
+      stop_iter = tune(),
+      mixture = tune(),
+      rate_schedule = tune()
+    )
 
   brulee_res <- tunable(mlp_spec)
 

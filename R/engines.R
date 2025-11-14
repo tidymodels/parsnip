@@ -1,4 +1,3 @@
-
 specific_model <- function(x) {
   cls <- class(x)
   cls[cls != "model_spec"]
@@ -12,8 +11,9 @@ possible_engines <- function(object, ...) {
 
 # ------------------------------------------------------------------------------
 
-shhhh <- function(x)
+shhhh <- function(x) {
   suppressPackageStartupMessages(requireNamespace(x, quietly = TRUE))
+}
 
 is_installed <- function(pkg) {
   res <- try(shhhh(pkg), silent = TRUE)
@@ -119,8 +119,13 @@ set_engine.model_spec <- function(object, engine, ...) {
   # determine if the model specification could feasibly match any entry
   # in the union of the parsnip model environment and model_info_table.
   # if not, trigger an error based on the (possibly inferred) model spec slots.
-  if (!spec_is_possible(spec = object,
-                        engine = object$engine, user_specified_engine = TRUE)) {
+  if (
+    !spec_is_possible(
+      spec = object,
+      engine = object$engine,
+      user_specified_engine = TRUE
+    )
+  ) {
     check_spec_mode_engine_val(mod_type, object$engine, object$mode)
   }
 
@@ -128,7 +133,8 @@ set_engine.model_spec <- function(object, engine, ...) {
     lifecycle::deprecate_warn(
       "0.1.6",
       "set_engine(engine = 'cannot be liquidSVM')",
-      details = "The liquidSVM package is no longer available on CRAN.")
+      details = "The liquidSVM package is no longer available on CRAN."
+    )
   }
 
   new_model_spec(

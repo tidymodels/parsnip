@@ -121,8 +121,8 @@ multi_predict_args.default <- function(object, ...) {
 multi_predict_args.model_fit <- function(object, ...) {
   model_type <- class(object$spec)[1]
   arg_info <- get_from_env(paste0(model_type, "_args"))
-  arg_info <- arg_info[arg_info$engine == object$spec$engine,]
-  arg_info <- arg_info[arg_info$has_submodel,]
+  arg_info <- arg_info[arg_info$engine == object$spec$engine, ]
+  arg_info <- arg_info[arg_info$has_submodel, ]
 
   if (nrow(arg_info) == 0) {
     res <- NA_character_

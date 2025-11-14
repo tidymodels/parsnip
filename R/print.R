@@ -8,9 +8,17 @@ print.model_spec <- function(x, ...) {
 #' @keywords internal
 #' @rdname add_on_exports
 #' @export
-print_model_spec <- function(x, cls = class(x)[1], desc = get_model_desc(cls), ...) {
+print_model_spec <- function(
+  x,
+  cls = class(x)[1],
+  desc = get_model_desc(cls),
+  ...
+) {
   if (!spec_is_loaded(spec = structure(x, class = cls))) {
-    prompt_missing_implementation(spec = structure(x, class = cls), prompt = cli::cli_inform)
+    prompt_missing_implementation(
+      spec = structure(x, class = cls),
+      prompt = cli::cli_inform
+    )
   }
 
   mode <- switch(x$mode, unknown = "unknown mode", x$mode)
@@ -41,39 +49,39 @@ get_model_desc <- function(cls) {
 }
 
 model_descs <- tibble::tribble(
-  ~cls,                   ~desc,
-  "auto_ml",              "Automatic Machine Learning",
-  "bag_mars",             "Bagged MARS",
-  "bag_mlp",              "Bagged Neural Network",
-  "bag_tree",             "Bagged Decision Tree",
-  "bart",                 "BART",
-  "boost_tree",           "Boosted Tree",
-  "C5_rules",             "C5.0",
-  "cubist_rules",         "Cubist",
-  "decision_tree",        "Decision Tree",
-  "discrim_flexible",     "Flexible Discriminant",
-  "discrim_linear",       "Linear Discriminant",
-  "discrim_quad",         "Quadratic Discriminant",
-  "discrim_regularized",  "Regularized Discriminant",
-  "gen_additive_mod",     "GAM",
-  "linear_reg",           "Linear Regression",
-  "logistic_reg",         "Logistic Regression",
-  "mars",                 "MARS",
-  "mlp",                  "Single Layer Neural Network",
-  "multinom_reg",         "Multinomial Regression",
-  "naive_Bayes",          "Naive Bayes",
-  "nearest_neighbor",     "K-Nearest Neighbor",
-  "null_model",           "Null",
-  "pls",                  "PLS",
-  "poisson_reg",          "Poisson Regression",
-  "proportional_hazards", "Proportional Hazards",
-  "rand_forest",          "Random Forest",
-  "rule_fit",             "RuleFit",
-  "surv_reg",             "Parametric Survival Regression",
-  "survival_reg",         "Parametric Survival Regression",
-  "svm_linear",           "Linear Support Vector Machine",
-  "svm_poly",             "Polynomial Support Vector Machine",
-  "svm_rbf",              "Radial Basis Function Support Vector Machine"
+  ~cls                   , ~desc                                          ,
+  "auto_ml"              , "Automatic Machine Learning"                   ,
+  "bag_mars"             , "Bagged MARS"                                  ,
+  "bag_mlp"              , "Bagged Neural Network"                        ,
+  "bag_tree"             , "Bagged Decision Tree"                         ,
+  "bart"                 , "BART"                                         ,
+  "boost_tree"           , "Boosted Tree"                                 ,
+  "C5_rules"             , "C5.0"                                         ,
+  "cubist_rules"         , "Cubist"                                       ,
+  "decision_tree"        , "Decision Tree"                                ,
+  "discrim_flexible"     , "Flexible Discriminant"                        ,
+  "discrim_linear"       , "Linear Discriminant"                          ,
+  "discrim_quad"         , "Quadratic Discriminant"                       ,
+  "discrim_regularized"  , "Regularized Discriminant"                     ,
+  "gen_additive_mod"     , "GAM"                                          ,
+  "linear_reg"           , "Linear Regression"                            ,
+  "logistic_reg"         , "Logistic Regression"                          ,
+  "mars"                 , "MARS"                                         ,
+  "mlp"                  , "Single Layer Neural Network"                  ,
+  "multinom_reg"         , "Multinomial Regression"                       ,
+  "naive_Bayes"          , "Naive Bayes"                                  ,
+  "nearest_neighbor"     , "K-Nearest Neighbor"                           ,
+  "null_model"           , "Null"                                         ,
+  "pls"                  , "PLS"                                          ,
+  "poisson_reg"          , "Poisson Regression"                           ,
+  "proportional_hazards" , "Proportional Hazards"                         ,
+  "rand_forest"          , "Random Forest"                                ,
+  "rule_fit"             , "RuleFit"                                      ,
+  "surv_reg"             , "Parametric Survival Regression"               ,
+  "survival_reg"         , "Parametric Survival Regression"               ,
+  "svm_linear"           , "Linear Support Vector Machine"                ,
+  "svm_poly"             , "Polynomial Support Vector Machine"            ,
+  "svm_rbf"              , "Radial Basis Function Support Vector Machine"
 )
 
 #' Print helper for model objects
@@ -103,10 +111,11 @@ model_printer <- function(x, ...) {
       cat("Fit function:\n")
       print(x$method$fit_call)
       if (length(x$method$libs) > 0) {
-        if (length(x$method$libs) > 1)
+        if (length(x$method$libs) > 1) {
           cat("\nRequired packages:\n")
-        else
+        } else {
           cat("\nRequired package: ")
+        }
         cat(paste0(x$method$libs, collapse = ", "), "\n")
       }
     }
@@ -116,7 +125,7 @@ model_printer <- function(x, ...) {
 print_arg_list <- function(x, ...) {
   atomic <- vapply(x, is.atomic, logical(1))
   x2 <- x
-  x2[!atomic] <-  lapply(x2[!atomic], deparserizer, ...)
+  x2[!atomic] <- lapply(x2[!atomic], deparserizer, ...)
   res <- paste0("  ", names(x2), " = ", x2, collaspe = "\n")
   cat(res, sep = "")
 }
@@ -125,7 +134,8 @@ deparserizer <- function(x, limit = options()$width - 10) {
   x <- deparse(x, width.cutoff = limit)
   x <- gsub("^    ", "", x)
   x <- paste0(x, collapse = "")
-  if (nchar(x) > limit)
+  if (nchar(x) > limit) {
     x <- paste0(substring(x, first = 1, last = limit - 7), "<snip>")
+  }
   x
 }
