@@ -59,8 +59,8 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
-      - name: Install reticulate
-        run: pak::pkg_install('reticulate')
+      - name: Install dev reticulate
+        run: pak::pkg_install('rstudio/reticulate')
         shell: Rscript {0}
 
       - uses: actions/setup-python@v4
