@@ -12,7 +12,7 @@ extract_xgb_param <- function(x, param) {
   if (utils::packageVersion("xgboost") > "2.0.0.0") {
     res <- attr(extract_fit_engine(x), "params")[[param]]
   } else {
-    res <- extract_fit_engine(x)[[param]]
+    res <- extract_fit_engine(x)$param[[param]]
   }
   res
 }
