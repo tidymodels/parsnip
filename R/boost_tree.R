@@ -340,31 +340,68 @@ xgb_train <- function(
 
   others <- process_others(others, arg_list)
 
+  if (utils::packageVersion("xgboost") > "2.0.0.0") {
+    if (!is.null(num_class) && num_class > 2) {
+      arg_list$num_class <- num_class
+    }
+
+    if (!is.null(others$objective)) {
+      arg_list$objective <- others$objective
+      others$objective <- NULL
+    }
+    if (!is.null(others$eval_metric)) {
+      arg_list$eval_metric <- others$eval_metric
+      others$eval_metric <- NULL
+    }
+    if (!is.null(others$nthread)) {
+      arg_list$nthread <- others$nthread
+      others$nthread <- NULL
+    }
+
+    if (is.null(arg_list$objective)) {
+      if (is.numeric(y)) {
+        arg_list$objective <- "reg:squarederror"
+      } else {
+        if (num_class == 2) {
+          arg_list$objective <- "binary:logistic"
+        } else {
+          arg_list$objective <- "multi:softprob"
+        }
+      }
+    }
+  }
+
   main_args <- c(
     list(
       data = quote(x$data),
-      watchlist = quote(x$watchlist),
       params = arg_list,
       nrounds = nrounds,
       early_stopping_rounds = early_stop
     ),
     others
   )
-
-  if (is.null(main_args$objective)) {
-    if (is.numeric(y)) {
-      main_args$objective <- "reg:squarederror"
-    } else {
-      if (num_class == 2) {
-        main_args$objective <- "binary:logistic"
-      } else {
-        main_args$objective <- "multi:softprob"
-      }
-    }
+  if (utils::packageVersion("xgboost") > "2.0.0.0") {
+    main_args$evals <- quote(x$watchlist)
+  } else {
+    main_args$watchlist <- quote(x$watchlist)
   }
 
-  if (!is.null(num_class) && num_class > 2) {
-    main_args$num_class <- num_class
+  if (utils::packageVersion("xgboost") < "2.0.0.0") {
+    if (is.null(main_args$objective)) {
+      if (is.numeric(y)) {
+        main_args$objective <- "reg:squarederror"
+      } else {
+        if (num_class == 2) {
+          main_args$objective <- "binary:logistic"
+        } else {
+          main_args$objective <- "multi:softprob"
+        }
+      }
+    }
+
+    if (!is.null(num_class) && num_class > 2) {
+      main_args$num_class <- num_class
+    }
   }
 
   call <- make_call(fun = "xgb.train", ns = "xgboost", main_args)
@@ -506,21 +543,52 @@ as_xgb_data <- function(
       watch_list <- list(validation = val_data)
 
       info_list <- list(label = y[trn_index])
-      if (!is.null(weights)) {
-        info_list$weight <- weights[trn_index]
+      if (utils::packageVersion("xgboost") > "2.0.0.0") {
+        if (!is.null(weights)) {
+          dat <- xgboost::xgb.DMatrix(
+            data = x[trn_index, , drop = FALSE],
+            missing = NA,
+            label = y[trn_index],
+            weight = weights[trn_index]
+          )
+        } else {
+          dat <- xgboost::xgb.DMatrix(
+            data = x[trn_index, , drop = FALSE],
+            missing = NA,
+            label = y[trn_index]
+          )
+        }
+      } else {
+        if (!is.null(weights)) {
+          info_list$weight <- weights[trn_index]
+        }
+        dat <- xgboost::xgb.DMatrix(
+          data = x[trn_index, , drop = FALSE],
+          missing = NA,
+          info = info_list
+        )
       }
-      dat <- xgboost::xgb.DMatrix(
-        data = x[trn_index, , drop = FALSE],
-        missing = NA,
-        info = info_list
-      )
     } else {
-      info_list <- list(label = y)
-      if (!is.null(weights)) {
-        info_list$weight <- weights
+      if (utils::packageVersion("xgboost") > "2.0.0.0") {
+        if (!is.null(weights)) {
+          dat <- xgboost::xgb.DMatrix(
+            x,
+            missing = NA,
+            label = y,
+            weight = weights
+          )
+        } else {
+          dat <- xgboost::xgb.DMatrix(x, missing = NA, label = y)
+        }
+        watch_list <- list(training = dat)
+      } else {
+        info_list <- list(label = y)
+        if (!is.null(weights)) {
+          info_list$weight <- weights
+        }
+        dat <- xgboost::xgb.DMatrix(x, missing = NA, info = info_list)
+        watch_list <- list(training = dat)
       }
-      dat <- xgboost::xgb.DMatrix(x, missing = NA, info = info_list)
-      watch_list <- list(training = dat)
     }
   } else {
     dat <- xgboost::setinfo(x, "label", y)
@@ -579,12 +647,20 @@ multi_predict._xgb.Booster <-
   }
 
 xgb_by_tree <- function(tree, object, new_data, type, ...) {
-  pred <- xgb_predict(
-    object$fit,
-    new_data = new_data,
-    iterationrange = c(1, tree + 1),
-    ntreelimit = NULL
-  )
+  if (utils::packageVersion("xgboost") > "2.0.0.0") {
+    pred <- xgb_predict(
+      object$fit,
+      new_data = new_data,
+      iterationrange = c(1, tree + 1)
+    )
+  } else {
+    pred <- xgb_predict(
+      object$fit,
+      new_data = new_data,
+      iterationrange = c(1, tree + 1),
+      ntreelimit = NULL
+    )
+  }
 
   # switch based on prediction type
   if (object$spec$mode == "regression") {
