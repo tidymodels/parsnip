@@ -4,6 +4,7 @@
 
 * `surv_reg()` is now defunct and will error if called. Please use `survival_reg()` instead (#1206).
 
+* Make work with xgboost version > 2.0.0.0. (#1227)
 
 # parsnip 1.3.3
 
