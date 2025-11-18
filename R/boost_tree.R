@@ -345,17 +345,15 @@ xgb_train <- function(
       arg_list$num_class <- num_class
     }
 
-    if (!is.null(others$objective)) {
-      arg_list$objective <- others$objective
-      others$objective <- NULL
-    }
-    if (!is.null(others$eval_metric)) {
-      arg_list$eval_metric <- others$eval_metric
-      others$eval_metric <- NULL
-    }
-    if (!is.null(others$nthread)) {
-      arg_list$nthread <- others$nthread
-      others$nthread <- NULL
+    param_names <- names(formals(xgboost::xgb.params))
+
+    if (any(param_names %in% names(others))) {
+      elements <- param_names[param_names %in% names(others)]
+
+      for (element in elements) {
+        arg_list[[element]] <- others[[element]]
+        others[[element]] <- NULL
+      }
     }
 
     if (is.null(arg_list$objective)) {
