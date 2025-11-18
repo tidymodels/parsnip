@@ -9,7 +9,7 @@ hpc_xgboost <-
   set_engine("xgboost")
 
 extract_xgb_param <- function(x, param) {
-  if (utils::packageVersion("xgboost") > "2.0.0.0") {
+  if (utils::packageVersion("xgboost") >= "2.0.0.0") {
     res <- attr(extract_fit_engine(x), "params")[[param]]
   } else {
     res <- extract_fit_engine(x)$param[[param]]
@@ -18,7 +18,7 @@ extract_xgb_param <- function(x, param) {
 }
 
 extract_xgb_evaluation_log <- function(x) {
-  if (utils::packageVersion("xgboost") > "2.0.0.0") {
+  if (utils::packageVersion("xgboost") >= "2.0.0.0") {
     res <- attr(extract_fit_engine(x), "evaluation_log")
   } else {
     res <- extract_fit_engine(x)[["evaluation_log"]]
@@ -408,7 +408,7 @@ test_that('early stopping', {
   )
 
   extract_xgb_nitter <- function(x) {
-    if (utils::packageVersion("xgboost") > "2.0.0.0") {
+    if (utils::packageVersion("xgboost") >= "2.0.0.0") {
       res <- nrow(attr(extract_fit_engine(x), "evaluation_log"))
     } else {
       res <- extract_fit_engine(reg_fit)$niter
@@ -416,7 +416,7 @@ test_that('early stopping', {
     res
   }
   extract_xgb_best_iteration <- function(x) {
-    if (utils::packageVersion("xgboost") > "2.0.0.0") {
+    if (utils::packageVersion("xgboost") >= "2.0.0.0") {
       res <- attr(extract_fit_engine(x), "early_stop")$best_iteration
     } else {
       res <- extract_fit_engine(reg_fit)$best_iteration
@@ -572,7 +572,7 @@ test_that('xgboost data and sparse matrices', {
   from_mat$fit$handle <- NULL
   from_sparse$fit$handle <- NULL
 
-  if (utils::packageVersion("xgboost") > "2.0.0.0") {
+  if (utils::packageVersion("xgboost") >= "2.0.0.0") {
     expect_equal(
       attributes(extract_fit_engine(from_df)),
       attributes(extract_fit_engine(from_mat)),
@@ -689,7 +689,7 @@ test_that("fit and prediction with `event_level`", {
   xgbmat_train_1 <- xgb.DMatrix(data = train_x, label = train_y_1)
 
   set.seed(24)
-  if (utils::packageVersion("xgboost") > "2.0.0.0") {
+  if (utils::packageVersion("xgboost") >= "2.0.0.0") {
     fit_xgb_1 <- xgboost::xgb.train(
       params = list(
         objective = "binary:logistic",
@@ -729,7 +729,7 @@ test_that("fit and prediction with `event_level`", {
   xgbmat_train_2 <- xgb.DMatrix(data = train_x, label = train_y_2)
 
   set.seed(24)
-  if (utils::packageVersion("xgboost") > "2.0.0.0") {
+  if (utils::packageVersion("xgboost") >= "2.0.0.0") {
     fit_xgb_2 <- xgboost::xgb.train(
       params = list(
         eval_metric = "auc",

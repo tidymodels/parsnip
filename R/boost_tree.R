@@ -340,7 +340,7 @@ xgb_train <- function(
 
   others <- process_others(others, arg_list)
 
-  if (utils::packageVersion("xgboost") > "2.0.0.0") {
+  if (utils::packageVersion("xgboost") >= "2.0.0.0") {
     if (!is.null(num_class) && num_class > 2) {
       arg_list$num_class <- num_class
     }
@@ -380,7 +380,7 @@ xgb_train <- function(
     ),
     others
   )
-  if (utils::packageVersion("xgboost") > "2.0.0.0") {
+  if (utils::packageVersion("xgboost") >= "2.0.0.0") {
     main_args$evals <- quote(x$watchlist)
   } else {
     main_args$watchlist <- quote(x$watchlist)
@@ -543,7 +543,7 @@ as_xgb_data <- function(
       watch_list <- list(validation = val_data)
 
       info_list <- list(label = y[trn_index])
-      if (utils::packageVersion("xgboost") > "2.0.0.0") {
+      if (utils::packageVersion("xgboost") >= "2.0.0.0") {
         if (!is.null(weights)) {
           dat <- xgboost::xgb.DMatrix(
             data = x[trn_index, , drop = FALSE],
@@ -569,7 +569,7 @@ as_xgb_data <- function(
         )
       }
     } else {
-      if (utils::packageVersion("xgboost") > "2.0.0.0") {
+      if (utils::packageVersion("xgboost") >= "2.0.0.0") {
         if (!is.null(weights)) {
           dat <- xgboost::xgb.DMatrix(
             x,
@@ -647,7 +647,7 @@ multi_predict._xgb.Booster <-
   }
 
 xgb_by_tree <- function(tree, object, new_data, type, ...) {
-  if (utils::packageVersion("xgboost") > "2.0.0.0") {
+  if (utils::packageVersion("xgboost") >= "2.0.0.0") {
     pred <- xgb_predict(
       object$fit,
       new_data = new_data,
