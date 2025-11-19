@@ -46,7 +46,13 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="parsnip-development-version">parsnip (development version)<a class="anchor" aria-label="anchor" href="#parsnip-development-version"></a></h2>
-<ul><li><p>Enable generalized random forest (<code>grf</code>) models for classification, regression, and quantile regression modes. (<a href="https://github.com/tidymodels/parsnip/issues/1288" class="external-link">#1288</a>)</p></li>
+<ul><li>
+<p>Updates to some boosting tuning parameter information: (<a href="https://github.com/tidymodels/parsnip/issues/1306" class="external-link">#1306</a>)</p>
+<ul><li>lightgbm and catboost have smaller default ranges for the learning rate: -3 to -1 / 2 in log10 units.</li>
+<li>lightgbm, xgboost, catboost, and C5.0 have smaller default ranges for the sampling proportion: 0.5 to 1.0.</li>
+<li>catboost engine arguments were added for <code>max_leaves</code> and <code>l2_leaf_reg</code>.</li>
+</ul></li>
+<li><p>Enable generalized random forest (<code>grf</code>) models for classification, regression, and quantile regression modes. (<a href="https://github.com/tidymodels/parsnip/issues/1288" class="external-link">#1288</a>)</p></li>
 <li><p><code><a href="../reference/surv_reg.html">surv_reg()</a></code> is now defunct and will error if called. Please use <code><a href="../reference/survival_reg.html">survival_reg()</a></code> instead (<a href="https://github.com/tidymodels/parsnip/issues/1206" class="external-link">#1206</a>).</p></li>
 </ul></div>
     <div class="section level2">
