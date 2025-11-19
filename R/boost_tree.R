@@ -345,7 +345,11 @@ xgb_train <- function(
       arg_list$num_class <- num_class
     }
 
-    param_names <- names(formals(xgboost::xgb.params))
+    param_names <- names(
+      formals(
+        getFromNamespace("xgb.params", ns = "xgboost")
+      )
+    )
 
     if (any(param_names %in% names(others))) {
       elements <- param_names[param_names %in% names(others)]
