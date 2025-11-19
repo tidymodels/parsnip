@@ -1,5 +1,10 @@
 # parsnip (development version)
 
+* Updates to some boosting tuning parameter information: (#1306)
+  - lightgbm and catboost have smaller default ranges for the learning rate: -3 to -1 / 2 in log10 units.
+  - lightgbm, xgboost, catboost, and C5.0 have smaller default ranges for the sampling proportion: 0.5 to 1.0.
+  - catboost engine arguments were added for `max_leaves` and `l2_leaf_reg`. 
+
 * Enable generalized random forest (`grf`) models for classification, regression, and quantile regression modes. (#1288)
 
 * `surv_reg()` is now defunct and will error if called. Please use `survival_reg()` instead (#1206).

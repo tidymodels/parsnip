@@ -124,6 +124,21 @@ lightgbm_engine_args <-
     component_id = "engine"
   )
 
+catboost_engine_args <-
+  tibble::tibble(
+    name = c(
+      "max_leaves",
+      "l2_leaf_reg"
+    ),
+    call_info = list(
+      list(pkg = "dials", fun = "num_leaves"),
+      list(pkg = "dials", fun = "penalty", range = c(-4, 1))
+    ),
+    source = "model_spec",
+    component = "boost_tree",
+    component_id = "engine"
+  )
+
 ranger_engine_args <-
   tibble::tibble(
     name = c(
@@ -345,7 +360,7 @@ tunable.boost_tree <- function(x, ...) {
   if (x$engine == "xgboost") {
     res <- add_engine_parameters(res, xgboost_engine_args)
     res$call_info[res$name == "sample_size"] <-
-      list(list(pkg = "dials", fun = "sample_prop"))
+      list(list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)))
     res$call_info[res$name == "learn_rate"] <-
       list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1 / 2)))
   } else if (x$engine == "C5.0") {
@@ -353,11 +368,19 @@ tunable.boost_tree <- function(x, ...) {
     res$call_info[res$name == "trees"] <-
       list(list(pkg = "dials", fun = "trees", range = c(1, 100)))
     res$call_info[res$name == "sample_size"] <-
-      list(list(pkg = "dials", fun = "sample_prop"))
+      list(list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)))
   } else if (x$engine == "lightgbm") {
     res <- add_engine_parameters(res, lightgbm_engine_args)
     res$call_info[res$name == "sample_size"] <-
-      list(list(pkg = "dials", fun = "sample_prop"))
+      list(list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)))
+    res$call_info[res$name == "learn_rate"] <-
+      list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1 / 2)))
+  } else if (x$engine == "catboost") {
+    res <- add_engine_parameters(res, catboost_engine_args)
+    res$call_info[res$name == "learn_rate"] <-
+      list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1 / 2)))
+    res$call_info[res$name == "sample_size"] <-
+      list(list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)))
   }
   res
 }
