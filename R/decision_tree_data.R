@@ -325,7 +325,7 @@ set_pred(
     pre = NULL,
     post = format_spark_num,
     func = c(pkg = "sparklyr", fun = "ml_predict"),
-    args = list(object = quote(object$fit), dataset = quote(new_data))
+    args = list(x = quote(object$fit), dataset = quote(new_data))
   )
 )
 
@@ -338,7 +338,7 @@ set_pred(
     pre = NULL,
     post = format_spark_class,
     func = c(pkg = "sparklyr", fun = "ml_predict"),
-    args = list(object = quote(object$fit), dataset = quote(new_data))
+    args = list(x = quote(object$fit), dataset = quote(new_data))
   )
 )
 
@@ -351,6 +351,6 @@ set_pred(
     pre = NULL,
     post = format_spark_probs,
     func = c(pkg = "sparklyr", fun = "ml_predict"),
-    args = list(object = quote(object$fit), dataset = quote(new_data))
+    args = list(x = quote(object$fit), dataset = quote(new_data))
   )
 )
