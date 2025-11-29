@@ -56,6 +56,16 @@ bag_tree(min_n = integer()) |>
 #| child: template-uses-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("bag_mars_predict") |>
+  dplyr::filter(engine == "C5.0") |>
+  dplyr::select(mode, type)
+
+```
 
 ## References
 

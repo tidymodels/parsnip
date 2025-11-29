@@ -50,6 +50,25 @@ This model can utilize case weights during model fitting. To use them, see the d
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("survival_reg_predict") |>
+  dplyr::filter(engine == "flexsurvspline") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 5 x 2
+##   mode                type       
+##   <chr>               <chr>      
+## 1 censored regression time       
+## 2 censored regression quantile   
+## 3 censored regression hazard     
+## 4 censored regression survival   
+## 5 censored regression linear_pred
+```
 
 ## Saving fitted model objects
 

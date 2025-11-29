@@ -48,6 +48,17 @@ discrim_linear() |>
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("discrim_linear_predict") |>
+  dplyr::filter(engine == "sda") |>
+  dplyr::select(mode, type)
+
+```
+
 ## References
 
  - Ahdesmaki, A., and K. Strimmer. 2010. Feature selection in omics prediction problems using cat scores and false non-discovery rate control. Ann. Appl. Stat. 4: 503-519. [Preprint](https://arxiv.org/abs/0903.2003).

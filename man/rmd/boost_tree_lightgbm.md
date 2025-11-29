@@ -123,6 +123,25 @@ parsnip and its extensions accommodate this parameterization using the `counts` 
 
 `mtry` is a main model argument for \\code{\\link[=boost_tree]{boost_tree()}} and \\code{\\link[=rand_forest]{rand_forest()}}, and thus should not have an engine-specific interface. So, regardless of engine, `counts` defaults to `TRUE`. For engines that support the proportion interpretation (currently `"xgboost"` and `"xrf"`, via the rules package, and `"lightgbm"` via the bonsai package) the user can pass the `counts = FALSE` argument to `set_engine()` to supply `mtry` values within `[0, 1]`.
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(engine == "lightgbm") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 4 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 classification class  
+## 3 classification prob   
+## 4 classification raw
+```
+
 ### Bagging
 
 The `sample_size` argument is translated to the `bagging_fraction` parameter in the `param` argument of `lgb.train`. The argument is interpreted by lightgbm as a _proportion_ rather than a count, so bonsai internally reparameterizes the `sample_size` argument with [dials::sample_prop()] during tuning. 

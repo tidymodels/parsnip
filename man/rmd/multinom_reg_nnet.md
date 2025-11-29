@@ -44,6 +44,24 @@ Factor/categorical predictors need to be converted to numeric values (e.g., dumm
 Predictors should have the same scale. One way to achieve this is to center and 
 scale each so that each predictor has mean zero and a variance of one.
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("multinom_reg_predict") |>
+  dplyr::filter(engine == "nnet") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 3 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob 
+## 3 classification raw
+```
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-nnet) for `multinom_reg()` with the `"nnet"` engine.

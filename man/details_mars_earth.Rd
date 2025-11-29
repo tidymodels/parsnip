@@ -97,6 +97,23 @@ Note that the \code{earth} package documentation has: “In the current
 implementation, \emph{building models with weights can be slow}.”
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("mars_predict") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 5 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob   
+## 5 classification raw
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Saving fitted model objects}{
 
 This model object contains data that are not required to make

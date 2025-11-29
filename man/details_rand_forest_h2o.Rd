@@ -96,6 +96,23 @@ Categorical predictors can be partitioned into groups of factor levels
 are not required for this model.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "h2o") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 4 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Initializing h2o}{
 
 To use the h2o engine with tidymodels, please run \code{h2o::h2o.init()}

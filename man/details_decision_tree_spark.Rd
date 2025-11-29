@@ -85,6 +85,22 @@ Note that, for spark engines, the \code{case_weight} argument value should be
 a character string to specify the column with the numeric case weights.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("decision_tree_predict") |>
+  dplyr::filter(engine == "spark") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 classification class  
+## 3 classification prob
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Other details}{
 
 For models created using the \code{"spark"} engine, there are several things

@@ -160,6 +160,23 @@ to \code{TRUE}. For engines that support the proportion interpretation
 within \verb{[0, 1]}.
 }
 
+}
+
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(engine == "lightgbm") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 4 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 classification class  
+## 3 classification prob   
+## 4 classification raw
+}\if{html}{\out{</div>}}
 \subsection{Bagging}{
 
 The \code{sample_size} argument is translated to the \code{bagging_fraction}

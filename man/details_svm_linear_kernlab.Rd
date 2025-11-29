@@ -94,6 +94,23 @@ variance of one.
 \subsection{Case weights}{
 
 The underlying model implementation does not allow for case weights.
+
+j## Prediction types
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("svm_linear_predict") |>
+  dplyr::filter(engine == "kernlab") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 5 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob   
+## 5 classification raw
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Saving fitted model objects}{

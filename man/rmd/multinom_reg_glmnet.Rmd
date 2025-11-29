@@ -65,6 +65,17 @@ The "Fitting and Predicting with parsnip" article contains [examples](https://pa
 #| child: template-uses-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("multinom_reg_predict") |>
+  dplyr::filter(engine == "glmnet") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Sparse Data
 
 ```{r}

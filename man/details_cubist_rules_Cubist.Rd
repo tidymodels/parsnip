@@ -59,6 +59,20 @@ Categorical predictors can be partitioned into groups of factor levels
 are not required for this model.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("cubist_rules_predict") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 x 2
+##   mode       type   
+##   <chr>      <chr>  
+## 1 regression numeric
+## 2 regression raw
+}\if{html}{\out{</div>}}
+}
+
 \subsection{References}{
 \itemize{
 \item Quinlan R (1992). “Learning with Continuous Classes.” Proceedings of

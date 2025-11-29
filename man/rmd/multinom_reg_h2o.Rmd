@@ -57,6 +57,17 @@ multinom_reg(penalty = double(1), mixture = double(1)) |>
 
 By default, [h2o::h2o.glm()] uses the argument `standardize = TRUE` to center and scale the data. 
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("multinom_reg_predict") |>
+  dplyr::filter(engine == "h2o") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Initializing h2o 
 
 ```{r}

@@ -21,9 +21,11 @@ Engine arguments of interest
 
 
 ``` r
-auto_ml() |>  
-  set_engine("h2o") |> 
-  set_mode("regression") |> 
+library(agua)
+
+auto_ml() |>
+  set_engine("h2o") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -71,6 +73,24 @@ To use the h2o engine with tidymodels, please run `h2o::h2o.init()` first. By de
 You can control the number of threads in the thread pool used by h2o with the `nthreads` argument. By default, it uses all CPUs on the host. This is different from the usual parallel processing mechanism in tidymodels for tuning, while tidymodels parallelizes over resamples, h2o parallelizes over hyperparameter combinations for a given resample. 
 
 h2o will automatically shut down the local h2o instance started by R when R is terminated. To manually stop the h2o server, run `h2o::h2o.shutdown()`. 
+
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("auto_ml_predict") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 4 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob
+```
 
 ## Saving fitted model objects
 

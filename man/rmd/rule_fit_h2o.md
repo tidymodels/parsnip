@@ -105,6 +105,25 @@ rule_fit(
 
 Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("rule_fit_predict") |>
+  dplyr::filter(engine == "h2o") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 4 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob
+```
+
 ## Other details
 
 

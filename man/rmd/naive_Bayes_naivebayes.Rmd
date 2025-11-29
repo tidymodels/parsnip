@@ -61,6 +61,17 @@ For count data, integers can be estimated using a Poisson distribution if the ar
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("naive_Bayes_predict") |>
+  dplyr::filter(engine == "naivebayes") |>
+  dplyr::select(mode, type)
+
+```
+
 ## References
 
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

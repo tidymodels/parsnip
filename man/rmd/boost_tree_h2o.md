@@ -124,6 +124,30 @@ parsnip and its extensions accommodate this parameterization using the `counts` 
 
 `mtry` is a main model argument for \\code{\\link[=boost_tree]{boost_tree()}} and \\code{\\link[=rand_forest]{rand_forest()}}, and thus should not have an engine-specific interface. So, regardless of engine, `counts` defaults to `TRUE`. For engines that support the proportion interpretation (currently `"xgboost"` and `"xrf"`, via the rules package, and `"lightgbm"` via the bonsai package) the user can pass the `counts = FALSE` argument to `set_engine()` to supply `mtry` values within `[0, 1]`.
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(stringr::str_starts(engine, "h2o")) |>
+  dplyr::select(mode, type) |> 
+  print(n = Inf)
+```
+
+```
+## # A tibble: 8 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob   
+## 5 regression     numeric
+## 6 regression     raw    
+## 7 classification class  
+## 8 classification prob
+```
+
 ## Initializing h2o 
 
 

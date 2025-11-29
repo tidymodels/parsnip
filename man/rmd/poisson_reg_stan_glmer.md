@@ -110,6 +110,24 @@ This model can utilize case weights during model fitting. To use them, see the d
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("poisson_reg_predict") |>
+  dplyr::filter(engine == "stan_glmer") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 3 x 2
+##   mode       type    
+##   <chr>      <chr>   
+## 1 regression numeric 
+## 2 regression pred_int
+## 3 regression raw
+```
+
 ## References
 
  - McElreath, R. 2020 _Statistical Rethinking_. CRC Press.

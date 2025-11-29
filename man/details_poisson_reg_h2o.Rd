@@ -76,6 +76,21 @@ By default, \code{h2o::h2o.glm()} uses the argument \code{standardize = TRUE} to
 center and scale all numerical columns.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("poisson_reg_predict") |>
+  dplyr::filter(engine == "h2o") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 x 2
+##   mode       type   
+##   <chr>      <chr>  
+## 1 regression numeric
+## 2 regression raw
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Initializing h2o}{
 
 To use the h2o engine with tidymodels, please run \code{h2o::h2o.init()}

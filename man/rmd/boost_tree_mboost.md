@@ -52,6 +52,24 @@ boost_tree() |>
 
 This engine does not require any special encoding of the predictors. Categorical predictors can be partitioned into groups of factor levels (e.g. `{a, c}` vs `{b, d}`) when splitting at a node. Dummy variables are not required for this model. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(engine == "mboost") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 3 x 2
+##   mode                type       
+##   <chr>               <chr>      
+## 1 censored regression survival   
+## 2 censored regression linear_pred
+## 3 censored regression time
+```
+
 ## Other details
 
 

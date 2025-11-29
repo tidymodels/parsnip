@@ -36,15 +36,9 @@ jobs:
           extra-packages: any::pkgdown, local::.
           needs: website
 
-      - name: Install Miniconda
+      - name: Install TensorFlow/Keras
         run: |
-          reticulate::install_miniconda()
-        shell: Rscript {0}
- 
-      - name: Install TensorFlow
-        run: |
-          reticulate::conda_create('r-reticulate', packages = c('python==3.11'))
-          tensorflow::install_tensorflow(version='2.16')
+          keras::install_keras()
         shell: Rscript {0}
 
       - name: Install Torch

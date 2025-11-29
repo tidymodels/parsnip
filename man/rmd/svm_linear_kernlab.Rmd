@@ -76,6 +76,17 @@ Note that the `"kernlab"` engine does not naturally estimate class probabilities
 #| child: template-no-case-weights.Rmd
 ```
 
+j## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("svm_linear_predict") |>
+  dplyr::filter(engine == "kernlab") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Saving fitted model objects
 
 ```{r}

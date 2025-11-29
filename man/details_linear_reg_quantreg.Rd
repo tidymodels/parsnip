@@ -138,6 +138,20 @@ formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
 convert factor columns to indicators.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("linear_reg_predict") |>
+  dplyr::filter(engine == "quantreg") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 1 x 2
+##   mode                type    
+##   <chr>               <chr>   
+## 1 quantile regression quantile
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Case weights}{
 
 This model can utilize case weights during model fitting. To use them,

@@ -156,6 +156,26 @@ to \code{TRUE}. For engines that support the proportion interpretation
 within \verb{[0, 1]}.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(stringr::str_starts(engine, "h2o")) |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 8 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob   
+## 5 regression     numeric
+## 6 regression     raw    
+## # i 2 more rows
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Initializing h2o}{
 
 To use the h2o engine with tidymodels, please run \code{h2o::h2o.init()}

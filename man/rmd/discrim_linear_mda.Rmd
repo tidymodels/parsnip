@@ -59,6 +59,17 @@ discrim_linear(penalty = numeric(0)) |>
 #| child: template-uses-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("discrim_linear_predict") |>
+  dplyr::filter(engine == "mda") |>
+  dplyr::select(mode, type)
+
+```
+
 ## References
 
  - Hastie, Tibshirani & Buja (1994) Flexible Discriminant Analysis by Optimal 

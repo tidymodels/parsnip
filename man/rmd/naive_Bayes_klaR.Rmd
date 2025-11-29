@@ -59,6 +59,17 @@ The columns for qualitative predictors should always be represented as factors (
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("naive_Bayes_predict") |>
+  dplyr::filter(engine == "klaR") |>
+  dplyr::select(mode, type)
+
+```
+
 ## References
 
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

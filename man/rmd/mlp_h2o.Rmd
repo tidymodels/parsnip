@@ -91,6 +91,16 @@ mlp(
 
 By default, [h2o::h2o.deeplearning()] uses the argument `standardize = TRUE` to center and scale all numeric columns. 
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("mlp_predict") |>
+  dplyr::filter(engine == "h2o") |>
+  dplyr::select(mode, type)
+
+```
 
 ## Initializing h2o 
 

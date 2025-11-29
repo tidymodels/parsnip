@@ -124,6 +124,25 @@ The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that e
 
 This model object contains data that are not required to make predictions. When saving the model for the purpose of prediction, the size of the saved object might be substantially reduced by using functions from the [butcher](https://butcher.tidymodels.org) package.
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("proportional_hazards_predict") |>
+  dplyr::filter(engine == "glmnet") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 4 x 2
+##   mode                type       
+##   <chr>               <chr>      
+## 1 censored regression linear_pred
+## 2 censored regression survival   
+## 3 censored regression time       
+## 4 censored regression raw
+```
+
 # References
 
  - Simon N, Friedman J, Hastie T, Tibshirani R. 2011. "Regularization Paths for Cox’s Proportional Hazards Model via Coordinate Descent." _Journal of Statistical Software_, Articles 39 (5): 1–13. \doi{10.18637/jss.v039.i05}.
@@ -131,4 +150,3 @@ This model object contains data that are not required to make predictions. When 
  - Hastie T, Tibshirani R, Wainwright M. 2015. _Statistical Learning with Sparsity_. CRC Press.
  
  - Kuhn M, Johnson K. 2013. _Applied Predictive Modeling_. Springer.
-

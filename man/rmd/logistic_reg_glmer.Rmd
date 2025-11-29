@@ -69,6 +69,17 @@ fit(glmer_wflow, data = toenail)
 #| child: template-uses-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("logistic_reg_predict") |>
+  dplyr::filter(engine == "glmer") |>
+  dplyr::select(mode, type)
+
+```
+
 ## References
 
  - 	J Pinheiro, and D Bates. 2000. _Mixed-effects models in S and S-PLUS_. Springer, New York, NY

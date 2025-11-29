@@ -59,6 +59,16 @@ discrim_flexible(
 #| child: template-uses-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("discrim_flexible_predict") |>
+  dplyr::select(mode, type)
+
+```
+
 ## References
 
  - Hastie, Tibshirani & Buja (1994) Flexible Discriminant Analysis by Optimal 

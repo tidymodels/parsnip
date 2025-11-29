@@ -115,6 +115,26 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \code{case_weights} that expect vectors of case weights.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "aorsf") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 7 x 2
+##   mode                type    
+##   <chr>               <chr>   
+## 1 censored regression time    
+## 2 censored regression survival
+## 3 classification      class   
+## 4 classification      prob    
+## 5 classification      raw     
+## 6 regression          numeric 
+## # i 1 more row
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Other details}{
 
 Predictions of survival probability at a time exceeding the maximum

@@ -93,6 +93,16 @@ parsnip::bart(
 
 [dbarts::bart()] will also convert the factors to indicators if the user does not create them first. 
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("bart_predict") |>
+  dplyr::select(mode, type) |> 
+  print(n = Inf)
+
+```
 
 ## References
 

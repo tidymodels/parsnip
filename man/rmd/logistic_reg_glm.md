@@ -62,6 +62,25 @@ The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that e
 
 _However_, the documentation in [stats::glm()] assumes that is specific type of case weights are being used:"Non-NULL weights can be used to indicate that different observations have different dispersions (with the values in weights being inversely proportional to the dispersions); or equivalently, when the elements of weights are positive integers `w_i`, that each response `y_i` is the mean of `w_i` unit-weight observations. For a binomial GLM prior weights are used to give the number of trials when the response is the proportion of successes: they would rarely be used for a Poisson GLM."
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("logistic_reg_predict") |>
+  dplyr::filter(engine == "glm") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 4 x 2
+##   mode           type    
+##   <chr>          <chr>   
+## 1 classification class   
+## 2 classification prob    
+## 3 classification raw     
+## 4 classification conf_int
+```
+
 ## Saving fitted model objects
 
 

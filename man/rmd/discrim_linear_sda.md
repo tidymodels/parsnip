@@ -54,6 +54,24 @@ Variance calculations are used in these computations so _zero-variance_ predicto
 
 The underlying model implementation does not allow for case weights. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("discrim_linear_predict") |>
+  dplyr::filter(engine == "sda") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 3 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob 
+## 3 classification raw
+```
+
 ## References
 
  - Ahdesmaki, A., and K. Strimmer. 2010. Feature selection in omics prediction problems using cat scores and false non-discovery rate control. Ann. Appl. Stat. 4: 503-519. [Preprint](https://arxiv.org/abs/0903.2003).
