@@ -29,7 +29,7 @@ set_encoding(
     predictor_indicators = "traditional",
     compute_intercept = FALSE,
     remove_intercept = FALSE,
-    allow_sparse_x = FALSE
+    allow_sparse_x = TRUE
   )
 )
 
@@ -53,7 +53,7 @@ set_encoding(
     predictor_indicators = "traditional",
     compute_intercept = FALSE,
     remove_intercept = FALSE,
-    allow_sparse_x = FALSE
+    allow_sparse_x = TRUE
   )
 )
 
@@ -66,12 +66,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "numeric"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "numeric"
+    )
   )
 )
 
@@ -84,12 +83,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "numeric"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "numeric"
+    )
   )
 )
 
@@ -102,12 +100,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "class"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "class"
+    )
   )
 )
 
@@ -122,12 +119,11 @@ set_pred(
       as_tibble(x)
     },
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "prob"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "prob"
+    )
   )
 )
 
@@ -140,12 +136,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "raw"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "raw"
+    )
   )
 )
-

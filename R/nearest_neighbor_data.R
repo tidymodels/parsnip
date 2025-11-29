@@ -1,4 +1,3 @@
-
 set_new_model("nearest_neighbor")
 
 set_model_mode("nearest_neighbor", "classification")
@@ -31,7 +30,7 @@ set_model_arg(
   eng = "kknn",
   parsnip = "dist_power",
   original = "distance",
-  func = list(pkg = "dials", fun = "dist_power", range = c(1/10, 2)),
+  func = list(pkg = "dials", fun = "dist_power", range = c(1 / 10, 2)),
   has_submodel = FALSE
 )
 
@@ -88,26 +87,27 @@ set_pred(
   eng = "kknn",
   mode = "regression",
   type = "numeric",
-  value =  list(
+  value = list(
     # seems unnecessary here as the predict_numeric catches it based on the
     # model mode
     pre = function(x, object) {
       if (object$fit$response != "continuous") {
         cli::cli_abort(
-          c("`kknn` model does not appear to use numeric predictions.",
-            "i" = "Was the model fit with a continuous response variable?")
+          c(
+            "`kknn` model does not appear to use numeric predictions.",
+            "i" = "Was the model fit with a continuous response variable?"
+          )
         )
       }
       x
     },
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "raw"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "raw"
+    )
   )
 )
 
@@ -120,11 +120,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data)
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
   )
 )
 
@@ -137,20 +136,21 @@ set_pred(
     pre = function(x, object) {
       if (!(object$fit$response %in% c("ordinal", "nominal"))) {
         cli::cli_abort(
-          c("`kknn` model does not appear to use class predictions.",
-            "i" = "Was the model fit with a factor response variable?")
+          c(
+            "`kknn` model does not appear to use class predictions.",
+            "i" = "Was the model fit with a factor response variable?"
+          )
         )
       }
       x
     },
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "raw"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "raw"
+    )
   )
 )
 
@@ -163,20 +163,21 @@ set_pred(
     pre = function(x, object) {
       if (!(object$fit$response %in% c("ordinal", "nominal"))) {
         cli::cli_abort(
-          c("`kknn` model does not appear to use class predictions.",
-            "i" = "Was the model fit with a factor response variable?")
+          c(
+            "`kknn` model does not appear to use class predictions.",
+            "i" = "Was the model fit with a factor response variable?"
+          )
         )
       }
       x
     },
     post = function(result, object) as_tibble(result),
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "prob"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "prob"
+    )
   )
 )
 
@@ -189,10 +190,9 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data)
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
   )
 )

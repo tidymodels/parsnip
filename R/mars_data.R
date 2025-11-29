@@ -1,4 +1,3 @@
-
 set_new_model("mars")
 
 set_model_mode("mars", "classification")
@@ -92,12 +91,11 @@ set_pred(
     pre = NULL,
     post = maybe_multivariate,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "response"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "response"
+    )
   )
 )
 
@@ -110,9 +108,7 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(object = quote(object$fit),
-           newdata = quote(new_data))
+    args = list(object = quote(object$fit), newdata = quote(new_data))
   )
 )
 
@@ -128,12 +124,11 @@ set_pred(
       x
     },
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "response"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "response"
+    )
   )
 )
 
@@ -151,12 +146,11 @@ set_pred(
       x
     },
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "response"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "response"
+    )
   )
 )
 
@@ -169,8 +163,6 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(object = quote(object$fit),
-           newdata = quote(new_data))
+    args = list(object = quote(object$fit), newdata = quote(new_data))
   )
 )

@@ -27,12 +27,16 @@
 #'
 #' @export
 discrim_flexible <-
-  function(mode = "classification", num_terms = NULL, prod_degree = NULL,
-           prune_method = NULL, engine = "earth") {
-
+  function(
+    mode = "classification",
+    num_terms = NULL,
+    prod_degree = NULL,
+    prune_method = NULL,
+    engine = "earth"
+  ) {
     args <- list(
-      num_terms    = enquo(num_terms),
-      prod_degree  = enquo(prod_degree),
+      num_terms = enquo(num_terms),
+      prod_degree = enquo(prod_degree),
       prune_method = enquo(prune_method)
     )
 
@@ -60,15 +64,17 @@ discrim_flexible <-
 #' @inheritParams discrim_flexible
 #' @export
 update.discrim_flexible <-
-  function(object,
-           num_terms = NULL,
-           prod_degree = NULL,
-           prune_method = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    num_terms = NULL,
+    prod_degree = NULL,
+    prune_method = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
-      num_terms    = enquo(num_terms),
-      prod_degree  = enquo(prod_degree),
+      num_terms = enquo(num_terms),
+      prod_degree = enquo(prod_degree),
       prune_method = enquo(prune_method)
     )
 
@@ -86,12 +92,29 @@ update.discrim_flexible <-
 
 #' @export
 check_args.discrim_flexible <- function(object, call = rlang::caller_env()) {
-
   args <- lapply(object$args, rlang::eval_tidy)
 
-  check_number_whole(args$prod_degree, min = 1, allow_null = TRUE, call = call, arg = "prod_degree")
-  check_number_whole(args$num_terms, min = 1, allow_null = TRUE, call = call, arg = "num_terms")
-  check_string(args$prune_method, allow_empty = FALSE, allow_null = TRUE, call = call, arg = "prune_method")
+  check_number_whole(
+    args$prod_degree,
+    min = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "prod_degree"
+  )
+  check_number_whole(
+    args$num_terms,
+    min = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "num_terms"
+  )
+  check_string(
+    args$prune_method,
+    allow_empty = FALSE,
+    allow_null = TRUE,
+    call = call,
+    arg = "prune_method"
+  )
 
   invisible(object)
 }

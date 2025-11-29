@@ -1,6 +1,11 @@
 # Initialize model environments
 
-all_modes <- c("classification", "regression", "censored regression", "quantile regression")
+all_modes <- c(
+  "classification",
+  "regression",
+  "censored regression",
+  "quantile regression"
+)
 
 # ------------------------------------------------------------------------------
 
@@ -32,8 +37,19 @@ parsnip$modes <- c(all_modes, "unknown")
 # ------------------------------------------------------------------------------
 
 pred_types <-
-  c("raw", "numeric", "class", "prob", "conf_int", "pred_int", "quantile",
-    "time", "survival", "linear_pred", "hazard")
+  c(
+    "raw",
+    "numeric",
+    "class",
+    "prob",
+    "conf_int",
+    "pred_int",
+    "quantile",
+    "time",
+    "survival",
+    "linear_pred",
+    "hazard"
+  )
 
 # ------------------------------------------------------------------------------
 
@@ -96,8 +112,10 @@ error_set_object <- function(object, func) {
     "`{func}()` expected a model specification to be supplied to the \\
      `object` argument, but received a(n) `{class(object)[1]}` object."
 
-  if (inherits(object, "function") &&
-      isTRUE(environment(object)$.packageName == "parsnip")) {
+  if (
+    inherits(object, "function") &&
+      isTRUE(environment(object)$.packageName == "parsnip")
+  ) {
     msg <- c(
       msg,
       "i" = "Did you mistakenly pass `model_function` rather than `model_function()`?"
@@ -176,10 +194,15 @@ stop_missing_engine <- function(cls, call) {
   info <-
     get_from_env(cls) |>
     dplyr::group_by(mode) |>
-    dplyr::summarize(msg = paste0(unique(mode), " {",
-                                  paste0(unique(engine), collapse = ", "),
-                                  "}"),
-                     .groups = "drop")
+    dplyr::summarize(
+      msg = paste0(
+        unique(mode),
+        " {",
+        paste0(unique(engine), collapse = ", "),
+        "}"
+      ),
+      .groups = "drop"
+    )
   if (nrow(info) == 0) {
     cli::cli_abort("No known engines for {.fn {cls}}.", call = call)
   }
@@ -203,7 +226,6 @@ check_mode_for_new_engine <- function(cls, eng, mode, call = caller_env()) {
 
 # check if class and mode and engine are compatible
 check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
-
   all_modes <- get_from_env(paste0(cls, "_modes"))
   if (!(mode %in% all_modes)) {
     cli::cli_abort(
@@ -218,7 +240,10 @@ check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
   # parsnip model environment. If so, return early.
   # If not, troubleshoot more precisely and raise a relevant error.
   model_env_match <-
-    vctrs::vec_slice(model_info, model_info$engine == eng & model_info$mode == mode)
+    vctrs::vec_slice(
+      model_info,
+      model_info$engine == eng & model_info$mode == mode
+    )
 
   if (vctrs::vec_size(model_env_match) == 1) {
     return(invisible(NULL))
@@ -302,7 +327,7 @@ check_func_val <- function(func, call = caller_env()) {
 
   nms <- sort(names(func))
 
-  if (all(is.null(nms)))  {
+  if (all(is.null(nms))) {
     cli::cli_abort(msg, call = call)
   }
 
@@ -379,7 +404,10 @@ check_fit_info <- function(fit_obj, call = caller_env()) {
   check_func_val(fit_obj$func)
 
   if (!is.list(fit_obj$defaults)) {
-    cli::cli_abort("The {.field defaults} element should be a list.", call = call)
+    cli::cli_abort(
+      "The {.field defaults} element should be a list.",
+      call = call
+    )
   }
 
   invisible(NULL)
@@ -560,10 +588,17 @@ set_new_model <- function(model) {
   current <- get_model_env()
 
   set_env_val("models", unique(c(current$models, model)))
-  set_env_val(model, tibble::new_tibble(list(engine = character(0), mode = character(0))))
+  set_env_val(
+    model,
+    tibble::new_tibble(list(engine = character(0), mode = character(0)))
+  )
   set_env_val(
     paste0(model, "_pkgs"),
-    tibble::new_tibble(list(engine = character(0), pkg = list(), mode = character(0)))
+    tibble::new_tibble(list(
+      engine = character(0),
+      pkg = list(),
+      mode = character(0)
+    ))
   )
   set_env_val(paste0(model, "_modes"), "unknown")
   set_env_val(
@@ -659,13 +694,16 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
   old_args <- get_from_env(paste0(model, "_args"))
 
   new_arg <-
-    tibble::new_tibble(list(
-      engine = eng,
-      parsnip = parsnip,
-      original = original,
-      func = list(func),
-      has_submodel = has_submodel
-    ), nrow = 1)
+    tibble::new_tibble(
+      list(
+        engine = eng,
+        parsnip = parsnip,
+        original = original,
+        func = list(func),
+        has_submodel = has_submodel
+      ),
+      nrow = 1
+    )
 
   updated <- try(dplyr::bind_rows(old_args, new_arg), silent = TRUE)
   if (inherits(updated, "try-error")) {
@@ -774,9 +812,15 @@ get_dependency <- function(model) {
 # This will be used to see if the same information is being registered for the
 # same model/mode/engine (and prediction type). If it already exists and the
 # new information is different, fail with a message. See issue #653
-is_discordant_info <- function(model, mode, eng, candidate,
-                            pred_type = NULL, component = "fit",
-                            call = caller_env()) {
+is_discordant_info <- function(
+  model,
+  mode,
+  eng,
+  candidate,
+  pred_type = NULL,
+  component = "fit",
+  call = caller_env()
+) {
   current <- get_from_env(paste0(model, "_", component))
 
   # For older versions of parsnip before set_encoding()
@@ -785,11 +829,10 @@ is_discordant_info <- function(model, mode, eng, candidate,
   if (new_encoding) {
     return(TRUE)
   } else {
-    current <-  dplyr::filter(current, engine == eng & mode == !!mode)
+    current <- dplyr::filter(current, engine == eng & mode == !!mode)
   }
 
   if (component == "predict" & !is.null(pred_type)) {
-
     current <- dplyr::filter(current, type == pred_type)
     p_type <- "and prediction type {.val {pred_type}} "
   } else {
@@ -836,7 +879,6 @@ check_unregistered <- function(model, mode, eng, call = caller_env()) {
 }
 
 
-
 #' @rdname set_new_model
 #' @keywords internal
 #' @export
@@ -848,11 +890,14 @@ set_fit <- function(model, mode, eng, value) {
   check_unregistered(model, mode, eng)
 
   new_fit <-
-    tibble::new_tibble(list(
-      engine = eng,
-      mode = mode,
-      value = list(value)
-    ), nrow = 1)
+    tibble::new_tibble(
+      list(
+        engine = eng,
+        mode = mode,
+        value = list(value)
+      ),
+      nrow = 1
+    )
 
   if (!is_discordant_info(model, mode, eng, new_fit)) {
     return(invisible(NULL))
@@ -882,7 +927,9 @@ get_fit <- function(model) {
   check_model_exists(model)
   fit_name <- paste0(model, "_fit")
   if (!any(fit_name != rlang::env_names(get_model_env()))) {
-    cli::cli_abort("{.arg {model}} does not have a {.fn fit} method in parsnip.")
+    cli::cli_abort(
+      "{.arg {model}} does not have a {.fn fit} method in parsnip."
+    )
   }
   rlang::env_get(get_model_env(), fit_name)
 }
@@ -907,7 +954,14 @@ set_pred <- function(model, mode, eng, type, value) {
       nrow = 1
     )
 
-  pred_check <- is_discordant_info(model, mode, eng, new_pred, pred_type = type, component = "predict")
+  pred_check <- is_discordant_info(
+    model,
+    mode,
+    eng,
+    new_pred,
+    pred_type = type,
+    component = "predict"
+  )
   if (!pred_check) {
     return(invisible(NULL))
   }
@@ -939,7 +993,9 @@ get_pred_type <- function(model, type) {
   }
   all_preds <- rlang::env_get(get_model_env(), pred_name)
   if (!any(all_preds$type == type)) {
-    cli::cli_abort("{.arg {model}} does not have any prediction methods in parsnip.")
+    cli::cli_abort(
+      "{.arg {model}} does not have any prediction methods in parsnip."
+    )
   }
   dplyr::filter(all_preds, type == !!type)
 }
@@ -978,8 +1034,8 @@ show_model_info <- function(model) {
       ) |>
       dplyr::select(engine, mode, has_wts)
 
-      engine_weight_info <- engines |>
-        dplyr::left_join(weight_info, by = c("engine", "mode")) |>
+    engine_weight_info <- engines |>
+      dplyr::left_join(weight_info, by = c("engine", "mode")) |>
       dplyr::mutate(
         engine = paste0(engine, has_wts),
         mode = format(paste0(mode, ": "))
@@ -1018,7 +1074,11 @@ show_model_info <- function(model) {
       dplyr::group_by(engine) |>
       dplyr::mutate(
         engine2 = ifelse(dplyr::row_number() == 1, engine, ""),
-        parsnip = ifelse(dplyr::row_number() == 1, paste0("\n", parsnip), parsnip),
+        parsnip = ifelse(
+          dplyr::row_number() == 1,
+          paste0("\n", parsnip),
+          parsnip
+        ),
         lab = paste0(engine2, parsnip)
       ) |>
       dplyr::ungroup() |>
@@ -1064,7 +1124,7 @@ show_model_info <- function(model) {
 #' @rdname set_new_model
 #' @keywords internal
 #' @export
-pred_value_template <-  function(pre = NULL, post = NULL, func, ...) {
+pred_value_template <- function(pre = NULL, post = NULL, func, ...) {
   if (rlang::is_missing(func)) {
     cli::cli_abort(
       "Please supply a value to {.arg func}. See {.help [{.fun set_pred}](parsnip::set_pred)}."
@@ -1079,10 +1139,12 @@ check_encodings <- function(x, call = caller_env()) {
   if (!is.list(x)) {
     cli::cli_abort("{.arg values} should be a list.", call = call)
   }
-  req_args <- list(predictor_indicators = rlang::na_chr,
-                   compute_intercept = rlang::na_lgl,
-                   remove_intercept = rlang::na_lgl,
-                   allow_sparse_x = rlang::na_lgl)
+  req_args <- list(
+    predictor_indicators = rlang::na_chr,
+    compute_intercept = rlang::na_lgl,
+    remove_intercept = rlang::na_lgl,
+    allow_sparse_x = rlang::na_lgl
+  )
 
   missing_args <- setdiff(names(req_args), names(x))
   if (length(missing_args) > 0) {
@@ -1112,11 +1174,20 @@ set_encoding <- function(model, mode, eng, options) {
   check_mode_val(mode)
   check_encodings(options)
 
-  keys   <- tibble::new_tibble(list(model = model, engine = eng, mode = mode), nrow = 1)
+  keys <- tibble::new_tibble(
+    list(model = model, engine = eng, mode = mode),
+    nrow = 1
+  )
   options <- tibble::as_tibble(options)
   new_values <- dplyr::bind_cols(keys, options)
 
-  enc_check <- is_discordant_info(model, mode, eng, new_values, component = "encoding")
+  enc_check <- is_discordant_info(
+    model,
+    mode,
+    eng,
+    new_values,
+    component = "encoding"
+  )
   if (!enc_check) {
     return(invisible(NULL))
   }
@@ -1150,8 +1221,14 @@ get_encoding <- function(model) {
         remove_intercept = TRUE,
         allow_sparse_x = FALSE
       ) |>
-      dplyr::select(model, engine, mode, predictor_indicators,
-                    compute_intercept, remove_intercept)
+      dplyr::select(
+        model,
+        engine,
+        mode,
+        predictor_indicators,
+        compute_intercept,
+        remove_intercept
+      )
   }
   res
 }

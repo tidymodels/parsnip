@@ -47,6 +47,13 @@ probability of censoring weights (IPCW) are also created (see \code{tidymodels.o
 page in the references below). This enables the user to compute performance
 metrics in the \pkg{yardstick} package.
 }
+
+\subsection{Quantile Regression}{
+
+For quantile regression models, a \code{.pred_quantile} column is added that
+contains the quantile predictions for each row. This column has a special
+class \code{"quantile_pred"} and can be unnested using \code{\link[tidyr:unnest]{tidyr::unnest()}}
+}
 }
 \examples{
 \dontshow{if (!parsnip:::is_cran_check() & rlang::is_installed("modeldata")) withAutoprint(\{ # examplesIf}
@@ -89,6 +96,20 @@ augment(cls_form, cls_tst[, -3])
 
 augment(cls_xy, cls_tst)
 augment(cls_xy, cls_tst[, -3])
+
+# ------------------------------------------------------------------------------
+
+if (rlang::is_installed("quantreg")) {
+  # Quantile regression example
+  qr_form <-
+    linear_reg() |>
+    set_engine("quantreg") |>
+    set_mode("quantile regression", quantile_levels = c(0.25, 0.5, 0.75)) |>
+    fit(mpg ~ ., data = car_trn)
+
+  augment(qr_form, car_tst)
+  augment(qr_form, car_tst[, -1])
+}
 \dontshow{\}) # examplesIf}
 }
 \references{

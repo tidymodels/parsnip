@@ -553,6 +553,7 @@ The following examples use consistent data sets throughout. For regression, we u
   Now we create the model fit object:
 
   ```{r}
+  #| eval: false
   set.seed(1)
   linreg_reg_fit <- linreg_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   linreg_reg_fit
@@ -561,6 +562,7 @@ The following examples use consistent data sets throughout. For regression, we u
   The holdout data can be predicted:
 
   ```{r}
+  #| eval: false
   predict(linreg_reg_fit, Chicago_test)
   ```
     
@@ -791,6 +793,7 @@ The following examples use consistent data sets throughout. For regression, we u
   Now we create the model fit object:
 
   ```{r}
+  #| eval: false
   set.seed(1)
   logreg_cls_fit <- logreg_cls_spec |> fit(Class ~ ., data = data_train)
   logreg_cls_fit
@@ -799,6 +802,7 @@ The following examples use consistent data sets throughout. For regression, we u
   The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
 
   ```{r}
+  #| eval: false
   bind_cols(
     predict(logreg_cls_fit, data_test),
     predict(logreg_cls_fit, data_test, type = "prob")
@@ -1103,6 +1107,7 @@ The following examples use consistent data sets throughout. For regression, we u
   Now we create the model fit object:
 
   ```{r}
+  #| eval: false
   set.seed(1)
   mlp_reg_fit <- mlp_reg_spec |> fit(ridership ~ ., data = Chicago_train)
   mlp_reg_fit
@@ -1111,6 +1116,7 @@ The following examples use consistent data sets throughout. For regression, we u
   The holdout data can be predicted:
 
   ```{r}
+  #| eval: false
   predict(mlp_reg_fit, Chicago_test)
   ```
 
@@ -1136,6 +1142,7 @@ The following examples use consistent data sets throughout. For regression, we u
   Now we create the model fit object:
 
   ```{r}
+  #| eval: false
   set.seed(1)
   mlp_cls_fit <- mlp_cls_spec |> fit(Class ~ ., data = data_train)
   mlp_cls_fit
@@ -1144,6 +1151,7 @@ The following examples use consistent data sets throughout. For regression, we u
   The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
 
   ```{r}
+  #| eval: false
   bind_cols(
     predict(mlp_cls_fit, data_test),
     predict(mlp_cls_fit, data_test, type = "prob")
@@ -1365,6 +1373,7 @@ The following examples use consistent data sets throughout. For regression, we u
   Now we create the model fit object:
 
   ```{r}
+  #| eval: false
   set.seed(1)
   mr_cls_fit <- mr_cls_spec |> fit(island ~ ., data = penguins_train)
   mr_cls_fit
@@ -1373,6 +1382,7 @@ The following examples use consistent data sets throughout. For regression, we u
   The holdout data can be predicted for both hard class predictions and probabilities. We'll bind these together into one tibble:
 
   ```{r}
+  #| eval: false
   bind_cols(
     predict(mr_cls_fit, penguins_test),
     predict(mr_cls_fit, penguins_test, type = "prob")
@@ -1437,8 +1447,8 @@ The following examples use consistent data sets throughout. For regression, we u
 
   ```{r}
   mr_cls_spec <- 
-    multinom_reg(penalty = 0.1) |> 
-    set_engine("brulee")
+    multinom_reg() |> 
+    set_engine("brulee", learn_rate = 0.01, optimizer = "SGD")
   mr_cls_spec
   ```
 
@@ -1688,7 +1698,125 @@ The following examples use consistent data sets throughout. For regression, we u
     
   </details>
 
+  <details id="rand-forest-grf"> 
+  
+  <summary>With the `"grf"` engine</summary>
 
+  <h3>Regression Example (`grf`)</h3>
+
+  ```{r}
+  #| echo: false
+  knitr::spin_child("template-reg-chicago.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  rf_reg_spec <- 
+    rand_forest(trees = 200, min_n = 5) |> 
+    # This model can be used for classification, regression, or quantile
+    # regression so set mode
+    set_mode("regression") |> 
+    set_engine("grf")
+  rf_reg_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  rf_reg_fit <- rf_reg_spec |> fit(ridership ~ ., data = Chicago_train)
+  rf_reg_fit
+  ```
+
+  The holdout data can be predicted for their mean value as well as confidence intervals for the predictions:
+
+  ```{r}
+  predict(rf_reg_fit, Chicago_test)
+  predict(rf_reg_fit, Chicago_test, type = "conf_int")
+  ```
+
+
+  <h3>Classification Example (`grf`)</h3>
+
+  ```{r}
+  #| echo: false
+  knitr::spin_child("template-cls-two-class.R")
+  ```
+
+  We can define the model with specific parameters:
+
+  ```{r}
+  rf_cls_spec <- 
+    rand_forest(trees = 200, min_n = 5) |> 
+    # This model can be used for classification, regression, or quantile
+    # regression so set mode
+    set_mode("classification") |> 
+    set_engine("grf")
+  rf_cls_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  rf_cls_fit <- rf_cls_spec |> fit(Class ~ ., data = data_train)
+  rf_cls_fit
+  ```
+
+  The holdout data can be predicted for both hard class predictions, probabilities, and confidence intervals. We'll bind these together into one tibble:
+
+  ```{r}
+  bind_cols(
+    predict(rf_cls_fit, data_test),
+    predict(rf_cls_fit, data_test, type = "prob"),
+    predict(rf_cls_fit, data_test, type = "conf_int")
+  )
+  ```
+
+  <h3>Quantile regression Example (`grf`)</h3>
+
+  ```{r}
+  #| echo: false
+  knitr::spin_child("template-reg-sacramento.R")
+  ```
+
+  We can define the model but should set the model mode. Also, for these models the levels of the distirunbtion that we would like to predict need to specified with the mode using the `quantile_levels` argument. Let's predict the 0.25, 0.50, and 0.75 quantiles:
+
+  ```{r}
+  grf_quant_spec <- 
+    rand_forest() |> 
+    set_engine("grf") |> 
+    set_mode("quantile regression", quantile_levels = (1:3) / 4)
+  grf_quant_spec
+  ```
+
+  Now we create the model fit object:
+
+  ```{r}
+  set.seed(1)
+  grf_quant_fit <- grf_quant_spec |> fit(price ~ sqft, data = sac_train)
+  grf_quant_fit
+  ```
+
+  The holdout data can be predicted:
+
+  ```{r}
+  quant_pred <- predict(grf_quant_fit, sac_test)
+  quant_pred
+  ```
+  
+  `.pred_quantile` is a vector type that contains all of the quartile predictions for each row.  You can convert this to a rectangular data set using either of: 
+  
+  ```{r}
+  as.matrix(quant_pred$.pred_quantile)
+  
+  # or 
+  as_tibble(quant_pred$.pred_quantile)
+  ```
+  
+  </details>
+  
 ## `svm_linear()` models
 
   <details id="svm-linear-LiblineaR">

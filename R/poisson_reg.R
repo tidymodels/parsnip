@@ -32,11 +32,12 @@
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("poisson_reg")}
 #' @export
 poisson_reg <-
-  function(mode = "regression",
-           penalty = NULL,
-           mixture = NULL,
-           engine = "glm") {
-
+  function(
+    mode = "regression",
+    penalty = NULL,
+    mixture = NULL,
+    engine = "glm"
+  ) {
     args <- list(
       penalty = enquo(penalty),
       mixture = enquo(mixture)
@@ -60,11 +61,14 @@ poisson_reg <-
 #' @rdname parsnip_update
 #' @export
 update.poisson_reg <-
-  function(object,
-           parameters = NULL,
-           penalty = NULL, mixture = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    penalty = NULL,
+    mixture = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
       penalty = enquo(penalty),
       mixture = enquo(mixture)
@@ -102,11 +106,23 @@ translate.poisson_reg <- function(x, engine = x$engine, ...) {
 
 #' @export
 check_args.poisson_reg <- function(object, call = rlang::caller_env()) {
-
   args <- lapply(object$args, rlang::eval_tidy)
 
-  check_number_decimal(args$mixture, min = 0, max = 1, allow_null = TRUE, call = call, arg = "mixture")
-  check_number_decimal(args$penalty, min = 0, allow_null = TRUE, call = call, arg = "penalty")
+  check_number_decimal(
+    args$mixture,
+    min = 0,
+    max = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "mixture"
+  )
+  check_number_decimal(
+    args$penalty,
+    min = 0,
+    allow_null = TRUE,
+    call = call,
+    arg = "penalty"
+  )
 
   invisible(object)
 }

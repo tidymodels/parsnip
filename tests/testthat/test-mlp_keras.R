@@ -1,3 +1,4 @@
+skip("waiting for keras3")
 skip_if_not_installed("modeldata")
 
 hpc <- hpc_data[1:150, c(2:5, 8)]
@@ -25,7 +26,6 @@ test_that('keras execution, classification', {
       control = ctrl
     )
   )
-
 
   expect_false(has_multi_predict(res))
   expect_equal(multi_predict_args(res), NA_character_)
@@ -68,7 +68,10 @@ test_that('keras classification prediction', {
     control = ctrl
   )
 
-  xy_pred <- predict(extract_fit_engine(xy_fit), x = as.matrix(hpc[1:8, num_pred]))
+  xy_pred <- predict(
+    extract_fit_engine(xy_fit),
+    x = as.matrix(hpc[1:8, num_pred])
+  )
   if (tensorflow::tf_version() <= package_version("2.0.0")) {
     # -1 to assign with keras' zero indexing
     xy_pred <- apply(xy_pred, 1, which.max) - 1
@@ -77,7 +80,12 @@ test_that('keras classification prediction', {
   }
 
   xy_pred <- factor(levels(hpc$class)[xy_pred + 1], levels = levels(hpc$class))
-  expect_equal(xy_pred, predict(xy_fit, new_data = hpc[1:8, num_pred], type = "class")[[".pred_class"]])
+  expect_equal(
+    xy_pred,
+    predict(xy_fit, new_data = hpc[1:8, num_pred], type = "class")[[
+      ".pred_class"
+    ]]
+  )
 
   keras::backend()$clear_session()
 
@@ -88,8 +96,10 @@ test_that('keras classification prediction', {
     control = ctrl
   )
 
-
-  form_pred <- predict(extract_fit_engine(form_fit), x = as.matrix(hpc[1:8, num_pred]))
+  form_pred <- predict(
+    extract_fit_engine(form_fit),
+    x = as.matrix(hpc[1:8, num_pred])
+  )
   if (tensorflow::tf_version() <= package_version("2.0.0")) {
     # -1 to assign with keras' zero indexing
     form_pred <- apply(form_pred, 1, which.max) - 1
@@ -97,8 +107,16 @@ test_that('keras classification prediction', {
     form_pred <- form_pred |> keras::k_argmax() |> as.integer()
   }
 
-  form_pred <- factor(levels(hpc$class)[form_pred + 1], levels = levels(hpc$class))
-  expect_equal(form_pred, predict(form_fit, new_data = hpc[1:8, num_pred], type = "class")[[".pred_class"]])
+  form_pred <- factor(
+    levels(hpc$class)[form_pred + 1],
+    levels = levels(hpc$class)
+  )
+  expect_equal(
+    form_pred,
+    predict(form_fit, new_data = hpc[1:8, num_pred], type = "class")[[
+      ".pred_class"
+    ]]
+  )
 
   keras::backend()$clear_session()
 })
@@ -116,10 +134,16 @@ test_that('keras classification probabilities', {
     control = ctrl
   )
 
-  xy_pred <- predict(extract_fit_engine(xy_fit), x = as.matrix(hpc[1:8, num_pred]))
+  xy_pred <- predict(
+    extract_fit_engine(xy_fit),
+    x = as.matrix(hpc[1:8, num_pred])
+  )
   colnames(xy_pred) <- paste0(".pred_", levels(hpc$class))
   xy_pred <- as_tibble(xy_pred)
-  expect_equal(xy_pred, predict(xy_fit, new_data = hpc[1:8, num_pred], type = "prob"))
+  expect_equal(
+    xy_pred,
+    predict(xy_fit, new_data = hpc[1:8, num_pred], type = "prob")
+  )
 
   keras::backend()$clear_session()
 
@@ -130,10 +154,16 @@ test_that('keras classification probabilities', {
     control = ctrl
   )
 
-  form_pred <- predict(extract_fit_engine(form_fit), x = as.matrix(hpc[1:8, num_pred]))
+  form_pred <- predict(
+    extract_fit_engine(form_fit),
+    x = as.matrix(hpc[1:8, num_pred])
+  )
   colnames(form_pred) <- paste0(".pred_", levels(hpc$class))
   form_pred <- as_tibble(form_pred)
-  expect_equal(form_pred, predict(form_fit, new_data = hpc[1:8, num_pred], type = "prob"))
+  expect_equal(
+    form_pred,
+    predict(form_fit, new_data = hpc[1:8, num_pred], type = "prob")
+  )
 
   keras::backend()$clear_session()
 })
@@ -193,8 +223,14 @@ test_that('keras regression prediction', {
     control = ctrl
   )
 
-  xy_pred <- predict(extract_fit_engine(xy_fit), x = as.matrix(mtcars[1:8, c("cyl", "disp")]))[,1]
-  expect_equal(xy_pred, predict(xy_fit, new_data = mtcars[1:8, c("cyl", "disp")])[[".pred"]])
+  xy_pred <- predict(
+    extract_fit_engine(xy_fit),
+    x = as.matrix(mtcars[1:8, c("cyl", "disp")])
+  )[, 1]
+  expect_equal(
+    xy_pred,
+    predict(xy_fit, new_data = mtcars[1:8, c("cyl", "disp")])[[".pred"]]
+  )
 
   keras::backend()$clear_session()
 
@@ -205,8 +241,14 @@ test_that('keras regression prediction', {
     control = ctrl
   )
 
-  form_pred <- predict(extract_fit_engine(form_fit), x = as.matrix(mtcars[1:8, c("cyl", "disp")]))[,1]
-  expect_equal(form_pred, predict(form_fit, new_data = mtcars[1:8, c("cyl", "disp")])[[".pred"]])
+  form_pred <- predict(
+    extract_fit_engine(form_fit),
+    x = as.matrix(mtcars[1:8, c("cyl", "disp")])
+  )[, 1]
+  expect_equal(
+    form_pred,
+    predict(form_fit, new_data = mtcars[1:8, c("cyl", "disp")])[[".pred"]]
+  )
 
   keras::backend()$clear_session()
 })
@@ -219,13 +261,16 @@ test_that('multivariate nnet formula', {
   skip_if(!is_tf_ok())
 
   nnet_form <-
-    mlp(mode = "regression", hidden_units = 3, penalty = 0.01)  |>
+    mlp(mode = "regression", hidden_units = 3, penalty = 0.01) |>
     set_engine("keras", verbose = 0) |>
     parsnip::fit(
       cbind(V1, V2, V3) ~ .,
-      data = nn_dat[-(1:5),]
+      data = nn_dat[-(1:5), ]
     )
-  expect_equal(length(unlist(keras::get_weights(extract_fit_engine(nnet_form)))), 24)
+  expect_equal(
+    length(unlist(keras::get_weights(extract_fit_engine(nnet_form)))),
+    24
+  )
 
   nnet_form_pred <- predict(nnet_form, new_data = nn_dat[1:5, -(1:3)])
   expect_equal(names(nnet_form_pred), paste0(".pred_", c("V1", "V2", "V3")))
@@ -233,16 +278,18 @@ test_that('multivariate nnet formula', {
   keras::backend()$clear_session()
 
   nnet_xy <-
-    mlp(mode = "regression", hidden_units = 3, penalty = 0.01)  |>
+    mlp(mode = "regression", hidden_units = 3, penalty = 0.01) |>
     set_engine("keras", verbose = 0) |>
     parsnip::fit_xy(
       x = nn_dat[-(1:5), -(1:3)],
-      y = nn_dat[-(1:5),   1:3 ]
+      y = nn_dat[-(1:5), 1:3]
     )
-  expect_equal(length(unlist(keras::get_weights(extract_fit_engine(nnet_xy)))), 24)
+  expect_equal(
+    length(unlist(keras::get_weights(extract_fit_engine(nnet_xy)))),
+    24
+  )
   nnet_form_xy <- predict(nnet_xy, new_data = nn_dat[1:5, -(1:3)])
   expect_equal(names(nnet_form_pred), paste0(".pred_", c("V1", "V2", "V3")))
-
 
   keras::backend()$clear_session()
 })
@@ -261,12 +308,17 @@ test_that('all keras activation functions', {
   test_act <- function(fn) {
     set.seed(1)
     try(
-      mlp(mode = "classification", hidden_units = 2, penalty = 0.01, epochs = 2,
-          activation = !!fn)  |>
+      mlp(
+        mode = "classification",
+        hidden_units = 2,
+        penalty = 0.01,
+        epochs = 2,
+        activation = !!fn
+      ) |>
         set_engine("keras", verbose = 0) |>
         parsnip::fit(Class ~ A + B, data = modeldata::two_class_dat),
-      silent = TRUE)
-
+      silent = TRUE
+    )
   }
   test_act_sshhh <- purrr::quietly(test_act)
 
@@ -279,8 +331,13 @@ test_that('all keras activation functions', {
 
   expect_snapshot(
     error = TRUE,
-    mlp(mode = "classification", hidden_units = 2, penalty = 0.01, epochs = 2,
-          activation = "invalid")  |>
+    mlp(
+      mode = "classification",
+      hidden_units = 2,
+      penalty = 0.01,
+      epochs = 2,
+      activation = "invalid"
+    ) |>
       set_engine("keras", verbose = 0) |>
       parsnip::fit(Class ~ A + B, data = modeldata::two_class_dat)
   )

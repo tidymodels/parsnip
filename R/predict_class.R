@@ -10,15 +10,19 @@
 #' @export
 predict_class.model_fit <- function(object, new_data, ...) {
   if (object$spec$mode != "classification") {
-    cli::cli_abort("{.fun predict.model_fit} is for predicting factor outcomes.",
-                   call = rlang::call2("predict"))
+    cli::cli_abort(
+      "{.fun predict.model_fit} is for predicting factor outcomes.",
+      call = rlang::call2("predict")
+    )
   }
 
   check_spec_pred_type(object, "class")
 
   if (inherits(object$fit, "try-error")) {
-    cli::cli_warn("Model fit failed; cannot make predictions.",
-                  call = rlang::call2("predict"))
+    cli::cli_warn(
+      "Model fit failed; cannot make predictions.",
+      call = rlang::call2("predict")
+    )
     return(NULL)
   }
 
@@ -41,16 +45,22 @@ predict_class.model_fit <- function(object, new_data, ...) {
 
   # coerce levels to those in `object`
   if (is.vector(res) || is.factor(res)) {
-    res <- factor(as.character(res), levels = object$lvl, ordered = object$ordered)
+    res <- factor(
+      as.character(res),
+      levels = object$lvl,
+      ordered = object$ordered
+    )
   } else {
     if (!inherits(res, "tbl_spark")) {
       # Now case where a parsnip model generated `res`
       if (is.data.frame(res) && ncol(res) == 1 && is.factor(res[[1]])) {
         res <- res[[1]]
       } else {
-        res$values <- factor(as.character(res$values),
-                             levels = object$lvl,
-                             ordered = object$ordered)
+        res$values <- factor(
+          as.character(res$values),
+          levels = object$lvl,
+          ordered = object$ordered
+        )
       }
     }
   }

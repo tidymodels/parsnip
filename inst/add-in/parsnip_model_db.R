@@ -7,23 +7,38 @@ library(tidymodels)
 library(usethis)
 
 # also requires installation of:
-packages <- c("parsnip", "discrim", "plsmod", "rules", "baguette", "poissonreg",
-              "multilevelmod", "modeltime", "modeltime.gluonts")
+packages <- c(
+  "parsnip",
+  "discrim",
+  "plsmod",
+  "rules",
+  "baguette",
+  "poissonreg",
+  "multilevelmod",
+  "modeltime",
+  "modeltime.gluonts"
+)
 
 # ------------------------------------------------------------------------------
 
 # Detects model specifications via their print methods
 print_methods <- function(x) {
-  require(x, character.only  = TRUE)
+  require(x, character.only = TRUE)
   ns <- asNamespace(ns = x)
   mthds <- ls(envir = ns, pattern = "^print\\.")
   mthds <- gsub("^print\\.", "", mthds)
-  purrr::map(mthds, get_engines) |> purrr::list_rbind() |> dplyr::mutate(package = x)
+  purrr::map(mthds, get_engines) |>
+    purrr::list_rbind() |>
+    dplyr::mutate(package = x)
 }
 get_engines <- function(x) {
   eng <- try(parsnip::show_engines(x), silent = TRUE)
   if (inherits(eng, "try-error")) {
-    eng <- tibble::tibble(engine = NA_character_, mode = NA_character_, model = x)
+    eng <- tibble::tibble(
+      engine = NA_character_,
+      mode = NA_character_,
+      model = x
+    )
   } else {
     eng$model <- x
   }
@@ -42,22 +57,21 @@ get_tunable_param <- function(mode, package, model, engine) {
   # Edit some model parameters
 
   if (model == "rand_forest") {
-    res <- res[res$parameter != "trees",]
+    res <- res[res$parameter != "trees", ]
   }
   if (model == "mars") {
-    res <- res[res$parameter == "prod_degree",]
+    res <- res[res$parameter == "prod_degree", ]
   }
   if (engine %in% c("rule_fit", "xgboost")) {
-    res <- res[res$parameter != "mtry",]
+    res <- res[res$parameter != "mtry", ]
   }
   if (model %in% c("bag_tree", "bag_mars")) {
-    res <- res[0,]
+    res <- res[0, ]
   }
   if (engine %in% c("rpart")) {
-    res <- res[res$parameter != "tree-depth",]
+    res <- res[res$parameter != "tree-depth", ]
   }
   res
-
 }
 
 # ------------------------------------------------------------------------------
@@ -82,7 +96,11 @@ num_modes <-
 
 model_db <-
   dplyr::left_join(model_db, num_modes, by = c("package", "model", "engine")) |>
-  dplyr::mutate(parameters = purrr::pmap(list(mode, package, model, engine), get_tunable_param))
+  dplyr::mutate(
+    parameters = purrr::pmap(
+      list(mode, package, model, engine),
+      get_tunable_param
+    )
+  )
 
 usethis::use_data(model_db, overwrite = TRUE)
-

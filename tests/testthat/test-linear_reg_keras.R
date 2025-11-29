@@ -1,3 +1,4 @@
+skip("waiting for keras3")
 skip_if_not_installed("modeldata")
 
 hpc <- hpc_data[1:150, c(2:5, 8)]
@@ -28,7 +29,7 @@ test_that('model fitting', {
       fit_xy(
         basic_mod,
         control = ctrl,
-        x = hpc[,2:4],
+        x = hpc[, 2:4],
         y = hpc$compounds
       )
   )
@@ -40,7 +41,7 @@ test_that('model fitting', {
       fit_xy(
         basic_mod,
         control = ctrl,
-        x = hpc[,2:4],
+        x = hpc[, 2:4],
         y = hpc$compounds
       )
   )
@@ -64,7 +65,7 @@ test_that('model fitting', {
       fit_xy(
         ridge_mod,
         control = ctrl,
-        x = hpc[,2:4],
+        x = hpc[, 2:4],
         y = hpc$compounds
       )
   )
@@ -77,7 +78,6 @@ test_that('model fitting', {
       control = ctrl
     )
   )
-
 })
 
 
@@ -93,18 +93,18 @@ test_that('regression prediction', {
     fit_xy(
       basic_mod,
       control = ctrl,
-      x = hpc[,2:4],
+      x = hpc[, 2:4],
       y = hpc$compounds
     )
 
   keras_pred <-
-    predict(extract_fit_engine(lm_fit), as.matrix(hpc[1:3,2:4]))
+    predict(extract_fit_engine(lm_fit), as.matrix(hpc[1:3, 2:4]))
   colnames(keras_pred) <- ".pred"
 
   keras_pred <-
     keras_pred |>
     as_tibble()
-  parsnip_pred <- predict(lm_fit, hpc[1:3,2:4])
+  parsnip_pred <- predict(lm_fit, hpc[1:3, 2:4])
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))
 
   set.seed(257)
@@ -112,15 +112,14 @@ test_that('regression prediction', {
     fit_xy(
       ridge_mod,
       control = ctrl,
-      x = hpc[,2:4],
+      x = hpc[, 2:4],
       y = hpc$compounds
     )
 
-  keras_pred <- predict(extract_fit_engine(rr_fit), as.matrix(hpc[1:3,2:4]))
+  keras_pred <- predict(extract_fit_engine(rr_fit), as.matrix(hpc[1:3, 2:4]))
   colnames(keras_pred) <- ".pred"
   keras_pred <- tibble::as_tibble(keras_pred)
 
-  parsnip_pred <- predict(rr_fit, hpc[1:3,2:4])
+  parsnip_pred <- predict(rr_fit, hpc[1:3, 2:4])
   expect_equal(as.data.frame(keras_pred), as.data.frame(parsnip_pred))
-
 })

@@ -83,12 +83,11 @@ set_pred(
     pre = NULL,
     post = svm_reg_post,
     func = c(pkg = "kernlab", fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "response"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "response"
+    )
   )
 )
 
@@ -126,12 +125,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = "kernlab", fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "response"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "response"
+    )
   )
 )
 
@@ -144,12 +142,11 @@ set_pred(
     pre = NULL,
     post = function(result, object) as_tibble(result),
     func = c(pkg = "kernlab", fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "probabilities"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "probabilities"
+    )
   )
 )
 
@@ -251,11 +248,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data)
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
   )
 )
 set_pred(
@@ -269,7 +265,8 @@ set_pred(
     func = c(fun = "predict"),
     args = list(
       object = quote(object$fit),
-      newdata = quote(new_data))
+      newdata = quote(new_data)
+    )
   )
 )
 set_pred(
@@ -281,11 +278,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data)
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
   )
 )
 set_pred(
@@ -311,12 +307,11 @@ set_pred(
       res
     },
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        predict.prob = TRUE
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      predict.prob = TRUE
+    )
   )
 )
 set_pred(
@@ -330,6 +325,7 @@ set_pred(
     func = c(fun = "predict"),
     args = list(
       object = quote(object$fit),
-      newdata = quote(new_data))
+      newdata = quote(new_data)
+    )
   )
 )

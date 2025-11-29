@@ -1,7 +1,9 @@
 # Installs packages needed to run `knit_engine_docs()`.
-install_engine_packages <- function(extension = TRUE, extras = TRUE,
-                                    ignore_pkgs = c("stats", "liquidSVM",
-                                                    "parsnip")) {
+install_engine_packages <- function(
+  extension = TRUE,
+  extras = TRUE,
+  ignore_pkgs = c("stats", "liquidSVM", "parsnip")
+) {
   bio_pkgs <- c()
 
   if (extension) {
@@ -26,8 +28,16 @@ install_engine_packages <- function(extension = TRUE, extras = TRUE,
   }
 
   if (extras) {
-    rmd_pkgs <- c("ape", "broom.mixed", "Cubist", "glmnet", "quantreg",
-                  "rmarkdown", "tidymodels", "xrf")
+    rmd_pkgs <- c(
+      "ape",
+      "broom.mixed",
+      "Cubist",
+      "glmnet",
+      "quantreg",
+      "rmarkdown",
+      "tidymodels",
+      "xrf"
+    )
     engine_packages <- unique(c(engine_packages, rmd_pkgs))
   }
 

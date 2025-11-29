@@ -11,7 +11,6 @@
 #         predict_numeric.model_fit()
 #          predict.<glmnet-class>()
 
-
 # glmnet call stack using `multi_predict` when object has
 # classes "_<glmnet-class>" and "model_fit":
 #
@@ -26,20 +25,25 @@
 #          predict_raw.model_fit(opts = list(s = penalty))
 #           predict.<glmnet-class>()
 
-
-predict_glmnet <- function(object,
-                           new_data,
-                           type = NULL,
-                           opts = list(),
-                           penalty = NULL,
-                           multi = FALSE,
-                           ...) {
+predict_glmnet <- function(
+  object,
+  new_data,
+  type = NULL,
+  opts = list(),
+  penalty = NULL,
+  multi = FALSE,
+  ...
+) {
   # See discussion in https://github.com/tidymodels/parsnip/issues/195
   if (is.null(penalty) & !is.null(object$spec$args$penalty)) {
     penalty <- object$spec$args$penalty
   }
 
-  object$spec$args$penalty <- .check_glmnet_penalty_predict(penalty, object, multi)
+  object$spec$args$penalty <- .check_glmnet_penalty_predict(
+    penalty,
+    object,
+    multi
+  )
 
   object$spec <- eval_args(object$spec)
   predict.model_fit(object, new_data = new_data, type = type, opts = opts, ...)
@@ -60,7 +64,7 @@ predict_classprob_glmnet <- function(object, new_data, ...) {
   predict_classprob.model_fit(object, new_data = new_data, ...)
 }
 
-predict_raw_glmnet <- function(object, new_data, opts = list(), ...)  {
+predict_raw_glmnet <- function(object, new_data, opts = list(), ...) {
   object$spec <- eval_args(object$spec)
 
   opts$s <- object$spec$args$penalty
@@ -143,7 +147,7 @@ organize_glmnet_pre_pred <- function(x, object) {
   if (is_sparse_matrix(x)) {
     return(x)
   }
-  
+
   as.matrix(x)
 }
 
@@ -160,7 +164,7 @@ organize_glmnet_prob <- function(x, object) {
 
 organize_multnet_class <- function(x, object) {
   if (vec_size(x) > 1) {
-    x <- x[,1]
+    x <- x[, 1]
   } else {
     x <- as.character(x)
   }
@@ -169,20 +173,22 @@ organize_multnet_class <- function(x, object) {
 
 organize_multnet_prob <- function(x, object) {
   if (vec_size(x) > 1) {
-    x <- as_tibble(x[,,1])
+    x <- as_tibble(x[,, 1])
   } else {
-    x <- tibble::as_tibble_row(x[,,1])
+    x <- tibble::as_tibble_row(x[,, 1])
   }
   x
 }
 
 # -------------------------------------------------------------------------
 
-multi_predict_glmnet <- function(object,
-                                 new_data,
-                                 type = NULL,
-                                 penalty = NULL,
-                                 ...) {
+multi_predict_glmnet <- function(
+  object,
+  new_data,
+  type = NULL,
+  penalty = NULL,
+  ...
+) {
   type <- check_pred_type(object, type)
   check_spec_pred_type(object, type)
   if (type == "prob") {
@@ -211,30 +217,41 @@ multi_predict_glmnet <- function(object,
   model_type <- class(object$spec)[1]
 
   if (object$spec$mode == "classification") {
-    if (type == "prob" |
-        model_type == "logistic_reg") {
+    if (
+      type == "prob" |
+        model_type == "logistic_reg"
+    ) {
       dots$type <- "response"
     } else {
       dots$type <- type
     }
   }
 
-  pred <- predict(object, new_data = new_data, type = "raw",
-                  opts = dots, penalty = penalty, multi = TRUE)
-
+  pred <- predict(
+    object,
+    new_data = new_data,
+    type = "raw",
+    opts = dots,
+    penalty = penalty,
+    multi = TRUE
+  )
 
   res <- switch(
     model_type,
     "linear_reg" = format_glmnet_multi_linear_reg(pred, penalty = penalty),
-    "logistic_reg" = format_glmnet_multi_logistic_reg(pred,
-                                                      penalty = penalty,
-                                                      type = type,
-                                                      lvl = object$lvl),
-    "multinom_reg" = format_glmnet_multi_multinom_reg(pred,
-                                                      penalty = penalty,
-                                                      type = type,
-                                                      lvl = object$lvl,
-                                                      n_obs = nrow(new_data))
+    "logistic_reg" = format_glmnet_multi_logistic_reg(
+      pred,
+      penalty = penalty,
+      type = type,
+      lvl = object$lvl
+    ),
+    "multinom_reg" = format_glmnet_multi_multinom_reg(
+      pred,
+      penalty = penalty,
+      type = type,
+      lvl = object$lvl,
+      n_obs = nrow(new_data)
+    )
   )
 
   res
@@ -286,9 +303,11 @@ format_glmnet_multi_logistic_reg <- function(pred, penalty, type, lvl) {
 
   if (type == "class") {
     pred <- pred |>
-      dplyr::mutate(.pred_class = dplyr::if_else(.pred >= 0.5, lvl[2], lvl[1]),
-                    .pred_class = factor(.pred_class, levels = lvl),
-                    .keep = "unused")
+      dplyr::mutate(
+        .pred_class = dplyr::if_else(.pred >= 0.5, lvl[2], lvl[1]),
+        .pred_class = factor(.pred_class, levels = lvl),
+        .keep = "unused"
+      )
   } else {
     pred <- pred |>
       dplyr::mutate(.pred_class_2 = 1 - .pred) |>
@@ -392,8 +411,12 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
 #' @rdname glmnet_helpers
 #' @keywords internal
 #' @export
-.check_glmnet_penalty_predict <- function(penalty = NULL, object, multi = FALSE,
-                                          call = rlang::caller_env()) {
+.check_glmnet_penalty_predict <- function(
+  penalty = NULL,
+  object,
+  multi = FALSE,
+  call = rlang::caller_env()
+) {
   if (is.null(penalty)) {
     penalty <- object$fit$lambda
   }
@@ -440,4 +463,3 @@ set_glmnet_penalty_path <- function(x) {
   }
   x
 }
-

@@ -6,31 +6,74 @@ test_that('regression models', {
 
   expect_equal(
     colnames(augment(reg_form, head(mtcars))),
-    c( ".pred", ".resid",
-       "mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am",
-      "gear", "carb")
+    c(
+      ".pred",
+      ".resid",
+      "mpg",
+      "cyl",
+      "disp",
+      "hp",
+      "drat",
+      "wt",
+      "qsec",
+      "vs",
+      "am",
+      "gear",
+      "carb"
+    )
   )
   expect_equal(nrow(augment(reg_form, head(mtcars))), 6)
   expect_equal(
     colnames(augment(reg_form, head(mtcars[, -1]))),
-    c(".pred",
-    "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am",
-      "gear", "carb")
+    c(
+      ".pred",
+      "cyl",
+      "disp",
+      "hp",
+      "drat",
+      "wt",
+      "qsec",
+      "vs",
+      "am",
+      "gear",
+      "carb"
+    )
   )
   expect_equal(nrow(augment(reg_form, head(mtcars[, -1]))), 6)
 
   expect_equal(
     colnames(augment(reg_xy, head(mtcars))),
-    c(".pred",
-      "mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am",
-      "gear", "carb")
+    c(
+      ".pred",
+      "mpg",
+      "cyl",
+      "disp",
+      "hp",
+      "drat",
+      "wt",
+      "qsec",
+      "vs",
+      "am",
+      "gear",
+      "carb"
+    )
   )
   expect_equal(nrow(augment(reg_xy, head(mtcars))), 6)
   expect_equal(
     colnames(augment(reg_xy, head(mtcars[, -1]))),
-    c(".pred",
-      "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am",
-      "gear", "carb")
+    c(
+      ".pred",
+      "cyl",
+      "disp",
+      "hp",
+      "drat",
+      "wt",
+      "qsec",
+      "vs",
+      "am",
+      "gear",
+      "carb"
+    )
   )
   expect_equal(nrow(augment(reg_xy, head(mtcars[, -1]))), 6)
 
@@ -42,9 +85,7 @@ test_that('regression models', {
     error = TRUE,
     augment(reg_form, head(mtcars[, -1]))
   )
-
 })
-
 
 
 test_that('classification models', {
@@ -77,7 +118,6 @@ test_that('classification models', {
     c(".pred_class", ".pred_Class1", ".pred_Class2", "A", "B")
   )
   expect_equal(nrow(augment(cls_xy, head(two_class_dat[, -3]))), 6)
-
 })
 
 
@@ -94,12 +134,11 @@ test_that('augment for model without class probabilities', {
     c(".pred_class", "A", "B", "Class")
   )
   expect_equal(nrow(augment(cls_form, head(two_class_dat))), 6)
-
 })
 
 
 test_that('quantile regression models', {
-  probs_1 <- (1:5)/5
+  probs_1 <- (1:5) / 5
 
   expect_snapshot(
     linear_reg() |> set_mode("quantile regression", quantile_levels = probs_1)
