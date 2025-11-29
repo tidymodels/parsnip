@@ -1,6 +1,6 @@
-ctrl          <- control_parsnip(verbosity = 1, catch = FALSE)
-caught_ctrl   <- control_parsnip(verbosity = 1, catch = TRUE)
-quiet_ctrl    <- control_parsnip(verbosity = 0, catch = TRUE)
+ctrl <- control_parsnip(verbosity = 1, catch = FALSE)
+caught_ctrl <- control_parsnip(verbosity = 1, catch = TRUE)
+quiet_ctrl <- control_parsnip(verbosity = 0, catch = TRUE)
 
 run_glmnet <- utils::compareVersion('3.6.0', as.character(getRversion())) > 0
 
@@ -29,7 +29,7 @@ if (rlang::is_installed("modeldata")) {
 
   # ------------------------------------------------------------------------------
 
-  hpc <- hpc_data[1:150, c(2:5, 8)]
+  hpc <- modeldata::hpc_data[1:150, c(2:5, 8)]
   num_hpc_pred <- names(hpc)[1:4]
   class_tab <- table(hpc$class, dnn = NULL)
   hpc_bad <-
@@ -37,7 +37,7 @@ if (rlang::is_installed("modeldata")) {
     dplyr::mutate(big_num = Inf)
 
   set.seed(352)
-  mlp_dat <- hpc[order(runif(150)),]
+  mlp_dat <- hpc[order(runif(150)), ]
 
   tr_mlp_dat <- mlp_dat[1:140, ]
   te_mlp_dat <- mlp_dat[141:150, ]
@@ -46,7 +46,7 @@ if (rlang::is_installed("modeldata")) {
   mlp_hpc_pred_list <- names(hpc)[1:4]
   nnet_hpc_pred_list <- names(hpc)[1:4]
 
-  hpc_nnet_dat <- hpc_data[1:150, c(2:5, 8)]
+  hpc_nnet_dat <- modeldata::hpc_data[1:150, c(2:5, 8)]
 
   # ------------------------------------------------------------------------------
 
@@ -56,7 +56,7 @@ if (rlang::is_installed("modeldata")) {
     fit(compounds ~ ., data = hpc)
 
   lending_club <-
-    lending_club |>
+    modeldata::lending_club |>
     dplyr::slice(1:200) |>
     dplyr::mutate(big_num = Inf)
 
@@ -73,7 +73,7 @@ if (rlang::is_installed("modeldata")) {
     dplyr::select(price, beds, baths, sqft, latitude, longitude)
 
   sac_train <- Sacramento_small[-(1:5), ]
-  sac_test  <- Sacramento_small[  1:5 , ]
+  sac_test <- Sacramento_small[1:5, ]
 
   # ------------------------------------------------------------------------------
   # For sparse tibble testing

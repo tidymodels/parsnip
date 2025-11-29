@@ -23,8 +23,9 @@ predict_raw.model_fit <- function(object, new_data, opts = list(), ...) {
   new_data <- prepare_data(object, new_data)
 
   # preprocess data
-  if (!is.null(object$spec$method$pred$raw$pre))
+  if (!is.null(object$spec$method$pred$raw$pre)) {
     new_data <- object$spec$method$pred$raw$pre(new_data, object)
+  }
 
   # create prediction call
   pred_call <- make_pred_call(object$spec$method$pred$raw)
@@ -38,5 +39,6 @@ predict_raw.model_fit <- function(object, new_data, opts = list(), ...) {
 #' @export
 #' @keywords internal
 #' @rdname predict.model_fit
-predict_raw <- function(object, ...)
+predict_raw <- function(object, ...) {
   UseMethod("predict_raw")
+}

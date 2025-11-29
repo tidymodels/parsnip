@@ -12,7 +12,10 @@ test_that('updating', {
 
 test_that('bad input', {
   expect_snapshot(error = TRUE, mlp(mode = "time series"))
-  expect_snapshot(error = TRUE, translate(mlp(mode = "classification") |> set_engine("wat?")))
+  expect_snapshot(
+    error = TRUE,
+    translate(mlp(mode = "classification") |> set_engine("wat?"))
+  )
   expect_warning(
     translate(mlp(mode = "regression") |> set_engine("nnet", formula = y ~ x)),
     class = "parsnip_protected_arg_warning"
@@ -38,8 +41,8 @@ test_that("more activations for brulee", {
 
   set.seed(122)
   in_train <- sample(1:nrow(ames), 2000)
-  ames_train <- ames[ in_train,]
-  ames_test  <- ames[-in_train,]
+  ames_train <- ames[in_train, ]
+  ames_test <- ames[-in_train, ]
 
   set.seed(1)
   fit <-
@@ -47,9 +50,12 @@ test_that("more activations for brulee", {
       mlp(penalty = 0.10, activation = "softplus") |>
         set_mode("regression") |>
         set_engine("brulee") |>
-        fit_xy(x = as.matrix(ames_train[, c("Longitude", "Latitude")]),
-               y = ames_train$Sale_Price),
-      silent = TRUE)
+        fit_xy(
+          x = as.matrix(ames_train[, c("Longitude", "Latitude")]),
+          y = ames_train$Sale_Price
+        ),
+      silent = TRUE
+    )
   expect_true(inherits(fit$fit, "brulee_mlp"))
 })
 
@@ -88,7 +94,6 @@ test_that("check_args() works", {
 # ------------------------------------------------------------------------------
 
 test_that("tunables", {
-
   expect_snapshot(
     mlp() |>
       set_engine("brulee") |>
@@ -111,5 +116,4 @@ test_that("tunables", {
       set_engine("keras") |>
       tunable()
   )
-
 })

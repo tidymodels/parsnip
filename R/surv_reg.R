@@ -27,32 +27,37 @@
 #' @keywords internal
 #' @export
 surv_reg <- function(mode = "regression", engine = "survival", dist = NULL) {
+  lifecycle::deprecate_stop("1.4.0", "surv_reg()", "survival_reg()")
 
-  lifecycle::deprecate_warn("0.1.6", "surv_reg()", "survival_reg()")
+  args <- list(
+    dist = enquo(dist)
+  )
 
-    args <- list(
-      dist = enquo(dist)
-    )
+  new_model_spec(
+    "surv_reg",
+    args = args,
+    eng_args = NULL,
+    mode = mode,
+    user_specified_mode = !missing(mode),
+    method = NULL,
+    engine = engine,
+    user_specified_engine = !missing(engine)
+  )
+}
 
-    new_model_spec(
-      "surv_reg",
-      args = args,
-      eng_args = NULL,
-      mode = mode,
-      user_specified_mode = !missing(mode),
-      method = NULL,
-      engine = engine,
-      user_specified_engine = !missing(engine)
-    )
-  }
-
+# nocov
 # ------------------------------------------------------------------------------
 
 #' @method update surv_reg
 #' @rdname parsnip_update
 #' @export
-update.surv_reg <- function(object, parameters = NULL, dist = NULL, fresh = FALSE, ...) {
-
+update.surv_reg <- function(
+  object,
+  parameters = NULL,
+  dist = NULL,
+  fresh = FALSE,
+  ...
+) {
   args <- list(
     dist = enquo(dist)
   )
@@ -84,14 +89,13 @@ translate.surv_reg <- function(x, engine = x$engine, ...) {
 
 #' @export
 check_args.surv_reg <- function(object, call = rlang::caller_env()) {
-
   if (object$engine == "flexsurv") {
-
     args <- lapply(object$args, rlang::eval_tidy)
 
     # `dist` has no default in the function
-    if (all(names(args) != "dist") || is.null(args$dist))
+    if (all(names(args) != "dist") || is.null(args$dist)) {
       object$args$dist <- "weibull"
+    }
   }
 
   invisible(object)
@@ -132,6 +136,11 @@ flexsurv_mean <- function(results, object) {
 flexsurv_quant <- function(results, object) {
   results <- map(results, as_tibble)
   names(results) <- NULL
-  results <- map(results, setNames, c(".quantile", ".pred", ".pred_lower", ".pred_upper"))
+  results <- map(
+    results,
+    setNames,
+    c(".quantile", ".pred", ".pred_lower", ".pred_upper")
+  )
 }
 
+# nocov end

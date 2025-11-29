@@ -38,12 +38,16 @@
 #' @export
 
 svm_rbf <-
-  function(mode = "unknown", engine = "kernlab",
-           cost = NULL, rbf_sigma = NULL, margin = NULL) {
-
+  function(
+    mode = "unknown",
+    engine = "kernlab",
+    cost = NULL,
+    rbf_sigma = NULL,
+    margin = NULL
+  ) {
     args <- list(
-      cost   = enquo(cost),
-      rbf_sigma  = enquo(rbf_sigma),
+      cost = enquo(cost),
+      rbf_sigma = enquo(rbf_sigma),
       margin = enquo(margin)
     )
 
@@ -65,16 +69,19 @@ svm_rbf <-
 #' @rdname parsnip_update
 #' @export
 update.svm_rbf <-
-  function(object,
-           parameters = NULL,
-           cost = NULL, rbf_sigma = NULL, margin = NULL,
-           fresh = FALSE,
-           ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    cost = NULL,
+    rbf_sigma = NULL,
+    margin = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
-      cost   = enquo(cost),
-      rbf_sigma  = enquo(rbf_sigma),
-      margin  = enquo(margin)
+      cost = enquo(cost),
+      rbf_sigma = enquo(rbf_sigma),
+      margin = enquo(margin)
     )
 
     update_spec(
@@ -99,12 +106,13 @@ translate.svm_rbf <- function(x, engine = x$engine, ...) {
 
   # add checks to error trap or change things for this method
   if (x$engine == "kernlab") {
-
     # unless otherwise specified, classification models predict probabilities
-    if (x$mode == "classification" && !any(arg_names == "prob.model"))
+    if (x$mode == "classification" && !any(arg_names == "prob.model")) {
       arg_vals$prob.model <- TRUE
-    if (x$mode == "classification" && any(arg_names == "epsilon"))
+    }
+    if (x$mode == "classification" && any(arg_names == "epsilon")) {
       arg_vals$epsilon <- NULL
+    }
 
     # convert sigma and scale to a `kpar` argument.
     if (any(arg_names == "sigma")) {
@@ -113,7 +121,6 @@ translate.svm_rbf <- function(x, engine = x$engine, ...) {
       arg_vals$sigma <- NULL
       arg_vals$kpar <- kpar
     }
-
   }
 
   if (x$engine == "liquidSVM") {
@@ -127,7 +134,6 @@ translate.svm_rbf <- function(x, engine = x$engine, ...) {
       arg_vals$lambdas <- arg_vals$C
       arg_vals$C <- NULL
     }
-
   }
 
   x$method$fit$args <- arg_vals
@@ -146,6 +152,5 @@ check_args.svm_rbf <- function(object, call = rlang::caller_env()) {
 # ------------------------------------------------------------------------------
 
 svm_reg_post <- function(results, object) {
-  results[,1]
+  results[, 1]
 }
-

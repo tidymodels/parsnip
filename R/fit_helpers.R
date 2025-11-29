@@ -5,7 +5,6 @@
 
 form_form <-
   function(object, control, env, ..., call = rlang::caller_env()) {
-
     if (inherits(env$data, "data.frame")) {
       check_outcome(eval_tidy(rlang::f_lhs(env$formula), env$data), object)
 
@@ -13,12 +12,16 @@ form_form <-
       encoding_info <-
         vctrs::vec_slice(
           encoding_info,
-          encoding_info$mode == object$mode & encoding_info$engine == object$engine
+          encoding_info$mode == object$mode &
+            encoding_info$engine == object$engine
         )
 
       remove_intercept <- encoding_info |> dplyr::pull(remove_intercept)
       if (remove_intercept) {
-        env$data <- env$data[, colnames(env$data) != "(Intercept)", drop = FALSE]
+        env$data <- env$data[,
+          colnames(env$data) != "(Intercept)",
+          drop = FALSE
+        ]
       }
     }
 
@@ -60,13 +63,14 @@ form_form <-
     res
   }
 
-xy_xy <- function(object,
-                  env,
-                  control,
-                  target = "none",
-                  ...,
-                  call = rlang::caller_env()) {
-
+xy_xy <- function(
+  object,
+  env,
+  control,
+  target = "none",
+  ...,
+  call = rlang::caller_env()
+) {
   if (inherits(env$x, "tbl_spark") | inherits(env$y, "tbl_spark")) {
     cli::cli_abort(
       "spark objects can only be used with the formula interface to {.fun fit}.",
@@ -121,9 +125,14 @@ xy_xy <- function(object,
   res
 }
 
-form_xy <- function(object, control, env,
-                    target = "none", ..., call = rlang::caller_env()) {
-
+form_xy <- function(
+  object,
+  control,
+  env,
+  target = "none",
+  ...,
+  call = rlang::caller_env()
+) {
   encoding_info <-
     get_encoding(class(object)[1]) |>
     dplyr::filter(mode == object$mode, engine == object$engine)
@@ -166,7 +175,6 @@ form_xy <- function(object, control, env,
 }
 
 xy_form <- function(object, env, control, ...) {
-
   check_outcome(env$y, object)
 
   encoding_info <- get_encoding(class(object)[1])

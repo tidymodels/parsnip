@@ -24,11 +24,15 @@
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("pls")}
 #' @export
 pls <-
-  function(mode = "unknown", predictor_prop = NULL, num_comp = NULL, engine = "mixOmics") {
-
+  function(
+    mode = "unknown",
+    predictor_prop = NULL,
+    num_comp = NULL,
+    engine = "mixOmics"
+  ) {
     args <- list(
       predictor_prop = enquo(predictor_prop),
-      num_comp       = enquo(num_comp)
+      num_comp = enquo(num_comp)
     )
 
     new_model_spec(
@@ -64,14 +68,17 @@ pls <-
 #' @rdname parsnip_update
 #' @export
 update.pls <-
-  function(object,
-           parameters = NULL,
-           predictor_prop = NULL, num_comp = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    predictor_prop = NULL,
+    num_comp = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
-      predictor_prop    = enquo(predictor_prop),
-      num_comp  = enquo(num_comp)
+      predictor_prop = enquo(predictor_prop),
+      num_comp = enquo(num_comp)
     )
 
     update_spec(
@@ -88,10 +95,15 @@ update.pls <-
 
 #' @export
 check_args.pls <- function(object, call = rlang::caller_env()) {
-
   args <- lapply(object$args, rlang::eval_tidy)
 
-  check_number_whole(args$num_comp, min = 0, allow_null = TRUE, call = call, arg = "num_comp")
+  check_number_whole(
+    args$num_comp,
+    min = 0,
+    allow_null = TRUE,
+    call = call,
+    arg = "num_comp"
+  )
 
   invisible(object)
 }

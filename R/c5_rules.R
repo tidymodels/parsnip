@@ -45,11 +45,12 @@
 #' C5_rules()
 #' @export
 C5_rules <-
-  function(mode = "classification",
-           trees = NULL,
-           min_n = NULL,
-           engine = "C5.0") {
-
+  function(
+    mode = "classification",
+    trees = NULL,
+    min_n = NULL,
+    engine = "C5.0"
+  ) {
     args <- list(
       trees = enquo(trees),
       min_n = enquo(min_n)
@@ -86,11 +87,14 @@ C5_rules <-
 #' @inheritParams C5_rules
 #' @export
 update.C5_rules <-
-  function(object,
-           parameters = NULL,
-           trees = NULL, min_n = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    trees = NULL,
+    min_n = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
       trees = enquo(trees),
       min_n = enquo(min_n)
@@ -112,7 +116,6 @@ update.C5_rules <-
 
 #' @export
 check_args.C5_rules <- function(object, call = rlang::caller_env()) {
-
   args <- lapply(object$args, rlang::eval_tidy)
 
   check_number_whole(args$min_n, allow_null = TRUE, call = call, arg = "min_n")
@@ -135,4 +138,3 @@ check_args.C5_rules <- function(object, call = rlang::caller_env()) {
 
 set_new_model("C5_rules")
 set_model_mode("C5_rules", "classification")
-

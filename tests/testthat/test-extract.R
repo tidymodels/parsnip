@@ -30,7 +30,10 @@ test_that('extract parameter set from model with main and engine parameters', {
   skip_on_covr()
 
   bst_model <-
-    boost_tree(mode = "classification", trees = hardhat::tune("funky name \n")) |>
+    boost_tree(
+      mode = "classification",
+      trees = hardhat::tune("funky name \n")
+    ) |>
     set_engine("C5.0", rules = hardhat::tune(), noGlobalPruning = TRUE)
 
   c5_info <- extract_parameter_set_dials(bst_model)
@@ -53,7 +56,10 @@ test_that('extract parameter set from model with no loaded implementation', {
     set_mode("regression")
 
   expect_snapshot(error = TRUE, extract_parameter_set_dials(bt_mod))
-  expect_snapshot(error = TRUE, extract_parameter_dials(bt_mod, parameter = "min_n"))
+  expect_snapshot(
+    error = TRUE,
+    extract_parameter_dials(bt_mod, parameter = "min_n")
+  )
 })
 
 # ------------------------------------------------------------------------------
@@ -73,7 +79,10 @@ test_that('extract single parameter from model with main and engine parameters',
   skip_on_covr()
 
   bst_model <-
-    boost_tree(mode = "classification", trees = hardhat::tune("funky name \n")) |>
+    boost_tree(
+      mode = "classification",
+      trees = hardhat::tune("funky name \n")
+    ) |>
     set_engine("C5.0", rules = hardhat::tune(), noGlobalPruning = TRUE)
 
   expect_equal(
@@ -91,7 +100,7 @@ test_that("extract_parameter_dials doesn't error if namespaced args are used", {
 
   bst_model <-
     logistic_reg(mode = "classification", penalty = hardhat::tune()) |>
-      set_engine("glmnet", family = stats::gaussian("log"))
+    set_engine("glmnet", family = stats::gaussian("log"))
 
   expect_no_condition(
     extract_parameter_dials(bst_model, parameter = "penalty")

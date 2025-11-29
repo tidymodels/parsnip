@@ -149,12 +149,13 @@ varying_args.step <- function(object, full = TRUE, ...) {
 
 # useful for standardization and for creating a 0 row varying tbl
 # (i.e. for when there are no steps in a recipe)
-varying_tbl <- function(name = character(),
-                        varying = logical(),
-                        id = character(),
-                        type = character(),
-                        full = FALSE) {
-
+varying_tbl <- function(
+  name = character(),
+  varying = logical(),
+  id = character(),
+  type = character(),
+  full = FALSE
+) {
   vry_tbl <- tibble(
     name = name,
     varying = varying,
@@ -163,16 +164,14 @@ varying_tbl <- function(name = character(),
   )
 
   if (!full) {
-    vry_tbl <- vry_tbl[vry_tbl$varying,]
+    vry_tbl <- vry_tbl[vry_tbl$varying, ]
   }
 
   vry_tbl
 }
 
 validate_only_allowed_step_args <- function(x, step_type) {
-
   check_allowed_arg <- function(x, nm) {
-
     # not varying
     if (rlang::is_false(x)) {
       return(invisible(x))
@@ -195,9 +194,18 @@ validate_only_allowed_step_args <- function(x, step_type) {
 }
 
 non_varying_step_arguments <- c(
-  "terms", "role", "trained", "skip",
-  "na.rm", "impute_with", "seed",
-  "prefix", "naming", "denom", "outcome", "id"
+  "terms",
+  "role",
+  "trained",
+  "skip",
+  "na.rm",
+  "impute_with",
+  "seed",
+  "prefix",
+  "naming",
+  "denom",
+  "outcome",
+  "id"
 )
 
 # helpers ----------------------------------------------------------------------
@@ -219,7 +227,6 @@ is_varying <- function(x) {
 }
 
 find_varying <- function(x) {
-
   # STEP 1 - Early exits
 
   # Early exit for empty elements (like list())

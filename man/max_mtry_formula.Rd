@@ -24,7 +24,7 @@ This function potentially caps the value of \code{mtry} based on a formula and
 data set. This is a safe approach for survival and/or multivariate models.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 # should be 9
 max_mtry_formula(200, cbind(wt, mpg) ~ ., data = mtcars)
 \dontshow{\}) # examplesIf}

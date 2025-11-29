@@ -37,9 +37,9 @@ test_that('regression', {
   mgcv_ci <- predict(mgcv_mod, head(mtcars), type = "link", se.fit = TRUE)
   expect_equal(f_ci[[".std_error"]], mgcv_ci$se.fit)
   lower <-
-    mgcv_ci$fit - qt(0.025, df = mgcv_mod$df.residual, lower.tail = FALSE) * mgcv_ci$se.fit
+    mgcv_ci$fit -
+    qt(0.025, df = mgcv_mod$df.residual, lower.tail = FALSE) * mgcv_ci$se.fit
   expect_equal(f_ci[[".pred_lower"]], lower)
-
 })
 
 # ------------------------------------------------------------------------------
@@ -69,10 +69,12 @@ test_that('classification', {
     )
   )
   mgcv_mod <-
-    mgcv::gam(Class ~ s(A, k = 10) + B,
-              data = two_class_dat,
-              gamma = 1.5,
-              family = binomial)
+    mgcv::gam(
+      Class ~ s(A, k = 10) + B,
+      data = two_class_dat,
+      gamma = 1.5,
+      family = binomial
+    )
   expect_equal(coef(mgcv_mod), coef(extract_fit_engine(f_res)))
 
   f_pred <- predict(f_res, head(two_class_dat), type = "prob")
@@ -85,14 +87,24 @@ test_that('classification', {
   f_cls <- predict(f_res, head(two_class_dat), type = "class")
   expect_true(all(f_cls$.pred_class[mgcv_pred < 0.5] == "Class1"))
 
-  f_ci <- predict(f_res, head(two_class_dat), type = "conf_int", std_error = TRUE)
-  mgcv_ci <- predict(mgcv_mod, head(two_class_dat), type = "link", se.fit = TRUE)
+  f_ci <- predict(
+    f_res,
+    head(two_class_dat),
+    type = "conf_int",
+    std_error = TRUE
+  )
+  mgcv_ci <- predict(
+    mgcv_mod,
+    head(two_class_dat),
+    type = "link",
+    se.fit = TRUE
+  )
   expect_equal(f_ci[[".std_error"]], mgcv_ci$se.fit)
   lower <-
-    mgcv_ci$fit - qt(0.025, df = mgcv_mod$df.residual, lower.tail = FALSE) * mgcv_ci$se.fit
+    mgcv_ci$fit -
+    qt(0.025, df = mgcv_mod$df.residual, lower.tail = FALSE) * mgcv_ci$se.fit
   lower <- binomial()$linkinv(lower)
   expect_equal(f_ci[[".pred_lower_Class2"]], lower)
-
 })
 
 test_that("check_args() works", {

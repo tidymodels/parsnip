@@ -36,7 +36,7 @@ An updated model object.
 \code{set_args()} will replace existing values of the arguments.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 rand_forest()
 
 rand_forest() |>

@@ -30,7 +30,7 @@ Authors:
 Other contributors:
 \itemize{
   \item Emil Hvitfeldt \email{emil.hvitfeldt@posit.co} [contributor]
-  \item Posit Software, PBC (03wc8by49) [copyright holder, funder]
+  \item Posit Software, PBC (\href{https://ror.org/03wc8by49}{ROR}) [copyright holder, funder]
 }
 
 }

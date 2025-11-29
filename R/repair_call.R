@@ -39,7 +39,7 @@ repair_call <- function(x, data) {
   needs_eval <- purrr::map_lgl(fit_call, rlang::is_quosure)
   if (any(needs_eval)) {
     eval_args <- names(needs_eval)[needs_eval]
-    for(arg in eval_args) {
+    for (arg in eval_args) {
       fit_call[[arg]] <- rlang::eval_tidy(fit_call[[arg]])
     }
   }

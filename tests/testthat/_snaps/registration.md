@@ -363,11 +363,12 @@
       show_model_info("rand_forest")
     Output
       Information for `rand_forest`
-       modes: unknown, classification, regression, censored regression 
+       modes: unknown, classification, regression, censored regression, quantile regression 
       
        engines: 
-         classification: randomForest, ranger1, spark
-         regression:     randomForest, ranger1, spark
+         classification:      grf1, randomForest, ranger1, spark
+         quantile regression: grf
+         regression:          grf1, randomForest, ranger1, spark
       
       1The model can use case weights.
       
@@ -384,24 +385,34 @@
             mtry  --> feature_subset_strategy
             trees --> num_trees
             min_n --> min_instances_per_node
+         grf:          
+            mtry  --> mtry
+            trees --> num.trees
+            min_n --> min.node.size
       
        fit modules:
-               engine           mode
-               ranger classification
-               ranger     regression
-         randomForest classification
-         randomForest     regression
-                spark classification
-                spark     regression
+               engine                mode
+               ranger      classification
+               ranger          regression
+         randomForest      classification
+         randomForest          regression
+                spark      classification
+                spark          regression
+                  grf      classification
+                  grf          regression
+                  grf quantile regression
       
        prediction modules:
-                   mode       engine                    methods
-         classification randomForest           class, prob, raw
-         classification       ranger class, conf_int, prob, raw
-         classification        spark                class, prob
-             regression randomForest               numeric, raw
-             regression       ranger     conf_int, numeric, raw
-             regression        spark                    numeric
+                        mode       engine                    methods
+              classification          grf      class, conf_int, prob
+              classification randomForest           class, prob, raw
+              classification       ranger class, conf_int, prob, raw
+              classification        spark                class, prob
+         quantile regression          grf                   quantile
+                  regression          grf          conf_int, numeric
+                  regression randomForest               numeric, raw
+                  regression       ranger     conf_int, numeric, raw
+                  regression        spark                    numeric
       
 
 ---

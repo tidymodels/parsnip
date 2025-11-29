@@ -68,12 +68,13 @@
 #' Kuhn M and Johnson K (2013). _Applied Predictive Modeling_. Springer.
 #' @export
 cubist_rules <-
-  function(mode = "regression",
-           committees = NULL,
-           neighbors = NULL,
-           max_rules = NULL,
-           engine = "Cubist") {
-
+  function(
+    mode = "regression",
+    committees = NULL,
+    neighbors = NULL,
+    max_rules = NULL,
+    engine = "Cubist"
+  ) {
     args <- list(
       committees = enquo(committees),
       neighbors = enquo(neighbors),
@@ -109,15 +110,19 @@ cubist_rules <-
 #' @inheritParams cubist_rules
 #' @export
 update.cubist_rules <-
-  function(object,
-           parameters = NULL,
-           committees = NULL, neighbors = NULL, max_rules = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    committees = NULL,
+    neighbors = NULL,
+    max_rules = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
       committees = enquo(committees),
-      neighbors  = enquo(neighbors),
-      max_rules  = enquo(max_rules)
+      neighbors = enquo(neighbors),
+      max_rules = enquo(max_rules)
     )
 
     update_spec(
@@ -136,24 +141,33 @@ update.cubist_rules <-
 
 #' @export
 check_args.cubist_rules <- function(object, call = rlang::caller_env()) {
-
   args <- lapply(object$args, rlang::eval_tidy)
 
-  check_number_whole(args$committees, allow_null = TRUE, call = call, arg = "committees")
+  check_number_whole(
+    args$committees,
+    allow_null = TRUE,
+    call = call,
+    arg = "committees"
+  )
 
   msg <- "The number of committees should be {.code >= 1} and {.code <= 100}."
   if (!(is.null(args$committees)) && args$committees > 100) {
     object$args$committees <-
       rlang::new_quosure(100L, env = rlang::empty_env())
-      cli::cli_warn(c(msg, "Truncating to 100."))
-    }
+    cli::cli_warn(c(msg, "Truncating to 100."))
+  }
   if (!(is.null(args$committees)) && args$committees < 1) {
     object$args$committees <-
       rlang::new_quosure(1L, env = rlang::empty_env())
-      cli::cli_warn(c(msg, "Truncating to 1."))
+    cli::cli_warn(c(msg, "Truncating to 1."))
   }
 
-  check_number_whole(args$neighbors, allow_null = TRUE, call = call, arg = "neighbors")
+  check_number_whole(
+    args$neighbors,
+    allow_null = TRUE,
+    call = call,
+    arg = "neighbors"
+  )
 
   msg <- "The number of neighbors should be {.code >= 0} and {.code <= 9}."
   if (!(is.null(args$neighbors)) && args$neighbors > 9) {

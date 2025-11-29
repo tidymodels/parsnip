@@ -41,7 +41,7 @@ parsnip_spec_add_in <- function() {
       cl_1 <- rlang::call2(.ns = pkg, .fn = x$model)
     }
 
-    obj_nm <- paste0(x$model,"_", x$engine, "_spec")
+    obj_nm <- paste0(x$model, "_", x$engine, "_spec")
     chr_1 <- rlang::expr_text(cl_1, width = 500)
     chr_1 <- paste0(chr_1, collapse = " ")
     chr_1 <- paste(obj_nm, "<-\n ", chr_1)
@@ -88,28 +88,25 @@ parsnip_spec_add_in <- function() {
       )
     )
 
-
   server <-
     function(input, output) {
       get_models <- reactive({
         req(input$model_mode)
 
-        models <- model_db[model_db$mode == tolower(input$model_mode),]
+        models <- model_db[model_db$mode == tolower(input$model_mode), ]
         if (nchar(input$pattern) > 0) {
-          incld <- grepl(input$pattern, models$model) | grepl(input$pattern, models$engine)
-          models <- models[incld,]
-
+          incld <- grepl(input$pattern, models$model) |
+            grepl(input$pattern, models$engine)
+          models <- models[incld, ]
         }
         models
       }) # get_models
 
       output$model_choices <- renderUI({
-
         model_list <- get_models()
         if (nrow(model_list) > 0) {
-
-        choices <- paste0(model_list$model, " (", model_list$engine, ")")
-        choices <- unique(choices)
+          choices <- paste0(model_list$model, " (", model_list$engine, ")")
+          choices <- unique(choices)
         } else {
           choices <- NULL
         }
@@ -122,19 +119,19 @@ parsnip_spec_add_in <- function() {
       }) # model_choices
 
       create_code <- reactive({
-
         req(input$model_name)
         req(input$model_mode)
 
         model_mode <- tolower(input$model_mode)
-        selected <- model_db[model_db$label %in% input$model_name,]
-        selected <- selected[selected$mode %in% model_mode,]
+        selected <- model_db[model_db$label %in% input$model_name, ]
+        selected <- selected[selected$mode %in% model_mode, ]
 
-        res <- purrr::map_chr(1:nrow(selected),
-                              ~ make_spec(selected[.x,], tune_args = input$tune_args))
+        res <- purrr::map_chr(
+          1:nrow(selected),
+          ~ make_spec(selected[.x, ], tune_args = input$tune_args)
+        )
 
         paste0(res, sep = "\n\n")
-
       }) # create_code
 
       observeEvent(input$write, {
@@ -154,4 +151,3 @@ parsnip_spec_add_in <- function() {
 }
 
 parsnip_spec_add_in()
-

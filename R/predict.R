@@ -145,7 +145,13 @@
 #' @method predict model_fit
 #' @export predict.model_fit
 #' @export
-predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...) {
+predict.model_fit <- function(
+  object,
+  new_data,
+  type = NULL,
+  opts = list(),
+  ...
+) {
   if (inherits(object$fit, "try-error")) {
     cli::cli_warn("Model fit failed; cannot make predictions.")
     return(NULL)
@@ -156,7 +162,9 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
 
   type <- check_pred_type(object, type)
   if (type != "raw" && length(opts) > 0) {
-    cli::cli_warn("{.arg opts} is only used with `type = 'raw'` and was ignored.")
+    cli::cli_warn(
+      "{.arg opts} is only used with `type = 'raw'` and was ignored."
+    )
   }
   check_pred_type_dots(object, type, ...)
 
@@ -164,28 +172,32 @@ predict.model_fit <- function(object, new_data, type = NULL, opts = list(), ...)
 
   res <- switch(
     type,
-    numeric     = predict_numeric(object = object, new_data = new_data, ...),
-    class       = predict_class(object = object, new_data = new_data, ...),
-    prob        = predict_classprob(object = object, new_data = new_data, ...),
-    conf_int    = predict_confint(object = object, new_data = new_data, ...),
-    pred_int    = predict_predint(object = object, new_data = new_data, ...),
-    quantile    = predict_quantile(object = object, new_data = new_data, ...),
-    time        = predict_time(object = object, new_data = new_data, ...),
-    survival    = predict_survival(object = object, new_data = new_data, ...),
-    linear_pred = predict_linear_pred(object = object, new_data = new_data, ...),
-    hazard      = predict_hazard(object = object, new_data = new_data, ...),
-    raw         = predict_raw(object = object, new_data = new_data, opts = opts, ...),
+    numeric = predict_numeric(object = object, new_data = new_data, ...),
+    class = predict_class(object = object, new_data = new_data, ...),
+    prob = predict_classprob(object = object, new_data = new_data, ...),
+    conf_int = predict_confint(object = object, new_data = new_data, ...),
+    pred_int = predict_predint(object = object, new_data = new_data, ...),
+    quantile = predict_quantile(object = object, new_data = new_data, ...),
+    time = predict_time(object = object, new_data = new_data, ...),
+    survival = predict_survival(object = object, new_data = new_data, ...),
+    linear_pred = predict_linear_pred(
+      object = object,
+      new_data = new_data,
+      ...
+    ),
+    hazard = predict_hazard(object = object, new_data = new_data, ...),
+    raw = predict_raw(object = object, new_data = new_data, opts = opts, ...),
     cli::cli_abort("Unknown prediction {.arg type} '{type}'.")
   )
   if (!inherits(res, "tbl_spark")) {
     res <- switch(
       type,
-      numeric     = format_num(res),
-      class       = format_class(res),
-      prob        = format_classprobs(res),
-      time        = format_time(res),
-      survival    = format_survival(res),
-      hazard      = format_hazard(res),
+      numeric = format_num(res),
+      class = format_class(res),
+      prob = format_classprobs(res),
+      time = format_time(res),
+      survival = format_survival(res),
+      hazard = format_hazard(res),
       linear_pred = format_linear_pred(res),
       res
     )
@@ -209,11 +221,12 @@ check_pred_type <- function(object, type, ..., call = rlang::caller_env()) {
       )
   }
 
-  if (!(type %in% pred_types))
+  if (!(type %in% pred_types)) {
     cli::cli_abort(
       "{.arg type} should be one of {.or {.arg {pred_types}}}.",
       call = call
     )
+  }
 
   switch(
     type,
@@ -326,7 +339,7 @@ format_survival <- function(x) {
 #' @rdname format-internals
 #' @export
 format_linear_pred <- function(x) {
-  if (inherits(x, "tbl_spark")){
+  if (inherits(x, "tbl_spark")) {
     return(x)
   }
   ensure_parsnip_format(x, ".pred_linear_pred")
@@ -352,8 +365,10 @@ ensure_parsnip_format <- function(x, col_name, overwrite = TRUE) {
       }
     }
   } else {
-    x <- tibble::new_tibble(vctrs::df_list(unname(x), .name_repair = "minimal"),
-                            nrow = length(x))
+    x <- tibble::new_tibble(
+      vctrs::df_list(unname(x), .name_repair = "minimal"),
+      nrow = length(x)
+    )
     names(x) <- col_name
     x
   }
@@ -361,16 +376,22 @@ ensure_parsnip_format <- function(x, col_name, overwrite = TRUE) {
 }
 
 make_pred_call <- function(x) {
-  if ("pkg" %in% names(x$func))
+  if ("pkg" %in% names(x$func)) {
     cl <-
-      call2(x$func["fun"],!!!x$args, .ns = x$func["pkg"])
-  else
-    cl <-   call2(x$func["fun"],!!!x$args)
+      call2(x$func["fun"], !!!x$args, .ns = x$func["pkg"])
+  } else {
+    cl <- call2(x$func["fun"], !!!x$args)
+  }
 
   cl
 }
 
-check_pred_type_dots <- function(object, type, ..., call = rlang::caller_env()) {
+check_pred_type_dots <- function(
+  object,
+  type,
+  ...,
+  call = rlang::caller_env()
+) {
   the_dots <- list(...)
   nms <- names(the_dots)
 
@@ -380,8 +401,15 @@ check_pred_type_dots <- function(object, type, ..., call = rlang::caller_env()) 
 
   # ----------------------------------------------------------------------------
 
-  other_args <- c("interval", "level", "std_error", "quantile_levels",
-                  "time", "eval_time", "increasing")
+  other_args <- c(
+    "interval",
+    "level",
+    "std_error",
+    "quantile_levels",
+    "time",
+    "eval_time",
+    "increasing"
+  )
 
   eval_time_types <- c("survival", "hazard")
 
@@ -390,9 +418,9 @@ check_pred_type_dots <- function(object, type, ..., call = rlang::caller_env()) 
     bad_args <- names(the_dots)[!is_pred_arg]
     bad_args <- paste0("`", bad_args, "`", collapse = ", ")
     cli::cli_abort(
-        "The ellipses are not used to pass args to the model function's
+      "The ellipses are not used to pass args to the model function's
          predict function. These arguments cannot be used: {.val bad_args}",
-         call = call
+      call = call
     )
   }
 
@@ -402,10 +430,8 @@ check_pred_type_dots <- function(object, type, ..., call = rlang::caller_env()) 
     cli::cli_abort(
       "{.arg eval_time} should only be passed to {.fn predict} when \\
        {.arg type} is one of {.or {.val {eval_time_types}}}.",
-       call = call
-     )
-
-
+      call = call
+    )
   }
   if (any(nms == "time") & !type %in% c("survival", "hazard")) {
     cli::cli_abort(
@@ -415,24 +441,27 @@ check_pred_type_dots <- function(object, type, ..., call = rlang::caller_env()) 
     )
   }
   # when eval_time should be passed
-  if (!any(nms %in% c("eval_time", "time")) & type %in% c("survival", "hazard")) {
-  cli::cli_abort(
-    "When using {.arg type} values of {.or {.val {eval_time_types}}} a numeric
+  if (
+    !any(nms %in% c("eval_time", "time")) & type %in% c("survival", "hazard")
+  ) {
+    cli::cli_abort(
+      "When using {.arg type} values of {.or {.val {eval_time_types}}} a numeric
      vector {.arg eval_time} should also be given.",
-    call = call
-  )
+      call = call
+    )
   }
 
   # `increasing` only applies to linear_pred for censored regression
-  if (any(nms == "increasing") &
+  if (
+    any(nms == "increasing") &
       !(type == "linear_pred" &
-        object$spec$mode == "censored regression")) {
+        object$spec$mode == "censored regression")
+  ) {
     cli::cli_abort(
       "{.arg increasing} only applies to predictions of
        type 'linear_pred' for the mode censored regression.",
       call = call
     )
-
   }
 
   invisible(TRUE)
@@ -491,4 +520,3 @@ prepare_data <- function(object, new_data) {
     new_data
   )
 }
-

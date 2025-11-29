@@ -37,15 +37,19 @@
 #'
 #' @export
 rule_fit <-
-  function(mode = "unknown",
-           mtry = NULL, trees = NULL, min_n = NULL,
-           tree_depth = NULL, learn_rate = NULL,
-           loss_reduction = NULL,
-           sample_size = NULL,
-           stop_iter = NULL,
-           penalty = NULL,
-           engine = "xrf") {
-
+  function(
+    mode = "unknown",
+    mtry = NULL,
+    trees = NULL,
+    min_n = NULL,
+    tree_depth = NULL,
+    learn_rate = NULL,
+    loss_reduction = NULL,
+    sample_size = NULL,
+    stop_iter = NULL,
+    penalty = NULL,
+    engine = "xrf"
+  ) {
     args <- list(
       mtry = enquo(mtry),
       trees = enquo(trees),
@@ -57,7 +61,6 @@ rule_fit <-
       stop_iter = enquo(stop_iter),
       penalty = enquo(penalty)
     )
-
 
     new_model_spec(
       "rule_fit",
@@ -87,14 +90,20 @@ rule_fit <-
 #' @inheritParams rule_fit
 #' @export
 update.rule_fit <-
-  function(object,
-           parameters = NULL,
-           mtry = NULL, trees = NULL, min_n = NULL,
-           tree_depth = NULL, learn_rate = NULL,
-           loss_reduction = NULL, sample_size = NULL,
-           penalty = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    mtry = NULL,
+    trees = NULL,
+    min_n = NULL,
+    tree_depth = NULL,
+    learn_rate = NULL,
+    loss_reduction = NULL,
+    sample_size = NULL,
+    penalty = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
       mtry = enquo(mtry),
       trees = enquo(trees),

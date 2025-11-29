@@ -34,12 +34,17 @@
 #' @export
 
 rand_forest <-
-  function(mode = "unknown", engine = "ranger", mtry = NULL, trees = NULL, min_n = NULL) {
-
+  function(
+    mode = "unknown",
+    engine = "ranger",
+    mtry = NULL,
+    trees = NULL,
+    min_n = NULL
+  ) {
     args <- list(
-      mtry   = enquo(mtry),
-      trees  = enquo(trees),
-      min_n  = enquo(min_n)
+      mtry = enquo(mtry),
+      trees = enquo(trees),
+      min_n = enquo(min_n)
     )
 
     new_model_spec(
@@ -60,15 +65,19 @@ rand_forest <-
 #' @rdname parsnip_update
 #' @export
 update.rand_forest <-
-  function(object,
-           parameters = NULL,
-           mtry = NULL, trees = NULL, min_n = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    mtry = NULL,
+    trees = NULL,
+    min_n = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
-      mtry   = enquo(mtry),
-      trees  = enquo(trees),
-      min_n  = enquo(min_n)
+      mtry = enquo(mtry),
+      trees = enquo(trees),
+      min_n = enquo(min_n)
     )
 
     update_spec(
@@ -109,8 +118,10 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
 
     # See "Details" in ?ml_random_forest_classifier. `feature_subset_strategy`
     # should be character even if it contains a number.
-    if (any(names(arg_vals) == "feature_subset_strategy") &&
-        isTRUE(is.numeric(quo_get_expr(arg_vals$feature_subset_strategy)))) {
+    if (
+      any(names(arg_vals) == "feature_subset_strategy") &&
+        isTRUE(is.numeric(quo_get_expr(arg_vals$feature_subset_strategy)))
+    ) {
       arg_vals$feature_subset_strategy <-
         paste(quo_get_expr(arg_vals$feature_subset_strategy))
     }
@@ -118,7 +129,6 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
 
   # add checks to error trap or change things for this method
   if (engine == "ranger") {
-
     if (any(names(arg_vals) == "importance")) {
       if (isTRUE(is.logical(quo_get_expr(arg_vals$importance)))) {
         cli::cli_abort(
@@ -170,4 +180,3 @@ check_args.rand_forest <- function(object, call = rlang::caller_env()) {
   # move translate checks here?
   invisible(object)
 }
-

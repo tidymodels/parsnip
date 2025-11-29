@@ -38,17 +38,23 @@
 #' @export
 
 mlp <-
-  function(mode = "unknown", engine = "nnet",
-           hidden_units = NULL, penalty = NULL, dropout = NULL, epochs = NULL,
-           activation = NULL, learn_rate = NULL) {
-
+  function(
+    mode = "unknown",
+    engine = "nnet",
+    hidden_units = NULL,
+    penalty = NULL,
+    dropout = NULL,
+    epochs = NULL,
+    activation = NULL,
+    learn_rate = NULL
+  ) {
     args <- list(
       hidden_units = enquo(hidden_units),
-      penalty      = enquo(penalty),
-      dropout      = enquo(dropout),
-      epochs       = enquo(epochs),
-      activation   = enquo(activation),
-      learn_rate   = enquo(learn_rate)
+      penalty = enquo(penalty),
+      dropout = enquo(dropout),
+      epochs = enquo(epochs),
+      activation = enquo(activation),
+      learn_rate = enquo(learn_rate)
     )
 
     new_model_spec(
@@ -69,19 +75,25 @@ mlp <-
 #' @rdname parsnip_update
 #' @export
 update.mlp <-
-  function(object,
-           parameters = NULL,
-           hidden_units = NULL, penalty = NULL, dropout = NULL,
-           epochs = NULL, activation = NULL, learn_rate = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    hidden_units = NULL,
+    penalty = NULL,
+    dropout = NULL,
+    epochs = NULL,
+    activation = NULL,
+    learn_rate = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
       hidden_units = enquo(hidden_units),
-      penalty      = enquo(penalty),
-      dropout      = enquo(dropout),
-      epochs       = enquo(epochs),
-      activation   = enquo(activation),
-      learn_rate   = enquo(learn_rate)
+      penalty = enquo(penalty),
+      dropout = enquo(dropout),
+      epochs = enquo(epochs),
+      activation = enquo(activation),
+      learn_rate = enquo(learn_rate)
     )
 
     update_spec(
@@ -104,7 +116,7 @@ translate.mlp <- function(x, engine = x$engine, ...) {
   }
 
   if (engine == "nnet") {
-    if(isTRUE(is.null(quo_get_expr(x$args$hidden_units)))) {
+    if (isTRUE(is.null(quo_get_expr(x$args$hidden_units)))) {
       x$args$hidden_units <- 5
     }
   }
@@ -113,11 +125,13 @@ translate.mlp <- function(x, engine = x$engine, ...) {
 
   if (engine == "nnet") {
     if (x$mode == "classification") {
-      if (length(x$eng_args) == 0  || !any(names(x$eng_args) == "linout"))
+      if (length(x$eng_args) == 0 || !any(names(x$eng_args) == "linout")) {
         x$method$fit$args$linout <- FALSE
+      }
     } else {
-      if (length(x$eng_args) == 0  || !any(names(x$eng_args) == "linout"))
+      if (length(x$eng_args) == 0 || !any(names(x$eng_args) == "linout")) {
         x$method$fit$args$linout <- TRUE
+      }
     }
   }
   x
@@ -127,14 +141,30 @@ translate.mlp <- function(x, engine = x$engine, ...) {
 
 #' @export
 check_args.mlp <- function(object, call = rlang::caller_env()) {
-
   args <- lapply(object$args, rlang::eval_tidy)
 
-  check_number_decimal(args$penalty, min = 0, allow_null = TRUE, call = call, arg = "penalty")
-  check_number_decimal(args$dropout, min = 0, max = 1, allow_null = TRUE, call = call, arg = "dropout")
+  check_number_decimal(
+    args$penalty,
+    min = 0,
+    allow_null = TRUE,
+    call = call,
+    arg = "penalty"
+  )
+  check_number_decimal(
+    args$dropout,
+    min = 0,
+    max = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "dropout"
+  )
 
-  if (is.numeric(args$penalty) && is.numeric(args$dropout) &&
-      args$dropout > 0 && args$penalty > 0) {
+  if (
+    is.numeric(args$penalty) &&
+      is.numeric(args$dropout) &&
+      args$dropout > 0 &&
+      args$penalty > 0
+  ) {
     cli::cli_abort(
       "Both weight decay and dropout should not be specified.",
       call = call
@@ -146,11 +176,13 @@ check_args.mlp <- function(object, call = rlang::caller_env()) {
 
 # keras wrapper for feed-forward nnet
 
-class2ind <- function (x, drop2nd = FALSE, call = rlang::caller_env()) {
+class2ind <- function(x, drop2nd = FALSE, call = rlang::caller_env()) {
   if (!is.factor(x)) {
-    cli::cli_abort(c("x" = "{.arg x} should be a {cls factor} not {.obj_type_friendly {x}."))
+    cli::cli_abort(c(
+      "x" = "{.arg x} should be a {cls factor} not {.obj_type_friendly {x}."
+    ))
   }
-  y <- model.matrix( ~ x - 1)
+  y <- model.matrix(~ x - 1)
   colnames(y) <- gsub("^x", "", colnames(y))
   attributes(y)$assign <- NULL
   attributes(y)$contrasts <- NULL
@@ -187,11 +219,17 @@ class2ind <- function (x, drop2nd = FALSE, call = rlang::caller_env()) {
 #' @keywords internal
 #' @export
 keras_mlp <-
-  function(x, y,
-           hidden_units = 5, penalty = 0, dropout = 0, epochs = 20, activation = "softmax",
-           seeds = sample.int(10^5, size = 3),
-           ...) {
-
+  function(
+    x,
+    y,
+    hidden_units = 5,
+    penalty = 0,
+    dropout = 0,
+    epochs = 20,
+    activation = "softmax",
+    seeds = sample.int(10^5, size = 3),
+    ...
+  ) {
     allowed_keras_activation <- keras_activations()
     good_activation <- activation %in% allowed_keras_activation
     if (!all(good_activation)) {
@@ -233,7 +271,9 @@ keras_mlp <-
           activation = activation,
           input_shape = ncol(x),
           kernel_regularizer = keras::regularizer_l2(penalty),
-          kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[1])
+          kernel_initializer = keras::initializer_glorot_uniform(
+            seed = seeds[1]
+          )
         )
     } else {
       model |>
@@ -241,7 +281,9 @@ keras_mlp <-
           units = hidden_units,
           activation = activation,
           input_shape = ncol(x),
-          kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[1])
+          kernel_initializer = keras::initializer_glorot_uniform(
+            seed = seeds[1]
+          )
         )
     }
 
@@ -251,7 +293,9 @@ keras_mlp <-
           units = hidden_units,
           activation = activation,
           input_shape = ncol(x),
-          kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[1])
+          kernel_initializer = keras::initializer_glorot_uniform(
+            seed = seeds[1]
+          )
         ) |>
         keras::layer_dropout(rate = dropout, seed = seeds[2])
     }
@@ -261,14 +305,18 @@ keras_mlp <-
         keras::layer_dense(
           units = ncol(y),
           activation = 'softmax',
-          kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[3])
+          kernel_initializer = keras::initializer_glorot_uniform(
+            seed = seeds[3]
+          )
         )
     } else {
       model <- model |>
         keras::layer_dense(
           units = ncol(y),
           activation = 'linear',
-          kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[3])
+          kernel_initializer = keras::initializer_glorot_uniform(
+            seed = seeds[3]
+          )
         )
     }
 
@@ -303,10 +351,11 @@ keras_mlp <-
 
 
 nnet_softmax <- function(results, object) {
-  if (ncol(results) == 1)
+  if (ncol(results) == 1) {
     results <- cbind(1 - results, results)
+  }
 
-  results <- apply(results, 1, function(x) exp(x)/sum(exp(x)))
+  results <- apply(results, 1, function(x) exp(x) / sum(exp(x)))
   results <- t(results)
   colnames(results) <- object$lvl
   results <- as_tibble(results)
@@ -348,12 +397,25 @@ parse_keras_args <- function(...) {
 }
 
 mlp_num_weights <- function(p, hidden_units, classes) {
-  ((p + 1) * hidden_units) + ((hidden_units+1) * classes)
+  ((p + 1) * hidden_units) + ((hidden_units + 1) * classes)
 }
 
 allowed_keras_activation <-
- c("elu", "exponential", "gelu", "hardsigmoid", "linear", "relu", "selu",
-   "sigmoid", "softmax", "softplus", "softsign", "swish", "tanh")
+  c(
+    "elu",
+    "exponential",
+    "gelu",
+    "hardsigmoid",
+    "linear",
+    "relu",
+    "selu",
+    "sigmoid",
+    "softmax",
+    "softplus",
+    "softsign",
+    "swish",
+    "tanh"
+  )
 
 #' Activation functions for neural networks in keras
 #'
@@ -382,22 +444,26 @@ multi_predict._torch_mlp <-
   function(object, new_data, type = NULL, epochs = NULL, ...) {
     load_libs(object, quiet = TRUE, attach = TRUE)
 
-    if (is.null(epochs))
+    if (is.null(epochs)) {
       epochs <- length(object$fit$models)
+    }
 
     epochs <- sort(epochs)
 
     if (is.null(type)) {
-      if (object$spec$mode == "classification")
+      if (object$spec$mode == "classification") {
         type <- "class"
-      else
+      } else {
         type <- "numeric"
+      }
     }
 
     res <-
-      purrr::map(epochs,
-                 ~ predict(object, new_data, type, epochs = .x) |>
-                   dplyr::mutate(epochs = .x)) |>
+      purrr::map(
+        epochs,
+        ~ predict(object, new_data, type, epochs = .x) |>
+          dplyr::mutate(epochs = .x)
+      ) |>
       purrr::map(\(x) x |> dplyr::mutate(.row = seq_len(nrow(new_data)))) |>
       purrr::list_rbind() |>
       dplyr::arrange(.row, epochs)
@@ -408,14 +474,13 @@ multi_predict._torch_mlp <-
 
 
 reformat_torch_num <- function(results, object) {
-
   if (isTRUE(ncol(results) > 1)) {
     nms <- colnames(results)
     results <- as_tibble(results, .name_repair = "minimal")
     if (length(nms) == 0 && length(object$preproc$y_var) == ncol(results)) {
       names(results) <- object$preproc$y_var
     }
-  }  else {
+  } else {
     results <- unname(results[[1]])
   }
   results

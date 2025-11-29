@@ -22,7 +22,7 @@ tuning parameter names, the standardized parsnip parameter names, and the
 argument names to the underlying fit function for the engine.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check() & rlang::is_installed("dials")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check() & rlang::is_installed("dials")) withAutoprint(\{ # examplesIf}
 mod <-
  linear_reg(penalty = tune("regularization"), mixture = tune()) |>
  set_engine("glmnet")

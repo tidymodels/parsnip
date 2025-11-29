@@ -16,11 +16,13 @@
 #' @export
 type_sum.model_spec <- function(x) {
   resolved <- TRUE
-  if (x$mode == "unknown")
+  if (x$mode == "unknown") {
     resolved <- FALSE
+  }
   arg_info <- generics::tune_args(x)
-  if (any(arg_info$tunable))
+  if (any(arg_info$tunable)) {
     resolved <- FALSE
+  }
 
   res <- "spec"
   if (resolved) {
@@ -37,8 +39,9 @@ type_sum.model_spec <- function(x) {
 #' @export
 type_sum.model_fit <- function(x) {
   resolved <- TRUE
-  if (inherits(x$fit, "try-error"))
+  if (inherits(x$fit, "try-error")) {
     resolved <- FALSE
+  }
 
   res <- "fit"
   if (resolved) {

@@ -54,7 +54,7 @@ argument to be passed directly to the engine fitting function, like
 }
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 # First, set main arguments using the standardized names
 logistic_reg(penalty = 0.01, mixture = 1/3) |>
   # Now specify how you want to fit the model with another argument

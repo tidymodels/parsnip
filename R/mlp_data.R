@@ -1,4 +1,3 @@
-
 set_new_model("mlp")
 
 set_model_mode("mlp", "classification")
@@ -113,11 +112,10 @@ set_pred(
     pre = NULL,
     post = maybe_multivariate,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        x = quote(as.matrix(new_data))
-      )
+    args = list(
+      object = quote(object$fit),
+      x = quote(as.matrix(new_data))
+    )
   )
 )
 
@@ -130,13 +128,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        x = quote(as.matrix(new_data))
-      )
+    args = list(
+      object = quote(object$fit),
+      x = quote(as.matrix(new_data))
+    )
   )
-
 )
 
 set_pred(
@@ -148,11 +144,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = "parsnip", fun = "keras_predict_classes"),
-    args =
-      list(
-        object = quote(object),
-        x = quote(as.matrix(new_data))
-      )
+    args = list(
+      object = quote(object),
+      x = quote(as.matrix(new_data))
+    )
   )
 )
 
@@ -169,11 +164,10 @@ set_pred(
       x
     },
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        x = quote(as.matrix(new_data))
-      )
+    args = list(
+      object = quote(object$fit),
+      x = quote(as.matrix(new_data))
+    )
   )
 )
 
@@ -186,11 +180,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        x = quote(as.matrix(new_data))
-      )
+    args = list(
+      object = quote(object$fit),
+      x = quote(as.matrix(new_data))
+    )
   )
 )
 
@@ -284,12 +277,11 @@ set_pred(
     pre = NULL,
     post = maybe_multivariate,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "raw"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "raw"
+    )
   )
 )
 
@@ -302,13 +294,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data)
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
   )
-
 )
 
 set_pred(
@@ -320,12 +310,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "class"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "class"
+    )
   )
 )
 
@@ -338,12 +327,11 @@ set_pred(
     pre = NULL,
     post = nnet_softmax,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "raw"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "raw"
+    )
   )
 )
 
@@ -356,11 +344,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data)
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
   )
 )
 
@@ -421,7 +408,11 @@ set_model_arg(
   eng = "brulee",
   parsnip = "activation",
   original = "activation",
-  func = list(pkg = "dials", fun = "activation", values = c('relu', 'elu', 'tanh')),
+  func = list(
+    pkg = "dials",
+    fun = "activation",
+    values = c('relu', 'elu', 'tanh')
+  ),
   has_submodel = FALSE
 )
 
@@ -483,12 +474,11 @@ set_pred(
     pre = NULL,
     post = reformat_torch_num,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "numeric"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "numeric"
+    )
   )
 )
 
@@ -501,12 +491,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "class"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "class"
+    )
   )
 )
 
@@ -519,12 +508,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "prob"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "prob"
+    )
   )
 )
 
@@ -584,7 +572,11 @@ set_model_arg(
   eng = "brulee_two_layer",
   parsnip = "activation",
   original = "activation",
-  func = list(pkg = "dials", fun = "activation", values = c('relu', 'elu', 'tanh')),
+  func = list(
+    pkg = "dials",
+    fun = "activation",
+    values = c('relu', 'elu', 'tanh')
+  ),
   has_submodel = FALSE
 )
 
@@ -646,12 +638,11 @@ set_pred(
     pre = NULL,
     post = reformat_torch_num,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "numeric"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "numeric"
+    )
   )
 )
 
@@ -664,12 +655,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "class"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "class"
+    )
   )
 )
 
@@ -682,12 +672,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "prob"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "prob"
+    )
   )
 )
-

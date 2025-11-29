@@ -36,7 +36,7 @@ each factor level so that the outcome can be given to the formula as
 "number of events" format for binomial data.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 #----------------------------------------------------------------------------
 # The same data set formatted three ways
 
