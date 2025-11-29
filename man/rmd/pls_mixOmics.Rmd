@@ -106,7 +106,7 @@ This package is available via the Bioconductor repository and is not accessible 
 ```{r}
 #| label: predict-types
 
-parsnip:::get_from_env("pls") |>
+parsnip:::get_from_env("pls_predict") |>
   dplyr::select(mode, type)
 
 ```

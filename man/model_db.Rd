@@ -12,7 +12,7 @@ This is used in the RStudio add-in and captures information about mode
 specifications in various R packages.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 data(model_db)
 \dontshow{\}) # examplesIf}
 }

@@ -125,8 +125,8 @@ Note that columns used in the `strata()` function _will_ also be estimated in th
 ```{r}
 #| label: predict-types
 
-parsnip:::get_from_env("proportional_hazards") |>
-  dplyr::filter(engine == "gee") |>
+parsnip:::get_from_env("proportional_hazards_predict") |>
+  dplyr::filter(engine == "glmnet") |>
   dplyr::select(mode, type)
 
 ```
@@ -138,14 +138,3 @@ parsnip:::get_from_env("proportional_hazards") |>
  - Hastie T, Tibshirani R, Wainwright M. 2015. _Statistical Learning with Sparsity_. CRC Press.
  
  - Kuhn M, Johnson K. 2013. _Applied Predictive Modeling_. Springer.
-
-## Prediction types
-
-```{r}
-#| label: predict-types
-
-parsnip:::get_from_env("proportional_hazards_predict") |>
-  dplyr::filter(engine == "glmnet") |>
-  dplyr::select(mode, type)
-
-```

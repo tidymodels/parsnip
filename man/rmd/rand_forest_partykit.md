@@ -1,7 +1,7 @@
 
 
 
-For this engine, there are multiple modes: censored regression, regression, and classification
+For this engine, there are multiple modes: regression, classification, and censored regression
 
 ## Tuning Parameters
 
@@ -9,11 +9,11 @@ For this engine, there are multiple modes: censored regression, regression, and 
 
 This model has 3 tuning parameters:
 
-- `trees`: # Trees (type: integer, default: 500L)
-
 - `min_n`: Minimal Node Size (type: integer, default: 20L)
 
 - `mtry`: # Randomly Selected Predictors (type: integer, default: 5L)
+
+- `trees`: # Trees (type: integer, default: 500L)
 
 ## Translation from parsnip to the original package (regression)
 
@@ -96,6 +96,26 @@ rand_forest() |>
 
 
 This engine does not require any special encoding of the predictors. Categorical predictors can be partitioned into groups of factor levels (e.g. `{a, c}` vs `{b, d}`) when splitting at a node. Dummy variables are not required for this model. 
+
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "partykit") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 5 x 2
+##   mode                type    
+##   <chr>               <chr>   
+## 1 regression          numeric 
+## 2 classification      class   
+## 3 classification      prob    
+## 4 censored regression time    
+## 5 censored regression survival
+```
 
 ## Other details
 

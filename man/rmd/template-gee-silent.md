@@ -1,0 +1,1 @@
+The `gee::gee()` function always prints out warnings and output even when `silent = TRUE`. The parsnip `"gee"` engine, by contrast, silences all console output coming from `gee::gee()`, even if `silent = FALSE`.

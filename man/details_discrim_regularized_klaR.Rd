@@ -74,6 +74,21 @@ model.
 The underlying model implementation does not allow for case weights.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("discrim_regularized_predict") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob 
+## 3 classification raw
+}\if{html}{\out{</div>}}
+}
+
 \subsection{References}{
 \itemize{
 \item Friedman, J (1989). Regularized Discriminant Analysis. \emph{Journal of the

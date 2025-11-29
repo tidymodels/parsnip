@@ -86,7 +86,8 @@ Note that the `"kernlab"` engine does not naturally estimate class probabilities
 #| label: predict-types
 
 parsnip:::get_from_env("svm_rbf_predict") |>
-  dplyr::select(mode, type)
+  dplyr::select(mode, type) |> 
+  print(n = Inf)
 
 ```
 

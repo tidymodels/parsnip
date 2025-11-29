@@ -81,6 +81,23 @@ give the number of trials when the response is the proportion of
 successes: they would rarely be used for a Poisson GLM.”
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("logistic_reg_predict") |>
+  dplyr::filter(engine == "glm") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 4 x 2
+##   mode           type    
+##   <chr>          <chr>   
+## 1 classification class   
+## 2 classification prob    
+## 3 classification raw     
+## 4 classification conf_int
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Saving fitted model objects}{
 
 This model object contains data that are not required to make

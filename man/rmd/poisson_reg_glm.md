@@ -54,6 +54,23 @@ _However_, the documentation in [stats::glm()] assumes that is specific type of 
 
 If frequency weights are being used in your application, the [glm_grouped()] model (and corresponding engine) may be more appropriate. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("poisson_reg_predict") |>
+  dplyr::filter(engine == "glm") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 2 x 2
+##   mode       type   
+##   <chr>      <chr>  
+## 1 regression numeric
+## 2 regression raw
+```
+
 ## Saving fitted model objects
 
 

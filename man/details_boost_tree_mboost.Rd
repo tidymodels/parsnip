@@ -60,6 +60,22 @@ Categorical predictors can be partitioned into groups of factor levels
 are not required for this model.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(engine == "mboost") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 2
+##   mode                type       
+##   <chr>               <chr>      
+## 1 censored regression survival   
+## 2 censored regression linear_pred
+## 3 censored regression time
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Other details}{
 
 Predictions of type \code{"time"} are predictions of the mean survival time.

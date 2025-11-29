@@ -122,6 +122,24 @@ scale each so that each predictor has mean zero and a variance of one.
 
 By default, [h2o::h2o.deeplearning()] uses the argument `standardize = TRUE` to center and scale all numeric columns. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("mlp_predict") |>
+  dplyr::filter(engine == "h2o") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 4 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob
+```
 
 ## Initializing h2o 
 

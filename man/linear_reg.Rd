@@ -54,7 +54,7 @@ linear_reg(argument = !!value)
 }\if{html}{\out{</div>}}
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 show_engines("linear_reg")
 
 linear_reg()

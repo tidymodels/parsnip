@@ -50,7 +50,7 @@ the References section).
 Most parsnip users will not need to use these functions or documentation.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 # See this file for step-by-step instructions.
 system.file("README-DOCS.md", package = "parsnip")
 

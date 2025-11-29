@@ -121,6 +121,25 @@ convert factor columns to indicators.
 indicators if the user does not create them first.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("bart_predict") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 9 x 2
+##   mode           type    
+##   <chr>          <chr>   
+## 1 regression     numeric 
+## 2 regression     raw     
+## 3 regression     conf_int
+## 4 regression     pred_int
+## 5 classification class   
+## 6 classification prob    
+## # i 3 more rows
+}\if{html}{\out{</div>}}
+}
+
 \subsection{References}{
 \itemize{
 \item Chipman, George, McCulloch. “BART: Bayesian additive regression

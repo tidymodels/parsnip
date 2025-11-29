@@ -102,6 +102,21 @@ to \code{glm()} is needed to get the rank and QR decomposition objects so
 that \code{predict()} can be used.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("poisson_reg_predict") |>
+  dplyr::filter(engine == "gee") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 x 2
+##   mode       type   
+##   <chr>      <chr>  
+## 1 regression numeric
+## 2 regression raw
+}\if{html}{\out{</div>}}
+}
+
 \subsection{References}{
 \itemize{
 \item Liang, K.Y. and Zeger, S.L. (1986) Longitudinal data analysis using

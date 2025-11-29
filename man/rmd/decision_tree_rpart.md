@@ -115,6 +115,28 @@ This model can utilize case weights during model fitting. To use them, see the d
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("decision_tree_predict") |>
+  dplyr::filter(engine == "rpart") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 7 x 2
+##   mode                type   
+##   <chr>               <chr>  
+## 1 regression          numeric
+## 2 regression          raw    
+## 3 classification      class  
+## 4 classification      prob   
+## 5 classification      raw    
+## 6 censored regression time   
+## # i 1 more row
+```
+
 ## Other details
 
 

@@ -51,6 +51,22 @@ scale each so that each predictor has mean zero and a variance of one.
 
 The underlying model implementation does not allow for case weights. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("linear_reg_predict") |>
+  dplyr::filter(engine == "keras") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 1 x 2
+##   mode       type   
+##   <chr>      <chr>  
+## 1 regression numeric
+```
+
 ## Examples 
 
 The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-keras) for `linear_reg()` with the `"keras"` engine.

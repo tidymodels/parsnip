@@ -89,6 +89,25 @@ The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that e
 
 Note that the `earth` package documentation has: "In the current implementation, _building models with weights can be slow_."
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("mars_predict") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 5 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob   
+## 5 classification raw
+```
+
 ## Saving fitted model objects
 
 

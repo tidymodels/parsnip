@@ -64,6 +64,23 @@ Depending on your application, the degrees of freedom for the model (and
 other statistics) might be incorrect.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("linear_reg_predict") |>
+  dplyr::filter(engine == "lm") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 4 x 2
+##   mode       type    
+##   <chr>      <chr>   
+## 1 regression numeric 
+## 2 regression conf_int
+## 3 regression pred_int
+## 4 regression raw
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Saving fitted model objects}{
 
 This model object contains data that are not required to make

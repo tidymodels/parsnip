@@ -99,7 +99,8 @@ parsnip::bart(
 #| label: predict-types
 
 parsnip:::get_from_env("bart_predict") |>
-  dplyr::select(mode, type)
+  dplyr::select(mode, type) |> 
+  print(n = Inf)
 
 ```
 

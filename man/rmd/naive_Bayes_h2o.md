@@ -49,6 +49,23 @@ naive_Bayes(Laplace = numeric(0)) |>
 ##     validation_frame = missing_arg(), laplace = numeric(0))
 ```
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("naive_Bayes_predict") |>
+  dplyr::filter(engine == "h2o") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 2 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob
+```
+
 ## Initializing h2o 
 
 

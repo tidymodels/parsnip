@@ -75,6 +75,22 @@ scale each so that each predictor has mean zero and a variance of one.
 
 By default, [h2o::h2o.glm()] uses the argument `standardize = TRUE` to center and scale all numeric columns. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("logistic_reg_predict") |>
+  dplyr::filter(engine == "h2o") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 2 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob
+```
 
 ## Initializing h2o 
 

@@ -143,6 +143,26 @@ size of the saved object might be substantially reduced by using
 functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "ranger") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 7 x 2
+##   mode           type    
+##   <chr>          <chr>   
+## 1 classification class   
+## 2 classification prob    
+## 3 classification conf_int
+## 4 classification raw     
+## 5 regression     numeric 
+## 6 regression     conf_int
+## # i 1 more row
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Examples}{
 
 The “Fitting and Predicting with parsnip” article contains
