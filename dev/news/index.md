@@ -2,6 +2,9 @@
 
 ## parsnip (development version)
 
+- Fixes issue with running predictions for Decision Trees in Spark
+  ([\#1309](https://github.com/tidymodels/parsnip/issues/1309))
+
 - Updates to some boosting tuning parameter information:
   ([\#1306](https://github.com/tidymodels/parsnip/issues/1306))
 
