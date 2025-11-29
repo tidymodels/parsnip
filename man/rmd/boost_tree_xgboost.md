@@ -1,7 +1,7 @@
 
 
 
-For this engine, there are multiple modes: classification and regression
+For this engine, there are multiple modes: classification and regression. Note that in late 2025, a new version of xgboost was released with differences in its interface and model objects. This version of parsnip should work with either version. 
 
 ## Tuning Parameters
 
