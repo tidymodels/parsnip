@@ -29,6 +29,8 @@ Engine arguments of interest
 
 `agua::h2o_train_auto()` is a wrapper around `h2o::h2o.automl()`.
 
+    library(agua)
+
     auto_ml() |>
       set_engine("h2o") |>
       set_mode("regression") |>
@@ -81,6 +83,19 @@ parallelizes over hyperparameter combinations for a given resample.
 h2o will automatically shut down the local h2o instance started by R
 when R is terminated. To manually stop the h2o server, run
 `h2o::h2o.shutdown()`.
+
+### Prediction types
+
+    parsnip:::get_from_env("auto_ml_predict") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 4 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 regression     raw
+    ## 3 classification class
+    ## 4 classification prob
 
 ### Saving fitted model objects
 

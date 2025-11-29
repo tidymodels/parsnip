@@ -104,6 +104,23 @@ The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
 have arguments called `case_weights` that expect vectors of case
 weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("rand_forest_predict") |>
+      dplyr::filter(engine == "aorsf") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 7 x 2
+    ##   mode                type
+    ##   <chr>               <chr>
+    ## 1 censored regression time
+    ## 2 censored regression survival
+    ## 3 classification      class
+    ## 4 classification      prob
+    ## 5 classification      raw
+    ## 6 regression          numeric
+    ## # i 1 more row
+
 ### Other details
 
 Predictions of survival probability at a time exceeding the maximum

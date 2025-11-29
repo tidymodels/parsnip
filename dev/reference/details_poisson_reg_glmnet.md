@@ -1,7 +1,7 @@
 # Poisson regression via glmnet
 
-[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html)
-uses penalized maximum likelihood to fit a model for count data.
+[`glmnet::glmnet()`](https://rdrr.io/pkg/glmnet/man/glmnet.html) uses
+penalized maximum likelihood to fit a model for count data.
 
 ## Details
 
@@ -61,8 +61,8 @@ will convert factor columns to indicators.
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
 variance of one. By default,
-[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html)
-uses the argument `standardize = TRUE` to center and scale the data.
+[`glmnet::glmnet()`](https://rdrr.io/pkg/glmnet/man/glmnet.html) uses
+the argument `standardize = TRUE` to center and scale the data.
 
 ### Case weights
 
@@ -75,6 +75,18 @@ The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
 [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
 have arguments called `case_weights` that expect vectors of case
 weights.
+
+### Prediction types
+
+    parsnip:::get_from_env("poisson_reg_predict") |>
+      dplyr::filter(engine == "glmnet") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 2 x 2
+    ##   mode       type
+    ##   <chr>      <chr>
+    ## 1 regression numeric
+    ## 2 regression raw
 
 ### Saving fitted model objects
 

@@ -54,6 +54,17 @@ Categorical predictors can be partitioned into groups of factor levels
 (e.g. `{a, c}` vs `{b, d}`) when splitting at a node. Dummy variables
 are not required for this model.
 
+### Prediction types
+
+    parsnip:::get_from_env("cubist_rules_predict") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 2 x 2
+    ##   mode       type
+    ##   <chr>      <chr>
+    ## 1 regression numeric
+    ## 2 regression raw
+
 ### References
 
 - Quinlan R (1992). “Learning with Continuous Classes.” Proceedings of

@@ -53,6 +53,17 @@ variance of one.
 
 The underlying model implementation does not allow for case weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("linear_reg_predict") |>
+      dplyr::filter(engine == "keras") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 1 x 2
+    ##   mode       type
+    ##   <chr>      <chr>
+    ## 1 regression numeric
+
 ### Examples
 
 The “Fitting and Predicting with parsnip” article contains

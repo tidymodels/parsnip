@@ -157,6 +157,20 @@ pass the `counts = FALSE` argument to
 [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md)
 to supply `mtry` values within `[0, 1]`.
 
+### Prediction types
+
+    parsnip:::get_from_env("boost_tree_predict") |>
+      dplyr::filter(engine == "lightgbm") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 4 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 classification class
+    ## 3 classification prob
+    ## 4 classification raw
+
 #### Bagging
 
 The `sample_size` argument is translated to the `bagging_fraction`

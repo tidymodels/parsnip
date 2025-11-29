@@ -150,6 +150,23 @@ pass the `counts = FALSE` argument to
 [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md)
 to supply `mtry` values within `[0, 1]`.
 
+### Prediction types
+
+    parsnip:::get_from_env("boost_tree_predict") |>
+      dplyr::filter(stringr::str_starts(engine, "h2o")) |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 8 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 regression     raw
+    ## 3 classification class
+    ## 4 classification prob
+    ## 5 regression     numeric
+    ## 6 regression     raw
+    ## # i 2 more rows
+
 ### Initializing h2o
 
 To use the h2o engine with tidymodels, please run `h2o::h2o.init()`

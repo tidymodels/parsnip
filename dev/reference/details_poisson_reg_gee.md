@@ -91,6 +91,18 @@ to [`glm()`](https://rdrr.io/r/stats/glm.html) is needed to get the rank
 and QR decomposition objects so that
 [`predict()`](https://rdrr.io/r/stats/predict.html) can be used.
 
+### Prediction types
+
+    parsnip:::get_from_env("poisson_reg_predict") |>
+      dplyr::filter(engine == "gee") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 2 x 2
+    ##   mode       type
+    ##   <chr>      <chr>
+    ## 1 regression numeric
+    ## 2 regression raw
+
 ### References
 
 - Liang, K.Y. and Zeger, S.L. (1986) Longitudinal data analysis using

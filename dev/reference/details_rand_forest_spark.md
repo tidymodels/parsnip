@@ -128,6 +128,19 @@ weights.
 Note that, for spark engines, the `case_weight` argument value should be
 a character string to specify the column with the numeric case weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("rand_forest_predict") |>
+      dplyr::filter(engine == "spark") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 3 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 classification class
+    ## 3 classification prob
+
 ### References
 
 - Kuhn, M, and K Johnson. 2013. *Applied Predictive Modeling*. Springer.

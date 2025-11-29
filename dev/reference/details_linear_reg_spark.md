@@ -74,6 +74,17 @@ weights.
 Note that, for spark engines, the `case_weight` argument value should be
 a character string to specify the column with the numeric case weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("linear_reg_predict") |>
+      dplyr::filter(engine == "spark") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 1 x 2
+    ##   mode       type
+    ##   <chr>      <chr>
+    ## 1 regression numeric
+
 ### Other details
 
 For models created using the `"spark"` engine, there are several things

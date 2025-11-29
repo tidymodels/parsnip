@@ -121,6 +121,22 @@ will convert factor columns to indicators.
 convert the factors to indicators if the user does not create them
 first.
 
+### Prediction types
+
+    parsnip:::get_from_env("bart_predict") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 9 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 regression     raw
+    ## 3 regression     conf_int
+    ## 4 regression     pred_int
+    ## 5 classification class
+    ## 6 classification prob
+    ## # i 3 more rows
+
 ### References
 
 - Chipman, George, McCulloch. “BART: Bayesian additive regression

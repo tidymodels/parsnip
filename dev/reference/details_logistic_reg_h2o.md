@@ -82,6 +82,18 @@ variance of one.
 By default, `h2o::h2o.glm()` uses the argument `standardize = TRUE` to
 center and scale all numeric columns.
 
+### Prediction types
+
+    parsnip:::get_from_env("logistic_reg_predict") |>
+      dplyr::filter(engine == "h2o") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 2 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 classification class
+    ## 2 classification prob
+
 ### Initializing h2o
 
 To use the h2o engine with tidymodels, please run `h2o::h2o.init()`

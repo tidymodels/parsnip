@@ -65,6 +65,21 @@ predictions. When saving the model for the purpose of prediction, the
 size of the saved object might be substantially reduced by using
 functions from the [butcher](https://butcher.tidymodels.org) package.
 
+### Prediction types
+
+    parsnip:::get_from_env("survival_reg_predict") |>
+      dplyr::filter(engine == "flexsurv") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 5 x 2
+    ##   mode                type
+    ##   <chr>               <chr>
+    ## 1 censored regression time
+    ## 2 censored regression quantile
+    ## 3 censored regression hazard
+    ## 4 censored regression survival
+    ## 5 censored regression linear_pred
+
 ### References
 
 - Jackson, C. 2016. `flexsurv`: A Platform for Parametric Survival

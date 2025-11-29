@@ -100,6 +100,22 @@ variance of one.
 
 The underlying model implementation does not allow for case weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("svm_rbf_predict") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 10 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 regression     raw
+    ## 3 classification class
+    ## 4 classification prob
+    ## 5 classification raw
+    ## 6 regression     numeric
+    ## # i 4 more rows
+
 ### Saving fitted model objects
 
 This model object contains data that are not required to make

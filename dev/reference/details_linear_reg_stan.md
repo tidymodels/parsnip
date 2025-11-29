@@ -87,6 +87,20 @@ The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
 have arguments called `case_weights` that expect vectors of case
 weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("linear_reg_predict") |>
+      dplyr::filter(engine == "stan") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 4 x 2
+    ##   mode       type
+    ##   <chr>      <chr>
+    ## 1 regression numeric
+    ## 2 regression conf_int
+    ## 3 regression pred_int
+    ## 4 regression raw
+
 ### Examples
 
 The “Fitting and Predicting with parsnip” article contains

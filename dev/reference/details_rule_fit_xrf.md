@@ -197,6 +197,19 @@ converted to `trees - 1` and a warning is issued.
 
 The underlying model implementation does not allow for case weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("rule_fit_predict") |>
+      dplyr::filter(engine == "xrf") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 3 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 classification class
+    ## 3 classification prob
+
 ### References
 
 - Friedman and Popescu. “Predictive learning via rule ensembles.” Ann.

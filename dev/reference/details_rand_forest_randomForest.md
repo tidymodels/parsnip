@@ -99,6 +99,21 @@ predictions. When saving the model for the purpose of prediction, the
 size of the saved object might be substantially reduced by using
 functions from the [butcher](https://butcher.tidymodels.org) package.
 
+### Prediction types
+
+    parsnip:::get_from_env("rand_forest_predict") |>
+      dplyr::filter(engine == "randomForest") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 5 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 regression     raw
+    ## 3 classification class
+    ## 4 classification prob
+    ## 5 classification raw
+
 ### Examples
 
 The “Fitting and Predicting with parsnip” article contains

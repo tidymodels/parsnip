@@ -106,6 +106,20 @@ variance of one.
 
 The underlying model implementation does not allow for case weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("pls_predict") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 5 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 regression     raw
+    ## 3 classification class
+    ## 4 classification prob
+    ## 5 classification raw
+
 ### References
 
 - Rohart F and Gautier B and Singh A and Le Cao K-A (2017). “mixOmics:

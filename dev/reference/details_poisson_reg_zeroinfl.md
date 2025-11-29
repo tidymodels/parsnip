@@ -117,3 +117,15 @@ The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
 [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
 have arguments called `case_weights` that expect vectors of case
 weights.
+
+### Prediction types
+
+    parsnip:::get_from_env("poisson_reg_predict") |>
+      dplyr::filter(engine == "zeroinfl") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 2 x 2
+    ##   mode       type
+    ##   <chr>      <chr>
+    ## 1 regression numeric
+    ## 2 regression raw

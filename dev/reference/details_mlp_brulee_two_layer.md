@@ -149,6 +149,19 @@ variance of one.
 
 The underlying model implementation does not allow for case weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("mlp_predict") |>
+      dplyr::filter(engine == "brulee_two_layer") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 3 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 classification class
+    ## 3 classification prob
+
 ### References
 
 - Kuhn, M, and K Johnson. 2013. *Applied Predictive Modeling*. Springer.

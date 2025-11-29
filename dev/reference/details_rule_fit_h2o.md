@@ -106,6 +106,20 @@ formula method via
 [`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md), parsnip
 will convert factor columns to indicators.
 
+### Prediction types
+
+    parsnip:::get_from_env("rule_fit_predict") |>
+      dplyr::filter(engine == "h2o") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 4 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 regression     raw
+    ## 3 classification class
+    ## 4 classification prob
+
 ### Other details
 
 To use the h2o engine with tidymodels, please run `h2o::h2o.init()`

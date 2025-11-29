@@ -56,6 +56,19 @@ The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
 have arguments called `case_weights` that expect vectors of case
 weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("decision_tree_predict") |>
+      dplyr::filter(engine == "C5.0") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 3 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 classification class
+    ## 2 classification prob
+    ## 3 classification raw
+
 ### Saving fitted model objects
 
 This model object contains data that are not required to make

@@ -128,6 +128,19 @@ The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
 have arguments called `case_weights` that expect vectors of case
 weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("proportional_hazards_predict") |>
+      dplyr::filter(engine == "survival") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 3 x 2
+    ##   mode                type
+    ##   <chr>               <chr>
+    ## 1 censored regression time
+    ## 2 censored regression survival
+    ## 3 censored regression linear_pred
+
 ### References
 
 - Andersen P, Gill R. 1982. Cox’s regression model for counting

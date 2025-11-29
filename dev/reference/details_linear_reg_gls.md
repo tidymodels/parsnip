@@ -97,6 +97,18 @@ workflow. In this case, you can add the appropriate columns using
 
 The underlying model implementation does not allow for case weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("linear_reg_predict") |>
+      dplyr::filter(engine == "gls") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 2 x 2
+    ##   mode       type
+    ##   <chr>      <chr>
+    ## 1 regression numeric
+    ## 2 regression raw
+
 ### References
 
 - J Pinheiro, and D Bates. 2000. *Mixed-effects models in S and S-PLUS*.

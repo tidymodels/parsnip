@@ -76,6 +76,18 @@ If frequency weights are being used in your application, the
 [`glm_grouped()`](https://parsnip.tidymodels.org/dev/reference/glm_grouped.md)
 model (and corresponding engine) may be more appropriate.
 
+### Prediction types
+
+    parsnip:::get_from_env("poisson_reg_predict") |>
+      dplyr::filter(engine == "glm") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 2 x 2
+    ##   mode       type
+    ##   <chr>      <chr>
+    ## 1 regression numeric
+    ## 2 regression raw
+
 ### Saving fitted model objects
 
 This model object contains data that are not required to make

@@ -85,6 +85,18 @@ variance of one.
 
 The underlying model implementation does not allow for case weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("bag_mlp_predict") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 3 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 classification class
+    ## 3 classification prob
+
 ### References
 
 - Breiman L. 1996. “Bagging predictors”. Machine Learning. 24 (2):

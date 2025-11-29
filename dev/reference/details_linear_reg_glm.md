@@ -76,6 +76,19 @@ unit-weight observations. For a binomial GLM prior weights are used to
 give the number of trials when the response is the proportion of
 successes: they would rarely be used for a Poisson GLM.”
 
+### Prediction types
+
+    parsnip:::get_from_env("linear_reg_predict") |>
+      dplyr::filter(engine == "glm") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 3 x 2
+    ##   mode       type
+    ##   <chr>      <chr>
+    ## 1 regression numeric
+    ## 2 regression conf_int
+    ## 3 regression raw
+
 ### Saving fitted model objects
 
 This model object contains data that are not required to make

@@ -110,6 +110,23 @@ The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
 have arguments called `case_weights` that expect vectors of case
 weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("decision_tree_predict") |>
+      dplyr::filter(engine == "rpart") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 7 x 2
+    ##   mode                type
+    ##   <chr>               <chr>
+    ## 1 regression          numeric
+    ## 2 regression          raw
+    ## 3 classification      class
+    ## 4 classification      prob
+    ## 5 classification      raw
+    ## 6 censored regression time
+    ## # i 1 more row
+
 ### Other details
 
 Predictions of type `"time"` are predictions of the mean survival time.

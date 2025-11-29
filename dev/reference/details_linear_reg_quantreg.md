@@ -124,6 +124,17 @@ formula method via
 [`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md), parsnip
 will convert factor columns to indicators.
 
+### Prediction types
+
+    parsnip:::get_from_env("linear_reg_predict") |>
+      dplyr::filter(engine == "quantreg") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 1 x 2
+    ##   mode                type
+    ##   <chr>               <chr>
+    ## 1 quantile regression quantile
+
 ### Case weights
 
 This model can utilize case weights during model fitting. To use them,

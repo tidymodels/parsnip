@@ -134,6 +134,21 @@ The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
 have arguments called `case_weights` that expect vectors of case
 weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("boost_tree_predict") |>
+      dplyr::filter(engine == "xgboost") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 5 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 regression     raw
+    ## 3 classification class
+    ## 4 classification prob
+    ## 5 classification raw
+
 ### Sparse Data
 
 This model can utilize sparse data during model fitting and prediction.

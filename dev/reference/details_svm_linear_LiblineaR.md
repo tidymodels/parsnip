@@ -90,6 +90,20 @@ variance of one.
 
 The underlying model implementation does not allow for case weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("svm_linear_predict") |>
+      dplyr::filter(engine == "LiblineaR") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 4 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 regression     raw
+    ## 3 classification class
+    ## 4 classification raw
+
 ### Sparse Data
 
 This model can utilize sparse data during model fitting and prediction.

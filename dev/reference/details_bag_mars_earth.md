@@ -99,6 +99,18 @@ weights.
 Note that the `earth` package documentation has: “In the current
 implementation, *building models with weights can be slow*.”
 
+### Prediction types
+
+    parsnip:::get_from_env("bag_mars_predict") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 3 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 classification class
+    ## 3 classification prob
+
 ### References
 
 - Breiman, L. 1996. “Bagging predictors”. Machine Learning. 24 (2):

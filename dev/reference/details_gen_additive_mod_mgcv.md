@@ -133,6 +133,22 @@ The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
 have arguments called `case_weights` that expect vectors of case
 weights.
 
+### Prediction types
+
+    parsnip:::get_from_env("gen_additive_mod_predict") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 7 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 regression     conf_int
+    ## 3 regression     raw
+    ## 4 classification class
+    ## 5 classification prob
+    ## 6 classification raw
+    ## # i 1 more row
+
 ### Saving fitted model objects
 
 This model object contains data that are not required to make

@@ -67,6 +67,20 @@ call. For this type of model, the template of the fit calls are below:
     ## Model fit template:
     ## parsnip::nullmodel(x = missing_arg(), y = missing_arg())
 
+### Prediction types
+
+    parsnip:::get_from_env("null_model_predict") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 5 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 regression     numeric
+    ## 2 regression     raw
+    ## 3 classification class
+    ## 4 classification prob
+    ## 5 classification raw
+
 ## See also
 
 [`fit.model_spec()`](https://parsnip.tidymodels.org/dev/reference/fit.md)
