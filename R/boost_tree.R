@@ -271,6 +271,7 @@ xgb_train <- function(
   event_level = c("first", "second"),
   ...
 ) {
+  rlang::check_installed("xgboost")
   event_level <- rlang::arg_match(event_level, c("first", "second"))
   others <- list(...)
 
@@ -510,6 +511,7 @@ as_xgb_data <- function(
   event_level = "first",
   ...
 ) {
+  rlang::check_installed("xgboost")
   lvls <- levels(y)
   n <- nrow(x)
 
@@ -649,6 +651,7 @@ multi_predict._xgb.Booster <-
   }
 
 xgb_by_tree <- function(tree, object, new_data, type, ...) {
+  rlang::check_installed("xgboost")
   if (utils::packageVersion("xgboost") >= "2.0.0.0") {
     pred <- xgb_predict(
       object$fit,
