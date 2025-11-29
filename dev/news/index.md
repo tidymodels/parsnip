@@ -24,6 +24,9 @@
   [`survival_reg()`](https://parsnip.tidymodels.org/dev/reference/survival_reg.md)
   instead ([\#1206](https://github.com/tidymodels/parsnip/issues/1206)).
 
+- Enable parsnip to work with xgboost version \> 2.0.0.0.
+  ([\#1227](https://github.com/tidymodels/parsnip/issues/1227))
+
 ## parsnip 1.3.3
 
 CRAN release: 2025-08-31
