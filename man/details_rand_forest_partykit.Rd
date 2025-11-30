@@ -9,15 +9,15 @@ trees, each independent of the others. The final prediction uses all
 predictions from the individual trees and combines them.
 }
 \details{
-For this engine, there are multiple modes: regression, classification,
-and censored regression
+For this engine, there are multiple modes: censored regression,
+regression, and classification
 \subsection{Tuning Parameters}{
 
 This model has 3 tuning parameters:
 \itemize{
+\item \code{trees}: # Trees (type: integer, default: 500L)
 \item \code{min_n}: Minimal Node Size (type: integer, default: 20L)
 \item \code{mtry}: # Randomly Selected Predictors (type: integer, default: 5L)
-\item \code{trees}: # Trees (type: integer, default: 500L)
 }
 }
 
@@ -110,11 +110,11 @@ are not required for this model.
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 5 x 2
 ##   mode                type    
 ##   <chr>               <chr>   
-## 1 regression          numeric 
-## 2 classification      class   
-## 3 classification      prob    
-## 4 censored regression time    
-## 5 censored regression survival
+## 1 censored regression time    
+## 2 censored regression survival
+## 3 regression          numeric 
+## 4 classification      class   
+## 5 classification      prob
 }\if{html}{\out{</div>}}
 }
 

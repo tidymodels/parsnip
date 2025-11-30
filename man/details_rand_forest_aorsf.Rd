@@ -9,16 +9,16 @@ trees, each de-correlated from the others. The final prediction uses all
 predictions from the individual trees and combines them.
 }
 \details{
-For this engine, there are multiple modes: classification, regression,
-and censored regression
+For this engine, there are multiple modes: censored regression,
+classification, and regression
 \subsection{Tuning Parameters}{
 
 This model has 3 tuning parameters:
 \itemize{
-\item \code{mtry}: # Randomly Selected Predictors (type: integer, default:
-ceiling(sqrt(n_predictors)))
 \item \code{trees}: # Trees (type: integer, default: 500L)
 \item \code{min_n}: Minimal Node Size (type: integer, default: 5L)
+\item \code{mtry}: # Randomly Selected Predictors (type: integer, default:
+ceiling(sqrt(n_predictors)))
 }
 
 Additionally, this model has one engine-specific tuning parameter:
@@ -119,19 +119,20 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("rand_forest_predict") |>
   dplyr::filter(engine == "aorsf") |>
-  dplyr::select(mode, type)
+  dplyr::select(mode, type)|> 
+  print(n = Inf)
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 7 x 2
-##   mode                type   
-##   <chr>               <chr>  
-## 1 classification      class  
-## 2 classification      prob   
-## 3 classification      raw    
-## 4 regression          numeric
-## 5 regression          raw    
-## 6 censored regression time   
-## # i 1 more row
+##   mode                type    
+##   <chr>               <chr>   
+## 1 censored regression time    
+## 2 censored regression survival
+## 3 classification      class   
+## 4 classification      prob    
+## 5 classification      raw     
+## 6 regression          numeric 
+## 7 regression          raw
 }\if{html}{\out{</div>}}
 }
 
