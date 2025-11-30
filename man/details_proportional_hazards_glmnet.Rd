@@ -154,6 +154,23 @@ predictions. When saving the model for the purpose of prediction, the
 size of the saved object might be substantially reduced by using
 functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 }
+
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("proportional_hazards_predict") |>
+  dplyr::filter(engine == "glmnet") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 4 x 2
+##   mode                type       
+##   <chr>               <chr>      
+## 1 censored regression linear_pred
+## 2 censored regression survival   
+## 3 censored regression time       
+## 4 censored regression raw
+}\if{html}{\out{</div>}}
+}
 }
 \section{References}{
 \itemize{

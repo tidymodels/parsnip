@@ -9,7 +9,10 @@ ensemble. Each tree depends on the results of previous trees. All trees in
 the ensemble are combined to produce a final prediction.
 }
 \details{
-For this engine, there are multiple modes: classification and regression
+For this engine, there are multiple modes: classification and
+regression. Note that in late 2025, a new version of xgboost was
+released with differences in its interface and model objects. This
+version of parsnip should work with either version.
 \subsection{Tuning Parameters}{
 
 This model has 8 tuning parameters:

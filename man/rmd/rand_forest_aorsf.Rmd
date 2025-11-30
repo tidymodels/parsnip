@@ -96,7 +96,8 @@ rand_forest() |>
 
 parsnip:::get_from_env("rand_forest_predict") |>
   dplyr::filter(engine == "aorsf") |>
-  dplyr::select(mode, type)
+  dplyr::select(mode, type)|> 
+  print(n = Inf)
 
 ```
 

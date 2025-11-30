@@ -160,7 +160,8 @@ within \verb{[0, 1]}.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("boost_tree_predict") |>
   dplyr::filter(stringr::str_starts(engine, "h2o")) |>
-  dplyr::select(mode, type)
+  dplyr::select(mode, type) |> 
+  print(n = Inf)
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 8 x 2
@@ -172,7 +173,8 @@ within \verb{[0, 1]}.
 ## 4 classification prob   
 ## 5 regression     numeric
 ## 6 regression     raw    
-## # i 2 more rows
+## 7 classification class  
+## 8 classification prob
 }\if{html}{\out{</div>}}
 }
 

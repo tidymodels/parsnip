@@ -159,7 +159,7 @@ rf_with_seed |>
 
 Note that the call objects show `num.trees = ~2000`. The tilde is the consequence of `parsnip` using [quosures](https://adv-r.hadley.nz/evaluation.html#quosures) to process the model specification's arguments. 
 
-Normally, when a function is executed, the function's arguments are immediately evaluated. In the case of parsnip, the model specification's arguments are _not_; the [expression is captured](https://www.tidyverse.org/blog/2019/04/parsnip-internals/) along with the environment where it should be evaluated. That is what a quosure does. 
+Normally, when a function is executed, the function's arguments are immediately evaluated. In the case of parsnip, the model specification's arguments are _not_; the [expression is captured](https://tidyverse.org/blog/2019/04/parsnip-internals/) along with the environment where it should be evaluated. That is what a quosure does. 
 
 parsnip uses these expressions to make a model fit call that is evaluated. The tilde in the call above reflects that the argument was captured using a quosure. 
 
