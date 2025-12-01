@@ -67,11 +67,10 @@ jobs:
         with:
           python-version: 3.11
 
-      - name: Install TensorFlow
+      - name: Install TensorFlow/Keras
         run: |
-          reticulate::virtualenv_create('r-reticulate', python='3.11')
-          reticulate::use_virtualenv('r-reticulate')
-          tensorflow::install_tensorflow(version='2.16')
+          install.packages(c("keras3"))
+          keras3::install_keras()
         shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
