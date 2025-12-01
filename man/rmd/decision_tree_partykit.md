@@ -1,7 +1,7 @@
 
 
 
-For this engine, there are multiple modes: regression, classification, and censored regression
+For this engine, there are multiple modes: censored regression, regression, and classification
 
 ## Tuning Parameters
 
@@ -9,9 +9,9 @@ For this engine, there are multiple modes: regression, classification, and censo
 
 This model has 2 tuning parameters:
 
-- `min_n`: Minimal Node Size (type: integer, default: 20L)
-
 - `tree_depth`: Tree Depth (type: integer, default: see below)
+
+- `min_n`: Minimal Node Size (type: integer, default: 20L)
 
 The `tree_depth` parameter defaults to `0` which means no restrictions are applied to tree depth.
 
@@ -128,11 +128,11 @@ parsnip:::get_from_env("decision_tree_predict") |>
 ## # A tibble: 5 x 2
 ##   mode                type    
 ##   <chr>               <chr>   
-## 1 regression          numeric 
-## 2 classification      class   
-## 3 classification      prob    
-## 4 censored regression time    
-## 5 censored regression survival
+## 1 censored regression time    
+## 2 censored regression survival
+## 3 regression          numeric 
+## 4 classification      class   
+## 5 classification      prob
 ```
 
 ## Other details

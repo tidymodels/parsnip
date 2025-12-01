@@ -119,7 +119,8 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("rand_forest_predict") |>
   dplyr::filter(engine == "aorsf") |>
-  dplyr::select(mode, type)
+  dplyr::select(mode, type)|> 
+  print(n = Inf)
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 7 x 2
@@ -131,7 +132,7 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 ## 4 classification      prob    
 ## 5 classification      raw     
 ## 6 regression          numeric 
-## # i 1 more row
+## 7 regression          raw
 }\if{html}{\out{</div>}}
 }
 

@@ -111,19 +111,23 @@ The underlying model implementation does not allow for case weights.
 \subsection{Prediction types}{
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("svm_rbf_predict") |>
-  dplyr::select(mode, type)
+  dplyr::select(mode, type) |> 
+  print(n = Inf)
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 10 x 2
-##   mode           type   
-##   <chr>          <chr>  
-## 1 regression     numeric
-## 2 regression     raw    
-## 3 classification class  
-## 4 classification prob   
-## 5 classification raw    
-## 6 regression     numeric
-## # i 4 more rows
+##    mode           type   
+##    <chr>          <chr>  
+##  1 regression     numeric
+##  2 regression     raw    
+##  3 classification class  
+##  4 classification prob   
+##  5 classification raw    
+##  6 regression     numeric
+##  7 regression     raw    
+##  8 classification class  
+##  9 classification prob   
+## 10 classification raw
 }\if{html}{\out{</div>}}
 }
 

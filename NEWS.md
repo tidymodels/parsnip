@@ -1,4 +1,4 @@
-# parsnip (development version)
+# parsnip 1.4.0
 
 * Fixes issue with running predictions for Decision Trees in Spark (#1309)
 

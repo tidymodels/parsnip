@@ -124,7 +124,8 @@ indicators if the user does not create them first.
 \subsection{Prediction types}{
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("bart_predict") |>
-  dplyr::select(mode, type)
+  dplyr::select(mode, type) |> 
+  print(n = Inf)
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 9 x 2
@@ -136,7 +137,9 @@ indicators if the user does not create them first.
 ## 4 regression     pred_int
 ## 5 classification class   
 ## 6 classification prob    
-## # i 3 more rows
+## 7 classification conf_int
+## 8 classification pred_int
+## 9 classification raw
 }\if{html}{\out{</div>}}
 }
 
