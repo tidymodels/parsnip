@@ -6,6 +6,7 @@ classification, regression, and censored regression models.
 There are different ways to fit this model, and the method of estimation is  chosen by setting the model engine. The engine-specific pages  for this model are listed  below.
 ranger¹
 aorsf²
+grf
 h2o²
 partykit²
 randomForest
@@ -19,13 +20,14 @@ classification, regression, and censored regression models.
 There are different ways to fit this model, and the method of estimation is  chosen by setting the model engine. The engine-specific pages  for this model are listed  below.
 ranger¹
 aorsf²
+grf
 h2o²
 partykit²
 randomForest
 spark
 ¹ The default engine. ² Requires a parsnip extension package for censored regression, classification, and regression.
 More information on how parsnip is used for modeling is at
-https://www.tidymodels.org/."><meta property="og:image" content="https://parsnip.tidymodels.org/logo.png"><script defer data-domain="parsnip.tidymodels.org,all.tidymodels.org" src="https://plausible.io/js/plausible.js"></script></head><body>
+https://www.tidymodels.org/."><meta property="og:image" content="https://parsnip.tidymodels.org/logo.png"><script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-hide-below="1200" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="parsnip.tidymodels.org,all.tidymodels.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
 
 
@@ -33,7 +35,7 @@ https://www.tidymodels.org/."><meta property="og:image" content="https://parsnip
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,6 +80,7 @@ predictions from the individual trees and combines them. This function can fit
 classification, regression, and censored regression models.</p>
 <p>There are different ways to fit this model, and the method of estimation is  chosen by setting the model <em>engine</em>. The engine-specific pages  for this model are listed  below.</p><ul><li><p><code><a href="details_rand_forest_ranger.html">ranger</a>¹</code></p></li>
 <li><p><code><a href="details_rand_forest_aorsf.html">aorsf</a>²</code></p></li>
+<li><p><code><a href="details_rand_forest_grf.html">grf</a></code></p></li>
 <li><p><code><a href="details_rand_forest_h2o.html">h2o</a>²</code></p></li>
 <li><p><code><a href="details_rand_forest_partykit.html">partykit</a>²</code></p></li>
 <li><p><code><a href="details_rand_forest_randomForest.html">randomForest</a></code></p></li>
@@ -148,21 +151,24 @@ programmatically, use the <a href="https://rlang.r-lib.org/reference/injection-o
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="fit.html">fit()</a></code>, <code><a href="set_engine.html">set_engine()</a></code>, <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>, <code><a href="details_rand_forest_ranger.html">ranger engine details</a></code>, <code><a href="details_rand_forest_aorsf.html">aorsf engine details</a></code>, <code><a href="details_rand_forest_h2o.html">h2o engine details</a></code>, <code><a href="details_rand_forest_partykit.html">partykit engine details</a></code>, <code><a href="details_rand_forest_randomForest.html">randomForest engine details</a></code>, <code><a href="details_rand_forest_spark.html">spark engine details</a></code></p></div>
+    <div class="dont-index"><p><code><a href="fit.html">fit()</a></code>, <code><a href="set_engine.html">set_engine()</a></code>, <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>, <code><a href="details_rand_forest_ranger.html">ranger engine details</a></code>, <code><a href="details_rand_forest_aorsf.html">aorsf engine details</a></code>, <code><a href="details_rand_forest_grf.html">grf engine details</a></code>, <code><a href="details_rand_forest_h2o.html">h2o engine details</a></code>, <code><a href="details_rand_forest_partykit.html">partykit engine details</a></code>, <code><a href="details_rand_forest_randomForest.html">randomForest engine details</a></code>, <code><a href="details_rand_forest_spark.html">spark engine details</a></code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="show_engines.html">show_engines</a></span><span class="op">(</span><span class="st">"rand_forest"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   engine       mode          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ranger       classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> ranger       regression    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> randomForest classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> randomForest regression    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> spark        classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> spark        regression    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   engine       mode               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ranger       classification     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> ranger       regression         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> randomForest classification     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> randomForest regression         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> spark        classification     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> spark        regression         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> grf          classification     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> grf          regression         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span> grf          quantile regression</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">rand_forest</span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"classification"</span>, trees <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Random Forest Model Specification (classification)</span>
@@ -185,7 +191,7 @@ programmatically, use the <a href="https://rlang.r-lib.org/reference/injection-o
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer></body></html>

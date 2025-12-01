@@ -1,0 +1,92 @@
+# Logistic regression via brulee
+
+[`brulee::brulee_logistic_reg()`](https://brulee.tidymodels.org/reference/brulee_logistic_reg.html)
+fits a generalized linear model for binary outcomes. A linear
+combination of the predictors is used to model the log odds of an event.
+
+## Details
+
+For this engine, there is a single mode: classification
+
+### Tuning Parameters
+
+This model has 2 tuning parameter:
+
+- `penalty`: Amount of Regularization (type: double, default: 0.001)
+
+- `mixture`: Proportion of Lasso Penalty (type: double, default: 0.0)
+
+The use of the L1 penalty (a.k.a. the lasso penalty) does *not* force
+parameters to be strictly zero (as it does in packages such as glmnet).
+The zeroing out of parameters is a specific feature the optimization
+method used in those packages.
+
+Other engine arguments of interest:
+
+- `optimizer()`: The optimization method. See
+  [`brulee::brulee_linear_reg()`](https://brulee.tidymodels.org/reference/brulee_linear_reg.html).
+
+- `epochs()`: An integer for the number of passes through the training
+  set.
+
+- `lean_rate()`: A number used to accelerate the gradient decsent
+  process.
+
+- `momentum()`: A number used to use historical gradient information
+  during optimization (`optimizer = "SGD"` only).
+
+- `batch_size()`: An integer for the number of training set points in
+  each batch.
+
+- `stop_iter()`: A non-negative integer for how many iterations with no
+  improvement before stopping. (default: 5L).
+
+- `class_weights()`: Numeric class weights. See
+  [`brulee::brulee_logistic_reg()`](https://brulee.tidymodels.org/reference/brulee_logistic_reg.html).
+
+### Translation from parsnip to the original package (classification)
+
+    logistic_reg(penalty = double(1)) |>
+      set_engine("brulee") |>
+      translate()
+
+    ## Logistic Regression Model Specification (classification)
+    ##
+    ## Main Arguments:
+    ##   penalty = double(1)
+    ##
+    ## Computational engine: brulee
+    ##
+    ## Model fit template:
+    ## brulee::brulee_logistic_reg(x = missing_arg(), y = missing_arg(),
+    ##     penalty = double(1))
+
+Factor/categorical predictors need to be converted to numeric values
+(e.g., dummy or indicator variables) for this engine. When using the
+formula method via
+[`fit()`](https://parsnip.tidymodels.org/reference/fit.md), parsnip will
+convert factor columns to indicators.
+
+Predictors should have the same scale. One way to achieve this is to
+center and scale each so that each predictor has mean zero and a
+variance of one.
+
+### Case weights
+
+The underlying model implementation does not allow for case weights.
+
+### Prediction types
+
+    parsnip:::get_from_env("logistic_reg_predict") |>
+      dplyr::filter(engine == "brulee") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 2 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 classification class
+    ## 2 classification prob
+
+### References
+
+- Kuhn, M, and K Johnson. 2013. *Applied Predictive Modeling*. Springer.

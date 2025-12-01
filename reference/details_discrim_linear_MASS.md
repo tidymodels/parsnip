@@ -1,0 +1,65 @@
+# Linear discriminant analysis via MASS
+
+[`MASS::lda()`](https://rdrr.io/pkg/MASS/man/lda.html) fits a model that
+estimates a multivariate distribution for the predictors separately for
+the data in each class (Gaussian with a common covariance matrix).
+Bayes' theorem is used to compute the probability of each class, given
+the predictor values.
+
+## Details
+
+For this engine, there is a single mode: classification
+
+### Tuning Parameters
+
+This engine has no tuning parameters.
+
+### Translation from parsnip to the original package
+
+The **discrim** extension package is required to fit this model.
+
+    library(discrim)
+
+    discrim_linear() |>
+      set_engine("MASS") |>
+      translate()
+
+    ## Linear Discriminant Model Specification (classification)
+    ##
+    ## Computational engine: MASS
+    ##
+    ## Model fit template:
+    ## MASS::lda(formula = missing_arg(), data = missing_arg())
+
+### Preprocessing requirements
+
+Factor/categorical predictors need to be converted to numeric values
+(e.g., dummy or indicator variables) for this engine. When using the
+formula method via
+[`fit()`](https://parsnip.tidymodels.org/reference/fit.md), parsnip will
+convert factor columns to indicators.
+
+Variance calculations are used in these computations so *zero-variance*
+predictors (i.e., with a single unique value) should be eliminated
+before fitting the model.
+
+### Case weights
+
+The underlying model implementation does not allow for case weights.
+
+### Prediction types
+
+    parsnip:::get_from_env("discrim_linear_predict") |>
+      dplyr::filter(engine == "MASS") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 3 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 classification class
+    ## 2 classification prob
+    ## 3 classification raw
+
+### References
+
+- Kuhn, M, and K Johnson. 2013. *Applied Predictive Modeling*. Springer.

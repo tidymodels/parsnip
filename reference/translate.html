@@ -3,7 +3,7 @@
 object that is specific to a particular engine (e.g. R package).
 It translates generic parameters to their counterparts."><meta property="og:description" content="translate() will translate a model specification into a code
 object that is specific to a particular engine (e.g. R package).
-It translates generic parameters to their counterparts."><meta property="og:image" content="https://parsnip.tidymodels.org/logo.png"><script defer data-domain="parsnip.tidymodels.org,all.tidymodels.org" src="https://plausible.io/js/plausible.js"></script></head><body>
+It translates generic parameters to their counterparts."><meta property="og:image" content="https://parsnip.tidymodels.org/logo.png"><script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-hide-below="1200" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="parsnip.tidymodels.org,all.tidymodels.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
 
 
@@ -11,7 +11,7 @@ It translates generic parameters to their counterparts."><meta property="og:imag
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,7 +102,7 @@ to modify the model specification.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lm_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="linear_reg.html">linear_reg</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># `penalty` is tranlsated to `lambda`</span></span></span>
+<span class="r-in"><span><span class="co"># `penalty` is translated to `lambda`</span></span></span>
 <span class="r-in"><span><span class="fu">translate</span><span class="op">(</span><span class="va">lm_spec</span>, engine <span class="op">=</span> <span class="st">"glmnet"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Model Specification (regression)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -127,7 +127,7 @@ to modify the model specification.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model fit template:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> stats::lm(formula = missing_arg(), data = missing_arg(), weights = missing_arg())</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># `penalty` is tranlsated to `reg_param`</span></span></span>
+<span class="r-in"><span><span class="co"># `penalty` is translated to `reg_param`</span></span></span>
 <span class="r-in"><span><span class="fu">translate</span><span class="op">(</span><span class="va">lm_spec</span>, engine <span class="op">=</span> <span class="st">"spark"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Linear Regression Model Specification (regression)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -166,7 +166,7 @@ to modify the model specification.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer></body></html>

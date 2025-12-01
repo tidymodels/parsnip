@@ -20,7 +20,7 @@ and avoid having to fit any of the submodels.
 and avoid having to fit any of the submodels.
 ">
 <meta property="og:image" content="https://parsnip.tidymodels.org/logo.png">
-<script defer data-domain="parsnip.tidymodels.org,all.tidymodels.org" src="https://plausible.io/js/plausible.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-hide-below="1200" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="parsnip.tidymodels.org,all.tidymodels.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
@@ -30,7 +30,7 @@ and avoid having to fit any of the submodels.
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -107,14 +107,14 @@ that can do this. It’s current methods are:</p>
 illustrate:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## ── <span style="font-weight: bold;">Attaching packages</span> ──────────────────────── tidymodels 1.3.0.<span style="color: #BB0000;">9000</span> ──</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">broom       </span> 1.0.9     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">rsample     </span> 1.3.1</span></span>
-<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dials       </span> 1.4.1     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tibble      </span> 3.3.0</span></span>
-<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr       </span> 1.1.4     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr       </span> 1.3.1</span></span>
-<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">infer       </span> 1.0.9     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tune        </span> 1.3.0</span></span>
-<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">modeldata   </span> 1.5.1     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflows   </span> 1.3.0</span></span>
-<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr       </span> 1.1.0     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflowsets</span> 1.1.1</span></span>
-<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">recipes     </span> 1.3.1     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">yardstick   </span> 1.3.2</span></span></code></pre>
+<pre><code><span><span class="co">## ── <span style="font-weight: bold;">Attaching packages</span> ──────────────────────── tidymodels 1.4.1.<span style="color: #BB0000;">9000</span> ──</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">broom       </span> 1.0.10     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">rsample     </span> 1.3.1 </span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dials       </span> 1.4.2      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tailor      </span> 0.1.0 </span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr       </span> 1.1.4      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr       </span> 1.3.1 </span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">infer       </span> 1.0.9      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tune        </span> 2.0.1 </span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">modeldata   </span> 1.5.1      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflows   </span> 1.3.0 </span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr       </span> 1.2.0      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflowsets</span> 1.1.1 </span></span>
+<span><span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">recipes     </span> 1.3.1      <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">yardstick   </span> 1.3.2</span></span></code></pre>
 <pre><code><span><span class="co">## ── <span style="font-weight: bold;">Conflicts</span> ──────────────────────────────── tidymodels_conflicts() ──</span></span>
 <span><span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">purrr</span>::<span style="color: #00BB00;">discard()</span> masks <span style="color: #0000BB;">scales</span>::discard()</span></span>
 <span><span class="co">## <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span>  masks <span style="color: #0000BB;">stats</span>::filter()</span></span>
@@ -227,7 +227,7 @@ track the predictions by test sample as well as the actual classes:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_step</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Submodels_files/figure-html/prob-plot-1.png" alt="Two lines tracing the predicted probabilty of no attrition for two observation over the number of trees ranging from 0 to 100. For both observations, the true value of attrition is 'no'. The predicted probability is larger than 0.5 for both observations across all numbers of trees and does not change much between 15 and 100 trees." width="768"></p>
+<p><img src="Submodels_files/figure-html/prob-plot-1.png" class="r-plt" alt="Two lines tracing the predicted probabilty of no attrition for two observation over the number of trees ranging from 0 to 100. For both observations, the true value of attrition is 'no'. The predicted probability is larger than 0.5 for both observations across all numbers of trees and does not change much between 15 and 100 trees." width="768"></p>
 <p>What does performance look like over trees (using the area under the
 ROC curve)?</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -236,7 +236,7 @@ ROC curve)?</p>
 <span>  <span class="fu">roc_auc</span><span class="op">(</span>truth <span class="op">=</span> <span class="va">Attrition</span>, <span class="va">.pred_No</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">trees</span>, y <span class="op">=</span> <span class="va">.estimate</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_step</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Submodels_files/figure-html/auc-plot-1.png" alt="A line plot of the AUC ROC for a number of trees varying between 1 and 100. The AUC is largest for higher number of trees but the gains get smaller for 50+ trees with the maximum being reached around 70 trees." width="768"></p>
+<p><img src="Submodels_files/figure-html/auc-plot-1.png" class="r-plt" alt="A line plot of the AUC ROC for a number of trees varying between 1 and 100. The AUC is largest for higher number of trees but the gains get smaller for 50+ trees with the maximum being reached around 70 trees." width="768"></p>
   </main>
 </div>
 
@@ -249,7 +249,7 @@ ROC curve)?</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer>
