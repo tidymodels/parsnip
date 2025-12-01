@@ -2,6 +2,10 @@
 
 ## parsnip (development version)
 
+## parsnip 1.4.0
+
+CRAN release: 2025-12-01
+
 - Fixes issue with running predictions for Decision Trees in Spark
   ([\#1309](https://github.com/tidymodels/parsnip/issues/1309))
 

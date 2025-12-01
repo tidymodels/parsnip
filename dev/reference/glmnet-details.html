@@ -9,7 +9,7 @@ models. These notes reflect common questions about this particular model."><meta
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.3.3.9001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.4.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -151,12 +151,12 @@ by <code>glmnet()</code>. See the section below about setting the path.</p>
 
 
 <p>Regardless of what value you use for <code>penalty</code>, the full coefficient
-path is used when <code><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html" class="external-link">glmnet::glmnet()</a></code> is called.</p>
+path is used when <code><a href="https://glmnet.stanford.edu/reference/glmnet.html" class="external-link">glmnet::glmnet()</a></code> is called.</p>
 <p>What if you want to manually set this path? Normally, you would pass a
-vector to <code>lambda</code> in <code><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html" class="external-link">glmnet::glmnet()</a></code>.</p>
+vector to <code>lambda</code> in <code><a href="https://glmnet.stanford.edu/reference/glmnet.html" class="external-link">glmnet::glmnet()</a></code>.</p>
 <p>parsnip models that use a <code>glmnet</code> engine can use a special optional
 argument called <code>path_values</code>. This is <em>not</em> an argument to
-<code><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html" class="external-link">glmnet::glmnet()</a></code>; it is used by parsnip to
+<code><a href="https://glmnet.stanford.edu/reference/glmnet.html" class="external-link">glmnet::glmnet()</a></code>; it is used by parsnip to
 independently set the path.</p>
 <p>For example, we have found that if you want a fully ridge regression
 model (i.e., <code>mixture = 0</code>), you can get the <em>wrong coefficients</em> if the

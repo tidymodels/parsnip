@@ -2,7 +2,8 @@
 
 ## Authors
 
-- **[Max Kuhn](https://github.com/topepo)**. Author, maintainer.
+- **[Max Kuhn](https://github.com/topepo)**. Maintainer, author.
+  [](https://orcid.org/0000-0003-2402-136X)
 
 - **[Davis Vaughan](https://github.com/DavisVaughan)**. Author.
 
@@ -18,13 +19,13 @@ Source:
 [`DESCRIPTION`](https://github.com/tidymodels/parsnip/blob/main/DESCRIPTION)
 
 Kuhn M, Vaughan D (2025). *parsnip: A Common API to Modeling and
-Analysis Functions*. R package version 1.3.3.9001,
+Analysis Functions*. R package version 1.4.0.9000,
 <https://github.com/tidymodels/parsnip>.
 
     @Manual{,
       title = {parsnip: A Common API to Modeling and Analysis Functions},
       author = {Max Kuhn and Davis Vaughan},
       year = {2025},
-      note = {R package version 1.3.3.9001},
+      note = {R package version 1.4.0.9000},
       url = {https://github.com/tidymodels/parsnip},
     }

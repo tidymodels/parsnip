@@ -191,8 +191,8 @@ the model specification’s arguments.
 Normally, when a function is executed, the function’s arguments are
 immediately evaluated. In the case of parsnip, the model specification’s
 arguments are *not*; the [expression is
-captured](https://www.tidyverse.org/blog/2019/04/parsnip-internals/)
-along with the environment where it should be evaluated. That is what a
+captured](https://tidyverse.org/blog/2019/04/parsnip-internals/) along
+with the environment where it should be evaluated. That is what a
 quosure does.
 
 parsnip uses these expressions to make a model fit call that is

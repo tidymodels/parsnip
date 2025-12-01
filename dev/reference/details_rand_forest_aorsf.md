@@ -108,7 +108,8 @@ weights.
 
     parsnip:::get_from_env("rand_forest_predict") |>
       dplyr::filter(engine == "aorsf") |>
-      dplyr::select(mode, type)
+      dplyr::select(mode, type)|>
+      print(n = Inf)
 
     ## # A tibble: 7 x 2
     ##   mode                type
@@ -119,7 +120,7 @@ weights.
     ## 4 classification      prob
     ## 5 classification      raw
     ## 6 regression          numeric
-    ## # i 1 more row
+    ## 7 regression          raw
 
 ### Other details
 

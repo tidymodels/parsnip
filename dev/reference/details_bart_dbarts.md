@@ -124,7 +124,8 @@ first.
 ### Prediction types
 
     parsnip:::get_from_env("bart_predict") |>
-      dplyr::select(mode, type)
+      dplyr::select(mode, type) |>
+      print(n = Inf)
 
     ## # A tibble: 9 x 2
     ##   mode           type
@@ -135,7 +136,9 @@ first.
     ## 4 regression     pred_int
     ## 5 classification class
     ## 6 classification prob
-    ## # i 3 more rows
+    ## 7 classification conf_int
+    ## 8 classification pred_int
+    ## 9 classification raw
 
 ### References
 
