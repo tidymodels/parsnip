@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* Fixed bug where xgboost mdoels would fail to predict when `trees` matched number of trees in model. (#1316)
+
 # parsnip 1.4.0
 
 * Fixes issue with running predictions for Decision Trees in Spark (#1309)

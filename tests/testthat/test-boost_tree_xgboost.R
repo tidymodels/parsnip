@@ -337,6 +337,30 @@ test_that('submodel prediction', {
   )
 })
 
+test_that("submodel prediction doesn't error if trees match number of trees (#1316)", {
+  skip_if_not_installed("xgboost")
+  skip_on_cran()
+
+  ctrl$verbosity <- 0L
+
+  reg_fit <-
+    boost_tree(trees = 20, mode = "regression") |>
+    set_engine("xgboost") |>
+    fit(mpg ~ ., data = mtcars[-(1:4), ])
+
+  x <- xgboost::xgb.DMatrix(as.matrix(mtcars[1:4, -1]))
+
+  pruned_pred <- predict(
+    extract_fit_engine(reg_fit),
+    x,
+    iterationrange = c(1, 20)
+  )
+
+  mp_res <- multi_predict(reg_fit, new_data = mtcars[1:4, -1], trees = 20)
+  mp_res <- do.call("rbind", mp_res$.pred)
+  expect_equal(mp_res[[".pred"]], pruned_pred)
+})
+
 # ------------------------------------------------------------------------------
 
 test_that('validation sets', {
