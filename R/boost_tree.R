@@ -665,7 +665,7 @@ xgb_by_tree <- function(tree, object, new_data, type, ...) {
     pred <- xgb_predict(
       object$fit,
       new_data = new_data,
-      iterationrange = c(1, tree + 1),
+      iterationrange = c(1, min(object$fit$niter, tree + 1)),
       ntreelimit = NULL
     )
   }
