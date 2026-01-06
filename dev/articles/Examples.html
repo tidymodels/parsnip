@@ -121,10 +121,10 @@ last week will be predicted after the model is fit.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## ── <span style="font-weight: bold;">Attaching packages</span> ──────────────────────── tidymodels 1.4.1.<span style="color: #BB0000;">9000</span> ──</span></span></code></pre>
-<pre><code><span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">broom       </span> 1.0.10         <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">rsample     </span> 1.3.1     </span></span>
+<pre><code><span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">broom       </span> 1.0.11         <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">rsample     </span> 1.3.1     </span></span>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dials       </span> 1.4.2          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tailor      </span> 0.1.0     </span></span>
-<span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr       </span> 1.1.4          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr       </span> 1.3.1     </span></span>
-<span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">infer       </span> 1.0.9          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tune        </span> 2.0.1     </span></span>
+<span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr       </span> 1.1.4          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr       </span> 1.3.2     </span></span>
+<span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">infer       </span> 1.1.0          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tune        </span> 2.0.1     </span></span>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">modeldata   </span> 1.5.1          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflows   </span> 1.3.0     </span></span>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">parsnip     </span> 1.4.0.<span style="color: #BB0000;">9000</span>     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">workflowsets</span> 1.1.1     </span></span>
 <span>  <span class="co">## <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr       </span> 1.2.0          <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">yardstick   </span> 1.3.2     </span></span>
@@ -281,42 +281,36 @@ last week will be predicted after the model is fit.</p>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## ##### xgb.Booster</span></span>
-<span>  <span class="co">## raw: 51.4 Kb </span></span>
 <span>  <span class="co">## call:</span></span>
 <span>  <span class="co">##   xgboost::xgb.train(params = list(eta = 0.3, max_depth = 6, gamma = 0, </span></span>
 <span>  <span class="co">##     colsample_bytree = 1, colsample_bynode = 1, min_child_weight = 1, </span></span>
-<span>  <span class="co">##     subsample = 1), data = x$data, nrounds = 15, watchlist = x$watchlist, </span></span>
-<span>  <span class="co">##     verbose = 0, nthread = 1, objective = "reg:squarederror")</span></span>
-<span>  <span class="co">## params (as set within xgb.train):</span></span>
-<span>  <span class="co">##   eta = "0.3", max_depth = "6", gamma = "0", colsample_bytree = "1", colsample_bynode = "1", min_child_weight = "1", subsample = "1", nthread = "1", objective = "reg:squarederror", validate_parameters = "TRUE"</span></span>
-<span>  <span class="co">## xgb.attributes:</span></span>
-<span>  <span class="co">##   niter</span></span>
-<span>  <span class="co">## callbacks:</span></span>
-<span>  <span class="co">##   cb.evaluation.log()</span></span>
+<span>  <span class="co">##     subsample = 1, nthread = 1, objective = "reg:squarederror"), </span></span>
+<span>  <span class="co">##     data = x$data, nrounds = 15, evals = x$watchlist, verbose = 0)</span></span>
 <span>  <span class="co">## # of features: 2 </span></span>
-<span>  <span class="co">## niter: 15</span></span>
-<span>  <span class="co">## nfeatures : 2 </span></span>
+<span>  <span class="co">## # of rounds:  15 </span></span>
+<span>  <span class="co">## callbacks:</span></span>
+<span>  <span class="co">##    evaluation_log </span></span>
 <span>  <span class="co">## evaluation_log:</span></span>
 <span>  <span class="co">##   iter training_rmse</span></span>
-<span>  <span class="co">##  &lt;num&gt;         &lt;num&gt;</span></span>
-<span>  <span class="co">##      1     10.481475</span></span>
-<span>  <span class="co">##      2      7.620929</span></span>
+<span>  <span class="co">##  &lt;int&gt;         &lt;num&gt;</span></span>
+<span>  <span class="co">##      1      5.039503</span></span>
+<span>  <span class="co">##      2      4.080534</span></span>
 <span>  <span class="co">##    ---           ---</span></span>
-<span>  <span class="co">##     14      2.551943</span></span>
-<span>  <span class="co">##     15      2.531085</span></span></code></pre>
+<span>  <span class="co">##     14      2.670995</span></span>
+<span>  <span class="co">##     15      2.658350</span></span></code></pre>
 <p>The holdout data can be predicted:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">bt_reg_fit</span>, <span class="va">Chicago_test</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 7 × 1</span></span></span>
 <span>  <span class="co">##   .pred</span></span>
 <span>  <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">1</span> 20.6 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">2</span> 20.6 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">3</span> 20.2 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.6 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">5</span> 19.3 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.26</span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  5.92</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;">1</span> 20.5 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">2</span> 20.7 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">3</span> 20.7 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">4</span> 20.7 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">5</span> 19.4 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">6</span>  7.28</span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">7</span>  6.63</span></span></code></pre>
 <h3>
 Classification Example (<code>xgboost</code>)
 </h3>
@@ -351,29 +345,23 @@ Both predictors are in the same units.</p>
 <pre><code><span>  <span class="co">## parsnip model object</span></span>
 <span>  <span class="co">## </span></span>
 <span>  <span class="co">## ##### xgb.Booster</span></span>
-<span>  <span class="co">## raw: 40.8 Kb </span></span>
 <span>  <span class="co">## call:</span></span>
 <span>  <span class="co">##   xgboost::xgb.train(params = list(eta = 0.3, max_depth = 6, gamma = 0, </span></span>
 <span>  <span class="co">##     colsample_bytree = 1, colsample_bynode = 1, min_child_weight = 1, </span></span>
-<span>  <span class="co">##     subsample = 1), data = x$data, nrounds = 15, watchlist = x$watchlist, </span></span>
-<span>  <span class="co">##     verbose = 0, nthread = 1, objective = "binary:logistic")</span></span>
-<span>  <span class="co">## params (as set within xgb.train):</span></span>
-<span>  <span class="co">##   eta = "0.3", max_depth = "6", gamma = "0", colsample_bytree = "1", colsample_bynode = "1", min_child_weight = "1", subsample = "1", nthread = "1", objective = "binary:logistic", validate_parameters = "TRUE"</span></span>
-<span>  <span class="co">## xgb.attributes:</span></span>
-<span>  <span class="co">##   niter</span></span>
-<span>  <span class="co">## callbacks:</span></span>
-<span>  <span class="co">##   cb.evaluation.log()</span></span>
+<span>  <span class="co">##     subsample = 1, nthread = 1, objective = "binary:logistic"), </span></span>
+<span>  <span class="co">##     data = x$data, nrounds = 15, evals = x$watchlist, verbose = 0)</span></span>
 <span>  <span class="co">## # of features: 2 </span></span>
-<span>  <span class="co">## niter: 15</span></span>
-<span>  <span class="co">## nfeatures : 2 </span></span>
+<span>  <span class="co">## # of rounds:  15 </span></span>
+<span>  <span class="co">## callbacks:</span></span>
+<span>  <span class="co">##    evaluation_log </span></span>
 <span>  <span class="co">## evaluation_log:</span></span>
 <span>  <span class="co">##   iter training_logloss</span></span>
-<span>  <span class="co">##  &lt;num&gt;            &lt;num&gt;</span></span>
-<span>  <span class="co">##      1        0.5524619</span></span>
-<span>  <span class="co">##      2        0.4730697</span></span>
+<span>  <span class="co">##  &lt;int&gt;            &lt;num&gt;</span></span>
+<span>  <span class="co">##      1        0.5506979</span></span>
+<span>  <span class="co">##      2        0.4714366</span></span>
 <span>  <span class="co">##    ---              ---</span></span>
-<span>  <span class="co">##     14        0.2523133</span></span>
-<span>  <span class="co">##     15        0.2490712</span></span></code></pre>
+<span>  <span class="co">##     14        0.2615441</span></span>
+<span>  <span class="co">##     15        0.2579050</span></span></code></pre>
 <p>The holdout data can be predicted for both hard class predictions and
 probabilities. We’ll bind these together into one tibble:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
@@ -384,16 +372,16 @@ probabilities. We’ll bind these together into one tibble:</p>
 <pre><code><span>  <span class="co">## <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span>  <span class="co">##    .pred_class .pred_Class1 .pred_Class2</span></span>
 <span>  <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class2            0.220        0.780 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1            0.931        0.068<span style="text-decoration: underline;">9</span></span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1            0.638        0.362 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1            0.815        0.185 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2            0.292        0.708 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2            0.120        0.880 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1            0.796        0.204 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class2            0.392        0.608 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1            0.879        0.121 </span></span>
-<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2            0.038<span style="text-decoration: underline;">9</span>       0.961</span></span></code></pre>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 1</span> Class2            0.197        0.803 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 2</span> Class1            0.942        0.058<span style="text-decoration: underline;">3</span></span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 3</span> Class1            0.602        0.398 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 4</span> Class1            0.736        0.264 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 5</span> Class2            0.170        0.830 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 6</span> Class2            0.084<span style="text-decoration: underline;">8</span>       0.915 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 7</span> Class1            0.802        0.198 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 8</span> Class1            0.641        0.359 </span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;"> 9</span> Class1            0.906        0.093<span style="text-decoration: underline;">7</span></span></span>
+<span>  <span class="co">## <span style="color: #BCBCBC;">10</span> Class2            0.039<span style="text-decoration: underline;">9</span>       0.960</span></span></code></pre>
 </details><details id="boost-tree-C5.0"><summary>
 With the <code>"C5.0"</code> engine
 </summary><h3>

@@ -2,6 +2,10 @@
 
 ## parsnip (development version)
 
+- Fixed bug where xgboost mdoels would fail to predict when `trees`
+  matched number of trees in model.
+  ([\#1316](https://github.com/tidymodels/parsnip/issues/1316))
+
 ## parsnip 1.4.0
 
 CRAN release: 2025-12-01
