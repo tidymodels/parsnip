@@ -653,16 +653,19 @@ multi_predict._xgb.Booster <-
 xgb_by_tree <- function(tree, object, new_data, type, ...) {
   rlang::check_installed("xgboost")
   if (utils::packageVersion("xgboost") >= "2.0.0.0") {
+    # avoid out of range
+    range_end <- min(nrow(attr(object$fit, "evaluation_log")), tree + 1)
+
     pred <- xgb_predict(
       object$fit,
       new_data = new_data,
-      iterationrange = c(1, tree + 1)
+      iterationrange = c(1, range_end)
     )
   } else {
     pred <- xgb_predict(
       object$fit,
       new_data = new_data,
-      iterationrange = c(1, tree + 1),
+      iterationrange = c(1, min(object$fit$niter, tree + 1)),
       ntreelimit = NULL
     )
   }
