@@ -6,7 +6,7 @@
 %   R/logistic_reg.R, R/mars.R, R/mlp.R, R/multinom_reg.R, R/naive_Bayes.R,
 %   R/nearest_neighbor.R, R/pls.R, R/poisson_reg.R, R/proportional_hazards.R,
 %   R/rand_forest.R, R/rule_fit.R, R/surv_reg.R, R/survival_reg.R,
-%   R/svm_linear.R, R/svm_poly.R, R/svm_rbf.R, R/update.R
+%   R/svm_linear.R, R/svm_poly.R, R/svm_rbf.R, R/tab_pfn.R, R/update.R
 \name{update.bag_mars}
 \alias{update.bag_mars}
 \alias{update.bag_mlp}
@@ -38,6 +38,7 @@
 \alias{update.svm_linear}
 \alias{update.svm_poly}
 \alias{update.svm_rbf}
+\alias{update.tab_pfn}
 \alias{parsnip_update}
 \title{Updating a model specification}
 \usage{
@@ -307,6 +308,17 @@
   cost = NULL,
   rbf_sigma = NULL,
   margin = NULL,
+  fresh = FALSE,
+  ...
+)
+
+\method{update}{tab_pfn}(
+  object,
+  parameters = NULL,
+  num_estimators = NULL,
+  softmax_temperature = NULL,
+  balance_probabilities = NULL,
+  average_before_softmax = NULL,
   fresh = FALSE,
   ...
 )

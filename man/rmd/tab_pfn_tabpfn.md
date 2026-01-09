@@ -1,0 +1,155 @@
+
+
+
+For this engine, there are multiple modes: classification and regression
+
+## Tuning Parameters
+
+
+
+This model has 4 tuning parameters:
+
+- `num_estimators`: # Estimators (type: integer, default: 8L)
+
+- `softmax_temperature`: Softmax Tmperature (type: double, default: 0.9)
+
+- `balance_probabilities`: Balance Probabilities? (type: logical, default: FALSE)
+
+- `average_before_softmax`: Average Before Softmax? (type: logical, default: FALSE)
+
+The model has one important engine argument: `training_set_limit`, which is used to specify the amount of data to be used for activating the attention mechanism. Since this is a pre-trained model, the “training set” given by parsnip to the actual model code is only stored. At prediction time, these data are concatenated with the data being predicted. The training data server helps with _in-context learning_, enabling the existing model to make accurate predictions for your specific dataset. 
+
+The Python library that is used has dimensional limits. For version 2.5, the limits are: 
+
+- Up to 10,000 training set points.
+- Up to 2,000 predictors. 
+- For classification up to 10 classes. 
+
+The first two constraints can be overridden; see [tabpfn::control_tab_pfn()] for more details. 
+
+By default, when there are more than 10K training set points, the model will sample these down to `training_set_limit` rows. 
+
+## Translation from parsnip to the original package (regression)
+
+
+``` r
+tab_pfn(
+  num_estimators = integer(1),
+  softmax_temperature = double(1),
+  balance_probabilities = logical(1),
+  average_before_softmax = logical(1)
+) |>  
+  set_engine("tabpfn") |> 
+  set_mode("regression") |> 
+  translate()
+```
+
+```
+## TabPFN Regression Model
+```
+
+```
+## Training set
+## i  data points
+## i  predictors
+```
+
+## Translation from parsnip to the original package (classification)
+
+
+``` r
+tab_pfn(
+  num_estimators = integer(1),
+  softmax_temperature = double(1),
+  balance_probabilities = logical(1),
+  average_before_softmax = logical(1)
+) |> 
+  set_engine("tabpfn") |> 
+  set_mode("classification") |> 
+  translate()
+```
+
+```
+## TabPFN Regression Model
+```
+
+```
+## Training set
+## i  data points
+## i  predictors
+```
+
+## Software and hardware requirements
+
+### License
+
+On November 6, 2025, PriorLabs released version 2.5 of the model, which contained several improvements. One other change is that accessing the model parameters required an API key. Without one, an error occurs:
+
+```
+This model is gated and requires you to accept its terms.  Please follow 
+these steps: 
+1. Visit https://huggingface.co/Prior-Labs/tabpfn_2_5 in your browser and 
+   accept the terms of use. 
+2. Log in to your Hugging Face account via the command line by running: 
+   hf auth login (Alternatively, you can set the HF_TOKEN environment variable 
+   with a read token).
+```   
+
+The license contains provisions for "Non-Commercial Use Only" usage if that is relevant for you.
+
+To get an API key, use the `huggingface` link above, create an account, and then get an API key. Once you have that, put it in your `.Renviron` file in the form of `HF_TOKEN=your_api_key_value`.
+
+The usethis function `edit_r_environ()` can be very helpful here.
+
+### Python requirements
+
+The `tabpfn` Python package is required. See [tabpfn::tab_pfn()] for more information on how to install that in a way that the reticulate package can access it. 
+
+### GPU Computations
+
+By default, the computations are performed only with a CPU. 
+
+This can result in excessively inefficient computations. If your computer has a CUDA-based GPU, this should be detected and used.  You can manually specify the devices used for computations using the `device` option in `tabpfn::control_tab_pfn(device = "cuda")`. 
+
+For Apple computers, there is an option for using their MPS-based GPUs. However, we have seen no reduction in training times with this method, and occasional slowdowns occur when it is used. 
+
+## Preprocessing requirements
+
+The priors used to generate training data for the pre-fit deep-learning model factor in a variety of different mechanisms that could have generated the data. This most likely includes missing value mechanisms, qualitative predictors, and skewed data distributions, among other aspects. 
+
+You can preprocess your data before passing it to `fit(),` but the underlying model can impute missing data, and there is no requirement for all predictors to be numeric (so binary/dummy indicators are not required). 
+
+## Saving fitted model objects
+
+A future version of the bundle package will contain method to make the fitted model more portable.
+
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("tab_pfn_predict") |>
+  dplyr::filter(engine == "tabpfn") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 3 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 classification class  
+## 2 classification prob   
+## 3 regression     numeric
+```
+
+## Examples 
+
+The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#tab-pfn-tabpfn) for `tab_pfn()` with the `"tabpfn"` engine.
+
+## References
+
+ - Hollmann, Noah, Samuel Müller, Lennart Purucker, Arjun Krishnakumar, Max Körfer, Shi Bin Hoo, Robin Tibor Schirrmeister, and Frank Hutter. "Accurate predictions on small data with a tabular foundation model." _Nature_ 637, no. 8045 (2025): 319-326.
+ 
+- Hollmann, Noah, Samuel Müller, Katharina Eggensperger, and Frank Hutter. "Tabpfn: A transformer that solves small tabular classification problems in a second." _arXiv preprint_ arXiv:2207.01848 (2022).
+
+- Müller, Samuel, Noah Hollmann, Sebastian Pineda Arango, Josif Grabocka, and Frank Hutter. "Transformers can do Bayesian inference." _arXiv preprint_ arXiv:2112.10510 (2021).
+
