@@ -42,8 +42,8 @@ be predicted after the model is fit.
       ## ✔ dplyr        1.1.4          ✔ tidyr        1.3.2     
       ## ✔ infer        1.1.0          ✔ tune         2.0.1     
       ## ✔ modeldata    1.5.1          ✔ workflows    1.3.0     
-      ## ✔ parsnip      1.4.0.9000     ✔ workflowsets 1.1.1     
-      ## ✔ purrr        1.2.0          ✔ yardstick    1.3.2     
+      ## ✔ parsnip      1.4.1.9000     ✔ workflowsets 1.1.1     
+      ## ✔ purrr        1.2.1          ✔ yardstick    1.3.2     
       ## ✔ recipes      1.3.1
 
       ## ── Conflicts ──────────────────────────────── tidymodels_conflicts() ──
