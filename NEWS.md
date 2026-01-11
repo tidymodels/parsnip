@@ -1,4 +1,4 @@
-# parsnip (development version)
+# parsnip 1.4.1
 
 * Fixed bug where xgboost mdoels would fail to predict when `trees` matched number of trees in model. (#1316)
 
