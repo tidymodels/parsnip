@@ -37,13 +37,13 @@ be predicted after the model is fit.
 
       ## ── Attaching packages ──────────────────────── tidymodels 1.4.1.9000 ──
 
-      ## ✔ broom        1.0.10     ✔ rsample      1.3.1 
+      ## ✔ broom        1.0.11     ✔ rsample      1.3.1 
       ## ✔ dials        1.4.2      ✔ tailor       0.1.0 
-      ## ✔ dplyr        1.1.4      ✔ tidyr        1.3.1 
-      ## ✔ infer        1.0.9      ✔ tune         2.0.1 
+      ## ✔ dplyr        1.1.4      ✔ tidyr        1.3.2 
+      ## ✔ infer        1.1.0      ✔ tune         2.0.1 
       ## ✔ modeldata    1.5.1      ✔ workflows    1.3.0 
-      ## ✔ parsnip      1.4.0      ✔ workflowsets 1.1.1 
-      ## ✔ purrr        1.2.0      ✔ yardstick    1.3.2 
+      ## ✔ parsnip      1.4.1      ✔ workflowsets 1.1.1 
+      ## ✔ purrr        1.2.1      ✔ yardstick    1.3.2 
       ## ✔ recipes      1.3.1
 
       ## ── Conflicts ──────────────────────────────── tidymodels_conflicts() ──
@@ -232,29 +232,23 @@ Now we create the model fit object:
       ## parsnip model object
       ## 
       ## ##### xgb.Booster
-      ## raw: 51.4 Kb 
       ## call:
       ##   xgboost::xgb.train(params = list(eta = 0.3, max_depth = 6, gamma = 0, 
       ##     colsample_bytree = 1, colsample_bynode = 1, min_child_weight = 1, 
-      ##     subsample = 1), data = x$data, nrounds = 15, watchlist = x$watchlist, 
-      ##     verbose = 0, nthread = 1, objective = "reg:squarederror")
-      ## params (as set within xgb.train):
-      ##   eta = "0.3", max_depth = "6", gamma = "0", colsample_bytree = "1", colsample_bynode = "1", min_child_weight = "1", subsample = "1", nthread = "1", objective = "reg:squarederror", validate_parameters = "TRUE"
-      ## xgb.attributes:
-      ##   niter
-      ## callbacks:
-      ##   cb.evaluation.log()
+      ##     subsample = 1, nthread = 1, objective = "reg:squarederror"), 
+      ##     data = x$data, nrounds = 15, evals = x$watchlist, verbose = 0)
       ## # of features: 2 
-      ## niter: 15
-      ## nfeatures : 2 
+      ## # of rounds:  15 
+      ## callbacks:
+      ##    evaluation_log 
       ## evaluation_log:
       ##   iter training_rmse
-      ##  <num>         <num>
-      ##      1     10.481475
-      ##      2      7.620929
+      ##  <int>         <num>
+      ##      1      5.039503
+      ##      2      4.080534
       ##    ---           ---
-      ##     14      2.551943
-      ##     15      2.531085
+      ##     14      2.670995
+      ##     15      2.658350
 
 The holdout data can be predicted:
 
@@ -265,13 +259,13 @@ The holdout data can be predicted:
       ## # A tibble: 7 × 1
       ##   .pred
       ##   <dbl>
-      ## 1 20.6 
-      ## 2 20.6 
-      ## 3 20.2 
-      ## 4 20.6 
-      ## 5 19.3 
-      ## 6  7.26
-      ## 7  5.92
+      ## 1 20.5 
+      ## 2 20.7 
+      ## 3 20.7 
+      ## 4 20.7 
+      ## 5 19.4 
+      ## 6  7.28
+      ## 7  6.63
 
 ### Classification Example (`xgboost`)
 
@@ -316,29 +310,23 @@ Now we create the model fit object:
       ## parsnip model object
       ## 
       ## ##### xgb.Booster
-      ## raw: 40.8 Kb 
       ## call:
       ##   xgboost::xgb.train(params = list(eta = 0.3, max_depth = 6, gamma = 0, 
       ##     colsample_bytree = 1, colsample_bynode = 1, min_child_weight = 1, 
-      ##     subsample = 1), data = x$data, nrounds = 15, watchlist = x$watchlist, 
-      ##     verbose = 0, nthread = 1, objective = "binary:logistic")
-      ## params (as set within xgb.train):
-      ##   eta = "0.3", max_depth = "6", gamma = "0", colsample_bytree = "1", colsample_bynode = "1", min_child_weight = "1", subsample = "1", nthread = "1", objective = "binary:logistic", validate_parameters = "TRUE"
-      ## xgb.attributes:
-      ##   niter
-      ## callbacks:
-      ##   cb.evaluation.log()
+      ##     subsample = 1, nthread = 1, objective = "binary:logistic"), 
+      ##     data = x$data, nrounds = 15, evals = x$watchlist, verbose = 0)
       ## # of features: 2 
-      ## niter: 15
-      ## nfeatures : 2 
+      ## # of rounds:  15 
+      ## callbacks:
+      ##    evaluation_log 
       ## evaluation_log:
       ##   iter training_logloss
-      ##  <num>            <num>
-      ##      1        0.5524619
-      ##      2        0.4730697
+      ##  <int>            <num>
+      ##      1        0.5506979
+      ##      2        0.4714366
       ##    ---              ---
-      ##     14        0.2523133
-      ##     15        0.2490712
+      ##     14        0.2615441
+      ##     15        0.2579050
 
 The holdout data can be predicted for both hard class predictions and
 probabilities. We’ll bind these together into one tibble:
@@ -353,16 +341,16 @@ probabilities. We’ll bind these together into one tibble:
       ## # A tibble: 10 × 3
       ##    .pred_class .pred_Class1 .pred_Class2
       ##    <fct>              <dbl>        <dbl>
-      ##  1 Class2            0.220        0.780 
-      ##  2 Class1            0.931        0.0689
-      ##  3 Class1            0.638        0.362 
-      ##  4 Class1            0.815        0.185 
-      ##  5 Class2            0.292        0.708 
-      ##  6 Class2            0.120        0.880 
-      ##  7 Class1            0.796        0.204 
-      ##  8 Class2            0.392        0.608 
-      ##  9 Class1            0.879        0.121 
-      ## 10 Class2            0.0389       0.961
+      ##  1 Class2            0.197        0.803 
+      ##  2 Class1            0.942        0.0583
+      ##  3 Class1            0.602        0.398 
+      ##  4 Class1            0.736        0.264 
+      ##  5 Class2            0.170        0.830 
+      ##  6 Class2            0.0848       0.915 
+      ##  7 Class1            0.802        0.198 
+      ##  8 Class1            0.641        0.359 
+      ##  9 Class1            0.906        0.0937
+      ## 10 Class2            0.0399       0.960
 
 With the `"C5.0"` engine
 
