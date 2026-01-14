@@ -79,6 +79,12 @@ parsnip:::get_from_env("logistic_reg_predict") |>
 
 ```
 
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
 ## Initializing h2o 
 
 ```{r}

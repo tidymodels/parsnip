@@ -129,6 +129,23 @@ numeric. In the classification context, non-numeric outcomes (i.e.,
 factors) are also internally converted to numeric.
 }
 
+}
+
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+
+Although the source documentation is unclear about how the weights are
+utilized, it appears that the weights are applied to the objective
+function, not just the sampling mechanism. A GitHub issue
+(\url{https://github.com/microsoft/LightGBM/issues/1299})
+has evidence that the weights are a “multiplication applied to every
+positive label weight” and shows some C++ code to that effect.
 \subsection{Interpreting \code{mtry}}{
 
 The \code{mtry} argument denotes the number of predictors that will be
