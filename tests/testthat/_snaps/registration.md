@@ -424,9 +424,10 @@
        modes: unknown, classification, regression 
       
        engines: 
-         classification: brulee, brulee_two_layer, keras, nnet
-         regression:     brulee, brulee_two_layer, keras, nnet
+         classification: brulee, brulee_two_layer, keras, nnet1
+         regression:     brulee, brulee_two_layer, keras, nnet1
       
+      1The model can use case weights.
       
        arguments: 
          keras:            

@@ -10,13 +10,13 @@
 ```{r}
 #| label: kernlab-param-info
 #| echo: false
-defaults <- 
+defaults <-
   tibble::tibble(parsnip = c("cost", "margin"),
                  default = c("1.0", "0.1"))
 
 param <-
-  svm_linear() |> 
-  set_engine("kernlab") |> 
+  svm_linear() |>
+  set_engine("kernlab") |>
   make_parameter_list(defaults)
 ```
 
@@ -38,9 +38,9 @@ Parsnip changes the default range for `cost` to `c(-10, 5)`.
 svm_linear(
   cost = double(1),
   margin = double(1)
-) |>  
-  set_engine("kernlab") |> 
-  set_mode("regression") |> 
+) |>
+  set_engine("kernlab") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -50,9 +50,9 @@ svm_linear(
 #| label: kernlab-cls
 svm_linear(
   cost = double(1)
-) |> 
-  set_engine("kernlab") |> 
-  set_mode("classification") |> 
+) |>
+  set_engine("kernlab") |>
+  set_mode("classification") |>
   translate()
 ```
 
@@ -76,7 +76,7 @@ Note that the `"kernlab"` engine does not naturally estimate class probabilities
 #| child: template-no-case-weights.Rmd
 ```
 
-j## Prediction types
+## Prediction types
 
 ```{r}
 #| label: predict-types

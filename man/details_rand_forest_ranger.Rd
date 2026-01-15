@@ -121,6 +121,14 @@ on \code{tidymodels.org}.
 
 The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \code{case_weights} that expect vectors of case weights.
+
+Note that the data passed to the \code{case.weights} column are not used for
+traditional case weights (where the objective function is multiplied by
+a row-specific weight). From \code{?ranger::ranger}: “Observations with
+larger weights will be selected with higher probability in the bootstrap
+(or subsampled) samples for the trees.”
+
+They function as sampling weights.
 }
 
 \subsection{Sparse Data}{

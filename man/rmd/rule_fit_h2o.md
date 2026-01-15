@@ -66,8 +66,6 @@ rule_fit(
 
 ## Translation from parsnip to the underlying model call  (classification)
 
-
-
 [agua::h2o_train_rule()] for `rule_fit()` is a wrapper around [h2o::h2o.rulefit()]. 
 
 The **agua** extension package is required to fit this model.

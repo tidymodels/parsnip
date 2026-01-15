@@ -49,6 +49,12 @@ auto_ml() |>
 #| child: template-makes-dummies.Rmd
 ```
 
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
 ## Initializing h2o 
 
 ```{r}
@@ -70,3 +76,4 @@ parsnip:::get_from_env("auto_ml_predict") |>
 ```{r}
 #| child: template-bundle.Rmd
 ```
+

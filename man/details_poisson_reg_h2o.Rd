@@ -76,6 +76,16 @@ By default, \code{h2o::h2o.glm()} uses the argument \code{standardize = TRUE} to
 center and scale all numerical columns.
 }
 
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+}
+
 \subsection{Prediction types}{
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("poisson_reg_predict") |>

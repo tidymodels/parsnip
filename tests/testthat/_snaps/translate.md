@@ -1139,6 +1139,9 @@
       $data
       missing_arg()
       
+      $weights
+      missing_arg()
+      
       $size
       <quosure>
       expr: ^4
@@ -1179,6 +1182,9 @@
       $data
       missing_arg()
       
+      $weights
+      missing_arg()
+      
       $size
       [1] 5
       
@@ -1198,6 +1204,9 @@
       missing_arg()
       
       $data
+      missing_arg()
+      
+      $weights
       missing_arg()
       
       $size
@@ -1243,6 +1252,9 @@
       $data
       missing_arg()
       
+      $weights
+      missing_arg()
+      
       $size
       [1] 5
       
@@ -1267,6 +1279,9 @@
       missing_arg()
       
       $data
+      missing_arg()
+      
+      $weights
       missing_arg()
       
       $size
@@ -1830,81 +1845,6 @@
       
       $seed
       sample.int(10^5, 1)
-      
-
-# arguments (surv_reg)
-
-    Code
-      translate_args(set_engine(basic, "flexsurv"))
-    Output
-      $formula
-      missing_arg()
-      
-      $data
-      missing_arg()
-      
-      $weights
-      missing_arg()
-      
-
----
-
-    Code
-      translate_args(set_engine(basic, "flexsurv", cl = 0.99))
-    Output
-      $formula
-      missing_arg()
-      
-      $data
-      missing_arg()
-      
-      $weights
-      missing_arg()
-      
-      $cl
-      <quosure>
-      expr: ^0.99
-      env:  empty
-      
-
----
-
-    Code
-      translate_args(set_engine(normal, "flexsurv"))
-    Output
-      $formula
-      missing_arg()
-      
-      $data
-      missing_arg()
-      
-      $weights
-      missing_arg()
-      
-      $dist
-      <quosure>
-      expr: ^"lnorm"
-      env:  empty
-      
-
----
-
-    Code
-      translate_args(set_engine(dist_v, "flexsurv"))
-    Output
-      $formula
-      missing_arg()
-      
-      $data
-      missing_arg()
-      
-      $weights
-      missing_arg()
-      
-      $dist
-      <quosure>
-      expr: ^tune()
-      env:  empty
       
 
 # arguments (survival_reg)

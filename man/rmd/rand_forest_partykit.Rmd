@@ -84,6 +84,12 @@ rand_forest() |>
 #| child: template-tree-split-factors.Rmd
 ```
 
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
 ## Prediction types
 
 ```{r}
