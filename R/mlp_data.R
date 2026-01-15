@@ -2,6 +2,7 @@ set_new_model("mlp")
 
 set_model_mode("mlp", "classification")
 set_model_mode("mlp", "regression")
+set_model_mode("mlp", "quantile regression")
 
 # ------------------------------------------------------------------------------
 
@@ -676,6 +677,98 @@ set_pred(
       object = quote(object$fit),
       new_data = quote(new_data),
       type = "prob"
+    )
+  )
+)
+
+# ------------------------------------------------------------------------------
+# qrnn components
+
+set_model_engine("mlp", mode = "quantile regression", eng = "qrnn")
+set_dependency("mlp", "qrnn", "qrnn", mode = "quantile regression")
+
+
+set_model_arg(
+  model = "mlp",
+  eng = "qrnn",
+  parsnip = "hidden_units",
+  original = "n.hidden",
+  func = list(pkg = "dials", fun = "hidden_units"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "qrnn",
+  parsnip = "penalty",
+  original = "penalty",
+  func = list(pkg = "dials", fun = "penalty"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "qrnn",
+  parsnip = "epochs",
+  original = "iter.max",
+  func = list(pkg = "dials", fun = "epochs"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "qrnn",
+  parsnip = "activation",
+  original = "Th",
+  func = list(
+    pkg = "dials",
+    fun = "activation",
+    values = c("sigmoid", "elu", "relu", "softplus")
+  ),
+  has_submodel = FALSE
+)
+
+
+set_fit(
+  model = "mlp",
+  eng = "qrnn",
+  mode = "quantile regression",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    func = c(pkg = "parsnip", fun = "mcqrnn_wrap"),
+    defaults = list(
+      trace = FALSE,
+      tau = quote(quantile_levels)
+    )
+  )
+)
+
+set_encoding(
+  model = "mlp",
+  eng = "qrnn",
+  mode = "quantile regression",
+  options = list(
+    predictor_indicators = "one_hot",
+    compute_intercept = FALSE,
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_pred(
+  model = "mlp",
+  eng = "qrnn",
+  mode = "quantile regression",
+  type = "quantile",
+  value = list(
+    pre = NULL,
+    post = matrix_to_quantile_pred,
+    func = c(pkg = "qrnn", fun = "mcqrnn.predict"),
+    args = list(
+      parms = expr(object$fit),
+      x = expr(new_data),
+      tau = NULL
     )
   )
 )

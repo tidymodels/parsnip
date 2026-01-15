@@ -523,3 +523,18 @@ set_tf_seed <- function(seed) {
     tensorflow::tf$random$set_random_seed(seed)
   }
 }
+
+#' @export
+#' @keywords internal
+mcqrnn_wrap <- function(x, y, ..., trace, tau) {
+  if (is.vector(y)) {
+    y <- matrix(y, ncol = 1)
+  }
+  qrnn::mcqrnn.fit(
+    x = x,
+    y = y,
+    trace = trace,
+    tau = tau,
+    ...
+  )
+}
