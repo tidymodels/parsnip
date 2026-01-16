@@ -524,12 +524,13 @@ set_tf_seed <- function(seed) {
   }
 }
 
+#' Wrapper for `qrnn::mcqrnn.fit()`
 #' @export
 #' @param x Predictor matrix
 #' @param y outcome vector
 #' @param ... Options to pass to `qrnn::mcqrnn.fit()`
 #' @param trace Logical for printing
-#' @param Vector of quantile levels.
+#' @param tau Vector of quantile levels.
 #' @keywords internal
 mcqrnn_wrap <- function(x, y, ..., trace, tau) {
   if (is.vector(y)) {
@@ -540,7 +541,10 @@ mcqrnn_wrap <- function(x, y, ..., trace, tau) {
     if (dots$Th != "sigmoid") {
       deriv_nm <- paste0(dots$Th, ".prime")
 
-      act_fun <- try(getFromNamespace(dots$Th, ns = "qrnn"), silent = TRUE)
+      act_fun <- try(
+        utils::getFromNamespace(dots$Th, ns = "qrnn"),
+        silent = TRUE
+      )
       if (inherits(act_fun, "try-error")) {
         cli::cli_abort(
           "Could not find an activation function called {.fn {dots$Th}} in the {.pkg qrnn} package."
@@ -548,7 +552,7 @@ mcqrnn_wrap <- function(x, y, ..., trace, tau) {
       }
 
       act_deriv_fun <- try(
-        getFromNamespace(deriv_nm, ns = "qrnn"),
+        utils::getFromNamespace(deriv_nm, ns = "qrnn"),
         silent = TRUE
       )
       dots$Th <- act_fun
