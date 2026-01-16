@@ -1,0 +1,89 @@
+```{r}
+#| child: aaa.Rmd
+#| include: false
+```
+
+`r descr_models("mlp", "qrnn")`
+
+## Tuning Parameters
+
+```{r}
+#| label: qrnn-param-info
+#| echo: false
+defaults <- 
+  tibble::tibble(parsnip = c("hidden_units", "penalty", "epochs","activation"),
+                 default = c("2L", "0.0", "5000L", "'sigmoid'"))
+
+spec <-
+  mlp(
+    hidden_units = tune(),
+    penalty = tune(),
+    epochs = tune(),
+    activation = tune()
+  ) |> 
+  set_engine("qrnn")
+
+param <- spec |> make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r}
+#| label: qrnn-param-list
+#| echo: false
+#| results: asis
+param$item
+```
+
+Other engine arguments of interest: 
+
+ - `n.trials`: number of repeated trials used to avoid local minima.
+ - `method`: The optimization technique (`"nlm"` or `"adam"`).
+
+## Translation from parsnip to the original package (quantile regression)
+
+```{r}
+#| label: qrnn-qnt
+mlp(
+  hidden_units = integer(1),
+  penalty = double(1),
+  epochs = integer(1),
+  activation = character(1)
+) |>  
+  set_engine("qrnn") |> 
+  set_mode("quantile regression", quantile_levels = (1:3) / 4) |> 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r}
+#| child: template-makes-dummies.Rmd
+```
+
+```{r}
+#| child: template-same-scale.Rmd
+```
+
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("mlp_predict") |>
+  dplyr::filter(engine == "qrnn") |>
+  dplyr::select(mode, type)
+```
+
+## References
+
+ - Cannon, A.J., 2018. Non-crossing nonlinear regression quantiles by monotone composite quantile regression neural network, with application to rainfall extremes. _Stochastic Environmental Research and Risk Assessment_, 32(11): 3207-3225. doi:10.1007/s00477-018-1573-6
+
+
+
