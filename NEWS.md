@@ -1,8 +1,10 @@
 # parsnip (development version)
 
+* xgboost and qrnn engines were added for censored regression to `boost_tree()` and `mlp()`, respectively. (#1321)
+
 # parsnip 1.4.1
 
-* Fixed bug where xgboost mdoels would fail to predict when `trees` matched number of trees in model. (#1316)
+* Fixed bug where xgboost models would fail to predict when `trees` matched number of trees in model. (#1316)
 
 # parsnip 1.4.0
 

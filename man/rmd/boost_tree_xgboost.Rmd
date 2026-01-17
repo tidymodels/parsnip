@@ -61,6 +61,20 @@ boost_tree(
   translate()
 ```
 
+## Translation from parsnip to the original package (quantile regression)
+
+```{r}
+#| label: xgboost-qnt
+boost_tree(
+  mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
+  learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
+  stop_iter = integer()
+) |>
+  set_engine("xgboost") |>
+  set_mode("quantile regression", quantile_levels = (1:3) / 4) |> 
+  translate()
+```
+
 [xgb_train()] is a wrapper around [xgboost::xgb.train()] (and other functions) that makes it easier to run this model. 
 
 ## Preprocessing requirements
