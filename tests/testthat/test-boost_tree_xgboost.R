@@ -940,6 +940,7 @@ test_that('interface to param arguments', {
 # ------------------------------------------------------------------------------
 
 test_that('xgboost execution, quantile regression', {
+  skip_if(getRversion() <= "4.2.3")
   skip_if_not_installed("xgboost")
   skip_if_not_installed("modeldata")
   skip_on_cran()
