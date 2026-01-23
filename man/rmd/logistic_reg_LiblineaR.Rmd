@@ -48,6 +48,12 @@ logistic_reg(penalty = double(1), mixture = double(1)) |>
 #| child: template-makes-dummies.Rmd
 ```
 
+## Case weights
+
+```{r}
+#| child: template-no-case-weights.Rmd
+```
+
 ```{r}
 #| child: template-same-scale.Rmd
 ```

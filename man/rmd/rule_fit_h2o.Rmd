@@ -86,6 +86,12 @@ rule_fit(
 #| child: template-makes-dummies.Rmd
 ```
 
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
 ## Prediction types
 
 ```{r}
