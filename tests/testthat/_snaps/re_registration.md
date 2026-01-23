@@ -2,9 +2,9 @@
 
     Code
       set_fit(model = "bart", eng = "dbarts", mode = "regression", value = list(
-        interface = "data.frame", data = c(x = "x.train", y = "y.train"), protect = c(
-          "x", "y"), func = c(pkg = "dbarts", fun = "bart"), defaults = list(verbose = TRUE,
-          keeptrees = TRUE, keepcall = FALSE)))
+        interface = "data.frame", data = c(x = "x.train", y = "y.train", weights = "weights"),
+        protect = c("x", "y", "weights"), func = c(pkg = "dbarts", fun = "bart"),
+        defaults = list(verbose = TRUE, keeptrees = TRUE, keepcall = FALSE)))
     Condition
       Error in `set_fit()`:
       ! The combination of engine `dbarts` and mode `regression` already has fit data for model `bart` and the new information being registered is different.

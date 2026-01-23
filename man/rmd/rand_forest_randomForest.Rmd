@@ -69,6 +69,18 @@ rand_forest(
 #| child: template-tree-split-factors.Rmd
 ```
 
+
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
+Note that the data passed to the `case.weights` column are not used for traditional case weights (where the objective function is multiplied by a row-specific weight). From `?randomForest::randomForest`: "A vector of length same as`y` that are positive weights used only in sampling data to grow each tree (not used in any other calculation)."
+
+They function as sampling weights. 
+
+
 ## Saving fitted model objects
 
 ```{r}

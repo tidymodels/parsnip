@@ -226,7 +226,7 @@ set_fit(
   mode = "regression",
   value = list(
     interface = "formula",
-    protect = c("formula", "data"),
+    protect = c("formula", "data", "weights"),
     func = c(pkg = "nnet", fun = "nnet"),
     defaults = list(trace = FALSE)
   )
@@ -250,7 +250,7 @@ set_fit(
   mode = "classification",
   value = list(
     interface = "formula",
-    protect = c("formula", "data"),
+    protect = c("formula", "data", "weights"),
     func = c(pkg = "nnet", fun = "nnet"),
     defaults = list(trace = FALSE)
   )

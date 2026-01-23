@@ -93,6 +93,12 @@ parsnip::bart(
 
 [dbarts::bart()] will also convert the factors to indicators if the user does not create them first. 
 
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
 ## Prediction types
 
 ```{r}

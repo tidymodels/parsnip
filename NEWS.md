@@ -1,8 +1,11 @@
 # parsnip (development version)
 
+* Case weight usage was enabled for the `"nnet"` engines of `mlp()` and `bag_mlp()` as well as for the `"dbarts"` engine of `bart()`. 
+* All model details files note whether case weights can be used or not. 
+
 # parsnip 1.4.1
 
-* Fixed bug where xgboost mdoels would fail to predict when `trees` matched number of trees in model. (#1316)
+* Fixed bug where xgboost models would fail to predict when `trees` matched number of trees in model. (#1316)
 
 # parsnip 1.4.0
 
