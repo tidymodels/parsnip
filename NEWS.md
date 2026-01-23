@@ -1,7 +1,12 @@
 # parsnip (development version)
 
+
+* xgboost and qrnn engines were added for quantile regression to `boost_tree()` and `mlp()`, respectively. (#1321)
+
 * Case weight usage was enabled for the `"nnet"` engines of `mlp()` and `bag_mlp()` as well as for the `"dbarts"` engine of `bart()`. 
+
 * All model details files note whether case weights can be used or not. 
+
 
 # parsnip 1.4.1
 

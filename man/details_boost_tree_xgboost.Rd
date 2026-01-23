@@ -9,10 +9,10 @@ ensemble. Each tree depends on the results of previous trees. All trees in
 the ensemble are combined to produce a final prediction.
 }
 \details{
-For this engine, there are multiple modes: classification and
-regression. Note that in late 2025, a new version of xgboost was
-released with differences in its interface and model objects. This
-version of parsnip should work with either version.
+For this engine, there are multiple modes: classification, regression,
+and quantile regression. Note that in late 2025, a new version of
+xgboost was released with differences in its interface and model
+objects. This version of parsnip should work with either version.
 \subsection{Tuning Parameters}{
 
 This model has 8 tuning parameters:
@@ -102,6 +102,43 @@ available columns.
 ##     subsample = numeric(), early_stop = integer(), nthread = 1, 
 ##     verbose = 0)
 }\if{html}{\out{</div>}}
+}
+
+\subsection{Translation from parsnip to the original package (quantile regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
+  mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
+  learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
+  stop_iter = integer()
+) |>
+  set_engine("xgboost") |>
+  set_mode("quantile regression", quantile_levels = (1:3) / 4) |> 
+  translate()
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (quantile regression)
+## 
+## Main Arguments:
+##   mtry = integer()
+##   trees = integer()
+##   min_n = integer()
+##   tree_depth = integer()
+##   learn_rate = numeric()
+##   loss_reduction = numeric()
+##   sample_size = numeric()
+##   stop_iter = integer()
+## 
+## Computational engine: xgboost 
+## 
+## Model fit template:
+## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     colsample_bynode = integer(), nrounds = integer(), min_child_weight = integer(), 
+##     max_depth = integer(), eta = numeric(), gamma = numeric(), 
+##     subsample = numeric(), early_stop = integer(), nthread = 1, 
+##     verbose = 0, quantile_alpha = quantile_levels, objective = "reg:quantileerror")
+
+## Quantile levels: 0.25, 0.5, and 0.75.
+}\if{html}{\out{</div>}}
 
 \code{\link[=xgb_train]{xgb_train()}} is a wrapper around
 \code{\link[xgboost:xgb.train]{xgboost::xgb.train()}} (and other functions)
@@ -141,14 +178,15 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
   dplyr::select(mode, type)
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 5 x 2
-##   mode           type   
-##   <chr>          <chr>  
-## 1 regression     numeric
-## 2 regression     raw    
-## 3 classification class  
-## 4 classification prob   
-## 5 classification raw
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 6 x 2
+##   mode                type    
+##   <chr>               <chr>   
+## 1 regression          numeric 
+## 2 regression          raw     
+## 3 classification      class   
+## 4 classification      prob    
+## 5 classification      raw     
+## 6 quantile regression quantile
 }\if{html}{\out{</div>}}
 }
 

@@ -421,11 +421,12 @@
       show_model_info("mlp")
     Output
       Information for `mlp`
-       modes: unknown, classification, regression 
+       modes: unknown, classification, regression, quantile regression 
       
        engines: 
-         classification: brulee, brulee_two_layer, keras, nnet1
-         regression:     brulee, brulee_two_layer, keras, nnet1
+         classification:      brulee, brulee_two_layer, keras, nnet1
+         quantile regression: qrnn
+         regression:          brulee, brulee_two_layer, keras, nnet1
       
       1The model can use case weights.
       
@@ -454,27 +455,34 @@
             dropout      --> dropout
             learn_rate   --> learn_rate
             activation   --> activation
+         qrnn:             
+            hidden_units --> n.hidden
+            penalty      --> penalty
+            epochs       --> iter.max
+            activation   --> Th
       
        fit modules:
-                   engine           mode
-                    keras     regression
-                    keras classification
-                     nnet     regression
-                     nnet classification
-                   brulee     regression
-                   brulee classification
-         brulee_two_layer     regression
-         brulee_two_layer classification
+                   engine                mode
+                    keras          regression
+                    keras      classification
+                     nnet          regression
+                     nnet      classification
+                   brulee          regression
+                   brulee      classification
+         brulee_two_layer          regression
+         brulee_two_layer      classification
+                     qrnn quantile regression
       
        prediction modules:
-                   mode           engine          methods
-         classification           brulee      class, prob
-         classification brulee_two_layer      class, prob
-         classification            keras class, prob, raw
-         classification             nnet class, prob, raw
-             regression           brulee          numeric
-             regression brulee_two_layer          numeric
-             regression            keras     numeric, raw
-             regression             nnet     numeric, raw
+                        mode           engine          methods
+              classification           brulee      class, prob
+              classification brulee_two_layer      class, prob
+              classification            keras class, prob, raw
+              classification             nnet class, prob, raw
+         quantile regression             qrnn         quantile
+                  regression           brulee          numeric
+                  regression brulee_two_layer          numeric
+                  regression            keras     numeric, raw
+                  regression             nnet     numeric, raw
       
 

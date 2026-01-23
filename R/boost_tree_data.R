@@ -3,11 +3,13 @@ set_new_model("boost_tree")
 set_model_mode("boost_tree", "classification")
 set_model_mode("boost_tree", "regression")
 set_model_mode("boost_tree", "censored regression")
+set_model_mode("boost_tree", "quantile regression")
 
 # ------------------------------------------------------------------------------
 
 set_model_engine("boost_tree", "classification", "xgboost")
 set_model_engine("boost_tree", "regression", "xgboost")
+set_model_engine("boost_tree", "quantile regression", "xgboost")
 set_dependency("boost_tree", "xgboost", "xgboost")
 
 set_model_arg(
@@ -209,6 +211,49 @@ set_pred(
   value = list(
     pre = NULL,
     post = NULL,
+    func = c(fun = "xgb_predict"),
+    args = list(object = quote(object$fit), new_data = quote(new_data))
+  )
+)
+
+
+set_fit(
+  model = "boost_tree",
+  eng = "xgboost",
+  mode = "quantile regression",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y", "weights"),
+    func = c(pkg = "parsnip", fun = "xgb_train"),
+    defaults = list(
+      nthread = 1,
+      verbose = 0,
+      quantile_alpha = expr(quantile_levels),
+      objective = "reg:quantileerror"
+    )
+  )
+)
+
+set_encoding(
+  model = "boost_tree",
+  eng = "xgboost",
+  mode = "quantile regression",
+  options = list(
+    predictor_indicators = "one_hot",
+    compute_intercept = FALSE,
+    remove_intercept = TRUE,
+    allow_sparse_x = TRUE
+  )
+)
+
+set_pred(
+  model = "boost_tree",
+  eng = "xgboost",
+  mode = "quantile regression",
+  type = "quantile",
+  value = list(
+    pre = NULL,
+    post = matrix_to_quantile_pred,
     func = c(fun = "xgb_predict"),
     args = list(object = quote(object$fit), new_data = quote(new_data))
   )

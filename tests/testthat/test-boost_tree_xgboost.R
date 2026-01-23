@@ -936,3 +936,42 @@ test_that('interface to param arguments', {
 
   expect_equal(extract_xgb_param(fit_7, "gamma"), 0)
 })
+
+# ------------------------------------------------------------------------------
+
+test_that('xgboost execution, quantile regression', {
+  skip_if(getRversion() <= "4.2.3")
+  skip_if_not_installed("xgboost")
+  skip_if_not_installed("modeldata")
+  skip_on_cran()
+
+  set.seed(10)
+  dat <- sim_regression(1000)
+
+  spec_1 <-
+    boost_tree(trees = 50) |>
+    set_engine("xgboost", validation = 0.1) |>
+    set_mode("quantile regression", quantile_levels = (1:9) / 10)
+  expect_snapshot(spec_1)
+
+  set.seed(372)
+  qnt_fit_1 <- fit(spec_1, outcome ~ ., data = dat)
+  expect_snapshot(print(qnt_fit_1))
+
+  spec_2 <-
+    boost_tree(trees = 50, stop_iter = 2) |>
+    set_engine("xgboost", validation = 0.1) |>
+    set_mode("quantile regression", quantile_levels = (1:9) / 10)
+  expect_snapshot(spec_2)
+
+  set.seed(372)
+  qnt_fit_2 <- fit(spec_2, outcome ~ ., data = dat)
+  expect_snapshot(print(qnt_fit_2))
+
+  expect_true(
+    qnt_fit_2$fit |>
+      attributes() |>
+      purrr::pluck("early_stop") |>
+      purrr::pluck("stopped_by_max_rounds")
+  )
+})
