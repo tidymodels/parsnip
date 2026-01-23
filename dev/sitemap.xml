@@ -95,6 +95,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_h2o.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_keras.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_nnet.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_qrnn.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_brulee.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_glmnet.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_h2o.html</loc></url>
@@ -170,6 +171,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/matrix_to_quantile_pred.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/max_mtry_formula.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/maybe_matrix.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/mcqrnn_train.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/min_cols.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/mlp.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/model_db.html</loc></url>

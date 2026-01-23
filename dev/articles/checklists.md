@@ -23,13 +23,9 @@ specified.
 
     * [ ] Add a pkgdown entry.
 
-    * [ ] Add model description to the internal `model_descs` tibble.
+    * [ ] Add model information to the internal `model_info_table` tibble in `R/aaa_archive.R`.
 
     * [ ] Run `purrr::map(parsnip:::extensions(), ~ library(.x, character.only = TRUE))`.
-
-    * [ ] Run `parsnip:::update_model_info_file()`.
-
-    * [ ] Make sure that no entries are removed from `inst/models.tsv`.
 
     * [ ] Add a documentation entry in `NEWS.md`.
 
@@ -44,6 +40,8 @@ Engines may live in parsnip or an extension package.
     * [ ] _[extension pkg]_ Put the `set_*()` calls in a wrapper function that will register the model with parsnip. Suggested name: `make_{model name}_{engine name}()`. [[example]](https://github.com/tidymodels/censored/blob/efbb1cf3b2ba8bca5de65acc3c8b665dec35631c/R/decision_tree-data.R#L12) 
 
     * [ ] _[extension pkg]_ Add the registration functions to `.onLoad()` in the `zzz.R` file. [(example)](https://github.com/tidymodels/censored/blob/efbb1cf3b2ba8bca5de65acc3c8b665dec35631c/R/zzz.R#L13) 
+
+    * [ ] Add model information to the internal `model_info_table` tibble in `R/aaa_archive.R`.
 
     * [ ] Engine-specific tuning parameters: Necessary parameter objects [[example]](https://github.com/tidymodels/dials/blob/d47dc47f42ad9c190d7f4a1ec85db0e385345ec0/R/param_num_knots.R) should go into *dials* and the `tunable()` method [[example]](https://github.com/tidymodels/parsnip/blob/bdc28548fd46493b52b408b6c1e04e1f80d0abdf/R/tunable.R#L338-L345) should go into parsnip. This needs a tibble which links engine arguments to dials parameter objects [[example]](https://github.com/tidymodels/parsnip/blob/bdc28548fd46493b52b408b6c1e04e1f80d0abdf/R/tunable.R#L206-L215).
 
@@ -85,10 +83,6 @@ engine lives.
     * [ ] Make sure that the `rmd_pkgs` listed in `parsnip/man/rmd/aaa.Rmd` are also installed. [[example]](https://github.com/tidymodels/parsnip/blob/main/man/rmd/aaa.Rmd#L20:L21)
 
     * [ ] Run `purrr::map(parsnip:::extensions(), ~ library(.x, character.only = TRUE))`.
-
-    * [ ] Run `parsnip:::update_model_info_file()`.
-
-    * [ ] Make sure that no entries are removed from `inst/models.tsv`.
 
     * [ ] Restart your R session (with `Shift + Cmd + 0` on MacOS).
 

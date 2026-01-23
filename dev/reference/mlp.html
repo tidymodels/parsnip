@@ -8,6 +8,7 @@ brulee
 brulee_two_layer
 h2o²
 keras
+qrnn
 ¹ The default engine. ² Requires a parsnip extension package for classification and regression.
 More information on how parsnip is used for modeling is at
 https://www.tidymodels.org/."><meta property="og:description" content="mlp() defines a multilayer perceptron model (a.k.a. a single layer,
@@ -19,6 +20,7 @@ brulee
 brulee_two_layer
 h2o²
 keras
+qrnn
 ¹ The default engine. ² Requires a parsnip extension package for classification and regression.
 More information on how parsnip is used for modeling is at
 https://www.tidymodels.org/."><meta property="og:image" content="https://parsnip.tidymodels.org/logo.png"><meta name="robots" content="noindex"><script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-hide-below="1200" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="parsnip.tidymodels.org,all.tidymodels.org" src="https://plausible.io/js/plausible.js"></script></head><body>
@@ -29,7 +31,7 @@ https://www.tidymodels.org/."><meta property="og:image" content="https://parsnip
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.4.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.4.1.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,6 +78,7 @@ regression models.</p>
 <li><p><code><a href="details_mlp_brulee_two_layer.html">brulee_two_layer</a></code></p></li>
 <li><p><code><a href="details_mlp_h2o.html">h2o</a>²</code></p></li>
 <li><p><code><a href="details_mlp_keras.html">keras</a></code></p></li>
+<li><p><code><a href="details_mlp_qrnn.html">qrnn</a></code></p></li>
 </ul>¹ The default engine. ² Requires a parsnip extension package for classification and regression.
 <p>More information on how <span class="pkg">parsnip</span> is used for modeling is at
 <a href="https://www.tidymodels.org/" class="external-link">https://www.tidymodels.org/</a>.</p>
@@ -162,23 +165,24 @@ programmatically, use the <a href="https://rlang.r-lib.org/reference/injection-o
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="fit.html">fit()</a></code>, <code><a href="set_engine.html">set_engine()</a></code>, <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>, <code><a href="details_mlp_nnet.html">nnet engine details</a></code>, <code><a href="details_mlp_brulee.html">brulee engine details</a></code>, <code><a href="details_mlp_brulee_two_layer.html">brulee_two_layer engine details</a></code>, <code><a href="details_mlp_h2o.html">h2o engine details</a></code>, <code><a href="details_mlp_keras.html">keras engine details</a></code></p></div>
+    <div class="dont-index"><p><code><a href="fit.html">fit()</a></code>, <code><a href="set_engine.html">set_engine()</a></code>, <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>, <code><a href="details_mlp_nnet.html">nnet engine details</a></code>, <code><a href="details_mlp_brulee.html">brulee engine details</a></code>, <code><a href="details_mlp_brulee_two_layer.html">brulee_two_layer engine details</a></code>, <code><a href="details_mlp_h2o.html">h2o engine details</a></code>, <code><a href="details_mlp_keras.html">keras engine details</a></code>, <code><a href="details_mlp_qrnn.html">qrnn engine details</a></code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="show_engines.html">show_engines</a></span><span class="op">(</span><span class="st">"mlp"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   engine           mode          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> keras            classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> keras            regression    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> nnet             classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> nnet             regression    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> brulee           classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> brulee           regression    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> brulee_two_layer classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> brulee_two_layer regression    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   engine           mode               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> keras            classification     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> keras            regression         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> nnet             classification     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> nnet             regression         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> brulee           classification     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> brulee           regression         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> brulee_two_layer classification     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> brulee_two_layer regression         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span> qrnn             quantile regression</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">mlp</span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"classification"</span>, penalty <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Single Layer Neural Network Model Specification (classification)</span>

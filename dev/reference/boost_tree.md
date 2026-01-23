@@ -146,14 +146,15 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ``` r
 show_engines("boost_tree")
-#> # A tibble: 5 × 2
-#>   engine  mode          
-#>   <chr>   <chr>         
-#> 1 xgboost classification
-#> 2 xgboost regression    
-#> 3 C5.0    classification
-#> 4 spark   classification
-#> 5 spark   regression    
+#> # A tibble: 6 × 2
+#>   engine  mode               
+#>   <chr>   <chr>              
+#> 1 xgboost classification     
+#> 2 xgboost regression         
+#> 3 xgboost quantile regression
+#> 4 C5.0    classification     
+#> 5 spark   classification     
+#> 6 spark   regression         
 
 boost_tree(mode = "classification", trees = 20)
 #> Boosted Tree Model Specification (classification)

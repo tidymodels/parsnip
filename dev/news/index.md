@@ -2,11 +2,18 @@
 
 ## parsnip (development version)
 
+- xgboost and qrnn engines were added for quantile regression to
+  [`boost_tree()`](https://parsnip.tidymodels.org/dev/reference/boost_tree.md)
+  and [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md),
+  respectively.
+  ([\#1321](https://github.com/tidymodels/parsnip/issues/1321))
+
 - Case weight usage was enabled for the `"nnet"` engines of
   [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md) and
   [`bag_mlp()`](https://parsnip.tidymodels.org/dev/reference/bag_mlp.md)
   as well as for the `"dbarts"` engine of
   [`bart()`](https://parsnip.tidymodels.org/dev/reference/bart.md).
+
 - All model details files note whether case weights can be used or not.
 
 ## parsnip 1.4.1

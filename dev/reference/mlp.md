@@ -18,6 +18,8 @@ this model are listed below.
 
 - [`keras`](https://parsnip.tidymodels.org/dev/reference/details_mlp_keras.md)
 
+- [`qrnn`](https://parsnip.tidymodels.org/dev/reference/details_mlp_qrnn.md)
+
 ¹ The default engine. ² Requires a parsnip extension package for
 classification and regression.
 
@@ -119,23 +121,25 @@ models](https://www.tidymodels.org/find/parsnip/)
 [`brulee engine details`](https://parsnip.tidymodels.org/dev/reference/details_mlp_brulee.md),
 [`brulee_two_layer engine details`](https://parsnip.tidymodels.org/dev/reference/details_mlp_brulee_two_layer.md),
 [`h2o engine details`](https://parsnip.tidymodels.org/dev/reference/details_mlp_h2o.md),
-[`keras engine details`](https://parsnip.tidymodels.org/dev/reference/details_mlp_keras.md)
+[`keras engine details`](https://parsnip.tidymodels.org/dev/reference/details_mlp_keras.md),
+[`qrnn engine details`](https://parsnip.tidymodels.org/dev/reference/details_mlp_qrnn.md)
 
 ## Examples
 
 ``` r
 show_engines("mlp")
-#> # A tibble: 8 × 2
-#>   engine           mode          
-#>   <chr>            <chr>         
-#> 1 keras            classification
-#> 2 keras            regression    
-#> 3 nnet             classification
-#> 4 nnet             regression    
-#> 5 brulee           classification
-#> 6 brulee           regression    
-#> 7 brulee_two_layer classification
-#> 8 brulee_two_layer regression    
+#> # A tibble: 9 × 2
+#>   engine           mode               
+#>   <chr>            <chr>              
+#> 1 keras            classification     
+#> 2 keras            regression         
+#> 3 nnet             classification     
+#> 4 nnet             regression         
+#> 5 brulee           classification     
+#> 6 brulee           regression         
+#> 7 brulee_two_layer classification     
+#> 8 brulee_two_layer regression         
+#> 9 qrnn             quantile regression
 
 mlp(mode = "classification", penalty = 0.01)
 #> Single Layer Neural Network Model Specification (classification)
