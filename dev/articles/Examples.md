@@ -243,7 +243,7 @@ Now we create the model fit object:
       ##    evaluation_log 
       ## evaluation_log:
       ##   iter training_rmse
-      ##  <int>         <num>
+      ##  <num>         <num>
       ##      1      5.039503
       ##      2      4.080534
       ##    ---           ---
@@ -321,7 +321,7 @@ Now we create the model fit object:
       ##    evaluation_log 
       ## evaluation_log:
       ##   iter training_logloss
-      ##  <int>            <num>
+      ##  <num>            <num>
       ##      1        0.5506979
       ##      2        0.4714366
       ##    ---              ---

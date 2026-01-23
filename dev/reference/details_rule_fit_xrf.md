@@ -119,7 +119,17 @@ response variable are not supported. To use these with
 [`rule_fit()`](https://parsnip.tidymodels.org/dev/reference/rule_fit.md),
 we recommend using a recipe instead of the formula method.
 
-Also, there are several configuration differences in how `xrf()` is fit
+Note that
+[`rule_fit()`](https://parsnip.tidymodels.org/dev/reference/rule_fit.md)“prefits”
+the boosted tree via
+[`xgb_train()`](https://parsnip.tidymodels.org/dev/reference/xgb_train.md)
+so that early stopping can be used. If the fomrula method is used,
+[`xgb_train()`](https://parsnip.tidymodels.org/dev/reference/xgb_train.md)
+uses a one-hot encoding, whereas `xrf::xrf()` uses
+[`stats::model.matrix()`](https://rdrr.io/r/stats/model.matrix.html), so
+the predictor data frames are different (but not by much).
+
+There are several configuration differences in how `xrf()` is fit
 between that package and the wrapper used in **rules**. Some differences
 in default values are:
 
@@ -128,6 +138,11 @@ in default values are:
 | parameter   | **xrf** | **rules** |
 | `trees`     | 100     | 15        |
 | `max_depth` | 3       | 6         |
+
+Also, the default objective function in multinomial models used by
+`xrf::xrf()` is softmax while
+[`xgb_train()`](https://parsnip.tidymodels.org/dev/reference/xgb_train.md)
+uses the multinomial likelihood.
 
 These differences will create a disparity in the values of the `penalty`
 argument that **glmnet** uses. Also, **rules** can also set `penalty`

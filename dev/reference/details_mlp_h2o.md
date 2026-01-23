@@ -130,6 +130,18 @@ variance of one.
 By default, `h2o::h2o.deeplearning()` uses the argument
 `standardize = TRUE` to center and scale all numeric columns.
 
+### Case weights
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in
+[case_weights](https://parsnip.tidymodels.org/dev/reference/case_weights.md)
+and the examples on `tidymodels.org`.
+
+The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+have arguments called `case_weights` that expect vectors of case
+weights.
+
 ### Prediction types
 
     parsnip:::get_from_env("mlp_predict") |>

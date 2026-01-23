@@ -51,6 +51,18 @@ The **agua** extension package is required to fit this model.
     ## agua::h2o_train_nb(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
     ##     validation_frame = missing_arg(), laplace = numeric(0))
 
+### Case weights
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in
+[case_weights](https://parsnip.tidymodels.org/dev/reference/case_weights.md)
+and the examples on `tidymodels.org`.
+
+The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+have arguments called `case_weights` that expect vectors of case
+weights.
+
 ### Prediction types
 
     parsnip:::get_from_env("naive_Bayes_predict") |>

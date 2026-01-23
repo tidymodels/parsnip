@@ -2,11 +2,18 @@
 
 ## parsnip (development version)
 
+- Case weight usage was enabled for the `"nnet"` engines of
+  [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md) and
+  [`bag_mlp()`](https://parsnip.tidymodels.org/dev/reference/bag_mlp.md)
+  as well as for the `"dbarts"` engine of
+  [`bart()`](https://parsnip.tidymodels.org/dev/reference/bart.md).
+- All model details files note whether case weights can be used or not.
+
 ## parsnip 1.4.1
 
 CRAN release: 2026-01-11
 
-- Fixed bug where xgboost mdoels would fail to predict when `trees`
+- Fixed bug where xgboost models would fail to predict when `trees`
   matched number of trees in model.
   ([\#1316](https://github.com/tidymodels/parsnip/issues/1316))
 

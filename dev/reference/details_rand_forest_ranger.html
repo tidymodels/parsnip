@@ -166,6 +166,12 @@ see the documentation in <a href="case_weights.html">case_weights</a> and the ex
 on <code>tidymodels.org</code>.</p>
 <p>The <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> and <code><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy()</a></code> arguments have arguments called
 <code>case_weights</code> that expect vectors of case weights.</p>
+<p>Note that the data passed to the <code>case.weights</code> column are not used for
+traditional case weights (where the objective function is multiplied by
+a row-specific weight). From <code><a href="http://imbs-hl.github.io/ranger/reference/ranger.html" class="external-link">?ranger::ranger</a></code>: “Observations with
+larger weights will be selected with higher probability in the bootstrap
+(or subsampled) samples for the trees.”</p>
+<p>They function as sampling weights.</p>
 </div>
 
 <div class="section">

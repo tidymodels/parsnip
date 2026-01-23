@@ -165,9 +165,20 @@ default: see below)</p></li>
 <p>Note that, per the documentation in <code>?xrf</code>, transformations of the
 response variable are not supported. To use these with <code><a href="rule_fit.html">rule_fit()</a></code>, we
 recommend using a recipe instead of the formula method.</p>
-<p>Also, there are several configuration differences in how <code>xrf()</code> is fit
+<p>Note that <code><a href="rule_fit.html">rule_fit()</a></code>“prefits” the boosted tree via
+<code><a href="xgb_train.html">xgb_train()</a></code> so that early stopping
+can be used. If the fomrula method is used,
+<code><a href="xgb_train.html">xgb_train()</a></code> uses a one-hot encoding,
+whereas <code>xrf::xrf()</code> uses
+<code><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">stats::model.matrix()</a></code>, so the predictor data
+frames are different (but not by much).</p>
+<p>There are several configuration differences in how <code>xrf()</code> is fit
 between that package and the wrapper used in <strong>rules</strong>. Some differences
-in default values are:</p><table class="table table"><tr><td>parameter</td><td><strong>xrf</strong></td><td><strong>rules</strong></td></tr><tr><td><code>trees</code></td><td>100</td><td>15</td></tr><tr><td><code>max_depth</code></td><td>3</td><td>6</td></tr></table><p>These differences will create a disparity in the values of the <code>penalty</code>
+in default values are:</p><table class="table table"><tr><td>parameter</td><td><strong>xrf</strong></td><td><strong>rules</strong></td></tr><tr><td><code>trees</code></td><td>100</td><td>15</td></tr><tr><td><code>max_depth</code></td><td>3</td><td>6</td></tr></table><p>Also, the default objective function in multinomial models used by
+<code>xrf::xrf()</code> is softmax while
+<code><a href="xgb_train.html">xgb_train()</a></code> uses the multinomial
+likelihood.</p>
+<p>These differences will create a disparity in the values of the <code>penalty</code>
 argument that <strong>glmnet</strong> uses. Also, <strong>rules</strong> can also set <code>penalty</code>
 whereas <strong>xrf</strong> uses an internal 5-fold cross-validation to determine it
 (by default).</p>

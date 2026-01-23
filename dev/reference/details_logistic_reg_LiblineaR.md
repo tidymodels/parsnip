@@ -52,6 +52,10 @@ formula method via
 [`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md), parsnip
 will convert factor columns to indicators.
 
+### Case weights
+
+The underlying model implementation does not allow for case weights.
+
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
 variance of one.

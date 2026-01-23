@@ -67,6 +67,18 @@ formula method via
 [`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md), parsnip
 will convert factor columns to indicators.
 
+### Case weights
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in
+[case_weights](https://parsnip.tidymodels.org/dev/reference/case_weights.md)
+and the examples on `tidymodels.org`.
+
+The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+have arguments called `case_weights` that expect vectors of case
+weights.
+
 ### Initializing h2o
 
 To use the h2o engine with tidymodels, please run `h2o::h2o.init()`

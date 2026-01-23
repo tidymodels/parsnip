@@ -87,8 +87,9 @@ some models, you may need to pass this value in via
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="do">## Computational engine: nnet</span></span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="do">##</span></span>
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="do">## Model fit template:</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="do">## nnet::nnet(formula = missing_arg(), data = missing_arg(), size = integer(1),</span></span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="do">##     decay = double(1), maxit = integer(1), trace = FALSE, linout = TRUE)</span></span></code></pre><p></p></div>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="do">## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(),</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="do">##     size = integer(1), decay = double(1), maxit = integer(1),</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="do">##     trace = FALSE, linout = TRUE)</span></span></code></pre><p></p></div>
 <p>Note that parsnip automatically sets linear activation in the last
 layer.</p>
 </div>
@@ -136,7 +137,11 @@ variance of one.</p>
 <h3 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h3>
 
 
-<p>The underlying model implementation does not allow for case weights.</p>
+<p>This model can utilize case weights during model fitting. To use them,
+see the documentation in <a href="case_weights.html">case_weights</a> and the examples
+on <code>tidymodels.org</code>.</p>
+<p>The <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> and <code><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy()</a></code> arguments have arguments called
+<code>case_weights</code> that expect vectors of case weights.</p>
 </div>
 
 <div class="section">
