@@ -83,6 +83,10 @@ For `ranger` confidence intervals, the intervals are  constructed using the form
 #| child: template-uses-case-weights.Rmd
 ```
 
+Note that the data passed to the `case.weights` column are not used for traditional case weights (where the objective function is multiplied by a row-specific weight). From `?ranger::ranger`: "Observations with larger weights will be selected with higher probability in the bootstrap (or subsampled) samples for the trees."
+
+They function as sampling weights. 
+
 ## Sparse Data
 
 ```{r}

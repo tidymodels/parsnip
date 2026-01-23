@@ -91,6 +91,12 @@ mlp(
 
 By default, [h2o::h2o.deeplearning()] uses the argument `standardize = TRUE` to center and scale all numeric columns. 
 
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
 ## Prediction types
 
 ```{r}
