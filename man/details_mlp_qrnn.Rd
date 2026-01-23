@@ -50,7 +50,7 @@ Other engine arguments of interest:
 ## Computational engine: qrnn 
 ## 
 ## Model fit template:
-## parsnip::mcqrnn_wrap(x = missing_arg(), y = missing_arg(), n.hidden = integer(1), 
+## parsnip::mcqrnn_train(x = missing_arg(), y = missing_arg(), n.hidden = integer(1), 
 ##     penalty = double(1), iter.max = integer(1), Th = character(1), 
 ##     trace = FALSE, tau = quantile_levels)
 
@@ -72,12 +72,7 @@ variance of one.
 
 \subsection{Case weights}{
 
-This model can utilize case weights during model fitting. To use them,
-see the documentation in \link{case_weights} and the examples
-on \code{tidymodels.org}.
-
-The \code{fit()} and \code{fit_xy()} arguments have arguments called
-\code{case_weights} that expect vectors of case weights.
+The underlying model implementation does not allow for case weights.
 }
 
 \subsection{Prediction types}{

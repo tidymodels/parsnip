@@ -49,7 +49,7 @@ mlp(
 ## Computational engine: qrnn 
 ## 
 ## Model fit template:
-## parsnip::mcqrnn_wrap(x = missing_arg(), y = missing_arg(), n.hidden = integer(1), 
+## parsnip::mcqrnn_train(x = missing_arg(), y = missing_arg(), n.hidden = integer(1), 
 ##     penalty = double(1), iter.max = integer(1), Th = character(1), 
 ##     trace = FALSE, tau = quantile_levels)
 ```
@@ -70,9 +70,7 @@ scale each so that each predictor has mean zero and a variance of one.
 ## Case weights
 
 
-This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
-
-The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+The underlying model implementation does not allow for case weights. 
 
 ## Prediction types
 

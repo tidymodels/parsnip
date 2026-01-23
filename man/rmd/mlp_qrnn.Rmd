@@ -68,7 +68,7 @@ mlp(
 ## Case weights
 
 ```{r}
-#| child: template-uses-case-weights.Rmd
+#| child: template-no-case-weights.Rmd
 ```
 
 ## Prediction types
