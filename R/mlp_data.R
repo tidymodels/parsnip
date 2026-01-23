@@ -736,7 +736,7 @@ set_fit(
   value = list(
     interface = "matrix",
     protect = c("x", "y"),
-    func = c(pkg = "parsnip", fun = "mcqrnn_wrap"),
+    func = c(pkg = "parsnip", fun = "mcqrnn_train"),
     defaults = list(
       trace = FALSE,
       tau = quote(quantile_levels)

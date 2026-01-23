@@ -532,15 +532,13 @@ set_tf_seed <- function(seed) {
 #' @param trace Logical for printing
 #' @param tau Vector of quantile levels.
 #' @keywords internal
-mcqrnn_wrap <- function(x, y, ..., trace, tau) {
+mcqrnn_train <- function(x, y, ..., trace, tau) {
   if (is.vector(y)) {
     y <- matrix(y, ncol = 1)
   }
   dots <- list(...)
-  if (any(names(dots) == "Th")) {
-    if (dots$Th != "sigmoid") {
-      deriv_nm <- paste0(dots$Th, ".prime")
-
+  if (any(grepl("^Th", names(dots)))) {
+    if (any(names(dots) == "Th") && dots$Th != "sigmoid") {
       act_fun <- try(
         utils::getFromNamespace(dots$Th, ns = "qrnn"),
         silent = TRUE
@@ -550,12 +548,19 @@ mcqrnn_wrap <- function(x, y, ..., trace, tau) {
           "Could not find an activation function called {.fn {dots$Th}} in the {.pkg qrnn} package."
         )
       }
-
+      dots$Th <- act_fun
+    }
+    if (any(names(dots) == "Th.prime") && dots$Th != "sigmoid.prime") {
+      deriv_nm <- paste0(dots$Th, ".prime")
       act_deriv_fun <- try(
         utils::getFromNamespace(deriv_nm, ns = "qrnn"),
         silent = TRUE
       )
-      dots$Th <- act_fun
+      if (inherits(act_deriv_fun, "try-error")) {
+        cli::cli_abort(
+          "Could not find an activation gradient function called {.fn {dots$Th}} in the {.pkg qrnn} package."
+        )
+      }
       dots$Th.prime <- act_deriv_fun
     }
   }
