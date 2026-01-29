@@ -98,3 +98,36 @@ test_that('basic object classes and print methods', {
   expect_true(inherits(svm_rbf(engine = 'kernlab'), 'svm_rbf'))
   expect_true(inherits(svm_rbf(engine = 'liquidSVM'), 'svm_rbf'))
 })
+
+
+test_that('retaining quantile levels', {
+  rf_spec_1 <- rand_forest()
+
+  rf_spec_2m <-
+    rf_spec_1 |>
+    set_mode("quantile regression", quantile_levels = (1:3) / 4)
+
+  expect_snapshot(rf_spec_2m)
+
+  rf_spec_2e <-
+    rf_spec_1 |>
+    set_engine("grf")
+
+  expect_snapshot(rf_spec_2e)
+
+  rf_spec_2me <-
+    rf_spec_2m |>
+    set_engine("grf")
+
+  expect_snapshot(rf_spec_2me)
+
+  rf_spec_2em <-
+    rf_spec_2e |>
+    set_mode("quantile regression", quantile_levels = (1:3) / 4)
+
+  expect_snapshot(rf_spec_2em)
+
+  rf_spec_up <- update(rf_spec_2em, parameters = list(mtry = 10))
+
+  expect_snapshot(rf_spec_up)
+})
