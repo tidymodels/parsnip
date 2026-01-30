@@ -101,33 +101,36 @@ test_that('basic object classes and print methods', {
 
 
 test_that('retaining quantile levels', {
+  lvls <- (1:3) / 4
+
   rf_spec_1 <- rand_forest()
+  expect_null(rf_spec_1$quantile_levels)
 
   rf_spec_2m <-
     rf_spec_1 |>
-    set_mode("quantile regression", quantile_levels = (1:3) / 4)
+    set_mode("quantile regression", quantile_levels = lvls)
 
-  expect_snapshot(rf_spec_2m)
+  expect_equal(rf_spec_2m$quantile_levels, lvls)
 
   rf_spec_2e <-
     rf_spec_1 |>
     set_engine("grf")
 
-  expect_snapshot(rf_spec_2e)
+  expect_null(rf_spec_2e$quantile_levels)
 
   rf_spec_2me <-
     rf_spec_2m |>
     set_engine("grf")
 
-  expect_snapshot(rf_spec_2me)
+  expect_equal(rf_spec_2me$quantile_levels, lvls)
 
   rf_spec_2em <-
     rf_spec_2e |>
-    set_mode("quantile regression", quantile_levels = (1:3) / 4)
+    set_mode("quantile regression", quantile_levels = lvls)
 
-  expect_snapshot(rf_spec_2em)
+  expect_equal(rf_spec_2em$quantile_levels, lvls)
 
   rf_spec_up <- update(rf_spec_2em, parameters = list(mtry = 10))
 
-  expect_snapshot(rf_spec_up)
+  expect_equal(rf_spec_up$quantile_levels, lvls)
 })
