@@ -6,7 +6,7 @@ articles:
   articles/Examples: Examples.html
   parsnip: parsnip.html
   articles/Submodels: Submodels.html
-last_built: 2026-01-23T19:50Z
+last_built: 2026-01-30T13:47Z
 urls:
   reference: https://parsnip.tidymodels.org/reference
   article: https://parsnip.tidymodels.org/articles

@@ -19,13 +19,13 @@ Source:
 [`DESCRIPTION`](https://github.com/tidymodels/parsnip/blob/main/DESCRIPTION)
 
 Kuhn M, Vaughan D (2026). *parsnip: A Common API to Modeling and
-Analysis Functions*. R package version 1.4.1.9001,
+Analysis Functions*. R package version 1.4.1.9002,
 <https://github.com/tidymodels/parsnip>.
 
     @Manual{,
       title = {parsnip: A Common API to Modeling and Analysis Functions},
       author = {Max Kuhn and Davis Vaughan},
       year = {2026},
-      note = {R package version 1.4.1.9001},
+      note = {R package version 1.4.1.9002},
       url = {https://github.com/tidymodels/parsnip},
     }

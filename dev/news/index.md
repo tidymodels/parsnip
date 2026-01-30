@@ -2,6 +2,9 @@
 
 ## parsnip (development version)
 
+- Quantile levels are not dropped when a model specification is modified
+  ([\#1304](https://github.com/tidymodels/parsnip/issues/1304))
+
 - xgboost and qrnn engines were added for quantile regression to
   [`boost_tree()`](https://parsnip.tidymodels.org/dev/reference/boost_tree.md)
   and [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md),
