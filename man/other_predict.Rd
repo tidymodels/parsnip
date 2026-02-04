@@ -82,7 +82,7 @@ value of \code{type}. Arguments to the underlying model's prediction
 function cannot be passed here (use the \code{opts} argument instead).
 Possible arguments are:
 \itemize{
-\item \code{interval}: for \code{type} equal to \code{"survival"} or \code{"quantile"}, should
+\item \code{interval}: for \code{type} equal to \code{"survival"}, should
 interval estimates be added, if available? Options are \code{"none"}
 and \code{"confidence"}.
 \item \code{level}: for \code{type} equal to \code{"conf_int"}, \code{"pred_int"}, or \code{"survival"},
@@ -92,8 +92,6 @@ Default value is \code{0.95}.
 \item \code{std_error}: for \code{type} equal to \code{"conf_int"} or \code{"pred_int"}, add
 the standard error of fit or prediction (on the scale of the
 linear predictors). Default value is \code{FALSE}.
-\item \code{quantile}: for \code{type} equal to \code{quantile}, the quantiles of the
-distribution. Default is \code{(1:9)/10}.
 \item \code{eval_time}: for \code{type} equal to \code{"survival"} or \code{"hazard"}, the
 time points at which the survival probability or hazard is estimated.
 }}
