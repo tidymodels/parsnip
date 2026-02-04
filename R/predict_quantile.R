@@ -71,10 +71,10 @@ predict_quantile.model_fit <- function(
   res
 }
 
-# @export
-# @keywords internal
-# @rdname other_predict
-# @inheritParams predict.model_fit
+#' @export
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict.model_fit
 predict_quantile <- function(object, ...) {
   UseMethod("predict_quantile")
 }

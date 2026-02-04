@@ -5,8 +5,11 @@
 %   R/predict_time.R
 \name{predict_class.model_fit}
 \alias{predict_class.model_fit}
+\alias{predict_class}
 \alias{predict_classprob.model_fit}
+\alias{predict_classprob}
 \alias{predict_hazard.model_fit}
+\alias{predict_hazard}
 \alias{predict_confint.model_fit}
 \alias{predict_confint}
 \alias{predict_predint}
@@ -16,6 +19,7 @@
 \alias{predict_numeric.model_fit}
 \alias{predict_numeric}
 \alias{predict_quantile.model_fit}
+\alias{predict_quantile}
 \alias{predict_survival.model_fit}
 \alias{predict_survival}
 \alias{predict_time.model_fit}
@@ -24,9 +28,15 @@
 \usage{
 \method{predict_class}{model_fit}(object, new_data, ...)
 
+predict_class(object, ...)
+
 \method{predict_classprob}{model_fit}(object, new_data, ...)
 
+predict_classprob(object, ...)
+
 \method{predict_hazard}{model_fit}(object, new_data, eval_time, time = deprecated(), ...)
+
+predict_hazard(object, ...)
 
 \method{predict_confint}{model_fit}(object, new_data, level = 0.95, std_error = FALSE, ...)
 
@@ -55,6 +65,8 @@ predict_numeric(object, ...)
   level = 0.95,
   ...
 )
+
+predict_quantile(object, ...)
 
 \method{predict_survival}{model_fit}(
   object,

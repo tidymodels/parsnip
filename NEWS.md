@@ -8,6 +8,7 @@
 
 * All model details files note whether case weights can be used or not. 
 
+* We now export the generics for `predict_quantile()`, `predict_class()`, `predict_classprob()`, and  `predict_hazard()`. (#1257)
 
 # parsnip 1.4.1
 
