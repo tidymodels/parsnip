@@ -54,11 +54,17 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'model_fit'</span></span>
 <span><span class="fu">predict_class</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">predict_class</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># S3 method for class 'model_fit'</span></span>
 <span><span class="fu">predict_classprob</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">predict_classprob</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># S3 method for class 'model_fit'</span></span>
 <span><span class="fu">predict_hazard</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, <span class="va">eval_time</span>, time <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">predict_hazard</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'model_fit'</span></span>
 <span><span class="fu">predict_confint</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, level <span class="op">=</span> <span class="fl">0.95</span>, std_error <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -92,6 +98,8 @@
 <span>  level <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">predict_quantile</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'model_fit'</span></span>
 <span><span class="fu">predict_survival</span><span class="op">(</span></span>

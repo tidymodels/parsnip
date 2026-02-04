@@ -19,6 +19,14 @@
 
 - All model details files note whether case weights can be used or not.
 
+- We now export the generics for
+  [`predict_quantile()`](https://parsnip.tidymodels.org/dev/reference/other_predict.md),
+  [`predict_class()`](https://parsnip.tidymodels.org/dev/reference/other_predict.md),
+  [`predict_classprob()`](https://parsnip.tidymodels.org/dev/reference/other_predict.md),
+  and
+  [`predict_hazard()`](https://parsnip.tidymodels.org/dev/reference/other_predict.md).
+  ([\#1257](https://github.com/tidymodels/parsnip/issues/1257))
+
 ## parsnip 1.4.1
 
 CRAN release: 2026-01-11
@@ -362,8 +370,10 @@ time to [`fit()`](https://generics.r-lib.org/reference/fit.html) and
 
 - The `time` argument to
   [`predict_survival()`](https://parsnip.tidymodels.org/dev/reference/other_predict.md)
-  and `predict_hazard()` is deprecated in favor of the new `eval_time`
-  argument ([\#936](https://github.com/tidymodels/parsnip/issues/936)).
+  and
+  [`predict_hazard()`](https://parsnip.tidymodels.org/dev/reference/other_predict.md)
+  is deprecated in favor of the new `eval_time` argument
+  ([\#936](https://github.com/tidymodels/parsnip/issues/936)).
 
 - Added several internal functions (to help work with `Surv` objects) as
   a standalone file that can be used in other packages via

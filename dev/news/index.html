@@ -50,6 +50,7 @@
 <li><p>xgboost and qrnn engines were added for quantile regression to <code><a href="../reference/boost_tree.html">boost_tree()</a></code> and <code><a href="../reference/mlp.html">mlp()</a></code>, respectively. (<a href="https://github.com/tidymodels/parsnip/issues/1321" class="external-link">#1321</a>)</p></li>
 <li><p>Case weight usage was enabled for the <code>"nnet"</code> engines of <code><a href="../reference/mlp.html">mlp()</a></code> and <code><a href="../reference/bag_mlp.html">bag_mlp()</a></code> as well as for the <code>"dbarts"</code> engine of <code><a href="../reference/bart.html">bart()</a></code>.</p></li>
 <li><p>All model details files note whether case weights can be used or not.</p></li>
+<li><p>We now export the generics for <code><a href="../reference/other_predict.html">predict_quantile()</a></code>, <code><a href="../reference/other_predict.html">predict_class()</a></code>, <code><a href="../reference/other_predict.html">predict_classprob()</a></code>, and <code><a href="../reference/other_predict.html">predict_hazard()</a></code>. (<a href="https://github.com/tidymodels/parsnip/issues/1257" class="external-link">#1257</a>)</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.4.1" id="parsnip-141">parsnip 1.4.1<a class="anchor" aria-label="anchor" href="#parsnip-141"></a></h2><p class="text-muted">CRAN release: 2026-01-11</p>
@@ -181,7 +182,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="survival-analysis-1-1-0">Survival analysis<a class="anchor" aria-label="anchor" href="#survival-analysis-1-1-0"></a></h3>
-<ul><li><p>The <code>time</code> argument to <code><a href="../reference/other_predict.html">predict_survival()</a></code> and <code>predict_hazard()</code> is deprecated in favor of the new <code>eval_time</code> argument (<a href="https://github.com/tidymodels/parsnip/issues/936" class="external-link">#936</a>).</p></li>
+<ul><li><p>The <code>time</code> argument to <code><a href="../reference/other_predict.html">predict_survival()</a></code> and <code><a href="../reference/other_predict.html">predict_hazard()</a></code> is deprecated in favor of the new <code>eval_time</code> argument (<a href="https://github.com/tidymodels/parsnip/issues/936" class="external-link">#936</a>).</p></li>
 <li><p>Added several internal functions (to help work with <code>Surv</code> objects) as a standalone file that can be used in other packages via <code>usethis::use_standalone("tidymodels/parsnip")</code>. These changes provide tooling for downstream packages to handle inverse probability censoring weights (<a href="https://github.com/tidymodels/parsnip/issues/893" class="external-link">#893</a>, <a href="https://github.com/tidymodels/parsnip/issues/897" class="external-link">#897</a>, <a href="https://github.com/tidymodels/parsnip/issues/937" class="external-link">#937</a>).</p></li>
 <li><p>An internal method for generating inverse probability of censoring weights (IPCW) of Graf <em>et al</em> (1999) is available via <code><a href="../reference/censoring_weights.html">.censoring_weights_graf()</a></code>.</p></li>
 </ul></div>

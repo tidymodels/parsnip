@@ -37,9 +37,9 @@ be predicted after the model is fit.
 
       ## ── Attaching packages ──────────────────────── tidymodels 1.4.1.9000 ──
 
-      ## ✔ broom        1.0.12         ✔ rsample      1.3.1     
+      ## ✔ broom        1.0.12         ✔ rsample      1.3.2     
       ## ✔ dials        1.4.2          ✔ tailor       0.1.0     
-      ## ✔ dplyr        1.1.4          ✔ tidyr        1.3.2     
+      ## ✔ dplyr        1.2.0          ✔ tidyr        1.3.2     
       ## ✔ infer        1.1.0          ✔ tune         2.0.1     
       ## ✔ modeldata    1.5.1          ✔ workflows    1.3.0     
       ## ✔ parsnip      1.4.1.9002     ✔ workflowsets 1.1.1     

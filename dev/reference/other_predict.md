@@ -9,11 +9,17 @@ user.
 # S3 method for class 'model_fit'
 predict_class(object, new_data, ...)
 
+predict_class(object, ...)
+
 # S3 method for class 'model_fit'
 predict_classprob(object, new_data, ...)
 
+predict_classprob(object, ...)
+
 # S3 method for class 'model_fit'
 predict_hazard(object, new_data, eval_time, time = deprecated(), ...)
+
+predict_hazard(object, ...)
 
 # S3 method for class 'model_fit'
 predict_confint(object, new_data, level = 0.95, std_error = FALSE, ...)
@@ -47,6 +53,8 @@ predict_quantile(
   level = 0.95,
   ...
 )
+
+predict_quantile(object, ...)
 
 # S3 method for class 'model_fit'
 predict_survival(
