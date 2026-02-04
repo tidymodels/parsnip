@@ -48,10 +48,10 @@ predict_hazard.model_fit <- function(
   res
 }
 
-# @export
-# @keywords internal
-# @rdname other_predict
-# @inheritParams predict.model_fit
+#' @export
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict.model_fit
 predict_hazard <- function(object, ...) {
   UseMethod("predict_hazard")
 }
