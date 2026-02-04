@@ -248,6 +248,12 @@ check_pred_type <- function(object, type, ..., call = rlang::caller_env()) {
         call = call
       )
     },
+    "ordered_prob" = if (object$spec$mode != "classification") {
+      cli::cli_abort(
+        "For ordered probability predictions, the object should be a classification model.",
+        call = call
+      )
+    },
     "time" = if (object$spec$mode != "censored regression") {
       cli::cli_abort(
         "For event time predictions, the object should be a censored regression.",
