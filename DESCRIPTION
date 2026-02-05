@@ -72,10 +72,8 @@ Suggests:
 VignetteBuilder: 
     knitr
 ByteCompile: true
-Config/Needs/website: brulee, C50, dbarts, earth, glmnet, grf, keras, kernlab,
-    kknn, LiblineaR, mgcv, nnet, parsnip, quantreg, randomForest, ranger,
-    rpart, rstanarm, tidymodels/tidymodels, tidyverse/tidytemplate,
-    rstudio/reticulate, xgboost, rmarkdown
+Config/Needs/website: parsnip, tidymodels/tidymodels, tidyverse/tidytemplate,
+    xgboost, rmarkdown
 Config/rcmdcheck/ignore-inconsequential-notes: true
 Config/testthat/edition: 3
 Encoding: UTF-8
