@@ -65,7 +65,7 @@ Engines may live in parsnip or an extension package.
 
 * [ ] Write the engine-specific documentation. This documentation always goes into parsnip, regardless of where the engine is defined. See the [README](https://github.com/tidymodels/parsnip/blob/main/inst/README-DOCS.md) for the parsnip documentation system.
 
-* [ ] If the engine is added in parsnip, update `vignettes/articles/Examples.Rmd`. If the engine is added in an extension package: does it have a corresponding article that needs updating? Does the README list available models/engines and needs updating?
+* [ ] Update the `parsnip-predictions` article of <tidymodels.org>. If the engine is added in an extension package: Does the README list available models/engines and needs updating?
 
 * [ ] Add a documentation entry in `NEWS.md`.
 ```
