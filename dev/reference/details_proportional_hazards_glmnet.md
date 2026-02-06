@@ -1,7 +1,7 @@
 # Proportional hazards regression
 
-[`glmnet::glmnet()`](https://rdrr.io/pkg/glmnet/man/glmnet.html) fits a
-regularized Cox proportional hazards model.
+[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html)
+fits a regularized Cox proportional hazards model.
 
 ## Details
 
@@ -61,8 +61,8 @@ will convert factor columns to indicators.
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
 variance of one. By default,
-[`glmnet::glmnet()`](https://rdrr.io/pkg/glmnet/man/glmnet.html) uses
-the argument `standardize = TRUE` to center and scale the data.
+[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html)
+uses the argument `standardize = TRUE` to center and scale the data.
 
 ### Other details
 
@@ -76,9 +76,9 @@ tidymodels, see
 [`?model_formula`](https://parsnip.tidymodels.org/dev/reference/model_formula.md).)
 The column used inside `strata()` is treated as qualitative no matter
 its type. This is different than the syntax offered by the
-[`glmnet::glmnet()`](https://rdrr.io/pkg/glmnet/man/glmnet.html) package
-(i.e.,
-[`glmnet::stratifySurv()`](https://rdrr.io/pkg/glmnet/man/stratifySurv.html))
+[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html)
+package (i.e.,
+[`glmnet::stratifySurv()`](https://glmnet.stanford.edu/reference/stratifySurv.html))
 which is not recommended here.
 
 For example, in this model, the numeric column `rx` is used to estimate

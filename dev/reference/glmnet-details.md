@@ -116,17 +116,17 @@ by `glmnet()`. See the section below about setting the path.
 
 Regardless of what value you use for `penalty`, the full coefficient
 path is used when
-[`glmnet::glmnet()`](https://rdrr.io/pkg/glmnet/man/glmnet.html) is
-called.
+[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html)
+is called.
 
 What if you want to manually set this path? Normally, you would pass a
 vector to `lambda` in
-[`glmnet::glmnet()`](https://rdrr.io/pkg/glmnet/man/glmnet.html).
+[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html).
 
 parsnip models that use a `glmnet` engine can use a special optional
 argument called `path_values`. This is *not* an argument to
-[`glmnet::glmnet()`](https://rdrr.io/pkg/glmnet/man/glmnet.html); it is
-used by parsnip to independently set the path.
+[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html);
+it is used by parsnip to independently set the path.
 
 For example, we have found that if you want a fully ridge regression
 model (i.e., `mixture = 0`), you can get the *wrong coefficients* if the
