@@ -126,7 +126,7 @@ parsnip:::get_from_env("rand_forest_predict") |>
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#rand-forest-randomForest) for `rand_forest()` with the `"randomForest"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `rand_forest()` with the `"randomForest"` engine.
 
 ## References
 

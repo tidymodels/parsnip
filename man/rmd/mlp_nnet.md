@@ -75,8 +75,9 @@ mlp(
 ## Computational engine: nnet 
 ## 
 ## Model fit template:
-## nnet::nnet(formula = missing_arg(), data = missing_arg(), size = integer(1), 
-##     decay = double(1), maxit = integer(1), trace = FALSE, linout = FALSE)
+## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     size = integer(1), decay = double(1), maxit = integer(1), 
+##     trace = FALSE, linout = FALSE)
 ```
 
 
@@ -124,7 +125,7 @@ This model object contains data that are not required to make predictions. When 
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#mlp-nnet) for `mlp()` with the `"nnet"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `mlp()` with the `"nnet"` engine.
 
 ## References
 

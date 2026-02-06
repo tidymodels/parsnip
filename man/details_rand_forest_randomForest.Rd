@@ -142,9 +142,9 @@ functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#rand-forest-randomForest}{examples}
-for \code{rand_forest()} with the \code{"randomForest"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{rand_forest()} with the \code{"randomForest"} engine.
 }
 
 \subsection{References}{

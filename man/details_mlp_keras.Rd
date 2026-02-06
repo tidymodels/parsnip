@@ -129,9 +129,9 @@ about preparing fitted models for serialization, see the bundle package.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#mlp-keras}{examples}
-for \code{mlp()} with the \code{"keras"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{mlp()} with the \code{"keras"} engine.
 }
 
 \subsection{References}{

@@ -79,7 +79,7 @@ This model can utilize sparse data during model fitting and prediction. Both spa
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#logistic-reg-LiblineaR) for `logistic_reg()` with the `"LiblineaR"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `logistic_reg()` with the `"LiblineaR"` engine.
 
 ## References
 

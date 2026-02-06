@@ -127,9 +127,9 @@ The underlying model implementation does not allow for case weights.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-poly-kernlab}{examples}
-for \code{svm_poly()} with the \code{"kernlab"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{svm_poly()} with the \code{"kernlab"} engine.
 }
 
 \subsection{Saving fitted model objects}{

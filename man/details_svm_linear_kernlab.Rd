@@ -27,9 +27,9 @@ Parsnip changes the default range for \code{cost} to \code{c(-10, 5)}.
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
   cost = double(1),
   margin = double(1)
-) |>  
-  set_engine("kernlab") |> 
-  set_mode("regression") |> 
+) |>
+  set_engine("kernlab") |>
+  set_mode("regression") |>
   translate()
 }\if{html}{\out{</div>}}
 
@@ -51,9 +51,9 @@ Parsnip changes the default range for \code{cost} to \code{c(-10, 5)}.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
   cost = double(1)
-) |> 
-  set_engine("kernlab") |> 
-  set_mode("classification") |> 
+) |>
+  set_engine("kernlab") |>
+  set_mode("classification") |>
   translate()
 }\if{html}{\out{</div>}}
 
@@ -94,8 +94,9 @@ variance of one.
 \subsection{Case weights}{
 
 The underlying model implementation does not allow for case weights.
+}
 
-j## Prediction types
+\subsection{Prediction types}{
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("svm_linear_predict") |>
   dplyr::filter(engine == "kernlab") |>
@@ -123,9 +124,9 @@ functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-linear-kernlab}{examples}
-for \code{svm_linear()} with the \code{"kernlab"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{svm_linear()} with the \code{"kernlab"} engine.
 }
 
 \subsection{References}{
