@@ -6,12 +6,14 @@ navbar:
     tutorials:
       text: Learn more
       menu:
+      - text: "Fitting and predicting with parsnip"
+        href: https://www.tidymodels.org/learn/models/parsnip-predictions/
       - text: "Regression modeling"
         href: https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/
       - text: "Classification modeling"
         href: https://www.tidymodels.org/learn/models/parsnip-nnet/
       - text: "Making a parsnip model from scratch"
-        href: https://www.tidymodels.org/learn/develop/models/
+        href: https://www.tidymodels.org/learn/develop/models/ 
 
 template:
   package: tidytemplate
