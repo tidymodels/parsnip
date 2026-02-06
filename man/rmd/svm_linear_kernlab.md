@@ -22,9 +22,9 @@ Parsnip changes the default range for `cost` to `c(-10, 5)`.
 svm_linear(
   cost = double(1),
   margin = double(1)
-) |>  
-  set_engine("kernlab") |> 
-  set_mode("regression") |> 
+) |>
+  set_engine("kernlab") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -48,9 +48,9 @@ svm_linear(
 ``` r
 svm_linear(
   cost = double(1)
-) |> 
-  set_engine("kernlab") |> 
-  set_mode("classification") |> 
+) |>
+  set_engine("kernlab") |>
+  set_mode("classification") |>
   translate()
 ```
 
@@ -85,7 +85,7 @@ scale each so that each predictor has mean zero and a variance of one.
 
 The underlying model implementation does not allow for case weights. 
 
-j## Prediction types
+## Prediction types
 
 
 ``` r
@@ -112,7 +112,7 @@ This model object contains data that are not required to make predictions. When 
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-linear-kernlab) for `svm_linear()` with the `"kernlab"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `svm_linear()` with the `"kernlab"` engine.
 
 ## References
 

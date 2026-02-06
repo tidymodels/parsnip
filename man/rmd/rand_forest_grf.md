@@ -139,7 +139,7 @@ The regression and classification models enable the use of case weights. The qua
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#rand-forest-grf) for `rand_forest()` with the `"grf"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `rand_forest()` with the `"grf"` engine.
 
 ## References
 

@@ -92,9 +92,9 @@ sparse tibbles from the \code{sparsevctrs} package are supported. See
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#logistic-reg-LiblineaR}{examples}
-for \code{logistic_reg()} with the \code{"LiblineaR"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{logistic_reg()} with the \code{"LiblineaR"} engine.
 }
 
 \subsection{References}{

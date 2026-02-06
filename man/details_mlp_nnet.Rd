@@ -76,8 +76,9 @@ layer.
 ## Computational engine: nnet 
 ## 
 ## Model fit template:
-## nnet::nnet(formula = missing_arg(), data = missing_arg(), size = integer(1), 
-##     decay = double(1), maxit = integer(1), trace = FALSE, linout = FALSE)
+## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     size = integer(1), decay = double(1), maxit = integer(1), 
+##     trace = FALSE, linout = FALSE)
 }\if{html}{\out{</div>}}
 }
 
@@ -131,9 +132,9 @@ functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#mlp-nnet}{examples}
-for \code{mlp()} with the \code{"nnet"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{mlp()} with the \code{"nnet"} engine.
 }
 
 \subsection{References}{

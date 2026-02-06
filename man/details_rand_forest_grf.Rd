@@ -156,9 +156,9 @@ The quantile regression mode does not.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#rand-forest-grf}{examples}
-for \code{rand_forest()} with the \code{"grf"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{rand_forest()} with the \code{"grf"} engine.
 }
 
 \subsection{References}{
