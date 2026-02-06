@@ -143,9 +143,9 @@ The quantile regression mode does not.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#rand-forest-grf)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`rand_forest()`](https://parsnip.tidymodels.org/dev/reference/rand_forest.md)
 with the `"grf"` engine.
 

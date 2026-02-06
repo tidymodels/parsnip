@@ -1,8 +1,8 @@
 # Multinomial regression via glmnet
 
-[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html)
-fits a model that uses linear predictors to predict multiclass data
-using the multinomial distribution.
+[`glmnet::glmnet()`](https://rdrr.io/pkg/glmnet/man/glmnet.html) fits a
+model that uses linear predictors to predict multiclass data using the
+multinomial distribution.
 
 ## Details
 
@@ -58,14 +58,14 @@ will convert factor columns to indicators.
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
 variance of one. By default,
-[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html)
-uses the argument `standardize = TRUE` to center and scale the data.
+[`glmnet::glmnet()`](https://rdrr.io/pkg/glmnet/man/glmnet.html) uses
+the argument `standardize = TRUE` to center and scale the data.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-glmnet)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md)
 with the `"glmnet"` engine.
 

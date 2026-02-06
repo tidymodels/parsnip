@@ -119,10 +119,11 @@ about preparing fitted models for serialization, see the bundle package.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#mlp-keras)
-for [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md) with
-the `"keras"` engine.
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
+[`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md) with the
+`"keras"` engine.
 
 ### References
 

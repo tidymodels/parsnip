@@ -104,9 +104,9 @@ weights.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#logistic-reg-stan)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`logistic_reg()`](https://parsnip.tidymodels.org/dev/reference/logistic_reg.md)
 with the `"stan"` engine.
 

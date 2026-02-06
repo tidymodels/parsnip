@@ -329,9 +329,9 @@ about preparing fitted models for serialization, see the bundle package.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#boost-tree-xgboost)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`boost_tree()`](https://parsnip.tidymodels.org/dev/reference/boost_tree.md)
 with the `"xgboost"` engine.
 

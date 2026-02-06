@@ -114,9 +114,9 @@ for more information.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-linear-LiblineaR)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`svm_linear()`](https://parsnip.tidymodels.org/dev/reference/svm_linear.md)
 with the `"LiblineaR"` engine.
 

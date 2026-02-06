@@ -5,12 +5,6 @@
 - [Dev
   checklists](https://parsnip.tidymodels.org/dev/articles/checklists.md):
 
-- [Fitting and predicting with
-  parsnip](https://parsnip.tidymodels.org/dev/articles/Examples.md):
-
-  This vignette show how to **fit** and **predict** with different
-  combinations of model, mode, and engine.
-
 - [Introduction to
   parsnip](https://parsnip.tidymodels.org/dev/articles/parsnip.md):
 

@@ -116,10 +116,11 @@ functions from the [butcher](https://butcher.tidymodels.org) package.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#mars-earth)
-for [`mars()`](https://parsnip.tidymodels.org/dev/reference/mars.md)
-with the `"earth"` engine.
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
+[`mars()`](https://parsnip.tidymodels.org/dev/reference/mars.md) with
+the `"earth"` engine.
 
 ### References
 

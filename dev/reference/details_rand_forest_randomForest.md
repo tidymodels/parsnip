@@ -137,9 +137,9 @@ functions from the [butcher](https://butcher.tidymodels.org) package.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#rand-forest-randomForest)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`rand_forest()`](https://parsnip.tidymodels.org/dev/reference/rand_forest.md)
 with the `"randomForest"` engine.
 

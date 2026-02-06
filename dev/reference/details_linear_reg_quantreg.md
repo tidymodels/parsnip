@@ -156,9 +156,9 @@ functions from the [butcher](https://butcher.tidymodels.org) package.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-quantreg)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md)
 with the `"quantreg"` engine.
 

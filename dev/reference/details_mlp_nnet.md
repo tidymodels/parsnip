@@ -73,8 +73,9 @@ layer.
     ## Computational engine: nnet
     ##
     ## Model fit template:
-    ## nnet::nnet(formula = missing_arg(), data = missing_arg(), size = integer(1),
-    ##     decay = double(1), maxit = integer(1), trace = FALSE, linout = FALSE)
+    ## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(),
+    ##     size = integer(1), decay = double(1), maxit = integer(1),
+    ##     trace = FALSE, linout = FALSE)
 
 ### Preprocessing requirements
 
@@ -124,10 +125,11 @@ functions from the [butcher](https://butcher.tidymodels.org) package.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#mlp-nnet)
-for [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md) with
-the `"nnet"` engine.
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
+[`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md) with the
+`"nnet"` engine.
 
 ### References
 

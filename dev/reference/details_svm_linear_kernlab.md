@@ -87,7 +87,7 @@ variance of one.
 
 The underlying model implementation does not allow for case weights.
 
-j## Prediction types
+### Prediction types
 
     parsnip:::get_from_env("svm_linear_predict") |>
       dplyr::filter(engine == "kernlab") |>
@@ -111,9 +111,9 @@ functions from the [butcher](https://butcher.tidymodels.org) package.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-linear-kernlab)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`svm_linear()`](https://parsnip.tidymodels.org/dev/reference/svm_linear.md)
 with the `"kernlab"` engine.
 

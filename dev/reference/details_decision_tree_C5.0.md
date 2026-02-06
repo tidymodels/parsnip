@@ -78,9 +78,9 @@ functions from the [butcher](https://butcher.tidymodels.org) package.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#decision-tree-C5.0)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`decision_tree()`](https://parsnip.tidymodels.org/dev/reference/decision_tree.md)
 with the `"C5.0"` engine.
 

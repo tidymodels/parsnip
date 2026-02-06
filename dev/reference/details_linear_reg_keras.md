@@ -66,9 +66,9 @@ The underlying model implementation does not allow for case weights.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-keras)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md)
 with the `"keras"` engine.
 

@@ -3,10 +3,9 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   articles/checklists: checklists.html
-  articles/Examples: Examples.html
   parsnip: parsnip.html
   articles/Submodels: Submodels.html
-last_built: 2026-02-04T16:54Z
+last_built: 2026-02-06T14:35Z
 urls:
   reference: https://parsnip.tidymodels.org/reference
   article: https://parsnip.tidymodels.org/articles

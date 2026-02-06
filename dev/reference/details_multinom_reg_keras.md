@@ -74,9 +74,9 @@ about preparing fitted models for serialization, see the bundle package.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-keras)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md)
 with the `"keras"` engine.
 

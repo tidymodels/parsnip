@@ -88,9 +88,9 @@ variance of one.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#nearest-neighbor-kknn)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`nearest_neighbor()`](https://parsnip.tidymodels.org/dev/reference/nearest_neighbor.md)
 with the `"kknn"` engine.
 

@@ -22,12 +22,12 @@ models. These notes reflect common questions about this particular model."><meta
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/checklists.html">Dev checklists</a></li>
-    <li><a class="dropdown-item" href="../articles/Examples.html">Fitting and predicting with parsnip</a></li>
     <li><a class="dropdown-item" href="../articles/Submodels.html">Evaluating submodels with the same model object</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-learn-more" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Learn more</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-predictions/">Fitting and predicting with parsnip</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a></li>
   </ul></li>
@@ -151,12 +151,12 @@ by <code>glmnet()</code>. See the section below about setting the path.</p>
 
 
 <p>Regardless of what value you use for <code>penalty</code>, the full coefficient
-path is used when <code><a href="https://glmnet.stanford.edu/reference/glmnet.html" class="external-link">glmnet::glmnet()</a></code> is called.</p>
+path is used when <code><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html" class="external-link">glmnet::glmnet()</a></code> is called.</p>
 <p>What if you want to manually set this path? Normally, you would pass a
-vector to <code>lambda</code> in <code><a href="https://glmnet.stanford.edu/reference/glmnet.html" class="external-link">glmnet::glmnet()</a></code>.</p>
+vector to <code>lambda</code> in <code><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html" class="external-link">glmnet::glmnet()</a></code>.</p>
 <p>parsnip models that use a <code>glmnet</code> engine can use a special optional
 argument called <code>path_values</code>. This is <em>not</em> an argument to
-<code><a href="https://glmnet.stanford.edu/reference/glmnet.html" class="external-link">glmnet::glmnet()</a></code>; it is used by parsnip to
+<code><a href="https://rdrr.io/pkg/glmnet/man/glmnet.html" class="external-link">glmnet::glmnet()</a></code>; it is used by parsnip to
 independently set the path.</p>
 <p>For example, we have found that if you want a fully ridge regression
 model (i.e., <code>mixture = 0</code>), you can get the <em>wrong coefficients</em> if the

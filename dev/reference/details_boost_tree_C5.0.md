@@ -99,9 +99,9 @@ Also, it is unlikely that early stopping will occur if
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#boost-tree-C5.0)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`boost_tree()`](https://parsnip.tidymodels.org/dev/reference/boost_tree.md)
 with the `"C5.0"` engine.
 

@@ -20,12 +20,12 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/checklists.html">Dev checklists</a></li>
-    <li><a class="dropdown-item" href="../articles/Examples.html">Fitting and predicting with parsnip</a></li>
     <li><a class="dropdown-item" href="../articles/Submodels.html">Evaluating submodels with the same model object</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-learn-more" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Learn more</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-predictions/">Fitting and predicting with parsnip</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a></li>
   </ul></li>
@@ -116,8 +116,9 @@ layer.</p>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="do">## Computational engine: nnet</span></span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="do">##</span></span>
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="do">## Model fit template:</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="do">## nnet::nnet(formula = missing_arg(), data = missing_arg(), size = integer(1),</span></span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="do">##     decay = double(1), maxit = integer(1), trace = FALSE, linout = FALSE)</span></span></code></pre><p></p></div>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="do">## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(),</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="do">##     size = integer(1), decay = double(1), maxit = integer(1),</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="do">##     trace = FALSE, linout = FALSE)</span></span></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -175,9 +176,9 @@ functions from the <a href="https://butcher.tidymodels.org" class="external-link
 <h3 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h3>
 
 
-<p>The “Fitting and Predicting with parsnip” article contains
-<a href="https://parsnip.tidymodels.org/articles/articles/Examples.html#mlp-nnet">examples</a>
-for <code><a href="mlp.html">mlp()</a></code> with the <code>"nnet"</code> engine.</p>
+<p>The “Fitting and Predicting with parsnip”
+<a href="https://www.tidymodels.org/learn/models/parsnip-predictions/" class="external-link">article</a>
+contains examples for <code><a href="mlp.html">mlp()</a></code> with the <code>"nnet"</code> engine.</p>
 </div>
 
 <div class="section">

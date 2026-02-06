@@ -2,6 +2,10 @@
 
 ## parsnip (development version)
 
+- The “Fitting and predicting with parsnip” article has moved to
+  [tidymodels.org](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+  ([\#1324](https://github.com/tidymodels/parsnip/issues/1324)).
+
 - Quantile levels are not dropped when a model specification is modified
   ([\#1304](https://github.com/tidymodels/parsnip/issues/1304))
 
