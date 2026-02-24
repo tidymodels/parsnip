@@ -139,12 +139,7 @@ set_pred(
   type = "prob",
   value = list(
     pre = NULL,
-    post = function(x, object) {
-      x <- x[, 1]
-      x <- tibble(v1 = 1 - x, v2 = x)
-      colnames(x) <- object$lvl
-      x
-    },
+    post = earth_glm_covert,
     func = c(fun = "predict"),
     args = list(
       object = quote(object$fit),

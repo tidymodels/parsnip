@@ -1232,3 +1232,16 @@ get_encoding <- function(model) {
   }
   res
 }
+
+# ------------------------------------------------------------------------------
+
+earth_glm_covert <- function(x, object) {
+  if (ncol(x) == 1) {
+    x <- tibble::tibble(v1 = 1 - x[, 1], v2 = x[, 1])
+  } else {
+    x <- tibble::as_tibble(x)
+  }
+
+  colnames(x) <- object$lvl
+  x
+}
