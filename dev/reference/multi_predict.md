@@ -57,11 +57,23 @@ multi_predict(object, new_data, type = NULL, neighbors = NULL, ...)
 
 - type:
 
-  A single character value or `NULL`. Possible values are `"numeric"`,
-  `"class"`, `"prob"`, `"conf_int"`, `"pred_int"`, `"quantile"`, or
-  `"raw"`. When `NULL`,
-  [`predict()`](https://rdrr.io/r/stats/predict.html) will choose an
-  appropriate value based on the model's mode.
+  A single character value or `NULL`. Possible values are:
+
+  - regression: "`numeric`"
+
+  - classification: "`class`", "`prob`"
+
+  - censored regression: "`survival`", "`time`", "`hazard`",
+    "`linear_pred`"
+
+  - quantile regression: "`quantile`"
+
+  - interval estimates: "`conf_int`", "`pred_int`"
+
+  - other: "`raw`"
+
+  When `NULL`, [`predict()`](https://rdrr.io/r/stats/predict.html) will
+  choose an appropriate value based on the model's mode.
 
 - trees:
 

@@ -93,8 +93,8 @@ predict_time(object, ...)
   be passed here (use the `opts` argument instead). Possible arguments
   are:
 
-  - `interval`: for `type` equal to `"survival"` or `"quantile"`, should
-    interval estimates be added, if available? Options are `"none"` and
+  - `interval`: for `type` equal to `"survival"`, should interval
+    estimates be added, if available? Options are `"none"` and
     `"confidence"`.
 
   - `level`: for `type` equal to `"conf_int"`, `"pred_int"`, or
@@ -105,9 +105,6 @@ predict_time(object, ...)
   - `std_error`: for `type` equal to `"conf_int"` or `"pred_int"`, add
     the standard error of fit or prediction (on the scale of the linear
     predictors). Default value is `FALSE`.
-
-  - `quantile`: for `type` equal to `quantile`, the quantiles of the
-    distribution. Default is `(1:9)/10`.
 
   - `eval_time`: for `type` equal to `"survival"` or `"hazard"`, the
     time points at which the survival probability or hazard is

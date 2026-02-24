@@ -136,7 +136,7 @@
 <dd><p>Additional <code>parsnip</code>-related options, depending on the
 value of <code>type</code>. Arguments to the underlying model's prediction
 function cannot be passed here (use the <code>opts</code> argument instead).
-Possible arguments are:</p><ul><li><p><code>interval</code>: for <code>type</code> equal to <code>"survival"</code> or <code>"quantile"</code>, should
+Possible arguments are:</p><ul><li><p><code>interval</code>: for <code>type</code> equal to <code>"survival"</code>, should
 interval estimates be added, if available? Options are <code>"none"</code>
 and <code>"confidence"</code>.</p></li>
 <li><p><code>level</code>: for <code>type</code> equal to <code>"conf_int"</code>, <code>"pred_int"</code>, or <code>"survival"</code>,
@@ -146,8 +146,6 @@ Default value is <code>0.95</code>.</p></li>
 <li><p><code>std_error</code>: for <code>type</code> equal to <code>"conf_int"</code> or <code>"pred_int"</code>, add
 the standard error of fit or prediction (on the scale of the
 linear predictors). Default value is <code>FALSE</code>.</p></li>
-<li><p><code>quantile</code>: for <code>type</code> equal to <code>quantile</code>, the quantiles of the
-distribution. Default is <code>(1:9)/10</code>.</p></li>
 <li><p><code>eval_time</code>: for <code>type</code> equal to <code>"survival"</code> or <code>"hazard"</code>, the
 time points at which the survival probability or hazard is estimated.</p></li>
 </ul></dd>

@@ -102,10 +102,14 @@ such as <code>type</code>.</p></dd>
 
 
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
-<dd><p>A single character value or <code>NULL</code>. Possible values are
-<code>"numeric"</code>, <code>"class"</code>, <code>"prob"</code>, <code>"conf_int"</code>, <code>"pred_int"</code>, <code>"quantile"</code>,
-or <code>"raw"</code>. When <code>NULL</code>, <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> will choose an appropriate value
-based on the model's mode.</p></dd>
+<dd><p>A single character value or <code>NULL</code>. Possible values are:</p><ul><li><p>regression: "<code>numeric</code>"</p></li>
+<li><p>classification: "<code>class</code>", "<code>prob</code>"</p></li>
+<li><p>censored regression: "<code>survival</code>", "<code>time</code>", "<code>hazard</code>", "<code>linear_pred</code>"</p></li>
+<li><p>quantile regression: "<code>quantile</code>"</p></li>
+<li><p>interval estimates: "<code>conf_int</code>", "<code>pred_int</code>"</p></li>
+<li><p>other:  "<code>raw</code>"</p></li>
+</ul><p>When <code>NULL</code>, <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> will choose an appropriate value based on the
+model's mode.</p></dd>
 
 
 <dt id="arg-trees">trees<a class="anchor" aria-label="anchor" href="#arg-trees"></a></dt>

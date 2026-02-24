@@ -29,11 +29,23 @@ predict_raw(object, ...)
 
 - type:
 
-  A single character value or `NULL`. Possible values are `"numeric"`,
-  `"class"`, `"prob"`, `"conf_int"`, `"pred_int"`, `"quantile"`,
-  `"time"`, `"hazard"`, `"survival"`, or `"raw"`. When `NULL`,
-  [`predict()`](https://rdrr.io/r/stats/predict.html) will choose an
-  appropriate value based on the model's mode.
+  A single character value or `NULL`. Possible values are:
+
+  - regression: "`numeric`"
+
+  - classification: "`class`", "`prob`"
+
+  - censored regression: "`survival`", "`time`", "`hazard`",
+    "`linear_pred`"
+
+  - quantile regression: "`quantile`"
+
+  - interval estimates: "`conf_int`", "`pred_int`"
+
+  - other: "`raw`"
+
+  When `NULL`, [`predict()`](https://rdrr.io/r/stats/predict.html) will
+  choose an appropriate value based on the model's mode.
 
 - opts:
 
@@ -48,8 +60,8 @@ predict_raw(object, ...)
   be passed here (use the `opts` argument instead). Possible arguments
   are:
 
-  - `interval`: for `type` equal to `"survival"` or `"quantile"`, should
-    interval estimates be added, if available? Options are `"none"` and
+  - `interval`: for `type` equal to `"survival"`, should interval
+    estimates be added, if available? Options are `"none"` and
     `"confidence"`.
 
   - `level`: for `type` equal to `"conf_int"`, `"pred_int"`, or
@@ -60,9 +72,6 @@ predict_raw(object, ...)
   - `std_error`: for `type` equal to `"conf_int"` or `"pred_int"`, add
     the standard error of fit or prediction (on the scale of the linear
     predictors). Default value is `FALSE`.
-
-  - `quantile`: for `type` equal to `quantile`, the quantiles of the
-    distribution. Default is `(1:9)/10`.
 
   - `eval_time`: for `type` equal to `"survival"` or `"hazard"`, the
     time points at which the survival probability or hazard is
@@ -80,21 +89,17 @@ With the exception of `type = "raw"`, the result of
 - has standardized column names, see below:
 
 For `type = "numeric"`, the tibble has a `.pred` column for a single
-outcome and `.pred_Yname` columns for a multivariate outcome.
+outcome and `.pred_{Yname}` columns for a multivariate outcome.
 
 For `type = "class"`, the tibble has a `.pred_class` column.
 
-For `type = "prob"`, the tibble has `.pred_classlevel` columns.
+For `type = "prob"`, the tibble has `.pred_{classlevel}` columns.
 
 For `type = "conf_int"` and `type = "pred_int"`, the tibble has
 `.pred_lower` and `.pred_upper` columns with an attribute for the
 confidence level. In the case where intervals can be produces for class
 probabilities (or other non-scalar outputs), the columns are named
-`.pred_lower_classlevel` and so on.
-
-For `type = "quantile"`, the tibble has a `.pred` column, which is a
-list-column. Each list element contains a tibble with columns `.pred`
-and `.quantile` (and perhaps other columns).
+`.pred_lower_{classlevel}` and so on.
 
 For `type = "time"`, the tibble has a `.pred_time` column.
 
@@ -105,6 +110,13 @@ list-column. Each list element contains a tibble with columns
 For `type = "hazard"`, the tibble has a `.pred` column, which is a
 list-column. Each list element contains a tibble with columns
 `.eval_time` and `.pred_hazard` (and perhaps other columns).
+
+For `type = "linear_pred"`, the tibble has a `.pred_linear_pred` column.
+
+For `type = "quantile"`, the tibble has a `.pred_quantile` column, which
+is a specialized vector type. See
+[`hardhat::quantile_pred()`](https://hardhat.tidymodels.org/reference/quantile_pred.html)
+for more details.
 
 Using `type = "raw"` with `predict.model_fit()` will return the
 unadulterated results of the prediction function.
@@ -128,6 +140,8 @@ uses
 - `type = "class"` for classification, and
 
 - `type = "time"` for censored regression.
+
+- `type = "quantile"` for quantile regression.
 
 ### Interval predictions
 

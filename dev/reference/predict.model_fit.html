@@ -79,10 +79,14 @@ predict() can be used for all types of models and uses the
 
 
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
-<dd><p>A single character value or <code>NULL</code>. Possible values
-are <code>"numeric"</code>, <code>"class"</code>, <code>"prob"</code>, <code>"conf_int"</code>, <code>"pred_int"</code>,
-<code>"quantile"</code>, <code>"time"</code>, <code>"hazard"</code>, <code>"survival"</code>, or <code>"raw"</code>. When <code>NULL</code>,
-<code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> will choose an appropriate value based on the model's mode.</p></dd>
+<dd><p>A single character value or <code>NULL</code>. Possible values are:</p><ul><li><p>regression: "<code>numeric</code>"</p></li>
+<li><p>classification: "<code>class</code>", "<code>prob</code>"</p></li>
+<li><p>censored regression: "<code>survival</code>", "<code>time</code>", "<code>hazard</code>", "<code>linear_pred</code>"</p></li>
+<li><p>quantile regression: "<code>quantile</code>"</p></li>
+<li><p>interval estimates: "<code>conf_int</code>", "<code>pred_int</code>"</p></li>
+<li><p>other:  "<code>raw</code>"</p></li>
+</ul><p>When <code>NULL</code>, <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> will choose an appropriate value based on the
+model's mode.</p></dd>
 
 
 <dt id="arg-opts">opts<a class="anchor" aria-label="anchor" href="#arg-opts"></a></dt>
@@ -96,7 +100,7 @@ new data being predicted.</p></dd>
 <dd><p>Additional <code>parsnip</code>-related options, depending on the
 value of <code>type</code>. Arguments to the underlying model's prediction
 function cannot be passed here (use the <code>opts</code> argument instead).
-Possible arguments are:</p><ul><li><p><code>interval</code>: for <code>type</code> equal to <code>"survival"</code> or <code>"quantile"</code>, should
+Possible arguments are:</p><ul><li><p><code>interval</code>: for <code>type</code> equal to <code>"survival"</code>, should
 interval estimates be added, if available? Options are <code>"none"</code>
 and <code>"confidence"</code>.</p></li>
 <li><p><code>level</code>: for <code>type</code> equal to <code>"conf_int"</code>, <code>"pred_int"</code>, or <code>"survival"</code>,
@@ -106,8 +110,6 @@ Default value is <code>0.95</code>.</p></li>
 <li><p><code>std_error</code>: for <code>type</code> equal to <code>"conf_int"</code> or <code>"pred_int"</code>, add
 the standard error of fit or prediction (on the scale of the
 linear predictors). Default value is <code>FALSE</code>.</p></li>
-<li><p><code>quantile</code>: for <code>type</code> equal to <code>quantile</code>, the quantiles of the
-distribution. Default is <code>(1:9)/10</code>.</p></li>
 <li><p><code>eval_time</code>: for <code>type</code> equal to <code>"survival"</code> or <code>"hazard"</code>, the
 time points at which the survival probability or hazard is estimated.</p></li>
 </ul></dd>
@@ -120,17 +122,14 @@ time points at which the survival probability or hazard is estimated.</p></li>
 <li><p>has as many rows as there are rows in <code>new_data</code></p></li>
 <li><p>has standardized column names, see below:</p></li>
 </ul><p>For <code>type = "numeric"</code>, the tibble has a <code>.pred</code> column for a single
-outcome and <code>.pred_Yname</code> columns for a multivariate outcome.</p>
+outcome and <code>.pred_{Yname}</code> columns for a multivariate outcome.</p>
 <p>For <code>type = "class"</code>, the tibble has a <code>.pred_class</code> column.</p>
-<p>For <code>type = "prob"</code>, the tibble has <code>.pred_classlevel</code> columns.</p>
+<p>For <code>type = "prob"</code>, the tibble has <code>.pred_{classlevel}</code> columns.</p>
 <p>For <code>type = "conf_int"</code> and <code>type = "pred_int"</code>, the tibble has
 <code>.pred_lower</code> and <code>.pred_upper</code> columns with an attribute for
 the confidence level. In the case where intervals can be
 produces for class probabilities (or other non-scalar outputs),
-the columns are named <code>.pred_lower_classlevel</code> and so on.</p>
-<p>For <code>type = "quantile"</code>, the tibble has a <code>.pred</code> column, which is
-a list-column. Each list element contains a tibble with columns
-<code>.pred</code> and <code>.quantile</code> (and perhaps other columns).</p>
+the columns are named <code>.pred_lower_{classlevel}</code> and so on.</p>
 <p>For <code>type = "time"</code>, the tibble has a <code>.pred_time</code> column.</p>
 <p>For <code>type = "survival"</code>, the tibble has a <code>.pred</code> column, which is
 a list-column. Each list element contains a tibble with columns
@@ -138,6 +137,9 @@ a list-column. Each list element contains a tibble with columns
 <p>For <code>type = "hazard"</code>, the tibble has a <code>.pred</code> column, which is
 a list-column. Each list element contains a tibble with columns
 <code>.eval_time</code> and <code>.pred_hazard</code> (and perhaps other columns).</p>
+<p>For <code>type = "linear_pred"</code>, the tibble has a <code>.pred_linear_pred</code> column.</p>
+<p>For <code>type = "quantile"</code>, the tibble has a <code>.pred_quantile</code> column, which is
+a specialized vector type. See <code><a href="https://hardhat.tidymodels.org/reference/quantile_pred.html" class="external-link">hardhat::quantile_pred()</a></code> for more details.</p>
 <p>Using <code>type = "raw"</code> with <code>predict.model_fit()</code> will return
 the unadulterated results of the prediction function.</p>
 <p>In the case of Spark-based models, since table columns cannot
@@ -154,6 +156,7 @@ multivariate models.</p>
     <p>For <code>type = NULL</code>, <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> uses</p><ul><li><p><code>type = "numeric"</code> for regression models,</p></li>
 <li><p><code>type = "class"</code> for classification, and</p></li>
 <li><p><code>type = "time"</code> for censored regression.</p></li>
+<li><p><code>type = "quantile"</code> for quantile regression.</p></li>
 </ul><div class="section">
 <h3 id="interval-predictions">Interval predictions<a class="anchor" aria-label="anchor" href="#interval-predictions"></a></h3>
 
