@@ -45,10 +45,18 @@ such as \code{type}.}
 
 \item{new_data}{A rectangular data object, such as a data frame.}
 
-\item{type}{A single character value or \code{NULL}. Possible values are
-\code{"numeric"}, \code{"class"}, \code{"prob"}, \code{"conf_int"}, \code{"pred_int"}, \code{"quantile"},
-or \code{"raw"}. When \code{NULL}, \code{predict()} will choose an appropriate value
-based on the model's mode.}
+\item{type}{A single character value or \code{NULL}. Possible values are:
+\itemize{
+\item regression: "\code{numeric}"
+\item classification: "\code{class}", "\code{prob}"
+\item censored regression: "\code{survival}", "\code{time}", "\code{hazard}", "\code{linear_pred}"
+\item quantile regression: "\code{quantile}"
+\item interval estimates: "\code{conf_int}", "\code{pred_int}"
+\item other:  "\code{raw}"
+}
+
+When \code{NULL}, \code{predict()} will choose an appropriate value based on the
+model's mode.}
 
 \item{trees}{An integer vector for the number of trees in the ensemble.}
 
