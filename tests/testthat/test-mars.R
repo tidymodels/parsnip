@@ -279,3 +279,39 @@ test_that("check_args() works", {
     }
   )
 })
+
+test_that('classification probabilities for multiclass', {
+  skip_if_not_installed("earth")
+  skip_if_not_installed("modeldata")
+  # Issue 1334
+
+  spec <- mars(mode = "classification", engine = "earth")
+
+  ### Multiclass
+  set.seed(123)
+  suppressWarnings({
+    fit_mc <- fit(spec, Species ~ ., iris)
+  })
+
+  # Test with one row from each class
+  test_rows <- iris[c(1, 51, 101), ]
+
+  res_mc <- predict(fit_mc, test_rows, type = "prob")
+  expect_named(res_mc, c(".pred_setosa", ".pred_versicolor", ".pred_virginica"))
+  expect_s3_class(res_mc, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(res_mc), 3L)
+
+  ### Binary
+  set.seed(123)
+  suppressWarnings({
+    fit_bn <- fit(spec, Class ~ ., two_class_dat)
+  })
+
+  # Test with one row from each class
+  test_rows <- two_class_dat[1:3, 1:2]
+
+  res_bn <- predict(fit_bn, test_rows, type = "prob")
+  expect_named(res_bn, c(".pred_Class1", ".pred_Class2"))
+  expect_s3_class(res_bn, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(res_bn), 3L)
+})
