@@ -13,18 +13,11 @@ catboost has native support for categorical predictors.
 For this engine, there are multiple modes: regression and classification
 \subsection{Tuning Parameters}{
 
-This model has 7 tuning parameters:
+This model has 3 tuning parameters:
 \itemize{
 \item \code{tree_depth}: Tree Depth (type: integer, default: 6L)
 \item \code{trees}: # Trees (type: integer, default: 1000L)
 \item \code{learn_rate}: Learning Rate (type: double, default: 0.03)
-\item \code{mtry}: Proportion Randomly Selected Predictors (type: double,
-default: see below)
-\item \code{min_n}: Minimal Node Size (type: integer, default: 1L)
-\item \code{sample_size}: Proportion Observations Sampled (type: double, default:
-see below)
-\item \code{stop_iter}: # Iterations Before Stopping (type: integer, default:
-Inf)
 }
 
 The \code{mtry} parameter controls the proportion of predictors that will be
@@ -38,6 +31,12 @@ from a count to a proportion for catboost. Users should set
 directly. For example, \code{mtry = 0.5} with \code{counts = FALSE} means 50\% of
 predictors are considered at each split.
 \subsection{Engine-Specific Parameters}{
+
+CatBoost has a large number of engine parameters. The current list is
+found at
+\url{https://catboost.ai/docs/en/references/training-parameters}.
+
+Two in particular are:
 \itemize{
 \item \code{max_leaves}: Maximum number of leaves in each tree (only used when
 the grow policy is \code{Lossguide}).
@@ -76,11 +75,9 @@ The \strong{bonsai} extension package is required to fit this model.
 ## 
 ## Model fit template:
 ## bonsai::train_catboost(x = missing_arg(), y = missing_arg(), 
-##     weights = missing_arg(), rsm = integer(), iterations = integer(), 
-##     min_data_in_leaf = integer(), depth = integer(), learning_rate = numeric(), 
-##     subsample = numeric(), early_stopping_rounds = integer(), 
-##     thread_count = 1, allow_writing_files = FALSE, random_seed = sample.int(10^5, 
-##         1))
+##     weights = missing_arg(), iterations = integer(), depth = integer(), 
+##     learning_rate = numeric(), thread_count = 1, allow_writing_files = FALSE, 
+##     random_seed = sample.int(10^5, 1))
 }\if{html}{\out{</div>}}
 }
 
@@ -112,11 +109,9 @@ The \strong{bonsai} extension package is required to fit this model.
 ## 
 ## Model fit template:
 ## bonsai::train_catboost(x = missing_arg(), y = missing_arg(), 
-##     weights = missing_arg(), rsm = integer(), iterations = integer(), 
-##     min_data_in_leaf = integer(), depth = integer(), learning_rate = numeric(), 
-##     subsample = numeric(), early_stopping_rounds = integer(), 
-##     thread_count = 1, allow_writing_files = FALSE, random_seed = sample.int(10^5, 
-##         1))
+##     weights = missing_arg(), iterations = integer(), depth = integer(), 
+##     learning_rate = numeric(), thread_count = 1, allow_writing_files = FALSE, 
+##     random_seed = sample.int(10^5, 1))
 }\if{html}{\out{</div>}}
 
 \code{\link[bonsai:train_catboost]{bonsai::train_catboost()}} is a wrapper

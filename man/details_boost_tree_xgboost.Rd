@@ -32,6 +32,10 @@ Inf)
 
 For \code{mtry}, the default value of \code{NULL} translates to using all
 available columns.
+
+XGBoost has a large number of engine parameters. The current list is
+found at
+\url{https://xgboost.readthedocs.io/en/stable/parameter.html}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{

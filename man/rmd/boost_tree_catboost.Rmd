@@ -39,6 +39,10 @@ Unlike lightgbm and xgboost, bonsai does not currently convert `mtry` from a cou
 
 ### Engine-Specific Parameters
 
+CatBoost has a large number of engine parameters. The current list is found at [`https://catboost.ai/docs/en/references/training-parameters`](https://catboost.ai/docs/en/references/training-parameters).
+
+Two in particular are: 
+
 - `max_leaves`: Maximum number of leaves in each tree (only used when the grow policy is `Lossguide`).
 
 - `l2_leaf_reg`: L2 regularization coefficient for leaf values (default: 3.0).
