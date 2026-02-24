@@ -1,7 +1,7 @@
 # Linear quantile regression via the quantreg package
 
-[`quantreg::rq()`](https://rdrr.io/pkg/quantreg/man/rq.html) optimizes
-quantile loss to fit models with numeric outcomes.
+`quantreg::rq()` optimizes quantile loss to fit models with numeric
+outcomes.
 
 ## Details
 

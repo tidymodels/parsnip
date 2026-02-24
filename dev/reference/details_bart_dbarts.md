@@ -1,8 +1,7 @@
 # Bayesian additive regression trees via dbarts
 
-[`dbarts::bart()`](https://rdrr.io/pkg/dbarts/man/bart.html) creates an
-ensemble of tree-based model whose training and assembly is determined
-using Bayesian analysis.
+`dbarts::bart()` creates an ensemble of tree-based model whose training
+and assembly is determined using Bayesian analysis.
 
 ## Details
 
@@ -117,9 +116,8 @@ formula method via
 [`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md), parsnip
 will convert factor columns to indicators.
 
-[`dbarts::bart()`](https://rdrr.io/pkg/dbarts/man/bart.html) will also
-convert the factors to indicators if the user does not create them
-first.
+`dbarts::bart()` will also convert the factors to indicators if the user
+does not create them first.
 
 ### Case weights
 

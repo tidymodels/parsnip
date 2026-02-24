@@ -1,8 +1,8 @@
 # Logistic regression via stan
 
-[`rstanarm::stan_glm()`](https://mc-stan.org/rstanarm/reference/stan_glm.html)
-fits a generalized linear model for binary outcomes. A linear
-combination of the predictors is used to model the log odds of an event.
+`rstanarm::stan_glm()` fits a generalized linear model for binary
+outcomes. A linear combination of the predictors is used to model the
+log odds of an event.
 
 ## Details
 
@@ -34,11 +34,8 @@ Some relevant arguments that can be passed to
 - `prior_intercept`: The prior distribution for the intercept (after
   centering all predictors).
 
-See
-[`rstan::sampling()`](https://mc-stan.org/rstan/reference/stanmodel-method-sampling.html)
-and
-[`rstanarm::priors()`](https://mc-stan.org/rstanarm/reference/priors.html)
-for more information on these and other options.
+See `rstan::sampling()` and `rstanarm::priors()` for more information on
+these and other options.
 
 ### Translation from parsnip to the original package
 

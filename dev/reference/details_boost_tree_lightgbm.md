@@ -45,6 +45,9 @@ By default, `counts` is set to `TRUE`, but supplying the argument
 `counts = FALSE` allows the user to supply `mtry` as a proportion rather
 than a number.
 
+LightGBM has a large number of engine parameters. The current list is
+found at <https://lightgbm.readthedocs.io/en/latest/Parameters.html>.
+
 ### Translation from parsnip to the original package (regression)
 
 The **bonsai** extension package is required to fit this model.

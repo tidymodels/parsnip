@@ -43,6 +43,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_bag_tree_rpart.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_bart_dbarts.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_C5.0.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_catboost.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_h2o.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_lightgbm.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_mboost.html</loc></url>

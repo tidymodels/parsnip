@@ -50,7 +50,7 @@ predictions from the individual trees and combines them."><meta property="og:ima
     </div>
 
     <div class="ref-description section level2">
-    <p><code><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html" class="external-link">randomForest::randomForest()</a></code> fits a model that creates a large number of
+    <p><code>randomForest::randomForest()</code> fits a model that creates a large number of
 decision trees, each independent of the others. The final prediction uses all
 predictions from the individual trees and combines them.</p>
     </div>
@@ -67,7 +67,7 @@ below)</p></li>
 <li><p><code>trees</code>: # Trees (type: integer, default: 500L)</p></li>
 <li><p><code>min_n</code>: Minimal Node Size (type: integer, default: see below)</p></li>
 </ul><p><code>mtry</code> depends on the number of columns and the model mode. The default
-in <code><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html" class="external-link">randomForest::randomForest()</a></code> is
+in <code>randomForest::randomForest()</code> is
 <code>floor(sqrt(ncol(x)))</code> for classification and <code>floor(ncol(x)/3)</code> for
 regression.</p>
 <p><code>min_n</code> depends on the mode. For regression, a value of 5 is the
@@ -151,7 +151,7 @@ on <code>tidymodels.org</code>.</p>
 <code>case_weights</code> that expect vectors of case weights.</p>
 <p>Note that the data passed to the <code>case.weights</code> column are not used for
 traditional case weights (where the objective function is multiplied by
-a row-specific weight). From <code><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html" class="external-link">?randomForest::randomForest</a></code>: “A vector of
+a row-specific weight). From <code>?randomForest::randomForest</code>: “A vector of
 length same as<code>y</code> that are positive weights used only in sampling data
 to grow each tree (not used in any other calculation).”</p>
 <p>They function as sampling weights.</p>

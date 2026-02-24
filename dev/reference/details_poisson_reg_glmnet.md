@@ -1,7 +1,7 @@
 # Poisson regression via glmnet
 
-[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html)
-uses penalized maximum likelihood to fit a model for count data.
+`glmnet::glmnet()` uses penalized maximum likelihood to fit a model for
+count data.
 
 ## Details
 
@@ -60,9 +60,8 @@ will convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
-variance of one. By default,
-[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html)
-uses the argument `standardize = TRUE` to center and scale the data.
+variance of one. By default, `glmnet::glmnet()` uses the argument
+`standardize = TRUE` to center and scale the data.
 
 ### Case weights
 

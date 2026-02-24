@@ -1,8 +1,8 @@
 # Multinomial regression via brulee
 
-[`brulee::brulee_multinomial_reg()`](https://brulee.tidymodels.org/reference/brulee_multinomial_reg.html)
-fits a model that uses linear predictors to predict multiclass data
-using the multinomial distribution.
+`brulee::brulee_multinomial_reg()` fits a model that uses linear
+predictors to predict multiclass data using the multinomial
+distribution.
 
 ## Details
 
@@ -24,7 +24,7 @@ method used in those packages.
 Other engine arguments of interest:
 
 - `optimizer()`: The optimization method. See
-  [`brulee::brulee_linear_reg()`](https://brulee.tidymodels.org/reference/brulee_linear_reg.html).
+  `brulee::brulee_linear_reg()`.
 
 - `epochs()`: An integer for the number of passes through the training
   set.
@@ -42,7 +42,7 @@ Other engine arguments of interest:
   improvement before stopping. (default: 5L).
 
 - `class_weights()`: Numeric class weights. See
-  [`brulee::brulee_multinomial_reg()`](https://brulee.tidymodels.org/reference/brulee_multinomial_reg.html).
+  `brulee::brulee_multinomial_reg()`.
 
 ### Translation from parsnip to the original package (classification)
 

@@ -1,7 +1,6 @@
 # Multilayer perceptron via brulee
 
-[`brulee::brulee_mlp()`](https://brulee.tidymodels.org/reference/brulee_mlp.html)
-fits a neural network.
+`brulee::brulee_mlp()` fits a neural network.
 
 ## Details
 
@@ -40,16 +39,13 @@ Other engine arguments of interest:
 - `batch_size`: An integer for the number of training set points in each
   batch.
 
-- `class_weights`: Numeric class weights. See
-  [`brulee::brulee_mlp()`](https://brulee.tidymodels.org/reference/brulee_mlp.html).
+- `class_weights`: Numeric class weights. See `brulee::brulee_mlp()`.
 
 - `stop_iter`: A non-negative integer for how many iterations with no
   improvement before stopping. (default: 5L).
 
 - `rate_schedule`: A function to change the learning rate over epochs.
-  See
-  [`brulee::schedule_decay_time()`](https://brulee.tidymodels.org/reference/schedule_decay_time.html)
-  for details.
+  See `brulee::schedule_decay_time()` for details.
 
 ### Translation from parsnip to the original package (regression)
 

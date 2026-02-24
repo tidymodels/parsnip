@@ -38,6 +38,9 @@ This model has 8 tuning parameters:
 For `mtry`, the default value of `NULL` translates to using all
 available columns.
 
+XGBoost has a large number of engine parameters. The current list is
+found at <https://xgboost.readthedocs.io/en/stable/parameter.html>.
+
 ### Translation from parsnip to the original package (regression)
 
     boost_tree(

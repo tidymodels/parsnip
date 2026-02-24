@@ -1,9 +1,8 @@
 # Random forests via randomForest
 
-[`randomForest::randomForest()`](https://rdrr.io/pkg/randomForest/man/randomForest.html)
-fits a model that creates a large number of decision trees, each
-independent of the others. The final prediction uses all predictions
-from the individual trees and combines them.
+`randomForest::randomForest()` fits a model that creates a large number
+of decision trees, each independent of the others. The final prediction
+uses all predictions from the individual trees and combines them.
 
 ## Details
 
@@ -21,10 +20,8 @@ This model has 3 tuning parameters:
 - `min_n`: Minimal Node Size (type: integer, default: see below)
 
 `mtry` depends on the number of columns and the model mode. The default
-in
-[`randomForest::randomForest()`](https://rdrr.io/pkg/randomForest/man/randomForest.html)
-is `floor(sqrt(ncol(x)))` for classification and `floor(ncol(x)/3)` for
-regression.
+in `randomForest::randomForest()` is `floor(sqrt(ncol(x)))` for
+classification and `floor(ncol(x)/3)` for regression.
 
 `min_n` depends on the mode. For regression, a value of 5 is the
 default. For classification, a value of 10 is used.
@@ -106,10 +103,9 @@ weights.
 
 Note that the data passed to the `case.weights` column are not used for
 traditional case weights (where the objective function is multiplied by
-a row-specific weight). From
-[`?randomForest::randomForest`](https://rdrr.io/pkg/randomForest/man/randomForest.html):
-“A vector of length same as`y` that are positive weights used only in
-sampling data to grow each tree (not used in any other calculation).”
+a row-specific weight). From `?randomForest::randomForest`: “A vector of
+length same as`y` that are positive weights used only in sampling data
+to grow each tree (not used in any other calculation).”
 
 They function as sampling weights.
 

@@ -1,8 +1,7 @@
 # Multinomial regression via glmnet
 
-[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html)
-fits a model that uses linear predictors to predict multiclass data
-using the multinomial distribution.
+`glmnet::glmnet()` fits a model that uses linear predictors to predict
+multiclass data using the multinomial distribution.
 
 ## Details
 
@@ -57,9 +56,8 @@ will convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
-variance of one. By default,
-[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html)
-uses the argument `standardize = TRUE` to center and scale the data.
+variance of one. By default, `glmnet::glmnet()` uses the argument
+`standardize = TRUE` to center and scale the data.
 
 ### Examples
 
