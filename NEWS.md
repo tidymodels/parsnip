@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* Fix bug in predicting class probabilities for multiclass earth models (#1334)
+
 * The "Fitting and predicting with parsnip" article has moved to [tidymodels.org](https://www.tidymodels.org/learn/models/parsnip-predictions/) (#1324).
 
 * Quantile levels are not dropped when a model specification is modified (#1304)
