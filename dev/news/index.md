@@ -2,6 +2,9 @@
 
 ## parsnip (development version)
 
+- Fix bug in predicting class probabilities for multiclass earth models
+  ([\#1334](https://github.com/tidymodels/parsnip/issues/1334))
+
 - The “Fitting and predicting with parsnip” article has moved to
   [tidymodels.org](https://www.tidymodels.org/learn/models/parsnip-predictions/)
   ([\#1324](https://github.com/tidymodels/parsnip/issues/1324)).
