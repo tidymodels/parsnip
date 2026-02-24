@@ -5,7 +5,7 @@ articles:
   articles/checklists: checklists.html
   parsnip: parsnip.html
   articles/Submodels: Submodels.html
-last_built: 2026-02-24T17:45Z
+last_built: 2026-02-24T20:11Z
 urls:
   reference: https://parsnip.tidymodels.org/reference
   article: https://parsnip.tidymodels.org/articles
