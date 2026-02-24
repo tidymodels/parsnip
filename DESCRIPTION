@@ -73,7 +73,7 @@ VignetteBuilder:
     knitr
 ByteCompile: true
 Config/Needs/website: parsnip, tidymodels/tidymodels, tidyverse/tidytemplate,
-    xgboost, rmarkdown
+    xgboost, rmarkdown, torch
 Config/rcmdcheck/ignore-inconsequential-notes: true
 Config/testthat/edition: 3
 Encoding: UTF-8

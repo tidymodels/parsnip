@@ -27,6 +27,8 @@ Rather than as a number, [lightgbm::lgb.train()]'s `feature_fraction` argument e
 
 Note that parsnip's translation can be overridden via the `counts` argument, supplied to `set_engine()`. By default, `counts` is set to `TRUE`, but supplying the argument `counts = FALSE` allows the user to supply `mtry` as a proportion rather than a number.
 
+LightGBM has a large number of engine parameters. The current list is found at [`https://lightgbm.readthedocs.io/en/latest/Parameters.html`](https://lightgbm.readthedocs.io/en/latest/Parameters.html).
+
 ## Translation from parsnip to the original package (regression)
 
 The **bonsai** extension package is required to fit this model.

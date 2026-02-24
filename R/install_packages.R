@@ -2,7 +2,7 @@
 install_engine_packages <- function(
   extension = TRUE,
   extras = TRUE,
-  ignore_pkgs = c("stats", "liquidSVM", "parsnip")
+  ignore_pkgs = c("stats", "liquidSVM", "parsnip", "catboost")
 ) {
   bio_pkgs <- c()
 

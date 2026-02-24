@@ -40,6 +40,10 @@ Note that parsnip’s translation can be overridden via the \code{counts}
 argument, supplied to \code{set_engine()}. By default, \code{counts} is set to
 \code{TRUE}, but supplying the argument \code{counts = FALSE} allows the user to
 supply \code{mtry} as a proportion rather than a number.
+
+LightGBM has a large number of engine parameters. The current list is
+found at
+\url{https://lightgbm.readthedocs.io/en/latest/Parameters.html}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{
