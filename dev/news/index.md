@@ -2,6 +2,10 @@
 
 ## parsnip (development version)
 
+- Fixed a bug in random forest fits using the `"aorsf"` engine where the
+  check for `mtry` could not be performed
+  ([\#1276](https://github.com/tidymodels/parsnip/issues/1276))
+
 - Fix bug in predicting class probabilities for multiclass earth models
   ([\#1334](https://github.com/tidymodels/parsnip/issues/1334))
 
