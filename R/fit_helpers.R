@@ -25,6 +25,10 @@ form_form <-
       }
     }
 
+    # Make the predictor data (only) available in 'x' so that we can check
+    # mtry when needed. See #1276
+    env$x <- env$data
+
     # prob rewrite this as simple subset/levels
     y_levels <- levels_from_formula(env$formula, env$data)
 
