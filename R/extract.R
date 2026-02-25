@@ -95,6 +95,17 @@ extract_parameter_set_dials.model_spec <- function(x, ...) {
   all_args <- generics::tunable(x)
   tuning_param <- generics::tune_args(x)
 
+  if (nrow(all_args) == 0 || nrow(tuning_param) == 0) {
+    res <- tibble::new_tibble(list(
+      name = character(0),
+      id = character(0),
+      source = character(0),
+      component = character(0),
+      call_info = list(),
+      component_id = character(0),
+      object = list()
+    ))
+  } else {
   res <-
     dplyr::inner_join(
       tuning_param |> dplyr::select(-tunable, -component_id),
@@ -103,6 +114,7 @@ extract_parameter_set_dials.model_spec <- function(x, ...) {
     ) |>
     mutate(object = purrr::map(call_info, eval_call_info))
 
+  }
   dials::parameters_constr(
     res$name,
     res$id,
