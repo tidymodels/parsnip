@@ -70,6 +70,8 @@ test_that("format_predictions() returns unknown types unchanged", {
 })
 
 test_that("format_predictions() matches individual format functions", {
+  withr::local_options(lifecycle_verbosity = "quiet")
+
   x_vec <- c(1.5, 2.5, 3.5)
 
   expect_equal(
@@ -104,4 +106,33 @@ test_that("format_predictions() matches individual format functions", {
     format_predictions(x_df, "prob"),
     format_classprobs(x_df)
   )
+})
+
+# Deprecation tests
+test_that("format_num() is deprecated", {
+  expect_snapshot(. <- format_num(c(1, 2, 3)))
+})
+
+test_that("format_class() is deprecated", {
+  expect_snapshot(. <- format_class(factor(c("a", "b"))))
+})
+
+test_that("format_classprobs() is deprecated", {
+  expect_snapshot(. <- format_classprobs(data.frame(a = 0.5, b = 0.5)))
+})
+
+test_that("format_time() is deprecated", {
+  expect_snapshot(. <- format_time(c(1, 2, 3)))
+})
+
+test_that("format_survival() is deprecated", {
+  expect_snapshot(. <- format_survival(c(0.9, 0.8)))
+})
+
+test_that("format_linear_pred() is deprecated", {
+  expect_snapshot(. <- format_linear_pred(c(-1, 0, 1)))
+})
+
+test_that("format_hazard() is deprecated", {
+  expect_snapshot(. <- format_hazard(c(0.1, 0.2)))
 })

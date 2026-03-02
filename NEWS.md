@@ -1,6 +1,6 @@
 # parsnip (development version)
 
-* For developers, `format_predictions()` is a new unified function for formatting prediction outputs, consolidating the logic from the individual `format_*()` functions (#927).
+* For developers, `format_predictions()` is a new unified function for formatting prediction outputs, consolidating the logic from the individual `format_*()` functions (#927). The individual functions `format_num()`, `format_class()`, `format_classprobs()`, `format_time()`, `format_survival()`, `format_linear_pred()`, and `format_hazard()` are now deprecated.
 
 * Fixed a bug in random forest fits using the `"aorsf"` engine where the check for `mtry` could not be performed (#1276)
 

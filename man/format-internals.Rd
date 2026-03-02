@@ -47,5 +47,37 @@ A tibble
 \description{
 These are used to ensure that we have appropriate column names inside of
 tibbles.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{format_num()} is deprecated. Use \code{format_predictions(x, "numeric")} instead.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{format_class()} is deprecated. Use \code{format_predictions(x, "class")} instead.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{format_classprobs()} is deprecated. Use \code{format_predictions(x, "prob")}
+instead.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{format_time()} is deprecated. Use \code{format_predictions(x, "time")} instead.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{format_survival()} is deprecated. Use \code{format_predictions(x, "survival")}
+instead.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{format_linear_pred()} is deprecated. Use
+\code{format_predictions(x, "linear_pred")} instead.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{format_hazard()} is deprecated. Use \code{format_predictions(x, "hazard")}
+instead.
 }
 \keyword{internal}

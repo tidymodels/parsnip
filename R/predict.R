@@ -311,21 +311,49 @@ format_predictions <- function(x, type) {
   )
 }
 
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `format_num()` is deprecated. Use `format_predictions(x, "numeric")` instead.
 #' @rdname format-internals
 #' @export
 format_num <- function(x) {
+  lifecycle::deprecate_warn(
+    "1.5.0",
+    "format_num()",
+    details = 'Use `format_predictions(x, "numeric")` instead.'
+  )
   format_predictions(x, "numeric")
 }
 
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `format_class()` is deprecated. Use `format_predictions(x, "class")` instead.
 #' @rdname format-internals
 #' @export
 format_class <- function(x) {
+  lifecycle::deprecate_warn(
+    "1.5.0",
+    "format_class()",
+    details = 'Use `format_predictions(x, "class")` instead.'
+  )
   format_predictions(x, "class")
 }
 
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `format_classprobs()` is deprecated. Use `format_predictions(x, "prob")`
+#' instead.
 #' @rdname format-internals
 #' @export
 format_classprobs <- function(x) {
+  lifecycle::deprecate_warn(
+    "1.5.0",
+    "format_classprobs()",
+    details = 'Use `format_predictions(x, "prob")` instead.'
+  )
   format_predictions(x, "prob")
 }
 
@@ -344,27 +372,66 @@ format_classprobs_impl <- function(x) {
   x
 }
 
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `format_time()` is deprecated. Use `format_predictions(x, "time")` instead.
 #' @rdname format-internals
 #' @export
 format_time <- function(x) {
+  lifecycle::deprecate_warn(
+    "1.5.0",
+    "format_time()",
+    details = 'Use `format_predictions(x, "time")` instead.'
+  )
   format_predictions(x, "time")
 }
 
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `format_survival()` is deprecated. Use `format_predictions(x, "survival")`
+#' instead.
 #' @rdname format-internals
 #' @export
 format_survival <- function(x) {
+  lifecycle::deprecate_warn(
+    "1.5.0",
+    "format_survival()",
+    details = 'Use `format_predictions(x, "survival")` instead.'
+  )
   format_predictions(x, "survival")
 }
 
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `format_linear_pred()` is deprecated. Use
+#' `format_predictions(x, "linear_pred")` instead.
 #' @rdname format-internals
 #' @export
 format_linear_pred <- function(x) {
+  lifecycle::deprecate_warn(
+    "1.5.0",
+    "format_linear_pred()",
+    details = 'Use `format_predictions(x, "linear_pred")` instead.'
+  )
   format_predictions(x, "linear_pred")
 }
 
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `format_hazard()` is deprecated. Use `format_predictions(x, "hazard")`
+#' instead.
 #' @rdname format-internals
 #' @export
 format_hazard <- function(x) {
+  lifecycle::deprecate_warn(
+    "1.5.0",
+    "format_hazard()",
+    details = 'Use `format_predictions(x, "hazard")` instead.'
+  )
   format_predictions(x, "hazard")
 }
 
