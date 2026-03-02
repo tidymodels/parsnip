@@ -253,8 +253,9 @@ check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
   # First check engine against any mode for the given model class
 
   spec_engs <- model_info$engine
-  # engine is allowed to be NULL
-  if (!is.null(eng) && !(eng %in% spec_engs)) {
+  # engine is allowed to be NULL; only check if there are engines registered
+  # (if no engines registered, they all come from extension packages)
+  if (!is.null(eng) && length(spec_engs) > 0 && !(eng %in% spec_engs)) {
     cli::cli_abort(
       c(
         x = "Engine {.val {eng}} is not supported for {.fn {cls}}.",
