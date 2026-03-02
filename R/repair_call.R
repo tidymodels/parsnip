@@ -29,6 +29,11 @@
 #' @export
 repair_call <- function(x, data) {
   cl <- match.call()
+  if (!inherits(x, "model_fit")) {
+    cli::cli_abort(
+      "{.arg x} should be a fitted parsnip model, not {.obj_type_friendly {x}}."
+    )
+  }
   if (!any(names(x$fit) == "call")) {
     cli::cli_abort("No {.field call} object to modify.")
   }
