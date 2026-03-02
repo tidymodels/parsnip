@@ -225,7 +225,8 @@ check_mode_for_new_engine <- function(cls, eng, mode, call = caller_env()) {
 
 
 # check if class and mode and engine are compatible
-check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
+check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env(),
+                                       check_engine = TRUE) {
   all_modes <- get_from_env(paste0(cls, "_modes"))
   if (!(mode %in% all_modes)) {
     cli::cli_abort(
@@ -255,7 +256,7 @@ check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
   spec_engs <- model_info$engine
   # engine is allowed to be NULL; only check if there are engines registered
   # (if no engines registered, they all come from extension packages)
-  if (!is.null(eng) && length(spec_engs) > 0 && !(eng %in% spec_engs)) {
+  if (check_engine && !is.null(eng) && length(spec_engs) > 0 && !(eng %in% spec_engs)) {
     cli::cli_abort(
       c(
         x = "Engine {.val {eng}} is not supported for {.fn {cls}}.",
@@ -886,7 +887,7 @@ check_unregistered <- function(model, mode, eng, call = caller_env()) {
 set_fit <- function(model, mode, eng, value) {
   check_model_exists(model)
   check_eng_val(eng)
-  check_spec_mode_engine_val(model, eng, mode)
+  check_spec_mode_engine_val(model, eng, mode, check_engine = FALSE)
   check_fit_info(value)
   check_unregistered(model, mode, eng)
 
@@ -943,7 +944,7 @@ get_fit <- function(model) {
 set_pred <- function(model, mode, eng, type, value) {
   check_model_exists(model)
   check_eng_val(eng)
-  check_spec_mode_engine_val(model, eng, mode)
+  check_spec_mode_engine_val(model, eng, mode, check_engine = FALSE)
   check_pred_info(value, type)
   check_unregistered(model, mode, eng)
 
