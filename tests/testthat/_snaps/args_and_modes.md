@@ -100,7 +100,7 @@
       linear_reg(engine = "boop")
     Condition
       Error in `linear_reg()`:
-      x Engine "boop" is not supported for `linear_reg()`
+      x Engine "boop" is not supported for `linear_reg()`.
       i See `show_engines("linear_reg")`.
 
 ---

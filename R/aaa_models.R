@@ -257,7 +257,7 @@ check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
   if (!is.null(eng) && !(eng %in% spec_engs)) {
     cli::cli_abort(
       c(
-        x = "Engine {.val {eng}} is not supported for {.fn {cls}}",
+        x = "Engine {.val {eng}} is not supported for {.fn {cls}}.",
         i = "See {.code show_engines({.val {cls}})}."
       ),
       call = call
