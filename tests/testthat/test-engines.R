@@ -6,4 +6,3 @@ test_that("NULL engines", {
     error = TRUE
   )
 })
-
