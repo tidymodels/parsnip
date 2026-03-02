@@ -196,19 +196,7 @@ predict.model_fit <- function(
     raw = predict_raw(object = object, new_data = new_data, opts = opts, ...),
     cli::cli_abort("Unknown prediction {.arg type} '{type}'.")
   )
-  if (!inherits(res, "tbl_spark")) {
-    res <- switch(
-      type,
-      numeric = format_num(res),
-      class = format_class(res),
-      prob = format_classprobs(res),
-      time = format_time(res),
-      survival = format_survival(res),
-      hazard = format_hazard(res),
-      linear_pred = format_linear_pred(res),
-      res
-    )
-  }
+  res <- format_predictions(res, type)
   res
 }
 
@@ -297,32 +285,51 @@ check_pred_type <- function(object, type, ..., call = rlang::caller_env()) {
 #' tibbles.
 #'
 #' @param x A data frame or vector (depending on the context and function).
+#' @param type A string for the prediction type. One of: `"numeric"`, `"class"`,
+#'   `"prob"`, `"time"`, `"survival"`, `"linear_pred"`, or `"hazard"`.
 #' @param col_name A string for a prediction column name.
 #' @param overwrite A logical for whether to overwrite the column name.
 #' @return A tibble
 #' @keywords internal
 #' @name format-internals
 #' @export
-
-format_num <- function(x) {
+format_predictions <- function(x, type) {
   if (inherits(x, "tbl_spark")) {
     return(x)
   }
-  ensure_parsnip_format(x, ".pred", overwrite = FALSE)
+
+  switch(
+    type,
+    numeric = ensure_parsnip_format(x, ".pred", overwrite = FALSE),
+    class = ensure_parsnip_format(x, ".pred_class"),
+    prob = format_classprobs_impl(x),
+    time = ensure_parsnip_format(x, ".pred_time", overwrite = FALSE),
+    survival = ensure_parsnip_format(x, ".pred"),
+    linear_pred = ensure_parsnip_format(x, ".pred_linear_pred"),
+    hazard = ensure_parsnip_format(x, ".pred"),
+    x
+  )
+}
+
+#' @rdname format-internals
+#' @export
+format_num <- function(x) {
+  format_predictions(x, "numeric")
 }
 
 #' @rdname format-internals
 #' @export
 format_class <- function(x) {
-  if (inherits(x, "tbl_spark")) {
-    return(x)
-  }
-  ensure_parsnip_format(x, ".pred_class")
+  format_predictions(x, "class")
 }
 
 #' @rdname format-internals
 #' @export
 format_classprobs <- function(x) {
+  format_predictions(x, "prob")
+}
+
+format_classprobs_impl <- function(x) {
   if (!any(grepl("^\\.pred_", names(x)))) {
     names(x) <- paste0(".pred_", names(x))
   }
@@ -340,28 +347,25 @@ format_classprobs <- function(x) {
 #' @rdname format-internals
 #' @export
 format_time <- function(x) {
-  ensure_parsnip_format(x, ".pred_time", overwrite = FALSE)
+  format_predictions(x, "time")
 }
 
 #' @rdname format-internals
 #' @export
 format_survival <- function(x) {
-  ensure_parsnip_format(x, ".pred")
+  format_predictions(x, "survival")
 }
 
 #' @rdname format-internals
 #' @export
 format_linear_pred <- function(x) {
-  if (inherits(x, "tbl_spark")) {
-    return(x)
-  }
-  ensure_parsnip_format(x, ".pred_linear_pred")
+  format_predictions(x, "linear_pred")
 }
 
 #' @rdname format-internals
 #' @export
 format_hazard <- function(x) {
-  ensure_parsnip_format(x, ".pred")
+  format_predictions(x, "hazard")
 }
 
 #' @export

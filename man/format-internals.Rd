@@ -2,6 +2,7 @@
 % Please edit documentation in R/predict.R
 \name{format-internals}
 \alias{format-internals}
+\alias{format_predictions}
 \alias{format_num}
 \alias{format_class}
 \alias{format_classprobs}
@@ -12,6 +13,8 @@
 \alias{ensure_parsnip_format}
 \title{Internal functions that format predictions}
 \usage{
+format_predictions(x, type)
+
 format_num(x)
 
 format_class(x)
@@ -30,6 +33,9 @@ ensure_parsnip_format(x, col_name, overwrite = TRUE)
 }
 \arguments{
 \item{x}{A data frame or vector (depending on the context and function).}
+
+\item{type}{A string for the prediction type. One of: \code{"numeric"}, \code{"class"},
+\code{"prob"}, \code{"time"}, \code{"survival"}, \code{"linear_pred"}, or \code{"hazard"}.}
 
 \item{col_name}{A string for a prediction column name.}
 
