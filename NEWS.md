@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* For developers, `format_predictions()` is a new unified function for formatting prediction outputs, consolidating the logic from the individual `format_*()` functions (#927).
+
 * Fixed a bug in random forest fits using the `"aorsf"` engine where the check for `mtry` could not be performed (#1276)
 
 * Fix bug in predicting class probabilities for multiclass earth models (#1334)
