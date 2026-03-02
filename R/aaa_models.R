@@ -225,8 +225,13 @@ check_mode_for_new_engine <- function(cls, eng, mode, call = caller_env()) {
 
 
 # check if class and mode and engine are compatible
-check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env(),
-                                       check_engine = TRUE) {
+check_spec_mode_engine_val <- function(
+  cls,
+  eng,
+  mode,
+  call = caller_env(),
+  check_engine = TRUE
+) {
   all_modes <- get_from_env(paste0(cls, "_modes"))
   if (!(mode %in% all_modes)) {
     cli::cli_abort(
@@ -256,7 +261,12 @@ check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env(),
   spec_engs <- model_info$engine
   # engine is allowed to be NULL; only check if there are engines registered
   # (if no engines registered, they all come from extension packages)
-  if (check_engine && !is.null(eng) && length(spec_engs) > 0 && !(eng %in% spec_engs)) {
+  if (
+    check_engine &&
+      !is.null(eng) &&
+      length(spec_engs) > 0 &&
+      !(eng %in% spec_engs)
+  ) {
     cli::cli_abort(
       c(
         x = "Engine {.val {eng}} is not supported for {.fn {cls}}.",
