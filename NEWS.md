@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* `fit()` with a formula now reliably drops rows with missing values during internal data conversion, regardless of the global `options(na.action = ...)` setting (#548).
+
 * Fixed a bug in random forest fits using the `"aorsf"` engine where the check for `mtry` could not be performed (#1276)
 
 * Fix bug in predicting class probabilities for multiclass earth models (#1334)

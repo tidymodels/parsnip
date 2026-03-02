@@ -66,7 +66,7 @@
 
   ## Assemble model.frame call from call arguments
   mf_call <- quote(model.frame(formula, data))
-  mf_call$na.action <- match.call()$na.action # TODO this should work better
+  mf_call$na.action <- substitute(na.action)
   dots <- quos(...)
   check_form_dots(dots)
   for (i in seq_along(dots)) {

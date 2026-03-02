@@ -290,6 +290,22 @@ test_that("numeric y and mixed x, fail missing data", {
   )
 })
 
+test_that("na.action default is used, not system option (#548)", {
+  withr::local_options(na.action = "na.pass")
+
+  # Without fix, this would keep all rows (using system option na.pass)
+  # With fix, this uses the declared default (na.omit) and drops incomplete rows
+  observed <- .convert_form_to_xy_fit(
+    rate ~ .,
+    data = Puromycin_miss,
+    indicators = "traditional",
+    remove_intercept = TRUE
+  )
+
+  n_complete <- sum(complete.cases(Puromycin_miss))
+  expect_equal(nrow(observed$x), n_complete)
+})
+
 test_that("numeric y and mixed x, no dummies", {
   expected <- model.frame(rate ~ ., data = Puromycin)[, -1]
   observed <-
