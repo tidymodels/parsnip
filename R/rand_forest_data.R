@@ -568,7 +568,8 @@ set_pred(
 
 set_model_engine("rand_forest", "classification", "spark")
 set_model_engine("rand_forest", "regression", "spark")
-set_dependency("rand_forest", "spark", "sparklyr")
+set_dependency("rand_forest", "spark", "sparklyr", mode = "classification")
+set_dependency("rand_forest", "spark", "sparklyr", mode = "regression")
 
 set_model_arg(
   model = "rand_forest",

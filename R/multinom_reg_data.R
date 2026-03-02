@@ -5,7 +5,7 @@ set_model_mode("multinom_reg", "classification")
 # ------------------------------------------------------------------------------
 
 set_model_engine("multinom_reg", "classification", "glmnet")
-set_dependency("multinom_reg", "glmnet", "glmnet")
+set_dependency("multinom_reg", "glmnet", "glmnet", mode = "classification")
 
 set_model_arg(
   model = "multinom_reg",
@@ -110,7 +110,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("multinom_reg", "classification", "spark")
-set_dependency("multinom_reg", "spark", "sparklyr")
+set_dependency("multinom_reg", "spark", "sparklyr", mode = "classification")
 
 set_model_arg(
   model = "multinom_reg",
@@ -191,8 +191,8 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("multinom_reg", "classification", "keras")
-set_dependency("multinom_reg", "keras", "keras")
-set_dependency("multinom_reg", "keras", "magrittr")
+set_dependency("multinom_reg", "keras", "keras", mode = "classification")
+set_dependency("multinom_reg", "keras", "magrittr", mode = "classification")
 
 set_model_arg(
   model = "multinom_reg",
@@ -262,7 +262,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("multinom_reg", "classification", "nnet")
-set_dependency("multinom_reg", "nnet", "nnet")
+set_dependency("multinom_reg", "nnet", "nnet", mode = "classification")
 
 set_model_arg(
   model = "multinom_reg",
@@ -351,7 +351,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("multinom_reg", "classification", "brulee")
-set_dependency("multinom_reg", "brulee", "brulee")
+set_dependency("multinom_reg", "brulee", "brulee", mode = "classification")
 
 
 set_model_arg(
