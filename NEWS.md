@@ -6,6 +6,8 @@
 
 * The "Fitting and predicting with parsnip" article has moved to [tidymodels.org](https://www.tidymodels.org/learn/models/parsnip-predictions/) (#1324).
 
+* `set_engine()` now errors informatively when an invalid engine name is specified for models whose engines all come from extension packages (#1110).
+
 * Quantile levels are not dropped when a model specification is modified (#1304)
 
 * xgboost and qrnn engines were added for quantile regression to `boost_tree()` and `mlp()`, respectively. (#1321)

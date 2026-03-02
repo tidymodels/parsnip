@@ -249,20 +249,6 @@ check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
     return(invisible(NULL))
   }
 
-  # Cases where the model definition is in parsnip but all of the engines
-  # are contained in a different package
-  model_info_parsnip_only <-
-    dplyr::inner_join(
-      model_info_table |> dplyr::filter(is.na(pkg)) |> dplyr::select(-pkg),
-      model_info |> dplyr::mutate(model = cls),
-      by = c("model", "engine", "mode")
-    )
-
-  if (nrow(model_info_parsnip_only) == 0) {
-    check_mode_with_no_engine(cls, mode, call = call)
-    return(invisible(NULL))
-  }
-
   # ------------------------------------------------------------------------------
   # First check engine against any mode for the given model class
 
@@ -276,6 +262,20 @@ check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
       ),
       call = call
     )
+  }
+
+  # Cases where the model definition is in parsnip but all of the engines
+  # are contained in a different package
+  model_info_parsnip_only <-
+    dplyr::inner_join(
+      model_info_table |> dplyr::filter(is.na(pkg)) |> dplyr::select(-pkg),
+      model_info |> dplyr::mutate(model = cls),
+      by = c("model", "engine", "mode")
+    )
+
+  if (nrow(model_info_parsnip_only) == 0) {
+    check_mode_with_no_engine(cls, mode, call = call)
+    return(invisible(NULL))
   }
 
   # ----------------------------------------------------------------------------
