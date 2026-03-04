@@ -7,7 +7,8 @@ set_model_mode("bart", "regression")
 
 set_model_engine("bart", "classification", "dbarts")
 set_model_engine("bart", "regression", "dbarts")
-set_dependency("bart", "dbarts", "dbarts")
+set_dependency("bart", "dbarts", "dbarts", mode = "classification")
+set_dependency("bart", "dbarts", "dbarts", mode = "regression")
 
 set_model_arg(
   model = "bart",

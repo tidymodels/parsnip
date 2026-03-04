@@ -7,7 +7,8 @@ set_model_mode("mars", "regression")
 
 set_model_engine("mars", "classification", "earth")
 set_model_engine("mars", "regression", "earth")
-set_dependency("mars", "earth", "earth")
+set_dependency("mars", "earth", "earth", mode = "classification")
+set_dependency("mars", "earth", "earth", mode = "regression")
 
 set_model_arg(
   model = "mars",
