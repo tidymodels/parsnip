@@ -66,6 +66,12 @@
 
   ## Assemble model.frame call from call arguments
   mf_call <- quote(model.frame(formula, data))
+
+  # Use substitute() to capture na.action as an unevaluated expression.
+  # Previously match.call()$na.action was used, but match.call() only sees
+  # arguments explicitly passed in the call, returning NULL when na.action
+  # uses its default. This caused model.frame() to ignore our na.action
+  # entirely. substitute() captures the value whether default or explicit. (#548)
   mf_call$na.action <- substitute(na.action)
   dots <- quos(...)
   check_form_dots(dots)
