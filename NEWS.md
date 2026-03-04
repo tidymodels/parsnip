@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* `fit()` with a formula now reliably drops rows with missing values during internal data conversion, regardless of the global `options(na.action = ...)` setting (#548).
+
 * Documentation for the lightgbm engine now includes information about custom objective functions and automatic `num_class` handling (#1275).
 
 * Fixed a bug in random forest fits using the `"aorsf"` engine where the check for `mtry` could not be performed (#1276)
