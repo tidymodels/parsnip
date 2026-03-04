@@ -285,8 +285,9 @@ check_pred_type <- function(object, type, ..., call = rlang::caller_env()) {
 #' tibbles.
 #'
 #' @param x A data frame or vector (depending on the context and function).
-#' @param type A string for the prediction type. One of: `"numeric"`, `"class"`,
-#'   `"prob"`, `"time"`, `"survival"`, `"linear_pred"`, or `"hazard"`.
+#' @param type A string for the prediction type. One of: `"raw"`, `"numeric"`,
+#'   `"class"`, `"prob"`, `"conf_int"`, `"pred_int"`, `"quantile"`, `"time"`,
+#'   `"survival"`, `"linear_pred"`, or `"hazard"`.
 #' @param col_name A string for a prediction column name.
 #' @param overwrite A logical for whether to overwrite the column name.
 #' @return A tibble
@@ -300,9 +301,13 @@ format_predictions <- function(x, type) {
 
   switch(
     type,
+    raw = x,
     numeric = ensure_parsnip_format(x, ".pred", overwrite = FALSE),
     class = ensure_parsnip_format(x, ".pred_class"),
     prob = format_classprobs_impl(x),
+    conf_int = tibble::as_tibble(x),
+    pred_int = tibble::as_tibble(x),
+    quantile = tibble::as_tibble(x),
     time = ensure_parsnip_format(x, ".pred_time", overwrite = FALSE),
     survival = ensure_parsnip_format(x, ".pred"),
     linear_pred = ensure_parsnip_format(x, ".pred_linear_pred"),

@@ -34,8 +34,9 @@ ensure_parsnip_format(x, col_name, overwrite = TRUE)
 \arguments{
 \item{x}{A data frame or vector (depending on the context and function).}
 
-\item{type}{A string for the prediction type. One of: \code{"numeric"}, \code{"class"},
-\code{"prob"}, \code{"time"}, \code{"survival"}, \code{"linear_pred"}, or \code{"hazard"}.}
+\item{type}{A string for the prediction type. One of: \code{"raw"}, \code{"numeric"},
+\code{"class"}, \code{"prob"}, \code{"conf_int"}, \code{"pred_int"}, \code{"quantile"}, \code{"time"},
+\code{"survival"}, \code{"linear_pred"}, or \code{"hazard"}.}
 
 \item{col_name}{A string for a prediction column name.}
 
