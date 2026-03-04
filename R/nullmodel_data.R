@@ -7,7 +7,8 @@ set_model_mode("null_model", "regression")
 
 set_model_engine("null_model", "classification", "parsnip")
 set_model_engine("null_model", "regression", "parsnip")
-set_dependency("null_model", "parsnip", "parsnip")
+set_dependency("null_model", "parsnip", "parsnip", mode = "classification")
+set_dependency("null_model", "parsnip", "parsnip", mode = "regression")
 
 set_fit(
   model = "null_model",

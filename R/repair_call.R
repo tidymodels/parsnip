@@ -29,13 +29,18 @@
 #' @export
 repair_call <- function(x, data) {
   cl <- match.call()
+  if (!inherits(x, "model_fit")) {
+    cli::cli_abort(
+      "{.arg x} should be a fitted parsnip model, not {.obj_type_friendly {x}}."
+    )
+  }
   if (!any(names(x$fit) == "call")) {
     cli::cli_abort("No {.field call} object to modify.")
   }
   if (rlang::is_missing(data)) {
     cli::cli_abort("Please supply a data object to {.arg data}.")
   }
-  fit_call <- x$fit$call
+  fit_call <- as.list(x$fit$call)
   needs_eval <- purrr::map_lgl(fit_call, rlang::is_quosure)
   if (any(needs_eval)) {
     eval_args <- names(needs_eval)[needs_eval]

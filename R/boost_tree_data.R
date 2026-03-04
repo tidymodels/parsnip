@@ -10,7 +10,9 @@ set_model_mode("boost_tree", "quantile regression")
 set_model_engine("boost_tree", "classification", "xgboost")
 set_model_engine("boost_tree", "regression", "xgboost")
 set_model_engine("boost_tree", "quantile regression", "xgboost")
-set_dependency("boost_tree", "xgboost", "xgboost")
+set_dependency("boost_tree", "xgboost", "xgboost", mode = "classification")
+set_dependency("boost_tree", "xgboost", "xgboost", mode = "regression")
+set_dependency("boost_tree", "xgboost", "xgboost", mode = "quantile regression")
 
 set_model_arg(
   model = "boost_tree",
@@ -362,7 +364,8 @@ set_pred(
 
 set_model_engine("boost_tree", "classification", "spark")
 set_model_engine("boost_tree", "regression", "spark")
-set_dependency("boost_tree", "spark", "sparklyr")
+set_dependency("boost_tree", "spark", "sparklyr", mode = "classification")
+set_dependency("boost_tree", "spark", "sparklyr", mode = "regression")
 
 set_model_arg(
   model = "boost_tree",

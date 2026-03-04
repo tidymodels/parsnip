@@ -220,6 +220,30 @@ if \code{sample_size} (i.e. \code{bagging_fraction}) is not equal to 1 and no
 setting the \code{bagging_freq} argument to \code{set_engine()} manually.
 }
 
+\subsection{Custom Objective Functions}{
+
+The default objective for classification models is set automatically
+based on the number of outcome levels: \code{binary} for two-class problems
+and \code{multiclass} for more than two classes. For regression, the default
+is \code{regression}.
+
+You can specify an alternative objective using \code{set_engine()}:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree() |>
+  set_engine("lightgbm", objective = "multiclassova") |>
+  set_mode("classification")
+}\if{html}{\out{</div>}}
+
+For multiclass objectives (\code{multiclass}, \code{softmax}, \code{multiclassova},
+\code{multiclass_ova}, \code{ova}, \code{ovr}), the \code{num_class} parameter is
+automatically determined from the number of outcome levels. This means
+you do not need to manually specify \code{num_class} when using these
+objectives.
+
+See the \href{https://lightgbm.readthedocs.io/en/latest/Parameters.html#core-parameters}{LightGBM documentation}
+for a full list of available objectives.
+}
+
 \subsection{Verbosity}{
 
 bonsai quiets much of the logging output from
