@@ -150,6 +150,8 @@ Predictions of type `"time"` are predictions of the median survival time.
 
 ## References
 
+ - Hothorn, T., Hornik, K., & Zeileis, A. (2006). Unbiased recursive partitioning: A conditional inference framework. _Journal of Computational and Graphical Statistics_, 15(3), 651-674.
+ 
  - [partykit: A Modular Toolkit for Recursive Partytioning in R](https://jmlr.org/papers/v16/hothorn15a.html)
 
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
