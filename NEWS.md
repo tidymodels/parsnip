@@ -4,6 +4,8 @@
 
 * Fixed a bug in random forest fits using the `"aorsf"` engine where the check for `mtry` could not be performed (#1276)
 
+* `repair_call()` now errors informatively when given an object that is not a fitted parsnip model (#598).
+
 * Fix bug in predicting class probabilities for multiclass earth models (#1334)
 
 * The "Fitting and predicting with parsnip" article has moved to [tidymodels.org](https://www.tidymodels.org/learn/models/parsnip-predictions/) (#1324).
