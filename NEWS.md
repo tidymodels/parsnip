@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* Documentation for the lightgbm engine now includes information about custom objective functions and automatic `num_class` handling (#1275).
+
 * Fixed a bug in random forest fits using the `"aorsf"` engine where the check for `mtry` could not be performed (#1276)
 
 * Fix bug in predicting class probabilities for multiclass earth models (#1334)
