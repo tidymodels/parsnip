@@ -10,6 +10,11 @@
   check for `mtry` could not be performed
   ([\#1276](https://github.com/tidymodels/parsnip/issues/1276))
 
+- [`repair_call()`](https://parsnip.tidymodels.org/dev/reference/repair_call.md)
+  now errors informatively when given an object that is not a fitted
+  parsnip model
+  ([\#598](https://github.com/tidymodels/parsnip/issues/598)).
+
 - Fix bug in predicting class probabilities for multiclass earth models
   ([\#1334](https://github.com/tidymodels/parsnip/issues/1334))
 
