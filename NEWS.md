@@ -2,6 +2,8 @@
 
 ## updates related to 'ordered' extenision package
 
+The changes in this section are discussed in #1298.
+
 * A new model `ordinal_reg()` is introduced for ordinal regression (#953):
   * Its sole mode is `"classification"` and its default engine is `"polr"` for `MASS::polr()`.
   * Additional engines `"ordinalNet"` for `ordinalNet::ordinalNet()` and `"vglm"` and `"vgam"` for `VGAM::*()` are documented.
@@ -16,6 +18,8 @@
 * Engine arguments for the new ordinal prediction engines are documented.
 
 * Ordinal prediction tools are coordinated with new parameter tuners in dials and engines in ordered.
+
+* `model_info_table` is updated with the above 6 engines in anticipation of submission of ordered to CRAN.
 
 ## other updates
 
