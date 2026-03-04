@@ -102,6 +102,26 @@ scale each so that each predictor has mean zero and a variance of one.
 
 The underlying model implementation does not allow for case weights. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("mlp_predict") |>
+  dplyr::filter(engine == "keras") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 5 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob   
+## 5 classification raw
+```
+
 ## Saving fitted model objects
 
 
@@ -109,7 +129,7 @@ Models fitted with this engine may require native serialization methods to be pr
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#mlp-keras) for `mlp()` with the `"keras"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `mlp()` with the `"keras"` engine.
 
 ## References
 

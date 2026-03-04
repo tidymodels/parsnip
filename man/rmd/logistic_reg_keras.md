@@ -51,6 +51,23 @@ scale each so that each predictor has mean zero and a variance of one.
 
 The underlying model implementation does not allow for case weights. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("logistic_reg_predict") |>
+  dplyr::filter(engine == "keras") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 2 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob
+```
+
 ## Saving fitted model objects
 
 
@@ -58,7 +75,7 @@ Models fitted with this engine may require native serialization methods to be pr
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#logistic-reg-keras) for `logistic_reg()` with the `"keras"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `logistic_reg()` with the `"keras"` engine.
 
 ## References
 

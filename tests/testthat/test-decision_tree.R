@@ -19,7 +19,7 @@ test_that('bad input', {
     fit(bt, class ~ ., hpc)
   })
   expect_snapshot_error({
-    bt <- decision_tree(min_n = 0)  |> set_engine("rpart")
+    bt <- decision_tree(min_n = 0) |> set_engine("rpart")
     fit(bt, class ~ ., hpc)
   })
   expect_snapshot(
@@ -41,13 +41,13 @@ test_that('argument checks for data dimensions', {
     set_mode("regression")
 
   expect_snapshot(
-    f_fit  <- spec |> fit(body_mass_g ~ ., data = penguins)
+    f_fit <- spec |> fit(body_mass_g ~ ., data = penguins)
   )
   expect_snapshot(
     xy_fit <- spec |> fit_xy(x = penguins[, -6], y = penguins$body_mass_g)
   )
 
-  expect_equal(extract_fit_engine(f_fit)$control$minsplit,  nrow(penguins))
+  expect_equal(extract_fit_engine(f_fit)$control$minsplit, nrow(penguins))
   expect_equal(extract_fit_engine(xy_fit)$control$minsplit, nrow(penguins))
 
   spec <-
@@ -56,8 +56,7 @@ test_that('argument checks for data dimensions', {
     set_mode("regression")
 
   args <- translate(spec)$method$fit$args
-  expect_equal(args$min_instances_per_node,  rlang::expr(min_rows(1000, x)))
-
+  expect_equal(args$min_instances_per_node, rlang::expr(min_rows(1000, x)))
 })
 
 test_that("check_args() works", {

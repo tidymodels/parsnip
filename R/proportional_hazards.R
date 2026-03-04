@@ -37,50 +37,52 @@ proportional_hazards <- function(
   mode = "censored regression",
   engine = "survival",
   penalty = NULL,
-  mixture = NULL) {
+  mixture = NULL
+) {
+  args <- list(
+    penalty = enquo(penalty),
+    mixture = enquo(mixture)
+  )
 
-    args <- list(
-      penalty = enquo(penalty),
-      mixture = enquo(mixture)
-    )
-
-    new_model_spec(
-      "proportional_hazards",
-      args = args,
-      eng_args = NULL,
-      mode = mode,
-      user_specified_mode = !missing(mode),
-      method = NULL,
-      engine = engine,
-      user_specified_engine = !missing(engine)
-    )
-  }
+  new_model_spec(
+    "proportional_hazards",
+    args = args,
+    eng_args = NULL,
+    mode = mode,
+    user_specified_mode = !missing(mode),
+    method = NULL,
+    engine = engine,
+    user_specified_engine = !missing(engine)
+  )
+}
 
 # ------------------------------------------------------------------------------
 
 #' @method update proportional_hazards
 #' @rdname parsnip_update
 #' @export
-update.proportional_hazards <- function(object,
-                                        parameters = NULL,
-                                        penalty = NULL,
-                                        mixture = NULL,
-                                        fresh = FALSE, ...) {
+update.proportional_hazards <- function(
+  object,
+  parameters = NULL,
+  penalty = NULL,
+  mixture = NULL,
+  fresh = FALSE,
+  ...
+) {
+  args <- list(
+    penalty = enquo(penalty),
+    mixture = enquo(mixture)
+  )
 
-    args <- list(
-      penalty = enquo(penalty),
-      mixture = enquo(mixture)
-    )
-
-    update_spec(
-      object = object,
-      parameters = parameters,
-      args_enquo_list = args,
-      fresh = fresh,
-      cls = "proportional_hazards",
-      ...
-    )
-  }
+  update_spec(
+    object = object,
+    parameters = parameters,
+    args_enquo_list = args,
+    fresh = fresh,
+    cls = "proportional_hazards",
+    ...
+  )
+}
 
 #' @export
 translate.proportional_hazards <- function(x, engine = x$engine, ...) {

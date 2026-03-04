@@ -5,10 +5,11 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 # to go from lm_object$x results to our format
 format_x_for_test <- function(x, df = TRUE) {
   x <- x[, colnames(x) != "(Intercept)", drop = FALSE]
-  if (df)
+  if (df) {
     as.data.frame(x)
-  else
+  } else {
     x
+  }
 }
 
 Puromycin_miss <- Puromycin
@@ -35,16 +36,16 @@ test_that("numeric x and y", {
   expect_null(observed$offset)
 
   expect_equal(
-    mtcars[1:6,-1],
+    mtcars[1:6, -1],
     .convert_form_to_xy_new(
       observed,
-      new_data = head(mtcars))$x
+      new_data = head(mtcars)
+    )$x
   )
 })
 
 test_that("numeric x and y, subsetting", {
-  expected <- lm(mpg ~ ., data = mtcars, subset = hp > 170,
-                 x = TRUE, y = TRUE)
+  expected <- lm(mpg ~ ., data = mtcars, subset = hp > 170, x = TRUE, y = TRUE)
   observed <-
     .convert_form_to_xy_fit(
       mpg ~ .,
@@ -63,8 +64,13 @@ test_that("numeric x and y, subsetting", {
 })
 
 test_that("numeric x and y, weights", {
-  expected <- lm(mpg ~ . -disp, data = mtcars, weights = disp,
-                 x = TRUE, y = TRUE)
+  expected <- lm(
+    mpg ~ . - disp,
+    data = mtcars,
+    weights = disp,
+    x = TRUE,
+    y = TRUE
+  )
   observed <-
     .convert_form_to_xy_fit(
       mpg ~ . - disp,
@@ -82,13 +88,15 @@ test_that("numeric x and y, weights", {
 })
 
 test_that("numeric x and y, offset in-line", {
-  expected <- lm(mpg ~ cyl + hp +  offset(log(disp)),
-                 data = mtcars,
-                 x = TRUE,
-                 y = TRUE)
+  expected <- lm(
+    mpg ~ cyl + hp + offset(log(disp)),
+    data = mtcars,
+    x = TRUE,
+    y = TRUE
+  )
   observed <-
     .convert_form_to_xy_fit(
-      mpg ~ cyl + hp +  offset(log(disp)),
+      mpg ~ cyl + hp + offset(log(disp)),
       data = mtcars,
       indicators = "traditional",
       remove_intercept = TRUE
@@ -109,15 +117,14 @@ test_that("numeric x and y, offset in-line", {
 
 test_that("numeric x and y, multiple offsets in-line", {
   expected <- lm(
-    mpg ~ cyl + hp +  offset(log(disp)) + offset(qsec),
+    mpg ~ cyl + hp + offset(log(disp)) + offset(qsec),
     data = mtcars,
     x = TRUE,
     y = TRUE
   )
   observed <-
     .convert_form_to_xy_fit(
-      mpg ~ cyl + hp +  offset(log(disp)) +
-        offset(qsec),
+      mpg ~ cyl + hp + offset(log(disp)) + offset(qsec),
       data = mtcars,
       indicators = "traditional",
       remove_intercept = TRUE
@@ -132,15 +139,11 @@ test_that("numeric x and y, multiple offsets in-line", {
   new_obs <-
     .convert_form_to_xy_new(observed, new_data = mtcars[1:6, ])
   expect_equal(mtcars[1:6, c("cyl", "hp")], new_obs$x)
-  expect_equal(log(mtcars$disp)[1:6] + mtcars$qsec[1:6],
-               new_obs$offset)
+  expect_equal(log(mtcars$disp)[1:6] + mtcars$qsec[1:6], new_obs$offset)
 })
 
 test_that("numeric x and y, no intercept", {
-  expected <- lm(mpg ~ 0 + .,
-                 data = mtcars,
-                 x = TRUE,
-                 y = TRUE)
+  expected <- lm(mpg ~ 0 + ., data = mtcars, x = TRUE, y = TRUE)
   observed <-
     .convert_form_to_xy_fit(
       mpg ~ 0 + .,
@@ -155,15 +158,14 @@ test_that("numeric x and y, no intercept", {
   expect_null(observed$offset)
   expect_null(observed$weights)
 
-  expect_equal(mtcars[1:6,-1],
-               .convert_form_to_xy_new(observed, new_data = head(mtcars))$x)
+  expect_equal(
+    mtcars[1:6, -1],
+    .convert_form_to_xy_new(observed, new_data = head(mtcars))$x
+  )
 })
 
 test_that("numeric x and y, inline functions", {
-  expected <- lm(log(mpg) ~ hp + poly(wt, 3),
-                 data = mtcars,
-                 x = TRUE,
-                 y = TRUE)
+  expected <- lm(log(mpg) ~ hp + poly(wt, 3), data = mtcars, x = TRUE, y = TRUE)
   observed <-
     .convert_form_to_xy_fit(
       log(mpg) ~ hp + poly(wt, 3),
@@ -237,8 +239,7 @@ test_that("numeric y and mixed x, omit missing data", {
       remove_intercept = TRUE
     )
   expect_equal(format_x_for_test(expected$x), observed$x)
-  expect_equal(Puromycin_miss$rate[complete.cases(Puromycin_miss)],
-                    observed$y)
+  expect_equal(Puromycin_miss$rate[complete.cases(Puromycin_miss)], observed$y)
   expect_equal(expected$terms, observed$terms)
   expect_equal(expected$xlevels, observed$xlevels)
   expect_null(observed$weights)
@@ -255,9 +256,7 @@ test_that("numeric y and mixed x, omit missing data", {
 })
 
 test_that("numeric y and mixed x, include missing data", {
-  frame_obj <- model.frame(rate ~ .,
-                           data = Puromycin_miss,
-                           na.action = na.pass)
+  frame_obj <- model.frame(rate ~ ., data = Puromycin_miss, na.action = na.pass)
   expected <- model.matrix(rate ~ ., frame_obj)
   observed <- .convert_form_to_xy_fit(
     rate ~ .,
@@ -292,7 +291,7 @@ test_that("numeric y and mixed x, fail missing data", {
 })
 
 test_that("numeric y and mixed x, no dummies", {
-  expected <- model.frame(rate ~ ., data = Puromycin)[,-1]
+  expected <- model.frame(rate ~ ., data = Puromycin)[, -1]
   observed <-
     .convert_form_to_xy_fit(
       rate ~ .,
@@ -309,10 +308,7 @@ test_that("numeric y and mixed x, no dummies", {
 })
 
 test_that("numeric x and numeric multivariate y", {
-  expected <- lm(cbind(mpg, disp) ~ .,
-                 data = mtcars,
-                 x = TRUE,
-                 y = TRUE)
+  expected <- lm(cbind(mpg, disp) ~ ., data = mtcars, x = TRUE, y = TRUE)
   observed <-
     .convert_form_to_xy_fit(
       cbind(mpg, disp) ~ .,
@@ -327,8 +323,10 @@ test_that("numeric x and numeric multivariate y", {
   expect_null(observed$weights)
   expect_null(observed$offset)
 
-  expect_equal(mtcars[1:6,-c(1, 3)],
-               .convert_form_to_xy_new(observed, new_data = head(mtcars))$x)
+  expect_equal(
+    mtcars[1:6, -c(1, 3)],
+    .convert_form_to_xy_new(observed, new_data = head(mtcars))$x
+  )
 })
 
 test_that("numeric x and factor y", {
@@ -350,7 +348,10 @@ test_that("numeric x and factor y", {
   )
 
   expect_no_error(
-    observed2 <- .convert_form_to_xy_fit(class ~ ., data = hpc |> mutate(x = NA))
+    observed2 <- .convert_form_to_xy_fit(
+      class ~ .,
+      data = hpc |> mutate(x = NA)
+    )
   )
   expect_equal(hpc$class[logical()], observed2$y)
   expect_s3_class(observed2$terms, "terms")
@@ -363,7 +364,8 @@ test_that("bad args", {
   expect_snapshot(
     error = TRUE,
     .convert_form_to_xy_fit(
-      mpg ~ ., data = mtcars,
+      mpg ~ .,
+      data = mtcars,
       composition = "tibble",
       indicators = "traditional",
       remove_intercept = TRUE
@@ -372,7 +374,8 @@ test_that("bad args", {
   expect_snapshot(
     error = TRUE,
     .convert_form_to_xy_fit(
-      mpg ~ ., data = mtcars,
+      mpg ~ .,
+      data = mtcars,
       weights = letters[1:nrow(mtcars)],
       indicators = "traditional",
       remove_intercept = TRUE
@@ -394,21 +397,20 @@ test_that("numeric x and y, matrix composition", {
   expect_equal(mtcars$mpg, observed$y)
 
   new_obs <-
-    .convert_form_to_xy_new(observed,
-                                     new_data = head(mtcars),
-                                     composition = "matrix")
-  expect_equal(as.matrix(mtcars[1:6,-1]), new_obs$x)
+    .convert_form_to_xy_new(
+      observed,
+      new_data = head(mtcars),
+      composition = "matrix"
+    )
+  expect_equal(as.matrix(mtcars[1:6, -1]), new_obs$x)
 })
 
 test_that("numeric x and multivariate y, matrix composition", {
   expected <-
-    lm(cbind(mpg, cyl) ~ .,
-       data = mtcars,
-       x = TRUE,
-       y = TRUE)
+    lm(cbind(mpg, cyl) ~ ., data = mtcars, x = TRUE, y = TRUE)
   observed <-
     .convert_form_to_xy_fit(
-      cbind(mpg, cyl)  ~ .,
+      cbind(mpg, cyl) ~ .,
       data = mtcars,
       composition = "matrix",
       indicators = "traditional",
@@ -418,10 +420,12 @@ test_that("numeric x and multivariate y, matrix composition", {
   expect_equal(expected$y, observed$y)
 
   new_obs <-
-    .convert_form_to_xy_new(observed,
-                                     new_data = head(mtcars),
-                                     composition = "matrix")
-  expect_equal(as.matrix(mtcars[1:6,-(1:2)]), new_obs$x)
+    .convert_form_to_xy_new(
+      observed,
+      new_data = head(mtcars),
+      composition = "matrix"
+    )
+  expect_equal(as.matrix(mtcars[1:6, -(1:2)]), new_obs$x)
 })
 
 test_that("global `contrasts` option is respected", {
@@ -437,14 +441,20 @@ test_that("global `contrasts` option is respected", {
   )
   fit_data <- fit_result$x
 
-  expect_identical(names(fit_data), c("class1", "class2", "class3", "compounds"))
+  expect_identical(
+    names(fit_data),
+    c("class1", "class2", "class3", "compounds")
+  )
   expect_true(all(fit_data$class1 %in% c(-1, 0, 1)))
 
   # Predict time
   predict_result <- .convert_form_to_xy_new(fit_result, hpc)
   predict_data <- predict_result$x
 
-  expect_identical(names(predict_data), c("class1", "class2", "class3", "compounds"))
+  expect_identical(
+    names(predict_data),
+    c("class1", "class2", "class3", "compounds")
+  )
   expect_true(all(predict_data$class1 %in% c(-1, 0, 1)))
 })
 
@@ -461,15 +471,20 @@ test_that("data frame x, vector y", {
   expect_equal(names(mtcars)[-1], observed$x_var)
   expect_null(observed$weights)
 
-  expect_equal(mtcars[1:6, -1],
-               .convert_xy_to_form_new(observed, new_data = head(mtcars[,-1])))
+  expect_equal(
+    mtcars[1:6, -1],
+    .convert_xy_to_form_new(observed, new_data = head(mtcars[, -1]))
+  )
 })
 
 
 test_that("matrix x, vector y", {
   observed <-
-    .convert_xy_to_form_fit(as.matrix(mtcars[,-1]), mtcars$mpg,
-                                     remove_intercept = TRUE)
+    .convert_xy_to_form_fit(
+      as.matrix(mtcars[, -1]),
+      mtcars$mpg,
+      remove_intercept = TRUE
+    )
   expected <- mtcars[, c(2:11, 1)]
   names(expected)[11] <- "..y"
   expect_equal(expected, observed$data)
@@ -478,7 +493,7 @@ test_that("matrix x, vector y", {
   expect_null(observed$weights)
 
   expect_equal(
-    mtcars[1:6,-1],
+    mtcars[1:6, -1],
     .convert_xy_to_form_new(observed, new_data = as.matrix(mtcars[1:6, -1]))
   )
 })
@@ -486,8 +501,11 @@ test_that("matrix x, vector y", {
 
 test_that("data frame x, 1 col data frame y", {
   observed <-
-    .convert_xy_to_form_fit(mtcars[, -1], mtcars[, "mpg", drop = FALSE],
-                                     remove_intercept = TRUE)
+    .convert_xy_to_form_fit(
+      mtcars[, -1],
+      mtcars[, "mpg", drop = FALSE],
+      remove_intercept = TRUE
+    )
   expected <- mtcars[, c(2:11, 1)]
   expect_equal(expected, observed$data)
   expect_equal(formula("mpg ~ ."), observed$formula, ignore_formula_env = TRUE)
@@ -497,9 +515,11 @@ test_that("data frame x, 1 col data frame y", {
 
 test_that("matrix x, 1 col matrix y", {
   observed <-
-    .convert_xy_to_form_fit(as.matrix(mtcars[,-1]),
-                                     as.matrix(mtcars[, "mpg", drop = FALSE]),
-                                     remove_intercept = TRUE)
+    .convert_xy_to_form_fit(
+      as.matrix(mtcars[, -1]),
+      as.matrix(mtcars[, "mpg", drop = FALSE]),
+      remove_intercept = TRUE
+    )
   expected <- mtcars[, c(2:11, 1)]
   expect_equal(expected, observed$data)
   expect_equal(formula("mpg ~ ."), observed$formula, ignore_formula_env = TRUE)
@@ -509,9 +529,11 @@ test_that("matrix x, 1 col matrix y", {
 
 test_that("matrix x, 1 col data frame y", {
   observed <-
-    .convert_xy_to_form_fit(as.matrix(mtcars[,-1]),
-                                     mtcars[, "mpg", drop = FALSE],
-                                     remove_intercept = TRUE)
+    .convert_xy_to_form_fit(
+      as.matrix(mtcars[, -1]),
+      mtcars[, "mpg", drop = FALSE],
+      remove_intercept = TRUE
+    )
   expected <- mtcars[, c(2:11, 1)]
   expect_equal(expected, observed$data)
   expect_equal(formula("mpg ~ ."), observed$formula, ignore_formula_env = TRUE)
@@ -521,9 +543,11 @@ test_that("matrix x, 1 col data frame y", {
 
 test_that("data frame x, 1 col matrix y", {
   observed <-
-    .convert_xy_to_form_fit(mtcars[,-1],
-                                     as.matrix(mtcars[, "mpg", drop = FALSE]),
-                                     remove_intercept = TRUE)
+    .convert_xy_to_form_fit(
+      mtcars[, -1],
+      as.matrix(mtcars[, "mpg", drop = FALSE]),
+      remove_intercept = TRUE
+    )
   expected <- mtcars[, c(2:11, 1)]
   expect_equal(expected, observed$data)
   expect_equal(formula("mpg ~ ."), observed$formula, ignore_formula_env = TRUE)
@@ -533,35 +557,46 @@ test_that("data frame x, 1 col matrix y", {
 
 test_that("data frame x, 2 col data frame y", {
   observed <-
-    .convert_xy_to_form_fit(mtcars[,-(1:2)], mtcars[, 1:2],
-                                     remove_intercept = TRUE)
+    .convert_xy_to_form_fit(
+      mtcars[, -(1:2)],
+      mtcars[, 1:2],
+      remove_intercept = TRUE
+    )
   expected <- mtcars[, c(3:11, 1:2)]
   expect_equal(expected, observed$data)
-  expect_equal(formula("cbind(mpg, cyl) ~ ."),
-               observed$formula,
-               ignore_formula_env = TRUE)
+  expect_equal(
+    formula("cbind(mpg, cyl) ~ ."),
+    observed$formula,
+    ignore_formula_env = TRUE
+  )
   expect_equal(names(mtcars)[-(1:2)], observed$x_var)
   expect_null(observed$weights)
 })
 
 test_that("matrix x, 2 col matrix y", {
   observed <-
-    .convert_xy_to_form_fit(as.matrix(mtcars[,-(1:2)]),
-                                     as.matrix(mtcars[, 1:2]),
-                                     remove_intercept = TRUE)
+    .convert_xy_to_form_fit(
+      as.matrix(mtcars[, -(1:2)]),
+      as.matrix(mtcars[, 1:2]),
+      remove_intercept = TRUE
+    )
   expected <- mtcars[, c(3:11, 1:2)]
   expect_equal(expected, observed$data)
-  expect_equal(formula("cbind(mpg, cyl) ~ ."),
-               observed$formula,
-               ignore_formula_env = TRUE)
+  expect_equal(
+    formula("cbind(mpg, cyl) ~ ."),
+    observed$formula,
+    ignore_formula_env = TRUE
+  )
   expect_equal(names(mtcars)[-(1:2)], observed$x_var)
   expect_null(observed$weights)
 })
 
 test_that("1 col data frame x, 1 col data frame y", {
-  observed <- .convert_xy_to_form_fit(mtcars[, 2, drop = FALSE],
-                                               mtcars[, 1, drop = FALSE],
-                                               remove_intercept = TRUE)
+  observed <- .convert_xy_to_form_fit(
+    mtcars[, 2, drop = FALSE],
+    mtcars[, 1, drop = FALSE],
+    remove_intercept = TRUE
+  )
   expected <- mtcars[, 2:1]
   expect_equal(expected, observed$data)
   expect_equal(formula("mpg ~ ."), observed$formula, ignore_formula_env = TRUE)
@@ -613,7 +648,11 @@ test_that("bad args", {
   )
   expect_snapshot(
     error = TRUE,
-    .convert_xy_to_form_fit(mtcars[, 1:3], mtcars[, 2:5], remove_intercept = TRUE)
+    .convert_xy_to_form_fit(
+      mtcars[, 1:3],
+      mtcars[, 2:5],
+      remove_intercept = TRUE
+    )
   )
 })
 
@@ -623,11 +662,16 @@ test_that("convert to matrix", {
   skip_if_not_installed("modeldata")
 
   expect_true(inherits(parsnip::maybe_matrix(mtcars), "matrix"))
-  expect_true(inherits(parsnip::maybe_matrix(tibble::as_tibble(mtcars)), "matrix"))
+  expect_true(inherits(
+    parsnip::maybe_matrix(tibble::as_tibble(mtcars)),
+    "matrix"
+  ))
   expect_true(inherits(parsnip::maybe_matrix(as.matrix(mtcars)), "matrix"))
   expect_true(
-    inherits(parsnip::maybe_matrix(Matrix::Matrix(as.matrix(mtcars), sparse = TRUE)),
-             "dgCMatrix")
+    inherits(
+      parsnip::maybe_matrix(Matrix::Matrix(as.matrix(mtcars), sparse = TRUE)),
+      "dgCMatrix"
+    )
   )
 
   data(ames, package = "modeldata")

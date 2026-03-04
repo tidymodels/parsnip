@@ -9,7 +9,10 @@ ensemble. Each tree depends on the results of previous trees. All trees in
 the ensemble are combined to produce a final prediction.
 }
 \details{
-For this engine, there are multiple modes: classification and regression
+For this engine, there are multiple modes: classification, regression,
+and quantile regression. Note that in late 2025, a new version of
+xgboost was released with differences in its interface and model
+objects. This version of parsnip should work with either version.
 \subsection{Tuning Parameters}{
 
 This model has 8 tuning parameters:
@@ -29,6 +32,10 @@ Inf)
 
 For \code{mtry}, the default value of \code{NULL} translates to using all
 available columns.
+
+XGBoost has a large number of engine parameters. The current list is
+found at
+\url{https://xgboost.readthedocs.io/en/stable/parameter.html}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{
@@ -99,6 +106,43 @@ available columns.
 ##     subsample = numeric(), early_stop = integer(), nthread = 1, 
 ##     verbose = 0)
 }\if{html}{\out{</div>}}
+}
+
+\subsection{Translation from parsnip to the original package (quantile regression)}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
+  mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
+  learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
+  stop_iter = integer()
+) |>
+  set_engine("xgboost") |>
+  set_mode("quantile regression", quantile_levels = (1:3) / 4) |> 
+  translate()
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (quantile regression)
+## 
+## Main Arguments:
+##   mtry = integer()
+##   trees = integer()
+##   min_n = integer()
+##   tree_depth = integer()
+##   learn_rate = numeric()
+##   loss_reduction = numeric()
+##   sample_size = numeric()
+##   stop_iter = integer()
+## 
+## Computational engine: xgboost 
+## 
+## Model fit template:
+## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     colsample_bynode = integer(), nrounds = integer(), min_child_weight = integer(), 
+##     max_depth = integer(), eta = numeric(), gamma = numeric(), 
+##     subsample = numeric(), early_stop = integer(), nthread = 1, 
+##     verbose = 0, quantile_alpha = quantile_levels, objective = "reg:quantileerror")
+
+## Quantile levels: 0.25, 0.5, and 0.75.
+}\if{html}{\out{</div>}}
 
 \code{\link[=xgb_train]{xgb_train()}} is a wrapper around
 \code{\link[xgboost:xgb.train]{xgboost::xgb.train()}} (and other functions)
@@ -129,6 +173,25 @@ on \code{tidymodels.org}.
 
 The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \code{case_weights} that expect vectors of case weights.
+}
+
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(engine == "xgboost") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 6 x 2
+##   mode                type    
+##   <chr>               <chr>   
+## 1 regression          numeric 
+## 2 regression          raw     
+## 3 classification      class   
+## 4 classification      prob    
+## 5 classification      raw     
+## 6 quantile regression quantile
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Sparse Data}{
@@ -276,9 +339,9 @@ about preparing fitted models for serialization, see the bundle package.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#boost-tree-xgboost}{examples}
-for \code{boost_tree()} with the \code{"xgboost"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{boost_tree()} with the \code{"xgboost"} engine.
 }
 
 \subsection{References}{

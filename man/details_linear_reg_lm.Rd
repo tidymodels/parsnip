@@ -64,6 +64,23 @@ Depending on your application, the degrees of freedom for the model (and
 other statistics) might be incorrect.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("linear_reg_predict") |>
+  dplyr::filter(engine == "lm") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 4 x 2
+##   mode       type    
+##   <chr>      <chr>   
+## 1 regression numeric 
+## 2 regression conf_int
+## 3 regression pred_int
+## 4 regression raw
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Saving fitted model objects}{
 
 This model object contains data that are not required to make
@@ -74,9 +91,9 @@ functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-lm}{examples}
-for \code{linear_reg()} with the \code{"lm"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{linear_reg()} with the \code{"lm"} engine.
 }
 
 \subsection{References}{

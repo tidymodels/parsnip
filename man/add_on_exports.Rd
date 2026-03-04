@@ -31,7 +31,8 @@ new_model_spec(
   user_specified_mode = TRUE,
   method,
   engine,
-  user_specified_engine = TRUE
+  user_specified_engine = TRUE,
+  quantile_levels = NULL
 )
 
 check_final_param(x, call = rlang::caller_env())

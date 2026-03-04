@@ -20,7 +20,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Max Kuhn \email{max@posit.co}
+\strong{Maintainer}: Max Kuhn \email{max@posit.co} (\href{https://orcid.org/0000-0003-2402-136X}{ORCID})
 
 Authors:
 \itemize{
@@ -30,7 +30,7 @@ Authors:
 Other contributors:
 \itemize{
   \item Emil Hvitfeldt \email{emil.hvitfeldt@posit.co} [contributor]
-  \item Posit Software, PBC (03wc8by49) [copyright holder, funder]
+  \item Posit Software, PBC (\href{https://ror.org/03wc8by49}{ROR}) [copyright holder, funder]
 }
 
 }

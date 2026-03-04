@@ -55,10 +55,31 @@ Factor/categorical predictors need to be converted to numeric values
 (e.g., dummy or indicator variables) for this engine. When using the
 formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
 convert factor columns to indicators.
+}
+
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
 variance of one.
+}
+
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("logistic_reg_predict") |>
+  dplyr::filter(engine == "LiblineaR") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob 
+## 3 classification raw
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Sparse Data}{
@@ -71,9 +92,9 @@ sparse tibbles from the \code{sparsevctrs} package are supported. See
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#logistic-reg-LiblineaR}{examples}
-for \code{logistic_reg()} with the \code{"LiblineaR"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{logistic_reg()} with the \code{"LiblineaR"} engine.
 }
 
 \subsection{References}{

@@ -27,20 +27,10 @@ jobs:
           extra-packages: any::covr, any::xml2
           needs: coverage
 
-      - name: Install dev reticulate
-        run: pak::pkg_install('rstudio/reticulate')
-        shell: Rscript {0}
-
-      - name: Install Miniconda
-        # conda can fail at downgrading python, so we specify python version in advance
-        env:
-          RETICULATE_MINICONDA_PYTHON_VERSION: "3.8"
-        run: reticulate::install_miniconda() # creates r-reticulate conda env by default
-        shell: Rscript {0}
-
-      - name: Install TensorFlow
+      - name: Install TensorFlow/Keras
         run: |
-          tensorflow::install_tensorflow(version='2.13', conda_python_version = NULL)
+          install.packages(c("keras3"))
+          keras3::install_keras()
         shell: Rscript {0}
 
       - name: Test coverage

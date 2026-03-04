@@ -113,19 +113,24 @@ get_descr_form <- function(formula, data, call = rlang::caller_env()) {
 }
 
 get_descr_df <- function(formula, data, call = rlang::caller_env()) {
-
   tmp_dat <-
-    .convert_form_to_xy_fit(formula,
-                            data,
-                            indicators = "none",
-                            remove_intercept = TRUE,
-                            call = call)
+    .convert_form_to_xy_fit(
+      formula,
+      data,
+      indicators = "none",
+      remove_intercept = TRUE,
+      call = call
+    )
 
-  if(is.factor(tmp_dat$y)) {
+  if (is.factor(tmp_dat$y)) {
     .lvls <- function() {
       table(tmp_dat$y, dnn = NULL)
     }
-  } else .lvls <- function() { NA }
+  } else {
+    .lvls <- function() {
+      NA
+    }
+  }
 
   .preds <- function() {
     ncol(tmp_dat$x)
@@ -176,17 +181,16 @@ get_descr_df <- function(formula, data, call = rlang::caller_env()) {
 }
 
 get_descr_spark <- function(formula, data) {
-
   all_vars <- all.vars(formula)
 
-  if("." %in% all_vars){
+  if ("." %in% all_vars) {
     tmpdata <- dplyr::collect(head(data, 1000))
     f_terms <- stats::terms(formula, data = tmpdata)
     f_cols <- rownames(attr(f_terms, "factors"))
   } else {
     f_terms <- stats::terms(formula)
     f_cols <- rownames(attr(f_terms, "factors"))
-    term_data <- dplyr::select(data, !!! rlang::syms(f_cols))
+    term_data <- dplyr::select(data, !!!rlang::syms(f_cols))
     tmpdata <- dplyr::collect(head(term_data, 1000))
   }
 
@@ -195,23 +199,22 @@ get_descr_spark <- function(formula, data) {
   y_col <- f_cols[y_ind]
 
   classes <- purrr::map(tmpdata, class)
-  icats <- purrr::map_lgl(classes, ~.x == "character")
+  icats <- purrr::map_lgl(classes, ~ .x == "character")
   cats <- classes[icats]
-  cat_preds <- purrr::imap_lgl(cats, ~.y %in% f_term_labels)
+  cat_preds <- purrr::imap_lgl(cats, ~ .y %in% f_term_labels)
   cats <- cats[cat_preds]
   cat_levels <- imap(
     cats,
-    ~{
-      p <- dplyr::group_by(data, !! rlang::sym(.y))
+    ~ {
+      p <- dplyr::group_by(data, !!rlang::sym(.y))
       p <- dplyr::summarise(p)
       dplyr::pull(p)
     }
   )
   numeric_pred <- length(f_term_labels) - length(cat_levels)
 
-
-  if(length(cat_levels) > 0){
-    n_dummies <- purrr::map_dbl(cat_levels, ~length(.x) - 1)
+  if (length(cat_levels) > 0) {
+    n_dummies <- purrr::map_dbl(cat_levels, ~ length(.x) - 1)
     n_dummies <- sum(n_dummies)
     all_preds <- numeric_pred + n_dummies
     factor_pred <- length(cat_levels)
@@ -225,36 +228,40 @@ get_descr_spark <- function(formula, data) {
 
   outs <- purrr::imap(
     out_cats,
-    ~{
-      p <- dplyr::group_by(data, !! sym(.y))
+    ~ {
+      p <- dplyr::group_by(data, !!sym(.y))
       p <- dplyr::tally(p)
       dplyr::collect(p)
     }
   )
 
-  if(length(outs) > 0){
+  if (length(outs) > 0) {
     outs <- outs[[1]]
-    y_vals <- purrr::as_vector(outs[,2])
-    names(y_vals) <- purrr::as_vector(outs[,1])
+    y_vals <- purrr::as_vector(outs[, 2])
+    names(y_vals) <- purrr::as_vector(outs[, 1])
     y_vals <- y_vals[order(names(y_vals))]
     y_vals <- as.table(y_vals)
-  } else y_vals <- NA
+  } else {
+    y_vals <- NA
+  }
 
   obs <- dplyr::tally(data) |> dplyr::pull()
 
-  .cols  <- function() all_preds
+  .cols <- function() all_preds
   .preds <- function() length(f_term_labels)
-  .obs   <- function() obs
-  .lvls  <- function() y_vals
+  .obs <- function() obs
+  .lvls <- function() y_vals
   .facts <- function() factor_pred
-  .x       <- function() cli::cli_abort("Descriptor {.fn .x} not defined for Spark.")
-  .y       <- function() cli::cli_abort("Descriptor {.fn .y} not defined for Spark.")
-  .dat     <- function() cli::cli_abort("Descriptor {.fn .dat} not defined for Spark.")
+  .x <- function() cli::cli_abort("Descriptor {.fn .x} not defined for Spark.")
+  .y <- function() cli::cli_abort("Descriptor {.fn .y} not defined for Spark.")
+  .dat <- function() {
+    cli::cli_abort("Descriptor {.fn .dat} not defined for Spark.")
+  }
 
   # still need .x(), .y(), .dat() ?
 
   list(
-    .cols  = .cols,
+    .cols = .cols,
     .preds = .preds,
     .obs = .obs,
     .lvls = .lvls,
@@ -266,14 +273,13 @@ get_descr_spark <- function(formula, data) {
 }
 
 get_descr_xy <- function(x, y, call = rlang::caller_env()) {
-
   .lvls <- if (is.factor(y)) {
     function() table(y, dnn = NULL)
   } else {
     function() NA
   }
 
-  .cols  <- function() {
+  .cols <- function() {
     ncol(x)
   }
 
@@ -281,15 +287,16 @@ get_descr_xy <- function(x, y, call = rlang::caller_env()) {
     ncol(x)
   }
 
-  .obs   <- function() {
+  .obs <- function() {
     nrow(x)
   }
 
   .facts <- function() {
-    if(is.data.frame(x))
+    if (is.data.frame(x)) {
       sum(vapply(x, is.factor, logical(1)))
-    else
-      sum(apply(x, 2, is.factor)) # would this always be zero?
+    } else {
+      sum(apply(x, 2, is.factor))
+    } # would this always be zero?
   }
 
   .dat <- function() {
@@ -305,7 +312,7 @@ get_descr_xy <- function(x, y, call = rlang::caller_env()) {
   }
 
   list(
-    .cols  = .cols,
+    .cols = .cols,
     .preds = .preds,
     .obs = .obs,
     .lvls = .lvls,
@@ -317,8 +324,9 @@ get_descr_xy <- function(x, y, call = rlang::caller_env()) {
 }
 
 has_exprs <- function(x) {
-  if(is.null(x) | is_varying(x) | is_missing_arg(x))
+  if (is.null(x) | is_varying(x) | is_missing_arg(x)) {
     return(FALSE)
+  }
   is_symbolic(x)
 }
 
@@ -334,9 +342,8 @@ requires_descrs <- function(object) {
 
 # given a quosure arg, does the expression contain a descriptor function?
 has_any_descrs <- function(x) {
-
   .x_expr <- rlang::get_expr(x)
-  .x_env  <- rlang::get_env(x, parent.frame())
+  .x_env <- rlang::get_env(x, parent.frame())
 
   # evaluated value
   # required so we don't pass an empty env to findGlobals(), which is an error
@@ -358,7 +365,6 @@ has_any_descrs <- function(x) {
 }
 
 is_descr <- function(x) {
-
   descrs <- list(
     ".cols",
     ".preds",
@@ -377,18 +383,23 @@ is_descr <- function(x) {
 
 # descrs = list of functions that actually eval to .cols()
 poke_descrs <- function(descrs) {
-
   descr_names <- names(descr_env)
 
-  old <- purrr::map(descr_names, ~{
-    descr_env[[.x]]
-  })
+  old <- purrr::map(
+    descr_names,
+    ~ {
+      descr_env[[.x]]
+    }
+  )
 
   names(old) <- descr_names
 
-  purrr::walk(descr_names, ~{
-    descr_env[[.x]] <- descrs[[.x]]
-  })
+  purrr::walk(
+    descr_names,
+    ~ {
+      descr_env[[.x]] <- descrs[[.x]]
+    }
+  )
 
   invisible(old)
 }
@@ -411,13 +422,13 @@ scoped_descrs <- function(descrs, frame = caller_env()) {
 # with their actual implementations
 descr_env <- rlang::new_environment(
   data = list(
-    .cols  = function() cli::cli_abort("Descriptor context not set"),
+    .cols = function() cli::cli_abort("Descriptor context not set"),
     .preds = function() cli::cli_abort("Descriptor context not set"),
-    .obs   = function() cli::cli_abort("Descriptor context not set"),
-    .lvls  = function() cli::cli_abort("Descriptor context not set"),
+    .obs = function() cli::cli_abort("Descriptor context not set"),
+    .lvls = function() cli::cli_abort("Descriptor context not set"),
     .facts = function() cli::cli_abort("Descriptor context not set"),
-    .x     = function() cli::cli_abort("Descriptor context not set"),
-    .y     = function() cli::cli_abort("Descriptor context not set"),
-    .dat   = function() cli::cli_abort("Descriptor context not set")
+    .x = function() cli::cli_abort("Descriptor context not set"),
+    .y = function() cli::cli_abort("Descriptor context not set"),
+    .dat = function() cli::cli_abort("Descriptor context not set")
   )
 )

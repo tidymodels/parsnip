@@ -98,6 +98,24 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \code{case_weights} that expect vectors of case weights.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("survival_reg_predict") |>
+  dplyr::filter(engine == "survival") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 5 x 2
+##   mode                type       
+##   <chr>               <chr>      
+## 1 censored regression time       
+## 2 censored regression quantile   
+## 3 censored regression hazard     
+## 4 censored regression survival   
+## 5 censored regression linear_pred
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Saving fitted model objects}{
 
 This model object contains data that are not required to make

@@ -21,7 +21,7 @@
       res <- translate(set_engine(rand_forest(mode = "classification"), NULL))
     Condition
       Error in `set_engine()`:
-      ! Missing engine. Possible mode/engine combinations are: classification {ranger, randomForest, spark} and regression {ranger, randomForest, spark}.
+      ! Missing engine. Possible mode/engine combinations are: classification {ranger, randomForest, spark, grf}, quantile regression {grf}, and regression {ranger, randomForest, spark, grf}.
 
 ---
 

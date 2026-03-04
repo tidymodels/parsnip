@@ -13,5 +13,7 @@ matrix_to_quantile_pred <- function(x, object) {
   n_pred_quantiles <- ncol(x)
   quantile_levels <- object$spec$quantile_levels
 
-  tibble::new_tibble(x = list(.pred_quantile = hardhat::quantile_pred(x, quantile_levels)))
+  tibble::new_tibble(
+    x = list(.pred_quantile = hardhat::quantile_pred(x, quantile_levels))
+  )
 }

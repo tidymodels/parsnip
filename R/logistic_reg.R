@@ -46,11 +46,12 @@
 #' logistic_reg()
 #' @export
 logistic_reg <-
-  function(mode = "classification",
-           engine = "glm",
-           penalty = NULL,
-           mixture = NULL) {
-
+  function(
+    mode = "classification",
+    engine = "glm",
+    penalty = NULL,
+    mixture = NULL
+  ) {
     args <- list(
       penalty = enquo(penalty),
       mixture = enquo(mixture)
@@ -88,18 +89,25 @@ translate.logistic_reg <- function(x, engine = x$engine, ...) {
   if (engine == "LiblineaR") {
     # convert parameter arguments
     new_penalty <- rlang::eval_tidy(x$args$penalty)
-    if (is.numeric(new_penalty))
-      arg_vals$cost <- rlang::new_quosure(1 / new_penalty, env = rlang::empty_env())
+    if (is.numeric(new_penalty)) {
+      arg_vals$cost <- rlang::new_quosure(
+        1 / new_penalty,
+        env = rlang::empty_env()
+      )
+    }
 
     if (any(arg_names == "type")) {
-      if (is.numeric(quo_get_expr(arg_vals$type)))
+      if (is.numeric(quo_get_expr(arg_vals$type))) {
         if (quo_get_expr(x$args$mixture) == 0) {
-          arg_vals$type <- 0      ## ridge
+          arg_vals$type <- 0 ## ridge
         } else if (quo_get_expr(x$args$mixture) == 1) {
-          arg_vals$type <- 6      ## lasso
+          arg_vals$type <- 6 ## lasso
         } else {
-          cli::cli_abort("For the LiblineaR engine, {.arg mixture} must be 0 or 1.")
+          cli::cli_abort(
+            "For the LiblineaR engine, {.arg mixture} must be 0 or 1."
+          )
         }
+      }
     }
     x$method$fit$args <- arg_vals
   }
@@ -112,11 +120,14 @@ translate.logistic_reg <- function(x, engine = x$engine, ...) {
 #' @rdname parsnip_update
 #' @export
 update.logistic_reg <-
-  function(object,
-           parameters = NULL,
-           penalty = NULL, mixture = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    penalty = NULL,
+    mixture = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
       penalty = enquo(penalty),
       mixture = enquo(mixture)
@@ -136,20 +147,34 @@ update.logistic_reg <-
 
 #' @export
 check_args.logistic_reg <- function(object, call = rlang::caller_env()) {
-
   args <- lapply(object$args, rlang::eval_tidy)
 
-  check_number_decimal(args$mixture, min = 0, max = 1, allow_null = TRUE, call = call, arg = "mixture")
-  check_number_decimal(args$penalty, min = 0, allow_null = TRUE, call = call, arg = "penalty")
+  check_number_decimal(
+    args$mixture,
+    min = 0,
+    max = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "mixture"
+  )
+  check_number_decimal(
+    args$penalty,
+    min = 0,
+    allow_null = TRUE,
+    call = call,
+    arg = "penalty"
+  )
 
   if (object$engine == "LiblineaR") {
     if (is.numeric(args$mixture) && !args$mixture %in% 0:1) {
       cli::cli_abort(
-        c("x" = "For the {.pkg LiblineaR} engine, mixture must be 0 or 1, \\
+        c(
+          "x" = "For the {.pkg LiblineaR} engine, mixture must be 0 or 1, \\
                 not {args$mixture}.",
           "i" = "Choose a pure ridge model with {.code mixture = 0} or \\
                 a pure lasso model with {.code mixture = 1}.",
-          "!" = "The {.pkg Liblinear} engine does not support other values."),
+          "!" = "The {.pkg Liblinear} engine does not support other values."
+        ),
         call = call
       )
     }

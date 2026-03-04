@@ -89,12 +89,31 @@ scale each so that each predictor has mean zero and a variance of one.
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#nearest-neighbor-kknn) for `nearest_neighbor()` with the `"kknn"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `nearest_neighbor()` with the `"kknn"` engine.
 
 ## Case weights
 
 
 The underlying model implementation does not allow for case weights. 
+
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("nearest_neighbor_predict") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 5 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob   
+## 5 classification raw
+```
 
 ## Saving fitted model objects
 

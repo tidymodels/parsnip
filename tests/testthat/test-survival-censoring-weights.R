@@ -15,7 +15,7 @@ test_that("probability truncation via trunc_probs()", {
   expect_equal(probs_trunc_04_na[2], data_derived_trunc)
   expect_equal(probs_trunc_04_na[3:6], probs[2:5])
 
-  probs <- (1:200)/200
+  probs <- (1:200) / 200
   expect_identical(
     parsnip:::trunc_probs(probs, trunc = 0.01),
     probs

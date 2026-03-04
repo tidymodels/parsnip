@@ -30,11 +30,12 @@
 #' gen_additive_mod()
 #'
 #' @export
-gen_additive_mod <- function(mode = "unknown",
-                             select_features = NULL,
-                             adjust_deg_free = NULL,
-                             engine = "mgcv") {
-
+gen_additive_mod <- function(
+  mode = "unknown",
+  select_features = NULL,
+  adjust_deg_free = NULL,
+  engine = "mgcv"
+) {
   args <- list(
     select_features = rlang::enquo(select_features),
     adjust_deg_free = rlang::enquo(adjust_deg_free)
@@ -42,7 +43,7 @@ gen_additive_mod <- function(mode = "unknown",
 
   new_model_spec(
     "gen_additive_mod",
-    args     = args,
+    args = args,
     eng_args = NULL,
     mode = mode,
     user_specified_mode = !missing(mode),
@@ -50,18 +51,19 @@ gen_additive_mod <- function(mode = "unknown",
     engine = engine,
     user_specified_engine = !missing(engine)
   )
-
 }
 
 #' @export
 #' @rdname parsnip_update
 #' @inheritParams gen_additive_mod
-update.gen_additive_mod <- function(object,
-                                    select_features = NULL,
-                                    adjust_deg_free = NULL,
-                                    parameters = NULL,
-                                    fresh = FALSE, ...) {
-
+update.gen_additive_mod <- function(
+  object,
+  select_features = NULL,
+  adjust_deg_free = NULL,
+  parameters = NULL,
+  fresh = FALSE,
+  ...
+) {
   args <- list(
     select_features = rlang::enquo(select_features),
     adjust_deg_free = rlang::enquo(adjust_deg_free)
@@ -96,10 +98,12 @@ fit_xy.gen_additive_mod <- function(object, ...) {
 
   if ("workflows" %in% trace$namespace & identical(object$engine, "mgcv")) {
     cli::cli_abort(
-      c("!" = "When working with generalized additive models, please supply the
+      c(
+        "!" = "When working with generalized additive models, please supply the
                model specification to {.fun workflows::add_model} along with a \\
                {.arg formula} argument.",
-        "i" = "See {.help parsnip::model_formula} to learn more."),
+        "i" = "See {.help parsnip::model_formula} to learn more."
+      ),
       call = NULL
     )
   }

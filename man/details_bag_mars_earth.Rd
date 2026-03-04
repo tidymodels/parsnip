@@ -103,6 +103,21 @@ Note that the \code{earth} package documentation has: “In the current
 implementation, \emph{building models with weights can be slow}.”
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("bag_mars_predict") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 classification class  
+## 3 classification prob
+}\if{html}{\out{</div>}}
+}
+
 \subsection{References}{
 \itemize{
 \item Breiman, L. 1996. “Bagging predictors”. Machine Learning. 24 (2):

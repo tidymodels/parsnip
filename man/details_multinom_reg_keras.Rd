@@ -61,6 +61,21 @@ variance of one.
 The underlying model implementation does not allow for case weights.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("multinom_reg_predict") |>
+  dplyr::filter(engine == "keras") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Saving fitted model objects}{
 
 Models fitted with this engine may require native serialization methods
@@ -70,9 +85,9 @@ about preparing fitted models for serialization, see the bundle package.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-keras}{examples}
-for \code{multinom_reg()} with the \code{"keras"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{multinom_reg()} with the \code{"keras"} engine.
 }
 
 \subsection{References}{

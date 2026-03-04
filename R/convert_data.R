@@ -34,14 +34,16 @@
 #' @keywords internal
 #' @export
 #'
-.convert_form_to_xy_fit <- function(formula,
-                                    data,
-                                    ...,
-                                    na.action = na.omit,
-                                    indicators = "traditional",
-                                    composition = "data.frame",
-                                    remove_intercept = TRUE,
-                                    call = rlang::caller_env()) {
+.convert_form_to_xy_fit <- function(
+  formula,
+  data,
+  ...,
+  na.action = na.omit,
+  indicators = "traditional",
+  composition = "data.frame",
+  remove_intercept = TRUE,
+  call = rlang::caller_env()
+) {
   if (!(composition %in% c("data.frame", "matrix", "dgCMatrix"))) {
     cli::cli_abort(
       "{.arg composition} should be either {.val data.frame}, {.val matrix}, or
@@ -175,11 +177,13 @@
 #' @rdname convert_helpers
 #' @keywords internal
 #' @export
-.convert_form_to_xy_new <- function(object,
-                                    new_data,
-                                    na.action = na.pass,
-                                    composition = "data.frame",
-                                    call = rlang::caller_env()) {
+.convert_form_to_xy_new <- function(
+  object,
+  new_data,
+  na.action = na.pass,
+  composition = "data.frame",
+  call = rlang::caller_env()
+) {
   if (!(composition %in% c("data.frame", "matrix"))) {
     cli::cli_abort(
       "{.arg composition} should be either {.val data.frame} or {.val matrix}.",
@@ -245,12 +249,14 @@
 #' @keywords internal
 #' @export
 #'
-.convert_xy_to_form_fit <- function(x,
-                                    y,
-                                    weights = NULL,
-                                    y_name = "..y",
-                                    remove_intercept = TRUE,
-                                    call = rlang::caller_env()) {
+.convert_xy_to_form_fit <- function(
+  x,
+  y,
+  weights = NULL,
+  y_name = "..y",
+  remove_intercept = TRUE,
+  call = rlang::caller_env()
+) {
   if (is.vector(x)) {
     cli::cli_abort("{.arg x} cannot be a vector.", call = call)
   }
@@ -288,7 +294,10 @@
       cli::cli_abort("{.arg weights} must be a numeric vector.", call = call)
     }
     if (length(weights) != nrow(x)) {
-      cli::cli_abort("{.arg weights} should have {nrow(x)} elements.", call = call)
+      cli::cli_abort(
+        "{.arg weights} should have {nrow(x)} elements.",
+        call = call
+      )
     }
 
     form <- patch_formula_environment_with_case_weights(
@@ -351,31 +360,41 @@ make_formula <- function(x, y, short = TRUE) {
       paste0(y, collapse = ","),
       ")~"
     )
-  } else
+  } else {
     y_part <- paste0(y, "~")
-  if(short)
+  }
+  if (short) {
     form_text <- paste0(y_part, ".")
-  else
+  } else {
     form_text <- paste0(y_part, paste0(x, collapse = "+"))
+  }
   as.formula(form_text)
 }
 
 
 will_make_matrix <- function(y) {
-  if (is.matrix(y) | is.atomic(y))
+  if (is.matrix(y) | is.atomic(y)) {
     return(FALSE)
+  }
   cls <- unique(unlist(lapply(y, class)))
-  if (length(cls) > 1)
+  if (length(cls) > 1) {
     return(FALSE)
+  }
   can_convert <-
-    vapply(y, function(x)
-      is.atomic(x) & !is.factor(x), logical(1))
+    vapply(
+      y,
+      function(x) {
+        is.atomic(x) & !is.factor(x)
+      },
+      logical(1)
+    )
   all(can_convert)
 }
 
 check_dup_names <- function(x, y, call = rlang::caller_env()) {
-  if (is.vector(y))
+  if (is.vector(y)) {
     return(invisible(NULL))
+  }
 
   common_names <- intersect(colnames(x), colnames(y))
   if (length(common_names) > 0) {

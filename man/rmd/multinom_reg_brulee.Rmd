@@ -66,6 +66,17 @@ multinom_reg(penalty = double(1)) |>
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("multinom_reg_predict") |>
+  dplyr::filter(engine == "brulee") |>
+  dplyr::select(mode, type)
+
+```
+
 ## References
 
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

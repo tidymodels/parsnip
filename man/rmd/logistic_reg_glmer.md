@@ -96,6 +96,23 @@ This model can utilize case weights during model fitting. To use them, see the d
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("logistic_reg_predict") |>
+  dplyr::filter(engine == "glmer") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 2 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob
+```
+
 ## References
 
  - 	J Pinheiro, and D Bates. 2000. _Mixed-effects models in S and S-PLUS_. Springer, New York, NY

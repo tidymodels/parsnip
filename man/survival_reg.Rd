@@ -47,7 +47,7 @@ Since survival models typically involve censoring (and require the use of
 survival model be specified via the formula interface.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 show_engines("survival_reg")
 
 survival_reg(mode = "censored regression", dist = "weibull")

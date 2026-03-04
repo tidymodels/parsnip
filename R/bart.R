@@ -70,11 +70,14 @@
 
 #' @export
 bart <-
-  function(mode = "unknown", engine = "dbarts",
-           trees = NULL, prior_terminal_node_coef = NULL,
-           prior_terminal_node_expo = NULL,
-           prior_outcome_range = NULL) {
-
+  function(
+    mode = "unknown",
+    engine = "dbarts",
+    trees = NULL,
+    prior_terminal_node_coef = NULL,
+    prior_terminal_node_expo = NULL,
+    prior_outcome_range = NULL
+  ) {
     args <- list(
       trees = enquo(trees),
       prior_terminal_node_coef = enquo(prior_terminal_node_coef),
@@ -105,14 +108,16 @@ bart <-
 #' a node is a terminal node.
 #' @export
 update.bart <-
-  function(object,
-           parameters = NULL,
-           trees = NULL,
-           prior_terminal_node_coef = NULL,
-           prior_terminal_node_expo = NULL,
-           prior_outcome_range = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    trees = NULL,
+    prior_terminal_node_coef = NULL,
+    prior_terminal_node_expo = NULL,
+    prior_outcome_range = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
       trees = enquo(trees),
       prior_terminal_node_coef = enquo(prior_terminal_node_coef),
@@ -138,11 +143,17 @@ update.bart <-
 #' @param std_err Attach column for standard error of prediction or not.
 #' @export
 #' @keywords internal
-dbart_predict_calc <- function(obj, new_data, type, level = 0.95, std_err = FALSE) {
+dbart_predict_calc <- function(
+  obj,
+  new_data,
+  type,
+  level = 0.95,
+  std_err = FALSE
+) {
   types <- c("numeric", "class", "prob", "conf_int", "pred_int")
   mod_mode <- obj$spec$mode
-  lo <- (1 - level)/2
-  hi <-  1 - lo
+  lo <- (1 - level) / 2
+  hi <- 1 - lo
 
   if (type == "conf_int") {
     post_dist <- predict(obj$fit, new_data, type = "ev")
@@ -175,10 +186,10 @@ dbart_predict_calc <- function(obj, new_data, type, level = 0.95, std_err = FALS
 
       res <-
         tibble::tibble(
-          .pred_lower_a = 1 - bnds[,2],
-          .pred_lower_b =     bnds[,1],
-          .pred_upper_a = 1 - bnds[,1],
-          .pred_upper_b =     bnds[,2]
+          .pred_lower_a = 1 - bnds[, 2],
+          .pred_lower_b = bnds[, 1],
+          .pred_upper_a = 1 - bnds[, 1],
+          .pred_upper_b = bnds[, 2]
         ) |>
         rlang::set_names(
           c(
@@ -193,4 +204,3 @@ dbart_predict_calc <- function(obj, new_data, type, level = 0.95, std_err = FALS
   }
   res
 }
-

@@ -102,6 +102,29 @@ This model can utilize case weights during model fitting. To use them, see the d
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "aorsf") |>
+  dplyr::select(mode, type)|> 
+  print(n = Inf)
+```
+
+```
+## # A tibble: 7 x 2
+##   mode                type    
+##   <chr>               <chr>   
+## 1 censored regression time    
+## 2 censored regression survival
+## 3 classification      class   
+## 4 classification      prob    
+## 5 classification      raw     
+## 6 regression          numeric 
+## 7 regression          raw
+```
+
 ## Other details
 
 Predictions of survival probability at a time exceeding the maximum observed event time are the predicted survival probability at the maximum observed time in the training data.

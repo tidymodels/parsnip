@@ -63,6 +63,23 @@ The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that e
 
 Note that, for spark engines, the `case_weight` argument value should be a character string to specify the column with the numeric case weights. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("logistic_reg_predict") |>
+  dplyr::filter(engine == "spark") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 2 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob
+```
+
 ## Other details
 
 

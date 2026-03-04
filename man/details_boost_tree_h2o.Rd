@@ -125,6 +125,16 @@ numeric. In the classification context, non-numeric outcomes (i.e.,
 factors) are also internally converted to numeric.
 }
 
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+}
+
 \subsection{Interpreting \code{mtry}}{
 
 The \code{mtry} argument denotes the number of predictors that will be
@@ -154,6 +164,28 @@ to \code{TRUE}. For engines that support the proportion interpretation
 \code{"lightgbm"} via the bonsai package) the user can pass the
 \code{counts = FALSE} argument to \code{set_engine()} to supply \code{mtry} values
 within \verb{[0, 1]}.
+}
+
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(stringr::str_starts(engine, "h2o")) |>
+  dplyr::select(mode, type) |> 
+  print(n = Inf)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 8 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob   
+## 5 regression     numeric
+## 6 regression     raw    
+## 7 classification class  
+## 8 classification prob
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Initializing h2o}{

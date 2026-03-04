@@ -103,6 +103,10 @@ This model can utilize case weights during model fitting. To use them, see the d
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
+Note that the data passed to the `case.weights` column are not used for traditional case weights (where the objective function is multiplied by a row-specific weight). From `?ranger::ranger`: "Observations with larger weights will be selected with higher probability in the bootstrap (or subsampled) samples for the trees."
+
+They function as sampling weights. 
+
 ## Sparse Data
 
 
@@ -115,10 +119,31 @@ While this engine supports sparse data as an input, it doesn't use it any differ
 
 This model object contains data that are not required to make predictions. When saving the model for the purpose of prediction, the size of the saved object might be substantially reduced by using functions from the [butcher](https://butcher.tidymodels.org) package.
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "ranger") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 7 x 2
+##   mode           type    
+##   <chr>          <chr>   
+## 1 classification class   
+## 2 classification prob    
+## 3 classification conf_int
+## 4 classification raw     
+## 5 regression     numeric 
+## 6 regression     conf_int
+## # i 1 more row
+```
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#rand-forest-ranger) for `rand_forest()` with the `"ranger"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `rand_forest()` with the `"ranger"` engine.
 
 ## References
 

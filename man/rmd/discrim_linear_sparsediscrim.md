@@ -41,7 +41,7 @@ discrim_linear(regularization_method = character(0)) |>
 ## 
 ## Model fit template:
 ## discrim::fit_regularized_linear(x = missing_arg(), y = missing_arg(), 
-##     method = character(0))
+##     regularization_method = character(0))
 ```
 
 ## Preprocessing requirements
@@ -58,6 +58,24 @@ Variance calculations are used in these computations so _zero-variance_ predicto
 
 
 The underlying model implementation does not allow for case weights. 
+
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("discrim_linear_predict") |>
+  dplyr::filter(engine == "sparsediscrim") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 3 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob 
+## 3 classification raw
+```
 
 ## References
 

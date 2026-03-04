@@ -47,9 +47,11 @@ weights_to_numeric <- function(x, spec) {
   x
 }
 
-patch_formula_environment_with_case_weights <- function(formula,
-                                                        data,
-                                                        case_weights) {
+patch_formula_environment_with_case_weights <- function(
+  formula,
+  data,
+  case_weights
+) {
   # `lm()` and `glm()` and others use the original model function call to
   # construct a call for `model.frame()`. That will normally fail because the
   # formula has its own environment attached (usually the global environment)

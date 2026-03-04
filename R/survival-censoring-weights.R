@@ -191,10 +191,14 @@ graf_weight_time_vec <- function(surv_obj, eval_time, eps = 10^-10) {
 
 #' @export
 #' @rdname censoring_weights
-.censoring_weights_graf.model_fit <- function(object,
-                                              predictions,
-                                              cens_predictors = NULL,
-                                              trunc = 0.05, eps = 10^-10, ...) {
+.censoring_weights_graf.model_fit <- function(
+  object,
+  predictions,
+  cens_predictors = NULL,
+  trunc = 0.05,
+  eps = 10^-10,
+  ...
+) {
   rlang::check_dots_empty()
   .check_censor_model(object)
   truth <- .find_surv_col(predictions)
@@ -205,30 +209,42 @@ graf_weight_time_vec <- function(surv_obj, eval_time, eps = 10^-10) {
     cli::cli_warn("{.arg cens_predictors} is not currently used.")
   }
   predictions$.pred <-
-    add_graf_weights_vec(object,
-                         predictions$.pred,
-                         predictions[[truth]],
-                         trunc = trunc,
-                         eps = eps)
+    add_graf_weights_vec(
+      object,
+      predictions$.pred,
+      predictions[[truth]],
+      trunc = trunc,
+      eps = eps
+    )
   predictions
 }
 
 # ------------------------------------------------------------------------------
 # Helpers
 
-add_graf_weights_vec <- function(object, .pred, surv_obj, trunc = 0.05, eps = 10^-10) {
+add_graf_weights_vec <- function(
+  object,
+  .pred,
+  surv_obj,
+  trunc = 0.05,
+  eps = 10^-10
+) {
   # Expand the list column to one data frame
   n <- length(.pred)
   num_times <- vctrs::list_sizes(.pred)
   y <- vctrs::list_unchop(.pred)
   y$surv_obj <- vctrs::vec_rep_each(surv_obj, times = num_times)
 
-  names(y)[names(y) == ".time"] <- ".eval_time"   # Temporary
+  names(y)[names(y) == ".time"] <- ".eval_time" # Temporary
 
   # Compute the actual time of evaluation
   y$.weight_time <- graf_weight_time_vec(y$surv_obj, y$.eval_time, eps = eps)
   # Compute the corresponding probability of being censored
-  y$.pred_censored <- predict(object$censor_probs, time = y$.weight_time, as_vector = TRUE)
+  y$.pred_censored <- predict(
+    object$censor_probs,
+    time = y$.weight_time,
+    as_vector = TRUE
+  )
   y$.pred_censored <- trunc_probs(y$.pred_censored, trunc = trunc)
   # Invert the probabilities to create weights
   y$.weight_censored = 1 / y$.pred_censored
@@ -243,7 +259,10 @@ add_graf_weights_vec <- function(object, .pred, surv_obj, trunc = 0.05, eps = 10
   is_surv <- purrr::map_lgl(x[!is_lst_col], .is_surv, fail = FALSE)
   num_surv <- sum(is_surv)
   if (fail && num_surv != 1) {
-    cli::cli_abort("There should be a single column of class {.cls Surv}.", call = call)
+    cli::cli_abort(
+      "There should be a single column of class {.cls Surv}.",
+      call = call
+    )
   }
   names(is_surv)[is_surv]
 }

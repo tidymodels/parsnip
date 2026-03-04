@@ -54,7 +54,7 @@ By default, [glmnet::glmnet()] uses the argument `standardize = TRUE` to center 
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-glmnet) for `multinom_reg()` with the `"glmnet"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `multinom_reg()` with the `"glmnet"` engine.
 
 ## Case weights
 
@@ -62,6 +62,24 @@ The "Fitting and Predicting with parsnip" article contains [examples](https://pa
 This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("multinom_reg_predict") |>
+  dplyr::filter(engine == "glmnet") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 3 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob 
+## 3 classification raw
+```
 
 ## Sparse Data
 

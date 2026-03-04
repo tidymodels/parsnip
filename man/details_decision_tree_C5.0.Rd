@@ -59,6 +59,22 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \code{case_weights} that expect vectors of case weights.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("decision_tree_predict") |>
+  dplyr::filter(engine == "C5.0") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob 
+## 3 classification raw
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Saving fitted model objects}{
 
 This model object contains data that are not required to make
@@ -69,9 +85,9 @@ functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#decision-tree-C5.0}{examples}
-for \code{decision_tree()} with the \code{"C5.0"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{decision_tree()} with the \code{"C5.0"} engine.
 }
 
 \subsection{References}{

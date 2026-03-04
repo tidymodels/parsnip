@@ -45,8 +45,9 @@ some models, you may need to pass this value in via
 ## Computational engine: nnet 
 ## 
 ## Model fit template:
-## nnet::nnet(formula = missing_arg(), data = missing_arg(), size = integer(1), 
-##     decay = double(1), maxit = integer(1), trace = FALSE, linout = TRUE)
+## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     size = integer(1), decay = double(1), maxit = integer(1), 
+##     trace = FALSE, linout = TRUE)
 }\if{html}{\out{</div>}}
 
 Note that parsnip automatically sets linear activation in the last
@@ -75,8 +76,9 @@ layer.
 ## Computational engine: nnet 
 ## 
 ## Model fit template:
-## nnet::nnet(formula = missing_arg(), data = missing_arg(), size = integer(1), 
-##     decay = double(1), maxit = integer(1), trace = FALSE, linout = FALSE)
+## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     size = integer(1), decay = double(1), maxit = integer(1), 
+##     trace = FALSE, linout = FALSE)
 }\if{html}{\out{</div>}}
 }
 
@@ -94,7 +96,30 @@ variance of one.
 
 \subsection{Case weights}{
 
-The underlying model implementation does not allow for case weights.
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+}
+
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("mlp_predict") |>
+  dplyr::filter(engine == "nnet") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 5 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob   
+## 5 classification raw
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Saving fitted model objects}{
@@ -107,9 +132,9 @@ functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#mlp-nnet}{examples}
-for \code{mlp()} with the \code{"nnet"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{mlp()} with the \code{"nnet"} engine.
 }
 
 \subsection{References}{

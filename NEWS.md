@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+## updates related to 'ordered' extenision package
+
 * A new model `ordinal_reg()` is introduced for ordinal regression (#953):
   * Its sole mode is `"classification"` and its default engine is `"polr"` for `MASS::polr()`.
   * Additional engines `"ordinalNet"` for `ordinalNet::ordinalNet()` and `"vglm"` and `"vgam"` for `VGAM::*()` are documented.
@@ -14,6 +16,47 @@
 * Engine arguments for the new ordinal prediction engines are documented.
 
 * Ordinal prediction tools are coordinated with new parameter tuners in dials and engines in ordered.
+
+## other updates
+
+* Documentation for the lightgbm engine now includes information about custom objective functions and automatic `num_class` handling (#1275).
+
+* Fixed a bug in random forest fits using the `"aorsf"` engine where the check for `mtry` could not be performed (#1276)
+
+* `repair_call()` now errors informatively when given an object that is not a fitted parsnip model (#598).
+
+* Fix bug in predicting class probabilities for multiclass earth models (#1334)
+
+* The "Fitting and predicting with parsnip" article has moved to [tidymodels.org](https://www.tidymodels.org/learn/models/parsnip-predictions/) (#1324).
+
+* Quantile levels are not dropped when a model specification is modified (#1304)
+
+* xgboost and qrnn engines were added for quantile regression to `boost_tree()` and `mlp()`, respectively. (#1321)
+
+* Case weight usage was enabled for the `"nnet"` engines of `mlp()` and `bag_mlp()` as well as for the `"dbarts"` engine of `bart()`. 
+
+* All model details files note whether case weights can be used or not. 
+
+* We now export the generics for `predict_quantile()`, `predict_class()`, `predict_classprob()`, and  `predict_hazard()`. (#1257)
+
+# parsnip 1.4.1
+
+* Fixed bug where xgboost models would fail to predict when `trees` matched number of trees in model. (#1316)
+
+# parsnip 1.4.0
+
+* Fixes issue with running predictions for Decision Trees in Spark (#1309)
+
+* Updates to some boosting tuning parameter information: (#1306)
+  - lightgbm and catboost have smaller default ranges for the learning rate: -3 to -1 / 2 in log10 units.
+  - lightgbm, xgboost, catboost, and C5.0 have smaller default ranges for the sampling proportion: 0.5 to 1.0.
+  - catboost engine arguments were added for `max_leaves` and `l2_leaf_reg`. 
+
+* Enable generalized random forest (`grf`) models for classification, regression, and quantile regression modes. (#1288)
+
+* `surv_reg()` is now defunct and will error if called. Please use `survival_reg()` instead (#1206).
+
+* Enable parsnip to work with xgboost version > 2.0.0.0. (#1227)
 
 # parsnip 1.3.3
 

@@ -120,6 +120,17 @@ Note that columns used in the `strata()` function _will_ also be estimated in th
 #| child: template-butcher.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("proportional_hazards_predict") |>
+  dplyr::filter(engine == "glmnet") |>
+  dplyr::select(mode, type)
+
+```
+
 # References
 
  - Simon N, Friedman J, Hastie T, Tibshirani R. 2011. "Regularization Paths for Cox’s Proportional Hazards Model via Coordinate Descent." _Journal of Statistical Software_, Articles 39 (5): 1–13. \doi{10.18637/jss.v039.i05}.
@@ -127,4 +138,3 @@ Note that columns used in the `strata()` function _will_ also be estimated in th
  - Hastie T, Tibshirani R, Wainwright M. 2015. _Statistical Learning with Sparsity_. CRC Press.
  
  - Kuhn M, Johnson K. 2013. _Applied Predictive Modeling_. Springer.
-

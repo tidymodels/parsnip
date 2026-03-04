@@ -14,7 +14,10 @@ test_that('updating', {
 
 test_that('bad input', {
   expect_snapshot(error = TRUE, logistic_reg(mode = "regression"))
-  expect_snapshot(error = TRUE, translate(logistic_reg(mixture = 0.5) |> set_engine(engine = "LiblineaR")))
+  expect_snapshot(
+    error = TRUE,
+    translate(logistic_reg(mixture = 0.5) |> set_engine(engine = "LiblineaR"))
+  )
 
   expect_snapshot(
     res <-
@@ -34,8 +37,6 @@ lc_basic <- logistic_reg() |> set_engine("glm")
 ll_basic <- logistic_reg() |> set_engine("LiblineaR")
 
 test_that('glm execution', {
-
-
   # passes interactively but not on R CMD check
   # expect_no_condition(
   #   res <- fit(
@@ -95,12 +96,18 @@ test_that('glm prediction', {
     control = ctrl
   )
 
-  xy_pred <- predict(extract_fit_engine(classes_xy), newdata = lending_club[1:7, num_pred], type = "response")
+  xy_pred <- predict(
+    extract_fit_engine(classes_xy),
+    newdata = lending_club[1:7, num_pred],
+    type = "response"
+  )
   xy_pred <- ifelse(xy_pred >= 0.5, "good", "bad")
   xy_pred <- factor(xy_pred, levels = levels(lending_club$Class))
   xy_pred <- unname(xy_pred)
-  expect_equal(xy_pred, predict(classes_xy, lending_club[1:7, num_pred], type = "class")$.pred_class)
-
+  expect_equal(
+    xy_pred,
+    predict(classes_xy, lending_club[1:7, num_pred], type = "class")$.pred_class
+  )
 })
 
 test_that('glm probabilities', {
@@ -111,22 +118,28 @@ test_that('glm probabilities', {
     control = ctrl
   )
 
-  xy_pred <- unname(predict(extract_fit_engine(classes_xy),
-                            newdata = lending_club[1:7, num_pred],
-                            type = "response"))
+  xy_pred <- unname(predict(
+    extract_fit_engine(classes_xy),
+    newdata = lending_club[1:7, num_pred],
+    type = "response"
+  ))
   xy_pred <- tibble(.pred_bad = 1 - xy_pred, .pred_good = xy_pred)
-  expect_equal(xy_pred, predict(classes_xy, lending_club[1:7, num_pred], type = "prob"))
+  expect_equal(
+    xy_pred,
+    predict(classes_xy, lending_club[1:7, num_pred], type = "prob")
+  )
 
   one_row <- predict(classes_xy, lending_club[1, num_pred], type = "prob")
-  expect_equal(xy_pred[1,], one_row)
-
+  expect_equal(xy_pred[1, ], one_row)
 })
 
 
-
 test_that('glm intervals', {
-  stats_glm <- glm(Class ~ log(funded_amnt) + int_rate, data = lending_club,
-                   family = binomial)
+  stats_glm <- glm(
+    Class ~ log(funded_amnt) + int_rate,
+    data = lending_club,
+    family = binomial
+  )
   pred_glm <- predict(stats_glm, newdata = lending_club[1:5, ], se.fit = TRUE)
   t_val <- qt(0.035, df = stats_glm$df.residual, lower.tail = FALSE)
   lower_glm <- pred_glm$fit - t_val * pred_glm$se.fit
@@ -143,22 +156,22 @@ test_that('glm intervals', {
   )
 
   confidence_parsnip <-
-    predict(res,
-            new_data = lending_club[1:5,],
-            type = "conf_int",
-            level = 0.93,
-            std_error = TRUE)
+    predict(
+      res,
+      new_data = lending_club[1:5, ],
+      type = "conf_int",
+      level = 0.93,
+      std_error = TRUE
+    )
 
   expect_equal(confidence_parsnip$.pred_lower_good, lower_glm)
   expect_equal(confidence_parsnip$.pred_upper_good, upper_glm)
   expect_equal(confidence_parsnip$.pred_lower_bad, 1 - upper_glm)
   expect_equal(confidence_parsnip$.pred_upper_bad, 1 - lower_glm)
   expect_equal(confidence_parsnip$.std_error, pred_glm$se.fit)
-
 })
 
 test_that('liblinear execution', {
-
   skip_if_not_installed("LiblineaR")
 
   expect_no_condition(
@@ -206,12 +219,9 @@ test_that('liblinear execution', {
       y = lending_club$total_bal_il
     )
   )
-
-
 })
 
 test_that('liblinear prediction', {
-
   skip_if_not_installed("LiblineaR")
 
   classes_xy <- fit_xy(
@@ -221,14 +231,18 @@ test_that('liblinear prediction', {
     control = ctrl
   )
 
-  xy_pred <- predict(extract_fit_engine(classes_xy), newx = lending_club[1:7, num_pred])
+  xy_pred <- predict(
+    extract_fit_engine(classes_xy),
+    newx = lending_club[1:7, num_pred]
+  )
   xy_pred <- xy_pred$predictions
-  expect_equal(xy_pred, predict(classes_xy, lending_club[1:7, num_pred], type = "class")$.pred_class)
-
+  expect_equal(
+    xy_pred,
+    predict(classes_xy, lending_club[1:7, num_pred], type = "class")$.pred_class
+  )
 })
 
 test_that('liblinear probabilities', {
-
   skip_if_not_installed("LiblineaR")
 
   classes_xy <- fit_xy(
@@ -238,17 +252,20 @@ test_that('liblinear probabilities', {
     control = ctrl
   )
 
-  xy_pred <- predict(extract_fit_engine(classes_xy),
-                     newx = lending_club[1:7, num_pred],
-                     proba = TRUE)
+  xy_pred <- predict(
+    extract_fit_engine(classes_xy),
+    newx = lending_club[1:7, num_pred],
+    proba = TRUE
+  )
   xy_pred <- as_tibble(xy_pred$probabilities)
-  xy_pred <- tibble(.pred_good = xy_pred$good,
-                    .pred_bad  = xy_pred$bad)
-  expect_equal(xy_pred, predict(classes_xy, lending_club[1:7, num_pred], type = "prob"))
+  xy_pred <- tibble(.pred_good = xy_pred$good, .pred_bad = xy_pred$bad)
+  expect_equal(
+    xy_pred,
+    predict(classes_xy, lending_club[1:7, num_pred], type = "prob")
+  )
 
   one_row <- predict(classes_xy, lending_club[1, num_pred], type = "prob")
-  expect_equal(xy_pred[1,], one_row)
-
+  expect_equal(xy_pred[1, ], one_row)
 })
 
 test_that("check_args() works", {
@@ -293,7 +310,6 @@ test_that("check_args() works", {
 # ------------------------------------------------------------------------------
 
 test_that("tunables", {
-
   expect_snapshot(
     logistic_reg() |>
       tunable()
@@ -315,5 +331,4 @@ test_that("tunables", {
       set_engine("keras") |>
       tunable()
   )
-
 })

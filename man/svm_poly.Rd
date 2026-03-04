@@ -62,7 +62,7 @@ svm_poly(argument = !!value)
 }\if{html}{\out{</div>}}
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 show_engines("svm_poly")
 
 svm_poly(mode = "classification", degree = 1.2)

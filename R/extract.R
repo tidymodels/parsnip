@@ -75,7 +75,10 @@ extract_fit_engine.model_fit <- function(x, ...) {
   if (any(names(x) == "fit")) {
     return(x$fit)
   }
-  cli::cli_abort("The model fit does not have  an engine fit.", .internal = TRUE)
+  cli::cli_abort(
+    "The model fit does not have  an engine fit.",
+    .internal = TRUE
+  )
 }
 
 #' @export
@@ -110,7 +113,7 @@ extract_parameter_set_dials.model_spec <- function(x, ...) {
   )
 }
 
-eval_call_info <-  function(x) {
+eval_call_info <- function(x) {
   if (!is.null(x)) {
     # Look for other options
     allowed_opts <- c("range", "trans", "values")
@@ -119,7 +122,10 @@ eval_call_info <-  function(x) {
     } else {
       opts <- list()
     }
-    res <- try(rlang::eval_tidy(rlang::call2(x$fun, .ns = x$pkg, !!!opts)), silent = TRUE)
+    res <- try(
+      rlang::eval_tidy(rlang::call2(x$fun, .ns = x$pkg, !!!opts)),
+      silent = TRUE
+    )
     if (inherits(res, "try-error")) {
       stop(paste0("Error when calling ", x$fun, "(): ", as.character(res)))
     }

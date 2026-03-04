@@ -28,7 +28,7 @@ other functions. For example, some arguments may still be quosures and the
 functions and methods.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 
 fitted_model <-
   linear_reg() |>

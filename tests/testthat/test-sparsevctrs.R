@@ -50,7 +50,6 @@ test_that("sparse matrix can be passed to `fit() - supported", {
     error = TRUE,
     xgb_fit <- fit(spec, avg_price_per_room ~ ., data = hotel_data)
   )
-
 })
 
 test_that("sparse matrix can be passed to `fit() - unsupported", {
@@ -217,11 +216,11 @@ test_that("sparse data work with xgboost engine", {
 
   expect_no_error(
     xgb_fit <- fit_xy(spec, x = hotel_data[, -1], y = hotel_data[, 1])
-   )
+  )
 
-   expect_no_error(
-     predict(xgb_fit, hotel_data)
-   )
+  expect_no_error(
+    predict(xgb_fit, hotel_data)
+  )
 
   hotel_data <- sparse_hotel_rates(tibble = TRUE)
 
@@ -322,11 +321,19 @@ test_that("maybe_sparse_matrix() is used correctly", {
   )
   expect_snapshot(
     error = TRUE,
-    fit_xy(spec, x = as.data.frame(mtcars)[, -1], y = as.data.frame(mtcars)[, 1])
+    fit_xy(
+      spec,
+      x = as.data.frame(mtcars)[, -1],
+      y = as.data.frame(mtcars)[, 1]
+    )
   )
   expect_snapshot(
     error = TRUE,
-    fit_xy(spec, x = tibble::as_tibble(mtcars)[, -1], y = tibble::as_tibble(mtcars)[, 1])
+    fit_xy(
+      spec,
+      x = tibble::as_tibble(mtcars)[, -1],
+      y = tibble::as_tibble(mtcars)[, 1]
+    )
   )
 })
 

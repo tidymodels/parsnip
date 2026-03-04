@@ -58,6 +58,17 @@ multinom_reg(penalty = double(1)) |>
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("multinom_reg_predict") |>
+  dplyr::filter(engine == "keras") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Saving fitted model objects
 
 ```{r}
@@ -66,7 +77,7 @@ multinom_reg(penalty = double(1)) |>
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-keras) for `multinom_reg()` with the `"keras"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `multinom_reg()` with the `"keras"` engine.
 
 ## References
 

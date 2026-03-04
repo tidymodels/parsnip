@@ -39,15 +39,17 @@
 #' nearest_neighbor(neighbors = 11)
 #'
 #' @export
-nearest_neighbor <- function(mode = "unknown",
-                             engine = "kknn",
-                             neighbors = NULL,
-                             weight_func = NULL,
-                             dist_power = NULL) {
+nearest_neighbor <- function(
+  mode = "unknown",
+  engine = "kknn",
+  neighbors = NULL,
+  weight_func = NULL,
+  dist_power = NULL
+) {
   args <- list(
-    neighbors   = enquo(neighbors),
+    neighbors = enquo(neighbors),
     weight_func = enquo(weight_func),
-    dist_power  = enquo(dist_power)
+    dist_power = enquo(dist_power)
   )
 
   new_model_spec(
@@ -67,17 +69,19 @@ nearest_neighbor <- function(mode = "unknown",
 #' @method update nearest_neighbor
 #' @export
 #' @rdname parsnip_update
-update.nearest_neighbor <- function(object,
-                                    parameters = NULL,
-                                    neighbors = NULL,
-                                    weight_func = NULL,
-                                    dist_power = NULL,
-                                    fresh = FALSE, ...) {
-
+update.nearest_neighbor <- function(
+  object,
+  parameters = NULL,
+  neighbors = NULL,
+  weight_func = NULL,
+  dist_power = NULL,
+  fresh = FALSE,
+  ...
+) {
   args <- list(
-    neighbors   = enquo(neighbors),
+    neighbors = enquo(neighbors),
     weight_func = enquo(weight_func),
-    dist_power  = enquo(dist_power)
+    dist_power = enquo(dist_power)
   )
 
   update_spec(
@@ -94,12 +98,22 @@ update.nearest_neighbor <- function(object,
 
 #' @export
 check_args.nearest_neighbor <- function(object, call = rlang::caller_env()) {
-
   args <- lapply(object$args, rlang::eval_tidy)
 
-  check_number_whole(args$neighbors, min = 0, allow_null = TRUE, call = call, arg = "neighbors")
-  check_string(args$weight_func, allow_null = TRUE, call = call, arg = "weight_func")
-  
+  check_number_whole(
+    args$neighbors,
+    min = 0,
+    allow_null = TRUE,
+    call = call,
+    arg = "neighbors"
+  )
+  check_string(
+    args$weight_func,
+    allow_null = TRUE,
+    call = call,
+    arg = "weight_func"
+  )
+
   invisible(object)
 }
 
@@ -144,20 +158,28 @@ translate.nearest_neighbor <- function(x, engine = x$engine, ...) {
 #' @export
 multi_predict._train.kknn <-
   function(object, new_data, type = NULL, neighbors = NULL, ...) {
-    if (is.null(neighbors))
+    if (is.null(neighbors)) {
       neighbors <- rlang::eval_tidy(object$fit$call$ks)
+    }
     neighbors <- sort(neighbors)
 
     if (is.null(type)) {
-      if (object$spec$mode == "classification")
+      if (object$spec$mode == "classification") {
         type <- "class"
-      else
+      } else {
         type <- "numeric"
+      }
     }
 
     res <-
-      purrr::map(neighbors, knn_by_k, object = object,
-                 new_data = new_data, type = type, ...) |>
+      purrr::map(
+        neighbors,
+        knn_by_k,
+        object = object,
+        new_data = new_data,
+        type = type,
+        ...
+      ) |>
       purrr::list_rbind()
     res <- dplyr::arrange(res, .row, neighbors)
     res <- split(res[, -1], res$.row)

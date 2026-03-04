@@ -40,7 +40,7 @@ This class and structure is the basis for how \pkg{parsnip}
 stores model objects after seeing the data and applying a model.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 
 # Keep the `x` matrix if the data are not too big.
 spec_obj <-

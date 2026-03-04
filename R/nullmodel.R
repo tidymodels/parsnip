@@ -43,22 +43,20 @@
 #' predict(useless, matrix(NA, nrow = 5))
 #'
 #' @export
-nullmodel <- function (x, ...) UseMethod("nullmodel")
+nullmodel <- function(x, ...) UseMethod("nullmodel")
 
 #' @export
 #' @rdname nullmodel
 nullmodel.default <- function(x = NULL, y, ...) {
-
-
-  if(is.factor(y)) {
+  if (is.factor(y)) {
     lvls <- levels(y)
     tab <- table(y)
     value <- names(tab)[which.max(tab)]
-    pct <- tab/sum(tab)
+    pct <- tab / sum(tab)
   } else {
     lvls <- NULL
     pct <- NULL
-    if(is.null(dim(y))) {
+    if (is.null(dim(y))) {
       value <- mean(y, na.rm = TRUE)
     } else {
       value <- colMeans(y, na.rm = TRUE)
@@ -66,44 +64,48 @@ nullmodel.default <- function(x = NULL, y, ...) {
   }
 
   structure(
-    list(call = match.call(),
-         value = value,
-         levels = lvls,
-         pct = pct,
-         n = length(y[[1]])),
-    class = "nullmodel")
+    list(
+      call = match.call(),
+      value = value,
+      levels = lvls,
+      pct = pct,
+      n = length(y[[1]])
+    ),
+    class = "nullmodel"
+  )
 }
 
 #' @export
 #' @rdname nullmodel
 print.nullmodel <- function(x, ...) {
-  cat("Null",
-      ifelse(is.null(x$levels), "Classification", "Regression"),
-      "Model\n")
+  cat(
+    "Null",
+    ifelse(is.null(x$levels), "Classification", "Regression"),
+    "Model\n"
+  )
   x$call
 
   if (length(x$value) == 1) {
-    cat("Predicted Value:",
-        ifelse(is.null(x$levels), format(x$value), x$value),
-        "\n")
+    cat(
+      "Predicted Value:",
+      ifelse(is.null(x$levels), format(x$value), x$value),
+      "\n"
+    )
   } else {
-    cat("Predicted Value:\n",
-        names(x$value), "\n",
-        x$value,
-        "\n")
+    cat("Predicted Value:\n", names(x$value), "\n", x$value, "\n")
   }
 }
 
 #' @export
 #' @rdname nullmodel
-predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
-  if(is.null(type)) {
-    type <- if(is.null(object$levels)) "raw" else "class"
+predict.nullmodel <- function(object, new_data = NULL, type = NULL, ...) {
+  if (is.null(type)) {
+    type <- if (is.null(object$levels)) "raw" else "class"
   }
 
-  n <- if(is.null(new_data)) object$n else nrow(new_data)
-  if(!is.null(object$levels)) {
-    if(type == "prob") {
+  n <- if (is.null(new_data)) object$n else nrow(new_data)
+  if (!is.null(object$levels)) {
+    if (type == "prob") {
       out <- matrix(rep(object$pct, n), nrow = n, byrow = TRUE)
       colnames(out) <- object$levels
       out <- as.data.frame(out)
@@ -112,12 +114,18 @@ predict.nullmodel <- function (object, new_data = NULL, type  = NULL, ...) {
     }
   } else {
     if (type %in% c("prob", "class")) {
-      cli::cli_abort("Only numeric predicitons are applicable to regression models.")
+      cli::cli_abort(
+        "Only numeric predicitons are applicable to regression models."
+      )
     }
     if (length(object$value) == 1) {
       out <- rep(object$value, n)
     } else {
-      out <- matrix(rep(object$value, n), ncol = length(object$value), byrow = TRUE)
+      out <- matrix(
+        rep(object$value, n),
+        ncol = length(object$value),
+        byrow = TRUE
+      )
       colnames(out) <- names(object$value)
       out <- as_tibble(out)
     }
@@ -165,8 +173,7 @@ null_model <-
       engine = engine,
       user_specified_engine = !missing(engine)
     )
-}
-
+  }
 
 
 #' Tidy method for null models
@@ -185,4 +192,3 @@ null_model <-
 tidy.nullmodel <- function(x, ...) {
   tibble::tibble(value = x$value)
 }
-

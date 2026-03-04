@@ -33,11 +33,9 @@
 #' @export
 
 svm_linear <-
-  function(mode = "unknown", engine = "LiblineaR",
-           cost = NULL, margin = NULL) {
-
+  function(mode = "unknown", engine = "LiblineaR", cost = NULL, margin = NULL) {
     args <- list(
-      cost   = enquo(cost),
+      cost = enquo(cost),
       margin = enquo(margin)
     )
 
@@ -59,15 +57,17 @@ svm_linear <-
 #' @rdname parsnip_update
 #' @export
 update.svm_linear <-
-  function(object,
-           parameters = NULL,
-           cost = NULL, margin = NULL,
-           fresh = FALSE,
-           ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    cost = NULL,
+    margin = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
-      cost   = enquo(cost),
-      margin  = enquo(margin)
+      cost = enquo(cost),
+      margin = enquo(margin)
     )
 
     update_spec(
@@ -93,7 +93,6 @@ translate.svm_linear <- function(x, engine = x$engine, ...) {
   # add checks to error trap or change things for this method
 
   if (x$engine == "LiblineaR") {
-
     if (is_null(x$eng_args$type)) {
       liblinear_type <- NULL
     } else {
@@ -101,33 +100,37 @@ translate.svm_linear <- function(x, engine = x$engine, ...) {
     }
 
     if (x$mode == "regression") {
-      if (is_null(quo_get_expr(x$args$margin)))
+      if (is_null(quo_get_expr(x$args$margin))) {
         arg_vals$svr_eps <- 0.1
-      if (!is_null(liblinear_type))
-        if(!liblinear_type %in% 11:13)
+      }
+      if (!is_null(liblinear_type)) {
+        if (!liblinear_type %in% 11:13) {
           cli::cli_abort(
             "The LiblineaR engine argument {.code type = {liblinear_type}}
              does not correspond to an SVM regression model."
           )
+        }
+      }
     } else if (x$mode == "classification") {
-      if (!is_null(liblinear_type))
+      if (!is_null(liblinear_type)) {
         if (!liblinear_type %in% 1:5) {
           cli::cli_abort(
             "The LiblineaR engine argument of {.code type = {liblinear_type}}
              does not correspond to an SVM classification model."
           )
         }
+      }
     }
   }
 
   if (x$engine == "kernlab") {
-
     # unless otherwise specified, classification models predict probabilities
-    if (x$mode == "classification" && !any(arg_names == "prob.model"))
+    if (x$mode == "classification" && !any(arg_names == "prob.model")) {
       arg_vals$prob.model <- TRUE
-    if (x$mode == "classification" && any(arg_names == "epsilon"))
+    }
+    if (x$mode == "classification" && any(arg_names == "epsilon")) {
       arg_vals$epsilon <- NULL
-
+    }
   }
 
   x$method$fit$args <- arg_vals
@@ -150,6 +153,5 @@ svm_linear_post <- function(results, object) {
 }
 
 svm_reg_linear_post <- function(results, object) {
-  results[,1]
+  results[, 1]
 }
-

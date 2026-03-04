@@ -31,8 +31,11 @@
 #' survival_reg(mode = "censored regression", dist = "weibull")
 #' @keywords internal
 #' @export
-survival_reg <- function(mode = "censored regression", engine = "survival", dist = NULL) {
-
+survival_reg <- function(
+  mode = "censored regression",
+  engine = "survival",
+  dist = NULL
+) {
   args <- list(
     dist = enquo(dist)
   )
@@ -54,8 +57,13 @@ survival_reg <- function(mode = "censored regression", engine = "survival", dist
 #' @method update survival_reg
 #' @rdname parsnip_update
 #' @export
-update.survival_reg <- function(object, parameters = NULL, dist = NULL, fresh = FALSE, ...) {
-
+update.survival_reg <- function(
+  object,
+  parameters = NULL,
+  dist = NULL,
+  fresh = FALSE,
+  ...
+) {
   args <- list(
     dist = enquo(dist)
   )
@@ -83,14 +91,13 @@ translate.survival_reg <- function(x, engine = x$engine, ...) {
 
 #' @export
 check_args.survival_reg <- function(object, call = rlang::caller_env()) {
-
   if (object$engine == "flexsurv") {
-
     args <- lapply(object$args, rlang::eval_tidy)
 
     # `dist` has no default in the function
-    if (all(names(args) != "dist") || is.null(args$dist))
+    if (all(names(args) != "dist") || is.null(args$dist)) {
       object$args$dist <- "weibull"
+    }
   }
 
   invisible(object)

@@ -14,11 +14,13 @@
 "bart"	"regression"	"dbarts"	NA
 "boost_tree"	"censored regression"	"mboost"	"censored"
 "boost_tree"	"classification"	"C5.0"	NA
+"boost_tree"	"classification"	"catboost"	"bonsai"
 "boost_tree"	"classification"	"h2o"	"agua"
 "boost_tree"	"classification"	"h2o_gbm"	"agua"
 "boost_tree"	"classification"	"lightgbm"	"bonsai"
 "boost_tree"	"classification"	"spark"	NA
 "boost_tree"	"classification"	"xgboost"	NA
+"boost_tree"	"regression"	"catboost"	"bonsai"
 "boost_tree"	"regression"	"h2o"	"agua"
 "boost_tree"	"regression"	"h2o_gbm"	"agua"
 "boost_tree"	"regression"	"lightgbm"	"bonsai"

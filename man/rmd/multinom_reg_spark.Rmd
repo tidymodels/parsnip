@@ -64,6 +64,16 @@ By default, `ml_multinom_regression()` uses the argument `standardization = TRUE
 
 Note that, for spark engines, the `case_weight` argument value should be a character string to specify the column with the numeric case weights. 
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("multinom_reg_predict") |>
+  dplyr::filter(engine == "spark") |>
+  dplyr::select(mode, type)
+
+```
 
 ## Other details
 

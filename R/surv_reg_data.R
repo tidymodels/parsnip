@@ -1,3 +1,4 @@
+# nocov
 
 set_new_model("surv_reg")
 set_model_mode("surv_reg", "regression")
@@ -5,8 +6,18 @@ set_model_mode("surv_reg", "regression")
 # ------------------------------------------------------------------------------
 
 set_model_engine("surv_reg", mode = "regression", eng = "flexsurv")
-set_dependency("surv_reg", eng = "flexsurv", pkg = "flexsurv")
-set_dependency("surv_reg", eng = "flexsurv", pkg = "survival")
+set_dependency(
+  "surv_reg",
+  eng = "flexsurv",
+  pkg = "flexsurv",
+  mode = "regression"
+)
+set_dependency(
+  "surv_reg",
+  eng = "flexsurv",
+  pkg = "survival",
+  mode = "regression"
+)
 
 set_model_arg(
   model = "surv_reg",
@@ -50,19 +61,23 @@ set_pred(
     pre = NULL,
     post = flexsurv_mean,
     func = c(fun = "summary"),
-    args =
-      list(
-        object = expr(object$fit),
-        newdata = expr(new_data),
-        type = "mean"
-      )
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data),
+      type = "mean"
+    )
   )
 )
 
 # ------------------------------------------------------------------------------
 
 set_model_engine("surv_reg", mode = "regression", eng = "survival")
-set_dependency("surv_reg", eng = "survival", pkg = "survival")
+set_dependency(
+  "surv_reg",
+  eng = "survival",
+  pkg = "survival",
+  mode = "regression"
+)
 
 set_model_arg(
   model = "surv_reg",
@@ -106,11 +121,12 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = expr(object$fit),
-        newdata = expr(new_data),
-        type = "response"
-      )
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data),
+      type = "response"
+    )
   )
 )
+
+# nocov end

@@ -1,7 +1,6 @@
 # For issue #653 we want to be able to re-run the registration code as
 # long as the information being registered is the same.
 
-
 test_that('re-registration of mode', {
   old_val <- get_from_env("bart_modes")
   expect_no_condition(set_model_mode("bart", "classification"))
@@ -37,8 +36,8 @@ test_that('re-registration of fit information', {
       mode = "regression",
       value = list(
         interface = "data.frame",
-        data = c(x = "x.train", y = "y.train"),
-        protect = c("x", "y"),
+        data = c(x = "x.train", y = "y.train", weights = "weights"),
+        protect = c("x", "y", "weights"),
         func = c(pkg = "dbarts", fun = "bart"),
         defaults = list(verbose = FALSE, keeptrees = TRUE, keepcall = FALSE)
       )
@@ -57,8 +56,8 @@ test_that('re-registration of fit information', {
       mode = "regression",
       value = list(
         interface = "data.frame",
-        data = c(x = "x.train", y = "y.train"),
-        protect = c("x", "y"),
+        data = c(x = "x.train", y = "y.train", weights = "weights"),
+        protect = c("x", "y", "weights"),
         func = c(pkg = "dbarts", fun = "bart"),
         defaults = list(verbose = TRUE, keeptrees = TRUE, keepcall = FALSE)
       )
@@ -115,12 +114,11 @@ test_that('re-registration of prediction information', {
         pre = NULL,
         post = NULL,
         func = c(pkg = "parsnip", fun = "dbart_predict_calc"),
-        args =
-          list(
-            obj = quote(object),
-            new_data =  quote(new_data),
-            type = "numeric"
-          )
+        args = list(
+          obj = quote(object),
+          new_data = quote(new_data),
+          type = "numeric"
+        )
       )
     )
   )
@@ -140,14 +138,12 @@ test_that('re-registration of prediction information', {
         pre = NULL,
         post = NULL,
         func = c(pkg = "parsnip", fun = "dbart_predict_calc"),
-        args =
-          list(
-            obj = quote(object),
-            new_data =  quote(new_data),
-            type = "tuba"
-          )
+        args = list(
+          obj = quote(object),
+          new_data = quote(new_data),
+          type = "tuba"
+        )
       )
     )
   )
 })
-

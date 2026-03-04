@@ -93,6 +93,31 @@ scale each so that each predictor has mean zero and a variance of one.
 
 The underlying model implementation does not allow for case weights. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("svm_rbf_predict") |>
+  dplyr::select(mode, type) |> 
+  print(n = Inf)
+```
+
+```
+## # A tibble: 10 x 2
+##    mode           type   
+##    <chr>          <chr>  
+##  1 regression     numeric
+##  2 regression     raw    
+##  3 classification class  
+##  4 classification prob   
+##  5 classification raw    
+##  6 regression     numeric
+##  7 regression     raw    
+##  8 classification class  
+##  9 classification prob   
+## 10 classification raw
+```
+
 ## Saving fitted model objects
 
 
@@ -100,7 +125,7 @@ This model object contains data that are not required to make predictions. When 
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-rbf-kernlab) for `svm_rbf()` with the `"kernlab"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `svm_rbf()` with the `"kernlab"` engine.
 
 ## References
 

@@ -32,9 +32,11 @@ performance assessment and potential early stopping.
 \code{\link[agua:h2o_train]{agua::h2o_train_auto()}} is a wrapper around
 \code{\link[h2o:h2o.automl]{h2o::h2o.automl()}}.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{auto_ml() |>  
-  set_engine("h2o") |> 
-  set_mode("regression") |> 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(agua)
+
+auto_ml() |>
+  set_engine("h2o") |>
+  set_mode("regression") |>
   translate()
 }\if{html}{\out{</div>}}
 
@@ -74,6 +76,16 @@ formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
 convert factor columns to indicators.
 }
 
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+}
+
 \subsection{Initializing h2o}{
 
 To use the h2o engine with tidymodels, please run \code{h2o::h2o.init()}
@@ -91,6 +103,22 @@ parallelizes over hyperparameter combinations for a given resample.
 h2o will automatically shut down the local h2o instance started by R
 when R is terminated. To manually stop the h2o server, run
 \code{h2o::h2o.shutdown()}.
+}
+
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("auto_ml_predict") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 4 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob
+}\if{html}{\out{</div>}}
 }
 
 \subsection{Saving fitted model objects}{

@@ -89,7 +89,26 @@ scale each so that each predictor has mean zero and a variance of one.
 ## Case weights
 
 
-The underlying model implementation does not allow for case weights. 
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("bag_mlp_predict") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 3 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 classification class  
+## 3 classification prob
+```
 
 
 ## References

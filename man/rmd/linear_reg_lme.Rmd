@@ -70,6 +70,17 @@ fit(lme_wflow, data = riesby)
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("linear_reg_predict") |>
+  dplyr::filter(engine == "lme") |>
+  dplyr::select(mode, type)
+
+```
+
 ## References
 
 - J Pinheiro, and D Bates. 2000. _Mixed-effects models in S and S-PLUS_. Springer, New York, NY

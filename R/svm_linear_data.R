@@ -7,7 +7,8 @@ set_model_mode("svm_linear", "regression")
 
 set_model_engine("svm_linear", "classification", "LiblineaR")
 set_model_engine("svm_linear", "regression", "LiblineaR")
-set_dependency("svm_linear", "LiblineaR", "LiblineaR")
+set_dependency("svm_linear", "LiblineaR", "LiblineaR", mode = "classification")
+set_dependency("svm_linear", "LiblineaR", "LiblineaR", mode = "regression")
 
 set_model_arg(
   model = "svm_linear",
@@ -87,11 +88,10 @@ set_pred(
     pre = NULL,
     post = svm_linear_post,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newx = quote(new_data)
-      )
+    args = list(
+      object = quote(object$fit),
+      newx = quote(new_data)
+    )
   )
 )
 set_pred(
@@ -105,7 +105,8 @@ set_pred(
     func = c(fun = "predict"),
     args = list(
       object = quote(object$fit),
-      newx = quote(new_data))
+      newx = quote(new_data)
+    )
   )
 )
 set_pred(
@@ -117,11 +118,10 @@ set_pred(
     pre = NULL,
     post = svm_linear_post,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newx = expr(as.matrix(new_data))
-      )
+    args = list(
+      object = quote(object$fit),
+      newx = expr(as.matrix(new_data))
+    )
   )
 )
 set_pred(
@@ -135,7 +135,8 @@ set_pred(
     func = c(fun = "predict"),
     args = list(
       object = quote(object$fit),
-      newx = quote(new_data))
+      newx = quote(new_data)
+    )
   )
 )
 
@@ -143,7 +144,8 @@ set_pred(
 
 set_model_engine("svm_linear", "classification", "kernlab")
 set_model_engine("svm_linear", "regression", "kernlab")
-set_dependency("svm_linear", "kernlab", "kernlab")
+set_dependency("svm_linear", "kernlab", "kernlab", mode = "classification")
+set_dependency("svm_linear", "kernlab", "kernlab", mode = "regression")
 
 set_model_arg(
   model = "svm_linear",
@@ -210,12 +212,11 @@ set_pred(
     pre = NULL,
     post = svm_reg_linear_post,
     func = c(pkg = "kernlab", fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "response"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "response"
+    )
   )
 )
 
@@ -253,12 +254,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = "kernlab", fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "response"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "response"
+    )
   )
 )
 
@@ -271,12 +271,11 @@ set_pred(
     pre = NULL,
     post = function(result, object) as_tibble(result),
     func = c(pkg = "kernlab", fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "probabilities"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "probabilities"
+    )
   )
 )
 
@@ -292,4 +291,3 @@ set_pred(
     args = list(object = quote(object$fit), newdata = quote(new_data))
   )
 )
-

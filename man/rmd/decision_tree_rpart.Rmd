@@ -82,6 +82,17 @@ decision_tree(
 #| child: template-uses-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("decision_tree_predict") |>
+  dplyr::filter(engine == "rpart") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Other details
 
 ```{r}
@@ -96,7 +107,7 @@ decision_tree(
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#decision-tree-rpart) for `decision_tree()` with the `"rpart"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `decision_tree()` with the `"rpart"` engine.
 
 ## References
 

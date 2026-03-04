@@ -20,15 +20,17 @@
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("bag_mlp")}
 #' @export
 bag_mlp <-
-  function(mode = "unknown",
-           hidden_units = NULL,
-           penalty = NULL,
-           epochs = NULL,
-           engine = "nnet") {
+  function(
+    mode = "unknown",
+    hidden_units = NULL,
+    penalty = NULL,
+    epochs = NULL,
+    engine = "nnet"
+  ) {
     args <- list(
-      hidden_units   = enquo(hidden_units),
-      penalty  = enquo(penalty),
-      epochs  = enquo(epochs)
+      hidden_units = enquo(hidden_units),
+      penalty = enquo(penalty),
+      epochs = enquo(epochs)
     )
 
     new_model_spec(
@@ -50,15 +52,19 @@ bag_mlp <-
 #' @inheritParams mars
 #' @export
 update.bag_mlp <-
-  function(object,
-           parameters = NULL,
-           hidden_units = NULL, penalty = NULL, epochs = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    hidden_units = NULL,
+    penalty = NULL,
+    epochs = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
-      hidden_units   = enquo(hidden_units),
-      penalty  = enquo(penalty),
-      epochs  = enquo(epochs)
+      hidden_units = enquo(hidden_units),
+      penalty = enquo(penalty),
+      epochs = enquo(epochs)
     )
 
     update_spec(

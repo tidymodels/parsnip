@@ -57,7 +57,7 @@ probabilities are requested, the percentage of the training set samples with
 the most prevalent class is returned.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 
 outcome <- factor(sample(letters[1:2],
                          size = 100,

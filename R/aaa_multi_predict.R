@@ -3,14 +3,12 @@
 #' Model predictions across many sub-models
 #'
 #' For some models, predictions can be made on sub-models in the model object.
-#' @param object A [model fit][model_fit].
+#' @inheritParams predict.model_fit
 #' @param new_data A rectangular data object, such as a data frame.
-#' @param type A single character value or `NULL`. Possible values are
-#' `"numeric"`, `"class"`, `"prob"`, `"conf_int"`, `"pred_int"`, `"quantile"`,
-#' or `"raw"`. When `NULL`, `predict()` will choose an appropriate value
-#' based on the model's mode.
+#'
 #' @param ... Optional arguments to pass to `predict.model_fit(type = "raw")`
 #'  such as `type`.
+#'
 #' @return A tibble with the same number of rows as the data being predicted.
 #'  There is a list-column named `.pred` that contains tibbles with
 #'  multiple rows per sub-model. Note that, within the tibbles, the column names
@@ -121,8 +119,8 @@ multi_predict_args.default <- function(object, ...) {
 multi_predict_args.model_fit <- function(object, ...) {
   model_type <- class(object$spec)[1]
   arg_info <- get_from_env(paste0(model_type, "_args"))
-  arg_info <- arg_info[arg_info$engine == object$spec$engine,]
-  arg_info <- arg_info[arg_info$has_submodel,]
+  arg_info <- arg_info[arg_info$engine == object$spec$engine, ]
+  arg_info <- arg_info[arg_info$has_submodel, ]
 
   if (nrow(arg_info) == 0) {
     res <- NA_character_

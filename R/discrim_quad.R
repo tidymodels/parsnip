@@ -28,8 +28,11 @@
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_quad")}
 #' @export
 discrim_quad <-
-  function(mode = "classification", regularization_method = NULL, engine = "MASS") {
-
+  function(
+    mode = "classification",
+    regularization_method = NULL,
+    engine = "MASS"
+  ) {
     args <- list(regularization_method = rlang::enquo(regularization_method))
 
     new_model_spec(
@@ -51,10 +54,7 @@ discrim_quad <-
 #' @inheritParams discrim_quad
 #' @export
 update.discrim_quad <-
-  function(object,
-           regularization_method = NULL,
-           fresh = FALSE, ...) {
-
+  function(object, regularization_method = NULL, fresh = FALSE, ...) {
     args <- list(regularization_method = rlang::enquo(regularization_method))
 
     update_spec(
@@ -71,4 +71,3 @@ update.discrim_quad <-
 
 set_new_model("discrim_quad")
 set_model_mode("discrim_quad", "classification")
-

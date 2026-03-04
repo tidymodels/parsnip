@@ -48,8 +48,25 @@ logistic_reg(penalty = double(1), mixture = double(1)) |>
 #| child: template-makes-dummies.Rmd
 ```
 
+## Case weights
+
+```{r}
+#| child: template-no-case-weights.Rmd
+```
+
 ```{r}
 #| child: template-same-scale.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("logistic_reg_predict") |>
+  dplyr::filter(engine == "LiblineaR") |>
+  dplyr::select(mode, type)
+
 ```
 
 ## Sparse Data
@@ -60,7 +77,7 @@ logistic_reg(penalty = double(1), mixture = double(1)) |>
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#logistic-reg-LiblineaR) for `logistic_reg()` with the `"LiblineaR"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `logistic_reg()` with the `"LiblineaR"` engine.
 
 ## References
 

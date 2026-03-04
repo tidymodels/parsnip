@@ -22,3 +22,5 @@ derby.log
 ^vignettes/articles$
 ^[\.]?air\.toml$
 ^\.vscode$
+^[.]?air[.]toml$
+^\.claude$

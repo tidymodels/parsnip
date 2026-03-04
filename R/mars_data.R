@@ -1,4 +1,3 @@
-
 set_new_model("mars")
 
 set_model_mode("mars", "classification")
@@ -8,7 +7,8 @@ set_model_mode("mars", "regression")
 
 set_model_engine("mars", "classification", "earth")
 set_model_engine("mars", "regression", "earth")
-set_dependency("mars", "earth", "earth")
+set_dependency("mars", "earth", "earth", mode = "classification")
+set_dependency("mars", "earth", "earth", mode = "regression")
 
 set_model_arg(
   model = "mars",
@@ -92,12 +92,11 @@ set_pred(
     pre = NULL,
     post = maybe_multivariate,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "response"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "response"
+    )
   )
 )
 
@@ -110,9 +109,7 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(object = quote(object$fit),
-           newdata = quote(new_data))
+    args = list(object = quote(object$fit), newdata = quote(new_data))
   )
 )
 
@@ -128,12 +125,11 @@ set_pred(
       x
     },
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "response"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "response"
+    )
   )
 )
 
@@ -144,19 +140,13 @@ set_pred(
   type = "prob",
   value = list(
     pre = NULL,
-    post = function(x, object) {
-      x <- x[, 1]
-      x <- tibble(v1 = 1 - x, v2 = x)
-      colnames(x) <- object$lvl
-      x
-    },
+    post = earth_glm_covert,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "response"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "response"
+    )
   )
 )
 
@@ -169,8 +159,6 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(object = quote(object$fit),
-           newdata = quote(new_data))
+    args = list(object = quote(object$fit), newdata = quote(new_data))
   )
 )

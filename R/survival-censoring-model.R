@@ -2,13 +2,24 @@
 # tested in tidymodels/extratests#67
 
 new_reverse_km_fit <-
-  function(formula,
-           object,
-           pkgs = character(0),
-           label = character(0),
-           extra_cls = character(0)) {
-    res <- list(formula = formula, fit = object, label = label, required_pkgs = pkgs)
-    class(res) <- c(paste0("censoring_model_", label), "censoring_model", extra_cls)
+  function(
+    formula,
+    object,
+    pkgs = character(0),
+    label = character(0),
+    extra_cls = character(0)
+  ) {
+    res <- list(
+      formula = formula,
+      fit = object,
+      label = label,
+      required_pkgs = pkgs
+    )
+    class(res) <- c(
+      paste0("censoring_model_", label),
+      "censoring_model",
+      extra_cls
+    )
     res
   }
 
@@ -24,7 +35,7 @@ reverse_km <- function(obj, eval_env) {
   # Note: even when fit_xy() is called, eval_env will still have
   # objects data and formula in them
   f <- eval_env$formula
-  km_form <- stats::update(f, ~ 1)
+  km_form <- stats::update(f, ~1)
   cl <-
     rlang::call2(
       "prodlim",
@@ -61,7 +72,13 @@ predict.censoring_model <- function(object, ...) {
 }
 
 #' @export
-predict.censoring_model_reverse_km <- function(object, new_data, time, as_vector = FALSE, ...) {
+predict.censoring_model_reverse_km <- function(
+  object,
+  new_data,
+  time,
+  as_vector = FALSE,
+  ...
+) {
   rlang::check_dots_empty()
 
   rlang::check_installed("prodlim", version = "2022.10.13")

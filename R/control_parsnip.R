@@ -29,14 +29,16 @@ control_parsnip <- function(verbosity = 1L, catch = FALSE) {
 }
 
 check_control <- function(x, call = rlang::caller_env()) {
-  if (!is.list(x))
+  if (!is.list(x)) {
     cli::cli_abort("{.arg control} should be a named list.", call = call)
-  if (!isTRUE(all.equal(sort(names(x)), c("catch", "verbosity"))))
+  }
+  if (!isTRUE(all.equal(sort(names(x)), c("catch", "verbosity")))) {
     cli::cli_abort(
       "{.arg control} should be a named list with elements {.field verbosity}
        and {.field catch}.",
       call = call
     )
+  }
   check_number_whole(x$verbosity, call = call)
   check_bool(x$catch, call = call)
   x
@@ -45,9 +47,11 @@ check_control <- function(x, call = rlang::caller_env()) {
 #' @export
 print.control_parsnip <- function(x, ...) {
   cat("parsnip control object\n")
-  if (x$verbosity > 1)
+  if (x$verbosity > 1) {
     cat(" - verbose level", x$verbosity, "\n")
-  if (x$catch)
+  }
+  if (x$catch) {
     cat(" - fit errors will be caught\n")
+  }
   invisible(x)
 }

@@ -1,7 +1,7 @@
 
 
 
-For this engine, there are multiple modes: classification and regression
+For this engine, there are multiple modes: classification, regression, and quantile regression. Note that in late 2025, a new version of xgboost was released with differences in its interface and model objects. This version of parsnip should work with either version. 
 
 ## Tuning Parameters
 
@@ -26,6 +26,8 @@ This model has 8 tuning parameters:
 - `stop_iter`: # Iterations Before Stopping (type: integer, default: Inf)
 
 For `mtry`, the default value of `NULL` translates to using all available columns.
+
+XGBoost has a large number of engine parameters. The current list is found at [`https://xgboost.readthedocs.io/en/stable/parameter.html`](https://xgboost.readthedocs.io/en/stable/parameter.html).
 
 ## Translation from parsnip to the original package (regression)
 
@@ -101,6 +103,47 @@ boost_tree(
 ##     verbose = 0)
 ```
 
+## Translation from parsnip to the original package (quantile regression)
+
+
+``` r
+boost_tree(
+  mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
+  learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
+  stop_iter = integer()
+) |>
+  set_engine("xgboost") |>
+  set_mode("quantile regression", quantile_levels = (1:3) / 4) |> 
+  translate()
+```
+
+```
+## Boosted Tree Model Specification (quantile regression)
+## 
+## Main Arguments:
+##   mtry = integer()
+##   trees = integer()
+##   min_n = integer()
+##   tree_depth = integer()
+##   learn_rate = numeric()
+##   loss_reduction = numeric()
+##   sample_size = numeric()
+##   stop_iter = integer()
+## 
+## Computational engine: xgboost 
+## 
+## Model fit template:
+## parsnip::xgb_train(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     colsample_bynode = integer(), nrounds = integer(), min_child_weight = integer(), 
+##     max_depth = integer(), eta = numeric(), gamma = numeric(), 
+##     subsample = numeric(), early_stop = integer(), nthread = 1, 
+##     verbose = 0, quantile_alpha = quantile_levels, objective = "reg:quantileerror")
+```
+
+```
+## Quantile levels: 0.25, 0.5, and 0.75.
+```
+
 [xgb_train()] is a wrapper around [xgboost::xgb.train()] (and other functions) that makes it easier to run this model. 
 
 ## Preprocessing requirements
@@ -115,6 +158,27 @@ For classification, non-numeric outcomes (i.e., factors) are internally converte
 This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(engine == "xgboost") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 6 x 2
+##   mode                type    
+##   <chr>               <chr>   
+## 1 regression          numeric 
+## 2 regression          raw     
+## 3 classification      class   
+## 4 classification      prob    
+## 5 classification      raw     
+## 6 quantile regression quantile
+```
 
 ## Sparse Data
 
@@ -207,7 +271,7 @@ Models fitted with this engine may require native serialization methods to be pr
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#boost-tree-xgboost) for `boost_tree()` with the `"xgboost"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `boost_tree()` with the `"xgboost"` engine.
 
 ## References
 

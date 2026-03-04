@@ -8,8 +8,13 @@
 #' @method predict_confint model_fit
 #' @export predict_confint.model_fit
 #' @export
-predict_confint.model_fit <- function(object, new_data, level = 0.95, std_error = FALSE, ...) {
-
+predict_confint.model_fit <- function(
+  object,
+  new_data,
+  level = 0.95,
+  std_error = FALSE,
+  ...
+) {
   check_spec_pred_type(object, "conf_int")
 
   if (inherits(object$fit, "try-error")) {
@@ -20,8 +25,9 @@ predict_confint.model_fit <- function(object, new_data, level = 0.95, std_error 
   new_data <- prepare_data(object, new_data)
 
   # preprocess data
-  if (!is.null(object$spec$method$pred$conf_int$pre))
+  if (!is.null(object$spec$method$pred$conf_int$pre)) {
     new_data <- object$spec$method$pred$conf_int$pre(new_data, object)
+  }
 
   # Pass some extra arguments to be used in post-processor
   object$spec$method$pred$conf_int$extras <-
@@ -44,8 +50,9 @@ predict_confint.model_fit <- function(object, new_data, level = 0.95, std_error 
 #' @keywords internal
 #' @rdname other_predict
 #' @inheritParams predict.model_fit
-predict_confint <- function(object, ...)
+predict_confint <- function(object, ...) {
   UseMethod("predict_confint")
+}
 
 # ------------------------------------------------------------------------------
 
@@ -53,8 +60,9 @@ predict_confint <- function(object, ...)
 #' @keywords internal
 #' @rdname other_predict
 #' @inheritParams predict.model_fit
-predict_predint <- function(object, ...)
+predict_predint <- function(object, ...) {
   UseMethod("predict_predint")
+}
 
 
 #' @keywords internal
@@ -63,8 +71,13 @@ predict_predint <- function(object, ...)
 #' @method predict_predint model_fit
 #' @export predict_predint.model_fit
 #' @export
-predict_predint.model_fit <- function(object, new_data, level = 0.95, std_error = FALSE, ...) {
-
+predict_predint.model_fit <- function(
+  object,
+  new_data,
+  level = 0.95,
+  std_error = FALSE,
+  ...
+) {
   check_spec_pred_type(object, "pred_int")
 
   if (inherits(object$fit, "try-error")) {
@@ -75,8 +88,9 @@ predict_predint.model_fit <- function(object, new_data, level = 0.95, std_error 
   new_data <- prepare_data(object, new_data)
 
   # preprocess data
-  if (!is.null(object$spec$method$pred$pred_int$pre))
+  if (!is.null(object$spec$method$pred$pred_int$pre)) {
     new_data <- object$spec$method$pred$pred_int$pre(new_data, object)
+  }
 
   # create prediction call
   # Pass some extra arguments to be used in post-processor
@@ -100,6 +114,6 @@ predict_predint.model_fit <- function(object, new_data, level = 0.95, std_error 
 #' @keywords internal
 #' @rdname other_predict
 #' @inheritParams predict.model_fit
-predict_predint <- function(object, ...)
+predict_predint <- function(object, ...) {
   UseMethod("predict_predint")
-
+}

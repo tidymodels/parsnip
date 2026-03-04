@@ -56,23 +56,21 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages: any::rcmdcheck, xgboost=?ignore-before-r=4.3.0, ggrepel=?ignore-before-r=4.5.0
           needs: check
 
-      - name: Install reticulate
-        run: pak::pkg_install('reticulate')
+      - name: Install dev reticulate
+        run: pak::pkg_install('rstudio/reticulate')
         shell: Rscript {0}
 
-      - name: Install Miniconda
-        # conda can fail at downgrading python, so we specify python version in advance
-        env:
-          RETICULATE_MINICONDA_PYTHON_VERSION: "3.8"
-        run: reticulate::install_miniconda() # creates r-reticulate conda env by default
-        shell: Rscript {0}
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
 
-      - name: Install TensorFlow
+      - name: Install TensorFlow/Keras
         run: |
-          tensorflow::install_tensorflow(version='2.13', conda_python_version = NULL)
+          install.packages(c("keras3"))
+          keras3::install_keras()
         shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2

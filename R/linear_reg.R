@@ -39,11 +39,7 @@
 #' linear_reg()
 #' @export
 linear_reg <-
-  function(mode = "regression",
-           engine = "lm",
-           penalty = NULL,
-           mixture = NULL) {
-
+  function(mode = "regression", engine = "lm", penalty = NULL, mixture = NULL) {
     args <- list(
       penalty = enquo(penalty),
       mixture = enquo(mixture)
@@ -84,11 +80,14 @@ translate.linear_reg <- function(x, engine = x$engine, ...) {
 #' @rdname parsnip_update
 #' @export
 update.linear_reg <-
-  function(object,
-           parameters = NULL,
-           penalty = NULL, mixture = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    penalty = NULL,
+    mixture = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
       penalty = enquo(penalty),
       mixture = enquo(mixture)
@@ -108,11 +107,23 @@ update.linear_reg <-
 
 #' @export
 check_args.linear_reg <- function(object, call = rlang::caller_env()) {
-
   args <- lapply(object$args, rlang::eval_tidy)
 
-  check_number_decimal(args$mixture, min = 0, max = 1, allow_null = TRUE, call = call, arg = "mixture")
-  check_number_decimal(args$penalty, min = 0, allow_null = TRUE, call = call, arg = "penalty")
+  check_number_decimal(
+    args$mixture,
+    min = 0,
+    max = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "mixture"
+  )
+  check_number_decimal(
+    args$penalty,
+    min = 0,
+    allow_null = TRUE,
+    call = call,
+    arg = "penalty"
+  )
 
   # ------------------------------------------------------------------------------
   # We want to avoid folks passing in a poisson family instead of using
@@ -131,7 +142,8 @@ check_args.linear_reg <- function(object, call = rlang::caller_env()) {
       cli::cli_abort(
         "A Poisson family was requested for {.fn linear_reg}. Please use
         {.fn poisson_reg} and the engines in the {.pkg poissonreg} package.",
-        call = rlang::call2("linear_reg"))
+        call = rlang::call2("linear_reg")
+      )
     }
   }
 

@@ -4,11 +4,13 @@
 #' @method predict_hazard model_fit
 #' @export predict_hazard.model_fit
 #' @export
-predict_hazard.model_fit <- function(object,
-                                     new_data,
-                                     eval_time,
-                                     time = deprecated(),
-                                     ...) {
+predict_hazard.model_fit <- function(
+  object,
+  new_data,
+  eval_time,
+  time = deprecated(),
+  ...
+) {
   if (lifecycle::is_present(time)) {
     lifecycle::deprecate_warn(
       "1.0.4.9005",
@@ -29,8 +31,9 @@ predict_hazard.model_fit <- function(object,
   new_data <- prepare_data(object, new_data)
 
   # preprocess data
-  if (!is.null(object$spec$method$pred$hazard$pre))
+  if (!is.null(object$spec$method$pred$hazard$pre)) {
     new_data <- object$spec$method$pred$hazard$pre(new_data, object)
+  }
 
   # create prediction call
   pred_call <- make_pred_call(object$spec$method$pred$hazard)
@@ -38,16 +41,17 @@ predict_hazard.model_fit <- function(object,
   res <- eval_tidy(pred_call)
 
   # post-process the predictions
-  if(!is.null(object$spec$method$pred$hazard$post)) {
+  if (!is.null(object$spec$method$pred$hazard$post)) {
     res <- object$spec$method$pred$hazard$post(res, object)
   }
 
   res
 }
 
-# @export
-# @keywords internal
-# @rdname other_predict
-# @inheritParams predict.model_fit
-predict_hazard <- function (object, ...)
+#' @export
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict.model_fit
+predict_hazard <- function(object, ...) {
   UseMethod("predict_hazard")
+}

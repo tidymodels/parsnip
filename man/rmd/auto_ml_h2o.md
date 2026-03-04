@@ -21,9 +21,11 @@ Engine arguments of interest
 
 
 ``` r
-auto_ml() |>  
-  set_engine("h2o") |> 
-  set_mode("regression") |> 
+library(agua)
+
+auto_ml() |>
+  set_engine("h2o") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -63,6 +65,13 @@ auto_ml() |>
 
 Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
 
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
 ## Initializing h2o 
 
 
@@ -72,7 +81,26 @@ You can control the number of threads in the thread pool used by h2o with the `n
 
 h2o will automatically shut down the local h2o instance started by R when R is terminated. To manually stop the h2o server, run `h2o::h2o.shutdown()`. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("auto_ml_predict") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 4 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob
+```
+
 ## Saving fitted model objects
 
 
 Models fitted with this engine may require native serialization methods to be properly saved and/or passed between R sessions. To learn more about preparing fitted models for serialization, see the bundle package.
+

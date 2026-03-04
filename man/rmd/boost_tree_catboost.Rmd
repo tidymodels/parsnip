@@ -1,0 +1,135 @@
+```{r}
+#| child: aaa.Rmd
+#| include: false
+```
+
+`r descr_models("boost_tree", "catboost")`
+
+## Tuning Parameters
+
+```{r}
+#| label: catboost-param-info
+#| echo: false
+defaults <-
+  tibble::tibble(
+    parsnip = c("mtry", "trees", "tree_depth", "learn_rate", "min_n", "sample_size", "stop_iter"),
+    default = c("see below", "1000L", "6L", "0.03", "1L", "see below", "Inf")
+  )
+
+# For this model, this is the same for all modes
+param <-
+  boost_tree() |>
+  set_engine("catboost") |>
+  set_mode("regression") |>
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r}
+#| label: catboost-param-list
+#| echo: false
+#| results: asis
+param$item
+```
+
+The `mtry` parameter controls the proportion of predictors that will be randomly sampled at each split. catboost's `rsm` argument natively expects a proportion between 0 and 1. The default is to use all predictors (`rsm = 1`).
+
+Unlike lightgbm and xgboost, bonsai does not currently convert `mtry` from a count to a proportion for catboost. Users should set `counts = FALSE` in `set_engine()` and supply `mtry` as a proportion directly. For example, `mtry = 0.5` with `counts = FALSE` means 50% of predictors are considered at each split.
+
+### Engine-Specific Parameters
+
+CatBoost has a large number of engine parameters. The current list is found at [`https://catboost.ai/docs/en/references/training-parameters`](https://catboost.ai/docs/en/references/training-parameters).
+
+Two in particular are: 
+
+- `max_leaves`: Maximum number of leaves in each tree (only used when the grow policy is `Lossguide`).
+
+- `l2_leaf_reg`: L2 regularization coefficient for leaf values (default: 3.0).
+
+## Translation from parsnip to the original package (regression)
+
+`r uses_extension("boost_tree", "catboost", "regression")`
+
+```{r}
+#| label: catboost-reg
+boost_tree(
+  mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
+  learn_rate = numeric(), sample_size = numeric(), stop_iter = integer()
+) |>
+  set_engine("catboost") |>
+  set_mode("regression") |>
+  translate()
+```
+
+## Translation from parsnip to the original package (classification)
+
+`r uses_extension("boost_tree", "catboost", "classification")`
+
+```{r}
+#| label: catboost-cls
+boost_tree(
+  mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
+  learn_rate = numeric(), sample_size = numeric(), stop_iter = integer()
+) |>
+  set_engine("catboost") |>
+  set_mode("classification") |>
+  translate()
+```
+
+[bonsai::train_catboost()] is a wrapper around `catboost::catboost.train()` (and other functions) that makes it easier to run this model.
+
+## Preprocessing requirements
+
+```{r}
+#| child: template-tree-split-factors.Rmd
+```
+
+Unlike many other boosting engines, catboost has native support for categorical predictors. When a factor predictor is passed to the model, catboost will compute target-based statistics to create numeric features from the factor levels. This often provides better performance than using dummy variables.
+
+Non-numeric predictors (i.e., factors) are internally converted to numeric using catboost's native categorical feature handling. In the classification context, non-numeric outcomes (i.e., factors) are also internally converted to numeric.
+
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(engine == "catboost") |>
+  dplyr::select(mode, type)
+
+```
+
+## Other details
+
+### Bagging
+
+The `sample_size` argument is translated to the `subsample` parameter in catboost. The argument is interpreted by catboost as a _proportion_ rather than a count, so bonsai internally reparameterizes the `sample_size` argument with [dials::sample_prop()] during tuning.
+
+The default value for `subsample` depends on the dataset size and the bootstrap type. For datasets with fewer than 100 observations, no sampling is performed (equivalent to `sample_size = 1`). For larger datasets, the default is 0.66 for Poisson or Bernoulli bootstrap and 0.8 for MVS bootstrap.
+
+### Verbosity
+
+bonsai quiets much of the logging output from `catboost::catboost.train()` by default. With default settings, logged warnings and errors will still be passed on to the user. To print out all logs during training, set `quiet = FALSE`.
+
+## Saving fitted model objects
+
+```{r}
+#| child: template-butcher.Rmd
+```
+
+## Examples
+
+The "Introduction to bonsai" article contains [examples](https://bonsai.tidymodels.org/articles/bonsai.html) of `boost_tree()` with the `"catboost"` engine.
+
+## References
+
+ - [CatBoost: unbiased boosting with categorical features](https://arxiv.org/abs/1706.09516)
+
+ - [CatBoost: gradient boosting with categorical features support](https://catboost.ai/)

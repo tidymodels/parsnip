@@ -1,4 +1,4 @@
-# no fmt
+# fmt: skip
 model_info_table <-
     tibble::tribble(
                       ~model,                 ~mode,            ~engine,            ~pkg,
@@ -21,11 +21,13 @@ model_info_table <-
                   "bag_tree",      "classification",            "rpart",      "baguette",
                       "bart",      "classification",           "dbarts",              NA,
                 "boost_tree",      "classification",             "C5.0",              NA,
+                "boost_tree",      "classification",         "catboost",        "bonsai",
                 "boost_tree",      "classification",              "h2o",          "agua",
                 "boost_tree",      "classification",          "h2o_gbm",          "agua",
                 "boost_tree",      "classification",         "lightgbm",        "bonsai",
                 "boost_tree",      "classification",            "spark",              NA,
                 "boost_tree",      "classification",          "xgboost",              NA,
+                "boost_tree", "quantile regression",          "xgboost",              NA,
              "decision_tree",      "classification",             "C5.0",              NA,
              "decision_tree",      "classification",         "partykit",        "bonsai",
              "decision_tree",      "classification",            "rpart",              NA,
@@ -56,6 +58,7 @@ model_info_table <-
                        "mlp",      "classification",              "h2o",          "agua",
                        "mlp",      "classification",            "keras",              NA,
                        "mlp",      "classification",             "nnet",              NA,
+                       "mlp", "quantile regression",             "qrnn",              NA,
               "multinom_reg",      "classification",           "brulee",              NA,
               "multinom_reg",      "classification",           "glmnet",              NA,
               "multinom_reg",      "classification",              "h2o",          "agua",
@@ -69,6 +72,7 @@ model_info_table <-
                 "null_model",      "classification",          "parsnip",              NA,
                        "pls",      "classification",         "mixOmics",        "plsmod",
                "rand_forest",      "classification",            "aorsf",        "bonsai",
+               "rand_forest",      "classification",              "grf",              NA,
                "rand_forest",      "classification",              "h2o",          "agua",
                "rand_forest",      "classification",         "partykit",        "bonsai",
                "rand_forest",      "classification",     "randomForest",              NA,
@@ -82,11 +86,13 @@ model_info_table <-
                    "svm_rbf",      "classification",          "kernlab",              NA,
                    "svm_rbf",      "classification",        "liquidSVM",              NA,
                 "linear_reg", "quantile regression",         "quantreg",              NA,
+               "rand_forest", "quantile regression",              "grf",              NA,
                    "auto_ml",          "regression",              "h2o",          "agua",
                   "bag_mars",          "regression",            "earth",      "baguette",
                    "bag_mlp",          "regression",             "nnet",      "baguette",
                   "bag_tree",          "regression",            "rpart",      "baguette",
                       "bart",          "regression",           "dbarts",              NA,
+                "boost_tree",          "regression",         "catboost",        "bonsai",
                 "boost_tree",          "regression",              "h2o",          "agua",
                 "boost_tree",          "regression",          "h2o_gbm",          "agua",
                 "boost_tree",          "regression",         "lightgbm",        "bonsai",
@@ -130,6 +136,7 @@ model_info_table <-
                "poisson_reg",          "regression",       "stan_glmer", "multilevelmod",
                "poisson_reg",          "regression",         "zeroinfl",    "poissonreg",
                "rand_forest",          "regression",            "aorsf",        "bonsai",
+               "rand_forest",          "regression",              "grf",              NA,
                "rand_forest",          "regression",              "h2o",          "agua",
                "rand_forest",          "regression",         "partykit",        "bonsai",
                "rand_forest",          "regression",     "randomForest",              NA,
@@ -145,4 +152,3 @@ model_info_table <-
                    "svm_rbf",          "regression",          "kernlab",              NA,
                    "svm_rbf",          "regression",        "liquidSVM",              NA
       )
-

@@ -7,23 +7,76 @@ library(tidymodels)
 library(usethis)
 
 # also requires installation of:
-packages <- c("parsnip", "discrim", "plsmod", "rules", "baguette", "poissonreg",
-              "multilevelmod", "modeltime", "modeltime.gluonts")
+packages <- c(
+  "parsnip",
+  parsnip:::extensions(),
+  "modeltime"
+  # "modeltime.gluonts" # required python packages to create spec
+)
+
+loaded <- map(packages, library, character.only = TRUE)
 
 # ------------------------------------------------------------------------------
 
-# Detects model specifications via their print methods
-print_methods <- function(x) {
-  require(x, character.only  = TRUE)
-  ns <- asNamespace(ns = x)
-  mthds <- ls(envir = ns, pattern = "^print\\.")
-  mthds <- gsub("^print\\.", "", mthds)
-  purrr::map(mthds, get_engines) |> purrr::list_rbind() |> dplyr::mutate(package = x)
+get_model <- function(x) {
+  res <- get_from_env(x)
+  if (!is.null(res)) {
+    res <- dplyr::mutate(res, model = x)
+  }
+  res
 }
+
+get_packages <- function(x) {
+  res <- get_from_env(paste0(x, "_pkgs"))
+  if (is.null(res)) {
+    return(res)
+  }
+  res <-
+    res |>
+    tidyr::unnest(pkg) |>
+    dplyr::mutate(
+      model = x
+    )
+
+  res
+}
+
+get_models <- function() {
+  res <- ls(envir = get_model_env(), pattern = "_fit$")
+  models <- gsub("_fit$", "", res)
+  models <-
+    purrr::map(models, get_model) |>
+    purrr::list_rbind()
+
+  # get source package
+  pkgs <- gsub("_fit$", "_pkgs", res)
+  pkgs <-
+    unique(models$model) |>
+    purrr::map(get_packages) |>
+    purrr::list_rbind() |>
+    dplyr::filter(pkg %in% packages)
+  dplyr::left_join(models, pkgs, by = dplyr::join_by(engine, mode, model)) |>
+    dplyr::rename(package = pkg) |>
+    dplyr::mutate(
+      package = dplyr::if_else(is.na(package), "parsnip", package),
+      call_from_parsnip = package %in% parsnip:::extensions(),
+      caller_package = dplyr::if_else(
+        call_from_parsnip,
+        "parsnip",
+        package
+      )
+    )
+}
+
+
 get_engines <- function(x) {
   eng <- try(parsnip::show_engines(x), silent = TRUE)
   if (inherits(eng, "try-error")) {
-    eng <- tibble::tibble(engine = NA_character_, mode = NA_character_, model = x)
+    eng <- tibble::tibble(
+      engine = NA_character_,
+      mode = NA_character_,
+      model = x
+    )
   } else {
     eng$model <- x
   }
@@ -42,29 +95,28 @@ get_tunable_param <- function(mode, package, model, engine) {
   # Edit some model parameters
 
   if (model == "rand_forest") {
-    res <- res[res$parameter != "trees",]
+    res <- res[res$parameter != "trees", ]
   }
   if (model == "mars") {
-    res <- res[res$parameter == "prod_degree",]
+    res <- res[res$parameter == "prod_degree", ]
   }
   if (engine %in% c("rule_fit", "xgboost")) {
-    res <- res[res$parameter != "mtry",]
+    res <- res[res$parameter != "mtry", ]
   }
   if (model %in% c("bag_tree", "bag_mars")) {
-    res <- res[0,]
+    res <- res[0, ]
   }
   if (engine %in% c("rpart")) {
-    res <- res[res$parameter != "tree-depth",]
+    res <- res[res$parameter != "tree-depth", ]
   }
   res
-
 }
 
 # ------------------------------------------------------------------------------
 
 model_db <-
-  purrr::map(packages, print_methods) |>
-  purrr::list_rbind() |>
+  get_models() |>
+  dplyr::filter(mode %in% c("regression", "classification")) |>
   dplyr::filter(engine != "liquidSVM") |>
   dplyr::filter(model != "surv_reg") |>
   dplyr::filter(engine != "spark") |>
@@ -82,7 +134,12 @@ num_modes <-
 
 model_db <-
   dplyr::left_join(model_db, num_modes, by = c("package", "model", "engine")) |>
-  dplyr::mutate(parameters = purrr::pmap(list(mode, package, model, engine), get_tunable_param))
+  dplyr::mutate(
+    parameters = purrr::pmap(
+      list(mode, caller_package, model, engine),
+      get_tunable_param
+    )
+  ) |>
+  dplyr::select(-call_from_parsnip, -caller_package)
 
 usethis::use_data(model_db, overwrite = TRUE)
-

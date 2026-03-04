@@ -13,21 +13,34 @@ test_that('updating', {
 })
 
 test_that('bad input', {
-  expect_snapshot(error = TRUE, translate(svm_linear(mode = "regression") |> set_engine( NULL)))
+  expect_snapshot(
+    error = TRUE,
+    translate(svm_linear(mode = "regression") |> set_engine(NULL))
+  )
   expect_snapshot(error = TRUE, svm_linear(mode = "reallyunknown"))
-  expect_snapshot(error = TRUE, translate(svm_linear(mode = "regression") |> set_engine("LiblineaR", type = 3)))
-  expect_snapshot(error = TRUE, translate(svm_linear(mode = "classification") |> set_engine("LiblineaR", type = 11)))
+  expect_snapshot(
+    error = TRUE,
+    translate(
+      svm_linear(mode = "regression") |> set_engine("LiblineaR", type = 3)
+    )
+  )
+  expect_snapshot(
+    error = TRUE,
+    translate(
+      svm_linear(mode = "classification") |> set_engine("LiblineaR", type = 11)
+    )
+  )
 })
 
 # ------------------------------------------------------------------------------
 
 reg_mod <-
-  svm_linear(mode = "regression", cost = 1/4) |>
+  svm_linear(mode = "regression", cost = 1 / 4) |>
   set_engine("LiblineaR") |>
   set_mode("regression")
 
 cls_mod <-
-  svm_linear(mode = "classification", cost = 1/8) |>
+  svm_linear(mode = "classification", cost = 1 / 8) |>
   set_engine("LiblineaR") |>
   set_mode("classification")
 
@@ -36,14 +49,13 @@ ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
 # ------------------------------------------------------------------------------
 
 test_that('linear svm regression: LiblineaR', {
-
   skip_if_not_installed("LiblineaR")
 
   expect_no_condition(
     res <- fit_xy(
       reg_mod,
       control = ctrl,
-      x = hpc[,2:4],
+      x = hpc[, 2:4],
       y = hpc$input_fields
     )
   )
@@ -62,15 +74,13 @@ test_that('linear svm regression: LiblineaR', {
       control = ctrl
     )
   )
-
 })
 
 
 test_that('linear svm regression prediction: LiblineaR', {
-
   skip_if_not_installed("LiblineaR")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128), ] |>
     droplevels()
 
   ind <- c(2, 1, 143)
@@ -86,13 +96,16 @@ test_that('linear svm regression prediction: LiblineaR', {
   liblinear_pred <-
     structure(
       list(.pred = c(85.13979, 576.16232, 1886.10132)),
-      row.names = c(NA, -3L), class = c("tbl_df", "tbl", "data.frame"))
+      row.names = c(NA, -3L),
+      class = c("tbl_df", "tbl", "data.frame")
+    )
 
   parsnip_pred <- predict(reg_form, hpc[ind, -c(2, 5)])
-  expect_equal(as.data.frame(liblinear_pred),
-               as.data.frame(parsnip_pred),
-               tolerance = .0001)
-
+  expect_equal(
+    as.data.frame(liblinear_pred),
+    as.data.frame(parsnip_pred),
+    tolerance = .0001
+  )
 
   reg_xy_form <-
     fit_xy(
@@ -101,21 +114,25 @@ test_that('linear svm regression prediction: LiblineaR', {
       y = hpc$input_fields,
       control = ctrl
     )
-  expect_equal(extract_fit_engine(reg_form)$W, extract_fit_engine(reg_xy_form)$W)
+  expect_equal(
+    extract_fit_engine(reg_form)$W,
+    extract_fit_engine(reg_xy_form)$W
+  )
 
   parsnip_xy_pred <- predict(reg_xy_form, hpc[ind, -c(2, 5)])
-  expect_equal(as.data.frame(liblinear_pred),
-               as.data.frame(parsnip_xy_pred),
-               tolerance = .0001)
+  expect_equal(
+    as.data.frame(liblinear_pred),
+    as.data.frame(parsnip_xy_pred),
+    tolerance = .0001
+  )
 })
 
 # ------------------------------------------------------------------------------
 
 test_that('linear svm classification: LiblineaR', {
-
   skip_if_not_installed("LiblineaR")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128), ] |>
     droplevels()
 
   ind <- c(2, 1, 143)
@@ -137,15 +154,13 @@ test_that('linear svm classification: LiblineaR', {
       control = ctrl
     )
   )
-
 })
 
 
 test_that('linear svm classification prediction: LiblineaR', {
-
   skip_if_not_installed("LiblineaR")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128), ] |>
     droplevels()
 
   ind <- c(4, 55, 143)
@@ -160,11 +175,17 @@ test_that('linear svm classification prediction: LiblineaR', {
     )
 
   liblinear_class <-
-    structure(list(
-      .pred_class = structure(
-        c(1L, 1L, 2L),
-        .Label = c("VF", "F", "L"), class = "factor")),
-      row.names = c(NA, -3L), class = c("tbl_df", "tbl", "data.frame"))
+    structure(
+      list(
+        .pred_class = structure(
+          c(1L, 1L, 2L),
+          .Label = c("VF", "F", "L"),
+          class = "factor"
+        )
+      ),
+      row.names = c(NA, -3L),
+      class = c("tbl_df", "tbl", "data.frame")
+    )
 
   parsnip_class <- predict(cls_form, hpc_no_m[ind, -5])
   expect_equal(liblinear_class, parsnip_class)
@@ -177,7 +198,10 @@ test_that('linear svm classification prediction: LiblineaR', {
       y = hpc_no_m$class,
       control = ctrl
     )
-  expect_equal(extract_fit_engine(cls_form)$W, extract_fit_engine(cls_xy_form)$W)
+  expect_equal(
+    extract_fit_engine(cls_form)$W,
+    extract_fit_engine(cls_xy_form)$W
+  )
 
   expect_snapshot(
     error = TRUE,
@@ -188,18 +212,17 @@ test_that('linear svm classification prediction: LiblineaR', {
     error = TRUE,
     predict(cls_xy_form, hpc_no_m[ind, -5], type = "prob")
   )
-
 })
 
 # ------------------------------------------------------------------------------
 
 reg_mod <-
-  svm_linear(mode = "regression", cost = 1/4) |>
+  svm_linear(mode = "regression", cost = 1 / 4) |>
   set_engine("kernlab") |>
   set_mode("regression")
 
 cls_mod <-
-  svm_linear(mode = "classification", cost = 1/8) |>
+  svm_linear(mode = "classification", cost = 1 / 8) |>
   set_engine("kernlab") |>
   set_mode("classification")
 
@@ -208,14 +231,13 @@ ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
 # ------------------------------------------------------------------------------
 
 test_that('linear svm regression: kernlab', {
-
   skip_if_not_installed("kernlab")
 
   expect_no_condition(
     res <- fit_xy(
       reg_mod,
       control = ctrl,
-      x = hpc[,2:4],
+      x = hpc[, 2:4],
       y = hpc$input_fields
     )
   )
@@ -230,15 +252,13 @@ test_that('linear svm regression: kernlab', {
       control = ctrl
     )
   )
-
 })
 
 
 test_that('linear svm regression prediction: kernlab', {
-
   skip_if_not_installed("kernlab")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128), ] |>
     droplevels()
 
   ind <- c(2, 1, 143)
@@ -254,13 +274,16 @@ test_that('linear svm regression prediction: kernlab', {
   kernlab_pred <-
     structure(
       list(.pred = c(129.9097, 376.1049, 1032.8989)),
-      row.names = c(NA, -3L), class = c("tbl_df", "tbl", "data.frame"))
+      row.names = c(NA, -3L),
+      class = c("tbl_df", "tbl", "data.frame")
+    )
 
   parsnip_pred <- predict(reg_form, hpc[ind, -c(2, 5)])
-  expect_equal(as.data.frame(kernlab_pred),
-               as.data.frame(parsnip_pred),
-               tolerance = .0001)
-
+  expect_equal(
+    as.data.frame(kernlab_pred),
+    as.data.frame(parsnip_pred),
+    tolerance = .0001
+  )
 
   reg_xy_form <-
     fit_xy(
@@ -269,21 +292,25 @@ test_that('linear svm regression prediction: kernlab', {
       y = hpc$input_fields,
       control = ctrl
     )
-  expect_equal(extract_fit_engine(reg_form)@alphaindex, extract_fit_engine(reg_xy_form)@alphaindex)
+  expect_equal(
+    extract_fit_engine(reg_form)@alphaindex,
+    extract_fit_engine(reg_xy_form)@alphaindex
+  )
 
   parsnip_xy_pred <- predict(reg_xy_form, hpc[ind, -c(2, 5)])
-  expect_equal(as.data.frame(kernlab_pred),
-               as.data.frame(parsnip_xy_pred),
-               tolerance = .0001)
+  expect_equal(
+    as.data.frame(kernlab_pred),
+    as.data.frame(parsnip_xy_pred),
+    tolerance = .0001
+  )
 })
 
 # ------------------------------------------------------------------------------
 
 test_that('linear svm classification: kernlab', {
-
   skip_if_not_installed("kernlab")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128), ] |>
     droplevels()
 
   ind <- c(2, 1, 143)
@@ -305,15 +332,13 @@ test_that('linear svm classification: kernlab', {
       control = ctrl
     )
   )
-
 })
 
 
 test_that('linear svm classification prediction: kernlab', {
-
   skip_if_not_installed("kernlab")
 
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128),] |>
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128), ] |>
     droplevels()
 
   ind <- c(4, 55, 143)
@@ -328,11 +353,17 @@ test_that('linear svm classification prediction: kernlab', {
     )
 
   kernlab_class <-
-    structure(list(
-      .pred_class = structure(
-        c(1L, 1L, 3L),
-        .Label = c("VF", "F", "L"), class = "factor")),
-      row.names = c(NA, -3L), class = c("tbl_df", "tbl", "data.frame"))
+    structure(
+      list(
+        .pred_class = structure(
+          c(1L, 1L, 3L),
+          .Label = c("VF", "F", "L"),
+          class = "factor"
+        )
+      ),
+      row.names = c(NA, -3L),
+      class = c("tbl_df", "tbl", "data.frame")
+    )
 
   parsnip_class <- predict(cls_form, hpc_no_m[ind, -5])
   expect_equal(kernlab_class, parsnip_class)
@@ -345,11 +376,18 @@ test_that('linear svm classification prediction: kernlab', {
       y = hpc_no_m$class,
       control = ctrl
     )
-  expect_equal(extract_fit_engine(cls_form)@alphaindex, extract_fit_engine(cls_xy_form)@alphaindex)
+  expect_equal(
+    extract_fit_engine(cls_form)@alphaindex,
+    extract_fit_engine(cls_xy_form)@alphaindex
+  )
 
   library(kernlab)
   kern_probs <-
-    kernlab::predict(extract_fit_engine(cls_form), hpc_no_m[ind, -5], type = "probabilities") |>
+    kernlab::predict(
+      extract_fit_engine(cls_form),
+      hpc_no_m[ind, -5],
+      type = "probabilities"
+    ) |>
     as_tibble() |>
     setNames(c('.pred_VF', '.pred_F', '.pred_L'))
 
@@ -358,7 +396,6 @@ test_that('linear svm classification prediction: kernlab', {
 
   parsnip_xy_probs <- predict(cls_xy_form, hpc_no_m[ind, -5], type = "prob")
   expect_equal(as.data.frame(kern_probs), as.data.frame(parsnip_xy_probs))
-
 })
 
 test_that("check_args() works", {

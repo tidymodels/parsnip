@@ -6,7 +6,7 @@ set_model_mode("linear_reg", "quantile regression")
 # ------------------------------------------------------------------------------
 
 set_model_engine("linear_reg", "regression", "lm")
-set_dependency("linear_reg", "lm", "stats")
+set_dependency("linear_reg", "lm", "stats", mode = "regression")
 
 set_fit(
   model = "linear_reg",
@@ -41,13 +41,12 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = expr(object$fit),
-        newdata = expr(new_data),
-        type = "response",
-        rankdeficient = "simple"
-      )
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data),
+      type = "response",
+      rankdeficient = "simple"
+    )
   )
 )
 
@@ -64,14 +63,13 @@ set_pred(
         setNames(c(".pred_lower", ".pred_upper"))
     },
     func = c(fun = "predict"),
-    args =
-      list(
-        object = expr(object$fit),
-        newdata = expr(new_data),
-        interval = "confidence",
-        level = expr(level),
-        type = "response"
-      )
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data),
+      interval = "confidence",
+      level = expr(level),
+      type = "response"
+    )
   )
 )
 set_pred(
@@ -87,14 +85,13 @@ set_pred(
         setNames(c(".pred_lower", ".pred_upper"))
     },
     func = c(fun = "predict"),
-    args =
-      list(
-        object = expr(object$fit),
-        newdata = expr(new_data),
-        interval = "prediction",
-        level = expr(level),
-        type = "response"
-      )
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data),
+      interval = "prediction",
+      level = expr(level),
+      type = "response"
+    )
   )
 )
 
@@ -114,7 +111,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("linear_reg", "regression", "glm")
-set_dependency("linear_reg", "glm", "stats")
+set_dependency("linear_reg", "glm", "stats", mode = "regression")
 
 set_fit(
   model = "linear_reg",
@@ -149,12 +146,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = expr(object$fit),
-        newdata = expr(new_data),
-        type = "response"
-      )
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data),
+      type = "response"
+    )
   )
 )
 
@@ -167,13 +163,12 @@ set_pred(
     pre = NULL,
     post = linear_lp_to_conf_int,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        se.fit = TRUE,
-        type = "link"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      se.fit = TRUE,
+      type = "link"
+    )
   )
 )
 
@@ -194,7 +189,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("linear_reg", "regression", "glmnet")
-set_dependency("linear_reg", "glmnet", "glmnet")
+set_dependency("linear_reg", "glmnet", "glmnet", mode = "regression")
 
 set_fit(
   model = "linear_reg",
@@ -247,13 +242,12 @@ set_pred(
     pre = NULL,
     post = .organize_glmnet_pred,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = expr(object$fit),
-        newx = expr(organize_glmnet_pre_pred(new_data, object)),
-        type = "response",
-        s = expr(object$spec$args$penalty)
-      )
+    args = list(
+      object = expr(object$fit),
+      newx = expr(organize_glmnet_pre_pred(new_data, object)),
+      type = "response",
+      s = expr(object$spec$args$penalty)
+    )
   )
 )
 
@@ -266,16 +260,14 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(object = expr(object$fit),
-           newx = expr(as.matrix(new_data)))
+    args = list(object = expr(object$fit), newx = expr(as.matrix(new_data)))
   )
 )
 
 # ------------------------------------------------------------------------------
 
 set_model_engine("linear_reg", "regression", "stan")
-set_dependency("linear_reg", "stan", "rstanarm")
+set_dependency("linear_reg", "stan", "rstanarm", mode = "regression")
 
 set_fit(
   model = "linear_reg",
@@ -324,28 +316,26 @@ set_pred(
     post = function(results, object) {
       res <-
         tibble(
-          .pred_lower =
-            convert_stan_interval(
-              results,
-              level = object$spec$method$pred$conf_int$extras$level
-            ),
-          .pred_upper =
-            convert_stan_interval(
-              results,
-              level = object$spec$method$pred$conf_int$extras$level,
-              lower = FALSE
-            ),
+          .pred_lower = convert_stan_interval(
+            results,
+            level = object$spec$method$pred$conf_int$extras$level
+          ),
+          .pred_upper = convert_stan_interval(
+            results,
+            level = object$spec$method$pred$conf_int$extras$level,
+            lower = FALSE
+          ),
         )
-      if (object$spec$method$pred$conf_int$extras$std_error)
+      if (object$spec$method$pred$conf_int$extras$std_error) {
         res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
+      }
       res
     },
     func = c(pkg = "parsnip", fun = "stan_conf_int"),
-    args =
-      list(
-        object = expr(object$fit),
-        newdata = expr(new_data)
-      )
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data)
+    )
   )
 )
 
@@ -359,29 +349,27 @@ set_pred(
     post = function(results, object) {
       res <-
         tibble(
-          .pred_lower =
-            convert_stan_interval(
-              results,
-              level = object$spec$method$pred$pred_int$extras$level
-            ),
-          .pred_upper =
-            convert_stan_interval(
-              results,
-              level = object$spec$method$pred$pred_int$extras$level,
-              lower = FALSE
-            ),
+          .pred_lower = convert_stan_interval(
+            results,
+            level = object$spec$method$pred$pred_int$extras$level
+          ),
+          .pred_upper = convert_stan_interval(
+            results,
+            level = object$spec$method$pred$pred_int$extras$level,
+            lower = FALSE
+          ),
         )
-      if (object$spec$method$pred$pred_int$extras$std_error)
+      if (object$spec$method$pred$pred_int$extras$std_error) {
         res$.std_error <- apply(results, 2, sd, na.rm = TRUE)
+      }
       res
     },
     func = c(pkg = "rstanarm", fun = "posterior_predict"),
-    args =
-      list(
-        object = expr(object$fit),
-        newdata = expr(new_data),
-        seed = expr(sample.int(10^5, 1))
-      )
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data),
+      seed = expr(sample.int(10^5, 1))
+    )
   )
 )
 
@@ -401,7 +389,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("linear_reg", "regression", "spark")
-set_dependency("linear_reg", "spark", "sparklyr")
+set_dependency("linear_reg", "spark", "sparklyr", mode = "regression")
 
 set_fit(
   model = "linear_reg",
@@ -465,10 +453,9 @@ set_pred(
 
 # ------------------------------------------------------------------------------
 
-
 set_model_engine("linear_reg", "regression", "keras")
-set_dependency("linear_reg", "keras", "keras")
-set_dependency("linear_reg", "keras", "magrittr")
+set_dependency("linear_reg", "keras", "keras", mode = "regression")
+set_dependency("linear_reg", "keras", "magrittr", mode = "regression")
 
 set_fit(
   model = "linear_reg",
@@ -518,9 +505,8 @@ set_pred(
 
 # ------------------------------------------------------------------------------
 
-
 set_model_engine("linear_reg", "regression", "brulee")
-set_dependency("linear_reg", "brulee", "brulee")
+set_dependency("linear_reg", "brulee", "brulee", mode = "regression")
 
 
 set_model_arg(
@@ -574,19 +560,27 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "numeric"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "numeric"
+    )
   )
 )
 
 # ------------------------------------------------------------------------------
 
-set_model_engine(model = "linear_reg", mode = "quantile regression", eng = "quantreg")
-set_dependency(model = "linear_reg", eng = "quantreg", pkg = "quantreg", mode = "quantile regression")
+set_model_engine(
+  model = "linear_reg",
+  mode = "quantile regression",
+  eng = "quantreg"
+)
+set_dependency(
+  model = "linear_reg",
+  eng = "quantreg",
+  pkg = "quantreg",
+  mode = "quantile regression"
+)
 
 set_fit(
   model = "linear_reg",
@@ -621,10 +615,9 @@ set_pred(
     pre = NULL,
     post = matrix_to_quantile_pred,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = expr(object$fit),
-        newdata = expr(new_data)
-      )
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data)
+    )
   )
 )

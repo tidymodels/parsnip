@@ -26,8 +26,13 @@
 #' @export
 auto_ml <- function(mode = "unknown", engine = "h2o") {
   args <- list()
-  out <- list(args = args, eng_args = NULL,
-              mode = mode, method = NULL, engine = engine)
+  out <- list(
+    args = args,
+    eng_args = NULL,
+    mode = mode,
+    method = NULL,
+    engine = engine
+  )
   class(out) <- make_classes("auto_ml")
   out
 }

@@ -54,6 +54,23 @@ boost_tree() |>
 #| child: template-tree-split-factors.Rmd
 ```
 
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(engine == "mboost") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Other details
 
 ```{r}

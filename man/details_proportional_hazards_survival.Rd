@@ -128,6 +128,22 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \code{case_weights} that expect vectors of case weights.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("proportional_hazards_predict") |>
+  dplyr::filter(engine == "survival") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 2
+##   mode                type       
+##   <chr>               <chr>      
+## 1 censored regression time       
+## 2 censored regression survival   
+## 3 censored regression linear_pred
+}\if{html}{\out{</div>}}
+}
+
 \subsection{References}{
 \itemize{
 \item Andersen P, Gill R. 1982. Cox’s regression model for counting

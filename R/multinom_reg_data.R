@@ -5,7 +5,7 @@ set_model_mode("multinom_reg", "classification")
 # ------------------------------------------------------------------------------
 
 set_model_engine("multinom_reg", "classification", "glmnet")
-set_dependency("multinom_reg", "glmnet", "glmnet")
+set_dependency("multinom_reg", "glmnet", "glmnet", mode = "classification")
 
 set_model_arg(
   model = "multinom_reg",
@@ -58,13 +58,15 @@ set_pred(
     pre = NULL,
     post = organize_multnet_class,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newx = quote(as.matrix(new_data[, rownames(object$fit$beta[[1]]), drop = FALSE])),
-        type = "class",
-        s = quote(object$spec$args$penalty)
-      )
+    args = list(
+      object = quote(object$fit),
+      newx = quote(as.matrix(new_data[,
+        rownames(object$fit$beta[[1]]),
+        drop = FALSE
+      ])),
+      type = "class",
+      s = quote(object$spec$args$penalty)
+    )
   )
 )
 
@@ -77,13 +79,15 @@ set_pred(
     pre = NULL,
     post = organize_multnet_prob,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = expr(object$fit),
-        newx = expr(as.matrix(new_data[, rownames(object$fit$beta[[1]]), drop = FALSE])),
-        type = "response",
-        s = expr(object$spec$args$penalty)
-      )
+    args = list(
+      object = expr(object$fit),
+      newx = expr(as.matrix(new_data[,
+        rownames(object$fit$beta[[1]]),
+        drop = FALSE
+      ])),
+      type = "response",
+      s = expr(object$spec$args$penalty)
+    )
   )
 )
 
@@ -96,18 +100,17 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newx = quote(as.matrix(new_data))
-      )
+    args = list(
+      object = quote(object$fit),
+      newx = quote(as.matrix(new_data))
+    )
   )
 )
 
 # ------------------------------------------------------------------------------
 
 set_model_engine("multinom_reg", "classification", "spark")
-set_dependency("multinom_reg", "spark", "sparklyr")
+set_dependency("multinom_reg", "spark", "sparklyr", mode = "classification")
 
 set_model_arg(
   model = "multinom_reg",
@@ -161,11 +164,10 @@ set_pred(
     pre = NULL,
     post = format_spark_class,
     func = c(pkg = "sparklyr", fun = "ml_predict"),
-    args =
-      list(
-        x = quote(object$fit),
-        dataset = quote(new_data)
-      )
+    args = list(
+      x = quote(object$fit),
+      dataset = quote(new_data)
+    )
   )
 )
 
@@ -179,19 +181,18 @@ set_pred(
     pre = NULL,
     post = format_spark_probs,
     func = c(pkg = "sparklyr", fun = "ml_predict"),
-    args =
-      list(
-        x = quote(object$fit),
-        dataset = quote(new_data)
-      )
+    args = list(
+      x = quote(object$fit),
+      dataset = quote(new_data)
+    )
   )
 )
 
 # ------------------------------------------------------------------------------
 
 set_model_engine("multinom_reg", "classification", "keras")
-set_dependency("multinom_reg", "keras", "keras")
-set_dependency("multinom_reg", "keras", "magrittr")
+set_dependency("multinom_reg", "keras", "keras", mode = "classification")
+set_dependency("multinom_reg", "keras", "magrittr", mode = "classification")
 
 set_model_arg(
   model = "multinom_reg",
@@ -236,9 +237,7 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(pkg = "parsnip", fun = "keras_predict_classes"),
-    args =
-      list(object = quote(object),
-           x = quote(as.matrix(new_data)))
+    args = list(object = quote(object), x = quote(as.matrix(new_data)))
   )
 )
 
@@ -255,9 +254,7 @@ set_pred(
       x
     },
     func = c(fun = "predict"),
-    args =
-      list(object = quote(object$fit),
-           x = quote(as.matrix(new_data)))
+    args = list(object = quote(object$fit), x = quote(as.matrix(new_data)))
   )
 )
 
@@ -265,7 +262,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("multinom_reg", "classification", "nnet")
-set_dependency("multinom_reg", "nnet", "nnet")
+set_dependency("multinom_reg", "nnet", "nnet", mode = "classification")
 
 set_model_arg(
   model = "multinom_reg",
@@ -309,12 +306,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "class"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "class"
+    )
   )
 )
 
@@ -327,12 +323,11 @@ set_pred(
     pre = NULL,
     post = organize_nnet_prob,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data),
-        type = "prob"
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data),
+      type = "prob"
+    )
   )
 )
 
@@ -345,20 +340,18 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        newdata = quote(new_data)
-      )
+    args = list(
+      object = quote(object$fit),
+      newdata = quote(new_data)
+    )
   )
 )
 
 
 # ------------------------------------------------------------------------------
 
-
 set_model_engine("multinom_reg", "classification", "brulee")
-set_dependency("multinom_reg", "brulee", "brulee")
+set_dependency("multinom_reg", "brulee", "brulee", mode = "classification")
 
 
 set_model_arg(
@@ -412,12 +405,11 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "class"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "class"
+    )
   )
 )
 
@@ -430,11 +422,10 @@ set_pred(
     pre = NULL,
     post = NULL,
     func = c(fun = "predict"),
-    args =
-      list(
-        object = quote(object$fit),
-        new_data = quote(new_data),
-        type = "prob"
-      )
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "prob"
+    )
   )
 )

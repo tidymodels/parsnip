@@ -85,6 +85,23 @@ Also, because of issues with the `gee()` function, a supplementary call to `glm(
 
 The underlying model implementation does not allow for case weights. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("linear_reg_predict") |>
+  dplyr::filter(engine == "gee") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 2 x 2
+##   mode       type   
+##   <chr>      <chr>  
+## 1 regression numeric
+## 2 regression raw
+```
+
 ## References
 
  - Liang, K.Y. and Zeger, S.L. (1986) Longitudinal data analysis using generalized linear models. _Biometrika_, 73 13–22.

@@ -32,8 +32,13 @@ autoplot.model_fit <- function(object, ...) {
 
 #' @export
 #' @rdname autoplot.model_fit
-autoplot.glmnet <- function(object, ..., min_penalty = 0, best_penalty = NULL,
-                            top_n = 3L) {
+autoplot.glmnet <- function(
+  object,
+  ...,
+  min_penalty = 0,
+  best_penalty = NULL,
+  top_n = 3L
+) {
   check_number_decimal(min_penalty, min = 0, max = 1)
   check_number_decimal(best_penalty, min = 0, max = 1, allow_null = TRUE)
   check_number_whole(top_n, min = 1, max = Inf, allow_infinite = TRUE)
@@ -68,13 +73,18 @@ reformat_coefs <- function(x, p, penalty) {
   num_estimates <- nrow(x)
   if (num_estimates > p) {
     # The intercept is first
-    x <- x[-(num_estimates - p),, drop = FALSE]
+    x <- x[-(num_estimates - p), , drop = FALSE]
   }
   term_lab <- rownames(x)
   colnames(x) <- paste(seq_along(penalty))
   x <- tibble::as_tibble(x)
   x$term <- term_lab
-  x <- tidyr::pivot_longer(x, cols = -term, names_to = "index", values_to = "estimate")
+  x <- tidyr::pivot_longer(
+    x,
+    cols = -term,
+    names_to = "index",
+    values_to = "estimate"
+  )
   x$penalty <- rep(penalty, p)
   x$index <- NULL
   x
@@ -90,8 +100,14 @@ top_coefs <- function(x, top_n = 5) {
     dplyr::slice(seq_len(top_n))
 }
 
-autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L,
-                            call = rlang::caller_env(), ...) {
+autoplot_glmnet <- function(
+  x,
+  min_penalty = 0,
+  best_penalty = NULL,
+  top_n = 3L,
+  call = rlang::caller_env(),
+  ...
+) {
   tidy_coefs <-
     map_glmnet_coefs(x, call = call) |>
     dplyr::filter(penalty >= min_penalty)
@@ -134,10 +150,15 @@ autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L,
   # plot the paths and highlight the large values
   p <-
     tidy_coefs |>
-    ggplot2::ggplot(ggplot2::aes(x = penalty, y = estimate, group = term, col = term))
+    ggplot2::ggplot(ggplot2::aes(
+      x = penalty,
+      y = estimate,
+      group = term,
+      col = term
+    ))
 
   if (has_groups) {
-    p <- p + ggplot2::facet_wrap(~ class)
+    p <- p + ggplot2::facet_wrap(~class)
   }
 
   if (!is.null(best_penalty)) {
@@ -148,7 +169,7 @@ autoplot_glmnet <- function(x, min_penalty = 0, best_penalty = NULL, top_n = 3L,
     ggplot2::geom_line(alpha = .4, show.legend = FALSE) +
     ggplot2::scale_x_log10()
 
-  if(top_n > 0) {
+  if (top_n > 0) {
     rlang::check_installed("ggrepel")
     p <- p +
       ggrepel::geom_label_repel(

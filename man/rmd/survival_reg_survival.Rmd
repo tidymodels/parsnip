@@ -72,6 +72,17 @@ survival_reg() |>
 #| child: template-uses-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("survival_reg_predict") |>
+  dplyr::filter(engine == "survival") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Saving fitted model objects
 
 ```{r}

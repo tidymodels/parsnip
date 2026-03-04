@@ -38,7 +38,7 @@ or a \code{recipe} is used. For a \code{model_spec}, the first class is used. Fo
 a \code{recipe}, the unique step \code{id} is used.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 
 # List all possible varying args for the random forest spec
 rand_forest() |> varying_args()

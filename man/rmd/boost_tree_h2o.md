@@ -113,6 +113,13 @@ This engine does not require any special encoding of the predictors. Categorical
 
 Non-numeric predictors (i.e., factors) are internally converted to numeric. In the classification context, non-numeric outcomes (i.e., factors) are also internally converted to numeric. 
 
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
 ## Interpreting `mtry`
 
 
@@ -123,6 +130,30 @@ Some engines, such as `"xgboost"`, `"xrf"`, and `"lightgbm"`, interpret their an
 parsnip and its extensions accommodate this parameterization using the `counts` argument: a logical indicating whether `mtry` should be interpreted as the number of predictors that will be randomly sampled at each split. `TRUE` indicates that `mtry` will be interpreted in its sense as a count, `FALSE` indicates that the argument will be interpreted in its sense as a proportion.
 
 `mtry` is a main model argument for \\code{\\link[=boost_tree]{boost_tree()}} and \\code{\\link[=rand_forest]{rand_forest()}}, and thus should not have an engine-specific interface. So, regardless of engine, `counts` defaults to `TRUE`. For engines that support the proportion interpretation (currently `"xgboost"` and `"xrf"`, via the rules package, and `"lightgbm"` via the bonsai package) the user can pass the `counts = FALSE` argument to `set_engine()` to supply `mtry` values within `[0, 1]`.
+
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(stringr::str_starts(engine, "h2o")) |>
+  dplyr::select(mode, type) |> 
+  print(n = Inf)
+```
+
+```
+## # A tibble: 8 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob   
+## 5 regression     numeric
+## 6 regression     raw    
+## 7 classification class  
+## 8 classification prob
+```
 
 ## Initializing h2o 
 

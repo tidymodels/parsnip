@@ -23,9 +23,12 @@ Engine arguments of interest
 
 ```{r}
 #| label: h2o-reg
-auto_ml() |>  
-  set_engine("h2o") |> 
-  set_mode("regression") |> 
+
+library(agua)
+
+auto_ml() |>
+  set_engine("h2o") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -46,10 +49,26 @@ auto_ml() |>
 #| child: template-makes-dummies.Rmd
 ```
 
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
 ## Initializing h2o 
 
 ```{r}
 #| child: template-h2o-init.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("auto_ml_predict") |>
+  dplyr::select(mode, type)
+
 ```
 
 ## Saving fitted model objects
@@ -57,3 +76,4 @@ auto_ml() |>
 ```{r}
 #| child: template-bundle.Rmd
 ```
+

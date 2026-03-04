@@ -59,6 +59,17 @@ By default, [glmnet::glmnet()] uses the argument `standardize = TRUE` to center 
 #| child: template-uses-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("linear_reg_predict") |>
+  dplyr::filter(engine == "glmnet") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Sparse Data
 
 ```{r}
@@ -73,7 +84,7 @@ By default, [glmnet::glmnet()] uses the argument `standardize = TRUE` to center 
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-glmnet) for `linear_reg()` with the `"glmnet"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `linear_reg()` with the `"glmnet"` engine.
 
 ## References
 

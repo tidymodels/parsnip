@@ -10,13 +10,13 @@
 ```{r}
 #| label: kernlab-param-info
 #| echo: false
-defaults <- 
+defaults <-
   tibble::tibble(parsnip = c("cost", "margin"),
                  default = c("1.0", "0.1"))
 
 param <-
-  svm_linear() |> 
-  set_engine("kernlab") |> 
+  svm_linear() |>
+  set_engine("kernlab") |>
   make_parameter_list(defaults)
 ```
 
@@ -38,9 +38,9 @@ Parsnip changes the default range for `cost` to `c(-10, 5)`.
 svm_linear(
   cost = double(1),
   margin = double(1)
-) |>  
-  set_engine("kernlab") |> 
-  set_mode("regression") |> 
+) |>
+  set_engine("kernlab") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -50,9 +50,9 @@ svm_linear(
 #| label: kernlab-cls
 svm_linear(
   cost = double(1)
-) |> 
-  set_engine("kernlab") |> 
-  set_mode("classification") |> 
+) |>
+  set_engine("kernlab") |>
+  set_mode("classification") |>
   translate()
 ```
 
@@ -76,6 +76,17 @@ Note that the `"kernlab"` engine does not naturally estimate class probabilities
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("svm_linear_predict") |>
+  dplyr::filter(engine == "kernlab") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Saving fitted model objects
 
 ```{r}
@@ -84,7 +95,7 @@ Note that the `"kernlab"` engine does not naturally estimate class probabilities
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-linear-kernlab) for `svm_linear()` with the `"kernlab"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `svm_linear()` with the `"kernlab"` engine.
 
 ## References
 

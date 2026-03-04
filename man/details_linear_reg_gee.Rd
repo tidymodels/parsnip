@@ -105,6 +105,21 @@ that \code{predict()} can be used.
 The underlying model implementation does not allow for case weights.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("linear_reg_predict") |>
+  dplyr::filter(engine == "gee") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 x 2
+##   mode       type   
+##   <chr>      <chr>  
+## 1 regression numeric
+## 2 regression raw
+}\if{html}{\out{</div>}}
+}
+
 \subsection{References}{
 \itemize{
 \item Liang, K.Y. and Zeger, S.L. (1986) Longitudinal data analysis using

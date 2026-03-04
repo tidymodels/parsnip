@@ -96,6 +96,24 @@ Categorical predictors can be partitioned into groups of factor levels
 are not required for this model.
 }
 
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+
+Note that the data passed to the \code{case.weights} column are not used for
+traditional case weights (where the objective function is multiplied by
+a row-specific weight). From \code{?randomForest::randomForest}: “A vector of
+length same as\code{y} that are positive weights used only in sampling data
+to grow each tree (not used in any other calculation).”
+
+They function as sampling weights.
+}
+
 \subsection{Saving fitted model objects}{
 
 This model object contains data that are not required to make
@@ -104,11 +122,29 @@ size of the saved object might be substantially reduced by using
 functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "randomForest") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 5 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob   
+## 5 classification raw
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#rand-forest-randomForest}{examples}
-for \code{rand_forest()} with the \code{"randomForest"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{rand_forest()} with the \code{"randomForest"} engine.
 }
 
 \subsection{References}{

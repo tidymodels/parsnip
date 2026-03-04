@@ -5,7 +5,7 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 # ------------------------------------------------------------------------------
 
 set.seed(352)
-dat <- hpc[order(runif(150)),]
+dat <- hpc[order(runif(150)), ]
 
 tr_dat <- dat[1:140, ]
 te_dat <- dat[141:150, ]
@@ -55,7 +55,6 @@ test_that('model fitting', {
       control = ctrl
     )
   )
-
 })
 
 
@@ -76,7 +75,6 @@ test_that('classification prediction', {
 
   parsnip_pred <- predict(lr_fit, te_dat[, -5])
   expect_equal(nnet_pred, parsnip_pred$.pred_class)
-
 })
 
 
@@ -93,13 +91,16 @@ test_that('classification probabilities', {
     )
 
   nnet_pred <-
-    predict(extract_fit_engine(lr_fit), as.matrix(te_dat[, -5]), type = "prob") |>
+    predict(
+      extract_fit_engine(lr_fit),
+      as.matrix(te_dat[, -5]),
+      type = "prob"
+    ) |>
     as_tibble(.name_repair = "minimal") |>
     setNames(paste0(".pred_", lr_fit$lvl))
 
   parsnip_pred <- predict(lr_fit, te_dat[, -5], type = "prob")
   expect_equal(as.data.frame(nnet_pred), as.data.frame(parsnip_pred))
-
 })
 
 test_that('prob prediction with 1 row', {
@@ -116,7 +117,11 @@ test_that('prob prediction with 1 row', {
     )
 
   nnet_pred <-
-    predict(extract_fit_engine(lr_fit), as.matrix(te_dat[1, -5]), type = "prob") |>
+    predict(
+      extract_fit_engine(lr_fit),
+      as.matrix(te_dat[1, -5]),
+      type = "prob"
+    ) |>
     as.matrix() |>
     t() |>
     tibble::as_tibble(.name_repair = "minimal") |>
@@ -127,5 +132,3 @@ test_that('prob prediction with 1 row', {
   expect_equal(nnet_pred, parsnip_pred)
   expect_identical(nrow(parsnip_pred), 1L)
 })
-
-

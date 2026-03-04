@@ -45,9 +45,32 @@ logistic_reg(penalty = double(1), mixture = double(1)) |>
 
 Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
 
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
+
 
 Predictors should have the same scale. One way to achieve this is to center and 
 scale each so that each predictor has mean zero and a variance of one.
+
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("logistic_reg_predict") |>
+  dplyr::filter(engine == "LiblineaR") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 3 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob 
+## 3 classification raw
+```
 
 ## Sparse Data
 
@@ -56,7 +79,7 @@ This model can utilize sparse data during model fitting and prediction. Both spa
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#logistic-reg-LiblineaR) for `logistic_reg()` with the `"LiblineaR"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `logistic_reg()` with the `"LiblineaR"` engine.
 
 ## References
 

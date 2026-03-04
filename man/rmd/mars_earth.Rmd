@@ -68,6 +68,16 @@ An alternate method for using MARs for categorical outcomes can be found in [dis
 
 Note that the `earth` package documentation has: "In the current implementation, _building models with weights can be slow_."
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("mars_predict") |>
+  dplyr::select(mode, type)
+
+```
+
 ## Saving fitted model objects
 
 ```{r}
@@ -76,7 +86,7 @@ Note that the `earth` package documentation has: "In the current implementation,
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#mars-earth) for `mars()` with the `"earth"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `mars()` with the `"earth"` engine.
 
 ## References
 

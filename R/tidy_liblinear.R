@@ -10,7 +10,7 @@
 
 tidy._LiblineaR <- function(x, ...) {
   check_installs(x$spec)
-  ret <- tibble(colnames(x$fit$W), x$fit$W[1,])
+  ret <- tibble(colnames(x$fit$W), x$fit$W[1, ])
   colnames(ret) <- c("term", "estimate")
 
   ret

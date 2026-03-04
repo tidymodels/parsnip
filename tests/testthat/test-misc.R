@@ -25,20 +25,16 @@ test_that('parsnip objects', {
     error = TRUE,
     multi_predict(extract_fit_engine(mars_fit), mtcars)
   )
-
 })
 
 test_that('other objects', {
-
   expect_false(has_multi_predict(NULL))
   expect_false(has_multi_predict(NA))
-
 })
 
 # ------------------------------------------------------------------------------
 
 test_that('S3 method dispatch/registration', {
-
   expect_no_condition(
     res <-
       null_model() |>
@@ -58,7 +54,6 @@ test_that('S3 method dispatch/registration', {
       tidy()
   )
   expect_true(tibble::is_tibble(res))
-
 })
 
 # ------------------------------------------------------------------------------
@@ -102,7 +97,6 @@ test_that('correct mtry', {
   expect_equal(max_mtry_formula(2, f_2, ames), 2)
 
   expect_equal(max_mtry_formula(200, f_3, data = mtcars), ncol(mtcars) - 2)
-
 })
 
 # ----------------------------------------------------------------------------
@@ -171,17 +165,15 @@ test_that('arguments can be passed to model spec inside function', {
 
 
 test_that('set_engine works as a generic', {
-  expect_snapshot(error = TRUE,
-                  set_engine(mtcars, "rpart")
-  )
-
+  expect_snapshot(error = TRUE, set_engine(mtcars, "rpart"))
 })
 
 test_that('check_for_newdata points out correct context', {
-  fn <- function(...) {check_for_newdata(...); invisible()}
-  expect_snapshot(error = TRUE,
-                  fn(newdata = "boop!")
-  )
+  fn <- function(...) {
+    check_for_newdata(...)
+    invisible()
+  }
+  expect_snapshot(error = TRUE, fn(newdata = "boop!"))
 })
 
 test_that('check_outcome works as expected', {
@@ -207,7 +199,7 @@ test_that('check_outcome works as expected', {
 
   expect_snapshot(
     error = TRUE,
-    fit(reg_spec, ~ mpg, mtcars)
+    fit(reg_spec, ~mpg, mtcars)
   )
 
   expect_snapshot(
@@ -237,7 +229,7 @@ test_that('check_outcome works as expected', {
 
   expect_snapshot(
     error = TRUE,
-    fit(class_spec, ~ mpg, mtcars)
+    fit(class_spec, ~mpg, mtcars)
   )
 
   # Fake specification to avoid having to load {censored}
@@ -264,26 +256,28 @@ test_that('obtaining prediction columns', {
   lr_fit <- logistic_reg() |> fit(Class ~ ., data = two_class_dat)
   expect_equal(
     .get_prediction_column_names(lr_fit),
-    list(estimate = ".pred_class",
-         probabilities = c(".pred_Class1", ".pred_Class2"))
+    list(
+      estimate = ".pred_class",
+      probabilities = c(".pred_Class1", ".pred_Class2")
+    )
   )
   expect_equal(
     .get_prediction_column_names(lr_fit, syms = TRUE),
-    list(estimate = list(quote(.pred_class)),
-         probabilities = list(quote(.pred_Class1), quote(.pred_Class2)))
+    list(
+      estimate = list(quote(.pred_class)),
+      probabilities = list(quote(.pred_Class1), quote(.pred_Class2))
+    )
   )
 
   ### regression
   ols_fit <- linear_reg() |> fit(mpg ~ ., data = mtcars)
   expect_equal(
     .get_prediction_column_names(ols_fit),
-    list(estimate = ".pred",
-         probabilities = character(0))
+    list(estimate = ".pred", probabilities = character(0))
   )
   expect_equal(
     .get_prediction_column_names(ols_fit, syms = TRUE),
-    list(estimate = list(quote(.pred)),
-         probabilities = list())
+    list(estimate = list(quote(.pred)), probabilities = list())
   )
 
   ### censored regression
@@ -301,7 +295,6 @@ test_that('obtaining prediction columns', {
     .get_prediction_column_names(unk_fit),
     error = TRUE
   )
-
 })
 
 
@@ -343,4 +336,3 @@ test_that('register local models', {
 
   expect_snapshot(my_model() |> translate("my_engine"))
 })
-

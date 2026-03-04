@@ -132,6 +132,22 @@ variance of one.
 The underlying model implementation does not allow for case weights.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("mlp_predict") |>
+  dplyr::filter(engine == "brulee") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 classification class  
+## 3 classification prob
+}\if{html}{\out{</div>}}
+}
+
 \subsection{References}{
 \itemize{
 \item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.

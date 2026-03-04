@@ -28,7 +28,12 @@
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("naive_Bayes")}
 #' @export
 naive_Bayes <-
-  function(mode = "classification", smoothness = NULL, Laplace = NULL, engine = "klaR") {
+  function(
+    mode = "classification",
+    smoothness = NULL,
+    Laplace = NULL,
+    engine = "klaR"
+  ) {
     args <-
       list(
         smoothness = rlang::enquo(smoothness),
@@ -54,14 +59,11 @@ naive_Bayes <-
 #' @inheritParams naive_Bayes
 #' @export
 update.naive_Bayes <-
-  function(object,
-           smoothness = NULL, Laplace = NULL,
-           fresh = FALSE, ...) {
-
+  function(object, smoothness = NULL, Laplace = NULL, fresh = FALSE, ...) {
     args <-
       list(
         smoothness = rlang::enquo(smoothness),
-        Laplace    = rlang::enquo(Laplace)
+        Laplace = rlang::enquo(Laplace)
       )
 
     update_spec(

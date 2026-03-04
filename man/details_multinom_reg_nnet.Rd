@@ -52,11 +52,27 @@ center and scale each so that each predictor has mean zero and a
 variance of one.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("multinom_reg_predict") |>
+  dplyr::filter(engine == "nnet") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob 
+## 3 classification raw
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-nnet}{examples}
-for \code{multinom_reg()} with the \code{"nnet"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{multinom_reg()} with the \code{"nnet"} engine.
 }
 
 \subsection{Case weights}{

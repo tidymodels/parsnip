@@ -121,6 +121,14 @@ on \code{tidymodels.org}.
 
 The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \code{case_weights} that expect vectors of case weights.
+
+Note that the data passed to the \code{case.weights} column are not used for
+traditional case weights (where the objective function is multiplied by
+a row-specific weight). From \code{?ranger::ranger}: “Observations with
+larger weights will be selected with higher probability in the bootstrap
+(or subsampled) samples for the trees.”
+
+They function as sampling weights.
 }
 
 \subsection{Sparse Data}{
@@ -143,11 +151,31 @@ size of the saved object might be substantially reduced by using
 functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "ranger") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 7 x 2
+##   mode           type    
+##   <chr>          <chr>   
+## 1 classification class   
+## 2 classification prob    
+## 3 classification conf_int
+## 4 classification raw     
+## 5 regression     numeric 
+## 6 regression     conf_int
+## # i 1 more row
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#rand-forest-ranger}{examples}
-for \code{rand_forest()} with the \code{"ranger"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{rand_forest()} with the \code{"ranger"} engine.
 }
 
 \subsection{References}{

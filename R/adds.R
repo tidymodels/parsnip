@@ -12,4 +12,3 @@ add_rowindex <- function(x) {
   x <- dplyr::mutate(x, .row = seq_len(nrow(x)))
   x
 }
-

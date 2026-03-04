@@ -133,6 +133,22 @@ as.matrix(qr_pred$.pred_quantile)
 
 Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("linear_reg_predict") |>
+  dplyr::filter(engine == "quantreg") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 1 x 2
+##   mode                type    
+##   <chr>               <chr>   
+## 1 quantile regression quantile
+```
+
 ## Case weights
 
 
@@ -147,7 +163,7 @@ This model object contains data that are not required to make predictions. When 
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-quantreg) for `linear_reg()` with the `"quantreg"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `linear_reg()` with the `"quantreg"` engine.
 
 ## References
 

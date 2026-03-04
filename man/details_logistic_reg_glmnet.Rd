@@ -73,6 +73,22 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \code{case_weights} that expect vectors of case weights.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("logistic_reg_predict") |>
+  dplyr::filter(engine == "glmnet") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob 
+## 3 classification raw
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Sparse Data}{
 
 This model can utilize sparse data during model fitting and prediction.
@@ -91,9 +107,9 @@ functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#logistic-reg-glmnet}{examples}
-for \code{logistic_reg()} with the \code{"glmnet"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{logistic_reg()} with the \code{"glmnet"} engine.
 }
 
 \subsection{References}{

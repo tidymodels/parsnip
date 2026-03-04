@@ -121,7 +121,15 @@ Note that, per the documentation in \code{?xrf}, transformations of the
 response variable are not supported. To use these with \code{rule_fit()}, we
 recommend using a recipe instead of the formula method.
 
-Also, there are several configuration differences in how \code{xrf()} is fit
+Note that \code{rule_fit()}“prefits” the boosted tree via
+\code{\link[=xgb_train]{xgb_train()}} so that early stopping
+can be used. If the fomrula method is used,
+\code{\link[=xgb_train]{xgb_train()}} uses a one-hot encoding,
+whereas \code{\link[xrf:xrf]{xrf::xrf()}} uses
+\code{\link[stats:model.matrix]{stats::model.matrix()}}, so the predictor data
+frames are different (but not by much).
+
+There are several configuration differences in how \code{xrf()} is fit
 between that package and the wrapper used in \strong{rules}. Some differences
 in default values are:\tabular{lll}{
    parameter \tab \strong{xrf} \tab \strong{rules} \cr
@@ -129,6 +137,11 @@ in default values are:\tabular{lll}{
    \code{max_depth} \tab 3 \tab 6 \cr
 }
 
+
+Also, the default objective function in multinomial models used by
+\code{\link[xrf:xrf]{xrf::xrf()}} is softmax while
+\code{\link[=xgb_train]{xgb_train()}} uses the multinomial
+likelihood.
 
 These differences will create a disparity in the values of the \code{penalty}
 argument that \strong{glmnet} uses. Also, \strong{rules} can also set \code{penalty}
@@ -198,6 +211,22 @@ converted to \code{trees - 1} and a warning is issued.
 \subsection{Case weights}{
 
 The underlying model implementation does not allow for case weights.
+}
+
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("rule_fit_predict") |>
+  dplyr::filter(engine == "xrf") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 classification class  
+## 3 classification prob
+}\if{html}{\out{</div>}}
 }
 
 \subsection{References}{

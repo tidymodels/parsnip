@@ -111,6 +111,25 @@ scale each so that each predictor has mean zero and a variance of one.
 
 The underlying model implementation does not allow for case weights. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("pls_predict") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 5 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob   
+## 5 classification raw
+```
+
 ## References
 
  - Rohart F and Gautier B and Singh A and Le Cao K-A  (2017). "mixOmics: An R package for 'omics feature selection and multiple data integration." PLoS computational biology, 13(11), e1005752.

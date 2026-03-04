@@ -138,6 +138,20 @@ formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
 convert factor columns to indicators.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("linear_reg_predict") |>
+  dplyr::filter(engine == "quantreg") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 1 x 2
+##   mode                type    
+##   <chr>               <chr>   
+## 1 quantile regression quantile
+}\if{html}{\out{</div>}}
+}
+
 \subsection{Case weights}{
 
 This model can utilize case weights during model fitting. To use them,
@@ -158,9 +172,9 @@ functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-quantreg}{examples}
-for \code{linear_reg()} with the \code{"quantreg"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{linear_reg()} with the \code{"quantreg"} engine.
 }
 
 \subsection{References}{

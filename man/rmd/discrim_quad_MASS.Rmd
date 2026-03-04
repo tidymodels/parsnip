@@ -38,6 +38,17 @@ discrim_quad() |>
 #| child: template-no-case-weights.Rmd
 ```
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("discrim_quad_predict") |>
+  dplyr::filter(engine == "MASS") |>
+  dplyr::select(mode, type)
+
+```
+
 ## References
 
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

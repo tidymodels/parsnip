@@ -121,16 +121,18 @@ rule_fit(
 
 ## Differences from the xrf package
 
-Note that, per the documentation in `?xrf`, transformations of the response variable are not supported. To
-use these with `rule_fit()`, we recommend using a recipe instead of the formula method.
+Note that, per the documentation in `?xrf`, transformations of the response variable are not supported. To use these with `rule_fit()`, we recommend using a recipe instead of the formula method.
 
-Also, there are several configuration differences in how `xrf()` is fit between that package and the wrapper used in **rules**. Some differences in default values are:
+Note that `rule_fit()`"prefits" the boosted tree via [parsnip::xgb_train()] so that early stopping can be used. If the fomrula method is used, [parsnip::xgb_train()] uses a one-hot encoding, whereas [xrf::xrf()] uses [stats::model.matrix()], so the predictor data frames are different (but not by much).
+
+There are several configuration differences in how `xrf()` is fit between that package and the wrapper used in **rules**. Some differences in default values are:
 
 | parameter  | **xrf** | **rules** |
 |------------|---------|-----------|
 | `trees`    |  100    | 15        |
 |`max_depth` | 3       | 6         |
 
+Also, the default objective function in multinomial models used by [xrf::xrf()] is softmax while [parsnip::xgb_train()] uses the multinomial likelihood.
 
 These differences will create a disparity in the values of the `penalty` argument that **glmnet** uses. Also, **rules** can also set `penalty` whereas **xrf** uses an internal 5-fold cross-validation to determine it (by default).
 
@@ -165,6 +167,24 @@ If the model specification has `early_stop >= trees`, `early_stop` is converted 
 
 
 The underlying model implementation does not allow for case weights. 
+
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("rule_fit_predict") |>
+  dplyr::filter(engine == "xrf") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 3 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 classification class  
+## 3 classification prob
+```
 
 ## References
 

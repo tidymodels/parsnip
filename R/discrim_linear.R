@@ -30,9 +30,12 @@
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_linear")}
 #' @export
 discrim_linear <-
-  function(mode = "classification", penalty = NULL, regularization_method = NULL,
-           engine = "MASS") {
-
+  function(
+    mode = "classification",
+    penalty = NULL,
+    regularization_method = NULL,
+    engine = "MASS"
+  ) {
     args <- list(
       penalty = rlang::enquo(penalty),
       regularization_method = rlang::enquo(regularization_method)
@@ -57,11 +60,13 @@ discrim_linear <-
 #' @inheritParams discrim_linear
 #' @export
 update.discrim_linear <-
-  function(object,
-           penalty = NULL,
-           regularization_method = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    penalty = NULL,
+    regularization_method = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
       penalty = rlang::enquo(penalty),
       regularization_method = rlang::enquo(regularization_method)
@@ -81,10 +86,15 @@ update.discrim_linear <-
 
 #' @export
 check_args.discrim_linear <- function(object, call = rlang::caller_env()) {
-
   args <- lapply(object$args, rlang::eval_tidy)
 
-  check_number_decimal(args$penalty, min = 0, allow_null = TRUE, call = call, arg = "penalty")
+  check_number_decimal(
+    args$penalty,
+    min = 0,
+    allow_null = TRUE,
+    call = call,
+    arg = "penalty"
+  )
 
   invisible(object)
 }

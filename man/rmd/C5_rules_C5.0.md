@@ -58,6 +58,22 @@ This model can utilize case weights during model fitting. To use them, see the d
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("C5_rules_predict") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 2 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob
+```
+
 ## Saving fitted model objects
 
 

@@ -1,7 +1,6 @@
 #' @method tune_args model_spec
 #' @export
 tune_args.model_spec <- function(object, full = FALSE, ...) {
-
   # use the model_spec top level class as the id
   model_type <- class(object)[1]
 
@@ -10,7 +9,7 @@ tune_args.model_spec <- function(object, full = FALSE, ...) {
   }
 
   # Locate tunable args in spec args and engine specific args
-  object$args     <- purrr::map(object$args, convert_args)
+  object$args <- purrr::map(object$args, convert_args)
   object$eng_args <- purrr::map(object$eng_args, convert_args)
 
   arg_id <- purrr::map_chr(object$args, find_tune_id)
@@ -32,10 +31,8 @@ tune_args.model_spec <- function(object, full = FALSE, ...) {
 }
 
 
-
 # helpers for tune_args() methods -----------------------------------------
 # they also exist in recipes for the `tune_args()` methods there
-
 
 # If we map over a list or arguments and some are quosures, we get the message
 # that "Subsetting quosures with `[[` is deprecated as of rlang 0.4.0"
@@ -50,22 +47,27 @@ convert_args <- function(x) {
 
 # useful for standardization and for creating a 0 row tunable tbl
 # (i.e. for when there are no steps in a recipe)
-tune_tbl <- function(name = character(),
-                     tunable = logical(),
-                     id = character(),
-                     source = character(),
-                     component = character(),
-                     component_id = character(),
-                     full = FALSE,
-                     call = caller_env()) {
-
+tune_tbl <- function(
+  name = character(),
+  tunable = logical(),
+  id = character(),
+  source = character(),
+  component = character(),
+  component_id = character(),
+  full = FALSE,
+  call = caller_env()
+) {
   check_bool(full, call = call)
   complete_id <- id[!is.na(id)]
   dups <- duplicated(complete_id)
   if (any(dups)) {
-    stop("There are duplicate `id` values listed in [tune()]: ",
-         paste0("'", unique(complete_id[dups]), "'", collapse = ", "),
-         ".", sep = "", call. = FALSE)
+    stop(
+      "There are duplicate `id` values listed in [tune()]: ",
+      paste0("'", unique(complete_id[dups]), "'", collapse = ", "),
+      ".",
+      sep = "",
+      call. = FALSE
+    )
   }
 
   vry_tbl <- tibble::new_tibble(
@@ -81,7 +83,7 @@ tune_tbl <- function(name = character(),
   )
 
   if (!full) {
-    vry_tbl <- vry_tbl[vry_tbl$tunable,]
+    vry_tbl <- vry_tbl[vry_tbl$tunable, ]
   }
 
   vry_tbl
@@ -126,7 +128,6 @@ tune_id <- function(x) {
 }
 
 find_tune_id <- function(x) {
-
   # STEP 1 - Early exits
 
   # Early exit for empty elements (like list())
@@ -176,7 +177,8 @@ find_tune_id <- function(x) {
       "The current argument has: `",
       paste0(deparse(x), collapse = ""),
       "`.",
-      call. = FALSE)
+      call. = FALSE
+    )
   }
 
   return(tunable_elems)

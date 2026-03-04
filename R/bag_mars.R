@@ -22,15 +22,17 @@
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("bag_mars")}
 #' @export
 bag_mars <-
-  function(mode = "unknown",
-           num_terms = NULL,
-           prod_degree = NULL,
-           prune_method = NULL,
-           engine = "earth") {
+  function(
+    mode = "unknown",
+    num_terms = NULL,
+    prod_degree = NULL,
+    prune_method = NULL,
+    engine = "earth"
+  ) {
     args <- list(
-      num_terms   = enquo(num_terms),
-      prod_degree  = enquo(prod_degree),
-      prune_method  = enquo(prune_method)
+      num_terms = enquo(num_terms),
+      prod_degree = enquo(prod_degree),
+      prune_method = enquo(prune_method)
     )
 
     new_model_spec(
@@ -52,15 +54,19 @@ bag_mars <-
 #' @inheritParams mars
 #' @export
 update.bag_mars <-
-  function(object,
-           parameters = NULL,
-           num_terms = NULL, prod_degree = NULL, prune_method = NULL,
-           fresh = FALSE, ...) {
-
+  function(
+    object,
+    parameters = NULL,
+    num_terms = NULL,
+    prod_degree = NULL,
+    prune_method = NULL,
+    fresh = FALSE,
+    ...
+  ) {
     args <- list(
-      num_terms   = enquo(num_terms),
-      prod_degree  = enquo(prod_degree),
-      prune_method  = enquo(prune_method)
+      num_terms = enquo(num_terms),
+      prod_degree = enquo(prod_degree),
+      prune_method = enquo(prune_method)
     )
 
     update_spec(

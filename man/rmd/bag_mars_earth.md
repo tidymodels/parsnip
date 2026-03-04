@@ -93,6 +93,23 @@ The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that e
 
 Note that the `earth` package documentation has: "In the current implementation, _building models with weights can be slow_."
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("bag_mars_predict") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 3 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 classification class  
+## 3 classification prob
+```
+
 ## References
 
  - Breiman, L. 1996. "Bagging predictors". Machine Learning. 24 (2): 123-140

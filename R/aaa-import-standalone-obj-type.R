@@ -89,12 +89,11 @@ obj_type_friendly <- function(x, value = TRUE) {
           typeof(x),
           logical = "`NA`",
           integer = "an integer `NA`",
-          double =
-            if (is.nan(x)) {
-              "`NaN`"
-            } else {
-              "a numeric `NA`"
-            },
+          double = if (is.nan(x)) {
+            "`NaN`"
+          } else {
+            "a numeric `NA`"
+          },
           complex = "a complex `NA`",
           character = "a character `NA`",
           .rlang_stop_unexpected_typeof(x)
@@ -296,14 +295,16 @@ obj_type_oo <- function(x) {
 #' @param ... Arguments passed to [abort()].
 #' @inheritParams args_error_context
 #' @noRd
-stop_input_type <- function(x,
-                            what,
-                            ...,
-                            allow_na = FALSE,
-                            allow_null = FALSE,
-                            show_value = TRUE,
-                            arg = caller_arg(x),
-                            call = caller_env()) {
+stop_input_type <- function(
+  x,
+  what,
+  ...,
+  allow_na = FALSE,
+  allow_null = FALSE,
+  show_value = TRUE,
+  arg = caller_arg(x),
+  call = caller_env()
+) {
   # From standalone-cli.R
   cli <- env_get_list(
     nms = c("format_arg", "format_code"),

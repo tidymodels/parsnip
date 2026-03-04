@@ -487,7 +487,7 @@ If parameters of a model specification need to be modified, \code{update()} can
 be used in lieu of recreating the object from scratch.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 
 # ------------------------------------------------------------------------------
 
@@ -496,7 +496,7 @@ model
 update(model, trees = 1)
 update(model, trees = 1, fresh = TRUE)
 \dontshow{\}) # examplesIf}
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 
 # ------------------------------------------------------------------------------
 
@@ -505,13 +505,13 @@ model
 update(model, committees = 1)
 update(model, committees = 1, fresh = TRUE)
 \dontshow{\}) # examplesIf}
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 model <- pls(predictor_prop =  0.1)
 model
 update(model, predictor_prop = 1)
 update(model, predictor_prop = 1, fresh = TRUE)
 \dontshow{\}) # examplesIf}
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 # ------------------------------------------------------------------------------
 
 model <- rule_fit(trees = 10, min_n = 2)
@@ -519,7 +519,7 @@ model
 update(model, trees = 1)
 update(model, trees = 1, fresh = TRUE)
 \dontshow{\}) # examplesIf}
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 model <- boost_tree(mtry = 10, min_n = 3)
 model
 update(model, mtry = 1)

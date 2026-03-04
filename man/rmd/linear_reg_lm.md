@@ -41,6 +41,25 @@ _However_, the documentation in [stats::lm()] assumes that is specific type of c
 
 Depending on your application, the degrees of freedom for the model (and other statistics) might be incorrect. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("linear_reg_predict") |>
+  dplyr::filter(engine == "lm") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 4 x 2
+##   mode       type    
+##   <chr>      <chr>   
+## 1 regression numeric 
+## 2 regression conf_int
+## 3 regression pred_int
+## 4 regression raw
+```
+
 ## Saving fitted model objects
 
 
@@ -48,7 +67,7 @@ This model object contains data that are not required to make predictions. When 
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-lm) for `linear_reg()` with the `"lm"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `linear_reg()` with the `"lm"` engine.
 
 ## References
 

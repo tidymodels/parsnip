@@ -59,6 +59,24 @@ This model can utilize case weights during model fitting. To use them, see the d
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("logistic_reg_predict") |>
+  dplyr::filter(engine == "glmnet") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 3 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob 
+## 3 classification raw
+```
+
 ## Sparse Data
 
 
@@ -71,7 +89,7 @@ This model object contains data that are not required to make predictions. When 
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#logistic-reg-glmnet) for `logistic_reg()` with the `"glmnet"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `logistic_reg()` with the `"glmnet"` engine.
 
 ## References
 
