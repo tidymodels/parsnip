@@ -49,7 +49,10 @@
 ordinal_reg <-
   function(
     mode = "classification",
-    ordinal_link = NULL, odds_link = NULL, penalty = NULL, mixture = NULL,
+    ordinal_link = NULL,
+    odds_link = NULL,
+    penalty = NULL,
+    mixture = NULL,
     engine = "polr"
   ) {
 
