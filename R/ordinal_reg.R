@@ -117,10 +117,21 @@ check_args.ordinal_reg <- function(object, call = rlang::caller_env()) {
   args <- lapply(object$args, rlang::eval_tidy)
 
   # copied from `check_args.linear_reg`
-  check_number_decimal(args$mixture, min = 0, max = 1,
-                       allow_null = TRUE, call = call, arg = "mixture")
-  check_number_decimal(args$penalty, min = 0,
-                       allow_null = TRUE, call = call, arg = "penalty")
+  check_number_decimal(
+    args$mixture,
+    min = 0,
+    max = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "mixture"
+  )
+  check_number_decimal(
+    args$penalty,
+    min = 0,
+    allow_null = TRUE,
+    call = call,
+    arg = "penalty"
+  )
 
   invisible(object)
 }
