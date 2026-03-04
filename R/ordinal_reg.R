@@ -194,7 +194,8 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
       # can be interpolated.
       x$method$fit$args$nLambda <- 120L
       min_lambda <-
-        if (rlang::is_call(x$method$fit$args$lambdaVals) ||
+        if (
+          rlang::is_call(x$method$fit$args$lambdaVals) ||
             is.null(x$method$fit$args$lambdaVals) ||
             0 %in% x$method$fit$args$lambdaVals) {
           1e-08
