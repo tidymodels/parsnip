@@ -217,6 +217,30 @@ setting the `bagging_freq` argument to
 [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md)
 manually.
 
+#### Custom Objective Functions
+
+The default objective for classification models is set automatically
+based on the number of outcome levels: `binary` for two-class problems
+and `multiclass` for more than two classes. For regression, the default
+is `regression`.
+
+You can specify an alternative objective using
+[`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md):
+
+    boost_tree() |>
+      set_engine("lightgbm", objective = "multiclassova") |>
+      set_mode("classification")
+
+For multiclass objectives (`multiclass`, `softmax`, `multiclassova`,
+`multiclass_ova`, `ova`, `ovr`), the `num_class` parameter is
+automatically determined from the number of outcome levels. This means
+you do not need to manually specify `num_class` when using these
+objectives.
+
+See the [LightGBM
+documentation](https://lightgbm.readthedocs.io/en/latest/Parameters.html#core-parameters)
+for a full list of available objectives.
+
 #### Verbosity
 
 bonsai quiets much of the logging output from `lightgbm::lgb.train()` by
