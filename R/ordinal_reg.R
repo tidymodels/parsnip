@@ -208,7 +208,8 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
         if (
           rlang::is_call(x$method$fit$args$lambdaVals) ||
             is.null(x$method$fit$args$lambdaVals) ||
-            0 %in% x$method$fit$args$lambdaVals) {
+            0 %in% x$method$fit$args$lambdaVals
+        ) {
           1e-08
         } else {
           min(x$method$fit$args$lambdaVals)
