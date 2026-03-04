@@ -7,7 +7,8 @@ set_model_mode("svm_poly", "regression")
 
 set_model_engine("svm_poly", "classification", "kernlab")
 set_model_engine("svm_poly", "regression", "kernlab")
-set_dependency("svm_poly", "kernlab", "kernlab")
+set_dependency("svm_poly", "kernlab", "kernlab", mode = "classification")
+set_dependency("svm_poly", "kernlab", "kernlab", mode = "regression")
 
 set_model_arg(
   model = "svm_poly",

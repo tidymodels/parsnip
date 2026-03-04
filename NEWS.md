@@ -2,7 +2,11 @@
 
 * For developers, `format_predictions()` is a new unified function for formatting prediction outputs, consolidating the logic from the individual `format_*()` functions (#927). The individual functions `format_num()`, `format_class()`, `format_classprobs()`, `format_time()`, `format_survival()`, `format_linear_pred()`, and `format_hazard()` are now deprecated.
 
+* Documentation for the lightgbm engine now includes information about custom objective functions and automatic `num_class` handling (#1275).
+
 * Fixed a bug in random forest fits using the `"aorsf"` engine where the check for `mtry` could not be performed (#1276)
+
+* `repair_call()` now errors informatively when given an object that is not a fitted parsnip model (#598).
 
 * Fix bug in predicting class probabilities for multiclass earth models (#1334)
 

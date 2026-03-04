@@ -246,7 +246,8 @@ set_pred(
 
 set_model_engine("decision_tree", "classification", "spark")
 set_model_engine("decision_tree", "regression", "spark")
-set_dependency("decision_tree", "spark", "sparklyr")
+set_dependency("decision_tree", "spark", "sparklyr", mode = "classification")
+set_dependency("decision_tree", "spark", "sparklyr", mode = "regression")
 
 set_model_arg(
   model = "decision_tree",
