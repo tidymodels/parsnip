@@ -7,12 +7,14 @@
 
 ```{r vglm-param-info, echo=FALSE}
 defaults <- 
-  tibble::tibble(parsnip = c("penalty", "mixture"),
-                 default = c("see below", "1.0"))
+  tibble::tibble(
+    parsnip = c("ordinal_link", "odds_link"),
+    default = c("logit", "cumulative")
+  )
 
 param <-
   ordinal_reg() |>
-  set_engine("vglm") |>
+  set_engine("ordinalNet") |>
   set_mode("classification") |>
   make_parameter_list(defaults)
 ```
@@ -30,11 +32,38 @@ param$item
 ```{r vglm-oreg}
 library(ordered)
 
-ordinal_reg() %>% 
+ordinal_reg(ordinal_link = character(0), odds_link = character(0)) %>% 
   set_engine("vglm") %>% 
   set_mode("classification") %>% 
   translate()
 ```
+
+## Preprocessing requirements
+
+```{r}
+#| child: template-makes-dummies.Rmd
+```
+
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
+_However_, the documentation in [VGAM::vglm()] notes that matrix of case weights can be passed so that different classes have different weights. tidymodels assumes vector of a weights; a matrix cannot be passed in. 
+
+Also, the engine documentation notes that: "The values of weights must be positive; try setting a very small value such as 1.0e-8 to effectively delete an observation."
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+parsnip:::get_from_env("ordinal_reg_predict") |>
+  dplyr::filter(engine == "vglm") |>
+  dplyr::select(mode, type)
+```
+
+
 
 ## References
 
