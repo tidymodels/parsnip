@@ -69,7 +69,7 @@ Ordinal regression models include cumulative, sequential, and
 adjacent structures.
 }
 \examples{
-\dontshow{if (!parsnip:::is_cran_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 show_engines("ordinal_reg")
 
 ordinal_reg(mode = "classification")

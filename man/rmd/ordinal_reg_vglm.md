@@ -5,7 +5,11 @@ For this engine, there is a single mode: classification
 
 ## Tuning Parameters
 
-This model has no tuning parameters.
+
+
+This model has 0 tuning parameters:
+
+
 
 ## Translation from parsnip to the original package
 
@@ -16,7 +20,7 @@ The **ordered** extension package is required to fit this model.
 library(ordered)
 
 ordinal_reg() %>% 
-  set_engine("polr") %>% 
+  set_engine("vglm") %>% 
   set_mode("classification") %>% 
   translate()
 ```
@@ -24,12 +28,13 @@ ordinal_reg() %>%
 ```
 ## Ordinal Regression Model Specification (classification)
 ## 
-## Computational engine: polr 
+## Computational engine: vglm 
 ## 
 ## Model fit template:
-## MASS::polr(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
+## ordered::VGAM_vglm_wrapper(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg(), parallel = TRUE)
 ```
 
 ## References
 
-- Bürkner P-C, Vuorre M. 2019. Ordinal Regression Models in Psychology: A Tutorial. _Advances in Methods and Practices in Psychological Science_ 2(1):77-101. \doi{10.1177/2515245918823199}.
+- Yee T. 2010. The VGAM Package for Categorical Data Analysis. _Journal of Statistical Software_ 32(10):1--34. \doi{10.18637/jss.v032.i10}.

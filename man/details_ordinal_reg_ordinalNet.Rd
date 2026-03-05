@@ -9,4 +9,46 @@ fit models of the elementwise link multinomial-ordinal (ELMO) class, each
 comprising parallel and non-parallel forms and including the most common
 ordinal regression models, with an elastic net penalty.
 }
+\details{
+For this engine, there is a single mode: classification
+\subsection{Tuning Parameters}{
+
+This model has 2 tuning parameters:
+\itemize{
+\item \code{penalty}: Amount of Regularization (type: double, default: see below)
+\item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 1.0)
+}
+}
+
+\subsection{Translation from parsnip to the original package}{
+
+The \strong{ordered} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ordered)
+
+ordinal_reg() \%>\% 
+  set_engine("ordinalNet") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Ordinal Regression Model Specification (classification)
+## 
+## Computational engine: ordinalNet 
+## 
+## Model fit template:
+## ordered::ordinalNet_wrapper(x = missing_arg(), y = missing_arg(), 
+##     weights = missing_arg(), nLambda = 120L, lambdaMinRatio = 1e-08, 
+##     includeLambda0 = TRUE)
+}\if{html}{\out{</div>}}
+}
+
+\subsection{References}{
+\itemize{
+\item Wurm MJ, Rathouz PJ, Hanlon BM. 2021. Regularized Ordinal Regression
+and the ordinalNet R Package. \emph{Journal of Statistical Software}
+99(6):1-42. .
+}
+}
+}
 \keyword{internal}

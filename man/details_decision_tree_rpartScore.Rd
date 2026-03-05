@@ -7,4 +7,55 @@
 \code{\link[rpartScore:rpartScore]{rpartScore::rpartScore()}} extends \link[=details_decision_tree_rpart]{rpart} to
 fit classification trees for ordinal responses.
 }
+\details{
+For this engine, there is a single mode: classification
+\subsection{Tuning parameters}{
+
+This model has 3 tuning parameters:
+\itemize{
+\item \code{tree_depth}: Tree Depth (type: integer, default: 30L)
+\item \code{min_n}: Minimal Node Size (type: integer, default: 2L)
+\item \code{cost_complexity}: Cost-Complexity Parameter (type: double, default:
+0.01)
+}
+}
+
+\subsection{Translation from parsnip to the original package}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
+  set_engine("rpartScore") |> 
+  set_mode("classification") |> 
+  translate()
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Decision Tree Model Specification (classification)
+## 
+## Main Arguments:
+##   cost_complexity = double(1)
+##   tree_depth = integer(1)
+##   min_n = integer(1)
+## 
+## Computational engine: rpartScore 
+## 
+## Model fit template:
+## ordered::rpartScore_wrapper(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg(), cp = double(1), maxdepth = integer(1), 
+##     minsplit = min_rows(0L, data))
+}\if{html}{\out{</div>}}\if{html}{\out{
+<!--
+REVIEW: Add any needed sections here.
+-->
+}}
+
+}
+
+\subsection{References}{
+\itemize{
+\item Galimberti G, Soffritti G, Di Maso M. 2012. Classification Trees for
+Ordinal Responses in R: The rpartScore Package. \emph{Journal of
+Statistical Software} 47(10):1-25. .
+\item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
+}
+}
+}
 \keyword{internal}

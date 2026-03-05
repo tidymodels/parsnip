@@ -7,4 +7,40 @@
 \code{\link[VGAM:vglm]{VGAM::vglm()}} fits vector generalized linear models, which specialize to
 several families of ordinal regression models.
 }
+\details{
+For this engine, there is a single mode: classification
+\subsection{Tuning Parameters}{
+
+This model has 0 tuning parameters:
+}
+
+\subsection{Translation from parsnip to the original package}{
+
+The \strong{ordered} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ordered)
+
+ordinal_reg() \%>\% 
+  set_engine("vglm") \%>\% 
+  set_mode("classification") \%>\% 
+  translate()
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Ordinal Regression Model Specification (classification)
+## 
+## Computational engine: vglm 
+## 
+## Model fit template:
+## ordered::VGAM_vglm_wrapper(formula = missing_arg(), data = missing_arg(), 
+##     weights = missing_arg(), parallel = TRUE)
+}\if{html}{\out{</div>}}
+}
+
+\subsection{References}{
+\itemize{
+\item Yee T. 2010. The VGAM Package for Categorical Data Analysis. \emph{Journal
+of Statistical Software} 32(10):1–34. .
+}
+}
+}
 \keyword{internal}

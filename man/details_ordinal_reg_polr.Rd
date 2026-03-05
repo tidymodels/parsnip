@@ -7,11 +7,6 @@
 \code{\link[MASS:polr]{MASS::polr()}} fits a cumulative-link ordinal regression model.
 }
 \details{
-\if{html}{\out{
-<!-- FIXME: Created manually because i can't install \{mixOmics\}. -->
-}}
-
-
 For this engine, there is a single mode: classification
 \subsection{Tuning Parameters}{
 
@@ -29,14 +24,22 @@ ordinal_reg() \%>\%
   set_mode("classification") \%>\% 
   translate()
 }\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Ordinal Regression Model Specification (classification)
+## 
+## Computational engine: polr 
+## 
+## Model fit template:
+## MASS::polr(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
+}\if{html}{\out{</div>}}
 }
-}
-\section{References}{
+
+\subsection{References}{
 \itemize{
 \item Bürkner P-C, Vuorre M. 2019. Ordinal Regression Models in Psychology:
 A Tutorial. \emph{Advances in Methods and Practices in Psychological
 Science} 2(1):77-101. .
 }
 }
-
+}
 \keyword{internal}
