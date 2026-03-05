@@ -119,6 +119,22 @@
       Error in `set_engine()`:
       ! No known engines for `proportional_hazards()`.
 
+---
+
+    Code
+      set_engine(ordinal_reg())
+    Condition
+      Error in `set_engine()`:
+      ! No known engines for `ordinal_reg()`.
+
+---
+
+    Code
+      set_mode(ordinal_reg(), "regression")
+    Condition
+      Error in `set_mode()`:
+      ! "regression" is not a known mode for model `ordinal_reg()`.
+
 # set_* functions error when input isn't model_spec
 
     Code
