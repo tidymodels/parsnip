@@ -1,4 +1,4 @@
-# Random forests via partykit
+# Random forests via Conditional Inference using partykit
 
 [`partykit::cforest()`](https://rdrr.io/pkg/partykit/man/cforest.html)
 fits a model that creates a large number of decision trees, each
@@ -126,6 +126,14 @@ Predictions of type `"time"` are predictions of the median survival
 time.
 
 ### References
+
+- Hothorn, T., Hornik, K., & Zeileis, A. (2006). Unbiased recursive
+  partitioning: A conditional inference framework. *Journal of
+  Computational and Graphical Statistics*, 15(3), 651-674.
+
+- Strobl, C., Boulesteix, A. L., Zeileis, A., & Hothorn, T. (2007). Bias
+  in random forest variable importance measures: Illustrations, sources
+  and a solution. *BMC bioinformatics*, 8(1), 25.
 
 - [partykit: A Modular Toolkit for Recursive Partytioning in
   R](https://jmlr.org/papers/v16/hothorn15a.html)

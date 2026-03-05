@@ -1,4 +1,4 @@
-# Decision trees via partykit
+# Decision trees via Conditional Inference using partykit
 
 [`partykit::ctree()`](https://rdrr.io/pkg/partykit/man/ctree.html) fits
 a model as a set of if/then statements that creates a tree-based
@@ -146,6 +146,10 @@ Predictions of type `"time"` are predictions of the median survival
 time.
 
 ### References
+
+- Hothorn, T., Hornik, K., & Zeileis, A. (2006). Unbiased recursive
+  partitioning: A conditional inference framework. *Journal of
+  Computational and Graphical Statistics*, 15(3), 651-674.
 
 - [partykit: A Modular Toolkit for Recursive Partytioning in
   R](https://jmlr.org/papers/v16/hothorn15a.html)
