@@ -72,10 +72,10 @@ ordinal_reg <-
       args = args,
       eng_args = NULL,
       mode = mode,
-      user_specified_mode = ! missing(mode),
+      user_specified_mode = !missing(mode),
       method = NULL,
       engine = engine,
-      user_specified_engine = ! missing(engine)
+      user_specified_engine = !missing(engine)
     )
   }
 
@@ -88,8 +88,12 @@ update.ordinal_reg <-
   function(
     object,
     parameters = NULL,
-    ordinal_link = NULL, odds_link = NULL, penalty = NULL, mixture = NULL,
-    fresh = FALSE, ...
+    ordinal_link = NULL,
+    odds_link = NULL,
+    penalty = NULL,
+    mixture = NULL,
+    fresh = FALSE,
+    ...
   ) {
 
     args <- list(
@@ -148,7 +152,7 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
   # is passed a value that the engine doesn't accept?
   if (engine == "polr") {
     oddslink <- rlang::eval_tidy(x$args$odds_link)
-    if (! is.null(oddslink) && oddslink != "cumulative_link") {
+    if (!is.null(oddslink) && oddslink != "cumulative_link") {
       cli::cli_warn(
         c(
           "!" = "The polr engine uses the cumulative link odds link;
@@ -189,7 +193,7 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
       x$eng_args$path_values <- NULL
       x$method$fit$args$path_values <- NULL
     } else {
-    # } else if (! rlang::is_call(x$method$fit$args$lambdaVals)) {
+      # } else if (! rlang::is_call(x$method$fit$args$lambdaVals)) {
       # REVIEW: `ordinalNet` models won't use values of `lambdaVals` at
       # predict-time outside the range used at fit-time. To enable a prediction
       # using a practical range of penalties _including the `penalty` value used

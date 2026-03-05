@@ -254,7 +254,7 @@ test_that("arguments (ordinal_reg)", {
     penalty_ordinalNet <-
       ordinal_reg(penalty = .001) |> set_engine("ordinalNet")
     penalties_ordinalNet <-
-      ordinal_reg(penalty = 10^seq(-5,-1)) |> set_engine("ordinalNet")
+      ordinal_reg(penalty = 10^seq(-5, -1)) |> set_engine("ordinalNet")
   })
 
   # empty because engines are not defined in parsnip
