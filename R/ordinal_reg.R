@@ -55,7 +55,6 @@ ordinal_reg <-
     mixture = NULL,
     engine = "polr"
   ) {
-
     if (mode != "classification") {
       rlang::abort("`mode` should be 'classification'")
     }
@@ -95,7 +94,6 @@ update.ordinal_reg <-
     fresh = FALSE,
     ...
   ) {
-
     args <- list(
       ordinal_link = enquo(ordinal_link),
       odds_link = enquo(odds_link),
@@ -117,7 +115,6 @@ update.ordinal_reg <-
 
 #' @export
 check_args.ordinal_reg <- function(object, call = rlang::caller_env()) {
-
   args <- lapply(object$args, rlang::eval_tidy)
 
   # copied from `check_args.linear_reg`
@@ -165,9 +162,8 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
 
   # adapted from `.check_glmnet_penalty_fit()`
   if (engine == "ordinalNet") {
-
     pen <- rlang::eval_tidy(x$args$penalty)
-    if (length(pen) >= 1L) {
+    if (length(pen) != 1L) {
       msg <- c(
         "x" = "The ordinalNet engine ignores {.arg penalty} in favor of a
           path that enables prediction at interpolated penalty values.",
@@ -179,8 +175,7 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
           msg,
           c(
             "i" = "To specify multiple values for total regularization,
-              use the {.pkg tune} package.",
-            "i" = "To predict multiple penalties, use {.fn multi_predict}."
+              use the {.pkg tune} package."
           )
         )
       }
@@ -250,7 +245,6 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
     #   )
     #   x$method$fit$args$family <- quo(!! fam)
     # }
-
   }
 
   x
