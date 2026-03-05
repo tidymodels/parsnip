@@ -1,3 +1,6 @@
+#' @include tunable.R
+NULL
+
 #' Multinomial regression
 #'
 #' @description
@@ -71,6 +74,36 @@ multinom_reg <-
 
 #' @export
 translate.multinom_reg <- translate.linear_reg
+
+# nocov start
+multinom_reg_tunable_spec <- list(
+  glmnet = list(
+    updates = list(
+      mixture = list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00))
+    )
+  ),
+  brulee = list(
+    replace_fn = function(base, component) {
+      brulee_mlp_args |>
+        dplyr::anti_join(brulee_mlp_only_args, by = "name") |>
+        dplyr::mutate(
+          component = "multinom_reg",
+          component_id = ifelse(
+            name %in% names(formals("multinom_reg")),
+            "main",
+            "engine"
+          )
+        ) |>
+        dplyr::select(name, call_info, source, component, component_id)
+    }
+  )
+)
+
+#' @export
+tunable.multinom_reg <- function(x, ...) {
+  apply_tunable_spec(NextMethod(), x$engine, multinom_reg_tunable_spec)
+}
+# nocov end
 
 # ------------------------------------------------------------------------------
 

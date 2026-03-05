@@ -1,3 +1,6 @@
+#' @include tunable.R
+NULL
+
 #' Multivariate adaptive regression splines (MARS)
 #'
 #' @description
@@ -109,6 +112,26 @@ translate.mars <- function(x, engine = x$engine, ...) {
   x <- translate.default(x, engine, ...)
   x
 }
+
+# nocov start
+earth_engine_args <-
+  tibble::tibble(
+    name = c("nk"),
+    call_info = list(list(pkg = "dials", fun = "max_num_terms")),
+    source = "model_spec",
+    component = "mars",
+    component_id = "engine"
+  )
+
+mars_tunable_spec <- list(
+  earth = list(add_params = earth_engine_args)
+)
+
+#' @export
+tunable.mars <- function(x, ...) {
+  apply_tunable_spec(NextMethod(), x$engine, mars_tunable_spec)
+}
+# nocov end
 
 # ------------------------------------------------------------------------------
 

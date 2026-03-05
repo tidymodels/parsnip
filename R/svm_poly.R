@@ -1,3 +1,6 @@
+#' @include tunable.R
+NULL
+
 #' Polynomial support vector machines
 #'
 #' @description
@@ -139,6 +142,21 @@ translate.svm_poly <- function(x, engine = x$engine, ...) {
   # worried about people using this to modify the specification
   x
 }
+
+# nocov start
+svm_poly_tunable_spec <- list(
+  kernlab = list(
+    updates = list(
+      degree = list(pkg = "dials", fun = "prod_degree", range = c(1L, 3L))
+    )
+  )
+)
+
+#' @export
+tunable.svm_poly <- function(x, ...) {
+  apply_tunable_spec(NextMethod(), x$engine, svm_poly_tunable_spec)
+}
+# nocov end
 
 # ------------------------------------------------------------------------------
 

@@ -1,3 +1,6 @@
+#' @include tunable.R
+NULL
+
 #' Logistic regression
 #'
 #' @description
@@ -113,6 +116,36 @@ translate.logistic_reg <- function(x, engine = x$engine, ...) {
   }
   x
 }
+
+# nocov start
+logistic_reg_tunable_spec <- list(
+  glmnet = list(
+    updates = list(
+      mixture = list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00))
+    )
+  ),
+  brulee = list(
+    replace_fn = function(base, component) {
+      brulee_mlp_args |>
+        dplyr::anti_join(brulee_mlp_only_args, by = "name") |>
+        dplyr::mutate(
+          component = "logistic_reg",
+          component_id = ifelse(
+            name %in% names(formals("logistic_reg")),
+            "main",
+            "engine"
+          )
+        ) |>
+        dplyr::select(name, call_info, source, component, component_id)
+    }
+  )
+)
+
+#' @export
+tunable.logistic_reg <- function(x, ...) {
+  apply_tunable_spec(NextMethod(), x$engine, logistic_reg_tunable_spec)
+}
+# nocov end
 
 # ------------------------------------------------------------------------------
 

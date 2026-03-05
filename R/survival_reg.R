@@ -1,3 +1,6 @@
+#' @include tunable.R
+NULL
+
 #' Parametric survival regression
 #'
 #' @description
@@ -88,6 +91,26 @@ translate.survival_reg <- function(x, engine = x$engine, ...) {
   x <- translate.default(x, engine, ...)
   x
 }
+
+# nocov start
+flexsurvspline_engine_args <-
+  tibble::tibble(
+    name = c("k"),
+    call_info = list(list(pkg = "dials", fun = "num_knots")),
+    source = "model_spec",
+    component = "survival_reg",
+    component_id = "engine"
+  )
+
+survival_reg_tunable_spec <- list(
+  flexsurvspline = list(add_params = flexsurvspline_engine_args)
+)
+
+#' @export
+tunable.survival_reg <- function(x, ...) {
+  apply_tunable_spec(NextMethod(), x$engine, survival_reg_tunable_spec)
+}
+# nocov end
 
 #' @export
 check_args.survival_reg <- function(object, call = rlang::caller_env()) {

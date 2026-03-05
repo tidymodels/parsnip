@@ -6,18 +6,14 @@ tunable.model_spec <- function(x, ...) {
   mod_env <- get_model_env()
 
   if (is.null(x$engine)) {
-    stop("Please declare an engine first using `set_engine()`.", call. = FALSE)
+    cli::cli_abort("Please declare an engine first using {.fn set_engine}.")
   }
 
   arg_name <- paste0(mod_type(x), "_args")
   if (!(any(arg_name == names(mod_env)))) {
-    stop(
-      "The `parsnip` model database doesn't know about the arguments for ",
-      "model `",
-      mod_type(x),
-      "`. Was it registered?",
-      sep = "",
-      call. = FALSE
+    cli::cli_abort(
+      "The parsnip model database doesn't know about the arguments for
+       model {.val {mod_type(x)}}. Was it registered?"
     )
   }
 
@@ -67,167 +63,53 @@ add_engine_parameters <- function(pset, engines) {
     pset <-
       dplyr::bind_rows(pset, engines |> dplyr::filter(name %in% engines$name))
   }
+
   pset
 }
 
-c5_tree_engine_args <-
-  tibble::tibble(
-    name = c(
-      "CF",
-      "noGlobalPruning",
-      "winnow",
-      "fuzzyThreshold",
-      "bands"
-    ),
-    call_info = list(
-      list(pkg = "dials", fun = "confidence_factor"),
-      list(pkg = "dials", fun = "no_global_pruning"),
-      list(pkg = "dials", fun = "predictor_winnowing"),
-      list(pkg = "dials", fun = "fuzzy_thresholding"),
-      list(pkg = "dials", fun = "rule_bands")
-    ),
-    source = "model_spec",
-    component = "decision_tree",
-    component_id = "engine"
-  )
+# Apply a tunable spec to modify the base result from `NextMethod()`.
+#
+# @param base_result Result from `NextMethod()` in `tunable.model_spec()`.
+# @param engine Engine name.
+# @param spec A named list of engine specifications. Each engine entry can have:
+#   - `add_params`: tibble of engine parameters to add
+#   - `updates`: named list of call_info updates for specific parameters
+#   - `replace_fn`: `function(base, component)` that returns a completely new result
+apply_tunable_spec <- function(base_result, engine, spec) {
+  if (is.null(engine) || !engine %in% names(spec)) {
+    return(base_result)
+  }
 
-c5_boost_engine_args <- c5_tree_engine_args
-c5_boost_engine_args$component <- "boost_tree"
+  engine_spec <- spec[[engine]]
+  res <- base_result
 
-xgboost_engine_args <-
-  tibble::tibble(
-    name = c(
-      "alpha",
-      "lambda",
-      "scale_pos_weight"
-    ),
-    call_info = list(
-      list(pkg = "dials", fun = "penalty_L1"),
-      list(pkg = "dials", fun = "penalty_L2"),
-      list(pkg = "dials", fun = "scale_pos_weight")
-    ),
-    source = "model_spec",
-    component = "boost_tree",
-    component_id = "engine"
-  )
+  # Pattern 3: Complete replacement
+  if (!is.null(engine_spec$replace_fn)) {
+    component <- unique(base_result$component)[1]
+    return(engine_spec$replace_fn(base_result, component))
+  }
 
-lightgbm_engine_args <-
-  tibble::tibble(
-    name = c(
-      "num_leaves"
-    ),
-    call_info = list(
-      list(pkg = "dials", fun = "num_leaves")
-    ),
-    source = "model_spec",
-    component = "boost_tree",
-    component_id = "engine"
-  )
+  # Pattern 1: Add engine parameters
+  if (!is.null(engine_spec$add_params)) {
+    res <- add_engine_parameters(res, engine_spec$add_params)
+  }
 
-catboost_engine_args <-
-  tibble::tibble(
-    name = c(
-      "max_leaves",
-      "l2_leaf_reg"
-    ),
-    call_info = list(
-      list(pkg = "dials", fun = "num_leaves"),
-      list(pkg = "dials", fun = "penalty", range = c(-4, 1))
-    ),
-    source = "model_spec",
-    component = "boost_tree",
-    component_id = "engine"
-  )
+  # Pattern 2: Update specific parameters
+  if (!is.null(engine_spec$updates)) {
+    for (param_name in names(engine_spec$updates)) {
+      idx <- which(res$name == param_name)
+      if (length(idx) > 0) {
+        res$call_info[idx] <- list(engine_spec$updates[[param_name]])
+      }
+    }
+  }
 
-ranger_engine_args <-
-  tibble::tibble(
-    name = c(
-      "regularization.factor",
-      "regularization.usedepth",
-      "alpha",
-      "minprop",
-      "splitrule",
-      "num.random.splits"
-    ),
-    call_info = list(
-      list(pkg = "dials", fun = "regularization_factor"),
-      list(pkg = "dials", fun = "regularize_depth"),
-      list(pkg = "dials", fun = "significance_threshold"),
-      list(pkg = "dials", fun = "lower_quantile"),
-      list(pkg = "dials", fun = "splitting_rule"),
-      list(pkg = "dials", fun = "num_random_splits")
-    ),
-    source = "model_spec",
-    component = "rand_forest",
-    component_id = "engine"
-  )
-
-randomForest_engine_args <-
-  tibble::tibble(
-    name = c("maxnodes"),
-    call_info = list(
-      list(pkg = "dials", fun = "max_nodes")
-    ),
-    source = "model_spec",
-    component = "rand_forest",
-    component_id = "engine"
-  )
-
-
-partykit_engine_args <-
-  tibble::tibble(
-    name = c(
-      "mincriterion",
-      "teststat",
-      "testtype"
-    ),
-    call_info = list(
-      list(pkg = "dials", fun = "conditional_min_criterion"),
-      list(pkg = "dials", fun = "conditional_test_statistic"),
-      list(pkg = "dials", fun = "conditional_test_type")
-    ),
-    source = "model_spec",
-    component = "rand_forest",
-    component_id = "engine"
-  )
-
-aorsf_engine_args <-
-  tibble::tibble(
-    name = c(
-      "split_min_stat"
-    ),
-    call_info = list(
-      list(pkg = "dials", fun = "conditional_min_criterion")
-    ),
-    source = "model_spec",
-    component = "rand_forest",
-    component_id = "engine"
-  )
-
-earth_engine_args <-
-  tibble::tibble(
-    name = c("nk"),
-    call_info = list(
-      list(pkg = "dials", fun = "max_num_terms")
-    ),
-    source = "model_spec",
-    component = "mars",
-    component_id = "engine"
-  )
-
-flexsurvspline_engine_args <-
-  tibble::tibble(
-    name = c("k"),
-    call_info = list(
-      list(pkg = "dials", fun = "num_knots")
-    ),
-    source = "model_spec",
-    component = "survival_reg",
-    component_id = "engine"
-  )
+  res
+}
 
 # ------------------------------------------------------------------------------
-# used for brulee engines:
+# Shared data for brulee engines (used by linear_reg, logistic_reg,
+# multinom_reg, mlp)
 
 tune_activations <- c("relu", "tanh", "elu", "log_sigmoid", "tanhshrink")
 tune_sched <- c("none", "decay_time", "decay_expo", "cyclic", "step")
@@ -279,187 +161,5 @@ brulee_mlp_only_args <-
       'dropout'
     )
   )
-
-# ------------------------------------------------------------------------------
-
-#' @export
-tunable.linear_reg <- function(x, ...) {
-  res <- NextMethod()
-  if (x$engine == "glmnet") {
-    res$call_info[res$name == "mixture"] <-
-      list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
-  } else if (x$engine == "brulee") {
-    res <-
-      brulee_mlp_args |>
-      dplyr::anti_join(brulee_mlp_only_args, by = "name") |>
-      dplyr::filter(name != "class_weights") |>
-      dplyr::mutate(
-        component = "linear_reg",
-        component_id = ifelse(
-          name %in% names(formals("linear_reg")),
-          "main",
-          "engine"
-        )
-      ) |>
-      dplyr::select(name, call_info, source, component, component_id)
-  }
-  res
-}
-
-#' @export
-
-#' @export
-tunable.logistic_reg <- function(x, ...) {
-  res <- NextMethod()
-  if (x$engine == "glmnet") {
-    res$call_info[res$name == "mixture"] <-
-      list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
-  } else if (x$engine == "brulee") {
-    res <-
-      brulee_mlp_args |>
-      dplyr::anti_join(brulee_mlp_only_args, by = "name") |>
-      dplyr::mutate(
-        component = "logistic_reg",
-        component_id = ifelse(
-          name %in% names(formals("logistic_reg")),
-          "main",
-          "engine"
-        )
-      ) |>
-      dplyr::select(name, call_info, source, component, component_id)
-  }
-  res
-}
-
-#' @export
-tunable.multinom_reg <- function(x, ...) {
-  res <- NextMethod()
-  if (x$engine == "glmnet") {
-    res$call_info[res$name == "mixture"] <-
-      list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
-  } else if (x$engine == "brulee") {
-    res <-
-      brulee_mlp_args |>
-      dplyr::anti_join(brulee_mlp_only_args, by = "name") |>
-      dplyr::mutate(
-        component = "multinom_reg",
-        component_id = ifelse(
-          name %in% names(formals("multinom_reg")),
-          "main",
-          "engine"
-        )
-      ) |>
-      dplyr::select(name, call_info, source, component, component_id)
-  }
-  res
-}
-
-#' @export
-tunable.boost_tree <- function(x, ...) {
-  res <- NextMethod()
-  if (x$engine == "xgboost") {
-    res <- add_engine_parameters(res, xgboost_engine_args)
-    res$call_info[res$name == "sample_size"] <-
-      list(list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)))
-    res$call_info[res$name == "learn_rate"] <-
-      list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1 / 2)))
-  } else if (x$engine == "C5.0") {
-    res <- add_engine_parameters(res, c5_boost_engine_args)
-    res$call_info[res$name == "trees"] <-
-      list(list(pkg = "dials", fun = "trees", range = c(1, 100)))
-    res$call_info[res$name == "sample_size"] <-
-      list(list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)))
-  } else if (x$engine == "lightgbm") {
-    res <- add_engine_parameters(res, lightgbm_engine_args)
-    res$call_info[res$name == "sample_size"] <-
-      list(list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)))
-    res$call_info[res$name == "learn_rate"] <-
-      list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1 / 2)))
-  } else if (x$engine == "catboost") {
-    res <- add_engine_parameters(res, catboost_engine_args)
-    res$call_info[res$name == "learn_rate"] <-
-      list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1 / 2)))
-    res$call_info[res$name == "sample_size"] <-
-      list(list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)))
-  }
-  res
-}
-
-#' @export
-tunable.rand_forest <- function(x, ...) {
-  res <- NextMethod()
-  if (x$engine == "ranger") {
-    res <- add_engine_parameters(res, ranger_engine_args)
-  } else if (x$engine == "randomForest") {
-    res <- add_engine_parameters(res, randomForest_engine_args)
-  } else if (x$engine == "partykit") {
-    res <- add_engine_parameters(res, partykit_engine_args)
-  } else if (x$engine == "aorsf") {
-    res <- add_engine_parameters(res, aorsf_engine_args)
-  }
-  res
-}
-
-#' @export
-tunable.mars <- function(x, ...) {
-  res <- NextMethod()
-  if (x$engine == "earth") {
-    res <- add_engine_parameters(res, earth_engine_args)
-  }
-  res
-}
-
-#' @export
-tunable.decision_tree <- function(x, ...) {
-  res <- NextMethod()
-  if (x$engine == "C5.0") {
-    res <- add_engine_parameters(res, c5_tree_engine_args)
-  } else if (x$engine == "partykit") {
-    res <-
-      add_engine_parameters(
-        res,
-        partykit_engine_args |>
-          dplyr::mutate(component = "decision_tree")
-      )
-  }
-  res
-}
-
-#' @export
-tunable.svm_poly <- function(x, ...) {
-  res <- NextMethod()
-  if (x$engine == "kernlab") {
-    res$call_info[res$name == "degree"] <-
-      list(list(pkg = "dials", fun = "prod_degree", range = c(1L, 3L)))
-  }
-  res
-}
-
-#' @export
-tunable.mlp <- function(x, ...) {
-  res <- NextMethod()
-  if (grepl("brulee", x$engine)) {
-    res <-
-      brulee_mlp_args |>
-      dplyr::mutate(
-        component = "mlp",
-        component_id = ifelse(name %in% names(formals("mlp")), "main", "engine")
-      ) |>
-      dplyr::select(name, call_info, source, component, component_id)
-    if (x$engine == "brulee") {
-      res <- res[!grepl("_2", res$name), ]
-    }
-  }
-  res
-}
-
-#' @export
-tunable.survival_reg <- function(x, ...) {
-  res <- NextMethod()
-  if (x$engine == "flexsurvspline") {
-    res <- add_engine_parameters(res, flexsurvspline_engine_args)
-  }
-  res
-}
 
 # nocov end

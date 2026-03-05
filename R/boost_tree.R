@@ -1,5 +1,8 @@
 # Prototype parsnip code for boosted trees
 
+#' @include tunable.R
+NULL
+
 #' Boosted trees
 #'
 #' @description
@@ -173,6 +176,121 @@ translate.boost_tree <- function(x, engine = x$engine, ...) {
 
   x
 }
+
+# nocov start
+xgboost_engine_args <-
+  tibble::tibble(
+    name = c("alpha", "lambda", "scale_pos_weight"),
+    call_info = list(
+      list(pkg = "dials", fun = "penalty_L1"),
+      list(pkg = "dials", fun = "penalty_L2"),
+      list(pkg = "dials", fun = "scale_pos_weight")
+    ),
+    source = "model_spec",
+    component = "boost_tree",
+    component_id = "engine"
+  )
+
+lightgbm_engine_args <-
+  tibble::tibble(
+    name = c("num_leaves"),
+    call_info = list(list(pkg = "dials", fun = "num_leaves")),
+    source = "model_spec",
+    component = "boost_tree",
+    component_id = "engine"
+  )
+
+catboost_engine_args <-
+  tibble::tibble(
+    name = c("max_leaves", "l2_leaf_reg"),
+    call_info = list(
+      list(pkg = "dials", fun = "num_leaves"),
+      list(pkg = "dials", fun = "penalty", range = c(-4, 1))
+    ),
+    source = "model_spec",
+    component = "boost_tree",
+    component_id = "engine"
+  )
+
+c5_boost_engine_args <-
+  tibble::tibble(
+    name = c("CF", "noGlobalPruning", "winnow", "fuzzyThreshold", "bands"),
+    call_info = list(
+      list(pkg = "dials", fun = "confidence_factor"),
+      list(pkg = "dials", fun = "no_global_pruning"),
+      list(pkg = "dials", fun = "predictor_winnowing"),
+      list(pkg = "dials", fun = "fuzzy_thresholding"),
+      list(pkg = "dials", fun = "rule_bands")
+    ),
+    source = "model_spec",
+    component = "boost_tree",
+    component_id = "engine"
+  )
+
+boost_tree_tunable_spec <- list(
+  xgboost = list(
+    add_params = xgboost_engine_args,
+    updates = list(
+      sample_size = list(
+        pkg = "dials",
+        fun = "sample_prop",
+        range = c(0.5, 1.0)
+      ),
+      learn_rate = list(
+        pkg = "dials",
+        fun = "learn_rate",
+        range = c(-3, -1 / 2)
+      )
+    )
+  ),
+  C5.0 = list(
+    add_params = c5_boost_engine_args,
+    updates = list(
+      trees = list(pkg = "dials", fun = "trees", range = c(1, 100)),
+      sample_size = list(
+        pkg = "dials",
+        fun = "sample_prop",
+        range = c(0.5, 1.0)
+      )
+    )
+  ),
+  lightgbm = list(
+    add_params = lightgbm_engine_args,
+    updates = list(
+      sample_size = list(
+        pkg = "dials",
+        fun = "sample_prop",
+        range = c(0.5, 1.0)
+      ),
+      learn_rate = list(
+        pkg = "dials",
+        fun = "learn_rate",
+        range = c(-3, -1 / 2)
+      )
+    )
+  ),
+  catboost = list(
+    add_params = catboost_engine_args,
+    updates = list(
+      learn_rate = list(
+        pkg = "dials",
+        fun = "learn_rate",
+        range = c(-3, -1 / 2)
+      ),
+      sample_size = list(
+        pkg = "dials",
+        fun = "sample_prop",
+        range = c(0.5, 1.0)
+      )
+    )
+  )
+)
+
+#' @export
+tunable.boost_tree <- function(x, ...) {
+  apply_tunable_spec(NextMethod(), x$engine, boost_tree_tunable_spec)
+}
+# nocov end
 
 # ------------------------------------------------------------------------------
 

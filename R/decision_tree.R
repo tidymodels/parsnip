@@ -1,5 +1,8 @@
 # Prototype parsnip code for decision trees
 
+#' @include tunable.R
+NULL
+
 #' Decision trees
 #'
 #' @description
@@ -134,6 +137,46 @@ translate.decision_tree <- function(x, engine = x$engine, ...) {
 
   x
 }
+
+# nocov start
+c5_tree_engine_args <-
+  tibble::tibble(
+    name = c("CF", "noGlobalPruning", "winnow", "fuzzyThreshold", "bands"),
+    call_info = list(
+      list(pkg = "dials", fun = "confidence_factor"),
+      list(pkg = "dials", fun = "no_global_pruning"),
+      list(pkg = "dials", fun = "predictor_winnowing"),
+      list(pkg = "dials", fun = "fuzzy_thresholding"),
+      list(pkg = "dials", fun = "rule_bands")
+    ),
+    source = "model_spec",
+    component = "decision_tree",
+    component_id = "engine"
+  )
+
+partykit_tree_engine_args <-
+  tibble::tibble(
+    name = c("mincriterion", "teststat", "testtype"),
+    call_info = list(
+      list(pkg = "dials", fun = "conditional_min_criterion"),
+      list(pkg = "dials", fun = "conditional_test_statistic"),
+      list(pkg = "dials", fun = "conditional_test_type")
+    ),
+    source = "model_spec",
+    component = "decision_tree",
+    component_id = "engine"
+  )
+
+decision_tree_tunable_spec <- list(
+  C5.0 = list(add_params = c5_tree_engine_args),
+  partykit = list(add_params = partykit_tree_engine_args)
+)
+
+#' @export
+tunable.decision_tree <- function(x, ...) {
+  apply_tunable_spec(NextMethod(), x$engine, decision_tree_tunable_spec)
+}
+# nocov end
 
 # ------------------------------------------------------------------------------
 

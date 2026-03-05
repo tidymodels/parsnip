@@ -1,3 +1,6 @@
+#' @include tunable.R
+NULL
+
 #' Single layer neural network
 #'
 #' @description
@@ -136,6 +139,45 @@ translate.mlp <- function(x, engine = x$engine, ...) {
   }
   x
 }
+
+# nocov start
+mlp_tunable_spec <- list(
+  brulee = list(
+    replace_fn = function(base, component) {
+      brulee_mlp_args |>
+        dplyr::filter(!grepl("_2", name)) |>
+        dplyr::mutate(
+          component = "mlp",
+          component_id = ifelse(
+            name %in% names(formals("mlp")),
+            "main",
+            "engine"
+          )
+        ) |>
+        dplyr::select(name, call_info, source, component, component_id)
+    }
+  ),
+  brulee_two_layer = list(
+    replace_fn = function(base, component) {
+      brulee_mlp_args |>
+        dplyr::mutate(
+          component = "mlp",
+          component_id = ifelse(
+            name %in% names(formals("mlp")),
+            "main",
+            "engine"
+          )
+        ) |>
+        dplyr::select(name, call_info, source, component, component_id)
+    }
+  )
+)
+
+#' @export
+tunable.mlp <- function(x, ...) {
+  apply_tunable_spec(NextMethod(), x$engine, mlp_tunable_spec)
+}
+# nocov end
 
 # ------------------------------------------------------------------------------
 

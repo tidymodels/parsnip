@@ -1,3 +1,6 @@
+#' @include tunable.R
+NULL
+
 #' Random forest
 #'
 #' @description
@@ -172,6 +175,74 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
 
   x
 }
+
+# nocov start
+ranger_engine_args <-
+  tibble::tibble(
+    name = c(
+      "regularization.factor",
+      "regularization.usedepth",
+      "alpha",
+      "minprop",
+      "splitrule",
+      "num.random.splits"
+    ),
+    call_info = list(
+      list(pkg = "dials", fun = "regularization_factor"),
+      list(pkg = "dials", fun = "regularize_depth"),
+      list(pkg = "dials", fun = "significance_threshold"),
+      list(pkg = "dials", fun = "lower_quantile"),
+      list(pkg = "dials", fun = "splitting_rule"),
+      list(pkg = "dials", fun = "num_random_splits")
+    ),
+    source = "model_spec",
+    component = "rand_forest",
+    component_id = "engine"
+  )
+
+randomForest_engine_args <-
+  tibble::tibble(
+    name = c("maxnodes"),
+    call_info = list(list(pkg = "dials", fun = "max_nodes")),
+    source = "model_spec",
+    component = "rand_forest",
+    component_id = "engine"
+  )
+
+partykit_forest_engine_args <-
+  tibble::tibble(
+    name = c("mincriterion", "teststat", "testtype"),
+    call_info = list(
+      list(pkg = "dials", fun = "conditional_min_criterion"),
+      list(pkg = "dials", fun = "conditional_test_statistic"),
+      list(pkg = "dials", fun = "conditional_test_type")
+    ),
+    source = "model_spec",
+    component = "rand_forest",
+    component_id = "engine"
+  )
+
+aorsf_engine_args <-
+  tibble::tibble(
+    name = c("split_min_stat"),
+    call_info = list(list(pkg = "dials", fun = "conditional_min_criterion")),
+    source = "model_spec",
+    component = "rand_forest",
+    component_id = "engine"
+  )
+
+rand_forest_tunable_spec <- list(
+  ranger = list(add_params = ranger_engine_args),
+  randomForest = list(add_params = randomForest_engine_args),
+  partykit = list(add_params = partykit_forest_engine_args),
+  aorsf = list(add_params = aorsf_engine_args)
+)
+
+#' @export
+tunable.rand_forest <- function(x, ...) {
+  apply_tunable_spec(NextMethod(), x$engine, rand_forest_tunable_spec)
+}
+# nocov end
 
 # ------------------------------------------------------------------------------
 
