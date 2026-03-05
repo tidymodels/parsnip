@@ -41,12 +41,39 @@ This model has 3 tuning parameters:
 ## ordered::rpartScore_wrapper(formula = missing_arg(), data = missing_arg(), 
 ##     weights = missing_arg(), cp = double(1), maxdepth = integer(1), 
 ##     minsplit = min_rows(0L, data))
-}\if{html}{\out{</div>}}\if{html}{\out{
-<!--
-REVIEW: Add any needed sections here.
--->
-}}
+}\if{html}{\out{</div>}}
+}
 
+\subsection{Preprocessing requirements}{
+
+This engine does not require any special encoding of the predictors.
+Categorical predictors can be partitioned into groups of factor levels
+(e.g. \verb{\{a, c\}} vs \verb{\{b, d\}}) when splitting at a node. Dummy variables
+are not required for this model.
+}
+
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+}
+
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("decision_tree_predict") |>
+  dplyr::filter(engine == "rpartScore") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 1 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+}\if{html}{\out{</div>}}
 }
 
 \subsection{References}{

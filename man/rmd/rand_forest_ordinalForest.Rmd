@@ -41,9 +41,21 @@ rand_forest(
   translate()
 ```
 
-<!--
-REVIEW: Add any needed sections here.
--->
+## Preprocessing requirements
+
+```{r}
+#| child: template-tree-split-factors.Rmd
+```
+
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
+## Other notes
+
+By default, parallel processing is turned off. When tuning, it is more efficient to parallelize over the resamples and tuning parameters. To parallelize the construction of the trees within the model, change the `num.threads` argument via [set_engine()]. 
 
 ## References
 

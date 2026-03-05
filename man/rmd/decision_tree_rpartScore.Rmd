@@ -33,9 +33,26 @@ decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = dou
   translate()
 ```
 
-<!--
-REVIEW: Add any needed sections here.
--->
+## Preprocessing requirements
+
+```{r}
+#| child: template-tree-split-factors.Rmd
+```
+
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+parsnip:::get_from_env("decision_tree_predict") |>
+  dplyr::filter(engine == "rpartScore") |>
+  dplyr::select(mode, type)
+```
 
 ## References
 

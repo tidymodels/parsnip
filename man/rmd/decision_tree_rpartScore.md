@@ -41,9 +41,33 @@ decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = dou
 ##     minsplit = min_rows(0L, data))
 ```
 
-<!--
-REVIEW: Add any needed sections here.
--->
+## Preprocessing requirements
+
+
+This engine does not require any special encoding of the predictors. Categorical predictors can be partitioned into groups of factor levels (e.g. `{a, c}` vs `{b, d}`) when splitting at a node. Dummy variables are not required for this model. 
+
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("decision_tree_predict") |>
+  dplyr::filter(engine == "rpartScore") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 1 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+```
 
 ## References
 
