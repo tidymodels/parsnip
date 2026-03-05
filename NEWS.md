@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* The APIs for updating or adding parmeter information to `tunable()` has been updated. 
+
 * Documentation for the lightgbm engine now includes information about custom objective functions and automatic `num_class` handling (#1275).
 
 * Fixed a bug in random forest fits using the `"aorsf"` engine where the check for `mtry` could not be performed (#1276)
