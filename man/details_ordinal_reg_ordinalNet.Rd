@@ -13,10 +13,12 @@ ordinal regression models, with an elastic net penalty.
 For this engine, there is a single mode: classification
 \subsection{Tuning Parameters}{
 
-This model has 2 tuning parameters:
+This model has 4 tuning parameters:
 \itemize{
 \item \code{penalty}: Amount of Regularization (type: double, default: see below)
 \item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 1.0)
+\item \code{ordinal_link}: Ordinal Link (type: character, default: logit)
+\item \code{odds_link}: Odds Link (type: character, default: cumulative)
 }
 }
 
@@ -26,20 +28,67 @@ The \strong{ordered} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ordered)
 
-ordinal_reg() \%>\% 
-  set_engine("ordinalNet") \%>\% 
-  set_mode("classification") \%>\% 
+ordinal_reg(
+  penalty = double(0),
+  mixture = double(0),
+  ordinal_link = character(0),
+  odds_link = character(0)
+) \%>\%
+  set_engine("ordinalNet") \%>\%
+  set_mode("classification") \%>\%
   translate()
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## Ordinal Regression Model Specification (classification)
 ## 
+## Main Arguments:
+##   ordinal_link = character(0)
+##   odds_link = character(0)
+##   penalty = numeric(0)
+##   mixture = double(0)
+## 
 ## Computational engine: ordinalNet 
 ## 
 ## Model fit template:
 ## ordered::ordinalNet_wrapper(x = missing_arg(), y = missing_arg(), 
-##     weights = missing_arg(), nLambda = 120L, lambdaMinRatio = 1e-08, 
+##     weights = missing_arg(), link = character(0), family = character(0), 
+##     alpha = double(0), nLambda = 120L, lambdaMinRatio = 1e-08, 
 ##     includeLambda0 = TRUE)
+}\if{html}{\out{</div>}}
+}
+
+\subsection{Preprocessing requirements}{
+
+Factor/categorical predictors need to be converted to numeric values
+(e.g., dummy or indicator variables) for this engine. When using the
+formula method via \code{\link[=fit.model_spec]{fit()}}, parsnip will
+convert factor columns to indicators.
+
+Predictors should have the same scale. One way to achieve this is to
+center and scale each so that each predictor has mean zero and a
+variance of one.
+
+By default, \code{\link[ordinalNet:ordinalNet]{ordinalNet::ordinalNet()}} uses
+the argument \code{standardize = TRUE} to center and scale the data.
+}
+
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
+}
+
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("ordinal_reg_predict") |>
+  dplyr::filter(engine == "ordinalNet") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob
 }\if{html}{\out{</div>}}
 }
 

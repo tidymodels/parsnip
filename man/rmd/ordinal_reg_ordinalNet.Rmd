@@ -7,8 +7,10 @@
 
 ```{r ordinalNet-param-info, echo=FALSE}
 defaults <- 
-  tibble::tibble(parsnip = c("penalty", "mixture"),
-                 default = c("see below", "1.0"))
+  tibble::tibble(
+    parsnip = c("ordinal_link", "odds_link", "penalty", "mixture"),
+    default = c("logit", "cumulative", "see below", "1.0")
+  )
 
 param <-
   ordinal_reg() |>
@@ -27,13 +29,45 @@ param$item
 
 `r uses_extension("ordinal_reg", "ordinalNet", "classification")`
 
-```{r ordinalNet-oreg}
+```{r ordinalNet-oreg, warning = FALSE}
 library(ordered)
 
-ordinal_reg() %>% 
-  set_engine("ordinalNet") %>% 
-  set_mode("classification") %>% 
+ordinal_reg(
+  penalty = double(0),
+  mixture = double(0),
+  ordinal_link = character(0),
+  odds_link = character(0)
+) %>%
+  set_engine("ordinalNet") %>%
+  set_mode("classification") %>%
   translate()
+```
+
+## Preprocessing requirements
+
+```{r}
+#| child: template-makes-dummies.Rmd
+```
+
+```{r}
+#| child: template-same-scale.Rmd
+```
+
+By default, [ordinalNet::ordinalNet()] uses the argument `standardize = TRUE` to center and scale the data. 
+
+## Case weights
+
+```{r}
+#| child: template-no-case-weights.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+parsnip:::get_from_env("ordinal_reg_predict") |>
+  dplyr::filter(engine == "ordinalNet") |>
+  dplyr::select(mode, type)
 ```
 
 ## References
