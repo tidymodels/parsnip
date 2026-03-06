@@ -102,6 +102,8 @@ reference:
 
 - title: Developer tools
   contents:
+  - add_engine_parameters
+  - apply_tunable_spec
   - condense_control
   - contr_one_hot
   - set_new_model

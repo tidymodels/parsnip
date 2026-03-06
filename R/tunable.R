@@ -55,26 +55,54 @@ mod_type <- function(.mod) class(.mod)[class(.mod) != "model_spec"][1]
 
 # ------------------------------------------------------------------------------
 
+#' Tunable parameter helpers for extension packages
+#'
+#' These functions help extension packages customize the tunable parameters
+#' for engines they define. They are used within `tunable()` methods to
+#' modify the base parameters returned by `tunable.model_spec()`.
+#'
+#' @param pset,base_result A tibble of tunable parameters, typically from
+#'   `NextMethod()` in a model's `tunable()` method.
+#' @param engines A tibble of engine-specific parameters to add, with columns
+#'   `name`, `call_info`, `source`, `component`, and `component_id`.
+#' @param engine A character string naming the engine.
+#' @param spec A named list of engine specifications. Each element should be
+#'   named after an engine and can contain:
+#'   \describe{
+#'     \item{add_params}{A tibble of engine parameters to add (passed to
+#'       `add_engine_parameters()`).}
+#'     \item{updates}{A named list where each element updates a parameter's
+#'       `call_info`. Names should match parameter names, and values should
+#'       be lists with `pkg`, `fun`, and optionally `range` or `values`.
+#'       Use this to change the dials function or range for existing parameters.
+#'       Note: for engines defined in parsnip, parameter ranges should be set
+#'       when the argument is registered via [set_model_arg()]. The `updates`
+#'       mechanism is primarily for extension packages that need to modify
+#'       parameters for engines not defined in parsnip.}
+#'     \item{replace_fn}{A function with signature `function(base, component)`
+#'       that returns a completely new tunable tibble. When present, `add_params`
+#'       and `updates` are ignored.}
+#'   }
+#'
+#' @includeRmd man/rmd/tunable_changes.Rmd details
+#'
+#' @return A tibble of tunable parameters.
+#' @keywords internal
+#' @name tunable_spec_helpers
+#' @export
+#' @rdname tunable_spec_helpers
 add_engine_parameters <- function(pset, engines) {
+  # Remove any base params that have the same name as engine params
   is_engine_param <- pset$name %in% engines$name
   if (any(is_engine_param)) {
-    engine_names <- pset$name[is_engine_param]
     pset <- pset[!is_engine_param, ]
-    pset <-
-      dplyr::bind_rows(pset, engines |> dplyr::filter(name %in% engines$name))
   }
-
-  pset
+  # Add all engine params
+  dplyr::bind_rows(pset, engines)
 }
 
-# Apply a tunable spec to modify the base result from `NextMethod()`.
-#
-# @param base_result Result from `NextMethod()` in `tunable.model_spec()`.
-# @param engine Engine name.
-# @param spec A named list of engine specifications. Each engine entry can have:
-#   - `add_params`: tibble of engine parameters to add
-#   - `updates`: named list of call_info updates for specific parameters
-#   - `replace_fn`: `function(base, component)` that returns a completely new result
+#' @export
+#' @rdname tunable_spec_helpers
 apply_tunable_spec <- function(base_result, engine, spec) {
   if (is.null(engine) || !engine %in% names(spec)) {
     return(base_result)
