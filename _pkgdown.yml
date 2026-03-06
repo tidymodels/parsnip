@@ -13,7 +13,7 @@ navbar:
       - text: "Classification modeling"
         href: https://www.tidymodels.org/learn/models/parsnip-nnet/
       - text: "Making a parsnip model from scratch"
-        href: https://www.tidymodels.org/learn/develop/models/ 
+        href: https://www.tidymodels.org/learn/develop/models/
 
 template:
   package: tidytemplate
@@ -59,6 +59,7 @@ reference:
   - naive_Bayes
   - nearest_neighbor
   - null_model
+  - ordinal_reg
   - pls
   - poisson_reg
   - proportional_hazards

@@ -1,5 +1,28 @@
 # parsnip (development version)
 
+## updates related to 'ordered' extenision package
+
+The changes in this section are discussed in #1298.
+
+* A new model `ordinal_reg()` is introduced for ordinal regression (#953):
+  * Its sole mode is `"classification"` and its default engine is `"polr"` for `MASS::polr()`.
+  * Additional engines `"ordinalNet"` for `ordinalNet::ordinalNet()` and `"vglm"` and `"vgam"` for `VGAM::*()` are documented.
+  * In addition to `penalty` and `mixture` common to GLM models, two new model parameters are introduced: `ordinal_link` and `odds_link`.
+  * Methods are written for `translate()`, `update()`, `check_args()`, and `tunable()`.
+  * Existing pan-model tests are extended and new model-specific tests are added.
+
+* New engines for ordinal prediction are documented:
+  * `"rpartScore"` for `rpartScore::rpartScore()` under `decision_tree()`
+  * `"ordinalForest"` for `ordinalForest::ordfor()` under `rand_forest()`
+
+* Engine arguments for the new ordinal prediction engines are documented.
+
+* Ordinal prediction tools are coordinated with new parameter tuners in dials and engines in ordered.
+
+* `model_info_table` is updated with the above 6 engines in anticipation of submission of ordered to CRAN.
+
+## other updates
+
 * Documentation for the lightgbm engine now includes information about custom objective functions and automatic `num_class` handling (#1275).
 
 * Fixed a bug in random forest fits using the `"aorsf"` engine where the check for `mtry` could not be performed (#1276)

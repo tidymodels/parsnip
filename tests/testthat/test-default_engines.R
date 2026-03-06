@@ -7,6 +7,7 @@ test_that('check default engines', {
   expect_equal(mlp()$engine, "nnet")
   expect_equal(multinom_reg()$engine, "nnet")
   expect_equal(nearest_neighbor()$engine, "kknn")
+  expect_equal(ordinal_reg()$engine, "polr")
   expect_equal(proportional_hazards()$engine, "survival")
   expect_equal(rand_forest()$engine, "ranger")
   expect_equal(survival_reg()$engine, "survival")

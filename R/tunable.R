@@ -91,6 +91,21 @@ c5_tree_engine_args <-
     component_id = "engine"
   )
 
+rpartScore_engine_args <-
+  tibble::tibble(
+    name = c(
+      "split",
+      "prune"
+    ),
+    call_info = list(
+      list(pkg = "ordered", fun = "split_func"),
+      list(pkg = "ordered", fun = "prune_func")
+    ),
+    source = "model_spec",
+    component = "decision_tree",
+    component_id = "engine"
+  )
+
 c5_boost_engine_args <- c5_tree_engine_args
 c5_boost_engine_args$component <- "boost_tree"
 
@@ -204,6 +219,29 @@ aorsf_engine_args <-
     component_id = "engine"
   )
 
+ordinalForest_engine_args <-
+  tibble::tibble(
+    name = c(
+      "naive",
+      "nsets",
+      "npermtrial",
+      "ntreeperdiv",
+      "nbest",
+      "perffunction"
+    ),
+    call_info = list(
+      list(pkg = "ordered", fun = "naive_scores"),
+      list(pkg = "ordered", fun = "num_scores"),
+      list(pkg = "ordered", fun = "num_score_perms"),
+      list(pkg = "ordered", fun = "num_score_trees"),
+      list(pkg = "ordered", fun = "num_scores_best"),
+      list(pkg = "ordered", fun = "ord_metric")
+    ),
+    source = "model_spec",
+    component = "rand_forest",
+    component_id = "engine"
+  )
+
 earth_engine_args <-
   tibble::tibble(
     name = c("nk"),
@@ -223,6 +261,36 @@ flexsurvspline_engine_args <-
     ),
     source = "model_spec",
     component = "survival_reg",
+    component_id = "engine"
+  )
+
+polr_engine_args <-
+  tibble::tibble(
+    name = c("method"),
+    call_info = list(
+      list(pkg = "dials", fun = "ordinal_link")
+    ),
+    source = "model_spec",
+    component = "ordinal_reg",
+    component_id = "engine"
+  )
+
+ordinalNet_engine_args <-
+  tibble::tibble(
+    name = c(
+      "link",
+      "family",
+      "lambdaVals",
+      "alpha"
+    ),
+    call_info = list(
+      list(pkg = "dials", fun = "ordinal_link"),
+      list(pkg = "dials", fun = "odds_link"),
+      list(pkg = "dials", fun = "penalty"),
+      list(pkg = "dials", fun = "mixture")
+    ),
+    source = "model_spec",
+    component = "ordinal_reg",
     component_id = "engine"
   )
 
@@ -396,6 +464,8 @@ tunable.rand_forest <- function(x, ...) {
     res <- add_engine_parameters(res, partykit_engine_args)
   } else if (x$engine == "aorsf") {
     res <- add_engine_parameters(res, aorsf_engine_args)
+  } else if (x$engine == "ordinalForest") {
+    res <- add_engine_parameters(res, ordinalForest_engine_args)
   }
   res
 }
@@ -421,6 +491,8 @@ tunable.decision_tree <- function(x, ...) {
         partykit_engine_args |>
           dplyr::mutate(component = "decision_tree")
       )
+  } else if (x$engine == "rpartScore") {
+    res <- add_engine_parameters(res, rpartScore_engine_args)
   }
   res
 }
@@ -458,6 +530,20 @@ tunable.survival_reg <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "flexsurvspline") {
     res <- add_engine_parameters(res, flexsurvspline_engine_args)
+  }
+  res
+}
+
+#' @export
+tunable.ordinal_reg <- function(x, ...) {
+  res <- NextMethod()
+  # REVIEW: Check that this is necessary.
+  if (x$engine == "polr") {
+    res <- add_engine_parameters(res, polr_engine_args)
+  }
+  # REVIEW: Check that this is necessary.
+  if (x$engine == "ordinalNet") {
+    res <- add_engine_parameters(res, ordinalNet_engine_args)
   }
   res
 }
