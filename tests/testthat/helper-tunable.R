@@ -19,30 +19,28 @@ display_tunable_call_info <- function(model_spec) {
     info_parts <- character(0)
 
     if (!is.null(call_info$pkg)) {
-      info_parts <- c(info_parts, paste0("pkg: ", call_info$pkg))
+      info_parts <- c(info_parts, glue::glue("pkg: {call_info$pkg}"))
     }
     if (!is.null(call_info$fun)) {
-      info_parts <- c(info_parts, paste0("fun: ", call_info$fun))
+      info_parts <- c(info_parts, glue::glue("fun: {call_info$fun}"))
     }
     if (!is.null(call_info$range)) {
-      range_str <- paste0(
-        "c(",
-        paste(format(call_info$range, nsmall = 2), collapse = ", "),
-        ")"
+      range_str <- glue::glue(
+        "c({glue::glue_collapse(format(call_info$range, nsmall = 2), sep = ', ')})"
       )
-      info_parts <- c(info_parts, paste0("range: ", range_str))
+      info_parts <- c(info_parts, glue::glue("range: {range_str}"))
     }
     if (!is.null(call_info$values)) {
-      values_str <- paste(call_info$values, collapse = ", ")
-      info_parts <- c(info_parts, paste0("values: ", values_str))
+      values_str <- glue::glue_collapse(call_info$values, sep = ", ")
+      info_parts <- c(info_parts, glue::glue("values: {values_str}"))
     }
 
-    info_str <- paste(info_parts, collapse = ", ")
+    info_str <- glue::glue_collapse(info_parts, sep = ", ")
 
     # Pad the parameter name for alignment
     padded_name <- format(param_name, width = 25)
 
-    cat(paste0(padded_name, " | ", info_str, " | ", component_id, "\n"))
+    cat(glue::glue("{padded_name} | {info_str} | {component_id}\n\n"))
   }
 
   invisible(res)
