@@ -35,7 +35,7 @@ set_model_arg(
   eng = "xgboost",
   parsnip = "learn_rate",
   original = "eta",
-  func = list(pkg = "dials", fun = "learn_rate"),
+  func = list(pkg = "dials", fun = "learn_rate", range = c(-3, -0.5)),
   has_submodel = FALSE
 )
 set_model_arg(
@@ -67,7 +67,7 @@ set_model_arg(
   eng = "xgboost",
   parsnip = "sample_size",
   original = "subsample",
-  func = list(pkg = "dials", fun = "sample_size"),
+  func = list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)),
   has_submodel = FALSE
 )
 set_model_arg(
@@ -271,7 +271,7 @@ set_model_arg(
   eng = "C5.0",
   parsnip = "trees",
   original = "trials",
-  func = list(pkg = "dials", fun = "trees"),
+  func = list(pkg = "dials", fun = "trees", range = c(1, 100)),
   has_submodel = TRUE
 )
 set_model_arg(
@@ -287,7 +287,7 @@ set_model_arg(
   eng = "C5.0",
   parsnip = "sample_size",
   original = "sample",
-  func = list(pkg = "dials", fun = "sample_size"),
+  func = list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)),
   has_submodel = FALSE
 )
 

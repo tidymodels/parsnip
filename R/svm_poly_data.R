@@ -22,9 +22,10 @@ set_model_arg(
 set_model_arg(
   model = "svm_poly",
   eng = "kernlab",
+
   parsnip = "degree",
   original = "degree",
-  func = list(pkg = "dials", fun = "degree"),
+  func = list(pkg = "dials", fun = "prod_degree", range = c(1L, 3L)),
   has_submodel = FALSE
 )
 

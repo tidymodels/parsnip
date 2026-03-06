@@ -144,13 +144,7 @@ translate.svm_poly <- function(x, engine = x$engine, ...) {
 }
 
 # nocov start
-svm_poly_tunable_spec <- list(
-  kernlab = list(
-    updates = list(
-      degree = list(pkg = "dials", fun = "prod_degree", range = c(1L, 3L))
-    )
-  )
-)
+svm_poly_tunable_spec <- list()
 
 #' @export
 tunable.svm_poly <- function(x, ...) {

@@ -228,32 +228,8 @@ c5_boost_engine_args <-
   )
 
 boost_tree_tunable_spec <- list(
-  xgboost = list(
-    add_params = xgboost_engine_args,
-    updates = list(
-      sample_size = list(
-        pkg = "dials",
-        fun = "sample_prop",
-        range = c(0.5, 1.0)
-      ),
-      learn_rate = list(
-        pkg = "dials",
-        fun = "learn_rate",
-        range = c(-3, -1 / 2)
-      )
-    )
-  ),
-  C5.0 = list(
-    add_params = c5_boost_engine_args,
-    updates = list(
-      trees = list(pkg = "dials", fun = "trees", range = c(1, 100)),
-      sample_size = list(
-        pkg = "dials",
-        fun = "sample_prop",
-        range = c(0.5, 1.0)
-      )
-    )
-  ),
+  xgboost = list(add_params = xgboost_engine_args),
+  C5.0 = list(add_params = c5_boost_engine_args),
   lightgbm = list(
     add_params = lightgbm_engine_args,
     updates = list(
@@ -265,7 +241,7 @@ boost_tree_tunable_spec <- list(
       learn_rate = list(
         pkg = "dials",
         fun = "learn_rate",
-        range = c(-3, -1 / 2)
+        range = c(-3, -0.5)
       )
     )
   ),
@@ -275,7 +251,7 @@ boost_tree_tunable_spec <- list(
       learn_rate = list(
         pkg = "dials",
         fun = "learn_rate",
-        range = c(-3, -1 / 2)
+        range = c(-3, -0.5)
       ),
       sample_size = list(
         pkg = "dials",

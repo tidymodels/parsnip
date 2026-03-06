@@ -146,7 +146,8 @@ set_model_arg(
   eng = "glmnet",
   parsnip = "mixture",
   original = "alpha",
-  func = list(pkg = "dials", fun = "mixture"),
+
+  func = list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)),
   has_submodel = FALSE
 )
 

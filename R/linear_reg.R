@@ -78,11 +78,6 @@ translate.linear_reg <- function(x, engine = x$engine, ...) {
 
 # nocov start
 linear_reg_tunable_spec <- list(
-  glmnet = list(
-    updates = list(
-      mixture = list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00))
-    )
-  ),
   brulee = list(
     replace_fn = function(base, component) {
       brulee_mlp_args |>

@@ -77,11 +77,6 @@ translate.multinom_reg <- translate.linear_reg
 
 # nocov start
 multinom_reg_tunable_spec <- list(
-  glmnet = list(
-    updates = list(
-      mixture = list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00))
-    )
-  ),
   brulee = list(
     replace_fn = function(base, component) {
       brulee_mlp_args |>
