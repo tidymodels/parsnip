@@ -69,50 +69,9 @@ add_engine_parameters <- function(pset, engines) {
   dplyr::bind_rows(pset, engines)
 }
 
-# Engine-specific tunable parameters.
-# These are added at runtime because engine-specific parameters where
-# parsnip = original would become "protected" if registered via set_model_arg().
-
-c5_tree_engine_args <-
-  tibble::tibble(
-    name = c(
-      "CF",
-      "noGlobalPruning",
-      "winnow",
-      "fuzzyThreshold",
-      "bands"
-    ),
-    call_info = list(
-      list(pkg = "dials", fun = "confidence_factor"),
-      list(pkg = "dials", fun = "no_global_pruning"),
-      list(pkg = "dials", fun = "predictor_winnowing"),
-      list(pkg = "dials", fun = "fuzzy_thresholding"),
-      list(pkg = "dials", fun = "rule_bands")
-    ),
-    source = "model_spec",
-    component = "decision_tree",
-    component_id = "engine"
-  )
-
-c5_boost_engine_args <- c5_tree_engine_args
-c5_boost_engine_args$component <- "boost_tree"
-
-xgboost_engine_args <-
-  tibble::tibble(
-    name = c(
-      "alpha",
-      "lambda",
-      "scale_pos_weight"
-    ),
-    call_info = list(
-      list(pkg = "dials", fun = "penalty_L1"),
-      list(pkg = "dials", fun = "penalty_L2"),
-      list(pkg = "dials", fun = "scale_pos_weight")
-    ),
-    source = "model_spec",
-    component = "boost_tree",
-    component_id = "engine"
-  )
+# Engine-specific tunable parameters for external packages (bonsai, censored).
+# These engines are registered in external packages, so we add their tunable
+# parameters at runtime.
 
 lightgbm_engine_args <-
   tibble::tibble(
@@ -139,40 +98,6 @@ catboost_engine_args <-
     ),
     source = "model_spec",
     component = "boost_tree",
-    component_id = "engine"
-  )
-
-ranger_engine_args <-
-  tibble::tibble(
-    name = c(
-      "regularization.factor",
-      "regularization.usedepth",
-      "alpha",
-      "minprop",
-      "splitrule",
-      "num.random.splits"
-    ),
-    call_info = list(
-      list(pkg = "dials", fun = "regularization_factor"),
-      list(pkg = "dials", fun = "regularize_depth"),
-      list(pkg = "dials", fun = "significance_threshold"),
-      list(pkg = "dials", fun = "lower_quantile"),
-      list(pkg = "dials", fun = "splitting_rule"),
-      list(pkg = "dials", fun = "num_random_splits")
-    ),
-    source = "model_spec",
-    component = "rand_forest",
-    component_id = "engine"
-  )
-
-randomForest_engine_args <-
-  tibble::tibble(
-    name = c("maxnodes"),
-    call_info = list(
-      list(pkg = "dials", fun = "max_nodes")
-    ),
-    source = "model_spec",
-    component = "rand_forest",
     component_id = "engine"
   )
 
@@ -203,17 +128,6 @@ aorsf_engine_args <-
     ),
     source = "model_spec",
     component = "rand_forest",
-    component_id = "engine"
-  )
-
-earth_engine_args <-
-  tibble::tibble(
-    name = c("nk"),
-    call_info = list(
-      list(pkg = "dials", fun = "max_num_terms")
-    ),
-    source = "model_spec",
-    component = "mars",
     component_id = "engine"
   )
 
@@ -348,11 +262,8 @@ tunable.multinom_reg <- function(x, ...) {
 #' @export
 tunable.boost_tree <- function(x, ...) {
   res <- NextMethod()
-  if (x$engine == "xgboost") {
-    res <- add_engine_parameters(res, xgboost_engine_args)
-  } else if (x$engine == "C5.0") {
-    res <- add_engine_parameters(res, c5_boost_engine_args)
-  } else if (x$engine == "lightgbm") {
+  # lightgbm and catboost are registered in bonsai
+  if (x$engine == "lightgbm") {
     res <- add_engine_parameters(res, lightgbm_engine_args)
     res$call_info[res$name == "sample_size"] <-
       list(list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)))
@@ -371,11 +282,8 @@ tunable.boost_tree <- function(x, ...) {
 #' @export
 tunable.rand_forest <- function(x, ...) {
   res <- NextMethod()
-  if (x$engine == "ranger") {
-    res <- add_engine_parameters(res, ranger_engine_args)
-  } else if (x$engine == "randomForest") {
-    res <- add_engine_parameters(res, randomForest_engine_args)
-  } else if (x$engine == "partykit") {
+  # partykit and aorsf are registered in bonsai/censored
+  if (x$engine == "partykit") {
     res <- add_engine_parameters(res, partykit_engine_args)
   } else if (x$engine == "aorsf") {
     res <- add_engine_parameters(res, aorsf_engine_args)
@@ -384,20 +292,10 @@ tunable.rand_forest <- function(x, ...) {
 }
 
 #' @export
-tunable.mars <- function(x, ...) {
-  res <- NextMethod()
-  if (x$engine == "earth") {
-    res <- add_engine_parameters(res, earth_engine_args)
-  }
-  res
-}
-
-#' @export
 tunable.decision_tree <- function(x, ...) {
   res <- NextMethod()
-  if (x$engine == "C5.0") {
-    res <- add_engine_parameters(res, c5_tree_engine_args)
-  } else if (x$engine == "partykit") {
+  # partykit is registered in bonsai/censored
+  if (x$engine == "partykit") {
     res <-
       add_engine_parameters(
         res,

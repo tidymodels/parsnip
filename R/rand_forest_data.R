@@ -203,6 +203,56 @@ set_model_arg(
   has_submodel = FALSE
 )
 
+# Engine-specific tunable parameters for ranger
+set_model_arg(
+  model = "rand_forest",
+  eng = "ranger",
+  parsnip = "regularization.factor",
+  original = "regularization.factor",
+  func = list(pkg = "dials", fun = "regularization_factor"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "rand_forest",
+  eng = "ranger",
+  parsnip = "regularization.usedepth",
+  original = "regularization.usedepth",
+  func = list(pkg = "dials", fun = "regularize_depth"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "rand_forest",
+  eng = "ranger",
+  parsnip = "alpha",
+  original = "alpha",
+  func = list(pkg = "dials", fun = "significance_threshold"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "rand_forest",
+  eng = "ranger",
+  parsnip = "minprop",
+  original = "minprop",
+  func = list(pkg = "dials", fun = "lower_quantile"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "rand_forest",
+  eng = "ranger",
+  parsnip = "splitrule",
+  original = "splitrule",
+  func = list(pkg = "dials", fun = "splitting_rule"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "rand_forest",
+  eng = "ranger",
+  parsnip = "num.random.splits",
+  original = "num.random.splits",
+  func = list(pkg = "dials", fun = "num_random_splits"),
+  has_submodel = FALSE
+)
+
 set_fit(
   model = "rand_forest",
   eng = "ranger",
@@ -440,6 +490,16 @@ set_model_arg(
   parsnip = "min_n",
   original = "nodesize",
   func = list(pkg = "dials", fun = "min_n"),
+  has_submodel = FALSE
+)
+
+# Engine-specific tunable parameters for randomForest
+set_model_arg(
+  model = "rand_forest",
+  eng = "randomForest",
+  parsnip = "maxnodes",
+  original = "maxnodes",
+  func = list(pkg = "dials", fun = "max_nodes"),
   has_submodel = FALSE
 )
 
