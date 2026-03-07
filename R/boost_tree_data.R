@@ -35,7 +35,7 @@ set_model_arg(
   eng = "xgboost",
   parsnip = "learn_rate",
   original = "eta",
-  func = list(pkg = "dials", fun = "learn_rate"),
+  func = list(pkg = "dials", fun = "learn_rate", range = c(-3, -1 / 2)),
   has_submodel = FALSE
 )
 set_model_arg(
@@ -67,7 +67,7 @@ set_model_arg(
   eng = "xgboost",
   parsnip = "sample_size",
   original = "subsample",
-  func = list(pkg = "dials", fun = "sample_size"),
+  func = list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)),
   has_submodel = FALSE
 )
 set_model_arg(
@@ -79,6 +79,31 @@ set_model_arg(
   has_submodel = FALSE
 )
 
+# Engine-specific tunable parameters for xgboost
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost",
+  parsnip = "alpha",
+  original = "alpha",
+  func = list(pkg = "dials", fun = "penalty_L1"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost",
+  parsnip = "lambda",
+  original = "lambda",
+  func = list(pkg = "dials", fun = "penalty_L2"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost",
+  parsnip = "scale_pos_weight",
+  original = "scale_pos_weight",
+  func = list(pkg = "dials", fun = "scale_pos_weight"),
+  has_submodel = FALSE
+)
 
 set_fit(
   model = "boost_tree",
@@ -271,7 +296,7 @@ set_model_arg(
   eng = "C5.0",
   parsnip = "trees",
   original = "trials",
-  func = list(pkg = "dials", fun = "trees"),
+  func = list(pkg = "dials", fun = "trees", range = c(1, 100)),
   has_submodel = TRUE
 )
 set_model_arg(
@@ -287,7 +312,49 @@ set_model_arg(
   eng = "C5.0",
   parsnip = "sample_size",
   original = "sample",
-  func = list(pkg = "dials", fun = "sample_size"),
+  func = list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)),
+  has_submodel = FALSE
+)
+
+# Engine-specific tunable parameters for C5.0
+set_model_arg(
+  model = "boost_tree",
+  eng = "C5.0",
+  parsnip = "CF",
+  original = "CF",
+  func = list(pkg = "dials", fun = "confidence_factor"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "C5.0",
+  parsnip = "noGlobalPruning",
+  original = "noGlobalPruning",
+  func = list(pkg = "dials", fun = "no_global_pruning"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "C5.0",
+  parsnip = "winnow",
+  original = "winnow",
+  func = list(pkg = "dials", fun = "predictor_winnowing"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "C5.0",
+  parsnip = "fuzzyThreshold",
+  original = "fuzzyThreshold",
+  func = list(pkg = "dials", fun = "fuzzy_thresholding"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "C5.0",
+  parsnip = "bands",
+  original = "bands",
+  func = list(pkg = "dials", fun = "rule_bands"),
   has_submodel = FALSE
 )
 
