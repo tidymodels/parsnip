@@ -37,6 +37,6 @@
       translate(set_engine(rand_forest(mode = "classification"), "wat?"))
     Condition
       Error in `set_engine()`:
-      x Engine "wat?" is not supported for `rand_forest()`
+      x Engine "wat?" is not supported for `rand_forest()`.
       i See `show_engines("rand_forest")`.
 

@@ -12,7 +12,7 @@
       translate(set_engine(null_model(), "wat?"))
     Condition
       Error in `set_engine()`:
-      x Engine "wat?" is not supported for `null_model()`
+      x Engine "wat?" is not supported for `null_model()`.
       i See `show_engines("null_model")`.
 
 # nullmodel execution

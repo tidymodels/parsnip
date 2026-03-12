@@ -60,56 +60,18 @@ mod_type <- function(.mod) class(.mod)[class(.mod) != "model_spec"][1]
 # ------------------------------------------------------------------------------
 
 add_engine_parameters <- function(pset, engines) {
+  # Remove any engine params that already exist in pset (to avoid duplicates)
   is_engine_param <- pset$name %in% engines$name
   if (any(is_engine_param)) {
-    engine_names <- pset$name[is_engine_param]
     pset <- pset[!is_engine_param, ]
-    pset <-
-      dplyr::bind_rows(pset, engines |> dplyr::filter(name %in% engines$name))
   }
-  pset
+  # Always add the engine parameters
+  dplyr::bind_rows(pset, engines)
 }
 
-c5_tree_engine_args <-
-  tibble::tibble(
-    name = c(
-      "CF",
-      "noGlobalPruning",
-      "winnow",
-      "fuzzyThreshold",
-      "bands"
-    ),
-    call_info = list(
-      list(pkg = "dials", fun = "confidence_factor"),
-      list(pkg = "dials", fun = "no_global_pruning"),
-      list(pkg = "dials", fun = "predictor_winnowing"),
-      list(pkg = "dials", fun = "fuzzy_thresholding"),
-      list(pkg = "dials", fun = "rule_bands")
-    ),
-    source = "model_spec",
-    component = "decision_tree",
-    component_id = "engine"
-  )
-
-c5_boost_engine_args <- c5_tree_engine_args
-c5_boost_engine_args$component <- "boost_tree"
-
-xgboost_engine_args <-
-  tibble::tibble(
-    name = c(
-      "alpha",
-      "lambda",
-      "scale_pos_weight"
-    ),
-    call_info = list(
-      list(pkg = "dials", fun = "penalty_L1"),
-      list(pkg = "dials", fun = "penalty_L2"),
-      list(pkg = "dials", fun = "scale_pos_weight")
-    ),
-    source = "model_spec",
-    component = "boost_tree",
-    component_id = "engine"
-  )
+# Engine-specific tunable parameters for external packages (bonsai, censored).
+# These engines are registered in external packages, so we add their tunable
+# parameters at runtime.
 
 lightgbm_engine_args <-
   tibble::tibble(
@@ -139,41 +101,6 @@ catboost_engine_args <-
     component_id = "engine"
   )
 
-ranger_engine_args <-
-  tibble::tibble(
-    name = c(
-      "regularization.factor",
-      "regularization.usedepth",
-      "alpha",
-      "minprop",
-      "splitrule",
-      "num.random.splits"
-    ),
-    call_info = list(
-      list(pkg = "dials", fun = "regularization_factor"),
-      list(pkg = "dials", fun = "regularize_depth"),
-      list(pkg = "dials", fun = "significance_threshold"),
-      list(pkg = "dials", fun = "lower_quantile"),
-      list(pkg = "dials", fun = "splitting_rule"),
-      list(pkg = "dials", fun = "num_random_splits")
-    ),
-    source = "model_spec",
-    component = "rand_forest",
-    component_id = "engine"
-  )
-
-randomForest_engine_args <-
-  tibble::tibble(
-    name = c("maxnodes"),
-    call_info = list(
-      list(pkg = "dials", fun = "max_nodes")
-    ),
-    source = "model_spec",
-    component = "rand_forest",
-    component_id = "engine"
-  )
-
-
 partykit_engine_args <-
   tibble::tibble(
     name = c(
@@ -201,17 +128,6 @@ aorsf_engine_args <-
     ),
     source = "model_spec",
     component = "rand_forest",
-    component_id = "engine"
-  )
-
-earth_engine_args <-
-  tibble::tibble(
-    name = c("nk"),
-    call_info = list(
-      list(pkg = "dials", fun = "max_num_terms")
-    ),
-    source = "model_spec",
-    component = "mars",
     component_id = "engine"
   )
 
@@ -285,10 +201,7 @@ brulee_mlp_only_args <-
 #' @export
 tunable.linear_reg <- function(x, ...) {
   res <- NextMethod()
-  if (x$engine == "glmnet") {
-    res$call_info[res$name == "mixture"] <-
-      list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
-  } else if (x$engine == "brulee") {
+  if (x$engine == "brulee") {
     res <-
       brulee_mlp_args |>
       dplyr::anti_join(brulee_mlp_only_args, by = "name") |>
@@ -307,14 +220,9 @@ tunable.linear_reg <- function(x, ...) {
 }
 
 #' @export
-
-#' @export
 tunable.logistic_reg <- function(x, ...) {
   res <- NextMethod()
-  if (x$engine == "glmnet") {
-    res$call_info[res$name == "mixture"] <-
-      list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
-  } else if (x$engine == "brulee") {
+  if (x$engine == "brulee") {
     res <-
       brulee_mlp_args |>
       dplyr::anti_join(brulee_mlp_only_args, by = "name") |>
@@ -334,10 +242,7 @@ tunable.logistic_reg <- function(x, ...) {
 #' @export
 tunable.multinom_reg <- function(x, ...) {
   res <- NextMethod()
-  if (x$engine == "glmnet") {
-    res$call_info[res$name == "mixture"] <-
-      list(list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)))
-  } else if (x$engine == "brulee") {
+  if (x$engine == "brulee") {
     res <-
       brulee_mlp_args |>
       dplyr::anti_join(brulee_mlp_only_args, by = "name") |>
@@ -357,19 +262,8 @@ tunable.multinom_reg <- function(x, ...) {
 #' @export
 tunable.boost_tree <- function(x, ...) {
   res <- NextMethod()
-  if (x$engine == "xgboost") {
-    res <- add_engine_parameters(res, xgboost_engine_args)
-    res$call_info[res$name == "sample_size"] <-
-      list(list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)))
-    res$call_info[res$name == "learn_rate"] <-
-      list(list(pkg = "dials", fun = "learn_rate", range = c(-3, -1 / 2)))
-  } else if (x$engine == "C5.0") {
-    res <- add_engine_parameters(res, c5_boost_engine_args)
-    res$call_info[res$name == "trees"] <-
-      list(list(pkg = "dials", fun = "trees", range = c(1, 100)))
-    res$call_info[res$name == "sample_size"] <-
-      list(list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)))
-  } else if (x$engine == "lightgbm") {
+  # lightgbm and catboost are registered in bonsai
+  if (x$engine == "lightgbm") {
     res <- add_engine_parameters(res, lightgbm_engine_args)
     res$call_info[res$name == "sample_size"] <-
       list(list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)))
@@ -388,11 +282,8 @@ tunable.boost_tree <- function(x, ...) {
 #' @export
 tunable.rand_forest <- function(x, ...) {
   res <- NextMethod()
-  if (x$engine == "ranger") {
-    res <- add_engine_parameters(res, ranger_engine_args)
-  } else if (x$engine == "randomForest") {
-    res <- add_engine_parameters(res, randomForest_engine_args)
-  } else if (x$engine == "partykit") {
+  # partykit and aorsf are registered in bonsai/censored
+  if (x$engine == "partykit") {
     res <- add_engine_parameters(res, partykit_engine_args)
   } else if (x$engine == "aorsf") {
     res <- add_engine_parameters(res, aorsf_engine_args)
@@ -401,36 +292,16 @@ tunable.rand_forest <- function(x, ...) {
 }
 
 #' @export
-tunable.mars <- function(x, ...) {
-  res <- NextMethod()
-  if (x$engine == "earth") {
-    res <- add_engine_parameters(res, earth_engine_args)
-  }
-  res
-}
-
-#' @export
 tunable.decision_tree <- function(x, ...) {
   res <- NextMethod()
-  if (x$engine == "C5.0") {
-    res <- add_engine_parameters(res, c5_tree_engine_args)
-  } else if (x$engine == "partykit") {
+  # partykit is registered in bonsai/censored
+  if (x$engine == "partykit") {
     res <-
       add_engine_parameters(
         res,
         partykit_engine_args |>
           dplyr::mutate(component = "decision_tree")
       )
-  }
-  res
-}
-
-#' @export
-tunable.svm_poly <- function(x, ...) {
-  res <- NextMethod()
-  if (x$engine == "kernlab") {
-    res$call_info[res$name == "degree"] <-
-      list(list(pkg = "dials", fun = "prod_degree", range = c(1L, 3L)))
   }
   res
 }

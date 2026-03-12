@@ -3,14 +3,14 @@ check_parameter_set_tibble <- function(x) {
     names(x),
     c("name", "id", "source", "component", "component_id", "object")
   )
-  expect_equal(class(x$name), "character")
-  expect_equal(class(x$id), "character")
-  expect_equal(class(x$source), "character")
-  expect_equal(class(x$component), "character")
-  expect_equal(class(x$component_id), "character")
+  expect_type(x$name, "character")
+  expect_type(x$id, "character")
+  expect_type(x$source, "character")
+  expect_type(x$component, "character")
+  expect_type(x$component_id, "character")
   expect_true(!any(duplicated(x$id)))
 
-  expect_equal(class(x$object), "list")
+  expect_type(x$object, "list")
   obj_check <- purrr::map_lgl(x$object, \(x) {
     inherits(x, "param") | all(is.na(x))
   })

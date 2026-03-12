@@ -2,6 +2,7 @@
 % Please edit documentation in R/predict.R
 \name{format-internals}
 \alias{format-internals}
+\alias{format_predictions}
 \alias{format_num}
 \alias{format_class}
 \alias{format_classprobs}
@@ -12,6 +13,8 @@
 \alias{ensure_parsnip_format}
 \title{Internal functions that format predictions}
 \usage{
+format_predictions(x, type)
+
 format_num(x)
 
 format_class(x)
@@ -31,6 +34,10 @@ ensure_parsnip_format(x, col_name, overwrite = TRUE)
 \arguments{
 \item{x}{A data frame or vector (depending on the context and function).}
 
+\item{type}{A string for the prediction type. One of: \code{"raw"}, \code{"numeric"},
+\code{"class"}, \code{"prob"}, \code{"conf_int"}, \code{"pred_int"}, \code{"quantile"}, \code{"time"},
+\code{"survival"}, \code{"linear_pred"}, or \code{"hazard"}.}
+
 \item{col_name}{A string for a prediction column name.}
 
 \item{overwrite}{A logical for whether to overwrite the column name.}
@@ -41,5 +48,37 @@ A tibble
 \description{
 These are used to ensure that we have appropriate column names inside of
 tibbles.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{format_num()} is deprecated. Use \code{format_predictions(x, "numeric")} instead.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{format_class()} is deprecated. Use \code{format_predictions(x, "class")} instead.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{format_classprobs()} is deprecated. Use \code{format_predictions(x, "prob")}
+instead.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{format_time()} is deprecated. Use \code{format_predictions(x, "time")} instead.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{format_survival()} is deprecated. Use \code{format_predictions(x, "survival")}
+instead.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{format_linear_pred()} is deprecated. Use
+\code{format_predictions(x, "linear_pred")} instead.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{format_hazard()} is deprecated. Use \code{format_predictions(x, "hazard")}
+instead.
 }
 \keyword{internal}

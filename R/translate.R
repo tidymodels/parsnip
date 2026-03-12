@@ -77,8 +77,16 @@ translate.default <- function(x, engine = x$engine, ...) {
 
   # check secondary arguments to see if they are in the final
   # expression unless there are dots, warn if protected args are
-  # being altered
-  x$eng_args <- check_eng_args(x$eng_args, x$method$fit, arg_key$original)
+  # being altered. Only protect original names that have a different
+
+  # parsnip name (i.e., mapped args). Engine-specific args where
+  # parsnip = original should not be protected.
+  protected_original <- arg_key$original[arg_key$parsnip != arg_key$original]
+  x$eng_args <- check_eng_args(
+    args = x$eng_args,
+    obj = x$method$fit,
+    core_args = protected_original
+  )
 
   # keep only modified args
   modifed_args <- !purrr::map_lgl(actual_args, null_value)

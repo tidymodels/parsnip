@@ -196,19 +196,7 @@ predict.model_fit <- function(
     raw = predict_raw(object = object, new_data = new_data, opts = opts, ...),
     cli::cli_abort("Unknown prediction {.arg type} '{type}'.")
   )
-  if (!inherits(res, "tbl_spark")) {
-    res <- switch(
-      type,
-      numeric = format_num(res),
-      class = format_class(res),
-      prob = format_classprobs(res),
-      time = format_time(res),
-      survival = format_survival(res),
-      hazard = format_hazard(res),
-      linear_pred = format_linear_pred(res),
-      res
-    )
-  }
+  res <- format_predictions(res, type)
   res
 }
 
@@ -297,32 +285,84 @@ check_pred_type <- function(object, type, ..., call = rlang::caller_env()) {
 #' tibbles.
 #'
 #' @param x A data frame or vector (depending on the context and function).
+#' @param type A string for the prediction type. One of: `"raw"`, `"numeric"`,
+#'   `"class"`, `"prob"`, `"conf_int"`, `"pred_int"`, `"quantile"`, `"time"`,
+#'   `"survival"`, `"linear_pred"`, or `"hazard"`.
 #' @param col_name A string for a prediction column name.
 #' @param overwrite A logical for whether to overwrite the column name.
 #' @return A tibble
 #' @keywords internal
 #' @name format-internals
 #' @export
-
-format_num <- function(x) {
+format_predictions <- function(x, type) {
   if (inherits(x, "tbl_spark")) {
     return(x)
   }
-  ensure_parsnip_format(x, ".pred", overwrite = FALSE)
+
+  switch(
+    type,
+    raw = x,
+    numeric = ensure_parsnip_format(x, ".pred", overwrite = FALSE),
+    class = ensure_parsnip_format(x, ".pred_class"),
+    prob = format_classprobs_impl(x),
+    conf_int = tibble::as_tibble(x),
+    pred_int = tibble::as_tibble(x),
+    quantile = tibble::as_tibble(x),
+    time = ensure_parsnip_format(x, ".pred_time", overwrite = FALSE),
+    survival = ensure_parsnip_format(x, ".pred"),
+    linear_pred = ensure_parsnip_format(x, ".pred_linear_pred"),
+    hazard = ensure_parsnip_format(x, ".pred"),
+    x
+  )
 }
 
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `format_num()` is deprecated. Use `format_predictions(x, "numeric")` instead.
+#' @rdname format-internals
+#' @export
+format_num <- function(x) {
+  lifecycle::deprecate_warn(
+    "1.5.0",
+    "format_num()",
+    details = 'Use `format_predictions(x, "numeric")` instead.'
+  )
+  format_predictions(x, "numeric")
+}
+
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `format_class()` is deprecated. Use `format_predictions(x, "class")` instead.
 #' @rdname format-internals
 #' @export
 format_class <- function(x) {
-  if (inherits(x, "tbl_spark")) {
-    return(x)
-  }
-  ensure_parsnip_format(x, ".pred_class")
+  lifecycle::deprecate_warn(
+    "1.5.0",
+    "format_class()",
+    details = 'Use `format_predictions(x, "class")` instead.'
+  )
+  format_predictions(x, "class")
 }
 
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `format_classprobs()` is deprecated. Use `format_predictions(x, "prob")`
+#' instead.
 #' @rdname format-internals
 #' @export
 format_classprobs <- function(x) {
+  lifecycle::deprecate_warn(
+    "1.5.0",
+    "format_classprobs()",
+    details = 'Use `format_predictions(x, "prob")` instead.'
+  )
+  format_predictions(x, "prob")
+}
+
+format_classprobs_impl <- function(x) {
   if (!any(grepl("^\\.pred_", names(x)))) {
     names(x) <- paste0(".pred_", names(x))
   }
@@ -337,31 +377,67 @@ format_classprobs <- function(x) {
   x
 }
 
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `format_time()` is deprecated. Use `format_predictions(x, "time")` instead.
 #' @rdname format-internals
 #' @export
 format_time <- function(x) {
-  ensure_parsnip_format(x, ".pred_time", overwrite = FALSE)
+  lifecycle::deprecate_warn(
+    "1.5.0",
+    "format_time()",
+    details = 'Use `format_predictions(x, "time")` instead.'
+  )
+  format_predictions(x, "time")
 }
 
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `format_survival()` is deprecated. Use `format_predictions(x, "survival")`
+#' instead.
 #' @rdname format-internals
 #' @export
 format_survival <- function(x) {
-  ensure_parsnip_format(x, ".pred")
+  lifecycle::deprecate_warn(
+    "1.5.0",
+    "format_survival()",
+    details = 'Use `format_predictions(x, "survival")` instead.'
+  )
+  format_predictions(x, "survival")
 }
 
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `format_linear_pred()` is deprecated. Use
+#' `format_predictions(x, "linear_pred")` instead.
 #' @rdname format-internals
 #' @export
 format_linear_pred <- function(x) {
-  if (inherits(x, "tbl_spark")) {
-    return(x)
-  }
-  ensure_parsnip_format(x, ".pred_linear_pred")
+  lifecycle::deprecate_warn(
+    "1.5.0",
+    "format_linear_pred()",
+    details = 'Use `format_predictions(x, "linear_pred")` instead.'
+  )
+  format_predictions(x, "linear_pred")
 }
 
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `format_hazard()` is deprecated. Use `format_predictions(x, "hazard")`
+#' instead.
 #' @rdname format-internals
 #' @export
 format_hazard <- function(x) {
-  ensure_parsnip_format(x, ".pred")
+  lifecycle::deprecate_warn(
+    "1.5.0",
+    "format_hazard()",
+    details = 'Use `format_predictions(x, "hazard")` instead.'
+  )
+  format_predictions(x, "hazard")
 }
 
 #' @export

@@ -2,6 +2,10 @@
 
 * `fit()` with a formula now reliably drops rows with missing values during internal data conversion, regardless of the global `options(na.action = ...)` setting (#548).
 
+* For developers, `format_predictions()` is a new unified function for formatting prediction outputs, consolidating the logic from the individual `format_*()` functions (#927). The individual functions `format_num()`, `format_class()`, `format_classprobs()`, `format_time()`, `format_survival()`, `format_linear_pred()`, and `format_hazard()` are now deprecated.
+
+* The interface for declaring tunable parameters and any deviations for the standard parameter characteristics, has been simplified. These values can now be set inside of extension packages (#1349). 
+
 * Documentation for the lightgbm engine now includes information about custom objective functions and automatic `num_class` handling (#1275).
 
 * Fixed a bug in random forest fits using the `"aorsf"` engine where the check for `mtry` could not be performed (#1276)
@@ -11,6 +15,8 @@
 * Fix bug in predicting class probabilities for multiclass earth models (#1334)
 
 * The "Fitting and predicting with parsnip" article has moved to [tidymodels.org](https://www.tidymodels.org/learn/models/parsnip-predictions/) (#1324).
+
+* `set_engine()` now errors informatively when an invalid engine name is specified for models whose engines all come from extension packages (#1110).
 
 * Quantile levels are not dropped when a model specification is modified (#1304)
 
