@@ -35,6 +35,16 @@ set_model_arg(
   has_submodel = FALSE
 )
 
+# Engine-specific tunable parameters for earth
+set_model_arg(
+  model = "mars",
+  eng = "earth",
+  parsnip = "nk",
+  original = "nk",
+  func = list(pkg = "dials", fun = "max_num_terms"),
+  has_submodel = FALSE
+)
+
 set_fit(
   model = "mars",
   eng = "earth",

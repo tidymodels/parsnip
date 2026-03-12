@@ -24,7 +24,7 @@ set_model_arg(
   eng = "kernlab",
   parsnip = "degree",
   original = "degree",
-  func = list(pkg = "dials", fun = "degree"),
+  func = list(pkg = "dials", fun = "prod_degree", range = c(1L, 3L)),
   has_submodel = FALSE
 )
 
