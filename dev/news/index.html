@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.4.1.9003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.4.1.9004</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,7 @@
 <li><p><code><a href="../reference/repair_call.html">repair_call()</a></code> now errors informatively when given an object that is not a fitted parsnip model (<a href="https://github.com/tidymodels/parsnip/issues/598" class="external-link">#598</a>).</p></li>
 <li><p>Fix bug in predicting class probabilities for multiclass earth models (<a href="https://github.com/tidymodels/parsnip/issues/1334" class="external-link">#1334</a>)</p></li>
 <li><p>The “Fitting and predicting with parsnip” article has moved to <a href="https://www.tidymodels.org/learn/models/parsnip-predictions/" class="external-link">tidymodels.org</a> (<a href="https://github.com/tidymodels/parsnip/issues/1324" class="external-link">#1324</a>).</p></li>
+<li><p><code><a href="../reference/set_engine.html">set_engine()</a></code> now errors informatively when an invalid engine name is specified for models whose engines all come from extension packages (<a href="https://github.com/tidymodels/parsnip/issues/1110" class="external-link">#1110</a>).</p></li>
 <li><p>Quantile levels are not dropped when a model specification is modified (<a href="https://github.com/tidymodels/parsnip/issues/1304" class="external-link">#1304</a>)</p></li>
 <li><p>xgboost and qrnn engines were added for quantile regression to <code><a href="../reference/boost_tree.html">boost_tree()</a></code> and <code><a href="../reference/mlp.html">mlp()</a></code>, respectively. (<a href="https://github.com/tidymodels/parsnip/issues/1321" class="external-link">#1321</a>)</p></li>
 <li><p>Case weight usage was enabled for the <code>"nnet"</code> engines of <code><a href="../reference/mlp.html">mlp()</a></code> and <code><a href="../reference/bag_mlp.html">bag_mlp()</a></code> as well as for the <code>"dbarts"</code> engine of <code><a href="../reference/bart.html">bart()</a></code>.</p></li>
