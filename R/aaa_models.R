@@ -680,6 +680,40 @@ set_model_engine <- function(model, mode, eng) {
 
 
 # ------------------------------------------------------------------------------
+
+#' Check if a model argument is already registered
+#'
+#' This function checks whether a specific argument has already been registered
+#' for a model-engine combination. This is useful for extension packages that
+#' want to avoid re-registering arguments that parsnip has already registered.
+#'
+#' @param model A character string for the model type (e.g., "rand_forest").
+#' @param eng A character string for the engine.
+#' @param parsnip A character string for the parsnip argument name.
+#' @param original A character string for the original engine argument name.
+#' @return A logical value indicating whether the argument is already registered.
+#' @keywords internal
+#' @export
+model_arg_exists <- function(model, eng, parsnip, original) {
+  check_model_exists(model)
+  check_eng_val(eng)
+  check_string(parsnip, allow_empty = FALSE)
+  check_string(original, allow_empty = FALSE)
+
+  old_args <- get_from_env(paste0(model, "_args"))
+
+  if (nrow(old_args) == 0) {
+    return(FALSE)
+  }
+
+  any(
+    old_args$engine == eng &
+      old_args$parsnip == parsnip &
+      old_args$original == original
+  )
+}
+
+# ------------------------------------------------------------------------------
 #' @rdname set_new_model
 #' @keywords internal
 #' @export
@@ -690,6 +724,13 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
   check_string(original, allow_empty = FALSE)
   check_func_val(func)
   check_bool(has_submodel)
+
+  # First-wins: skip if this argument is already registered.
+  # This prevents conflicts when extension packages try to register
+  # the same argument that parsnip has already registered.
+  if (model_arg_exists(model, eng, parsnip, original)) {
+    return(invisible(NULL))
+  }
 
   old_args <- get_from_env(paste0(model, "_args"))
 

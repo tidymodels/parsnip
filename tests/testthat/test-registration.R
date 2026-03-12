@@ -556,3 +556,55 @@ test_that('showing model info', {
   # notation would be ambiguous (#1000)
   expect_snapshot(show_model_info("mlp"))
 })
+
+
+# ------------------------------------------------------------------------------
+
+test_that("model_arg_exists works correctly", {
+  # Should find existing registered args
+
+  expect_true(model_arg_exists("boost_tree", "xgboost", "trees", "nrounds"))
+  expect_true(model_arg_exists("rand_forest", "ranger", "mtry", "mtry"))
+
+  # Should not find non-existent args
+  expect_false(model_arg_exists("boost_tree", "xgboost", "fake_arg", "fake"))
+  expect_false(model_arg_exists(
+    "boost_tree",
+    "fake_engine",
+    "trees",
+    "nrounds"
+  ))
+
+  # Should work with engine-specific args (parsnip = original)
+  expect_true(model_arg_exists("boost_tree", "xgboost", "alpha", "alpha"))
+})
+
+test_that("set_model_arg uses first-wins for duplicates", {
+  # Get current state
+
+  old_args <- get_from_env("boost_tree_args")
+  original_alpha <- old_args[
+    old_args$engine == "xgboost" & old_args$parsnip == "alpha",
+  ]
+  original_nrow <- nrow(original_alpha)
+  original_func <- original_alpha$func[[1]]
+
+  # Try to re-register with different func - should be skipped
+  set_model_arg(
+    model = "boost_tree",
+    eng = "xgboost",
+    parsnip = "alpha",
+    original = "alpha",
+    func = list(pkg = "dials", fun = "penalty_L1", range = c(-99, 99)),
+    has_submodel = FALSE
+  )
+
+  # Check that nothing changed
+  new_args <- get_from_env("boost_tree_args")
+  new_alpha <- new_args[
+    new_args$engine == "xgboost" & new_args$parsnip == "alpha",
+  ]
+
+  expect_equal(nrow(new_alpha), original_nrow)
+  expect_equal(new_alpha$func[[1]], original_func)
+})

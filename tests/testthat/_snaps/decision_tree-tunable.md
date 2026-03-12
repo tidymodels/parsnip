@@ -13,6 +13,11 @@
       display_tunable_call_info(set_engine(decision_tree(), "C5.0"))
     Output
       min_n                     | pkg: dials, fun: min_n | main
+      CF                        | pkg: dials, fun: confidence_factor | engine
+      noGlobalPruning           | pkg: dials, fun: no_global_pruning | engine
+      winnow                    | pkg: dials, fun: predictor_winnowing | engine
+      fuzzyThreshold            | pkg: dials, fun: fuzzy_thresholding | engine
+      bands                     | pkg: dials, fun: rule_bands | engine
 
 # tunable parameters for decision_tree + spark
 
@@ -27,5 +32,7 @@
     Code
       display_tunable_call_info(set_engine(decision_tree(), "partykit"))
     Output
-      No tunable parameters.
+      mincriterion              | pkg: dials, fun: conditional_min_criterion | engine
+      teststat                  | pkg: dials, fun: conditional_test_statistic | engine
+      testtype                  | pkg: dials, fun: conditional_test_type | engine
 

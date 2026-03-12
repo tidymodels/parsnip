@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* The interface for declaring tunable parameters and any deviations for the standard parameter characteristics, has been simplified. These values can now be set inside of extension packages (#1349). 
+
 * Documentation for the lightgbm engine now includes information about custom objective functions and automatic `num_class` handling (#1275).
 
 * Fixed a bug in random forest fits using the `"aorsf"` engine where the check for `mtry` could not be performed (#1276)
