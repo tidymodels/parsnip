@@ -1,4 +1,4 @@
-#' Decision trees via partykit
+#' Decision trees via Conditional Inference using partykit
 #'
 #' [partykit::ctree()] fits a model as a set of if/then statements that creates a
 #' tree-based structure using hypothesis testing methods.

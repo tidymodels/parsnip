@@ -374,21 +374,28 @@
       
        arguments: 
          ranger:       
-            mtry  --> mtry
-            trees --> num.trees
-            min_n --> min.node.size
+            mtry                    --> mtry
+            trees                   --> num.trees
+            min_n                   --> min.node.size
+            regularization.factor   --> regularization.factor
+            regularization.usedepth --> regularization.usedepth
+            alpha                   --> alpha
+            minprop                 --> minprop
+            splitrule               --> splitrule
+            num.random.splits       --> num.random.splits
          randomForest: 
-            mtry  --> mtry
-            trees --> ntree
-            min_n --> nodesize
+            mtry                    --> mtry
+            trees                   --> ntree
+            min_n                   --> nodesize
+            maxnodes                --> maxnodes
          spark:        
-            mtry  --> feature_subset_strategy
-            trees --> num_trees
-            min_n --> min_instances_per_node
+            mtry                    --> feature_subset_strategy
+            trees                   --> num_trees
+            min_n                   --> min_instances_per_node
          grf:          
-            mtry  --> mtry
-            trees --> num.trees
-            min_n --> min.node.size
+            mtry                    --> mtry
+            trees                   --> num.trees
+            min_n                   --> min.node.size
       
        fit modules:
                engine                mode
