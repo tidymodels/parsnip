@@ -29,7 +29,7 @@
       translate(set_engine(mlp(mode = "classification"), "wat?"))
     Condition
       Error in `set_engine()`:
-      x Engine "wat?" is not supported for `mlp()`
+      x Engine "wat?" is not supported for `mlp()`.
       i See `show_engines("mlp")`.
 
 # check_args() works
