@@ -75,6 +75,6 @@ rand_forest(mtry = 2, min_n = 100, trees = 3) |>
 #> Target node size:                 32 
 #> Variable importance mode:         none 
 #> Splitrule:                        variance 
-#> OOB prediction error (MSE):       45.16696 
-#> R squared (OOB):                  -0.2434432 
+#> OOB prediction error (MSE):       39.02897 
+#> R squared (OOB):                  -0.07446488 
 ```
