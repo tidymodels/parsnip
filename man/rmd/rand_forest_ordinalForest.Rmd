@@ -1,0 +1,64 @@
+```{r, child="aaa.Rmd", include=FALSE}
+```
+
+`r descr_models("rand_forest", "ordinalForest")`
+
+## Tuning Parameters
+
+```{r}
+#| label: ordinalForest-param-info
+#| echo: false
+defaults <- 
+  tibble::tibble(parsnip = c("mtry", "trees", "min_n"),
+                 default = c("see below", "500L", "see below"))
+
+param <-
+  rand_forest() |> 
+  set_engine("ordinalForest") |> 
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r ordinalForest-param-list, echo=FALSE, results='asis'}
+param$item
+```
+
+`mtry` depends on the number of columns and the model mode. The default in [ordinalForest::ordfor()] is `floor(sqrt(ncol(x)))`.
+
+`min_n` depends on the mode. For regression, a value of 5 is the default. For classification, a value of 10 is used. 
+
+## Translation from parsnip to the original package (classification)
+
+```{r, ordinalForest-cls}
+rand_forest(
+  mtry = integer(1),
+  trees = integer(1),
+  min_n = integer(1)
+) |> 
+  set_engine("ordinalForest") |> 
+  set_mode("classification") |> 
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r}
+#| child: template-tree-split-factors.Rmd
+```
+
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
+## Other notes
+
+By default, parallel processing is turned off. When tuning, it is more efficient to parallelize over the resamples and tuning parameters. To parallelize the construction of the trees within the model, change the `num.threads` argument via [set_engine()]. 
+
+## References
+
+- Hornung R. 2020. Ordinal Forests. _Journal of Classification_ 37:4-17. \doi{10.1007/s00357-018-9302-x}.
+
+- Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

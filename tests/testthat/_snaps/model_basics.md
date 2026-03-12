@@ -241,6 +241,20 @@
 ---
 
     Code
+      print(ordinal_reg())
+    Message
+      ! parsnip could not locate an implementation for `ordinal_reg` model specifications.
+      i The parsnip extension package ordered implements support for this specification.
+      i Please install (if needed) and load to continue.
+    Output
+      Ordinal Regression Model Specification (classification)
+      
+      Computational engine: polr 
+      
+
+---
+
+    Code
       print(pls())
     Message
       ! parsnip could not locate an implementation for `pls` model specifications.

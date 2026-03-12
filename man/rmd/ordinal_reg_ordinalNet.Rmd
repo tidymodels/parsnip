@@ -1,0 +1,75 @@
+```{r, child="aaa.Rmd", include=FALSE}
+```
+
+`r descr_models("ordinal_reg", "ordinalNet")`
+
+## Tuning Parameters
+
+```{r ordinalNet-param-info, echo=FALSE}
+defaults <- 
+  tibble::tibble(
+    parsnip = c("ordinal_link", "odds_link", "penalty", "mixture"),
+    default = c("logit", "cumulative", "see below", "1.0")
+  )
+
+param <-
+  ordinal_reg() |>
+  set_engine("ordinalNet") |>
+  set_mode("classification") |>
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r, ordinalNet-param-list, echo=FALSE, results='asis'}
+param$item
+```
+
+## Translation from parsnip to the original package
+
+`r uses_extension("ordinal_reg", "ordinalNet", "classification")`
+
+```{r ordinalNet-oreg, warning = FALSE}
+library(ordered)
+
+ordinal_reg(
+  penalty = double(0),
+  mixture = double(0),
+  ordinal_link = character(0),
+  odds_link = character(0)
+) %>%
+  set_engine("ordinalNet") %>%
+  set_mode("classification") %>%
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r}
+#| child: template-makes-dummies.Rmd
+```
+
+```{r}
+#| child: template-same-scale.Rmd
+```
+
+By default, [ordinalNet::ordinalNet()] uses the argument `standardize = TRUE` to center and scale the data. 
+
+## Case weights
+
+```{r}
+#| child: template-no-case-weights.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+parsnip:::get_from_env("ordinal_reg_predict") |>
+  dplyr::filter(engine == "ordinalNet") |>
+  dplyr::select(mode, type)
+```
+
+## References
+
+- Wurm MJ, Rathouz PJ, Hanlon BM. 2021. Regularized Ordinal Regression and the ordinalNet R Package. _Journal of Statistical Software_ 99(6):1-42. \doi{10.18637/jss.v099.i06}.
