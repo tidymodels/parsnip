@@ -2,6 +2,27 @@
 
 ## parsnip (development version)
 
+- [`fit()`](https://generics.r-lib.org/reference/fit.html) with a
+  formula now reliably drops rows with missing values during internal
+  data conversion, regardless of the global `options(na.action = ...)`
+  setting ([\#548](https://github.com/tidymodels/parsnip/issues/548)).
+
+- For developers,
+  [`format_predictions()`](https://parsnip.tidymodels.org/dev/reference/format-internals.md)
+  is a new unified function for formatting prediction outputs,
+  consolidating the logic from the individual `format_*()` functions
+  ([\#927](https://github.com/tidymodels/parsnip/issues/927)). The
+  individual functions
+  [`format_num()`](https://parsnip.tidymodels.org/dev/reference/format-internals.md),
+  [`format_class()`](https://parsnip.tidymodels.org/dev/reference/format-internals.md),
+  [`format_classprobs()`](https://parsnip.tidymodels.org/dev/reference/format-internals.md),
+  [`format_time()`](https://parsnip.tidymodels.org/dev/reference/format-internals.md),
+  [`format_survival()`](https://parsnip.tidymodels.org/dev/reference/format-internals.md),
+  [`format_linear_pred()`](https://parsnip.tidymodels.org/dev/reference/format-internals.md),
+  and
+  [`format_hazard()`](https://parsnip.tidymodels.org/dev/reference/format-internals.md)
+  are now deprecated.
+
 - The interface for declaring tunable parameters and any deviations for
   the standard parameter characteristics, has been simplified. These
   values can now be set inside of extension packages
