@@ -65,6 +65,13 @@ auto_ml() |>
 
 Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
 
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
 ## Initializing h2o 
 
 
@@ -96,3 +103,4 @@ parsnip:::get_from_env("auto_ml_predict") |>
 
 
 Models fitted with this engine may require native serialization methods to be properly saved and/or passed between R sessions. To learn more about preparing fitted models for serialization, see the bundle package.
+

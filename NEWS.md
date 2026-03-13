@@ -1,5 +1,37 @@
 # parsnip (development version)
 
+* `fit()` with a formula now reliably drops rows with missing values during internal data conversion, regardless of the global `options(na.action = ...)` setting (#548).
+
+* For developers, `format_predictions()` is a new unified function for formatting prediction outputs, consolidating the logic from the individual `format_*()` functions (#927). The individual functions `format_num()`, `format_class()`, `format_classprobs()`, `format_time()`, `format_survival()`, `format_linear_pred()`, and `format_hazard()` are now deprecated.
+
+* The interface for declaring tunable parameters and any deviations for the standard parameter characteristics, has been simplified. These values can now be set inside of extension packages (#1349). 
+
+* Documentation for the lightgbm engine now includes information about custom objective functions and automatic `num_class` handling (#1275).
+
+* Fixed a bug in random forest fits using the `"aorsf"` engine where the check for `mtry` could not be performed (#1276)
+
+* `repair_call()` now errors informatively when given an object that is not a fitted parsnip model (#598).
+
+* Fix bug in predicting class probabilities for multiclass earth models (#1334)
+
+* The "Fitting and predicting with parsnip" article has moved to [tidymodels.org](https://www.tidymodels.org/learn/models/parsnip-predictions/) (#1324).
+
+* `set_engine()` now errors informatively when an invalid engine name is specified for models whose engines all come from extension packages (#1110).
+
+* Quantile levels are not dropped when a model specification is modified (#1304)
+
+* xgboost and qrnn engines were added for quantile regression to `boost_tree()` and `mlp()`, respectively. (#1321)
+
+* Case weight usage was enabled for the `"nnet"` engines of `mlp()` and `bag_mlp()` as well as for the `"dbarts"` engine of `bart()`. 
+
+* All model details files note whether case weights can be used or not. 
+
+* We now export the generics for `predict_quantile()`, `predict_class()`, `predict_classprob()`, and  `predict_hazard()`. (#1257)
+
+# parsnip 1.4.1
+
+* Fixed bug where xgboost models would fail to predict when `trees` matched number of trees in model. (#1316)
+
 # parsnip 1.4.0
 
 * Fixes issue with running predictions for Decision Trees in Spark (#1309)

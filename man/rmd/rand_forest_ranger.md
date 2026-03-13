@@ -103,6 +103,10 @@ This model can utilize case weights during model fitting. To use them, see the d
 
 The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
+Note that the data passed to the `case.weights` column are not used for traditional case weights (where the objective function is multiplied by a row-specific weight). From `?ranger::ranger`: "Observations with larger weights will be selected with higher probability in the bootstrap (or subsampled) samples for the trees."
+
+They function as sampling weights. 
+
 ## Sparse Data
 
 
@@ -139,7 +143,7 @@ parsnip:::get_from_env("rand_forest_predict") |>
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#rand-forest-ranger) for `rand_forest()` with the `"ranger"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `rand_forest()` with the `"ranger"` engine.
 
 ## References
 

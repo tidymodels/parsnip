@@ -6,8 +6,18 @@ set_model_mode("surv_reg", "regression")
 # ------------------------------------------------------------------------------
 
 set_model_engine("surv_reg", mode = "regression", eng = "flexsurv")
-set_dependency("surv_reg", eng = "flexsurv", pkg = "flexsurv")
-set_dependency("surv_reg", eng = "flexsurv", pkg = "survival")
+set_dependency(
+  "surv_reg",
+  eng = "flexsurv",
+  pkg = "flexsurv",
+  mode = "regression"
+)
+set_dependency(
+  "surv_reg",
+  eng = "flexsurv",
+  pkg = "survival",
+  mode = "regression"
+)
 
 set_model_arg(
   model = "surv_reg",
@@ -62,7 +72,12 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("surv_reg", mode = "regression", eng = "survival")
-set_dependency("surv_reg", eng = "survival", pkg = "survival")
+set_dependency(
+  "surv_reg",
+  eng = "survival",
+  pkg = "survival",
+  mode = "regression"
+)
 
 set_model_arg(
   model = "surv_reg",

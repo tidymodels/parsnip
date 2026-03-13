@@ -129,7 +129,7 @@ Models fitted with this engine may require native serialization methods to be pr
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#mlp-keras) for `mlp()` with the `"keras"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `mlp()` with the `"keras"` engine.
 
 ## References
 

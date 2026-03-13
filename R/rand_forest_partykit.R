@@ -1,4 +1,4 @@
-#' Random forests via partykit
+#' Random forests via Conditional Inference using partykit
 #'
 #' [partykit::cforest()] fits a model that creates a large number of decision
 #' trees, each independent of the others. The final prediction uses all

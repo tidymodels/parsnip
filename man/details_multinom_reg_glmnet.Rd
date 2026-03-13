@@ -64,9 +64,9 @@ the argument \code{standardize = TRUE} to center and scale the data.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-glmnet}{examples}
-for \code{multinom_reg()} with the \code{"glmnet"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{multinom_reg()} with the \code{"glmnet"} engine.
 }
 
 \subsection{Case weights}{

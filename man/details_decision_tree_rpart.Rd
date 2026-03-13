@@ -154,9 +154,9 @@ functions from the \href{https://butcher.tidymodels.org}{butcher} package.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#decision-tree-rpart}{examples}
-for \code{decision_tree()} with the \code{"rpart"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{decision_tree()} with the \code{"rpart"} engine.
 }
 
 \subsection{References}{

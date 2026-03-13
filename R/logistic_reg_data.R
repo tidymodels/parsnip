@@ -5,7 +5,7 @@ set_model_mode("logistic_reg", "classification")
 # ------------------------------------------------------------------------------
 
 set_model_engine("logistic_reg", "classification", "glm")
-set_dependency("logistic_reg", "glm", "stats")
+set_dependency("logistic_reg", "glm", "stats", mode = "classification")
 
 set_fit(
   model = "logistic_reg",
@@ -106,7 +106,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("logistic_reg", "classification", "glmnet")
-set_dependency("logistic_reg", "glmnet", "glmnet")
+set_dependency("logistic_reg", "glmnet", "glmnet", mode = "classification")
 
 set_fit(
   model = "logistic_reg",
@@ -146,7 +146,7 @@ set_model_arg(
   eng = "glmnet",
   parsnip = "mixture",
   original = "alpha",
-  func = list(pkg = "dials", fun = "mixture"),
+  func = list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)),
   has_submodel = FALSE
 )
 
@@ -208,7 +208,12 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("logistic_reg", "classification", "LiblineaR")
-set_dependency("logistic_reg", "LiblineaR", "LiblineaR")
+set_dependency(
+  "logistic_reg",
+  "LiblineaR",
+  "LiblineaR",
+  mode = "classification"
+)
 
 set_fit(
   model = "logistic_reg",
@@ -305,7 +310,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("logistic_reg", "classification", "spark")
-set_dependency("logistic_reg", "spark", "sparklyr")
+set_dependency("logistic_reg", "spark", "sparklyr", mode = "classification")
 
 set_model_arg(
   model = "logistic_reg",
@@ -387,8 +392,8 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("logistic_reg", "classification", "keras")
-set_dependency("logistic_reg", "keras", "keras")
-set_dependency("logistic_reg", "keras", "magrittr")
+set_dependency("logistic_reg", "keras", "keras", mode = "classification")
+set_dependency("logistic_reg", "keras", "magrittr", mode = "classification")
 
 set_model_arg(
   model = "logistic_reg",
@@ -462,7 +467,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("logistic_reg", "classification", "stan")
-set_dependency("logistic_reg", "stan", "rstanarm")
+set_dependency("logistic_reg", "stan", "rstanarm", mode = "classification")
 
 set_fit(
   model = "logistic_reg",
@@ -634,7 +639,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("logistic_reg", "classification", "brulee")
-set_dependency("logistic_reg", "brulee", "brulee")
+set_dependency("logistic_reg", "brulee", "brulee", mode = "classification")
 
 set_model_arg(
   model = "logistic_reg",

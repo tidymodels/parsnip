@@ -523,3 +523,55 @@ set_tf_seed <- function(seed) {
     tensorflow::tf$random$set_random_seed(seed)
   }
 }
+
+#' Wrapper for `qrnn::mcqrnn.fit()`
+#' @export
+#' @param x Predictor matrix
+#' @param y outcome vector
+#' @param ... Options to pass to `qrnn::mcqrnn.fit()`
+#' @param trace Logical for printing
+#' @param tau Vector of quantile levels.
+#' @keywords internal
+mcqrnn_train <- function(x, y, ..., trace, tau) {
+  if (is.vector(y)) {
+    y <- matrix(y, ncol = 1)
+  }
+  dots <- list(...)
+  if (any(grepl("^Th", names(dots)))) {
+    if (any(names(dots) == "Th") && dots$Th != "sigmoid") {
+      act_fun <- try(
+        utils::getFromNamespace(dots$Th, ns = "qrnn"),
+        silent = TRUE
+      )
+      if (inherits(act_fun, "try-error")) {
+        cli::cli_abort(
+          "Could not find an activation function called {.fn {dots$Th}} in the {.pkg qrnn} package."
+        )
+      }
+      dots$Th <- act_fun
+    }
+    if (any(names(dots) == "Th.prime") && dots$Th != "sigmoid.prime") {
+      deriv_nm <- paste0(dots$Th, ".prime")
+      act_deriv_fun <- try(
+        utils::getFromNamespace(deriv_nm, ns = "qrnn"),
+        silent = TRUE
+      )
+      if (inherits(act_deriv_fun, "try-error")) {
+        cli::cli_abort(
+          "Could not find an activation gradient function called {.fn {dots$Th}} in the {.pkg qrnn} package."
+        )
+      }
+      dots$Th.prime <- act_deriv_fun
+    }
+  }
+  cl <- rlang::call2(
+    "mcqrnn.fit",
+    .ns = "qrnn",
+    x = quote(x),
+    y = quote(y),
+    trace = quote(trace),
+    tau = quote(tau),
+    !!!dots
+  )
+  rlang::eval_tidy(cl)
+}

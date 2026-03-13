@@ -3,12 +3,16 @@ set_new_model("boost_tree")
 set_model_mode("boost_tree", "classification")
 set_model_mode("boost_tree", "regression")
 set_model_mode("boost_tree", "censored regression")
+set_model_mode("boost_tree", "quantile regression")
 
 # ------------------------------------------------------------------------------
 
 set_model_engine("boost_tree", "classification", "xgboost")
 set_model_engine("boost_tree", "regression", "xgboost")
-set_dependency("boost_tree", "xgboost", "xgboost")
+set_model_engine("boost_tree", "quantile regression", "xgboost")
+set_dependency("boost_tree", "xgboost", "xgboost", mode = "classification")
+set_dependency("boost_tree", "xgboost", "xgboost", mode = "regression")
+set_dependency("boost_tree", "xgboost", "xgboost", mode = "quantile regression")
 
 set_model_arg(
   model = "boost_tree",
@@ -31,7 +35,7 @@ set_model_arg(
   eng = "xgboost",
   parsnip = "learn_rate",
   original = "eta",
-  func = list(pkg = "dials", fun = "learn_rate"),
+  func = list(pkg = "dials", fun = "learn_rate", range = c(-3, -1 / 2)),
   has_submodel = FALSE
 )
 set_model_arg(
@@ -63,7 +67,7 @@ set_model_arg(
   eng = "xgboost",
   parsnip = "sample_size",
   original = "subsample",
-  func = list(pkg = "dials", fun = "sample_size"),
+  func = list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)),
   has_submodel = FALSE
 )
 set_model_arg(
@@ -75,6 +79,31 @@ set_model_arg(
   has_submodel = FALSE
 )
 
+# Engine-specific tunable parameters for xgboost
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost",
+  parsnip = "alpha",
+  original = "alpha",
+  func = list(pkg = "dials", fun = "penalty_L1"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost",
+  parsnip = "lambda",
+  original = "lambda",
+  func = list(pkg = "dials", fun = "penalty_L2"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost",
+  parsnip = "scale_pos_weight",
+  original = "scale_pos_weight",
+  func = list(pkg = "dials", fun = "scale_pos_weight"),
+  has_submodel = FALSE
+)
 
 set_fit(
   model = "boost_tree",
@@ -214,6 +243,49 @@ set_pred(
   )
 )
 
+
+set_fit(
+  model = "boost_tree",
+  eng = "xgboost",
+  mode = "quantile regression",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y", "weights"),
+    func = c(pkg = "parsnip", fun = "xgb_train"),
+    defaults = list(
+      nthread = 1,
+      verbose = 0,
+      quantile_alpha = expr(quantile_levels),
+      objective = "reg:quantileerror"
+    )
+  )
+)
+
+set_encoding(
+  model = "boost_tree",
+  eng = "xgboost",
+  mode = "quantile regression",
+  options = list(
+    predictor_indicators = "one_hot",
+    compute_intercept = FALSE,
+    remove_intercept = TRUE,
+    allow_sparse_x = TRUE
+  )
+)
+
+set_pred(
+  model = "boost_tree",
+  eng = "xgboost",
+  mode = "quantile regression",
+  type = "quantile",
+  value = list(
+    pre = NULL,
+    post = matrix_to_quantile_pred,
+    func = c(fun = "xgb_predict"),
+    args = list(object = quote(object$fit), new_data = quote(new_data))
+  )
+)
+
 # ------------------------------------------------------------------------------
 
 set_model_engine("boost_tree", "classification", "C5.0")
@@ -224,7 +296,7 @@ set_model_arg(
   eng = "C5.0",
   parsnip = "trees",
   original = "trials",
-  func = list(pkg = "dials", fun = "trees"),
+  func = list(pkg = "dials", fun = "trees", range = c(1, 100)),
   has_submodel = TRUE
 )
 set_model_arg(
@@ -240,7 +312,49 @@ set_model_arg(
   eng = "C5.0",
   parsnip = "sample_size",
   original = "sample",
-  func = list(pkg = "dials", fun = "sample_size"),
+  func = list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)),
+  has_submodel = FALSE
+)
+
+# Engine-specific tunable parameters for C5.0
+set_model_arg(
+  model = "boost_tree",
+  eng = "C5.0",
+  parsnip = "CF",
+  original = "CF",
+  func = list(pkg = "dials", fun = "confidence_factor"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "C5.0",
+  parsnip = "noGlobalPruning",
+  original = "noGlobalPruning",
+  func = list(pkg = "dials", fun = "no_global_pruning"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "C5.0",
+  parsnip = "winnow",
+  original = "winnow",
+  func = list(pkg = "dials", fun = "predictor_winnowing"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "C5.0",
+  parsnip = "fuzzyThreshold",
+  original = "fuzzyThreshold",
+  func = list(pkg = "dials", fun = "fuzzy_thresholding"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "C5.0",
+  parsnip = "bands",
+  original = "bands",
+  func = list(pkg = "dials", fun = "rule_bands"),
   has_submodel = FALSE
 )
 
@@ -317,7 +431,8 @@ set_pred(
 
 set_model_engine("boost_tree", "classification", "spark")
 set_model_engine("boost_tree", "regression", "spark")
-set_dependency("boost_tree", "spark", "sparklyr")
+set_dependency("boost_tree", "spark", "sparklyr", mode = "classification")
+set_dependency("boost_tree", "spark", "sparklyr", mode = "regression")
 
 set_model_arg(
   model = "boost_tree",

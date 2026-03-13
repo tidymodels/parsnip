@@ -43,8 +43,9 @@ mlp(
 ## Computational engine: nnet 
 ## 
 ## Model fit template:
-## nnet::nnet(formula = missing_arg(), data = missing_arg(), size = integer(1), 
-##     decay = double(1), maxit = integer(1), trace = FALSE, linout = TRUE)
+## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     size = integer(1), decay = double(1), maxit = integer(1), 
+##     trace = FALSE, linout = TRUE)
 ```
 
 Note that parsnip automatically sets linear activation in the last layer. 
@@ -74,8 +75,9 @@ mlp(
 ## Computational engine: nnet 
 ## 
 ## Model fit template:
-## nnet::nnet(formula = missing_arg(), data = missing_arg(), size = integer(1), 
-##     decay = double(1), maxit = integer(1), trace = FALSE, linout = FALSE)
+## nnet::nnet(formula = missing_arg(), data = missing_arg(), weights = missing_arg(), 
+##     size = integer(1), decay = double(1), maxit = integer(1), 
+##     trace = FALSE, linout = FALSE)
 ```
 
 
@@ -91,7 +93,10 @@ scale each so that each predictor has mean zero and a variance of one.
 ## Case weights
 
 
-The underlying model implementation does not allow for case weights. 
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+
 
 ## Prediction types
 
@@ -120,7 +125,7 @@ This model object contains data that are not required to make predictions. When 
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#mlp-nnet) for `mlp()` with the `"nnet"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `mlp()` with the `"nnet"` engine.
 
 ## References
 

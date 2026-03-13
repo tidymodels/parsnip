@@ -92,7 +92,7 @@ parsnip:::get_from_env("svm_poly_predict") |>
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-poly-kernlab) for `svm_poly()` with the `"kernlab"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `svm_poly()` with the `"kernlab"` engine.
 
 ## Saving fitted model objects
 

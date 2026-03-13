@@ -89,7 +89,7 @@ scale each so that each predictor has mean zero and a variance of one.
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#nearest-neighbor-kknn) for `nearest_neighbor()` with the `"kknn"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `nearest_neighbor()` with the `"kknn"` engine.
 
 ## Case weights
 

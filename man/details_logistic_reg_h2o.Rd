@@ -105,6 +105,16 @@ By default, \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}} uses the argument
 }\if{html}{\out{</div>}}
 }
 
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+}
+
 \subsection{Initializing h2o}{
 
 To use the h2o engine with tidymodels, please run \code{h2o::h2o.init()}

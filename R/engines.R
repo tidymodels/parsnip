@@ -145,7 +145,8 @@ set_engine.model_spec <- function(object, engine, ...) {
     user_specified_mode = object$user_specified_mode,
     method = NULL,
     engine = object$engine,
-    user_specified_engine = TRUE
+    user_specified_engine = TRUE,
+    quantile_levels = object$quantile_levels
   )
 }
 

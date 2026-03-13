@@ -28,7 +28,7 @@
       translate(set_engine(mars(), "wat?"))
     Condition
       Error in `set_engine()`:
-      x Engine "wat?" is not supported for `mars()`
+      x Engine "wat?" is not supported for `mars()`.
       i See `show_engines("mars")`.
 
 # submodel prediction

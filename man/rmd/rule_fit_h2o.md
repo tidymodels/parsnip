@@ -66,8 +66,6 @@ rule_fit(
 
 ## Translation from parsnip to the underlying model call  (classification)
 
-
-
 [agua::h2o_train_rule()] for `rule_fit()` is a wrapper around [h2o::h2o.rulefit()]. 
 
 The **agua** extension package is required to fit this model.
@@ -104,6 +102,13 @@ rule_fit(
 
 
 Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
+
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
 ## Prediction types
 

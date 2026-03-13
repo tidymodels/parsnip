@@ -6,7 +6,7 @@ set_model_mode("linear_reg", "quantile regression")
 # ------------------------------------------------------------------------------
 
 set_model_engine("linear_reg", "regression", "lm")
-set_dependency("linear_reg", "lm", "stats")
+set_dependency("linear_reg", "lm", "stats", mode = "regression")
 
 set_fit(
   model = "linear_reg",
@@ -111,7 +111,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("linear_reg", "regression", "glm")
-set_dependency("linear_reg", "glm", "stats")
+set_dependency("linear_reg", "glm", "stats", mode = "regression")
 
 set_fit(
   model = "linear_reg",
@@ -189,7 +189,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("linear_reg", "regression", "glmnet")
-set_dependency("linear_reg", "glmnet", "glmnet")
+set_dependency("linear_reg", "glmnet", "glmnet", mode = "regression")
 
 set_fit(
   model = "linear_reg",
@@ -229,7 +229,7 @@ set_model_arg(
   eng = "glmnet",
   parsnip = "mixture",
   original = "alpha",
-  func = list(pkg = "dials", fun = "mixture"),
+  func = list(pkg = "dials", fun = "mixture", range = c(0.05, 1.00)),
   has_submodel = FALSE
 )
 
@@ -267,7 +267,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("linear_reg", "regression", "stan")
-set_dependency("linear_reg", "stan", "rstanarm")
+set_dependency("linear_reg", "stan", "rstanarm", mode = "regression")
 
 set_fit(
   model = "linear_reg",
@@ -389,7 +389,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("linear_reg", "regression", "spark")
-set_dependency("linear_reg", "spark", "sparklyr")
+set_dependency("linear_reg", "spark", "sparklyr", mode = "regression")
 
 set_fit(
   model = "linear_reg",
@@ -454,8 +454,8 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("linear_reg", "regression", "keras")
-set_dependency("linear_reg", "keras", "keras")
-set_dependency("linear_reg", "keras", "magrittr")
+set_dependency("linear_reg", "keras", "keras", mode = "regression")
+set_dependency("linear_reg", "keras", "magrittr", mode = "regression")
 
 set_fit(
   model = "linear_reg",
@@ -506,7 +506,7 @@ set_pred(
 # ------------------------------------------------------------------------------
 
 set_model_engine("linear_reg", "regression", "brulee")
-set_dependency("linear_reg", "brulee", "brulee")
+set_dependency("linear_reg", "brulee", "brulee", mode = "regression")
 
 
 set_model_arg(

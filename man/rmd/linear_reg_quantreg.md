@@ -163,7 +163,7 @@ This model object contains data that are not required to make predictions. When 
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-quantreg) for `linear_reg()` with the `"quantreg"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `linear_reg()` with the `"quantreg"` engine.
 
 ## References
 

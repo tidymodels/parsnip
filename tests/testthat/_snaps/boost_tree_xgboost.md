@@ -100,3 +100,98 @@
     ! Please supply elements of the `params` list argument as main arguments to `set_engine()` rather than as part of `params`.
     i See `?details_boost_tree_xgboost` for more information.
 
+# xgboost execution, quantile regression
+
+    Code
+      spec_1
+    Output
+      Boosted Tree Model Specification (quantile regression)
+      
+      Main Arguments:
+        trees = 50
+      
+      Engine-Specific Arguments:
+        validation = 0.1
+      
+      Computational engine: xgboost 
+      
+    Message
+      Quantile levels: 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, and 0.9.
+
+---
+
+    Code
+      print(qnt_fit_1)
+    Output
+      parsnip model object
+      
+      ##### xgb.Booster
+      call:
+        xgboost::xgb.train(params = list(eta = 0.3, max_depth = 6, gamma = 0, 
+          colsample_bytree = 1, colsample_bynode = 1, min_child_weight = 1, 
+          subsample = 1, objective = "reg:quantileerror", nthread = 1, 
+          quantile_alpha = c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 
+          0.9)), data = x$data, nrounds = 50, evals = x$watchlist, 
+          verbose = 0)
+      # of features: 20 
+      # of rounds:  50 
+      callbacks:
+         evaluation_log 
+      evaluation_log:
+        iter validation_quantile
+       <num>               <num>
+           1            7.009181
+           2            6.548682
+         ---                 ---
+          49            5.314723
+          50            5.304116
+
+---
+
+    Code
+      spec_2
+    Output
+      Boosted Tree Model Specification (quantile regression)
+      
+      Main Arguments:
+        trees = 50
+        stop_iter = 2
+      
+      Engine-Specific Arguments:
+        validation = 0.1
+      
+      Computational engine: xgboost 
+      
+    Message
+      Quantile levels: 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, and 0.9.
+
+---
+
+    Code
+      print(qnt_fit_2)
+    Output
+      parsnip model object
+      
+      ##### xgb.Booster
+      call:
+        xgboost::xgb.train(params = list(eta = 0.3, max_depth = 6, gamma = 0, 
+          colsample_bytree = 1, colsample_bynode = 1, min_child_weight = 1, 
+          subsample = 1, objective = "reg:quantileerror", nthread = 1, 
+          quantile_alpha = c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 
+          0.9)), data = x$data, nrounds = 50, evals = x$watchlist, 
+          verbose = 0, early_stopping_rounds = 2)
+      # of features: 20 
+      # of rounds:  42 
+      xgb.attributes:
+         best_iteration, best_score 
+      callbacks:
+         early_stop, evaluation_log 
+      evaluation_log:
+        iter validation_quantile
+       <num>               <num>
+           1            7.009181
+           2            6.548682
+         ---                 ---
+          41            5.339619
+          42            5.342320
+

@@ -2,7 +2,7 @@
 % Please edit documentation in R/rand_forest_partykit.R
 \name{details_rand_forest_partykit}
 \alias{details_rand_forest_partykit}
-\title{Random forests via partykit}
+\title{Random forests via Conditional Inference using partykit}
 \description{
 \code{\link[partykit:cforest]{partykit::cforest()}} fits a model that creates a large number of decision
 trees, each independent of the others. The final prediction uses all
@@ -100,6 +100,16 @@ Categorical predictors can be partitioned into groups of factor levels
 are not required for this model.
 }
 
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+}
+
 \subsection{Prediction types}{
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("rand_forest_predict") |>
@@ -126,6 +136,12 @@ time.
 
 \subsection{References}{
 \itemize{
+\item Hothorn, T., Hornik, K., & Zeileis, A. (2006). Unbiased recursive
+partitioning: A conditional inference framework. \emph{Journal of
+Computational and Graphical Statistics}, 15(3), 651-674.
+\item Strobl, C., Boulesteix, A. L., Zeileis, A., & Hothorn, T. (2007). Bias
+in random forest variable importance measures: Illustrations, sources
+and a solution. \emph{BMC bioinformatics}, 8(1), 25.
 \item \href{https://jmlr.org/papers/v16/hothorn15a.html}{partykit: A Modular Toolkit for Recursive Partytioning in R}
 \item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
 }

@@ -7,7 +7,8 @@ set_model_mode("nearest_neighbor", "regression")
 
 set_model_engine("nearest_neighbor", "classification", "kknn")
 set_model_engine("nearest_neighbor", "regression", "kknn")
-set_dependency("nearest_neighbor", "kknn", "kknn")
+set_dependency("nearest_neighbor", "kknn", "kknn", mode = "classification")
+set_dependency("nearest_neighbor", "kknn", "kknn", mode = "regression")
 
 set_model_arg(
   model = "nearest_neighbor",
