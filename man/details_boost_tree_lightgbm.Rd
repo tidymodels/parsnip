@@ -147,7 +147,7 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 Although the source documentation is unclear about how the weights are
 utilized, it appears that the weights are applied to the objective
 function, not just the sampling mechanism. A GitHub issue
-(\url{https://github.com/microsoft/LightGBM/issues/1299})
+(\url{https://github.com/lightgbm-org/LightGBM/issues/1299})
 has evidence that the weights are a “multiplication applied to every
 positive label weight” and shows some C++ code to that effect.
 \subsection{Interpreting \code{mtry}}{
