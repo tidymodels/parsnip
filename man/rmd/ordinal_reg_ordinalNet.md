@@ -32,7 +32,7 @@ ordinal_reg(
   odds_link = character(0)
 ) %>%
   set_engine("ordinalNet") %>%
-  set_mode("classification") %>%
+  # "classification" is the only mode
   translate()
 ```
 
@@ -88,7 +88,9 @@ By default, [ordinalNet::ordinalNet()] uses the argument `standardize = TRUE` to
 ## Case weights
 
 
-The underlying model implementation does not allow for case weights. 
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
 ## Prediction types
 

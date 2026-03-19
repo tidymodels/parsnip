@@ -15,7 +15,6 @@ defaults <-
 param <-
   ordinal_reg() |>
   set_engine("ordinalNet") |>
-  set_mode("classification") |>
   make_parameter_list(defaults)
 ```
 
@@ -39,7 +38,7 @@ ordinal_reg(
   odds_link = character(0)
 ) %>%
   set_engine("ordinalNet") %>%
-  set_mode("classification") %>%
+  # "classification" is the only mode
   translate()
 ```
 
@@ -78,7 +77,7 @@ By default, [ordinalNet::ordinalNet()] uses the argument `standardize = TRUE` to
 ## Case weights
 
 ```{r}
-#| child: template-no-case-weights.Rmd
+#| child: template-uses-case-weights.Rmd
 ```
 
 ## Prediction types
