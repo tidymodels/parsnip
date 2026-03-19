@@ -189,7 +189,7 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
       x$method$fit$args$path_values <- NULL
     } else {
       # } else if (! rlang::is_call(x$method$fit$args$lambdaVals)) {
-      # REVIEW: `ordinalNet` models won't use values of `lambdaVals` at
+      # NOTES: `ordinalNet` models won't use values of `lambdaVals` at
       # predict-time outside the range used at fit-time. To enable a prediction
       # using a practical range of penalties _including the `penalty` value used
       # to fit_ (assuming a path wasn't specified), the code below passes values
@@ -220,31 +220,6 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
     # Since the `fit` information is gone for the penalty, we need to have an
     # evaluated value for the parameter.
     x$args$penalty <- rlang::eval_tidy(x$args$penalty)
-
-    # REVIEW: Below is an alternative solution to
-    # `ordered::ordinalNet_wrapper()`. It works in my examples. It seems
-    # disfavored because it lives in {parsnip} rather than in {ordered}, but
-    # there may be other considerations that make it preferable (or there may be
-    # a better way than either.)
-
-    # # translate odds link options
-    # if (! is.null(x$method$fit$args$family)) {
-    #   fam <- quo_get_expr(x$method$fit$args$family)
-    #   fam <- match.arg(fam, c(
-    #     "cumulative_link",
-    #     "adjacent_categories",
-    #     "continuation_ratio",
-    #     "stopping_ratio"
-    #   ))
-    #   fam <- switch(
-    #     fam,
-    #     cumulative_link = "cumulative",
-    #     adjacent_categories = "acat",
-    #     continuation_ratio = "cratio",
-    #     stopping_ratio = "sratio"
-    #   )
-    #   x$method$fit$args$family <- quo(!! fam)
-    # }
   }
 
   x
