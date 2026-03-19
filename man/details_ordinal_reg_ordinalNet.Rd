@@ -57,6 +57,36 @@ ordinal_reg(
 }\if{html}{\out{</div>}}
 }
 
+\subsection{Controlling penalty values}{
+
+\code{ordinalNet()}, like \code{glmnet()}, simultaneously computes a set of
+parameter estimates for multiple penalty values. Predictions can be made
+at these penalty values at the same time. However, unlike \code{glmnet()},
+\code{ordinalNet()} does not interpolate if you want to predict a penalty
+values that is not exactly what it precomputed. Similarly, it cannot
+predict for models outside of the range of penalties.
+
+The package can interpolate between the preset penalty values but cannot
+predict outside of their range and this will cause an error.
+
+We suggest that you set the collection of penalty values when fitting
+the model. This is important when tuning the model. Different data sets
+and mixture values (a.k.a. \code{alpha}) will have different sets of
+penalties and it might be good to set a wide range.
+
+To do this, you can use \code{set_engine()} to pass a vector of penalty
+values as so:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Example of setting a wide penalty range
+penalties <- 10^seq(-10, 0, length.out = 20)
+
+ordinal_reg(penalty = tune()) |>
+  set_engine("ordinalNet", path_values = !!penalties)
+}\if{html}{\out{</div>}}
+
+See \code{\link{glmnet-details}} for more background.
+}
+
 \subsection{Preprocessing requirements}{
 
 Factor/categorical predictors need to be converted to numeric values
