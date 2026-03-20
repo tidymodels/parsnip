@@ -62,17 +62,18 @@ ordinal_reg(
 \code{ordinalNet()}, like \code{glmnet()}, simultaneously computes a set of
 parameter estimates for multiple penalty values. Predictions can be made
 at these penalty values at the same time. However, unlike \code{glmnet()},
-\code{ordinalNet()} does not interpolate if you want to predict a penalty
-values that is not exactly what it precomputed. Similarly, it cannot
-predict for models outside of the range of penalties.
+\code{ordinalNet()} does not interpolate if you want to predict using penalty
+values not exactly among those it precomputed. Similarly, it cannot
+predict for models with penalties outside of the range of those
+precomputed.
 
 The package can interpolate between the preset penalty values but cannot
-predict outside of their range and this will cause an error.
+predict outside of their range; this will cause an error.
 
 We suggest that you set the collection of penalty values when fitting
 the model. This is important when tuning the model. Different data sets
-and mixture values (a.k.a. \code{alpha}) will have different sets of
-penalties and it might be good to set a wide range.
+and mixture values (a.k.a. \code{alpha}) will pair best with different sets
+of penalties and it might be good to set a wide range.
 
 To do this, you can use \code{set_engine()} to pass a vector of penalty
 values as so:
