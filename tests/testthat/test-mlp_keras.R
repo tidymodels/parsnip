@@ -216,7 +216,7 @@ test_that('keras regression prediction', {
   skip_if(!is_tf_ok())
 
   xy_fit <- parsnip::fit_xy(
-    mlp(mode = "regression", hidden_units = 2, epochs = 500, penalty = .1) |>
+    mlp(mode = "regression", hidden_units = 2, epochs = 500, penalty = 0.1) |>
       set_engine("keras", verbose = 0),
     x = mtcars[, c("cyl", "disp")],
     y = mtcars$mpg,
