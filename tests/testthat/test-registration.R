@@ -339,7 +339,7 @@ test_that('adding a new fit', {
     )
   )
 
-  for (i in 1:length(fit_vals)) {
+  for (i in seq_along(fit_vals)) {
     expect_snapshot(
       error = TRUE,
       set_fit(
@@ -495,7 +495,7 @@ test_that('adding a new predict method', {
     )
   )
 
-  for (i in 1:length(class_vals)) {
+  for (i in seq_along(class_vals)) {
     expect_snapshot(
       error = TRUE,
       set_pred(

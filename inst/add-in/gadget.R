@@ -127,7 +127,7 @@ parsnip_spec_add_in <- function() {
         selected <- selected[selected$mode %in% model_mode, ]
 
         res <- purrr::map_chr(
-          1:nrow(selected),
+          seq_len(nrow(selected)),
           ~ make_spec(selected[.x, ], tune_args = input$tune_args)
         )
 
