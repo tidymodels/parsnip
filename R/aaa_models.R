@@ -395,7 +395,7 @@ check_fit_info <- function(fit_obj, call = caller_env()) {
   opt_nms <- c("data")
   other_nms <- setdiff(exp_nms, names(fit_obj))
   has_opt_nms <- other_nms %in% opt_nms
-  if (any(!has_opt_nms)) {
+  if (!all(has_opt_nms)) {
     cli::cli_abort(
       "The {.arg value} argument can only have optional elements: \\
       {.field {exp_nms}}.",

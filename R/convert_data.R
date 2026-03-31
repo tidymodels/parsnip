@@ -346,7 +346,7 @@ local_one_hot_contrasts <- function(frame = rlang::caller_env()) {
 check_form_dots <- function(x, call = rlang::caller_env()) {
   good_args <- c("subset", "weights")
   good_names <- names(x) %in% good_args
-  if (any(!good_names)) {
+  if (!all(good_names)) {
     cli::cli_abort(
       c(
         "The argument{?s} {.arg {names(x)[!good_names]}} cannot be used to create
