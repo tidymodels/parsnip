@@ -45,12 +45,12 @@ objects after seeing the data and applying a model.
 # Keep the `x` matrix if the data are not too big.
 spec_obj <-
   linear_reg() |>
-  set_engine("lm", x = ifelse(.obs() < 500, TRUE, FALSE))
+  set_engine("lm", x = .obs() < 500)
 spec_obj
 #> Linear Regression Model Specification (regression)
 #> 
 #> Engine-Specific Arguments:
-#>   x = ifelse(.obs() < 500, TRUE, FALSE)
+#>   x = .obs() < 500
 #> 
 #> Computational engine: lm 
 #> 
@@ -61,8 +61,7 @@ fit_obj
 #> 
 #> 
 #> Call:
-#> stats::lm(formula = mpg ~ ., data = data, x = ~ifelse(.obs() < 
-#>     500, TRUE, FALSE))
+#> stats::lm(formula = mpg ~ ., data = data, x = ~.obs() < 500)
 #> 
 #> Coefficients:
 #> (Intercept)          cyl         disp           hp         drat  

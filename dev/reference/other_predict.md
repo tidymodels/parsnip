@@ -31,8 +31,6 @@ predict_predint(object, ...)
 # S3 method for class 'model_fit'
 predict_predint(object, new_data, level = 0.95, std_error = FALSE, ...)
 
-predict_predint(object, ...)
-
 # S3 method for class 'model_fit'
 predict_linear_pred(object, new_data, ...)
 
