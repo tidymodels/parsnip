@@ -48,7 +48,7 @@ test_that('model fitting', {
   expect_equal(
     unlist(keras::get_weights(extract_fit_engine(fit1))),
     unlist(keras::get_weights(extract_fit_engine(fit2))),
-    tolerance = .1
+    tolerance = 0.1
   )
 
   expect_no_condition(

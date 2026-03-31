@@ -14,7 +14,7 @@ te_dat <- dat[141:150, ]
 
 basic_mod <-
   multinom_reg() |>
-  set_engine("nnet", penalty = .1)
+  set_engine("nnet", penalty = 0.1)
 
 ctrl <- control_parsnip(verbosity = 0, catch = FALSE)
 

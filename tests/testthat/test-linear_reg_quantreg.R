@@ -9,7 +9,7 @@ test_that('linear quantile regression via quantreg - single quantile', {
   one_quant <-
     linear_reg() |>
     set_engine("quantreg") |>
-    set_mode("quantile regression", quantile_levels = .5) |>
+    set_mode("quantile regression", quantile_levels = 0.5) |>
     fit(price ~ ., data = sac_train)
 
   expect_s3_class(one_quant, c("_rq", "model_fit"))
@@ -25,7 +25,7 @@ test_that('linear quantile regression via quantreg - single quantile', {
     c("quantile_pred", "vctrs_vctr", "list")
   )
   expect_length(one_quant_pred$.pred_quantile[[1]], 1L)
-  expect_identical(attr(one_quant_pred$.pred_quantile, "quantile_levels"), .5)
+  expect_identical(attr(one_quant_pred$.pred_quantile, "quantile_levels"), 0.5)
 
   one_quant_df <- as_tibble(one_quant_pred$.pred_quantile)
   expect_s3_class(one_quant_df, c("tbl_df", "tbl", "data.frame"))
@@ -43,7 +43,7 @@ test_that('linear quantile regression via quantreg - single quantile', {
     c("quantile_pred", "vctrs_vctr", "list")
   )
   expect_length(one_quant_one_row$.pred_quantile[[1]], 1L)
-  expect_identical(attr(one_quant_pred$.pred_quantile, "quantile_levels"), .5)
+  expect_identical(attr(one_quant_pred$.pred_quantile, "quantile_levels"), 0.5)
 
   one_quant_one_row_df <- as_tibble(one_quant_one_row$.pred_quantile)
   expect_s3_class(one_quant_one_row_df, c("tbl_df", "tbl", "data.frame"))

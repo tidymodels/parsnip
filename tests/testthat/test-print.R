@@ -2,7 +2,7 @@ test_that("model spec print methods work (whole game)", {
   expect_snapshot(svm_poly())
   expect_snapshot(boost_tree(mtry = 5))
   expect_snapshot(rand_forest() |> set_mode("regression"))
-  expect_snapshot(logistic_reg() |> set_engine("glmnet", penalty = .5))
+  expect_snapshot(logistic_reg() |> set_engine("glmnet", penalty = 0.5))
   expect_snapshot(mlp() |> set_mode("classification") |> translate())
 })
 

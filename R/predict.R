@@ -503,7 +503,7 @@ check_pred_type_dots <- function(
   eval_time_types <- c("survival", "hazard")
 
   is_pred_arg <- names(the_dots) %in% other_args
-  if (any(!is_pred_arg)) {
+  if (!all(is_pred_arg)) {
     bad_args <- names(the_dots)[!is_pred_arg]
     bad_args <- paste0("`", bad_args, "`", collapse = ", ")
     cli::cli_abort(

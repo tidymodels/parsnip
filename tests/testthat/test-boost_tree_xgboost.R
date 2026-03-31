@@ -35,7 +35,7 @@ test_that('xgboost execution, classification', {
   ctrl$verbosity <- 0L
 
   set.seed(1)
-  wts <- ifelse(runif(nrow(hpc)) < .1, 0, 1)
+  wts <- ifelse(runif(nrow(hpc)) < 0.1, 0, 1)
   wts <- importance_weights(wts)
 
   expect_no_condition({
@@ -372,7 +372,7 @@ test_that('validation sets', {
   expect_no_condition(
     reg_fit <-
       boost_tree(trees = 20, mode = "regression") |>
-      set_engine("xgboost", validation = .1) |>
+      set_engine("xgboost", validation = 0.1) |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
@@ -384,7 +384,7 @@ test_that('validation sets', {
   expect_no_condition(
     reg_fit <-
       boost_tree(trees = 20, mode = "regression") |>
-      set_engine("xgboost", validation = .1, eval_metric = "mae") |>
+      set_engine("xgboost", validation = 0.1, eval_metric = "mae") |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
@@ -427,7 +427,7 @@ test_that('early stopping', {
   expect_no_condition(
     reg_fit <-
       boost_tree(trees = 200, stop_iter = 5, mode = "regression") |>
-      set_engine("xgboost", validation = .1) |>
+      set_engine("xgboost", validation = 0.1) |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
@@ -458,21 +458,21 @@ test_that('early stopping', {
   expect_no_condition(
     reg_fit <-
       boost_tree(trees = 20, mode = "regression") |>
-      set_engine("xgboost", validation = .1, eval_metric = "mae") |>
+      set_engine("xgboost", validation = 0.1, eval_metric = "mae") |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
   expect_snapshot(
     reg_fit <-
       boost_tree(trees = 20, stop_iter = 30, mode = "regression") |>
-      set_engine("xgboost", validation = .1) |>
+      set_engine("xgboost", validation = 0.1) |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
   expect_snapshot(
     error = TRUE,
     reg_fit <-
       boost_tree(trees = 20, stop_iter = 0, mode = "regression") |>
-      set_engine("xgboost", validation = .1) |>
+      set_engine("xgboost", validation = 0.1) |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 })
@@ -504,14 +504,14 @@ test_that('xgboost data conversion', {
   expect_true(inherits(from_mat$watchlist$training, "xgb.DMatrix"))
 
   expect_no_condition(
-    from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg, validation = .1)
+    from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg, validation = 0.1)
   )
   expect_true(inherits(from_df$data, "xgb.DMatrix"))
   expect_true(inherits(from_df$watchlist$validation, "xgb.DMatrix"))
   expect_true(nrow(from_df$data) > nrow(from_df$watchlist$validation))
 
   expect_no_condition(
-    from_mat <- parsnip:::as_xgb_data(mtcar_mat, mtcars$mpg, validation = .1)
+    from_mat <- parsnip:::as_xgb_data(mtcar_mat, mtcars$mpg, validation = 0.1)
   )
   expect_true(inherits(from_mat$data, "xgb.DMatrix"))
   expect_true(inherits(from_mat$watchlist$validation, "xgb.DMatrix"))
@@ -521,7 +521,7 @@ test_that('xgboost data conversion', {
     from_sparse <- parsnip:::as_xgb_data(
       mtcar_smat,
       mtcars$mpg,
-      validation = .1
+      validation = 0.1
     )
   )
   expect_true(inherits(from_mat$data, "xgb.DMatrix"))
@@ -825,17 +825,17 @@ test_that("count/proportion parameters", {
   expect_equal(extract_xgb_param(fit3, "colsample_bynode"), 1)
 
   fit4 <-
-    boost_tree(mtry = .9, trees = 4) |>
-    set_engine("xgboost", colsample_bytree = .1, counts = FALSE) |>
+    boost_tree(mtry = 0.9, trees = 4) |>
+    set_engine("xgboost", colsample_bytree = 0.1, counts = FALSE) |>
     set_mode("regression") |>
     fit(mpg ~ ., data = mtcars)
-  expect_equal(extract_xgb_param(fit4, "colsample_bytree"), .1)
-  expect_equal(extract_xgb_param(fit4, "colsample_bynode"), .9)
+  expect_equal(extract_xgb_param(fit4, "colsample_bytree"), 0.1)
+  expect_equal(extract_xgb_param(fit4, "colsample_bynode"), 0.9)
 
   extract_xgb_param(fit4, "colsample_bynode")
   expect_snapshot(
     error = TRUE,
-    boost_tree(mtry = .9, trees = 4) |>
+    boost_tree(mtry = 0.9, trees = 4) |>
       set_engine("xgboost") |>
       set_mode("regression") |>
       fit(mpg ~ ., data = mtcars)

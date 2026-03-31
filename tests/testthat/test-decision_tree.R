@@ -6,7 +6,7 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 test_that('updating', {
   expect_snapshot(
-    decision_tree(cost_complexity = .1) |>
+    decision_tree(cost_complexity = 0.1) |>
       set_engine("rpart", model = FALSE) |>
       update(cost_complexity = tune(), model = tune())
   )

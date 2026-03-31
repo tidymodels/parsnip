@@ -320,7 +320,7 @@ test_that("arguments (svm_poly)", {
 # translate.svm_rbf ------------------------------------------------------------
 test_that("arguments (svm_rbf)", {
   basic <- svm_rbf(mode = "regression")
-  rbf_sigma <- svm_rbf(mode = "regression", rbf_sigma = .2)
+  rbf_sigma <- svm_rbf(mode = "regression", rbf_sigma = 0.2)
 
   expect_snapshot(translate_args(basic |> set_engine("kernlab")))
   expect_snapshot(translate_args(basic |> set_engine("kernlab", cross = 10)))

@@ -392,7 +392,7 @@ test_that("bad args", {
     .convert_form_to_xy_fit(
       mpg ~ .,
       data = mtcars,
-      weights = letters[1:nrow(mtcars)],
+      weights = letters[seq_len(nrow(mtcars))],
       indicators = "traditional",
       remove_intercept = TRUE
     )

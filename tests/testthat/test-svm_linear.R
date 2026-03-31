@@ -104,7 +104,7 @@ test_that('linear svm regression prediction: LiblineaR', {
   expect_equal(
     as.data.frame(liblinear_pred),
     as.data.frame(parsnip_pred),
-    tolerance = .0001
+    tolerance = 0.0001
   )
 
   reg_xy_form <-
@@ -123,7 +123,7 @@ test_that('linear svm regression prediction: LiblineaR', {
   expect_equal(
     as.data.frame(liblinear_pred),
     as.data.frame(parsnip_xy_pred),
-    tolerance = .0001
+    tolerance = 0.0001
   )
 })
 
@@ -282,7 +282,7 @@ test_that('linear svm regression prediction: kernlab', {
   expect_equal(
     as.data.frame(kernlab_pred),
     as.data.frame(parsnip_pred),
-    tolerance = .0001
+    tolerance = 0.0001
   )
 
   reg_xy_form <-
@@ -301,7 +301,7 @@ test_that('linear svm regression prediction: kernlab', {
   expect_equal(
     as.data.frame(kernlab_pred),
     as.data.frame(parsnip_xy_pred),
-    tolerance = .0001
+    tolerance = 0.0001
   )
 })
 

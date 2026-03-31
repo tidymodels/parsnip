@@ -148,9 +148,3 @@ translate.svm_rbf <- function(x, engine = x$engine, ...) {
 check_args.svm_rbf <- function(object, call = rlang::caller_env()) {
   invisible(object)
 }
-
-# ------------------------------------------------------------------------------
-
-svm_reg_post <- function(results, object) {
-  results[, 1]
-}
