@@ -109,14 +109,4 @@ flexsurv_mean <- function(results, object) {
   results$est
 }
 
-flexsurv_quant <- function(results, object) {
-  results <- map(results, as_tibble)
-  names(results) <- NULL
-  results <- map(
-    results,
-    setNames,
-    c(".quantile", ".pred", ".pred_lower", ".pred_upper")
-  )
-}
-
 # nocov end
