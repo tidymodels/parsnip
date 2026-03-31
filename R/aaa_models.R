@@ -404,7 +404,7 @@ check_fit_info <- function(fit_obj, call = caller_env()) {
   }
   if (any(other_nms == "data")) {
     data_nms <- names(fit_obj$data)
-    if (length(data_nms == 0) || any(data_nms == "")) {
+    if (length(data_nms) == 0 || any(data_nms == "")) {
       cli::cli_abort(
         "All elements of the {.field data} argument vector must be named.",
         call = call
