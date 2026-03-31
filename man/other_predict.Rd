@@ -46,8 +46,6 @@ predict_predint(object, ...)
 
 \method{predict_predint}{model_fit}(object, new_data, level = 0.95, std_error = FALSE, ...)
 
-predict_predint(object, ...)
-
 \method{predict_linear_pred}{model_fit}(object, new_data, ...)
 
 predict_linear_pred(object, ...)
