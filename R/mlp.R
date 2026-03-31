@@ -186,7 +186,7 @@ class2ind <- function(x, drop2nd = FALSE, call = rlang::caller_env()) {
   colnames(y) <- gsub("^x", "", colnames(y))
   attributes(y)$assign <- NULL
   attributes(y)$contrasts <- NULL
-  if (length(levels(x)) == 2 & drop2nd) {
+  if (nlevels(x) == 2 & drop2nd) {
     y <- y[, 1]
   }
   y

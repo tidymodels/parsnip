@@ -450,7 +450,7 @@ check_outcome <- function(y, spec) {
     }
 
     if (
-      inherits(spec, "logistic_reg") && is.atomic(y) && length(levels(y)) > 2
+      inherits(spec, "logistic_reg") && is.atomic(y) && nlevels(y) > 2
     ) {
       # warn rather than error since some engines handle this case by binning
       # all but the first level as the non-event, so this may be intended
