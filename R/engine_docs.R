@@ -341,10 +341,6 @@ find_details_topics <- function(mod, pkg = "parsnip") {
   unique(res)
 }
 
-sort_c <- function(x) {
-  withr::with_collate("C", sort(x))
-}
-
 # ------------------------------------------------------------------------------
 
 #' Locate and show errors/warnings in engine-specific documentation

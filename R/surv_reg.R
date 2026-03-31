@@ -103,44 +103,10 @@ check_args.surv_reg <- function(object, call = rlang::caller_env()) {
 
 # ------------------------------------------------------------------------------
 
-survreg_quant <- function(results, object) {
-  pctl <- object$spec$method$pred$quantile$args$p
-  n <- nrow(results)
-  p <- ncol(results)
-  colnames(results) <- names0(p)
-  results <-
-    results |>
-    as_tibble() |>
-    mutate(.row = seq_len(n)) |>
-    gather(.label, .pred, -.row) |>
-    arrange(.row, .label) |>
-    mutate(.quantile = rep(pctl, n)) |>
-    dplyr::select(-.label)
-  .row <- results[[".row"]]
-  results <-
-    results |>
-    dplyr::select(-.row)
-  results <- split(results, .row)
-  names(results) <- NULL
-  tibble(.pred = results)
-}
-
-# ------------------------------------------------------------------------------
-
 flexsurv_mean <- function(results, object) {
   results <- unclass(results)
   results <- bind_rows(results)
   results$est
-}
-
-flexsurv_quant <- function(results, object) {
-  results <- map(results, as_tibble)
-  names(results) <- NULL
-  results <- map(
-    results,
-    setNames,
-    c(".quantile", ".pred", ".pred_lower", ".pred_upper")
-  )
 }
 
 # nocov end

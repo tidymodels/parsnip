@@ -323,13 +323,6 @@ get_descr_xy <- function(x, y, call = rlang::caller_env()) {
   )
 }
 
-has_exprs <- function(x) {
-  if (is.null(x) | is_varying(x) | is_missing_arg(x)) {
-    return(FALSE)
-  }
-  is_symbolic(x)
-}
-
 # Locate descriptors -----------------------------------------------------------
 
 # take a model spec, see if any require descriptors
