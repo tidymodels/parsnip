@@ -141,28 +141,6 @@ check_args.mars <- function(object, call = rlang::caller_env()) {
   invisible(object)
 }
 
-# ------------------------------------------------------------------------------
-
-earth_submodel_pred <- function(object, new_data, terms = 2:3, ...) {
-  load_libs(object, quiet = TRUE, attach = TRUE)
-  map(terms, earth_reg_updater, object = object, newdata = new_data, ...) |>
-    purrr::list_rbind()
-}
-
-earth_reg_updater <- function(num, object, new_data, ...) {
-  object <- update(object, nprune = num)
-  pred <- predict(object, new_data, ...)
-  if (ncol(pred) == 1) {
-    res <- tibble::tibble(.pred = pred[, 1], nprune = num)
-  } else {
-    names(res) <- paste0(".pred_", names(res))
-    res <- tibble::as_tibble(res)
-    res$nprune <- num
-  }
-  res
-}
-
-
 # earth helpers ----------------------------------------------------------------
 
 #' @rdname multi_predict
