@@ -105,7 +105,6 @@ tune_id <- function(x) {
           # no id
           return("")
         }
-        return(x$id)
       } else {
         return(NA_character_)
       }
