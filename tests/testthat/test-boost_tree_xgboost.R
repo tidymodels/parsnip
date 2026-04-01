@@ -489,36 +489,36 @@ test_that('xgboost data conversion', {
   mtcar_smat <- Matrix::Matrix(mtcar_mat, sparse = TRUE)
   wts <- 1:32
 
-  expect_no_condition(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg))
+  expect_no_condition(from_df <- as_xgb_data(mtcar_x, mtcars$mpg))
   expect_true(inherits(from_df$data, "xgb.DMatrix"))
   expect_true(inherits(from_df$watchlist$training, "xgb.DMatrix"))
 
-  expect_no_condition(from_mat <- parsnip:::as_xgb_data(mtcar_mat, mtcars$mpg))
+  expect_no_condition(from_mat <- as_xgb_data(mtcar_mat, mtcars$mpg))
   expect_true(inherits(from_mat$data, "xgb.DMatrix"))
   expect_true(inherits(from_mat$watchlist$training, "xgb.DMatrix"))
 
   expect_no_condition(
-    from_sparse <- parsnip:::as_xgb_data(mtcar_smat, mtcars$mpg)
+    from_sparse <- as_xgb_data(mtcar_smat, mtcars$mpg)
   )
   expect_true(inherits(from_mat$data, "xgb.DMatrix"))
   expect_true(inherits(from_mat$watchlist$training, "xgb.DMatrix"))
 
   expect_no_condition(
-    from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg, validation = 0.1)
+    from_df <- as_xgb_data(mtcar_x, mtcars$mpg, validation = 0.1)
   )
   expect_true(inherits(from_df$data, "xgb.DMatrix"))
   expect_true(inherits(from_df$watchlist$validation, "xgb.DMatrix"))
   expect_true(nrow(from_df$data) > nrow(from_df$watchlist$validation))
 
   expect_no_condition(
-    from_mat <- parsnip:::as_xgb_data(mtcar_mat, mtcars$mpg, validation = 0.1)
+    from_mat <- as_xgb_data(mtcar_mat, mtcars$mpg, validation = 0.1)
   )
   expect_true(inherits(from_mat$data, "xgb.DMatrix"))
   expect_true(inherits(from_mat$watchlist$validation, "xgb.DMatrix"))
   expect_true(nrow(from_mat$data) > nrow(from_mat$watchlist$validation))
 
   expect_no_condition(
-    from_sparse <- parsnip:::as_xgb_data(
+    from_sparse <- as_xgb_data(
       mtcar_smat,
       mtcars$mpg,
       validation = 0.1
@@ -535,10 +535,10 @@ test_that('xgboost data conversion', {
     levels = c(TRUE, FALSE),
     labels = c("low", "high")
   )
-  expect_no_condition(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y))
+  expect_no_condition(from_df <- as_xgb_data(mtcar_x, mtcars_y))
   expect_equal(xgboost::getinfo(from_df$data, name = "label")[1:5], rep(0, 5))
   expect_no_condition(
-    from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second")
+    from_df <- as_xgb_data(mtcar_x, mtcars_y, event_level = "second")
   )
   expect_equal(xgboost::getinfo(from_df$data, name = "label")[1:5], rep(1, 5))
 
@@ -548,16 +548,16 @@ test_that('xgboost data conversion', {
     labels = c("low", "high", "missing")
   )
   expect_snapshot(
-    from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second")
+    from_df <- as_xgb_data(mtcar_x, mtcars_y, event_level = "second")
   )
 
   # case weights added
   expect_no_condition(
-    wted <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg, weights = wts)
+    wted <- as_xgb_data(mtcar_x, mtcars$mpg, weights = wts)
   )
   expect_equal(wts, xgboost::getinfo(wted$data, "weight"))
   expect_no_condition(
-    wted_val <- parsnip:::as_xgb_data(
+    wted_val <- as_xgb_data(
       mtcar_x,
       mtcars$mpg,
       weights = wts,
@@ -622,11 +622,11 @@ test_that('xgboost data and sparse matrices', {
 
   # case weights added
   expect_no_condition(
-    wted <- parsnip:::as_xgb_data(mtcar_smat, mtcars$mpg, weights = wts)
+    wted <- as_xgb_data(mtcar_smat, mtcars$mpg, weights = wts)
   )
   expect_equal(wts, xgboost::getinfo(wted$data, "weight"))
   expect_no_condition(
-    wted_val <- parsnip:::as_xgb_data(
+    wted_val <- as_xgb_data(
       mtcar_smat,
       mtcars$mpg,
       weights = wts,
