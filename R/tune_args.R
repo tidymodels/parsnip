@@ -102,11 +102,11 @@ tune_id <- function(x) {
 
   # If an id was specified:
   if (length(x) > 1) {
-    return(x[[2]])
+    id <- x[[2]]
   } else {
-    # no id
-    return("")
+    id <- ""
   }
+  id
 }
 
 find_tune_id <- function(x) {
