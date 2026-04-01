@@ -92,25 +92,21 @@ tune_tbl <- function(
 # Return the `id` arg in tune(); if not specified, then returns "" or if not
 # a tunable arg then returns NA_character_
 tune_id <- function(x) {
-  if (is.null(x)) {
+  if (!is.call(x)) {
     return(NA_character_)
-  } else {
-    # [tune()] will always return a call object
-    if (is.call(x)) {
-      if (rlang::is_call_simple(x) && rlang::call_name(x) == "tune") {
-        # If an id was specified:
-        if (length(x) > 1) {
-          return(x[[2]])
-        } else {
-          # no id
-          return("")
-        }
-      } else {
-        return(NA_character_)
-      }
-    }
   }
-  NA_character_
+
+  if (!(rlang::is_call_simple(x) && rlang::call_name(x) == "tune")) {
+    return(NA_character_)
+  }
+
+  # If an id was specified:
+  if (length(x) > 1) {
+    return(x[[2]])
+  } else {
+    # no id
+    return("")
+  }
 }
 
 find_tune_id <- function(x) {
