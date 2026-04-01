@@ -95,19 +95,6 @@ tune_id <- function(x) {
   if (is.null(x)) {
     return(NA_character_)
   } else {
-    if (rlang::is_quosures(x)) {
-      # Try to evaluate to catch things in the global envir.
-      .x <- try(purrr::map(x, rlang::eval_tidy), silent = TRUE)
-      if (inherits(.x, "try-error")) {
-        x <- purrr::map(x, rlang::quo_get_expr)
-      } else {
-        x <- .x
-      }
-      if (is.null(x)) {
-        return(NA_character_)
-      }
-    }
-
     # [tune()] will always return a call object
     if (is.call(x)) {
       if (rlang::is_call_simple(x) && rlang::call_name(x) == "tune") {
