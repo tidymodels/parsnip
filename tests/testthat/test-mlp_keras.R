@@ -303,7 +303,7 @@ test_that('all keras activation functions', {
   skip_if_not_installed("dials", minimum_version = "1.3.0.9000")
   skip_if(!is_tf_ok())
 
-  act <- parsnip:::keras_activations()
+  act <- keras_activations()
 
   test_act <- function(fn) {
     set.seed(1)

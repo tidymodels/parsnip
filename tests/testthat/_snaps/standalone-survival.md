@@ -1,7 +1,7 @@
 # .filter_eval_time()
 
     Code
-      parsnip:::.filter_eval_time(times_duplicated)
+      .filter_eval_time(times_duplicated)
     Condition
       Warning:
       There were 11 inappropriate evaluation time points that were removed. They were:
@@ -12,7 +12,7 @@
 ---
 
     Code
-      parsnip:::.filter_eval_time(-1)
+      .filter_eval_time(-1)
     Condition
       Error:
       ! There were no usable evaluation times (finite, non-missing, and >= 0).
@@ -20,7 +20,7 @@
 ---
 
     Code
-      parsnip:::.filter_eval_time(times_remove_plural)
+      .filter_eval_time(times_remove_plural)
     Condition
       Warning:
       There were 3 inappropriate evaluation time points that were removed. They were:
@@ -33,7 +33,7 @@
 ---
 
     Code
-      parsnip:::.filter_eval_time(times_remove_singular)
+      .filter_eval_time(times_remove_singular)
     Condition
       Warning:
       There was 1 inappropriate evaluation time point that was removed. It was:

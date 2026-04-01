@@ -33,7 +33,7 @@ lr_fit_2 <-
 
 test_that('regression predictions', {
   expect_true(is_tibble(predict(lm_fit, new_data = hpc[1:5, -1])))
-  expect_true(is.vector(parsnip:::predict_numeric.model_fit(
+  expect_true(is.vector(predict_numeric.model_fit(
     lm_fit,
     new_data = hpc[1:5, -1]
   )))
@@ -42,7 +42,7 @@ test_that('regression predictions', {
 
 test_that('classification predictions', {
   expect_true(is_tibble(predict(lr_fit, new_data = class_dat[1:5, -1])))
-  expect_true(is.factor(parsnip:::predict_class.model_fit(
+  expect_true(is.factor(predict_class.model_fit(
     lr_fit,
     new_data = class_dat[1:5, -1]
   )))
@@ -56,7 +56,7 @@ test_that('classification predictions', {
     new_data = class_dat[1:5, -1],
     type = "prob"
   )))
-  expect_true(is_tibble(parsnip:::predict_classprob.model_fit(
+  expect_true(is_tibble(predict_classprob.model_fit(
     lr_fit,
     new_data = class_dat[1:5, -1]
   )))
@@ -114,7 +114,7 @@ test_that('ordinal classification predictions', {
 
 test_that('non-standard levels', {
   expect_true(is_tibble(predict(lr_fit, new_data = class_dat[1:5, -1])))
-  expect_true(is.factor(parsnip:::predict_class.model_fit(
+  expect_true(is.factor(predict_class.model_fit(
     lr_fit,
     new_data = class_dat[1:5, -1]
   )))
@@ -128,7 +128,7 @@ test_that('non-standard levels', {
     new_data = class_dat2[1:5, -1],
     type = "prob"
   )))
-  expect_true(is_tibble(parsnip:::predict_classprob.model_fit(
+  expect_true(is_tibble(predict_classprob.model_fit(
     lr_fit_2,
     new_data = class_dat2[1:5, -1]
   )))
@@ -137,7 +137,7 @@ test_that('non-standard levels', {
     c(".pred_2low", ".pred_high+values")
   )
   expect_equal(
-    names(parsnip:::predict_classprob.model_fit(
+    names(predict_classprob.model_fit(
       lr_fit_2,
       new_data = class_dat2[1:5, -1]
     )),

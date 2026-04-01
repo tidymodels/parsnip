@@ -44,7 +44,7 @@
 # xgboost data conversion
 
     Code
-      from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second")
+      from_df <- as_xgb_data(mtcar_x, mtcars_y, event_level = "second")
     Condition
       Warning:
       `event_level` can only be set for binary outcomes.
