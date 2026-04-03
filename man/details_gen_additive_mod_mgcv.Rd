@@ -147,6 +147,7 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \subsection{Prediction types}{
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("gen_additive_mod_predict") |>
+  dplyr::filter(engine == "mgcv") |> 
   dplyr::select(mode, type)
 }\if{html}{\out{</div>}}
 
