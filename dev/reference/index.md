@@ -48,6 +48,8 @@
   : K-nearest neighbors
 - [`null_model()`](https://parsnip.tidymodels.org/dev/reference/null_model.md)
   : Null model
+- [`ordinal_reg()`](https://parsnip.tidymodels.org/dev/reference/ordinal_reg.md)
+  : Ordinal regression
 - [`pls()`](https://parsnip.tidymodels.org/dev/reference/pls.md) :
   Partial least squares (PLS)
 - [`poisson_reg()`](https://parsnip.tidymodels.org/dev/reference/poisson_reg.md)
@@ -173,6 +175,7 @@
   [`update(`*`<multinom_reg>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
   [`update(`*`<naive_Bayes>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
   [`update(`*`<nearest_neighbor>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
+  [`update(`*`<ordinal_reg>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
   [`update(`*`<pls>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
   [`update(`*`<poisson_reg>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
   [`update(`*`<proportional_hazards>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)

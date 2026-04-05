@@ -14,6 +14,8 @@ this model are listed below.
 
 - [`partykit`](https://parsnip.tidymodels.org/dev/reference/details_decision_tree_partykit.md)`²`
 
+- [`rpartScore`](https://parsnip.tidymodels.org/dev/reference/details_decision_tree_rpartScore.md)`²`
+
 - [`spark`](https://parsnip.tidymodels.org/dev/reference/details_decision_tree_spark.md)
 
 ¹ The default engine. ² Requires a parsnip extension package for
@@ -96,6 +98,7 @@ models](https://www.tidymodels.org/find/parsnip/)
 [`rpart engine details`](https://parsnip.tidymodels.org/dev/reference/details_decision_tree_rpart.md),
 [`C5.0 engine details`](https://parsnip.tidymodels.org/dev/reference/details_decision_tree_C5.0.md),
 [`partykit engine details`](https://parsnip.tidymodels.org/dev/reference/details_decision_tree_partykit.md),
+[`rpartScore engine details`](https://parsnip.tidymodels.org/dev/reference/details_decision_tree_rpartScore.md),
 [`spark engine details`](https://parsnip.tidymodels.org/dev/reference/details_decision_tree_spark.md)
 
 ## Examples

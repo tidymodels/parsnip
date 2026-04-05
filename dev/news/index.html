@@ -46,6 +46,35 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="parsnip-development-version">parsnip (development version)<a class="anchor" aria-label="anchor" href="#parsnip-development-version"></a></h2>
+<div class="section level3">
+<h3 id="updates-related-to-ordered-extenision-package-development-version">updates related to ‘ordered’ extenision package<a class="anchor" aria-label="anchor" href="#updates-related-to-ordered-extenision-package-development-version"></a></h3>
+<p>The changes in this section are discussed in <a href="https://github.com/tidymodels/parsnip/issues/1298" class="external-link">#1298</a>.</p>
+<ul><li>
+<p>A new model <code><a href="../reference/ordinal_reg.html">ordinal_reg()</a></code> is introduced for ordinal regression (<a href="https://github.com/tidymodels/parsnip/issues/953" class="external-link">#953</a>):</p>
+<ul><li>Its sole mode is <code>"classification"</code> and its default engine is <code>"polr"</code> for <code><a href="https://rdrr.io/pkg/MASS/man/polr.html" class="external-link">MASS::polr()</a></code>.</li>
+<li>Additional engines <code>"ordinalNet"</code> for <code>ordinalNet::ordinalNet()</code> and <code>"vglm"</code> for <code>VGAM::vglm()</code> are documented.</li>
+<li>In addition to <code>penalty</code> and <code>mixture</code> common to GLM models, two new model parameters are introduced: <code>ordinal_link</code> and <code>odds_link</code>.</li>
+<li>Methods are written for <code><a href="../reference/translate.html">translate()</a></code>, <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>, <code><a href="../reference/add_on_exports.html">check_args()</a></code>, and <code><a href="https://generics.r-lib.org/reference/tunable.html" class="external-link">tunable()</a></code>.</li>
+<li>Existing pan-model tests are extended and new model-specific tests are added.</li>
+</ul></li>
+<li>
+<p>New engines for ordinal prediction are documented:</p>
+<ul><li>
+<code>"vgam"</code> for <code>VGAM::vgam()</code> under <code><a href="../reference/gen_additive_mod.html">gen_additive_mod()</a></code>
+</li>
+<li>
+<code>"rpartScore"</code> for <code>rpartScore::rpartScore()</code> under <code><a href="../reference/decision_tree.html">decision_tree()</a></code>
+</li>
+<li>
+<code>"ordinalForest"</code> for <code>ordinalForest::ordfor()</code> under <code><a href="../reference/rand_forest.html">rand_forest()</a></code>
+</li>
+</ul></li>
+<li><p>Engine arguments for the new ordinal prediction engines are documented.</p></li>
+<li><p>Ordinal prediction tools are coordinated with new parameter tuners in dials and engines in ordered.</p></li>
+<li><p><code>model_info_table</code> is updated with the above 6 engines in anticipation of submission of ordered to CRAN.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="other-updates-development-version">other updates<a class="anchor" aria-label="anchor" href="#other-updates-development-version"></a></h3>
 <ul><li><p><code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> with a formula now reliably drops rows with missing values during internal data conversion, regardless of the global <code>options(na.action = ...)</code> setting (<a href="https://github.com/tidymodels/parsnip/issues/548" class="external-link">#548</a>).</p></li>
 <li><p>For developers, <code><a href="../reference/format-internals.html">format_predictions()</a></code> is a new unified function for formatting prediction outputs, consolidating the logic from the individual <code>format_*()</code> functions (<a href="https://github.com/tidymodels/parsnip/issues/927" class="external-link">#927</a>). The individual functions <code><a href="../reference/format-internals.html">format_num()</a></code>, <code><a href="../reference/format-internals.html">format_class()</a></code>, <code><a href="../reference/format-internals.html">format_classprobs()</a></code>, <code><a href="../reference/format-internals.html">format_time()</a></code>, <code><a href="../reference/format-internals.html">format_survival()</a></code>, <code><a href="../reference/format-internals.html">format_linear_pred()</a></code>, and <code><a href="../reference/format-internals.html">format_hazard()</a></code> are now deprecated.</p></li>
 <li><p>The interface for declaring tunable parameters and any deviations for the standard parameter characteristics, has been simplified. These values can now be set inside of extension packages (<a href="https://github.com/tidymodels/parsnip/issues/1349" class="external-link">#1349</a>).</p></li>
@@ -61,6 +90,7 @@
 <li><p>All model details files note whether case weights can be used or not.</p></li>
 <li><p>We now export the generics for <code><a href="../reference/other_predict.html">predict_quantile()</a></code>, <code><a href="../reference/other_predict.html">predict_class()</a></code>, <code><a href="../reference/other_predict.html">predict_classprob()</a></code>, and <code><a href="../reference/other_predict.html">predict_hazard()</a></code>. (<a href="https://github.com/tidymodels/parsnip/issues/1257" class="external-link">#1257</a>)</p></li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.4.1" id="parsnip-141">parsnip 1.4.1<a class="anchor" aria-label="anchor" href="#parsnip-141"></a></h2><p class="text-muted">CRAN release: 2026-01-11</p>
 <ul><li>Fixed bug where xgboost models would fail to predict when <code>trees</code> matched number of trees in model. (<a href="https://github.com/tidymodels/parsnip/issues/1316" class="external-link">#1316</a>)</li>

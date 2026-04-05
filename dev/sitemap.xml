@@ -53,6 +53,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_C5.0.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_partykit.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_rpart.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_rpartScore.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_spark.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_discrim_flexible_earth.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_discrim_linear_MASS.html</loc></url>
@@ -63,6 +64,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_discrim_quad_sparsediscrim.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_discrim_regularized_klaR.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_gen_additive_mod_mgcv.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_gen_additive_mod_vgam.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_brulee.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_gee.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_glm.html</loc></url>
@@ -106,6 +108,9 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_naive_Bayes_klaR.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_naive_Bayes_naivebayes.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_nearest_neighbor_kknn.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_ordinal_reg_ordinalNet.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_ordinal_reg_polr.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_ordinal_reg_vglm.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_pls_mixOmics.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_gee.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_glm.html</loc></url>
@@ -121,6 +126,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_aorsf.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_grf.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_h2o.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_ordinalForest.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_partykit.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_randomForest.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_ranger.html</loc></url>
@@ -186,6 +192,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/nearest_neighbor.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/null_model.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/nullmodel.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/ordinal_reg.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/other_predict.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/parsnip-package.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/parsnip_addin.html</loc></url>

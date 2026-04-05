@@ -2,6 +2,52 @@
 
 ## parsnip (development version)
 
+### updates related to ‘ordered’ extenision package
+
+The changes in this section are discussed in
+[\#1298](https://github.com/tidymodels/parsnip/issues/1298).
+
+- A new model
+  [`ordinal_reg()`](https://parsnip.tidymodels.org/dev/reference/ordinal_reg.md)
+  is introduced for ordinal regression
+  ([\#953](https://github.com/tidymodels/parsnip/issues/953)):
+
+  - Its sole mode is `"classification"` and its default engine is
+    `"polr"` for
+    [`MASS::polr()`](https://rdrr.io/pkg/MASS/man/polr.html).
+  - Additional engines `"ordinalNet"` for `ordinalNet::ordinalNet()` and
+    `"vglm"` for `VGAM::vglm()` are documented.
+  - In addition to `penalty` and `mixture` common to GLM models, two new
+    model parameters are introduced: `ordinal_link` and `odds_link`.
+  - Methods are written for
+    [`translate()`](https://parsnip.tidymodels.org/dev/reference/translate.md),
+    [`update()`](https://rdrr.io/r/stats/update.html),
+    [`check_args()`](https://parsnip.tidymodels.org/dev/reference/add_on_exports.md),
+    and
+    [`tunable()`](https://generics.r-lib.org/reference/tunable.html).
+  - Existing pan-model tests are extended and new model-specific tests
+    are added.
+
+- New engines for ordinal prediction are documented:
+
+  - `"vgam"` for `VGAM::vgam()` under
+    [`gen_additive_mod()`](https://parsnip.tidymodels.org/dev/reference/gen_additive_mod.md)
+  - `"rpartScore"` for `rpartScore::rpartScore()` under
+    [`decision_tree()`](https://parsnip.tidymodels.org/dev/reference/decision_tree.md)
+  - `"ordinalForest"` for `ordinalForest::ordfor()` under
+    [`rand_forest()`](https://parsnip.tidymodels.org/dev/reference/rand_forest.md)
+
+- Engine arguments for the new ordinal prediction engines are
+  documented.
+
+- Ordinal prediction tools are coordinated with new parameter tuners in
+  dials and engines in ordered.
+
+- `model_info_table` is updated with the above 6 engines in anticipation
+  of submission of ordered to CRAN.
+
+### other updates
+
 - [`fit()`](https://generics.r-lib.org/reference/fit.html) with a
   formula now reliably drops rows with missing values during internal
   data conversion, regardless of the global `options(na.action = ...)`
