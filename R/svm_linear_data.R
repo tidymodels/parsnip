@@ -7,7 +7,8 @@ set_model_mode("svm_linear", "regression")
 
 set_model_engine("svm_linear", "classification", "LiblineaR")
 set_model_engine("svm_linear", "regression", "LiblineaR")
-set_dependency("svm_linear", "LiblineaR", "LiblineaR")
+set_dependency("svm_linear", "LiblineaR", "LiblineaR", mode = "classification")
+set_dependency("svm_linear", "LiblineaR", "LiblineaR", mode = "regression")
 
 set_model_arg(
   model = "svm_linear",
@@ -48,7 +49,6 @@ set_fit(
     interface = "matrix",
     data = c(x = "data", y = "target"),
     protect = c("x", "y"),
-    data = c(x = "data", y = "target"),
     func = c(pkg = "LiblineaR", fun = "LiblineaR"),
     defaults = list(type = 1)
   )
@@ -143,7 +143,8 @@ set_pred(
 
 set_model_engine("svm_linear", "classification", "kernlab")
 set_model_engine("svm_linear", "regression", "kernlab")
-set_dependency("svm_linear", "kernlab", "kernlab")
+set_dependency("svm_linear", "kernlab", "kernlab", mode = "classification")
+set_dependency("svm_linear", "kernlab", "kernlab", mode = "regression")
 
 set_model_arg(
   model = "svm_linear",

@@ -33,7 +33,7 @@ test_that('required packages', {
 test_that('missing packages', {
   skip_if_not_installed("earth")
 
-  has_earth <- parsnip:::is_installed("earth")
+  has_earth <- is_installed("earth")
 
   if (has_earth) {
     expect_no_condition(predict(mars_model, mtcars[1:3, -1]))

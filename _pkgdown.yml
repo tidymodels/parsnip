@@ -6,6 +6,8 @@ navbar:
     tutorials:
       text: Learn more
       menu:
+      - text: "Fitting and predicting with parsnip"
+        href: https://www.tidymodels.org/learn/models/parsnip-predictions/
       - text: "Regression modeling"
         href: https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/
       - text: "Classification modeling"
@@ -57,6 +59,7 @@ reference:
   - naive_Bayes
   - nearest_neighbor
   - null_model
+  - ordinal_reg
   - pls
   - poisson_reg
   - proportional_hazards

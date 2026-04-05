@@ -68,10 +68,10 @@ predict_class.model_fit <- function(object, new_data, ...) {
   res
 }
 
-# @export
-# @keywords internal
-# @rdname other_predict
-# @inheritParams predict.model_fit
+#' @export
+#' @keywords internal
+#' @rdname other_predict
+#' @inheritParams predict.model_fit
 predict_class <- function(object, ...) {
   UseMethod("predict_class")
 }

@@ -32,13 +32,9 @@ All these items should be added to *parsnip*, unless otherwise specified.
 
 * [ ] Add a pkgdown entry.
 
-* [ ] Add model description to the internal `model_descs` tibble.
+* [ ] Add model information to the internal `model_info_table` tibble in `R/aaa_archive.R`.
 
 * [ ] Run `purrr::map(parsnip:::extensions(), ~ library(.x, character.only = TRUE))`.
-
-* [ ] Run `parsnip:::update_model_info_file()`.
-
-* [ ] Make sure that no entries are removed from `inst/models.tsv`.
 
 * [ ] Add a documentation entry in `NEWS.md`.
 ```
@@ -57,6 +53,8 @@ Engines may live in parsnip or an extension package.
 
 * [ ] _[extension pkg]_ Add the registration functions to `.onLoad()` in the `zzz.R` file. [(example)](https://github.com/tidymodels/censored/blob/efbb1cf3b2ba8bca5de65acc3c8b665dec35631c/R/zzz.R#L13) 
 
+* [ ] Add model information to the internal `model_info_table` tibble in `R/aaa_archive.R`.
+
 * [ ] Engine-specific tuning parameters: Necessary parameter objects [[example]](https://github.com/tidymodels/dials/blob/d47dc47f42ad9c190d7f4a1ec85db0e385345ec0/R/param_num_knots.R) should go into *dials* and the `tunable()` method [[example]](https://github.com/tidymodels/parsnip/blob/bdc28548fd46493b52b408b6c1e04e1f80d0abdf/R/tunable.R#L338-L345) should go into parsnip. This needs a tibble which links engine arguments to dials parameter objects [[example]](https://github.com/tidymodels/parsnip/blob/bdc28548fd46493b52b408b6c1e04e1f80d0abdf/R/tunable.R#L206-L215).
 
 * [ ] Optionally create methods for `translate()` and `check_args()` to handle engine-specific cases. These `.{model name}` methods should go into parsnip, even if the engine is defined in an extension package, as they may contain code for various engines distributed across multiple extension packages. [(example)](https://github.com/tidymodels/parsnip/blob/c54f07b7e1f7ce164aab8f95bc7b1356b68558c8/R/proportional_hazards.R#L85:L98')
@@ -67,7 +65,7 @@ Engines may live in parsnip or an extension package.
 
 * [ ] Write the engine-specific documentation. This documentation always goes into parsnip, regardless of where the engine is defined. See the [README](https://github.com/tidymodels/parsnip/blob/main/inst/README-DOCS.md) for the parsnip documentation system.
 
-* [ ] If the engine is added in parsnip, update `vignettes/articles/Examples.Rmd`. If the engine is added in an extension package: does it have a corresponding article that needs updating? Does the README list available models/engines and needs updating?
+* [ ] Update the `parsnip-predictions` article of <tidymodels.org>. If the engine is added in an extension package: Does the README list available models/engines and needs updating?
 
 * [ ] Add a documentation entry in `NEWS.md`.
 ```
@@ -99,10 +97,6 @@ Engine documentation always goes into parsnip, regardless of where the engine li
 * [ ] Make sure that the `rmd_pkgs` listed in `parsnip/man/rmd/aaa.Rmd` are also installed. [[example]](https://github.com/tidymodels/parsnip/blob/main/man/rmd/aaa.Rmd#L20:L21)
 
 * [ ] Run `purrr::map(parsnip:::extensions(), ~ library(.x, character.only = TRUE))`.
-
-* [ ] Run `parsnip:::update_model_info_file()`.
-
-* [ ] Make sure that no entries are removed from `inst/models.tsv`.
 
 * [ ] Restart your R session (with `Shift + Cmd + 0` on MacOS).
 

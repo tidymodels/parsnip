@@ -54,7 +54,7 @@ By default, [glmnet::glmnet()] uses the argument `standardize = TRUE` to center 
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-glmnet) for `multinom_reg()` with the `"glmnet"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `multinom_reg()` with the `"glmnet"` engine.
 
 ## Case weights
 

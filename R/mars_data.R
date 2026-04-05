@@ -7,7 +7,8 @@ set_model_mode("mars", "regression")
 
 set_model_engine("mars", "classification", "earth")
 set_model_engine("mars", "regression", "earth")
-set_dependency("mars", "earth", "earth")
+set_dependency("mars", "earth", "earth", mode = "classification")
+set_dependency("mars", "earth", "earth", mode = "regression")
 
 set_model_arg(
   model = "mars",
@@ -31,6 +32,16 @@ set_model_arg(
   parsnip = "prune_method",
   original = "pmethod",
   func = list(pkg = "dials", fun = "prune_method"),
+  has_submodel = FALSE
+)
+
+# Engine-specific tunable parameters for earth
+set_model_arg(
+  model = "mars",
+  eng = "earth",
+  parsnip = "nk",
+  original = "nk",
+  func = list(pkg = "dials", fun = "max_num_terms"),
   has_submodel = FALSE
 )
 
@@ -139,12 +150,7 @@ set_pred(
   type = "prob",
   value = list(
     pre = NULL,
-    post = function(x, object) {
-      x <- x[, 1]
-      x <- tibble(v1 = 1 - x, v2 = x)
-      colnames(x) <- object$lvl
-      x
-    },
+    post = earth_glm_covert,
     func = c(fun = "predict"),
     args = list(
       object = quote(object$fit),

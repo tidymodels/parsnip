@@ -20,20 +20,19 @@ Possible values for this model are "unknown", "regression",
 \item{engine}{A single character string specifying what computational engine
 to use for fitting.}
 
-\item{mtry}{An integer for the number of predictors that will
-be randomly sampled at each split when creating the tree models.}
+\item{mtry}{An integer for the number of predictors that will be randomly
+sampled at each split when creating the tree models.}
 
-\item{trees}{An integer for the number of trees contained in
-the ensemble.}
+\item{trees}{An integer for the number of trees contained in the ensemble.}
 
-\item{min_n}{An integer for the minimum number of data points
-in a node that are required for the node to be split further.}
+\item{min_n}{An integer for the minimum number of data points in a node that
+are required for the node to be split further.}
 }
 \description{
 \code{rand_forest()} defines a model that creates a large number of decision
 trees, each independent of the others. The final prediction uses all
-predictions from the individual trees and combines them. This function can fit
-classification, regression, and censored regression models.
+predictions from the individual trees and combines them. This function can
+fit classification, regression, and censored regression models.
 
 \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rand_forest")}
 

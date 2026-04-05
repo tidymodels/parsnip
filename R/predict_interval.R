@@ -109,11 +109,3 @@ predict_predint.model_fit <- function(
 
   res
 }
-
-#' @export
-#' @keywords internal
-#' @rdname other_predict
-#' @inheritParams predict.model_fit
-predict_predint <- function(object, ...) {
-  UseMethod("predict_predint")
-}

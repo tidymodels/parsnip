@@ -4,7 +4,7 @@ parsnip_spec_add_in <- function() {
 
   libs <- c("shiny", "miniUI", "rstudioapi")
   is_inst <- rlang::is_installed(libs)
-  if (any(!is_inst)) {
+  if (!all(is_inst)) {
     missing_pkg <- libs[!is_inst]
 
     cli::cli_abort(
@@ -127,7 +127,7 @@ parsnip_spec_add_in <- function() {
         selected <- selected[selected$mode %in% model_mode, ]
 
         res <- purrr::map_chr(
-          1:nrow(selected),
+          seq_len(nrow(selected)),
           ~ make_spec(selected[.x, ], tune_args = input$tune_args)
         )
 

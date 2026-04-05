@@ -104,9 +104,9 @@ The \code{fit()} and \code{fit_xy()} arguments have arguments called
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#logistic-reg-stan}{examples}
-for \code{logistic_reg()} with the \code{"stan"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{logistic_reg()} with the \code{"stan"} engine.
 }
 
 \subsection{References}{

@@ -4,9 +4,9 @@
 %   R/discrim_flexible.R, R/discrim_linear.R, R/discrim_quad.R,
 %   R/discrim_regularized.R, R/gen_additive_mod.R, R/linear_reg.R,
 %   R/logistic_reg.R, R/mars.R, R/mlp.R, R/multinom_reg.R, R/naive_Bayes.R,
-%   R/nearest_neighbor.R, R/pls.R, R/poisson_reg.R, R/proportional_hazards.R,
-%   R/rand_forest.R, R/rule_fit.R, R/surv_reg.R, R/survival_reg.R,
-%   R/svm_linear.R, R/svm_poly.R, R/svm_rbf.R, R/tab_pfn.R, R/update.R
+%   R/nearest_neighbor.R, R/ordinal_reg.R, R/pls.R, R/poisson_reg.R,
+%   R/proportional_hazards.R, R/rand_forest.R, R/rule_fit.R, R/surv_reg.R,
+%   R/survival_reg.R, R/svm_linear.R, R/svm_poly.R, R/svm_rbf.R, R/update.R
 \name{update.bag_mars}
 \alias{update.bag_mars}
 \alias{update.bag_mlp}
@@ -28,6 +28,7 @@
 \alias{update.multinom_reg}
 \alias{update.naive_Bayes}
 \alias{update.nearest_neighbor}
+\alias{update.ordinal_reg}
 \alias{update.pls}
 \alias{update.poisson_reg}
 \alias{update.proportional_hazards}
@@ -38,7 +39,6 @@
 \alias{update.svm_linear}
 \alias{update.svm_poly}
 \alias{update.svm_rbf}
-\alias{update.tab_pfn}
 \alias{parsnip_update}
 \title{Updating a model specification}
 \usage{
@@ -226,6 +226,17 @@
   ...
 )
 
+\method{update}{ordinal_reg}(
+  object,
+  parameters = NULL,
+  ordinal_link = NULL,
+  odds_link = NULL,
+  penalty = NULL,
+  mixture = NULL,
+  fresh = FALSE,
+  ...
+)
+
 \method{update}{pls}(
   object,
   parameters = NULL,
@@ -308,17 +319,6 @@
   cost = NULL,
   rbf_sigma = NULL,
   margin = NULL,
-  fresh = FALSE,
-  ...
-)
-
-\method{update}{tab_pfn}(
-  object,
-  parameters = NULL,
-  num_estimators = NULL,
-  softmax_temperature = NULL,
-  balance_probabilities = NULL,
-  average_before_softmax = NULL,
   fresh = FALSE,
   ...
 )
@@ -453,6 +453,10 @@ to weight distances between samples. Valid choices are: \code{"rectangular"},
 
 \item{dist_power}{A single number for the parameter used in
 calculating Minkowski distance.}
+
+\item{ordinal_link}{The ordinal link function.}
+
+\item{odds_link}{The odds or probability link function.}
 
 \item{predictor_prop}{The maximum proportion of original predictors that can
 have \emph{non-zero} coefficients for each PLS component (via regularization).

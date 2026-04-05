@@ -216,7 +216,7 @@ test_that('keras regression prediction', {
   skip_if(!is_tf_ok())
 
   xy_fit <- parsnip::fit_xy(
-    mlp(mode = "regression", hidden_units = 2, epochs = 500, penalty = .1) |>
+    mlp(mode = "regression", hidden_units = 2, epochs = 500, penalty = 0.1) |>
       set_engine("keras", verbose = 0),
     x = mtcars[, c("cyl", "disp")],
     y = mtcars$mpg,
@@ -303,7 +303,7 @@ test_that('all keras activation functions', {
   skip_if_not_installed("dials", minimum_version = "1.3.0.9000")
   skip_if(!is_tf_ok())
 
-  act <- parsnip:::keras_activations()
+  act <- keras_activations()
 
   test_act <- function(fn) {
     set.seed(1)

@@ -12,6 +12,7 @@
 #' @inheritParams mlp
 #' @inheritParams multinom_reg
 #' @inheritParams nearest_neighbor
+#' @inheritParams ordinal_reg
 #' @inheritParams proportional_hazards
 #' @inheritParams rand_forest
 #' @inheritParams surv_reg
@@ -100,6 +101,7 @@ update_spec <- function(
     user_specified_mode = object$user_specified_mode,
     method = NULL,
     engine = object$engine,
-    user_specified_engine = object$user_specified_engine
+    user_specified_engine = object$user_specified_engine,
+    quantile_levels = object$quantile_levels
   )
 }

@@ -104,6 +104,16 @@ test_that("unavailable modes for an engine and vice-versa", {
     proportional_hazards() |> set_engine(),
     error = TRUE
   )
+
+  expect_snapshot(
+    ordinal_reg() |> set_engine(),
+    error = TRUE
+  )
+
+  expect_snapshot(
+    ordinal_reg() |> set_mode("regression"),
+    error = TRUE
+  )
 })
 
 test_that("set_* functions error when input isn't model_spec", {

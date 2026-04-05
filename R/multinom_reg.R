@@ -134,5 +134,5 @@ organize_nnet_prob <- function(x, object) {
     x <- matrix(x, nrow = 1)
     colnames(x) <- x_names
   }
-  format_classprobs(x)
+  format_predictions(x, "prob")
 }

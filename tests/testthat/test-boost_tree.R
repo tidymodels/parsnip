@@ -39,7 +39,7 @@ test_that('argument checks for data dimensions', {
 })
 
 test_that('boost_tree can be fit with 1 predictor if validation is used', {
-  skip_if_not_installed("earth")
+  skip_if_not_installed("xgboost", minimum_version = "3.2.0.1")
   skip_on_cran()
   spec <- boost_tree(trees = 1) |>
     set_engine("xgboost", validation = 0.5) |>

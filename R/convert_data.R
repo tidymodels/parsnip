@@ -66,7 +66,13 @@
 
   ## Assemble model.frame call from call arguments
   mf_call <- quote(model.frame(formula, data))
-  mf_call$na.action <- match.call()$na.action # TODO this should work better
+
+  # Use substitute() to capture na.action as an unevaluated expression.
+  # Previously match.call()$na.action was used, but match.call() only sees
+  # arguments explicitly passed in the call, returning NULL when na.action
+  # uses its default. This caused model.frame() to ignore our na.action
+  # entirely. substitute() captures the value whether default or explicit. (#548)
+  mf_call$na.action <- substitute(na.action)
   dots <- quos(...)
   check_form_dots(dots)
   for (i in seq_along(dots)) {
@@ -340,7 +346,7 @@ local_one_hot_contrasts <- function(frame = rlang::caller_env()) {
 check_form_dots <- function(x, call = rlang::caller_env()) {
   good_args <- c("subset", "weights")
   good_names <- names(x) %in% good_args
-  if (any(!good_names)) {
+  if (!all(good_names)) {
     cli::cli_abort(
       c(
         "The argument{?s} {.arg {names(x)[!good_names]}} cannot be used to create

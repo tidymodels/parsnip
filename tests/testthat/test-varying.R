@@ -89,7 +89,7 @@ test_that('other parsnip arguments', {
 
 test_that("empty lists return FALSE - #131", {
   expect_equal(
-    parsnip:::find_varying(list()),
+    find_varying(list()),
     FALSE
   )
 })
@@ -97,12 +97,12 @@ test_that("empty lists return FALSE - #131", {
 test_that("lists with multiple elements return a single logical - #131", {
   rlang::local_options(lifecycle_verbosity = "quiet")
   expect_equal(
-    parsnip:::find_varying(list(1, 2)),
+    find_varying(list(1, 2)),
     FALSE
   )
 
   expect_equal(
-    parsnip:::find_varying(list(1, varying())),
+    find_varying(list(1, varying())),
     TRUE
   )
 })
@@ -112,7 +112,7 @@ test_that("varying() deeply nested in calls can be located - #134", {
   deep_varying <- rlang::call2("list", x = list(xx = list(xxx = varying())))
 
   expect_equal(
-    parsnip:::find_varying(deep_varying),
+    find_varying(deep_varying),
     TRUE
   )
 })

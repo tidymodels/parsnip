@@ -9,8 +9,8 @@
 # ranger classification probabilities
 
     Code
-      parsnip:::predict_classprob.model_fit(no_prob_model, new_data = lending_club[1:
-      6, num_pred])
+      predict_classprob.model_fit(no_prob_model, new_data = lending_club[1:6,
+      num_pred])
     Condition
       Error in `predict()`:
       ! `ranger` model does not appear to use class probabilities.

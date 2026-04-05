@@ -225,7 +225,13 @@ check_mode_for_new_engine <- function(cls, eng, mode, call = caller_env()) {
 
 
 # check if class and mode and engine are compatible
-check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
+check_spec_mode_engine_val <- function(
+  cls,
+  eng,
+  mode,
+  call = caller_env(),
+  check_engine = TRUE
+) {
   all_modes <- get_from_env(paste0(cls, "_modes"))
   if (!(mode %in% all_modes)) {
     cli::cli_abort(
@@ -249,6 +255,27 @@ check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
     return(invisible(NULL))
   }
 
+  # ------------------------------------------------------------------------------
+  # First check engine against any mode for the given model class
+
+  spec_engs <- model_info$engine
+  # engine is allowed to be NULL; only check if there are engines registered
+  # (if no engines registered, they all come from extension packages)
+  if (
+    check_engine &&
+      !is.null(eng) &&
+      length(spec_engs) > 0 &&
+      !(eng %in% spec_engs)
+  ) {
+    cli::cli_abort(
+      c(
+        x = "Engine {.val {eng}} is not supported for {.fn {cls}}.",
+        i = "See {.code show_engines({.val {cls}})}."
+      ),
+      call = call
+    )
+  }
+
   # Cases where the model definition is in parsnip but all of the engines
   # are contained in a different package
   model_info_parsnip_only <-
@@ -261,21 +288,6 @@ check_spec_mode_engine_val <- function(cls, eng, mode, call = caller_env()) {
   if (nrow(model_info_parsnip_only) == 0) {
     check_mode_with_no_engine(cls, mode, call = call)
     return(invisible(NULL))
-  }
-
-  # ------------------------------------------------------------------------------
-  # First check engine against any mode for the given model class
-
-  spec_engs <- model_info$engine
-  # engine is allowed to be NULL
-  if (!is.null(eng) && !(eng %in% spec_engs)) {
-    cli::cli_abort(
-      c(
-        x = "Engine {.val {eng}} is not supported for {.fn {cls}}",
-        i = "See {.code show_engines({.val {cls}})}."
-      ),
-      call = call
-    )
   }
 
   # ----------------------------------------------------------------------------
@@ -383,7 +395,7 @@ check_fit_info <- function(fit_obj, call = caller_env()) {
   opt_nms <- c("data")
   other_nms <- setdiff(exp_nms, names(fit_obj))
   has_opt_nms <- other_nms %in% opt_nms
-  if (any(!has_opt_nms)) {
+  if (!all(has_opt_nms)) {
     cli::cli_abort(
       "The {.arg value} argument can only have optional elements: \\
       {.field {exp_nms}}.",
@@ -392,7 +404,7 @@ check_fit_info <- function(fit_obj, call = caller_env()) {
   }
   if (any(other_nms == "data")) {
     data_nms <- names(fit_obj$data)
-    if (length(data_nms == 0) || any(data_nms == "")) {
+    if (length(data_nms) == 0 || any(data_nms == "")) {
       cli::cli_abort(
         "All elements of the {.field data} argument vector must be named.",
         call = call
@@ -680,6 +692,40 @@ set_model_engine <- function(model, mode, eng) {
 
 
 # ------------------------------------------------------------------------------
+
+#' Check if a model argument is already registered
+#'
+#' This function checks whether a specific argument has already been registered
+#' for a model-engine combination. This is useful for extension packages that
+#' want to avoid re-registering arguments that parsnip has already registered.
+#'
+#' @param model A character string for the model type (e.g., "rand_forest").
+#' @param eng A character string for the engine.
+#' @param parsnip A character string for the parsnip argument name.
+#' @param original A character string for the original engine argument name.
+#' @return A logical value indicating whether the argument is already registered.
+#' @keywords internal
+#' @export
+model_arg_exists <- function(model, eng, parsnip, original) {
+  check_model_exists(model)
+  check_eng_val(eng)
+  check_string(parsnip, allow_empty = FALSE)
+  check_string(original, allow_empty = FALSE)
+
+  old_args <- get_from_env(paste0(model, "_args"))
+
+  if (nrow(old_args) == 0) {
+    return(FALSE)
+  }
+
+  any(
+    old_args$engine == eng &
+      old_args$parsnip == parsnip &
+      old_args$original == original
+  )
+}
+
+# ------------------------------------------------------------------------------
 #' @rdname set_new_model
 #' @keywords internal
 #' @export
@@ -690,6 +736,13 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
   check_string(original, allow_empty = FALSE)
   check_func_val(func)
   check_bool(has_submodel)
+
+  # First-wins: skip if this argument is already registered.
+  # This prevents conflicts when extension packages try to register
+  # the same argument that parsnip has already registered.
+  if (model_arg_exists(model, eng, parsnip, original)) {
+    return(invisible(NULL))
+  }
 
   old_args <- get_from_env(paste0(model, "_args"))
 
@@ -885,7 +938,7 @@ check_unregistered <- function(model, mode, eng, call = caller_env()) {
 set_fit <- function(model, mode, eng, value) {
   check_model_exists(model)
   check_eng_val(eng)
-  check_spec_mode_engine_val(model, eng, mode)
+  check_spec_mode_engine_val(model, eng, mode, check_engine = FALSE)
   check_fit_info(value)
   check_unregistered(model, mode, eng)
 
@@ -942,7 +995,7 @@ get_fit <- function(model) {
 set_pred <- function(model, mode, eng, type, value) {
   check_model_exists(model)
   check_eng_val(eng)
-  check_spec_mode_engine_val(model, eng, mode)
+  check_spec_mode_engine_val(model, eng, mode, check_engine = FALSE)
   check_pred_info(value, type)
   check_unregistered(model, mode, eng)
 
@@ -1231,4 +1284,17 @@ get_encoding <- function(model) {
       )
   }
   res
+}
+
+# ------------------------------------------------------------------------------
+
+earth_glm_covert <- function(x, object) {
+  if (ncol(x) == 1) {
+    x <- tibble::tibble(v1 = 1 - x[, 1], v2 = x[, 1])
+  } else {
+    x <- tibble::as_tibble(x)
+  }
+
+  colnames(x) <- object$lvl
+  x
 }

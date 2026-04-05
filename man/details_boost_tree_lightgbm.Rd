@@ -40,6 +40,10 @@ Note that parsnip’s translation can be overridden via the \code{counts}
 argument, supplied to \code{set_engine()}. By default, \code{counts} is set to
 \code{TRUE}, but supplying the argument \code{counts = FALSE} allows the user to
 supply \code{mtry} as a proportion rather than a number.
+
+LightGBM has a large number of engine parameters. The current list is
+found at
+\url{https://lightgbm.readthedocs.io/en/latest/Parameters.html}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{
@@ -129,6 +133,23 @@ numeric. In the classification context, non-numeric outcomes (i.e.,
 factors) are also internally converted to numeric.
 }
 
+}
+
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
+
+Although the source documentation is unclear about how the weights are
+utilized, it appears that the weights are applied to the objective
+function, not just the sampling mechanism. A GitHub issue
+(\url{https://github.com/lightgbm-org/LightGBM/issues/1299})
+has evidence that the weights are a “multiplication applied to every
+positive label weight” and shows some C++ code to that effect.
 \subsection{Interpreting \code{mtry}}{
 
 The \code{mtry} argument denotes the number of predictors that will be
@@ -197,6 +218,30 @@ automatically set} \code{bagging_freq = 1} \emph{in} \code{set_engine("lightgbm"
 if \code{sample_size} (i.e. \code{bagging_fraction}) is not equal to 1 and no
 \code{bagging_freq} value is supplied. This default can be overridden by
 setting the \code{bagging_freq} argument to \code{set_engine()} manually.
+}
+
+\subsection{Custom Objective Functions}{
+
+The default objective for classification models is set automatically
+based on the number of outcome levels: \code{binary} for two-class problems
+and \code{multiclass} for more than two classes. For regression, the default
+is \code{regression}.
+
+You can specify an alternative objective using \code{set_engine()}:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree() |>
+  set_engine("lightgbm", objective = "multiclassova") |>
+  set_mode("classification")
+}\if{html}{\out{</div>}}
+
+For multiclass objectives (\code{multiclass}, \code{softmax}, \code{multiclassova},
+\code{multiclass_ova}, \code{ova}, \code{ovr}), the \code{num_class} parameter is
+automatically determined from the number of outcome levels. This means
+you do not need to manually specify \code{num_class} when using these
+objectives.
+
+See the \href{https://lightgbm.readthedocs.io/en/latest/Parameters.html#core-parameters}{LightGBM documentation}
+for a full list of available objectives.
 }
 
 \subsection{Verbosity}{

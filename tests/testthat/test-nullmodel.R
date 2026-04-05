@@ -95,7 +95,7 @@ test_that('nullmodel prediction', {
   expect_equal(
     uni_pred,
     predict(res_xy, new_data = hpc[1:5, num_pred]),
-    tolerance = .01
+    tolerance = 0.01
   )
 
   res_form <- fit(
@@ -103,7 +103,7 @@ test_that('nullmodel prediction', {
     num_pending ~ log(compounds) + class,
     data = hpc
   )
-  expect_equal(inl_pred, predict(res_form, hpc[1:5, ])$.pred, tolerance = .01)
+  expect_equal(inl_pred, predict(res_form, hpc[1:5, ])$.pred, tolerance = 0.01)
 
   # Multivariate y
   res <- fit(

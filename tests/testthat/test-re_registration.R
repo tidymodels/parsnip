@@ -36,8 +36,8 @@ test_that('re-registration of fit information', {
       mode = "regression",
       value = list(
         interface = "data.frame",
-        data = c(x = "x.train", y = "y.train"),
-        protect = c("x", "y"),
+        data = c(x = "x.train", y = "y.train", weights = "weights"),
+        protect = c("x", "y", "weights"),
         func = c(pkg = "dbarts", fun = "bart"),
         defaults = list(verbose = FALSE, keeptrees = TRUE, keepcall = FALSE)
       )
@@ -56,8 +56,8 @@ test_that('re-registration of fit information', {
       mode = "regression",
       value = list(
         interface = "data.frame",
-        data = c(x = "x.train", y = "y.train"),
-        protect = c("x", "y"),
+        data = c(x = "x.train", y = "y.train", weights = "weights"),
+        protect = c("x", "y", "weights"),
         func = c(pkg = "dbarts", fun = "bart"),
         defaults = list(verbose = TRUE, keeptrees = TRUE, keepcall = FALSE)
       )

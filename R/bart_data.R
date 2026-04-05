@@ -7,7 +7,8 @@ set_model_mode("bart", "regression")
 
 set_model_engine("bart", "classification", "dbarts")
 set_model_engine("bart", "regression", "dbarts")
-set_dependency("bart", "dbarts", "dbarts")
+set_dependency("bart", "dbarts", "dbarts", mode = "classification")
+set_dependency("bart", "dbarts", "dbarts", mode = "regression")
 
 set_model_arg(
   model = "bart",
@@ -47,8 +48,8 @@ set_fit(
   mode = "regression",
   value = list(
     interface = "data.frame",
-    data = c(x = "x.train", y = "y.train"),
-    protect = c("x", "y"),
+    data = c(x = "x.train", y = "y.train", weights = "weights"),
+    protect = c("x", "y", "weights"),
     func = c(pkg = "dbarts", fun = "bart"),
     defaults = list(verbose = FALSE, keeptrees = TRUE, keepcall = FALSE)
   )
@@ -72,8 +73,8 @@ set_fit(
   mode = "classification",
   value = list(
     interface = "data.frame",
-    data = c(x = "x.train", y = "y.train"),
-    protect = c("x", "y"),
+    data = c(x = "x.train", y = "y.train", weights = "weights"),
+    protect = c("x", "y", "weights"),
     func = c(pkg = "dbarts", fun = "bart"),
     defaults = list(verbose = FALSE, keeptrees = TRUE, keepcall = FALSE)
   )

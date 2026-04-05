@@ -65,9 +65,9 @@ parsnip::bart(
 ## Computational engine: dbarts 
 ## 
 ## Model fit template:
-## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1), 
-##     base = double(1), power = double(1), k = double(1), verbose = FALSE, 
-##     keeptrees = TRUE, keepcall = FALSE)
+## dbarts::bart(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     ntree = integer(1), base = double(1), power = double(1), 
+##     k = double(1), verbose = FALSE, keeptrees = TRUE, keepcall = FALSE)
 ```
 
 
@@ -99,9 +99,9 @@ parsnip::bart(
 ## Computational engine: dbarts 
 ## 
 ## Model fit template:
-## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1), 
-##     base = double(1), power = double(1), k = double(1), verbose = FALSE, 
-##     keeptrees = TRUE, keepcall = FALSE)
+## dbarts::bart(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     ntree = integer(1), base = double(1), power = double(1), 
+##     k = double(1), verbose = FALSE, keeptrees = TRUE, keepcall = FALSE)
 ```
 
 ## Preprocessing requirements
@@ -110,6 +110,13 @@ parsnip::bart(
 Factor/categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) for this engine. When using the formula method via \\code{\\link[=fit.model_spec]{fit()}}, parsnip will convert factor columns to indicators.
 
 [dbarts::bart()] will also convert the factors to indicators if the user does not create them first. 
+
+## Case weights
+
+
+This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
+
+The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
 
 ## Prediction types
 

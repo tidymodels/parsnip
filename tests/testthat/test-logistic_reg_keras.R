@@ -58,7 +58,7 @@ test_that('model fitting', {
   expect_equal(
     unlist(keras::get_weights(fit1$fit)),
     unlist(keras::get_weights(fit2$fit)),
-    tolerance = .1
+    tolerance = 0.1
   )
 
   expect_no_condition(

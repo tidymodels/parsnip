@@ -374,7 +374,8 @@ new_model_spec <- function(
   user_specified_mode = TRUE,
   method,
   engine,
-  user_specified_engine = TRUE
+  user_specified_engine = TRUE,
+  quantile_levels = NULL
 ) {
   # determine if the model specification could feasibly match any entry
   # in the union of the parsnip model environment and model_info_table.
@@ -386,7 +387,8 @@ new_model_spec <- function(
     user_specified_mode = user_specified_mode,
     method = method,
     engine = engine,
-    user_specified_engine = user_specified_engine
+    user_specified_engine = user_specified_engine,
+    quantile_levels = quantile_levels
   )
   class(out) <- make_classes(cls)
 
@@ -447,9 +449,7 @@ check_outcome <- function(y, spec) {
       )
     }
 
-    if (
-      inherits(spec, "logistic_reg") && is.atomic(y) && length(levels(y)) > 2
-    ) {
+    if (inherits(spec, "logistic_reg") && is.atomic(y) && nlevels(y) > 2) {
       # warn rather than error since some engines handle this case by binning
       # all but the first level as the non-event, so this may be intended
       cli::cli_warn(c(

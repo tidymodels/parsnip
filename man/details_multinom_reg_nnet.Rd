@@ -70,9 +70,9 @@ variance of one.
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-nnet}{examples}
-for \code{multinom_reg()} with the \code{"nnet"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{multinom_reg()} with the \code{"nnet"} engine.
 }
 
 \subsection{Case weights}{

@@ -184,7 +184,7 @@ test_that('ranger classification probabilities', {
 
   expect_snapshot(
     error = TRUE,
-    parsnip:::predict_classprob.model_fit(
+    predict_classprob.model_fit(
       no_prob_model,
       new_data = lending_club[1:6, num_pred]
     )

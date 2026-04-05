@@ -75,7 +75,7 @@ Models fitted with this engine may require native serialization methods to be pr
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" article contains [examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#multinom-reg-keras) for `multinom_reg()` with the `"keras"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `multinom_reg()` with the `"keras"` engine.
 
 ## References
 

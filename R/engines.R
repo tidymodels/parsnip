@@ -23,7 +23,7 @@ is_installed <- function(pkg) {
 check_installs <- function(x, call = rlang::caller_env()) {
   if (length(x$method$libs) > 0) {
     is_inst <- map_lgl(x$method$libs, is_installed)
-    if (any(!is_inst)) {
+    if (!all(is_inst)) {
       missing_pkg <- x$method$libs[!is_inst]
       missing_pkg <- paste0(missing_pkg, collapse = ", ")
 
@@ -145,7 +145,8 @@ set_engine.model_spec <- function(object, engine, ...) {
     user_specified_mode = object$user_specified_mode,
     method = NULL,
     engine = object$engine,
-    user_specified_engine = TRUE
+    user_specified_engine = TRUE,
+    quantile_levels = object$quantile_levels
   )
 }
 

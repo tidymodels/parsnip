@@ -73,9 +73,9 @@ times number of observations.
 ## Computational engine: dbarts 
 ## 
 ## Model fit template:
-## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1), 
-##     base = double(1), power = double(1), k = double(1), verbose = FALSE, 
-##     keeptrees = TRUE, keepcall = FALSE)
+## dbarts::bart(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     ntree = integer(1), base = double(1), power = double(1), 
+##     k = double(1), verbose = FALSE, keeptrees = TRUE, keepcall = FALSE)
 }\if{html}{\out{</div>}}
 }
 
@@ -104,9 +104,9 @@ times number of observations.
 ## Computational engine: dbarts 
 ## 
 ## Model fit template:
-## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1), 
-##     base = double(1), power = double(1), k = double(1), verbose = FALSE, 
-##     keeptrees = TRUE, keepcall = FALSE)
+## dbarts::bart(x = missing_arg(), y = missing_arg(), weights = missing_arg(), 
+##     ntree = integer(1), base = double(1), power = double(1), 
+##     k = double(1), verbose = FALSE, keeptrees = TRUE, keepcall = FALSE)
 }\if{html}{\out{</div>}}
 }
 
@@ -119,6 +119,16 @@ convert factor columns to indicators.
 
 \code{\link[dbarts:bart]{dbarts::bart()}} will also convert the factors to
 indicators if the user does not create them first.
+}
+
+\subsection{Case weights}{
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in \link{case_weights} and the examples
+on \code{tidymodels.org}.
+
+The \code{fit()} and \code{fit_xy()} arguments have arguments called
+\code{case_weights} that expect vectors of case weights.
 }
 
 \subsection{Prediction types}{

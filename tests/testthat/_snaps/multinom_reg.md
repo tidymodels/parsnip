@@ -29,7 +29,7 @@
       translate(set_engine(multinom_reg(penalty = 0.1), "wat?"))
     Condition
       Error in `set_engine()`:
-      x Engine "wat?" is not supported for `multinom_reg()`
+      x Engine "wat?" is not supported for `multinom_reg()`.
       i See `show_engines("multinom_reg")`.
 
 ---

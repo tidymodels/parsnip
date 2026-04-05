@@ -7,7 +7,8 @@ set_model_mode("svm_rbf", "regression")
 
 set_model_engine("svm_rbf", "classification", "kernlab")
 set_model_engine("svm_rbf", "regression", "kernlab")
-set_dependency("svm_rbf", "kernlab", "kernlab")
+set_dependency("svm_rbf", "kernlab", "kernlab", mode = "classification")
+set_dependency("svm_rbf", "kernlab", "kernlab", mode = "regression")
 
 set_model_arg(
   model = "svm_rbf",
@@ -167,7 +168,8 @@ set_pred(
 
 set_model_engine("svm_rbf", "classification", "liquidSVM")
 set_model_engine("svm_rbf", "regression", "liquidSVM")
-set_dependency("svm_rbf", "liquidSVM", "liquidSVM")
+set_dependency("svm_rbf", "liquidSVM", "liquidSVM", mode = "classification")
+set_dependency("svm_rbf", "liquidSVM", "liquidSVM", mode = "regression")
 
 set_model_arg(
   model = "svm_rbf",

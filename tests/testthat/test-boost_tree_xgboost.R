@@ -35,7 +35,7 @@ test_that('xgboost execution, classification', {
   ctrl$verbosity <- 0L
 
   set.seed(1)
-  wts <- ifelse(runif(nrow(hpc)) < .1, 0, 1)
+  wts <- ifelse(runif(nrow(hpc)) < 0.1, 0, 1)
   wts <- importance_weights(wts)
 
   expect_no_condition({
@@ -337,6 +337,30 @@ test_that('submodel prediction', {
   )
 })
 
+test_that("submodel prediction doesn't error if trees match number of trees (#1316)", {
+  skip_if_not_installed("xgboost")
+  skip_on_cran()
+
+  ctrl$verbosity <- 0L
+
+  reg_fit <-
+    boost_tree(trees = 20, mode = "regression") |>
+    set_engine("xgboost") |>
+    fit(mpg ~ ., data = mtcars[-(1:4), ])
+
+  x <- xgboost::xgb.DMatrix(as.matrix(mtcars[1:4, -1]))
+
+  pruned_pred <- predict(
+    extract_fit_engine(reg_fit),
+    x,
+    iterationrange = c(1, 20)
+  )
+
+  mp_res <- multi_predict(reg_fit, new_data = mtcars[1:4, -1], trees = 20)
+  mp_res <- do.call("rbind", mp_res$.pred)
+  expect_equal(mp_res[[".pred"]], pruned_pred)
+})
+
 # ------------------------------------------------------------------------------
 
 test_that('validation sets', {
@@ -348,7 +372,7 @@ test_that('validation sets', {
   expect_no_condition(
     reg_fit <-
       boost_tree(trees = 20, mode = "regression") |>
-      set_engine("xgboost", validation = .1) |>
+      set_engine("xgboost", validation = 0.1) |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
@@ -360,7 +384,7 @@ test_that('validation sets', {
   expect_no_condition(
     reg_fit <-
       boost_tree(trees = 20, mode = "regression") |>
-      set_engine("xgboost", validation = .1, eval_metric = "mae") |>
+      set_engine("xgboost", validation = 0.1, eval_metric = "mae") |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
@@ -403,7 +427,7 @@ test_that('early stopping', {
   expect_no_condition(
     reg_fit <-
       boost_tree(trees = 200, stop_iter = 5, mode = "regression") |>
-      set_engine("xgboost", validation = .1) |>
+      set_engine("xgboost", validation = 0.1) |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
@@ -434,21 +458,21 @@ test_that('early stopping', {
   expect_no_condition(
     reg_fit <-
       boost_tree(trees = 20, mode = "regression") |>
-      set_engine("xgboost", validation = .1, eval_metric = "mae") |>
+      set_engine("xgboost", validation = 0.1, eval_metric = "mae") |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 
   expect_snapshot(
     reg_fit <-
       boost_tree(trees = 20, stop_iter = 30, mode = "regression") |>
-      set_engine("xgboost", validation = .1) |>
+      set_engine("xgboost", validation = 0.1) |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
   expect_snapshot(
     error = TRUE,
     reg_fit <-
       boost_tree(trees = 20, stop_iter = 0, mode = "regression") |>
-      set_engine("xgboost", validation = .1) |>
+      set_engine("xgboost", validation = 0.1) |>
       fit(mpg ~ ., data = mtcars[-(1:4), ])
   )
 })
@@ -465,39 +489,39 @@ test_that('xgboost data conversion', {
   mtcar_smat <- Matrix::Matrix(mtcar_mat, sparse = TRUE)
   wts <- 1:32
 
-  expect_no_condition(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg))
+  expect_no_condition(from_df <- as_xgb_data(mtcar_x, mtcars$mpg))
   expect_true(inherits(from_df$data, "xgb.DMatrix"))
   expect_true(inherits(from_df$watchlist$training, "xgb.DMatrix"))
 
-  expect_no_condition(from_mat <- parsnip:::as_xgb_data(mtcar_mat, mtcars$mpg))
+  expect_no_condition(from_mat <- as_xgb_data(mtcar_mat, mtcars$mpg))
   expect_true(inherits(from_mat$data, "xgb.DMatrix"))
   expect_true(inherits(from_mat$watchlist$training, "xgb.DMatrix"))
 
   expect_no_condition(
-    from_sparse <- parsnip:::as_xgb_data(mtcar_smat, mtcars$mpg)
+    from_sparse <- as_xgb_data(mtcar_smat, mtcars$mpg)
   )
   expect_true(inherits(from_mat$data, "xgb.DMatrix"))
   expect_true(inherits(from_mat$watchlist$training, "xgb.DMatrix"))
 
   expect_no_condition(
-    from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg, validation = .1)
+    from_df <- as_xgb_data(mtcar_x, mtcars$mpg, validation = 0.1)
   )
   expect_true(inherits(from_df$data, "xgb.DMatrix"))
   expect_true(inherits(from_df$watchlist$validation, "xgb.DMatrix"))
   expect_true(nrow(from_df$data) > nrow(from_df$watchlist$validation))
 
   expect_no_condition(
-    from_mat <- parsnip:::as_xgb_data(mtcar_mat, mtcars$mpg, validation = .1)
+    from_mat <- as_xgb_data(mtcar_mat, mtcars$mpg, validation = 0.1)
   )
   expect_true(inherits(from_mat$data, "xgb.DMatrix"))
   expect_true(inherits(from_mat$watchlist$validation, "xgb.DMatrix"))
   expect_true(nrow(from_mat$data) > nrow(from_mat$watchlist$validation))
 
   expect_no_condition(
-    from_sparse <- parsnip:::as_xgb_data(
+    from_sparse <- as_xgb_data(
       mtcar_smat,
       mtcars$mpg,
-      validation = .1
+      validation = 0.1
     )
   )
   expect_true(inherits(from_mat$data, "xgb.DMatrix"))
@@ -511,10 +535,10 @@ test_that('xgboost data conversion', {
     levels = c(TRUE, FALSE),
     labels = c("low", "high")
   )
-  expect_no_condition(from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y))
+  expect_no_condition(from_df <- as_xgb_data(mtcar_x, mtcars_y))
   expect_equal(xgboost::getinfo(from_df$data, name = "label")[1:5], rep(0, 5))
   expect_no_condition(
-    from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second")
+    from_df <- as_xgb_data(mtcar_x, mtcars_y, event_level = "second")
   )
   expect_equal(xgboost::getinfo(from_df$data, name = "label")[1:5], rep(1, 5))
 
@@ -524,16 +548,16 @@ test_that('xgboost data conversion', {
     labels = c("low", "high", "missing")
   )
   expect_snapshot(
-    from_df <- parsnip:::as_xgb_data(mtcar_x, mtcars_y, event_level = "second")
+    from_df <- as_xgb_data(mtcar_x, mtcars_y, event_level = "second")
   )
 
   # case weights added
   expect_no_condition(
-    wted <- parsnip:::as_xgb_data(mtcar_x, mtcars$mpg, weights = wts)
+    wted <- as_xgb_data(mtcar_x, mtcars$mpg, weights = wts)
   )
   expect_equal(wts, xgboost::getinfo(wted$data, "weight"))
   expect_no_condition(
-    wted_val <- parsnip:::as_xgb_data(
+    wted_val <- as_xgb_data(
       mtcar_x,
       mtcars$mpg,
       weights = wts,
@@ -598,11 +622,11 @@ test_that('xgboost data and sparse matrices', {
 
   # case weights added
   expect_no_condition(
-    wted <- parsnip:::as_xgb_data(mtcar_smat, mtcars$mpg, weights = wts)
+    wted <- as_xgb_data(mtcar_smat, mtcars$mpg, weights = wts)
   )
   expect_equal(wts, xgboost::getinfo(wted$data, "weight"))
   expect_no_condition(
-    wted_val <- parsnip:::as_xgb_data(
+    wted_val <- as_xgb_data(
       mtcar_smat,
       mtcars$mpg,
       weights = wts,
@@ -801,17 +825,17 @@ test_that("count/proportion parameters", {
   expect_equal(extract_xgb_param(fit3, "colsample_bynode"), 1)
 
   fit4 <-
-    boost_tree(mtry = .9, trees = 4) |>
-    set_engine("xgboost", colsample_bytree = .1, counts = FALSE) |>
+    boost_tree(mtry = 0.9, trees = 4) |>
+    set_engine("xgboost", colsample_bytree = 0.1, counts = FALSE) |>
     set_mode("regression") |>
     fit(mpg ~ ., data = mtcars)
-  expect_equal(extract_xgb_param(fit4, "colsample_bytree"), .1)
-  expect_equal(extract_xgb_param(fit4, "colsample_bynode"), .9)
+  expect_equal(extract_xgb_param(fit4, "colsample_bytree"), 0.1)
+  expect_equal(extract_xgb_param(fit4, "colsample_bynode"), 0.9)
 
   extract_xgb_param(fit4, "colsample_bynode")
   expect_snapshot(
     error = TRUE,
-    boost_tree(mtry = .9, trees = 4) |>
+    boost_tree(mtry = 0.9, trees = 4) |>
       set_engine("xgboost") |>
       set_mode("regression") |>
       fit(mpg ~ ., data = mtcars)
@@ -911,4 +935,43 @@ test_that('interface to param arguments', {
   )
 
   expect_equal(extract_xgb_param(fit_7, "gamma"), 0)
+})
+
+# ------------------------------------------------------------------------------
+
+test_that('xgboost execution, quantile regression', {
+  skip_if(getRversion() <= "4.2.3")
+  skip_if_not_installed("xgboost")
+  skip_if_not_installed("modeldata")
+  skip_on_cran()
+
+  set.seed(10)
+  dat <- sim_regression(1000)
+
+  spec_1 <-
+    boost_tree(trees = 50) |>
+    set_engine("xgboost", validation = 0.1) |>
+    set_mode("quantile regression", quantile_levels = (1:9) / 10)
+  expect_snapshot(spec_1)
+
+  set.seed(372)
+  qnt_fit_1 <- fit(spec_1, outcome ~ ., data = dat)
+  expect_snapshot(print(qnt_fit_1))
+
+  spec_2 <-
+    boost_tree(trees = 50, stop_iter = 2) |>
+    set_engine("xgboost", validation = 0.1) |>
+    set_mode("quantile regression", quantile_levels = (1:9) / 10)
+  expect_snapshot(spec_2)
+
+  set.seed(372)
+  qnt_fit_2 <- fit(spec_2, outcome ~ ., data = dat)
+  expect_snapshot(print(qnt_fit_2))
+
+  expect_true(
+    qnt_fit_2$fit |>
+      attributes() |>
+      purrr::pluck("early_stop") |>
+      purrr::pluck("stopped_by_max_rounds")
+  )
 })

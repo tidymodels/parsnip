@@ -126,9 +126,9 @@ sparse tibbles from the \code{sparsevctrs} package are supported. See
 
 \subsection{Examples}{
 
-The “Fitting and Predicting with parsnip” article contains
-\href{https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-linear-LiblineaR}{examples}
-for \code{svm_linear()} with the \code{"LiblineaR"} engine.
+The “Fitting and Predicting with parsnip”
+\href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
+contains examples for \code{svm_linear()} with the \code{"LiblineaR"} engine.
 }
 
 \subsection{References}{

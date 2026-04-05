@@ -162,14 +162,14 @@ dbart_predict_calc <- function(
   }
 
   if (type == "numeric") {
-    res <- tibble::tibble(.pred = apply(post_dist, 2, mean, na.rm = TRUE))
+    res <- tibble::tibble(.pred = colMeans(post_dist, na.rm = TRUE))
   } else if (type == "class") {
-    mn <- apply(post_dist, 2, mean, na.rm = TRUE)
+    mn <- colMeans(post_dist, na.rm = TRUE)
     lvl <- ifelse(mn > 0.5, obj$lvl[2], obj$lvl[1])
     lvl <- factor(lvl, levels = obj$lvl)
     res <- tibble::tibble(.pred_class = lvl)
   } else if (type == "prob") {
-    mn <- apply(post_dist, 2, mean, na.rm = TRUE)
+    mn <- colMeans(post_dist, na.rm = TRUE)
     res <-
       tibble::tibble(a = 1 - mn, b = mn) |>
       setNames(paste0(".pred_", obj$lv))

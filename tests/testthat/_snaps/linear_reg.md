@@ -29,7 +29,7 @@
       translate(linear_reg(), engine = "wat?")
     Condition
       Error in `translate.default()`:
-      x Engine "wat?" is not supported for `linear_reg()`
+      x Engine "wat?" is not supported for `linear_reg()`.
       i See `show_engines("linear_reg")`.
 
 ---
