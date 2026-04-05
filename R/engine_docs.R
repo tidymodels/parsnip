@@ -69,7 +69,8 @@ extensions <- function() {
     "poissonreg",
     "rules",
     "bonsai",
-    "agua"
+    "agua",
+    "ordered"
   )
 }
 

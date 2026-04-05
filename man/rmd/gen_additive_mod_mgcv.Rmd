@@ -105,6 +105,7 @@ To learn more about the differences between these formulas, see [`?model_formula
 #| label: predict-types
 
 parsnip:::get_from_env("gen_additive_mod_predict") |>
+  dplyr::filter(engine == "mgcv") |> 
   dplyr::select(mode, type)
 
 ```

@@ -72,6 +72,8 @@ test_that('basic object classes and print methods', {
   expect_snapshot(print(null_model()))
   expect_true(inherits(null_model(), 'null_model'))
 
+  expect_snapshot(print(ordinal_reg()))
+
   expect_snapshot(print(pls()))
 
   expect_snapshot(print(poisson_reg()))

@@ -4,8 +4,8 @@
 #'
 #' `rand_forest()` defines a model that creates a large number of decision
 #' trees, each independent of the others. The final prediction uses all
-#' predictions from the individual trees and combines them. This function can fit
-#' classification, regression, and censored regression models.
+#' predictions from the individual trees and combines them. This function can
+#' fit classification, regression, and censored regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rand_forest")}
 #'
@@ -13,12 +13,11 @@
 #' \url{https://www.tidymodels.org/}.
 #'
 #' @inheritParams boost_tree
-#' @param mtry An integer for the number of predictors that will
-#'  be randomly sampled at each split when creating the tree models.
-#' @param trees An integer for the number of trees contained in
-#'  the ensemble.
-#' @param min_n An integer for the minimum number of data points
-#'  in a node that are required for the node to be split further.
+#' @param mtry An integer for the number of predictors that will be randomly
+#'   sampled at each split when creating the tree models.
+#' @param trees An integer for the number of trees contained in the ensemble.
+#' @param min_n An integer for the minimum number of data points in a node that
+#'   are required for the node to be split further.
 #'
 #' @templateVar modeltype rand_forest
 #' @template spec-details
@@ -101,7 +100,7 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
 
   x <- translate.default(x, engine, ...)
 
-  ## -----------------------------------------------------------------------------
+  ## ---------------------------------------------------------------------------
 
   # slightly cleaner code using
   arg_vals <- x$method$fit$args
@@ -145,7 +144,7 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
     }
   }
 
-  ## -----------------------------------------------------------------------------
+  ## ---------------------------------------------------------------------------
   # Protect some arguments based on data dimensions
 
   if (any(names(arg_vals) == "mtry") & engine != "partykit") {
@@ -166,7 +165,7 @@ translate.rand_forest <- function(x, engine = x$engine, ...) {
       rlang::call2("min_rows", arg_vals$min_instances_per_node, expr(x))
   }
 
-  ## -----------------------------------------------------------------------------
+  ## ---------------------------------------------------------------------------
 
   x$method$fit$args <- arg_vals
 

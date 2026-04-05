@@ -1554,6 +1554,106 @@
       min_rows(5, data, 5)
       
 
+# arguments (ordinal_reg)
+
+    Code
+      translate_args(basic)
+    Output
+      list()
+
+---
+
+    Code
+      translate_args(adjacent_categories)
+    Condition
+      Warning in `translate_args()`:
+      ! The polr engine uses the cumulative link odds link; `odds_link` will be ignored.
+    Output
+      list()
+
+---
+
+    Code
+      translate_args(ordinal_link)
+    Condition
+      Warning in `translate_args()`:
+      x The ordinalNet engine ignores `penalty` in favor of a path that enables prediction at interpolated penalty values.
+      ! `penalty` was passed 0 values.
+      i Use `path_values` to override the default path.
+    Output
+      $nLambda
+      [1] 120
+      
+      $lambdaMinRatio
+      [1] 1e-08
+      
+      $includeLambda0
+      [1] TRUE
+      
+
+---
+
+    Code
+      translate_args(penalty)
+    Output
+      list()
+
+---
+
+    Code
+      translate_args(ordinalNet)
+    Condition
+      Warning in `translate_args()`:
+      x The ordinalNet engine ignores `penalty` in favor of a path that enables prediction at interpolated penalty values.
+      ! `penalty` was passed 0 values.
+      i Use `path_values` to override the default path.
+    Output
+      $nLambda
+      [1] 120
+      
+      $lambdaMinRatio
+      [1] 1e-08
+      
+      $includeLambda0
+      [1] TRUE
+      
+
+---
+
+    Code
+      translate_args(penalty_ordinalNet)
+    Output
+      $nLambda
+      [1] 120
+      
+      $lambdaMinRatio
+      [1] 1e-08
+      
+      $includeLambda0
+      [1] TRUE
+      
+
+---
+
+    Code
+      translate_args(penalties_ordinalNet)
+    Condition
+      Warning in `translate_args()`:
+      x The ordinalNet engine ignores `penalty` in favor of a path that enables prediction at interpolated penalty values.
+      ! `penalty` was passed 5 values.
+      i Use `path_values` to override the default path.
+      i To specify multiple values for total regularization, use the tune package.
+    Output
+      $nLambda
+      [1] 120
+      
+      $lambdaMinRatio
+      [1] 1e-08
+      
+      $includeLambda0
+      [1] TRUE
+      
+
 # arguments (proportional_hazards)
 
     Code
