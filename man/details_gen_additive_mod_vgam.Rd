@@ -23,6 +23,8 @@ parameters are:
 
 \subsection{Translation from parsnip to the original package}{
 
+The \strong{ordered} extension package is required to fit this model.
+
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ordered)
 
 gen_additive_mod() \%>\% 
