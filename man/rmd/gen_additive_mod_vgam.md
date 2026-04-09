@@ -12,7 +12,7 @@ There are no main tuning parameters for this model. Two relevant engine paramete
 
 ## Translation from parsnip to the original package
 
-
+The **ordered** extension package is required to fit this model.
 
 
 ``` r

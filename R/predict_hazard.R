@@ -13,7 +13,7 @@ predict_hazard.model_fit <- function(
 ) {
   if (lifecycle::is_present(time)) {
     lifecycle::deprecate_warn(
-      "1.0.4.9005",
+      "1.0.5",
       "predict_hazard(time)",
       "predict_hazard(eval_time)"
     )

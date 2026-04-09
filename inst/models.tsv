@@ -20,6 +20,7 @@
 "boost_tree"	"classification"	"lightgbm"	"bonsai"
 "boost_tree"	"classification"	"spark"	NA
 "boost_tree"	"classification"	"xgboost"	NA
+"boost_tree"	"quantile regression"	"xgboost"	NA
 "boost_tree"	"regression"	"catboost"	"bonsai"
 "boost_tree"	"regression"	"h2o"	"agua"
 "boost_tree"	"regression"	"h2o_gbm"	"agua"
@@ -32,6 +33,7 @@
 "decision_tree"	"classification"	"C5.0"	NA
 "decision_tree"	"classification"	"partykit"	"bonsai"
 "decision_tree"	"classification"	"rpart"	NA
+"decision_tree"	"classification"	"rpartScore"	"ordered"
 "decision_tree"	"classification"	"spark"	NA
 "decision_tree"	"regression"	"partykit"	"bonsai"
 "decision_tree"	"regression"	"rpart"	NA
@@ -45,6 +47,7 @@
 "discrim_quad"	"classification"	"sparsediscrim"	"discrim"
 "discrim_regularized"	"classification"	"klaR"	"discrim"
 "gen_additive_mod"	"classification"	"mgcv"	NA
+"gen_additive_mod"	"classification"	"vgam"	"ordered"
 "gen_additive_mod"	"regression"	"mgcv"	NA
 "linear_reg"	"quantile regression"	"quantreg"	NA
 "linear_reg"	"regression"	"brulee"	NA
@@ -79,6 +82,7 @@
 "mlp"	"classification"	"h2o"	"agua"
 "mlp"	"classification"	"keras"	NA
 "mlp"	"classification"	"nnet"	NA
+"mlp"	"quantile regression"	"qrnn"	NA
 "mlp"	"regression"	"brulee"	NA
 "mlp"	"regression"	"brulee_two_layer"	NA
 "mlp"	"regression"	"h2o"	"agua"
@@ -97,6 +101,9 @@
 "nearest_neighbor"	"regression"	"kknn"	NA
 "null_model"	"classification"	"parsnip"	NA
 "null_model"	"regression"	"parsnip"	NA
+"ordinal_reg"	"classification"	"ordinalNet"	"ordered"
+"ordinal_reg"	"classification"	"polr"	"ordered"
+"ordinal_reg"	"classification"	"vglm"	"ordered"
 "pls"	"classification"	"mixOmics"	"plsmod"
 "pls"	"regression"	"mixOmics"	"plsmod"
 "poisson_reg"	"regression"	"gee"	"multilevelmod"
@@ -113,12 +120,16 @@
 "rand_forest"	"censored regression"	"aorsf"	"censored"
 "rand_forest"	"censored regression"	"partykit"	"censored"
 "rand_forest"	"classification"	"aorsf"	"bonsai"
+"rand_forest"	"classification"	"grf"	NA
 "rand_forest"	"classification"	"h2o"	"agua"
+"rand_forest"	"classification"	"ordinalForest"	"ordered"
 "rand_forest"	"classification"	"partykit"	"bonsai"
 "rand_forest"	"classification"	"randomForest"	NA
 "rand_forest"	"classification"	"ranger"	NA
 "rand_forest"	"classification"	"spark"	NA
+"rand_forest"	"quantile regression"	"grf"	NA
 "rand_forest"	"regression"	"aorsf"	"bonsai"
+"rand_forest"	"regression"	"grf"	NA
 "rand_forest"	"regression"	"h2o"	"agua"
 "rand_forest"	"regression"	"partykit"	"bonsai"
 "rand_forest"	"regression"	"randomForest"	NA
