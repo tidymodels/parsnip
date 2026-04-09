@@ -44,7 +44,7 @@ Suggests:
     bench,
     C50,
     covr,
-    dials (>= 1.4.2.9001),
+    dials (>= 1.4.2),
     earth,
     ggrepel,
     keras,
