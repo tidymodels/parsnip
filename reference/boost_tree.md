@@ -14,6 +14,8 @@ this model are listed below.
 
 - [`C5.0`](https://parsnip.tidymodels.org/reference/details_boost_tree_C5.0.md)
 
+- [`catboost`](https://parsnip.tidymodels.org/reference/details_boost_tree_catboost.md)`²`
+
 - [`h2o`](https://parsnip.tidymodels.org/reference/details_boost_tree_h2o.md)`²`
 
 - [`lightgbm`](https://parsnip.tidymodels.org/reference/details_boost_tree_lightgbm.md)`²`
@@ -134,6 +136,7 @@ models](https://www.tidymodels.org/find/parsnip/)
 [`update()`](https://rdrr.io/r/stats/update.html),
 [`xgboost engine details`](https://parsnip.tidymodels.org/reference/details_boost_tree_xgboost.md),
 [`C5.0 engine details`](https://parsnip.tidymodels.org/reference/details_boost_tree_C5.0.md),
+[`catboost engine details`](https://parsnip.tidymodels.org/reference/details_boost_tree_catboost.md),
 [`h2o engine details`](https://parsnip.tidymodels.org/reference/details_boost_tree_h2o.md),
 [`lightgbm engine details`](https://parsnip.tidymodels.org/reference/details_boost_tree_lightgbm.md),
 [`mboost engine details`](https://parsnip.tidymodels.org/reference/details_boost_tree_mboost.md),
@@ -146,14 +149,15 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ``` r
 show_engines("boost_tree")
-#> # A tibble: 5 × 2
-#>   engine  mode          
-#>   <chr>   <chr>         
-#> 1 xgboost classification
-#> 2 xgboost regression    
-#> 3 C5.0    classification
-#> 4 spark   classification
-#> 5 spark   regression    
+#> # A tibble: 6 × 2
+#>   engine  mode               
+#>   <chr>   <chr>              
+#> 1 xgboost classification     
+#> 2 xgboost regression         
+#> 3 xgboost quantile regression
+#> 4 C5.0    classification     
+#> 5 spark   classification     
+#> 6 spark   regression         
 
 boost_tree(mode = "classification", trees = 20)
 #> Boosted Tree Model Specification (classification)

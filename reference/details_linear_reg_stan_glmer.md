@@ -32,11 +32,7 @@ Some relevant arguments that can be passed to
 - `prior_intercept`: The prior distribution for the intercept (after
   centering all predictors).
 
-See
-[`?rstanarm::stan_glmer`](https://mc-stan.org/rstanarm/reference/stan_glmer.html)
-and
-[`?rstan::sampling`](https://mc-stan.org/rstan/reference/stanmodel-method-sampling.html)
-for more information.
+See `?rstanarm::stan_glmer` and `?rstan::sampling` for more information.
 
 ### Translation from parsnip to the original package
 

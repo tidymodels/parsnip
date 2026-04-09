@@ -6,6 +6,7 @@ function can fit classification, regression, and censored regression models.
 There are different ways to fit this model, and the method of estimation is  chosen by setting the model engine. The engine-specific pages  for this model are listed  below.
 xgboost¹
 C5.0
+catboost²
 h2o²
 lightgbm²
 mboost²
@@ -19,6 +20,7 @@ function can fit classification, regression, and censored regression models.
 There are different ways to fit this model, and the method of estimation is  chosen by setting the model engine. The engine-specific pages  for this model are listed  below.
 xgboost¹
 C5.0
+catboost²
 h2o²
 lightgbm²
 mboost²
@@ -33,7 +35,7 @@ https://www.tidymodels.org/."><meta property="og:image" content="https://parsnip
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,12 +48,12 @@ https://www.tidymodels.org/."><meta property="og:image" content="https://parsnip
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/checklists.html">Dev checklists</a></li>
-    <li><a class="dropdown-item" href="../articles/Examples.html">Fitting and predicting with parsnip</a></li>
     <li><a class="dropdown-item" href="../articles/Submodels.html">Evaluating submodels with the same model object</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-learn-more" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Learn more</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-predictions/">Fitting and predicting with parsnip</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a></li>
   </ul></li>
@@ -78,6 +80,7 @@ All trees in the ensemble are combined to produce a final prediction. This
 function can fit classification, regression, and censored regression models.</p>
 <p>There are different ways to fit this model, and the method of estimation is  chosen by setting the model <em>engine</em>. The engine-specific pages  for this model are listed  below.</p><ul><li><p><code><a href="details_boost_tree_xgboost.html">xgboost</a>¹</code></p></li>
 <li><p><code><a href="details_boost_tree_C5.0.html">C5.0</a></code></p></li>
+<li><p><code><a href="details_boost_tree_catboost.html">catboost</a>²</code></p></li>
 <li><p><code><a href="details_boost_tree_h2o.html">h2o</a>²</code></p></li>
 <li><p><code><a href="details_boost_tree_lightgbm.html">lightgbm</a>²</code></p></li>
 <li><p><code><a href="details_boost_tree_mboost.html">mboost</a>²</code></p></li>
@@ -181,7 +184,7 @@ programmatically, use the <a href="https://rlang.r-lib.org/reference/injection-o
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="fit.html">fit()</a></code>, <code><a href="set_engine.html">set_engine()</a></code>, <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>, <code><a href="details_boost_tree_xgboost.html">xgboost engine details</a></code>, <code><a href="details_boost_tree_C5.0.html">C5.0 engine details</a></code>, <code><a href="details_boost_tree_h2o.html">h2o engine details</a></code>, <code><a href="details_boost_tree_lightgbm.html">lightgbm engine details</a></code>, <code><a href="details_boost_tree_mboost.html">mboost engine details</a></code>, <code><a href="details_boost_tree_spark.html">spark engine details</a></code>
+    <div class="dont-index"><p><code><a href="fit.html">fit()</a></code>, <code><a href="set_engine.html">set_engine()</a></code>, <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>, <code><a href="details_boost_tree_xgboost.html">xgboost engine details</a></code>, <code><a href="details_boost_tree_C5.0.html">C5.0 engine details</a></code>, <code><a href="details_boost_tree_catboost.html">catboost engine details</a></code>, <code><a href="details_boost_tree_h2o.html">h2o engine details</a></code>, <code><a href="details_boost_tree_lightgbm.html">lightgbm engine details</a></code>, <code><a href="details_boost_tree_mboost.html">mboost engine details</a></code>, <code><a href="details_boost_tree_spark.html">spark engine details</a></code>
 ,
 <code><a href="xgb_train.html">xgb_train()</a></code>, <code><a href="C5.0_train.html">C5.0_train()</a></code></p></div>
     </div>
@@ -189,14 +192,15 @@ programmatically, use the <a href="https://rlang.r-lib.org/reference/injection-o
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="show_engines.html">show_engines</a></span><span class="op">(</span><span class="st">"boost_tree"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   engine  mode          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> xgboost classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> xgboost regression    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> C5.0    classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> spark   classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> spark   regression    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   engine  mode               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> xgboost classification     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> xgboost regression         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> xgboost quantile regression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> C5.0    classification     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> spark   classification     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> spark   regression         </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">boost_tree</span><span class="op">(</span>mode <span class="op">=</span> <span class="st">"classification"</span>, trees <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Boosted Tree Model Specification (classification)</span>

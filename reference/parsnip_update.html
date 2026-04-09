@@ -9,7 +9,7 @@ be used in lieu of recreating the object from scratch."><meta property="og:image
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,12 +22,12 @@ be used in lieu of recreating the object from scratch."><meta property="og:image
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/checklists.html">Dev checklists</a></li>
-    <li><a class="dropdown-item" href="../articles/Examples.html">Fitting and predicting with parsnip</a></li>
     <li><a class="dropdown-item" href="../articles/Submodels.html">Evaluating submodels with the same model object</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-learn-more" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Learn more</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-predictions/">Fitting and predicting with parsnip</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a></li>
   </ul></li>
@@ -43,7 +43,7 @@ be used in lieu of recreating the object from scratch."><meta property="og:image
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Updating a model specification</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/main/R/bag_mars.R" class="external-link"><code>R/bag_mars.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/main/R/bag_mlp.R" class="external-link"><code>R/bag_mlp.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/main/R/bag_tree.R" class="external-link"><code>R/bag_tree.R</code></a>, and 28 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/main/R/bag_mars.R" class="external-link"><code>R/bag_mars.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/main/R/bag_mlp.R" class="external-link"><code>R/bag_mlp.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/main/R/bag_tree.R" class="external-link"><code>R/bag_tree.R</code></a>, and 29 more</small>
       <div class="d-none name"><code>parsnip_update.Rd</code></div>
     </div>
 
@@ -254,6 +254,18 @@ be used in lieu of recreating the object from scratch.</p>
 <span>  neighbors <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  weight_func <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dist_power <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fresh <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'ordinal_reg'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  parameters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ordinal_link <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  odds_link <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  penalty <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mixture <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fresh <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
@@ -557,6 +569,14 @@ to weight distances between samples. Valid choices are: <code>"rectangular"</cod
 <dt id="arg-dist-power">dist_power<a class="anchor" aria-label="anchor" href="#arg-dist-power"></a></dt>
 <dd><p>A single number for the parameter used in
 calculating Minkowski distance.</p></dd>
+
+
+<dt id="arg-ordinal-link">ordinal_link<a class="anchor" aria-label="anchor" href="#arg-ordinal-link"></a></dt>
+<dd><p>The ordinal link function.</p></dd>
+
+
+<dt id="arg-odds-link">odds_link<a class="anchor" aria-label="anchor" href="#arg-odds-link"></a></dt>
+<dd><p>The odds or probability link function.</p></dd>
 
 
 <dt id="arg-predictor-prop">predictor_prop<a class="anchor" aria-label="anchor" href="#arg-predictor-prop"></a></dt>

@@ -1,8 +1,8 @@
 # Logistic regression via brulee
 
-[`brulee::brulee_logistic_reg()`](https://brulee.tidymodels.org/reference/brulee_logistic_reg.html)
-fits a generalized linear model for binary outcomes. A linear
-combination of the predictors is used to model the log odds of an event.
+`brulee::brulee_logistic_reg()` fits a generalized linear model for
+binary outcomes. A linear combination of the predictors is used to model
+the log odds of an event.
 
 ## Details
 
@@ -24,7 +24,7 @@ method used in those packages.
 Other engine arguments of interest:
 
 - `optimizer()`: The optimization method. See
-  [`brulee::brulee_linear_reg()`](https://brulee.tidymodels.org/reference/brulee_linear_reg.html).
+  `brulee::brulee_linear_reg()`.
 
 - `epochs()`: An integer for the number of passes through the training
   set.
@@ -42,7 +42,7 @@ Other engine arguments of interest:
   improvement before stopping. (default: 5L).
 
 - `class_weights()`: Numeric class weights. See
-  [`brulee::brulee_logistic_reg()`](https://brulee.tidymodels.org/reference/brulee_logistic_reg.html).
+  `brulee::brulee_logistic_reg()`.
 
 ### Translation from parsnip to the original package (classification)
 

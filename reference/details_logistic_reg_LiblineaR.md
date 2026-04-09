@@ -52,6 +52,10 @@ formula method via
 [`fit()`](https://parsnip.tidymodels.org/reference/fit.md), parsnip will
 convert factor columns to indicators.
 
+### Case weights
+
+The underlying model implementation does not allow for case weights.
+
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
 variance of one.
@@ -79,9 +83,9 @@ for more information.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#logistic-reg-LiblineaR)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`logistic_reg()`](https://parsnip.tidymodels.org/reference/logistic_reg.md)
 with the `"LiblineaR"` engine.
 

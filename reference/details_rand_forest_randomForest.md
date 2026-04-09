@@ -1,9 +1,8 @@
 # Random forests via randomForest
 
-[`randomForest::randomForest()`](https://rdrr.io/pkg/randomForest/man/randomForest.html)
-fits a model that creates a large number of decision trees, each
-independent of the others. The final prediction uses all predictions
-from the individual trees and combines them.
+`randomForest::randomForest()` fits a model that creates a large number
+of decision trees, each independent of the others. The final prediction
+uses all predictions from the individual trees and combines them.
 
 ## Details
 
@@ -21,10 +20,8 @@ This model has 3 tuning parameters:
 - `min_n`: Minimal Node Size (type: integer, default: see below)
 
 `mtry` depends on the number of columns and the model mode. The default
-in
-[`randomForest::randomForest()`](https://rdrr.io/pkg/randomForest/man/randomForest.html)
-is `floor(sqrt(ncol(x)))` for classification and `floor(ncol(x)/3)` for
-regression.
+in `randomForest::randomForest()` is `floor(sqrt(ncol(x)))` for
+classification and `floor(ncol(x)/3)` for regression.
 
 `min_n` depends on the mode. For regression, a value of 5 is the
 default. For classification, a value of 10 is used.
@@ -91,6 +88,26 @@ Categorical predictors can be partitioned into groups of factor levels
 (e.g. `{a, c}` vs `{b, d}`) when splitting at a node. Dummy variables
 are not required for this model.
 
+### Case weights
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in
+[case_weights](https://parsnip.tidymodels.org/reference/case_weights.md)
+and the examples on `tidymodels.org`.
+
+The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+have arguments called `case_weights` that expect vectors of case
+weights.
+
+Note that the data passed to the `case.weights` column are not used for
+traditional case weights (where the objective function is multiplied by
+a row-specific weight). From `?randomForest::randomForest`: “A vector of
+length same as`y` that are positive weights used only in sampling data
+to grow each tree (not used in any other calculation).”
+
+They function as sampling weights.
+
 ### Saving fitted model objects
 
 This model object contains data that are not required to make
@@ -115,9 +132,9 @@ functions from the [butcher](https://butcher.tidymodels.org) package.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#rand-forest-randomForest)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`rand_forest()`](https://parsnip.tidymodels.org/reference/rand_forest.md)
 with the `"randomForest"` engine.
 

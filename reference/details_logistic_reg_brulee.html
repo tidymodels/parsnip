@@ -11,7 +11,7 @@ odds of an event."><meta property="og:image" content="https://parsnip.tidymodels
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,12 +24,12 @@ odds of an event."><meta property="og:image" content="https://parsnip.tidymodels
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/checklists.html">Dev checklists</a></li>
-    <li><a class="dropdown-item" href="../articles/Examples.html">Fitting and predicting with parsnip</a></li>
     <li><a class="dropdown-item" href="../articles/Submodels.html">Evaluating submodels with the same model object</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-learn-more" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Learn more</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-predictions/">Fitting and predicting with parsnip</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a></li>
   </ul></li>
@@ -50,7 +50,7 @@ odds of an event."><meta property="og:image" content="https://parsnip.tidymodels
     </div>
 
     <div class="ref-description section level2">
-    <p><code><a href="https://brulee.tidymodels.org/reference/brulee_logistic_reg.html" class="external-link">brulee::brulee_logistic_reg()</a></code> fits a generalized linear model for binary
+    <p><code>brulee::brulee_logistic_reg()</code> fits a generalized linear model for binary
 outcomes. A linear combination of the predictors is used to model the log
 odds of an event.</p>
     </div>
@@ -69,7 +69,7 @@ parameters to be strictly zero (as it does in packages such as glmnet).
 The zeroing out of parameters is a specific feature the optimization
 method used in those packages.</p>
 <p>Other engine arguments of interest:</p><ul><li><p><code>optimizer()</code>: The optimization method. See
-<code><a href="https://brulee.tidymodels.org/reference/brulee_linear_reg.html" class="external-link">brulee::brulee_linear_reg()</a></code>.</p></li>
+<code>brulee::brulee_linear_reg()</code>.</p></li>
 <li><p><code>epochs()</code>: An integer for the number of passes through the training
 set.</p></li>
 <li><p><code>lean_rate()</code>: A number used to accelerate the gradient decsent
@@ -81,7 +81,7 @@ each batch.</p></li>
 <li><p><code>stop_iter()</code>: A non-negative integer for how many iterations with no
 improvement before stopping. (default: 5L).</p></li>
 <li><p><code>class_weights()</code>: Numeric class weights. See
-<code><a href="https://brulee.tidymodels.org/reference/brulee_logistic_reg.html" class="external-link">brulee::brulee_logistic_reg()</a></code>.</p></li>
+<code>brulee::brulee_logistic_reg()</code>.</p></li>
 </ul></div>
 
 <div class="section">

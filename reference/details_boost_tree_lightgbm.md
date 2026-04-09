@@ -45,6 +45,9 @@ By default, `counts` is set to `TRUE`, but supplying the argument
 `counts = FALSE` allows the user to supply `mtry` as a proportion rather
 than a number.
 
+LightGBM has a large number of engine parameters. The current list is
+found at <https://lightgbm.readthedocs.io/en/latest/Parameters.html>.
+
 ### Translation from parsnip to the original package (regression)
 
 The **bonsai** extension package is required to fit this model.
@@ -125,6 +128,25 @@ Non-numeric predictors (i.e., factors) are internally converted to
 numeric. In the classification context, non-numeric outcomes (i.e.,
 factors) are also internally converted to numeric.
 
+### Case weights
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in
+[case_weights](https://parsnip.tidymodels.org/reference/case_weights.md)
+and the examples on `tidymodels.org`.
+
+The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+have arguments called `case_weights` that expect vectors of case
+weights.
+
+Although the source documentation is unclear about how the weights are
+utilized, it appears that the weights are applied to the objective
+function, not just the sampling mechanism. A GitHub issue
+(<https://github.com/lightgbm-org/LightGBM/issues/1299>) has evidence
+that the weights are a “multiplication applied to every positive label
+weight” and shows some C++ code to that effect.
+
 #### Interpreting `mtry`
 
 The `mtry` argument denotes the number of predictors that will be
@@ -194,6 +216,30 @@ if `sample_size` (i.e. `bagging_fraction`) is not equal to 1 and no
 setting the `bagging_freq` argument to
 [`set_engine()`](https://parsnip.tidymodels.org/reference/set_engine.md)
 manually.
+
+#### Custom Objective Functions
+
+The default objective for classification models is set automatically
+based on the number of outcome levels: `binary` for two-class problems
+and `multiclass` for more than two classes. For regression, the default
+is `regression`.
+
+You can specify an alternative objective using
+[`set_engine()`](https://parsnip.tidymodels.org/reference/set_engine.md):
+
+    boost_tree() |>
+      set_engine("lightgbm", objective = "multiclassova") |>
+      set_mode("classification")
+
+For multiclass objectives (`multiclass`, `softmax`, `multiclassova`,
+`multiclass_ova`, `ova`, `ovr`), the `num_class` parameter is
+automatically determined from the number of outcome levels. This means
+you do not need to manually specify `num_class` when using these
+objectives.
+
+See the [LightGBM
+documentation](https://lightgbm.readthedocs.io/en/latest/Parameters.html#core-parameters)
+for a full list of available objectives.
 
 #### Verbosity
 

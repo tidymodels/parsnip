@@ -18,8 +18,7 @@ For example, if you are fitting a random forest model and would like to
 adjust the number of trees in the forest there are different argument
 names to remember:
 
-- [`randomForest::randomForest`](https://rdrr.io/pkg/randomForest/man/randomForest.html)
-  uses `ntree`,
+- `randomForest::randomForest` uses `ntree`,
 - [`ranger::ranger`](http://imbs-hl.github.io/ranger/reference/ranger.md)
   uses `num.trees`,  
 - Spark’s

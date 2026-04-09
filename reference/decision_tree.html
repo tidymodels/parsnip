@@ -6,6 +6,7 @@ There are different ways to fit this model, and the method of estimation is  cho
 rpart¹²
 C5.0
 partykit²
+rpartScore²
 spark
 ¹ The default engine. ² Requires a parsnip extension package for censored regression, classification, and regression.
 More information on how parsnip is used for modeling is at
@@ -16,6 +17,7 @@ There are different ways to fit this model, and the method of estimation is  cho
 rpart¹²
 C5.0
 partykit²
+rpartScore²
 spark
 ¹ The default engine. ² Requires a parsnip extension package for censored regression, classification, and regression.
 More information on how parsnip is used for modeling is at
@@ -27,7 +29,7 @@ https://www.tidymodels.org/."><meta property="og:image" content="https://parsnip
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,12 +42,12 @@ https://www.tidymodels.org/."><meta property="og:image" content="https://parsnip
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/checklists.html">Dev checklists</a></li>
-    <li><a class="dropdown-item" href="../articles/Examples.html">Fitting and predicting with parsnip</a></li>
     <li><a class="dropdown-item" href="../articles/Submodels.html">Evaluating submodels with the same model object</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-learn-more" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Learn more</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-predictions/">Fitting and predicting with parsnip</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a></li>
   </ul></li>
@@ -72,6 +74,7 @@ regression, and censored regression models.</p>
 <p>There are different ways to fit this model, and the method of estimation is  chosen by setting the model <em>engine</em>. The engine-specific pages  for this model are listed  below.</p><ul><li><p><code><a href="details_decision_tree_rpart.html">rpart</a>¹²</code></p></li>
 <li><p><code><a href="details_decision_tree_C5.0.html">C5.0</a></code></p></li>
 <li><p><code><a href="details_decision_tree_partykit.html">partykit</a>²</code></p></li>
+<li><p><code><a href="details_decision_tree_rpartScore.html">rpartScore</a>²</code></p></li>
 <li><p><code><a href="details_decision_tree_spark.html">spark</a></code></p></li>
 </ul>¹ The default engine. ² Requires a parsnip extension package for censored regression, classification, and regression.
 <p>More information on how <span class="pkg">parsnip</span> is used for modeling is at
@@ -138,7 +141,7 @@ programmatically, use the <a href="https://rlang.r-lib.org/reference/injection-o
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="fit.html">fit()</a></code>, <code><a href="set_engine.html">set_engine()</a></code>, <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>, <code><a href="details_decision_tree_rpart.html">rpart engine details</a></code>, <code><a href="details_decision_tree_C5.0.html">C5.0 engine details</a></code>, <code><a href="details_decision_tree_partykit.html">partykit engine details</a></code>, <code><a href="details_decision_tree_spark.html">spark engine details</a></code></p></div>
+    <div class="dont-index"><p><code><a href="fit.html">fit()</a></code>, <code><a href="set_engine.html">set_engine()</a></code>, <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>, <code><a href="details_decision_tree_rpart.html">rpart engine details</a></code>, <code><a href="details_decision_tree_C5.0.html">C5.0 engine details</a></code>, <code><a href="details_decision_tree_partykit.html">partykit engine details</a></code>, <code><a href="details_decision_tree_rpartScore.html">rpartScore engine details</a></code>, <code><a href="details_decision_tree_spark.html">spark engine details</a></code></p></div>
     </div>
 
     <div class="section level2">

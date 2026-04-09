@@ -1,4 +1,4 @@
-# Random forests via partykit
+# Random forests via Conditional Inference using partykit
 
 [`partykit::cforest()`](https://rdrr.io/pkg/partykit/man/cforest.html)
 fits a model that creates a large number of decision trees, each
@@ -93,6 +93,18 @@ Categorical predictors can be partitioned into groups of factor levels
 (e.g. `{a, c}` vs `{b, d}`) when splitting at a node. Dummy variables
 are not required for this model.
 
+### Case weights
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in
+[case_weights](https://parsnip.tidymodels.org/reference/case_weights.md)
+and the examples on `tidymodels.org`.
+
+The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+have arguments called `case_weights` that expect vectors of case
+weights.
+
 ### Prediction types
 
     parsnip:::get_from_env("rand_forest_predict") |>
@@ -114,6 +126,14 @@ Predictions of type `"time"` are predictions of the median survival
 time.
 
 ### References
+
+- Hothorn, T., Hornik, K., & Zeileis, A. (2006). Unbiased recursive
+  partitioning: A conditional inference framework. *Journal of
+  Computational and Graphical Statistics*, 15(3), 651-674.
+
+- Strobl, C., Boulesteix, A. L., Zeileis, A., & Hothorn, T. (2007). Bias
+  in random forest variable importance measures: Illustrations, sources
+  and a solution. *BMC bioinformatics*, 8(1), 25.
 
 - [partykit: A Modular Toolkit for Recursive Partytioning in
   R](https://jmlr.org/papers/v16/hothorn15a.html)

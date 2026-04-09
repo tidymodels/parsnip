@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,12 +20,12 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/checklists.html">Dev checklists</a></li>
-    <li><a class="dropdown-item" href="../articles/Examples.html">Fitting and predicting with parsnip</a></li>
     <li><a class="dropdown-item" href="../articles/Submodels.html">Evaluating submodels with the same model object</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-learn-more" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Learn more</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-predictions/">Fitting and predicting with parsnip</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a></li>
   </ul></li>
@@ -54,11 +54,17 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'model_fit'</span></span>
 <span><span class="fu">predict_class</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">predict_class</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># S3 method for class 'model_fit'</span></span>
 <span><span class="fu">predict_classprob</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">predict_classprob</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># S3 method for class 'model_fit'</span></span>
 <span><span class="fu">predict_hazard</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, <span class="va">eval_time</span>, time <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">predict_hazard</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'model_fit'</span></span>
 <span><span class="fu">predict_confint</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, level <span class="op">=</span> <span class="fl">0.95</span>, std_error <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -69,8 +75,6 @@
 <span></span>
 <span><span class="co"># S3 method for class 'model_fit'</span></span>
 <span><span class="fu">predict_predint</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, level <span class="op">=</span> <span class="fl">0.95</span>, std_error <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">predict_predint</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'model_fit'</span></span>
 <span><span class="fu">predict_linear_pred</span><span class="op">(</span><span class="va">object</span>, <span class="va">new_data</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -92,6 +96,8 @@
 <span>  level <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">predict_quantile</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'model_fit'</span></span>
 <span><span class="fu">predict_survival</span><span class="op">(</span></span>
@@ -128,7 +134,7 @@
 <dd><p>Additional <code>parsnip</code>-related options, depending on the
 value of <code>type</code>. Arguments to the underlying model's prediction
 function cannot be passed here (use the <code>opts</code> argument instead).
-Possible arguments are:</p><ul><li><p><code>interval</code>: for <code>type</code> equal to <code>"survival"</code> or <code>"quantile"</code>, should
+Possible arguments are:</p><ul><li><p><code>interval</code>: for <code>type</code> equal to <code>"survival"</code>, should
 interval estimates be added, if available? Options are <code>"none"</code>
 and <code>"confidence"</code>.</p></li>
 <li><p><code>level</code>: for <code>type</code> equal to <code>"conf_int"</code>, <code>"pred_int"</code>, or <code>"survival"</code>,
@@ -138,8 +144,6 @@ Default value is <code>0.95</code>.</p></li>
 <li><p><code>std_error</code>: for <code>type</code> equal to <code>"conf_int"</code> or <code>"pred_int"</code>, add
 the standard error of fit or prediction (on the scale of the
 linear predictors). Default value is <code>FALSE</code>.</p></li>
-<li><p><code>quantile</code>: for <code>type</code> equal to <code>quantile</code>, the quantiles of the
-distribution. Default is <code>(1:9)/10</code>.</p></li>
 <li><p><code>eval_time</code>: for <code>type</code> equal to <code>"survival"</code> or <code>"hazard"</code>, the
 time points at which the survival probability or hazard is estimated.</p></li>
 </ul></dd>

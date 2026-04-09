@@ -211,6 +211,18 @@ update(
   ...
 )
 
+# S3 method for class 'ordinal_reg'
+update(
+  object,
+  parameters = NULL,
+  ordinal_link = NULL,
+  odds_link = NULL,
+  penalty = NULL,
+  mixture = NULL,
+  fresh = FALSE,
+  ...
+)
+
 # S3 method for class 'pls'
 update(
   object,
@@ -513,6 +525,14 @@ update(
 
   A single number for the parameter used in calculating Minkowski
   distance.
+
+- ordinal_link:
+
+  The ordinal link function.
+
+- odds_link:
+
+  The odds or probability link function.
 
 - predictor_prop:
 

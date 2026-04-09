@@ -136,6 +136,7 @@ weights.
 ### Prediction types
 
     parsnip:::get_from_env("gen_additive_mod_predict") |>
+      dplyr::filter(engine == "mgcv") |>
       dplyr::select(mode, type)
 
     ## # A tibble: 7 x 2

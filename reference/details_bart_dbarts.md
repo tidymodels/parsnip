@@ -1,8 +1,7 @@
 # Bayesian additive regression trees via dbarts
 
-[`dbarts::bart()`](https://rdrr.io/pkg/dbarts/man/bart.html) creates an
-ensemble of tree-based model whose training and assembly is determined
-using Bayesian analysis.
+`dbarts::bart()` creates an ensemble of tree-based model whose training
+and assembly is determined using Bayesian analysis.
 
 ## Details
 
@@ -77,9 +76,9 @@ Some relevant arguments that can be passed to
     ## Computational engine: dbarts
     ##
     ## Model fit template:
-    ## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1),
-    ##     base = double(1), power = double(1), k = double(1), verbose = FALSE,
-    ##     keeptrees = TRUE, keepcall = FALSE)
+    ## dbarts::bart(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
+    ##     ntree = integer(1), base = double(1), power = double(1),
+    ##     k = double(1), verbose = FALSE, keeptrees = TRUE, keepcall = FALSE)
 
 ### Translation from parsnip to the original package (regression)
 
@@ -105,9 +104,9 @@ Some relevant arguments that can be passed to
     ## Computational engine: dbarts
     ##
     ## Model fit template:
-    ## dbarts::bart(x = missing_arg(), y = missing_arg(), ntree = integer(1),
-    ##     base = double(1), power = double(1), k = double(1), verbose = FALSE,
-    ##     keeptrees = TRUE, keepcall = FALSE)
+    ## dbarts::bart(x = missing_arg(), y = missing_arg(), weights = missing_arg(),
+    ##     ntree = integer(1), base = double(1), power = double(1),
+    ##     k = double(1), verbose = FALSE, keeptrees = TRUE, keepcall = FALSE)
 
 ### Preprocessing requirements
 
@@ -117,9 +116,20 @@ formula method via
 [`fit()`](https://parsnip.tidymodels.org/reference/fit.md), parsnip will
 convert factor columns to indicators.
 
-[`dbarts::bart()`](https://rdrr.io/pkg/dbarts/man/bart.html) will also
-convert the factors to indicators if the user does not create them
-first.
+`dbarts::bart()` will also convert the factors to indicators if the user
+does not create them first.
+
+### Case weights
+
+This model can utilize case weights during model fitting. To use them,
+see the documentation in
+[case_weights](https://parsnip.tidymodels.org/reference/case_weights.md)
+and the examples on `tidymodels.org`.
+
+The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+have arguments called `case_weights` that expect vectors of case
+weights.
 
 ### Prediction types
 

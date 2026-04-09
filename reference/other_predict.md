@@ -9,11 +9,17 @@ user.
 # S3 method for class 'model_fit'
 predict_class(object, new_data, ...)
 
+predict_class(object, ...)
+
 # S3 method for class 'model_fit'
 predict_classprob(object, new_data, ...)
 
+predict_classprob(object, ...)
+
 # S3 method for class 'model_fit'
 predict_hazard(object, new_data, eval_time, time = deprecated(), ...)
+
+predict_hazard(object, ...)
 
 # S3 method for class 'model_fit'
 predict_confint(object, new_data, level = 0.95, std_error = FALSE, ...)
@@ -24,8 +30,6 @@ predict_predint(object, ...)
 
 # S3 method for class 'model_fit'
 predict_predint(object, new_data, level = 0.95, std_error = FALSE, ...)
-
-predict_predint(object, ...)
 
 # S3 method for class 'model_fit'
 predict_linear_pred(object, new_data, ...)
@@ -47,6 +51,8 @@ predict_quantile(
   level = 0.95,
   ...
 )
+
+predict_quantile(object, ...)
 
 # S3 method for class 'model_fit'
 predict_survival(
@@ -84,8 +90,8 @@ predict_time(object, ...)
   be passed here (use the `opts` argument instead). Possible arguments
   are:
 
-  - `interval`: for `type` equal to `"survival"` or `"quantile"`, should
-    interval estimates be added, if available? Options are `"none"` and
+  - `interval`: for `type` equal to `"survival"`, should interval
+    estimates be added, if available? Options are `"none"` and
     `"confidence"`.
 
   - `level`: for `type` equal to `"conf_int"`, `"pred_int"`, or
@@ -96,9 +102,6 @@ predict_time(object, ...)
   - `std_error`: for `type` equal to `"conf_int"` or `"pred_int"`, add
     the standard error of fit or prediction (on the scale of the linear
     predictors). Default value is `FALSE`.
-
-  - `quantile`: for `type` equal to `quantile`, the quantiles of the
-    distribution. Default is `(1:9)/10`.
 
   - `eval_time`: for `type` equal to `"survival"` or `"hazard"`, the
     time points at which the survival probability or hazard is

@@ -129,10 +129,11 @@ functions from the [butcher](https://butcher.tidymodels.org) package.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#svm-rbf-kernlab)
-for [`svm_rbf()`](https://parsnip.tidymodels.org/reference/svm_rbf.md)
-with the `"kernlab"` engine.
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
+[`svm_rbf()`](https://parsnip.tidymodels.org/reference/svm_rbf.md) with
+the `"kernlab"` engine.
 
 ### References
 

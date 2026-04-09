@@ -1,8 +1,8 @@
 # Logistic regression via glmnet
 
-[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html)
-fits a generalized linear model for binary outcomes. A linear
-combination of the predictors is used to model the log odds of an event.
+`glmnet::glmnet()` fits a generalized linear model for binary outcomes.
+A linear combination of the predictors is used to model the log odds of
+an event.
 
 ## Details
 
@@ -57,9 +57,8 @@ convert factor columns to indicators.
 
 Predictors should have the same scale. One way to achieve this is to
 center and scale each so that each predictor has mean zero and a
-variance of one. By default,
-[`glmnet::glmnet()`](https://glmnet.stanford.edu/reference/glmnet.html)
-uses the argument `standardize = TRUE` to center and scale the data.
+variance of one. By default, `glmnet::glmnet()` uses the argument
+`standardize = TRUE` to center and scale the data.
 
 ### Case weights
 
@@ -103,9 +102,9 @@ functions from the [butcher](https://butcher.tidymodels.org) package.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#logistic-reg-glmnet)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`logistic_reg()`](https://parsnip.tidymodels.org/reference/logistic_reg.md)
 with the `"glmnet"` engine.
 

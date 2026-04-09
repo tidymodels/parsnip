@@ -11,7 +11,7 @@ package."><meta property="og:image" content="https://parsnip.tidymodels.org/logo
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,12 +24,12 @@ package."><meta property="og:image" content="https://parsnip.tidymodels.org/logo
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/checklists.html">Dev checklists</a></li>
-    <li><a class="dropdown-item" href="../articles/Examples.html">Fitting and predicting with parsnip</a></li>
     <li><a class="dropdown-item" href="../articles/Submodels.html">Evaluating submodels with the same model object</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-learn-more" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Learn more</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-predictions/">Fitting and predicting with parsnip</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a></li>
   </ul></li>
@@ -225,21 +225,28 @@ and tuning.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  arguments: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ranger:       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       mtry  --&gt; mtry</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       trees --&gt; num.trees</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       min_n --&gt; min.node.size</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       mtry                    --&gt; mtry</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       trees                   --&gt; num.trees</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       min_n                   --&gt; min.node.size</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       regularization.factor   --&gt; regularization.factor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       regularization.usedepth --&gt; regularization.usedepth</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       alpha                   --&gt; alpha</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       minprop                 --&gt; minprop</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       splitrule               --&gt; splitrule</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       num.random.splits       --&gt; num.random.splits</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    randomForest: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       mtry  --&gt; mtry</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       trees --&gt; ntree</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       min_n --&gt; nodesize</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       mtry                    --&gt; mtry</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       trees                   --&gt; ntree</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       min_n                   --&gt; nodesize</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       maxnodes                --&gt; maxnodes</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    spark:        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       mtry  --&gt; feature_subset_strategy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       trees --&gt; num_trees</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       min_n --&gt; min_instances_per_node</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       mtry                    --&gt; feature_subset_strategy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       trees                   --&gt; num_trees</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       min_n                   --&gt; min_instances_per_node</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    grf:          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       mtry  --&gt; mtry</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       trees --&gt; num.trees</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       min_n --&gt; min.node.size</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       mtry                    --&gt; mtry</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       trees                   --&gt; num.trees</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       min_n                   --&gt; min.node.size</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  fit modules:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          engine                mode</span>

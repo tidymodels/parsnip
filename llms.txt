@@ -219,6 +219,8 @@ By contributing to this project, you agree to abide by its terms.
   : K-nearest neighbors
 - [`null_model()`](https://parsnip.tidymodels.org/reference/null_model.md)
   : Null model
+- [`ordinal_reg()`](https://parsnip.tidymodels.org/reference/ordinal_reg.md)
+  : Ordinal regression
 - [`pls()`](https://parsnip.tidymodels.org/reference/pls.md) : Partial
   least squares (PLS)
 - [`poisson_reg()`](https://parsnip.tidymodels.org/reference/poisson_reg.md)
@@ -344,6 +346,7 @@ By contributing to this project, you agree to abide by its terms.
   [`update(`*`<multinom_reg>`*`)`](https://parsnip.tidymodels.org/reference/parsnip_update.md)
   [`update(`*`<naive_Bayes>`*`)`](https://parsnip.tidymodels.org/reference/parsnip_update.md)
   [`update(`*`<nearest_neighbor>`*`)`](https://parsnip.tidymodels.org/reference/parsnip_update.md)
+  [`update(`*`<ordinal_reg>`*`)`](https://parsnip.tidymodels.org/reference/parsnip_update.md)
   [`update(`*`<pls>`*`)`](https://parsnip.tidymodels.org/reference/parsnip_update.md)
   [`update(`*`<poisson_reg>`*`)`](https://parsnip.tidymodels.org/reference/parsnip_update.md)
   [`update(`*`<proportional_hazards>`*`)`](https://parsnip.tidymodels.org/reference/parsnip_update.md)
@@ -441,12 +444,6 @@ By contributing to this project, you agree to abide by its terms.
 
 - [Dev
   checklists](https://parsnip.tidymodels.org/articles/checklists.md):
-
-- [Fitting and predicting with
-  parsnip](https://parsnip.tidymodels.org/articles/Examples.md):
-
-  This vignette show how to **fit** and **predict** with different
-  combinations of model, mode, and engine.
 
 - [Introduction to
   parsnip](https://parsnip.tidymodels.org/articles/parsnip.md):

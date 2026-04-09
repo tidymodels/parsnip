@@ -1,7 +1,7 @@
 # Linear quantile regression via the quantreg package
 
-[`quantreg::rq()`](https://rdrr.io/pkg/quantreg/man/rq.html) optimizes
-quantile loss to fit models with numeric outcomes.
+`quantreg::rq()` optimizes quantile loss to fit models with numeric
+outcomes.
 
 ## Details
 
@@ -156,9 +156,9 @@ functions from the [butcher](https://butcher.tidymodels.org) package.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#linear-reg-quantreg)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`linear_reg()`](https://parsnip.tidymodels.org/reference/linear_reg.md)
 with the `"quantreg"` engine.
 

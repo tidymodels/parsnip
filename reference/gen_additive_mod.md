@@ -10,7 +10,10 @@ this model are listed below.
 
 - [`mgcv`](https://parsnip.tidymodels.org/reference/details_gen_additive_mod_mgcv.md)`¹`
 
-¹ The default engine.
+- [`vgam`](https://parsnip.tidymodels.org/reference/details_gen_additive_mod_vgam.md)`²`
+
+¹ The default engine. ² Requires a parsnip extension package for
+classification.
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -82,7 +85,8 @@ models](https://www.tidymodels.org/find/parsnip/)
 [`fit()`](https://parsnip.tidymodels.org/reference/fit.md),
 [`set_engine()`](https://parsnip.tidymodels.org/reference/set_engine.md),
 [`update()`](https://rdrr.io/r/stats/update.html),
-[`mgcv engine details`](https://parsnip.tidymodels.org/reference/details_gen_additive_mod_mgcv.md)
+[`mgcv engine details`](https://parsnip.tidymodels.org/reference/details_gen_additive_mod_mgcv.md),
+[`vgam engine details`](https://parsnip.tidymodels.org/reference/details_gen_additive_mod_vgam.md)
 
 ## Examples
 

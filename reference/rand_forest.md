@@ -17,6 +17,8 @@ this model are listed below.
 
 - [`h2o`](https://parsnip.tidymodels.org/reference/details_rand_forest_h2o.md)`²`
 
+- [`ordinalForest`](https://parsnip.tidymodels.org/reference/details_rand_forest_ordinalForest.md)`²`
+
 - [`partykit`](https://parsnip.tidymodels.org/reference/details_rand_forest_partykit.md)`²`
 
 - [`randomForest`](https://parsnip.tidymodels.org/reference/details_rand_forest_randomForest.md)
@@ -104,6 +106,7 @@ models](https://www.tidymodels.org/find/parsnip/)
 [`aorsf engine details`](https://parsnip.tidymodels.org/reference/details_rand_forest_aorsf.md),
 [`grf engine details`](https://parsnip.tidymodels.org/reference/details_rand_forest_grf.md),
 [`h2o engine details`](https://parsnip.tidymodels.org/reference/details_rand_forest_h2o.md),
+[`ordinalForest engine details`](https://parsnip.tidymodels.org/reference/details_rand_forest_ordinalForest.md),
 [`partykit engine details`](https://parsnip.tidymodels.org/reference/details_rand_forest_partykit.md),
 [`randomForest engine details`](https://parsnip.tidymodels.org/reference/details_rand_forest_randomForest.md),
 [`spark engine details`](https://parsnip.tidymodels.org/reference/details_rand_forest_spark.md)

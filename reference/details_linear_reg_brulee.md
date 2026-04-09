@@ -1,7 +1,7 @@
 # Linear regression via brulee
 
-[`brulee::brulee_linear_reg()`](https://brulee.tidymodels.org/reference/brulee_linear_reg.html)
-uses ordinary least squares to fit models with numeric outcomes.
+`brulee::brulee_linear_reg()` uses ordinary least squares to fit models
+with numeric outcomes.
 
 ## Details
 
@@ -23,7 +23,7 @@ method used in those packages.
 Other engine arguments of interest:
 
 - `optimizer()`: The optimization method. See
-  [`brulee::brulee_linear_reg()`](https://brulee.tidymodels.org/reference/brulee_linear_reg.html).
+  `brulee::brulee_linear_reg()`.
 
 - `epochs()`: An integer for the number of passes through the training
   set.

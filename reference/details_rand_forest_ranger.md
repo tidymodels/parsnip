@@ -120,6 +120,15 @@ The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
 have arguments called `case_weights` that expect vectors of case
 weights.
 
+Note that the data passed to the `case.weights` column are not used for
+traditional case weights (where the objective function is multiplied by
+a row-specific weight). From
+[`?ranger::ranger`](http://imbs-hl.github.io/ranger/reference/ranger.md):
+“Observations with larger weights will be selected with higher
+probability in the bootstrap (or subsampled) samples for the trees.”
+
+They function as sampling weights.
+
 ### Sparse Data
 
 This model can utilize sparse data during model fitting and prediction.
@@ -158,9 +167,9 @@ functions from the [butcher](https://butcher.tidymodels.org) package.
 
 ### Examples
 
-The “Fitting and Predicting with parsnip” article contains
-[examples](https://parsnip.tidymodels.org/articles/articles/Examples.html#rand-forest-ranger)
-for
+The “Fitting and Predicting with parsnip”
+[article](https://www.tidymodels.org/learn/models/parsnip-predictions/)
+contains examples for
 [`rand_forest()`](https://parsnip.tidymodels.org/reference/rand_forest.md)
 with the `"ranger"` engine.
 

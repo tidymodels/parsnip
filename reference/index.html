@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,12 +20,12 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/checklists.html">Dev checklists</a></li>
-    <li><a class="dropdown-item" href="../articles/Examples.html">Fitting and predicting with parsnip</a></li>
     <li><a class="dropdown-item" href="../articles/Submodels.html">Evaluating submodels with the same model object</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-learn-more" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Learn more</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-predictions/">Fitting and predicting with parsnip</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a></li>
   </ul></li>
@@ -213,6 +213,13 @@
 
         </dt>
         <dd>Null model</dd>
+
+        <dt>
+
+          <code><a href="ordinal_reg.html">ordinal_reg()</a></code>
+
+        </dt>
+        <dd>Ordinal regression</dd>
 
         <dt>
 
@@ -463,7 +470,7 @@
 
         <dt>
 
-          <code><a href="parsnip_update.html">update(<i>&lt;bag_mars&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;bag_mlp&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;bag_tree&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;bart&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;boost_tree&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;C5_rules&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;cubist_rules&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;decision_tree&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;discrim_flexible&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;discrim_linear&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;discrim_quad&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;discrim_regularized&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;gen_additive_mod&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;linear_reg&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;logistic_reg&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;mars&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;mlp&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;multinom_reg&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;naive_Bayes&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;nearest_neighbor&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;pls&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;poisson_reg&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;proportional_hazards&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;rand_forest&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;rule_fit&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;surv_reg&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;survival_reg&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;svm_linear&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;svm_poly&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;svm_rbf&gt;</i>)</a></code>
+          <code><a href="parsnip_update.html">update(<i>&lt;bag_mars&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;bag_mlp&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;bag_tree&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;bart&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;boost_tree&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;C5_rules&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;cubist_rules&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;decision_tree&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;discrim_flexible&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;discrim_linear&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;discrim_quad&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;discrim_regularized&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;gen_additive_mod&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;linear_reg&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;logistic_reg&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;mars&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;mlp&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;multinom_reg&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;naive_Bayes&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;nearest_neighbor&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;ordinal_reg&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;pls&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;poisson_reg&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;proportional_hazards&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;rand_forest&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;rule_fit&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;surv_reg&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;survival_reg&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;svm_linear&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;svm_poly&gt;</i>)</a></code> <code><a href="parsnip_update.html">update(<i>&lt;svm_rbf&gt;</i>)</a></code>
 
         </dt>
         <dd>Updating a model specification</dd>

@@ -52,5 +52,17 @@ fitted_model$fit$call
 
 # All better:
 repair_call(fitted_model, mtcars)$fit$call
-#> stats::lm(formula = mpg ~ ., data = mtcars, model = TRUE)
+#> [[1]]
+#> stats::lm
+#> 
+#> $formula
+#> mpg ~ .
+#> <environment: 0x56258492a4e0>
+#> 
+#> $data
+#> mtcars
+#> 
+#> $model
+#> [1] TRUE
+#> 
 ```

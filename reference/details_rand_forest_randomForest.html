@@ -11,7 +11,7 @@ predictions from the individual trees and combines them."><meta property="og:ima
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,12 +24,12 @@ predictions from the individual trees and combines them."><meta property="og:ima
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/checklists.html">Dev checklists</a></li>
-    <li><a class="dropdown-item" href="../articles/Examples.html">Fitting and predicting with parsnip</a></li>
     <li><a class="dropdown-item" href="../articles/Submodels.html">Evaluating submodels with the same model object</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-learn-more" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Learn more</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-learn-more"><li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-predictions/">Fitting and predicting with parsnip</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-ranger-glmnet/">Regression modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/models/parsnip-nnet/">Classification modeling</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidymodels.org/learn/develop/models/">Making a parsnip model from scratch</a></li>
   </ul></li>
@@ -50,7 +50,7 @@ predictions from the individual trees and combines them."><meta property="og:ima
     </div>
 
     <div class="ref-description section level2">
-    <p><code><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html" class="external-link">randomForest::randomForest()</a></code> fits a model that creates a large number of
+    <p><code>randomForest::randomForest()</code> fits a model that creates a large number of
 decision trees, each independent of the others. The final prediction uses all
 predictions from the individual trees and combines them.</p>
     </div>
@@ -67,7 +67,7 @@ below)</p></li>
 <li><p><code>trees</code>: # Trees (type: integer, default: 500L)</p></li>
 <li><p><code>min_n</code>: Minimal Node Size (type: integer, default: see below)</p></li>
 </ul><p><code>mtry</code> depends on the number of columns and the model mode. The default
-in <code><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html" class="external-link">randomForest::randomForest()</a></code> is
+in <code>randomForest::randomForest()</code> is
 <code>floor(sqrt(ncol(x)))</code> for classification and <code>floor(ncol(x)/3)</code> for
 regression.</p>
 <p><code>min_n</code> depends on the mode. For regression, a value of 5 is the
@@ -141,6 +141,23 @@ are not required for this model.</p>
 </div>
 
 <div class="section">
+<h3 id="case-weights">Case weights<a class="anchor" aria-label="anchor" href="#case-weights"></a></h3>
+
+
+<p>This model can utilize case weights during model fitting. To use them,
+see the documentation in <a href="case_weights.html">case_weights</a> and the examples
+on <code>tidymodels.org</code>.</p>
+<p>The <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> and <code><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy()</a></code> arguments have arguments called
+<code>case_weights</code> that expect vectors of case weights.</p>
+<p>Note that the data passed to the <code>case.weights</code> column are not used for
+traditional case weights (where the objective function is multiplied by
+a row-specific weight). From <code>?randomForest::randomForest</code>: “A vector of
+length same as<code>y</code> that are positive weights used only in sampling data
+to grow each tree (not used in any other calculation).”</p>
+<p>They function as sampling weights.</p>
+</div>
+
+<div class="section">
 <h3 id="saving-fitted-model-objects">Saving fitted model objects<a class="anchor" aria-label="anchor" href="#saving-fitted-model-objects"></a></h3>
 
 
@@ -171,9 +188,9 @@ functions from the <a href="https://butcher.tidymodels.org" class="external-link
 <h3 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h3>
 
 
-<p>The “Fitting and Predicting with parsnip” article contains
-<a href="https://parsnip.tidymodels.org/articles/articles/Examples.html#rand-forest-randomForest">examples</a>
-for <code><a href="rand_forest.html">rand_forest()</a></code> with the <code>"randomForest"</code> engine.</p>
+<p>The “Fitting and Predicting with parsnip”
+<a href="https://www.tidymodels.org/learn/models/parsnip-predictions/" class="external-link">article</a>
+contains examples for <code><a href="rand_forest.html">rand_forest()</a></code> with the <code>"randomForest"</code> engine.</p>
 </div>
 
 <div class="section">
