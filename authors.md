@@ -16,7 +16,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/tidymodels/parsnip/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/tidymodels/parsnip/blob/v1.5.0/DESCRIPTION)
 
 Kuhn M, Vaughan D (2026). *parsnip: A Common API to Modeling and
 Analysis Functions*. R package version 1.5.0,
