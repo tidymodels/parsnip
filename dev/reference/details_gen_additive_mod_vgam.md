@@ -20,6 +20,8 @@ parameters are:
 
 ### Translation from parsnip to the original package
 
+The **ordered** extension package is required to fit this model.
+
     library(ordered)
 
     gen_additive_mod() %>%

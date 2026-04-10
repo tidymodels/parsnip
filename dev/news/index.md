@@ -2,7 +2,22 @@
 
 ## parsnip (development version)
 
-### updates related to ‘ordered’ extenision package
+## parsnip 1.5.0
+
+CRAN release: 2026-04-09
+
+### Quantile Regression
+
+- Quantile levels are not dropped when a model specification is modified
+  ([\#1304](https://github.com/tidymodels/parsnip/issues/1304))
+
+- xgboost and qrnn engines were added for quantile regression to
+  [`boost_tree()`](https://parsnip.tidymodels.org/dev/reference/boost_tree.md)
+  and [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md),
+  respectively.
+  ([\#1321](https://github.com/tidymodels/parsnip/issues/1321))
+
+### Ordinal Regression
 
 The changes in this section are discussed in
 [\#1298](https://github.com/tidymodels/parsnip/issues/1298).
@@ -43,15 +58,37 @@ The changes in this section are discussed in
 - Ordinal prediction tools are coordinated with new parameter tuners in
   dials and engines in ordered.
 
-- `model_info_table` is updated with the above 6 engines in anticipation
-  of submission of ordered to CRAN.
-
-### other updates
+### Bug Fixes
 
 - [`fit()`](https://generics.r-lib.org/reference/fit.html) with a
   formula now reliably drops rows with missing values during internal
   data conversion, regardless of the global `options(na.action = ...)`
   setting ([\#548](https://github.com/tidymodels/parsnip/issues/548)).
+
+- Fixed a bug in random forest fits using the `"aorsf"` engine where the
+  check for `mtry` could not be performed
+  ([\#1276](https://github.com/tidymodels/parsnip/issues/1276))
+
+- [`repair_call()`](https://parsnip.tidymodels.org/dev/reference/repair_call.md)
+  now errors informatively when given an object that is not a fitted
+  parsnip model
+  ([\#598](https://github.com/tidymodels/parsnip/issues/598)).
+
+- Fix bug in predicting class probabilities for multiclass earth models
+  ([\#1334](https://github.com/tidymodels/parsnip/issues/1334))
+
+- [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md)
+  now errors informatively when an invalid engine name is specified for
+  models whose engines all come from extension packages
+  ([\#1110](https://github.com/tidymodels/parsnip/issues/1110)).
+
+- Case weight usage was enabled for the `"nnet"` engines of
+  [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md) and
+  [`bag_mlp()`](https://parsnip.tidymodels.org/dev/reference/bag_mlp.md)
+  as well as for the `"dbarts"` engine of
+  [`bart()`](https://parsnip.tidymodels.org/dev/reference/bart.md).
+
+### Other Updates
 
 - For developers,
   [`format_predictions()`](https://parsnip.tidymodels.org/dev/reference/format-internals.md)
@@ -78,41 +115,9 @@ The changes in this section are discussed in
   custom objective functions and automatic `num_class` handling
   ([\#1275](https://github.com/tidymodels/parsnip/issues/1275)).
 
-- Fixed a bug in random forest fits using the `"aorsf"` engine where the
-  check for `mtry` could not be performed
-  ([\#1276](https://github.com/tidymodels/parsnip/issues/1276))
-
-- [`repair_call()`](https://parsnip.tidymodels.org/dev/reference/repair_call.md)
-  now errors informatively when given an object that is not a fitted
-  parsnip model
-  ([\#598](https://github.com/tidymodels/parsnip/issues/598)).
-
-- Fix bug in predicting class probabilities for multiclass earth models
-  ([\#1334](https://github.com/tidymodels/parsnip/issues/1334))
-
 - The “Fitting and predicting with parsnip” article has moved to
   [tidymodels.org](https://www.tidymodels.org/learn/models/parsnip-predictions/)
   ([\#1324](https://github.com/tidymodels/parsnip/issues/1324)).
-
-- [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md)
-  now errors informatively when an invalid engine name is specified for
-  models whose engines all come from extension packages
-  ([\#1110](https://github.com/tidymodels/parsnip/issues/1110)).
-
-- Quantile levels are not dropped when a model specification is modified
-  ([\#1304](https://github.com/tidymodels/parsnip/issues/1304))
-
-- xgboost and qrnn engines were added for quantile regression to
-  [`boost_tree()`](https://parsnip.tidymodels.org/dev/reference/boost_tree.md)
-  and [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md),
-  respectively.
-  ([\#1321](https://github.com/tidymodels/parsnip/issues/1321))
-
-- Case weight usage was enabled for the `"nnet"` engines of
-  [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md) and
-  [`bag_mlp()`](https://parsnip.tidymodels.org/dev/reference/bag_mlp.md)
-  as well as for the `"dbarts"` engine of
-  [`bart()`](https://parsnip.tidymodels.org/dev/reference/bart.md).
 
 - All model details files note whether case weights can be used or not.
 

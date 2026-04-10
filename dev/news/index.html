@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.4.1.9004</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.5.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,8 +46,16 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="parsnip-development-version">parsnip (development version)<a class="anchor" aria-label="anchor" href="#parsnip-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.5.0" id="parsnip-150">parsnip 1.5.0<a class="anchor" aria-label="anchor" href="#parsnip-150"></a></h2><p class="text-muted">CRAN release: 2026-04-09</p>
 <div class="section level3">
-<h3 id="updates-related-to-ordered-extenision-package-development-version">updates related to ‘ordered’ extenision package<a class="anchor" aria-label="anchor" href="#updates-related-to-ordered-extenision-package-development-version"></a></h3>
+<h3 id="quantile-regression-1-5-0">Quantile Regression<a class="anchor" aria-label="anchor" href="#quantile-regression-1-5-0"></a></h3>
+<ul><li><p>Quantile levels are not dropped when a model specification is modified (<a href="https://github.com/tidymodels/parsnip/issues/1304" class="external-link">#1304</a>)</p></li>
+<li><p>xgboost and qrnn engines were added for quantile regression to <code><a href="../reference/boost_tree.html">boost_tree()</a></code> and <code><a href="../reference/mlp.html">mlp()</a></code>, respectively. (<a href="https://github.com/tidymodels/parsnip/issues/1321" class="external-link">#1321</a>)</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="ordinal-regression-1-5-0">Ordinal Regression<a class="anchor" aria-label="anchor" href="#ordinal-regression-1-5-0"></a></h3>
 <p>The changes in this section are discussed in <a href="https://github.com/tidymodels/parsnip/issues/1298" class="external-link">#1298</a>.</p>
 <ul><li>
 <p>A new model <code><a href="../reference/ordinal_reg.html">ordinal_reg()</a></code> is introduced for ordinal regression (<a href="https://github.com/tidymodels/parsnip/issues/953" class="external-link">#953</a>):</p>
@@ -71,22 +79,22 @@
 </ul></li>
 <li><p>Engine arguments for the new ordinal prediction engines are documented.</p></li>
 <li><p>Ordinal prediction tools are coordinated with new parameter tuners in dials and engines in ordered.</p></li>
-<li><p><code>model_info_table</code> is updated with the above 6 engines in anticipation of submission of ordered to CRAN.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="other-updates-development-version">other updates<a class="anchor" aria-label="anchor" href="#other-updates-development-version"></a></h3>
+<h3 id="bug-fixes-1-5-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-5-0"></a></h3>
 <ul><li><p><code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> with a formula now reliably drops rows with missing values during internal data conversion, regardless of the global <code>options(na.action = ...)</code> setting (<a href="https://github.com/tidymodels/parsnip/issues/548" class="external-link">#548</a>).</p></li>
-<li><p>For developers, <code><a href="../reference/format-internals.html">format_predictions()</a></code> is a new unified function for formatting prediction outputs, consolidating the logic from the individual <code>format_*()</code> functions (<a href="https://github.com/tidymodels/parsnip/issues/927" class="external-link">#927</a>). The individual functions <code><a href="../reference/format-internals.html">format_num()</a></code>, <code><a href="../reference/format-internals.html">format_class()</a></code>, <code><a href="../reference/format-internals.html">format_classprobs()</a></code>, <code><a href="../reference/format-internals.html">format_time()</a></code>, <code><a href="../reference/format-internals.html">format_survival()</a></code>, <code><a href="../reference/format-internals.html">format_linear_pred()</a></code>, and <code><a href="../reference/format-internals.html">format_hazard()</a></code> are now deprecated.</p></li>
-<li><p>The interface for declaring tunable parameters and any deviations for the standard parameter characteristics, has been simplified. These values can now be set inside of extension packages (<a href="https://github.com/tidymodels/parsnip/issues/1349" class="external-link">#1349</a>).</p></li>
-<li><p>Documentation for the lightgbm engine now includes information about custom objective functions and automatic <code>num_class</code> handling (<a href="https://github.com/tidymodels/parsnip/issues/1275" class="external-link">#1275</a>).</p></li>
 <li><p>Fixed a bug in random forest fits using the <code>"aorsf"</code> engine where the check for <code>mtry</code> could not be performed (<a href="https://github.com/tidymodels/parsnip/issues/1276" class="external-link">#1276</a>)</p></li>
 <li><p><code><a href="../reference/repair_call.html">repair_call()</a></code> now errors informatively when given an object that is not a fitted parsnip model (<a href="https://github.com/tidymodels/parsnip/issues/598" class="external-link">#598</a>).</p></li>
 <li><p>Fix bug in predicting class probabilities for multiclass earth models (<a href="https://github.com/tidymodels/parsnip/issues/1334" class="external-link">#1334</a>)</p></li>
-<li><p>The “Fitting and predicting with parsnip” article has moved to <a href="https://www.tidymodels.org/learn/models/parsnip-predictions/" class="external-link">tidymodels.org</a> (<a href="https://github.com/tidymodels/parsnip/issues/1324" class="external-link">#1324</a>).</p></li>
 <li><p><code><a href="../reference/set_engine.html">set_engine()</a></code> now errors informatively when an invalid engine name is specified for models whose engines all come from extension packages (<a href="https://github.com/tidymodels/parsnip/issues/1110" class="external-link">#1110</a>).</p></li>
-<li><p>Quantile levels are not dropped when a model specification is modified (<a href="https://github.com/tidymodels/parsnip/issues/1304" class="external-link">#1304</a>)</p></li>
-<li><p>xgboost and qrnn engines were added for quantile regression to <code><a href="../reference/boost_tree.html">boost_tree()</a></code> and <code><a href="../reference/mlp.html">mlp()</a></code>, respectively. (<a href="https://github.com/tidymodels/parsnip/issues/1321" class="external-link">#1321</a>)</p></li>
 <li><p>Case weight usage was enabled for the <code>"nnet"</code> engines of <code><a href="../reference/mlp.html">mlp()</a></code> and <code><a href="../reference/bag_mlp.html">bag_mlp()</a></code> as well as for the <code>"dbarts"</code> engine of <code><a href="../reference/bart.html">bart()</a></code>.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="other-updates-1-5-0">Other Updates<a class="anchor" aria-label="anchor" href="#other-updates-1-5-0"></a></h3>
+<ul><li><p>For developers, <code><a href="../reference/format-internals.html">format_predictions()</a></code> is a new unified function for formatting prediction outputs, consolidating the logic from the individual <code>format_*()</code> functions (<a href="https://github.com/tidymodels/parsnip/issues/927" class="external-link">#927</a>). The individual functions <code><a href="../reference/format-internals.html">format_num()</a></code>, <code><a href="../reference/format-internals.html">format_class()</a></code>, <code><a href="../reference/format-internals.html">format_classprobs()</a></code>, <code><a href="../reference/format-internals.html">format_time()</a></code>, <code><a href="../reference/format-internals.html">format_survival()</a></code>, <code><a href="../reference/format-internals.html">format_linear_pred()</a></code>, and <code><a href="../reference/format-internals.html">format_hazard()</a></code> are now deprecated.</p></li>
+<li><p>The interface for declaring tunable parameters and any deviations for the standard parameter characteristics, has been simplified. These values can now be set inside of extension packages (<a href="https://github.com/tidymodels/parsnip/issues/1349" class="external-link">#1349</a>).</p></li>
+<li><p>Documentation for the lightgbm engine now includes information about custom objective functions and automatic <code>num_class</code> handling (<a href="https://github.com/tidymodels/parsnip/issues/1275" class="external-link">#1275</a>).</p></li>
+<li><p>The “Fitting and predicting with parsnip” article has moved to <a href="https://www.tidymodels.org/learn/models/parsnip-predictions/" class="external-link">tidymodels.org</a> (<a href="https://github.com/tidymodels/parsnip/issues/1324" class="external-link">#1324</a>).</p></li>
 <li><p>All model details files note whether case weights can be used or not.</p></li>
 <li><p>We now export the generics for <code><a href="../reference/other_predict.html">predict_quantile()</a></code>, <code><a href="../reference/other_predict.html">predict_class()</a></code>, <code><a href="../reference/other_predict.html">predict_classprob()</a></code>, and <code><a href="../reference/other_predict.html">predict_hazard()</a></code>. (<a href="https://github.com/tidymodels/parsnip/issues/1257" class="external-link">#1257</a>)</p></li>
 </ul></div>
