@@ -340,6 +340,10 @@ set_pred(
   value = list(
     pre = NULL,
     post = function(x, object) {
+      # Binary keras3 model outputs a single sigmoid column; expand to two
+      if (ncol(x) == 1L) {
+        x <- cbind(1 - x[, 1], x[, 1])
+      }
       colnames(x) <- object$lvl
       x <- as_tibble(x)
       x
