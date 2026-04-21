@@ -48,6 +48,7 @@ Suggests:
     earth,
     ggrepel,
     keras,
+    keras3,
     kernlab,
     kknn,
     knitr,
