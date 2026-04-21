@@ -47,6 +47,7 @@ keras3_mlp <-
         "{.arg activation} should be one of: {allowed}, not {.val {activation}}."
       )
     }
+    activation <- get_activation_fn(activation)
 
     if (penalty > 0 & dropout > 0) {
       cli::cli_abort("Please use either dropout or weight decay.", call = NULL)

@@ -11,10 +11,13 @@ hpc_keras3 <-
 nn_dat <- read.csv("nnet_test.txt")
 
 is_keras3_ok <- function() {
-  tryCatch({
-    keras3::set_random_seed(1L)
-    TRUE
-  }, error = function(e) FALSE)
+  tryCatch(
+    {
+      keras3::set_random_seed(1L)
+      TRUE
+    },
+    error = function(e) FALSE
+  )
 }
 
 # ------------------------------------------------------------------------------
@@ -78,12 +81,16 @@ test_that('keras3 classification prediction', {
     x = as.matrix(hpc[1:8, num_pred])
   )
   xy_pred <- factor(
-    levels(hpc$class)[as.integer(keras3::op_argmax(xy_pred_raw, axis = 2L)) + 1L],
+    levels(hpc$class)[
+      as.integer(keras3::op_argmax(xy_pred_raw, axis = 2L)) + 1L
+    ],
     levels = levels(hpc$class)
   )
   expect_equal(
     xy_pred,
-    predict(xy_fit, new_data = hpc[1:8, num_pred], type = "class")[[".pred_class"]]
+    predict(xy_fit, new_data = hpc[1:8, num_pred], type = "class")[[
+      ".pred_class"
+    ]]
   )
 
   keras3::clear_session()
@@ -100,12 +107,16 @@ test_that('keras3 classification prediction', {
     x = as.matrix(hpc[1:8, num_pred])
   )
   form_pred <- factor(
-    levels(hpc$class)[as.integer(keras3::op_argmax(form_pred_raw, axis = 2L)) + 1L],
+    levels(hpc$class)[
+      as.integer(keras3::op_argmax(form_pred_raw, axis = 2L)) + 1L
+    ],
     levels = levels(hpc$class)
   )
   expect_equal(
     form_pred,
-    predict(form_fit, new_data = hpc[1:8, num_pred], type = "class")[[".pred_class"]]
+    predict(form_fit, new_data = hpc[1:8, num_pred], type = "class")[[
+      ".pred_class"
+    ]]
   )
 
   keras3::clear_session()

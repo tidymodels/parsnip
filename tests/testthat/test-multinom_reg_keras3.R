@@ -3,10 +3,13 @@ skip_if_not_installed("modeldata")
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 is_keras3_ok <- function() {
-  tryCatch({
-    keras3::set_random_seed(1L)
-    TRUE
-  }, error = function(e) FALSE)
+  tryCatch(
+    {
+      keras3::set_random_seed(1L)
+      TRUE
+    },
+    error = function(e) FALSE
+  )
 }
 
 # ------------------------------------------------------------------------------

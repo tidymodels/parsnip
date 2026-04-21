@@ -1,10 +1,13 @@
 skip_if_not_installed("modeldata")
 
 is_keras3_ok <- function() {
-  tryCatch({
-    keras3::set_random_seed(1L)
-    TRUE
-  }, error = function(e) FALSE)
+  tryCatch(
+    {
+      keras3::set_random_seed(1L)
+      TRUE
+    },
+    error = function(e) FALSE
+  )
 }
 
 # ------------------------------------------------------------------------------
