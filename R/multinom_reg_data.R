@@ -258,6 +258,74 @@ set_pred(
   )
 )
 
+# ------------------------------------------------------------------------------
+
+set_model_engine("multinom_reg", "classification", "keras3")
+set_dependency("multinom_reg", "keras3", "keras3", mode = "classification")
+
+set_model_arg(
+  model = "multinom_reg",
+  eng = "keras3",
+  parsnip = "penalty",
+  original = "penalty",
+  func = list(pkg = "dials", fun = "penalty"),
+  has_submodel = FALSE
+)
+
+set_fit(
+  model = "multinom_reg",
+  eng = "keras3",
+  mode = "classification",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    func = c(pkg = "parsnip", fun = "keras3_mlp"),
+    defaults = list(hidden_units = 1, act = "linear")
+  )
+)
+
+set_encoding(
+  model = "multinom_reg",
+  eng = "keras3",
+  mode = "classification",
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_pred(
+  model = "multinom_reg",
+  eng = "keras3",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(pkg = "parsnip", fun = "keras3_predict_classes"),
+    args = list(object = quote(object), x = quote(as.matrix(new_data)))
+  )
+)
+
+set_pred(
+  model = "multinom_reg",
+  eng = "keras3",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = function(x, object) {
+      colnames(x) <- object$lvl
+      x <- as_tibble(x)
+      x
+    },
+    func = c(fun = "predict"),
+    args = list(object = quote(object$fit), x = quote(as.matrix(new_data)))
+  )
+)
+
 
 # ------------------------------------------------------------------------------
 
