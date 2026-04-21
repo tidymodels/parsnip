@@ -66,7 +66,7 @@ parsnip:::get_from_env("linear_reg_predict") |>
 
 ## Examples 
 
-The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `linear_reg()` with the `"keras"` engine.
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `linear_reg()` with the `"keras3"` engine.
 
 ## References
 

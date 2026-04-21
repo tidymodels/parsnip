@@ -49,7 +49,7 @@ keras3_mlp <-
     }
     activation <- get_activation_fn(activation)
 
-    if (penalty > 0 & dropout > 0) {
+    if (penalty > 0 && dropout > 0) {
       cli::cli_abort("Please use either dropout or weight decay.", call = NULL)
     }
 
@@ -83,7 +83,7 @@ keras3_mlp <-
 
     model <- keras3::keras_model_sequential(input_shape = ncol(x))
 
-    model |>
+    model <- model |>
       keras3::layer_dense(
         units = hidden_units,
         activation = activation,
@@ -91,16 +91,16 @@ keras3_mlp <-
       )
 
     if (dropout > 0) {
-      model |> keras3::layer_dropout(rate = dropout)
+      model <- model |> keras3::layer_dropout(rate = dropout)
     }
 
     if (binary_y) {
-      model |> keras3::layer_dense(units = 1L, activation = "sigmoid")
+      model <- model |> keras3::layer_dense(units = 1L, activation = "sigmoid")
     } else if (factor_y) {
-      model |>
+      model <- model |>
         keras3::layer_dense(units = ncol(y_mat), activation = "softmax")
     } else {
-      model |>
+      model <- model |>
         keras3::layer_dense(units = ncol(y_mat), activation = "linear")
     }
 
@@ -132,6 +132,14 @@ keras3_mlp <-
     model$y_names <- colnames(y_mat)
     model
   }
+
+keras3_prob_post <- function(x, object) {
+  if (ncol(x) == 1L) {
+    x <- cbind(1 - x[, 1], x[, 1])
+  }
+  colnames(x) <- object$lvl
+  as_tibble(x)
+}
 
 parse_keras3_args <- function(...) {
   exclusions <- c("object", "x", "y", "validation_data", "epochs")

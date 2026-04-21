@@ -88,7 +88,7 @@ about preparing fitted models for serialization, see the bundle package.
 
 The “Fitting and Predicting with parsnip”
 \href{https://www.tidymodels.org/learn/models/parsnip-predictions/}{article}
-contains examples for \code{logistic_reg()} with the \code{"keras"} engine.
+contains examples for \code{logistic_reg()} with the \code{"keras3"} engine.
 }
 
 \subsection{References}{

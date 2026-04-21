@@ -412,7 +412,7 @@ set_fit(
     interface = "matrix",
     protect = c("x", "y"),
     func = c(pkg = "parsnip", fun = "keras_mlp"),
-    defaults = list(hidden_units = 1, act = "linear")
+    defaults = list(hidden_units = 1, activation = "linear")
   )
 )
 
@@ -486,7 +486,7 @@ set_fit(
     interface = "matrix",
     protect = c("x", "y"),
     func = c(pkg = "parsnip", fun = "keras3_mlp"),
-    defaults = list(hidden_units = 1, act = "linear")
+    defaults = list(hidden_units = 1, activation = "linear")
   )
 )
 
@@ -525,15 +525,7 @@ set_pred(
   type = "prob",
   value = list(
     pre = NULL,
-    post = function(x, object) {
-      # Binary keras3 model outputs a single sigmoid column; expand to two
-      if (ncol(x) == 1L) {
-        x <- cbind(1 - x[, 1], x[, 1])
-      }
-      colnames(x) <- object$lvl
-      x <- as_tibble(x)
-      x
-    },
+    post = keras3_prob_post,
     func = c(fun = "predict"),
     args = list(
       object = quote(object$fit),
