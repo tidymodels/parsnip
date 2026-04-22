@@ -4,7 +4,7 @@
 \alias{details_logistic_reg_keras3}
 \title{Logistic regression via keras3}
 \description{
-\code{\link[=keras3_mlp]{keras3_mlp()}} fits a generalized linear model for binary outcomes. A
+\code{\link[=keras3_mlp]{keras3_mlp()}} fits a generalized linear model for binary outcomes using version 3 of Keras. A
 linear combination of the predictors is used to model the log odds of an
 event.
 }

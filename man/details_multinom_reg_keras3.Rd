@@ -5,7 +5,7 @@
 \title{Multinomial regression via keras3}
 \description{
 \code{\link[=keras3_mlp]{keras3_mlp()}} fits a model that uses linear predictors to predict
-multiclass data using the multinomial distribution.
+multiclass data using the multinomial distribution using version 3 of Keras.
 }
 \details{
 For this engine, there is a single mode: classification

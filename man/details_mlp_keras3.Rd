@@ -4,7 +4,7 @@
 \alias{details_mlp_keras3}
 \title{Multilayer perceptron via keras3}
 \description{
-\code{\link[=keras3_mlp]{keras3_mlp()}} fits a single layer, feed-forward neural network.
+\code{\link[=keras3_mlp]{keras3_mlp()}} fits a single layer, feed-forward neural network using version 3 of Keras.
 }
 \details{
 For this engine, there are multiple modes: classification and regression

@@ -4,7 +4,7 @@
 \alias{details_linear_reg_keras3}
 \title{Linear regression via keras3}
 \description{
-This model uses regularized least squares to fit models with numeric outcomes.
+This model uses regularized least squares to fit models with numeric outcomes using version 3 of Keras.
 }
 \details{
 For this engine, there is a single mode: regression
