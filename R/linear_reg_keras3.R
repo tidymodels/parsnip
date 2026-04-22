@@ -1,6 +1,6 @@
 #' Linear regression via keras3
 #'
-#' This model uses regularized least squares to fit models with numeric outcomes.
+#' This model uses regularized least squares to fit models with numeric outcomes using version 3 of Keras.
 #'
 #' @includeRmd man/rmd/linear_reg_keras3.md details
 #'

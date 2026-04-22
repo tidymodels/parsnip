@@ -1,7 +1,7 @@
 #' Multinomial regression via keras3
 #'
 #' [keras3_mlp()] fits a model that uses linear predictors to predict
-#' multiclass data using the multinomial distribution.
+#' multiclass data using the multinomial distribution using version 3 of Keras.
 #'
 #' @includeRmd man/rmd/multinom_reg_keras3.md details
 #'

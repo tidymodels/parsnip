@@ -1,6 +1,6 @@
 #' Multilayer perceptron via keras3
 #'
-#' [keras3_mlp()] fits a single layer, feed-forward neural network.
+#' [keras3_mlp()] fits a single layer, feed-forward neural network using version 3 of Keras.
 #'
 #' @includeRmd man/rmd/mlp_keras3.md details
 #'
