@@ -18,6 +18,8 @@ this model are listed below.
 
 - [`keras`](https://parsnip.tidymodels.org/dev/reference/details_mlp_keras.md)
 
+- [`keras3`](https://parsnip.tidymodels.org/dev/reference/details_mlp_keras3.md)
+
 - [`qrnn`](https://parsnip.tidymodels.org/dev/reference/details_mlp_qrnn.md)
 
 ¹ The default engine. ² Requires a parsnip extension package for
@@ -122,24 +124,27 @@ models](https://www.tidymodels.org/find/parsnip/)
 [`brulee_two_layer engine details`](https://parsnip.tidymodels.org/dev/reference/details_mlp_brulee_two_layer.md),
 [`h2o engine details`](https://parsnip.tidymodels.org/dev/reference/details_mlp_h2o.md),
 [`keras engine details`](https://parsnip.tidymodels.org/dev/reference/details_mlp_keras.md),
+[`keras3 engine details`](https://parsnip.tidymodels.org/dev/reference/details_mlp_keras3.md),
 [`qrnn engine details`](https://parsnip.tidymodels.org/dev/reference/details_mlp_qrnn.md)
 
 ## Examples
 
 ``` r
 show_engines("mlp")
-#> # A tibble: 9 × 2
-#>   engine           mode               
-#>   <chr>            <chr>              
-#> 1 keras            classification     
-#> 2 keras            regression         
-#> 3 nnet             classification     
-#> 4 nnet             regression         
-#> 5 brulee           classification     
-#> 6 brulee           regression         
-#> 7 brulee_two_layer classification     
-#> 8 brulee_two_layer regression         
-#> 9 qrnn             quantile regression
+#> # A tibble: 11 × 2
+#>    engine           mode               
+#>    <chr>            <chr>              
+#>  1 keras            classification     
+#>  2 keras            regression         
+#>  3 keras3           classification     
+#>  4 keras3           regression         
+#>  5 nnet             classification     
+#>  6 nnet             regression         
+#>  7 brulee           classification     
+#>  8 brulee           regression         
+#>  9 brulee_two_layer classification     
+#> 10 brulee_two_layer regression         
+#> 11 qrnn             quantile regression
 
 mlp(mode = "classification", penalty = 0.01)
 #> Single Layer Neural Network Model Specification (classification)

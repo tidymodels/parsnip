@@ -73,6 +73,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_gls.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_h2o.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_keras.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_keras3.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lm.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lme.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lmer.html</loc></url>
@@ -88,6 +89,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_glmnet.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_h2o.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_keras.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_keras3.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_spark.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_stan.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_stan_glmer.html</loc></url>
@@ -96,12 +98,14 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_brulee_two_layer.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_h2o.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_keras.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_keras3.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_nnet.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_qrnn.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_brulee.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_glmnet.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_h2o.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_keras.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_keras3.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_nnet.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_spark.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_naive_Bayes_h2o.html</loc></url>
@@ -164,6 +168,9 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/glmnet_helpers_prediction.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/has_multi_predict.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/index.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/keras3_activations.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/keras3_mlp.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/keras3_predict_classes.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/keras_activations.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/keras_mlp.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/keras_predict_classes.html</loc></url>

@@ -8,6 +8,7 @@ brulee
 glmnet
 h2o²
 keras
+keras3
 spark
 ¹ The default engine. ² Requires a parsnip extension package.
 More information on how parsnip is used for modeling is at
@@ -20,6 +21,7 @@ brulee
 glmnet
 h2o²
 keras
+keras3
 spark
 ¹ The default engine. ² Requires a parsnip extension package.
 More information on how parsnip is used for modeling is at
@@ -78,6 +80,7 @@ classification models.</p>
 <li><p><code><a href="details_multinom_reg_glmnet.html">glmnet</a></code></p></li>
 <li><p><code><a href="details_multinom_reg_h2o.html">h2o</a>²</code></p></li>
 <li><p><code><a href="details_multinom_reg_keras.html">keras</a></code></p></li>
+<li><p><code><a href="details_multinom_reg_keras3.html">keras3</a></code></p></li>
 <li><p><code><a href="details_multinom_reg_spark.html">spark</a></code></p></li>
 </ul>¹ The default engine. ² Requires a parsnip extension package.
 <p>More information on how <span class="pkg">parsnip</span> is used for modeling is at
@@ -147,20 +150,21 @@ binary outcomes, see <code><a href="logistic_reg.html">logistic_reg()</a></code>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="fit.html">fit()</a></code>, <code><a href="set_engine.html">set_engine()</a></code>, <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>, <code><a href="details_multinom_reg_nnet.html">nnet engine details</a></code>, <code><a href="details_multinom_reg_brulee.html">brulee engine details</a></code>, <code><a href="details_multinom_reg_glmnet.html">glmnet engine details</a></code>, <code><a href="details_multinom_reg_h2o.html">h2o engine details</a></code>, <code><a href="details_multinom_reg_keras.html">keras engine details</a></code>, <code><a href="details_multinom_reg_spark.html">spark engine details</a></code></p></div>
+    <div class="dont-index"><p><code><a href="fit.html">fit()</a></code>, <code><a href="set_engine.html">set_engine()</a></code>, <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>, <code><a href="details_multinom_reg_nnet.html">nnet engine details</a></code>, <code><a href="details_multinom_reg_brulee.html">brulee engine details</a></code>, <code><a href="details_multinom_reg_glmnet.html">glmnet engine details</a></code>, <code><a href="details_multinom_reg_h2o.html">h2o engine details</a></code>, <code><a href="details_multinom_reg_keras.html">keras engine details</a></code>, <code><a href="details_multinom_reg_keras3.html">keras3 engine details</a></code>, <code><a href="details_multinom_reg_spark.html">spark engine details</a></code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="show_engines.html">show_engines</a></span><span class="op">(</span><span class="st">"multinom_reg"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   engine mode          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> glmnet classification</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> spark  classification</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> keras  classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> nnet   classification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> brulee classification</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> keras3 classification</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> nnet   classification</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> brulee classification</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">multinom_reg</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Multinomial Regression Model Specification (classification)</span>

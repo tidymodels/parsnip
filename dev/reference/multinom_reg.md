@@ -18,6 +18,8 @@ this model are listed below.
 
 - [`keras`](https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_keras.md)
 
+- [`keras3`](https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_keras3.md)
+
 - [`spark`](https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_spark.md)
 
 ¹ The default engine. ² Requires a parsnip extension package.
@@ -111,20 +113,22 @@ models](https://www.tidymodels.org/find/parsnip/)
 [`glmnet engine details`](https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_glmnet.md),
 [`h2o engine details`](https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_h2o.md),
 [`keras engine details`](https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_keras.md),
+[`keras3 engine details`](https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_keras3.md),
 [`spark engine details`](https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_spark.md)
 
 ## Examples
 
 ``` r
 show_engines("multinom_reg")
-#> # A tibble: 5 × 2
+#> # A tibble: 6 × 2
 #>   engine mode          
 #>   <chr>  <chr>         
 #> 1 glmnet classification
 #> 2 spark  classification
 #> 3 keras  classification
-#> 4 nnet   classification
-#> 5 brulee classification
+#> 4 keras3 classification
+#> 5 nnet   classification
+#> 6 brulee classification
 
 multinom_reg()
 #> Multinomial Regression Model Specification (classification)

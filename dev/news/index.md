@@ -2,6 +2,15 @@
 
 ## parsnip (development version)
 
+- [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md),
+  [`logistic_reg()`](https://parsnip.tidymodels.org/dev/reference/logistic_reg.md),
+  [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md), and
+  [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md)
+  gain a new `"keras3"` engine powered by the keras3 package, which
+  supports Keras v3 and its multi-backend design (TensorFlow, JAX,
+  PyTorch)
+  ([\#1243](https://github.com/tidymodels/parsnip/issues/1243)).
+
 ## parsnip 1.5.0
 
 CRAN release: 2026-04-09

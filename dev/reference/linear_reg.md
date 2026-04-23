@@ -26,6 +26,8 @@ this model are listed below.
 
 - [`keras`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_keras.md)
 
+- [`keras3`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_keras3.md)
+
 - [`lme`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lme.md)`²`
 
 - [`lmer`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lmer.md)`²`
@@ -123,6 +125,7 @@ models](https://www.tidymodels.org/find/parsnip/)
 [`gls engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_gls.md),
 [`h2o engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_h2o.md),
 [`keras engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_keras.md),
+[`keras3 engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_keras3.md),
 [`lme engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lme.md),
 [`lmer engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lmer.md),
 [`quantreg engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_quantreg.md),
@@ -134,7 +137,7 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ``` r
 show_engines("linear_reg")
-#> # A tibble: 8 × 2
+#> # A tibble: 9 × 2
 #>   engine   mode               
 #>   <chr>    <chr>              
 #> 1 lm       regression         
@@ -143,8 +146,9 @@ show_engines("linear_reg")
 #> 4 stan     regression         
 #> 5 spark    regression         
 #> 6 keras    regression         
-#> 7 brulee   regression         
-#> 8 quantreg quantile regression
+#> 7 keras3   regression         
+#> 8 brulee   regression         
+#> 9 quantreg quantile regression
 
 linear_reg()
 #> Linear Regression Model Specification (regression)

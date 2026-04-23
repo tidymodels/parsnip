@@ -22,6 +22,8 @@ this model are listed below.
 
 - [`keras`](https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_keras.md)
 
+- [`keras3`](https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_keras3.md)
+
 - [`LiblineaR`](https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_LiblineaR.md)
 
 - [`spark`](https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_spark.md)
@@ -125,6 +127,7 @@ models](https://www.tidymodels.org/find/parsnip/)
 [`glmnet engine details`](https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_glmnet.md),
 [`h2o engine details`](https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_h2o.md),
 [`keras engine details`](https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_keras.md),
+[`keras3 engine details`](https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_keras3.md),
 [`LiblineaR engine details`](https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_LiblineaR.md),
 [`spark engine details`](https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_spark.md),
 [`stan engine details`](https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_stan.md),
@@ -134,7 +137,7 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ``` r
 show_engines("logistic_reg")
-#> # A tibble: 7 × 2
+#> # A tibble: 8 × 2
 #>   engine    mode          
 #>   <chr>     <chr>         
 #> 1 glm       classification
@@ -142,8 +145,9 @@ show_engines("logistic_reg")
 #> 3 LiblineaR classification
 #> 4 spark     classification
 #> 5 keras     classification
-#> 6 stan      classification
-#> 7 brulee    classification
+#> 6 keras3    classification
+#> 7 stan      classification
+#> 8 brulee    classification
 
 logistic_reg()
 #> Logistic Regression Model Specification (classification)
