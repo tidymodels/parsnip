@@ -465,7 +465,7 @@ set_fit(
     interface = "matrix",
     protect = c("x", "y"),
     func = c(pkg = "parsnip", fun = "keras_mlp"),
-    defaults = list(hidden_units = 1, act = "linear")
+    defaults = list(hidden_units = 1, activation = "linear")
   )
 )
 
@@ -493,6 +493,57 @@ set_model_arg(
 set_pred(
   model = "linear_reg",
   eng = "keras",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = maybe_multivariate,
+    func = c(fun = "predict"),
+    args = list(object = quote(object$fit), x = quote(as.matrix(new_data)))
+  )
+)
+
+# ------------------------------------------------------------------------------
+
+set_model_engine("linear_reg", "regression", "keras3")
+set_dependency("linear_reg", "keras3", "keras3", mode = "regression")
+
+set_fit(
+  model = "linear_reg",
+  eng = "keras3",
+  mode = "regression",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    func = c(pkg = "parsnip", fun = "keras3_mlp"),
+    defaults = list(hidden_units = 1, activation = "linear")
+  )
+)
+
+set_encoding(
+  model = "linear_reg",
+  eng = "keras3",
+  mode = "regression",
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_model_arg(
+  model = "linear_reg",
+  eng = "keras3",
+  parsnip = "penalty",
+  original = "penalty",
+  func = list(pkg = "dials", fun = "penalty"),
+  has_submodel = FALSE
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "keras3",
   mode = "regression",
   type = "numeric",
   value = list(

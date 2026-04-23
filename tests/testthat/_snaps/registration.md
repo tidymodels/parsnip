@@ -431,14 +431,20 @@
        modes: unknown, classification, regression, quantile regression 
       
        engines: 
-         classification:      brulee, brulee_two_layer, keras, nnet1
+         classification:      brulee, brulee_two_layer, keras, keras3, nnet1
          quantile regression: qrnn
-         regression:          brulee, brulee_two_layer, keras, nnet1
+         regression:          brulee, brulee_two_layer, keras, keras3, nnet1
       
       1The model can use case weights.
       
        arguments: 
          keras:            
+            hidden_units --> hidden_units
+            penalty      --> penalty
+            dropout      --> dropout
+            epochs       --> epochs
+            activation   --> activation
+         keras3:           
             hidden_units --> hidden_units
             penalty      --> penalty
             dropout      --> dropout
@@ -472,6 +478,8 @@
                    engine                mode
                     keras          regression
                     keras      classification
+                   keras3          regression
+                   keras3      classification
                      nnet          regression
                      nnet      classification
                    brulee          regression
@@ -485,11 +493,13 @@
               classification           brulee      class, prob
               classification brulee_two_layer      class, prob
               classification            keras class, prob, raw
+              classification           keras3 class, prob, raw
               classification             nnet class, prob, raw
          quantile regression             qrnn         quantile
                   regression           brulee          numeric
                   regression brulee_two_layer          numeric
                   regression            keras     numeric, raw
+                  regression           keras3     numeric, raw
                   regression             nnet     numeric, raw
       
 

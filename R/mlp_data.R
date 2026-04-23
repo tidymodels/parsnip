@@ -190,6 +190,182 @@ set_pred(
 
 # ------------------------------------------------------------------------------
 
+set_model_engine("mlp", "classification", "keras3")
+set_model_engine("mlp", "regression", "keras3")
+set_dependency("mlp", "keras3", "keras3", mode = "regression")
+set_dependency("mlp", "keras3", "keras3", mode = "classification")
+
+set_model_arg(
+  model = "mlp",
+  eng = "keras3",
+  parsnip = "hidden_units",
+  original = "hidden_units",
+  func = list(pkg = "dials", fun = "hidden_units"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "mlp",
+  eng = "keras3",
+  parsnip = "penalty",
+  original = "penalty",
+  func = list(pkg = "dials", fun = "penalty"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "mlp",
+  eng = "keras3",
+  parsnip = "dropout",
+  original = "dropout",
+  func = list(pkg = "dials", fun = "dropout"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "mlp",
+  eng = "keras3",
+  parsnip = "epochs",
+  original = "epochs",
+  func = list(pkg = "dials", fun = "epochs"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "mlp",
+  eng = "keras3",
+  parsnip = "activation",
+  original = "activation",
+  func = list(pkg = "dials", fun = "activation"),
+  has_submodel = FALSE
+)
+
+set_fit(
+  model = "mlp",
+  eng = "keras3",
+  mode = "regression",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    func = c(pkg = "parsnip", fun = "keras3_mlp"),
+    defaults = list()
+  )
+)
+
+set_encoding(
+  model = "mlp",
+  eng = "keras3",
+  mode = "regression",
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_fit(
+  model = "mlp",
+  eng = "keras3",
+  mode = "classification",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    func = c(pkg = "parsnip", fun = "keras3_mlp"),
+    defaults = list()
+  )
+)
+
+set_encoding(
+  model = "mlp",
+  eng = "keras3",
+  mode = "classification",
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_pred(
+  model = "mlp",
+  eng = "keras3",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = maybe_multivariate,
+    func = c(fun = "predict"),
+    args = list(
+      object = quote(object$fit),
+      x = quote(as.matrix(new_data))
+    )
+  )
+)
+
+set_pred(
+  model = "mlp",
+  eng = "keras3",
+  mode = "regression",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args = list(
+      object = quote(object$fit),
+      x = quote(as.matrix(new_data))
+    )
+  )
+)
+
+set_pred(
+  model = "mlp",
+  eng = "keras3",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(pkg = "parsnip", fun = "keras3_predict_classes"),
+    args = list(
+      object = quote(object),
+      x = quote(as.matrix(new_data))
+    )
+  )
+)
+
+set_pred(
+  model = "mlp",
+  eng = "keras3",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = keras3_prob_post,
+    func = c(fun = "predict"),
+    args = list(
+      object = quote(object$fit),
+      x = quote(as.matrix(new_data))
+    )
+  )
+)
+
+set_pred(
+  model = "mlp",
+  eng = "keras3",
+  mode = "classification",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args = list(
+      object = quote(object$fit),
+      x = quote(as.matrix(new_data))
+    )
+  )
+)
+
+# ------------------------------------------------------------------------------
+
 set_model_engine("mlp", "classification", "nnet")
 set_model_engine("mlp", "regression", "nnet")
 set_dependency("mlp", "nnet", "nnet", mode = "regression")

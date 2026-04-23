@@ -115,7 +115,7 @@ translate.mlp <- function(x, engine = x$engine, ...) {
     engine <- "keras"
   }
 
-  if (engine == "nnet") {
+  if (engine %in% c("nnet", "keras3")) {
     if (isTRUE(is.null(quo_get_expr(x$args$hidden_units)))) {
       x$args$hidden_units <- 5
     }

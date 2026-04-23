@@ -109,7 +109,7 @@
       set_engine(linear_reg())
     Condition
       Error in `set_engine()`:
-      ! Missing engine. Possible mode/engine combinations are: quantile regression {quantreg} and regression {lm, glm, glmnet, stan, spark, keras, brulee}.
+      ! Missing engine. Possible mode/engine combinations are: quantile regression {quantreg} and regression {lm, glm, glmnet, stan, spark, keras, keras3, brulee}.
 
 ---
 
