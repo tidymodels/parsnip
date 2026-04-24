@@ -1,0 +1,133 @@
+```{r}
+#| child: aaa.Rmd
+#| include: false
+```
+
+`r descr_models("mlp", "brulee_resnet")`
+
+## Tuning Parameters
+
+```{r}
+#| label: brulee-resnet-param-info
+#| echo: false
+defaults <- 
+  tibble::tibble(parsnip = c("hidden_units", "penalty", "dropout", "epochs", "learn_rate", "activation", "mixture"),
+                 default = c("3L", "0.001", "0.0", "100L", "0.01", "'relu'", "0.0"))
+
+spec <-
+  mlp(
+    hidden_units = tune(),
+    penalty = tune(),
+    dropout = tune(),
+    epochs = tune(),
+    learn_rate = tune(),
+    activation = tune()
+  ) |> 
+  set_engine("brulee_resnet")
+
+param <- spec |> make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r}
+#| label: brulee-resnet-param-list
+#| echo: false
+#| results: asis
+param$item
+```
+
+The use of the L1 penalty (a.k.a. the lasso penalty) does _not_ force parameters to be strictly zero (as it does in packages such as glmnet). The zeroing out of parameters is a specific feature the optimization method used in those packages.
+
+Both `penalty` and `dropout` should be not be used in the same model. 
+
+ResNet models are almost always multilayer. They are similar to multi-layer neural networks, but typically have two differences: 
+
+ - At the end of some blocks of nonlinear activation, the features available at the beginning of the block are _added_ to the features at the end of the block. 
+ - Batch normalization is used before some hidden layers to center and scale the features prior to activation. Normally, the number of features produced by batch normalization equals the number of incoming hidden units. In brulee's implementation, this number of "batch units" must only be greater than 1.
+
+Two important vector-based model parameters are: 
+
+ - `batch_norm_units`, a vector the same length as `hidden_units`, specifies the number of outgoing features from the normalization. 
+ - `residual_at` is a vector that specifies which elements of `hidden_units` should be followed by the addition operator, so that the skip later should occur. 
+
+Other engine arguments of interest: 
+
+ - `momentum`: A number used to use historical gradient infomration during optimization.
+ - `batch_size`: An integer for the number of training set points in each batch.
+ - `class_weights`: Numeric class weights. See [brulee::brulee_resnet()].
+ - `stop_iter`: A non-negative integer for how many iterations with no improvement before stopping. (default: 5L).
+ - `rate_schedule`: A function to change the learning rate over epochs. See [brulee::schedule_decay_time()] for details. 
+ 
+## Translation from parsnip to the original package (regression)
+
+```{r}
+#| label: brulee-resnet-reg
+mlp(
+  hidden_units = integer(1),
+  penalty = double(1),
+  dropout = double(1),
+  epochs = integer(1),
+  learn_rate = double(1),
+  activation = character(1)
+) |>  
+  set_engine("brulee_resnet") |> 
+  set_mode("regression") |> 
+  translate()
+```
+
+Note that parsnip automatically sets linear activation in the last layer. 
+
+## Translation from parsnip to the original package (classification)
+
+```{r}
+#| label: brulee-resnet-cls
+mlp(
+  hidden_units = integer(1),
+  penalty = double(1),
+  dropout = double(1),
+  epochs = integer(1),
+  learn_rate = double(1),
+  activation = character(1)
+) |> 
+  set_engine("brulee_resnet") |> 
+  set_mode("classification") |> 
+  translate()
+```
+
+
+## Preprocessing requirements
+
+```{r}
+#| child: template-makes-dummies.Rmd
+```
+
+```{r}
+#| child: template-same-scale.Rmd
+```
+
+## Case weights
+
+```{r}
+#| child: template-no-case-weights.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("mlp_predict") |>
+  dplyr::filter(engine == "brulee_resnet") |>
+  dplyr::select(mode, type)
+
+```
+
+## References
+ 
+ - Equation 2 of Gorishniy, Y., Rubachev, I., Khrulkov, V., & Babenko, A. (2021). Revisiting deep learning models for tabular data. _Advances in neural information processing systems_, 34, 18932-18943.
+
+
+
+
+
