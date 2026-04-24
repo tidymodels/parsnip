@@ -1,6 +1,16 @@
 # parsnip (development version)
 
-## updates related to 'ordered' extenision package
+* `linear_reg()`, `logistic_reg()`, `mlp()`, and `multinom_reg()` gain a new `"keras3"` engine powered by the keras3 package, which supports Keras v3 and its multi-backend design (TensorFlow, JAX, PyTorch) (#1243).
+
+# parsnip 1.5.0
+
+## Quantile Regression
+
+* Quantile levels are not dropped when a model specification is modified (#1304)
+
+* xgboost and qrnn engines were added for quantile regression to `boost_tree()` and `mlp()`, respectively. (#1321)
+
+## Ordinal Regression
 
 The changes in this section are discussed in #1298.
 
@@ -20,17 +30,9 @@ The changes in this section are discussed in #1298.
 
 * Ordinal prediction tools are coordinated with new parameter tuners in dials and engines in ordered.
 
-* `model_info_table` is updated with the above 6 engines in anticipation of submission of ordered to CRAN.
-
-## other updates
+## Bug Fixes 
 
 * `fit()` with a formula now reliably drops rows with missing values during internal data conversion, regardless of the global `options(na.action = ...)` setting (#548).
-
-* For developers, `format_predictions()` is a new unified function for formatting prediction outputs, consolidating the logic from the individual `format_*()` functions (#927). The individual functions `format_num()`, `format_class()`, `format_classprobs()`, `format_time()`, `format_survival()`, `format_linear_pred()`, and `format_hazard()` are now deprecated.
-
-* The interface for declaring tunable parameters and any deviations for the standard parameter characteristics, has been simplified. These values can now be set inside of extension packages (#1349). 
-
-* Documentation for the lightgbm engine now includes information about custom objective functions and automatic `num_class` handling (#1275).
 
 * Fixed a bug in random forest fits using the `"aorsf"` engine where the check for `mtry` could not be performed (#1276)
 
@@ -38,15 +40,19 @@ The changes in this section are discussed in #1298.
 
 * Fix bug in predicting class probabilities for multiclass earth models (#1334)
 
-* The "Fitting and predicting with parsnip" article has moved to [tidymodels.org](https://www.tidymodels.org/learn/models/parsnip-predictions/) (#1324).
-
 * `set_engine()` now errors informatively when an invalid engine name is specified for models whose engines all come from extension packages (#1110).
 
-* Quantile levels are not dropped when a model specification is modified (#1304)
-
-* xgboost and qrnn engines were added for quantile regression to `boost_tree()` and `mlp()`, respectively. (#1321)
-
 * Case weight usage was enabled for the `"nnet"` engines of `mlp()` and `bag_mlp()` as well as for the `"dbarts"` engine of `bart()`. 
+
+## Other Updates
+
+* For developers, `format_predictions()` is a new unified function for formatting prediction outputs, consolidating the logic from the individual `format_*()` functions (#927). The individual functions `format_num()`, `format_class()`, `format_classprobs()`, `format_time()`, `format_survival()`, `format_linear_pred()`, and `format_hazard()` are now deprecated.
+
+* The interface for declaring tunable parameters and any deviations for the standard parameter characteristics, has been simplified. These values can now be set inside of extension packages (#1349). 
+
+* Documentation for the lightgbm engine now includes information about custom objective functions and automatic `num_class` handling (#1275).
+
+* The "Fitting and predicting with parsnip" article has moved to [tidymodels.org](https://www.tidymodels.org/learn/models/parsnip-predictions/) (#1324).
 
 * All model details files note whether case weights can be used or not. 
 

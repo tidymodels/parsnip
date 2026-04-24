@@ -412,7 +412,7 @@ set_fit(
     interface = "matrix",
     protect = c("x", "y"),
     func = c(pkg = "parsnip", fun = "keras_mlp"),
-    defaults = list(hidden_units = 1, act = "linear")
+    defaults = list(hidden_units = 1, activation = "linear")
   )
 )
 
@@ -456,6 +456,76 @@ set_pred(
       x <- as_tibble(x)
       x
     },
+    func = c(fun = "predict"),
+    args = list(
+      object = quote(object$fit),
+      x = quote(as.matrix(new_data))
+    )
+  )
+)
+
+# ------------------------------------------------------------------------------
+
+set_model_engine("logistic_reg", "classification", "keras3")
+set_dependency("logistic_reg", "keras3", "keras3", mode = "classification")
+
+set_model_arg(
+  model = "logistic_reg",
+  eng = "keras3",
+  parsnip = "penalty",
+  original = "penalty",
+  func = list(pkg = "dials", fun = "penalty"),
+  has_submodel = FALSE
+)
+
+set_fit(
+  model = "logistic_reg",
+  eng = "keras3",
+  mode = "classification",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    func = c(pkg = "parsnip", fun = "keras3_mlp"),
+    defaults = list(hidden_units = 1, activation = "linear")
+  )
+)
+
+set_encoding(
+  model = "logistic_reg",
+  eng = "keras3",
+  mode = "classification",
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_pred(
+  model = "logistic_reg",
+  eng = "keras3",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(pkg = "parsnip", fun = "keras3_predict_classes"),
+    args = list(
+      object = quote(object),
+      x = quote(as.matrix(new_data))
+    )
+  )
+)
+
+set_pred(
+  model = "logistic_reg",
+  eng = "keras3",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = keras3_prob_post,
     func = c(fun = "predict"),
     args = list(
       object = quote(object$fit),
