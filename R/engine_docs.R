@@ -69,7 +69,8 @@ extensions <- function() {
     "poissonreg",
     "rules",
     "bonsai",
-    "agua"
+    "agua",
+    "ordered"
   )
 }
 
@@ -339,10 +340,6 @@ find_details_topics <- function(mod, pkg = "parsnip") {
     res <- character(0)
   }
   unique(res)
-}
-
-sort_c <- function(x) {
-  withr::with_collate("C", sort(x))
 }
 
 # ------------------------------------------------------------------------------

@@ -25,7 +25,7 @@ test_that('fit ctree models', {
       data = Chicago[, 1:20],
       mincriterion = 1 / 2,
       maxdepth = 2,
-      weights = 1:nrow(Chicago)
+      weights = seq_len(nrow(Chicago))
     )
   )
   expect_false(isTRUE(all.equal(fit_2$fitted, fit_3$fitted)))
@@ -76,7 +76,7 @@ test_that('fit cforest models', {
       mincriterion = 1 / 2,
       maxdepth = 2,
       mtry = 4,
-      weights = 1:nrow(Chicago)
+      weights = seq_len(nrow(Chicago))
     )
   )
   expect_false(isTRUE(all.equal(fit_2$fitted, fit_3$fitted)))

@@ -8,7 +8,7 @@ check_parameter_set_tibble <- function(x) {
   expect_type(x$source, "character")
   expect_type(x$component, "character")
   expect_type(x$component_id, "character")
-  expect_true(!any(duplicated(x$id)))
+  expect_true(!anyDuplicated(x$id) > 0)
 
   expect_type(x$object, "list")
   obj_check <- purrr::map_lgl(x$object, \(x) {

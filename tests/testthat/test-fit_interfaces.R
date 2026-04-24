@@ -11,7 +11,7 @@ class(sprk) <- c(class(sprk), "tbl_spark")
 
 tester <-
   function(object, formula = NULL, data = NULL, model) {
-    parsnip:::check_interface(
+    check_interface(
       formula,
       data,
       match.call(expand.dots = TRUE),
@@ -20,7 +20,7 @@ tester <-
   }
 tester_xy <-
   function(object, x = NULL, y = NULL, model) {
-    parsnip:::check_xy_interface(x, y, match.call(expand.dots = TRUE), model)
+    check_xy_interface(x, y, match.call(expand.dots = TRUE), model)
   }
 
 

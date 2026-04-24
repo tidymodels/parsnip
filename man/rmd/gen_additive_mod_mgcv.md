@@ -145,6 +145,7 @@ The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that e
 
 ``` r
 parsnip:::get_from_env("gen_additive_mod_predict") |>
+  dplyr::filter(engine == "mgcv") |> 
   dplyr::select(mode, type)
 ```
 

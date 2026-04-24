@@ -41,6 +41,7 @@ model_info_table <-
               "discrim_quad",      "classification",    "sparsediscrim",       "discrim",
        "discrim_regularized",      "classification",             "klaR",       "discrim",
           "gen_additive_mod",      "classification",             "mgcv",              NA,
+          "gen_additive_mod",      "classification",             "vgam",       "ordered",
               "logistic_reg",      "classification",        "LiblineaR",              NA,
               "logistic_reg",      "classification",           "brulee",              NA,
               "logistic_reg",      "classification",              "gee", "multilevelmod",
@@ -85,6 +86,12 @@ model_info_table <-
                   "svm_poly",      "classification",          "kernlab",              NA,
                    "svm_rbf",      "classification",          "kernlab",              NA,
                    "svm_rbf",      "classification",        "liquidSVM",              NA,
+             "decision_tree",      "classification",       "rpartScore",       "ordered",
+               "ordinal_reg",      "classification",             "polr",       "ordered",
+               "ordinal_reg",      "classification",       "ordinalNet",       "ordered",
+               "ordinal_reg",      "classification",             "vglm",       "ordered",
+               "rand_forest",      "classification",    "ordinalForest",       "ordered",
+                   "tab_pfn",       "classification",          "tabpfn",              NA,
                 "linear_reg", "quantile regression",         "quantreg",              NA,
                "rand_forest", "quantile regression",              "grf",              NA,
                    "auto_ml",          "regression",              "h2o",          "agua",
@@ -150,5 +157,6 @@ model_info_table <-
                 "svm_linear",          "regression",          "kernlab",              NA,
                   "svm_poly",          "regression",          "kernlab",              NA,
                    "svm_rbf",          "regression",          "kernlab",              NA,
-                   "svm_rbf",          "regression",        "liquidSVM",              NA
+                   "svm_rbf",          "regression",        "liquidSVM",              NA,
+                   "tab_pfn",          "regression",           "tabpfn",              NA,
       )

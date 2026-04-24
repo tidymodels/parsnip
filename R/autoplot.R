@@ -166,7 +166,7 @@ autoplot_glmnet <- function(
   }
 
   p <- p +
-    ggplot2::geom_line(alpha = .4, show.legend = FALSE) +
+    ggplot2::geom_line(alpha = 0.4, show.legend = FALSE) +
     ggplot2::scale_x_log10()
 
   if (top_n > 0) {

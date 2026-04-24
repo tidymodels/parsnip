@@ -68,7 +68,6 @@ predict.censoring_model <- function(object, ...) {
   cli::cli_abort(
     "Don't know how to predict with a censoring model of type {object$label}."
   )
-  invisible(NULL)
 }
 
 #' @export

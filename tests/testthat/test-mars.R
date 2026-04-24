@@ -80,7 +80,7 @@ test_that('mars execution', {
       control = ctrl
     )
   )
-  parsnip:::load_libs(res, attach = TRUE)
+  load_libs(res, attach = TRUE)
 })
 
 test_that('mars prediction', {
@@ -164,7 +164,7 @@ test_that('submodel prediction', {
     set_engine("earth", keepxy = TRUE) |>
     fit(mpg ~ ., data = mtcars[-(1:4), ])
 
-  parsnip:::load_libs(reg_fit$spec, quiet = TRUE, attach = TRUE)
+  load_libs(reg_fit$spec, quiet = TRUE, attach = TRUE)
   tmp_reg <- extract_fit_engine(reg_fit)
   tmp_reg$call[["pmethod"]] <- eval_tidy(tmp_reg$call[["pmethod"]])
   tmp_reg$call[["keepxy"]] <- eval_tidy(tmp_reg$call[["keepxy"]])

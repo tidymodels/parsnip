@@ -14,7 +14,7 @@ test_that('engine arguments', {
 
 test_that('updating', {
   expect_snapshot(
-    svm_rbf(mode = "regression", rbf_sigma = .3) |>
+    svm_rbf(mode = "regression", rbf_sigma = 0.3) |>
       set_engine("kernlab", cross = 10) |>
       update(rbf_sigma = tune(), cross = tune())
   )
@@ -31,12 +31,12 @@ test_that('bad input', {
 # ------------------------------------------------------------------------------
 
 reg_mod <-
-  svm_rbf(mode = "regression", rbf_sigma = .1, cost = 1 / 4) |>
+  svm_rbf(mode = "regression", rbf_sigma = 0.1, cost = 1 / 4) |>
   set_engine("kernlab") |>
   set_mode("regression")
 
 cls_mod <-
-  svm_rbf(mode = "classification", rbf_sigma = .1, cost = 1 / 8) |>
+  svm_rbf(mode = "classification", rbf_sigma = 0.1, cost = 1 / 8) |>
   set_engine("kernlab") |>
   set_mode("classification")
 
@@ -96,7 +96,7 @@ test_that('svm rbf regression prediction', {
   expect_equal(
     as.data.frame(kern_pred),
     as.data.frame(parsnip_pred),
-    tolerance = .0001
+    tolerance = 0.0001
   )
 
   reg_xy_form <-
@@ -115,7 +115,7 @@ test_that('svm rbf regression prediction', {
   expect_equal(
     as.data.frame(kern_pred),
     as.data.frame(parsnip_xy_pred),
-    tolerance = .0001
+    tolerance = 0.0001
   )
 })
 

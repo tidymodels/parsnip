@@ -186,7 +186,7 @@ class2ind <- function(x, drop2nd = FALSE, call = rlang::caller_env()) {
   colnames(y) <- gsub("^x", "", colnames(y))
   attributes(y)$assign <- NULL
   attributes(y)$contrasts <- NULL
-  if (length(levels(x)) == 2 & drop2nd) {
+  if (nlevels(x) == 2 & drop2nd) {
     y <- y[, 1]
   }
   y
@@ -394,10 +394,6 @@ parse_keras_args <- function(...) {
     fit = dots[names(dots) %in% fit_args],
     compile = dots[names(dots) %in% compile_args]
   )
-}
-
-mlp_num_weights <- function(p, hidden_units, classes) {
-  ((p + 1) * hidden_units) + ((hidden_units + 1) * classes)
 }
 
 allowed_keras_activation <-

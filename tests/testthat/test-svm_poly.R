@@ -86,7 +86,7 @@ test_that('svm poly regression prediction', {
   expect_equal(
     as.data.frame(kern_pred),
     as.data.frame(parsnip_pred),
-    tolerance = .0001
+    tolerance = 0.0001
   )
 
   reg_xy_form <-
@@ -105,7 +105,7 @@ test_that('svm poly regression prediction', {
   expect_equal(
     as.data.frame(kern_pred),
     as.data.frame(parsnip_xy_pred),
-    tolerance = .0001
+    tolerance = 0.0001
   )
 })
 

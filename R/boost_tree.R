@@ -275,7 +275,7 @@ xgb_train <- function(
   event_level <- rlang::arg_match(event_level, c("first", "second"))
   others <- list(...)
 
-  num_class <- length(levels(y))
+  num_class <- nlevels(y)
 
   if (!is.numeric(validation) || validation < 0 || validation >= 1) {
     cli::cli_abort("{.arg validation} should be on [0, 1).")

@@ -49,7 +49,6 @@ set_fit(
     interface = "matrix",
     data = c(x = "data", y = "target"),
     protect = c("x", "y"),
-    data = c(x = "data", y = "target"),
     func = c(pkg = "LiblineaR", fun = "LiblineaR"),
     defaults = list(type = 1)
   )
