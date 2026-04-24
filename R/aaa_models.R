@@ -82,8 +82,7 @@ get_model_env <- function() {
 #' @export
 get_from_env <- function(items) {
   check_character(items)
-  mod_env <- get_model_env()
-  rlang::env_get(mod_env, items, default = NULL)
+  get_model_env()[[items]]
 }
 
 #' @rdname get_model_env
@@ -240,7 +239,7 @@ check_spec_mode_engine_val <- function(
     )
   }
 
-  model_info <- rlang::env_get(get_model_env(), cls)
+  model_info <- get_model_env()[[cls]]
 
   # Initially, check if the specification is well-defined in the current model
   # parsnip model environment. If so, return early.

@@ -281,7 +281,7 @@
     y <- as.data.frame(y)
   } else {
     if (is.atomic(y)) {
-      y <- data.frame(y)
+      y <- as.data.frame(y)
       names(y) <- y_name
     }
   }
@@ -290,7 +290,7 @@
   check_dup_names(x, y)
   form <- make_formula(names(x), names(y))
 
-  x <- bind_cols(x, y)
+  x <- vctrs::vec_cbind(x, y)
   if (!is.null(rn) & !inherits(x, "tbl_df")) {
     rownames(x) <- rn
   }

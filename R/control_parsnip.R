@@ -32,7 +32,8 @@ check_control <- function(x, call = rlang::caller_env()) {
   if (!is.list(x)) {
     cli::cli_abort("{.arg control} should be a named list.", call = call)
   }
-  if (!isTRUE(all.equal(sort(names(x)), c("catch", "verbosity")))) {
+  x_names <- names(x)
+  if (!"catch" %in% x_names || !"verbosity" %in% x_names) {
     cli::cli_abort(
       "{.arg control} should be a named list with elements {.field verbosity}
        and {.field catch}.",
