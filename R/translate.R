@@ -115,7 +115,7 @@ get_model_spec <- function(model, mode, engine) {
 
   res <- list()
 
-  libs <- rlang::env_get(m_env, paste0(model, "_pkgs"))
+  libs <- m_env[[paste0(model, "_pkgs")]]
   libs <- vctrs::vec_slice(libs$pkg, libs$engine == engine)
   res$libs <- if (length(libs) > 0) {
     libs[[1]]
@@ -123,7 +123,7 @@ get_model_spec <- function(model, mode, engine) {
     NULL
   }
 
-  fits <- rlang::env_get(m_env, paste0(model, "_fit"))
+  fits <- m_env[[paste0(model, "_fit")]]
   fits <- vctrs::vec_slice(
     fits$value,
     fits$mode == mode & fits$engine == engine
@@ -134,7 +134,7 @@ get_model_spec <- function(model, mode, engine) {
     NULL
   }
 
-  preds <- rlang::env_get(m_env, paste0(model, "_predict"))
+  preds <- m_env[[paste0(model, "_predict")]]
   where <- preds$mode == mode & preds$engine == engine
   types <- vctrs::vec_slice(preds$type, where)
   values <- vctrs::vec_slice(preds$value, where)
@@ -147,7 +147,7 @@ get_model_spec <- function(model, mode, engine) {
 get_args <- function(model, engine) {
   m_env <- get_model_env()
 
-  args <- rlang::env_get(m_env, paste0(model, "_args"))
+  args <- m_env[[paste0(model, "_args")]]
   args <- vctrs::vec_slice(args, args$engine == engine)
   args$engine <- NULL
 
