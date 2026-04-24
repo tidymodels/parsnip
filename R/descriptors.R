@@ -327,10 +327,15 @@ get_descr_xy <- function(x, y, call = rlang::caller_env()) {
 
 # take a model spec, see if any require descriptors
 requires_descrs <- function(object) {
-  any(c(
-    map_lgl(object$args, has_any_descrs),
-    map_lgl(object$eng_args, has_any_descrs)
-  ))
+  args <- c(object$args, object$eng_args)
+
+  for (arg in args) {
+    if (has_any_descrs(arg)) {
+      return(TRUE)
+    }
+  }
+
+  FALSE
 }
 
 # given a quosure arg, does the expression contain a descriptor function?
@@ -354,22 +359,22 @@ has_any_descrs <- function(x) {
 
   .globals <- names(.globals)
 
-  any(map_lgl(.globals, is_descr))
+  any(.globals %in% .descr_names)
 }
 
-is_descr <- function(x) {
-  descrs <- list(
-    ".cols",
-    ".preds",
-    ".obs",
-    ".lvls",
-    ".facts",
-    ".x",
-    ".y",
-    ".dat"
-  )
+.descr_names <- c(
+  ".cols",
+  ".preds",
+  ".obs",
+  ".lvls",
+  ".facts",
+  ".x",
+  ".y",
+  ".dat"
+)
 
-  any(map_lgl(descrs, identical, y = x))
+is_descr <- function(x) {
+  x %in% .descr_names
 }
 
 # Helpers for overwriting descriptors temporarily ------------------------------
