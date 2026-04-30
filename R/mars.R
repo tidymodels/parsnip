@@ -7,7 +7,7 @@
 #' a model that is a segmented regression in small dimensions. This function can
 #' fit classification and regression models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mars")}
+#' `Rd parsnip:::make_engine_list("mars")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -23,7 +23,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("mars")}
+#' @seealso `Rd parsnip:::make_seealso_list("mars")`
 #'
 #' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("mars")

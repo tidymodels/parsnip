@@ -5,7 +5,7 @@
 #' `poisson_reg()` defines a generalized linear model for count data that follow
 #' a Poisson distribution. This function can fit regression models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("poisson_reg")}
+#' `Rd parsnip:::make_engine_list("poisson_reg")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -29,7 +29,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("poisson_reg")}
+#' @seealso `Rd parsnip:::make_seealso_list("poisson_reg")`
 #' @export
 poisson_reg <-
   function(

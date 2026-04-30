@@ -9,7 +9,7 @@
 #' nonlinear functions of the predictors. The function can fit classification
 #' and regression models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("svm_rbf")}
+#' `Rd parsnip:::make_engine_list("svm_rbf")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -29,7 +29,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("svm_rbf")}
+#' @seealso `Rd parsnip:::make_seealso_list("svm_rbf")`
 #'
 #' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("svm_rbf")

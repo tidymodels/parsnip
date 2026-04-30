@@ -6,7 +6,7 @@
 #' probability of each class, given the predictor values. This function can fit
 #' classification models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("naive_Bayes")}
+#' `Rd parsnip:::make_engine_list("naive_Bayes")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -25,7 +25,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("naive_Bayes")}
+#' @seealso `Rd parsnip:::make_seealso_list("naive_Bayes")`
 #' @export
 naive_Bayes <-
   function(

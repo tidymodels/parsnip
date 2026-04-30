@@ -5,7 +5,7 @@
 #' model the data. It is similar to a supervised version of principal component.
 #' This function can fit classification and regression models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("pls")}
+#' `Rd parsnip:::make_engine_list("pls")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -21,7 +21,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("pls")}
+#' @seealso `Rd parsnip:::make_seealso_list("pls")`
 #' @export
 pls <-
   function(

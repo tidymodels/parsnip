@@ -7,7 +7,7 @@
 #' predictions from the individual trees and combines them. This function can
 #' fit classification, regression, and censored regression models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rand_forest")}
+#' `Rd parsnip:::make_engine_list("rand_forest")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -24,7 +24,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rand_forest")}
+#' @seealso `Rd parsnip:::make_seealso_list("rand_forest")`
 #'
 #' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("rand_forest")

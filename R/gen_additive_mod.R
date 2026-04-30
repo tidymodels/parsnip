@@ -5,7 +5,7 @@
 #' numeric predictors in a generalized linear model. This function can fit
 #' classification and regression models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("gen_additive_mod")}
+#' `Rd parsnip:::make_engine_list("gen_additive_mod")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -22,7 +22,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("gen_additive_mod")}
+#' @seealso `Rd parsnip:::make_seealso_list("gen_additive_mod")`
 #'
 #' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("gen_additive_mod")

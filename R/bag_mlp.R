@@ -5,7 +5,7 @@
 #' `bag_mlp()` defines an ensemble of single layer, feed-forward neural networks.
 #' This function can fit classification and regression models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("bag_mlp")}
+#' `Rd parsnip:::make_engine_list("bag_mlp")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -17,7 +17,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("bag_mlp")}
+#' @seealso `Rd parsnip:::make_seealso_list("bag_mlp")`
 #' @export
 bag_mlp <-
   function(
