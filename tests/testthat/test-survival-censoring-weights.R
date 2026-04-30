@@ -21,3 +21,25 @@ test_that("probability truncation via trunc_probs()", {
     probs
   )
 })
+
+test_that("`predict_survival()` errors early when `add_censoring_weights = TRUE` but `new_data` has no Surv column", {
+  fake_fit <- list(
+    spec = list(
+      mode = "censored regression",
+      method = list(pred = list(survival = list()))
+    ),
+    fit = NULL
+  )
+  class(fake_fit) <- "model_fit"
+  no_surv_data <- tibble::tibble(x = 1)
+
+  expect_snapshot(
+    error = TRUE,
+    predict_survival(
+      fake_fit,
+      new_data = no_surv_data,
+      eval_time = 1,
+      add_censoring_weights = TRUE
+    )
+  )
+})

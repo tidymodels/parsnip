@@ -45,7 +45,9 @@ If survival predictions are created and \code{new_data} contains a
 \code{\link[survival:Surv]{survival::Surv()}} object, additional columns are added for inverse
 probability of censoring weights (IPCW) are also created (see \code{tidymodels.org}
 page in the references below). This enables the user to compute performance
-metrics in the \pkg{yardstick} package.
+metrics in the \pkg{yardstick} package. The same columns can be obtained
+directly from \code{\link[=predict.model_fit]{predict.model_fit()}} by setting
+\code{add_censoring_weights = TRUE}.
 }
 
 \subsection{Quantile Regression}{
