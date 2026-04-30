@@ -5,7 +5,7 @@
 #' ensemble and creates regression models within each rule. This function can fit
 #' regression models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("cubist_rules")}
+#' `Rd parsnip:::make_engine_list("cubist_rules")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -55,7 +55,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso [Cubist::cubist()], [Cubist::cubistControl()], \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("cubist_rules")}
+#' @seealso [Cubist::cubist()], [Cubist::cubistControl()], `Rd parsnip:::make_seealso_list("cubist_rules")`
 #'
 #' @references Quinlan R (1992). "Learning with Continuous Classes." Proceedings
 #' of the 5th Australian Joint Conference On Artificial Intelligence, pp.

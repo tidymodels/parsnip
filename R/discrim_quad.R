@@ -8,7 +8,7 @@
 #'  to compute the probability of each class, given the predictor values. This
 #'  function can fit classification models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_quad")}
+#' `Rd parsnip:::make_engine_list("discrim_quad")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -25,7 +25,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_quad")}
+#' @seealso `Rd parsnip:::make_seealso_list("discrim_quad")`
 #' @export
 discrim_quad <-
   function(

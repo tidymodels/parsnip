@@ -5,7 +5,7 @@
 #' ensemble and uses them as features in a regularized model. This function can
 #' fit classification and regression models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rule_fit")}
+#' `Rd parsnip:::make_engine_list("rule_fit")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -28,7 +28,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso [xrf::xrf.formula()], \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rule_fit")}
+#' @seealso [xrf::xrf.formula()], `Rd parsnip:::make_seealso_list("rule_fit")`
 #'
 #' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("rule_fit")

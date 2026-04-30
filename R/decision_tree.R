@@ -7,7 +7,7 @@
 #' creates a tree-based structure. This function can fit classification,
 #' regression, and censored regression models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("decision_tree")}
+#' `Rd parsnip:::make_engine_list("decision_tree")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -24,7 +24,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("decision_tree")}
+#' @seealso `Rd parsnip:::make_seealso_list("decision_tree")`
 #'
 #' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("decision_tree")
