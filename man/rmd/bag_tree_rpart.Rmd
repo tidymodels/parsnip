@@ -38,7 +38,7 @@ For the `class_cost` parameter, the value can be a non-negative scalar for a cla
 `r uses_extension("bag_tree", "rpart", "classification")`
 
 ```{r}
-#| label: rpart-cls
+#| label: rpart-cls-bag-tree
 library(baguette)
 
 bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
