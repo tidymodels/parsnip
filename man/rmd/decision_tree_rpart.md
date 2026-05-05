@@ -19,9 +19,13 @@ This model has 3 tuning parameters:
 
 
 ``` r
-decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
-  set_engine("rpart") |> 
-  set_mode("classification") |> 
+decision_tree(
+  tree_depth = integer(1),
+  min_n = integer(1),
+  cost_complexity = double(1)
+) |>
+  set_engine("rpart") |>
+  set_mode("classification") |>
   translate()
 ```
 
@@ -46,9 +50,13 @@ decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = dou
 
 
 ``` r
-decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
-  set_engine("rpart") |> 
-  set_mode("regression") |> 
+decision_tree(
+  tree_depth = integer(1),
+  min_n = integer(1),
+  cost_complexity = double(1)
+) |>
+  set_engine("rpart") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -81,9 +89,9 @@ decision_tree(
   tree_depth = integer(1),
   min_n = integer(1),
   cost_complexity = double(1)
-) |> 
-  set_engine("rpart") |> 
-  set_mode("censored regression") |> 
+) |>
+  set_engine("rpart") |>
+  set_mode("censored regression") |>
   translate()
 ```
 
