@@ -22,9 +22,13 @@ This model has 3 tuning parameters:
 
 \subsection{Translation from parsnip to the original package}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
-  set_engine("rpartScore") |> 
-  set_mode("classification") |> 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(
+  tree_depth = integer(1),
+  min_n = integer(1),
+  cost_complexity = double(1)
+) |>
+  set_engine("rpartScore") |>
+  set_mode("classification") |>
   translate()
 }\if{html}{\out{</div>}}
 

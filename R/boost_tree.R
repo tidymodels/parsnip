@@ -9,7 +9,7 @@
 #' All trees in the ensemble are combined to produce a final prediction. This
 #' function can fit classification, regression, and censored regression models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("boost_tree")}
+#' `Rd parsnip:::make_engine_list("boost_tree")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -44,7 +44,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("boost_tree")},
+#' @seealso `Rd parsnip:::make_seealso_list("boost_tree")`,
 #' [xgb_train()], [C5.0_train()]
 #'
 #' @examplesIf !parsnip:::is_cran_check()

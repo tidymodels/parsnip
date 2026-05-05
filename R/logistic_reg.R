@@ -5,7 +5,7 @@
 #' linear combination of the predictors is used to model the log odds of an
 #' event. This function can fit classification models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("logistic_reg")}
+#' `Rd parsnip:::make_engine_list("logistic_reg")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -38,7 +38,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("logistic_reg")}
+#' @seealso `Rd parsnip:::make_seealso_list("logistic_reg")`
 #'
 #' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("logistic_reg")

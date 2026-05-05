@@ -8,7 +8,7 @@
 #' prediction. A single tree or boosted ensemble can be used. This function can
 #' fit classification models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("C5_rules")}
+#' `Rd parsnip:::make_engine_list("C5_rules")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -37,7 +37,7 @@
 #' @template spec-references
 #'
 #' @seealso [C50::C5.0()], [C50::C5.0Control()],
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("C5_rules")}
+#' `Rd parsnip:::make_seealso_list("C5_rules")`
 #'
 #' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("C5_rules")

@@ -79,7 +79,7 @@ with the data.
 
 Each of the arguments in this function other than \code{mode} and \code{engine} are
 captured as \link[rlang:topic-quosure]{quosures}. To pass values
-programmatically, use the \link[rlang:injection-operator]{injection operator} like so:
+programmatically, use the \link[rlang:!!]{injection operator} like so:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{value <- 1
 cubist_rules(argument = !!value)
@@ -99,5 +99,5 @@ Proceedings of the Tenth International Conference on Machine Learning, pp.
 Kuhn M and Johnson K (2013). \emph{Applied Predictive Modeling}. Springer.
 }
 \seealso{
-\code{\link[Cubist:cubist.default]{Cubist::cubist()}}, \code{\link[Cubist:cubistControl]{Cubist::cubistControl()}}, \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("cubist_rules")}
+\code{\link[Cubist:cubist]{Cubist::cubist()}}, \code{\link[Cubist:cubistControl]{Cubist::cubistControl()}}, \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("cubist_rules")}
 }

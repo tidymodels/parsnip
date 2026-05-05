@@ -6,7 +6,7 @@
 #' many models of different families are trained and ranked given their
 #' performance on the training data.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("auto_ml")}
+#' `Rd parsnip:::make_engine_list("auto_ml")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -22,7 +22,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("auto_ml")}
+#' @seealso `Rd parsnip:::make_seealso_list("auto_ml")`
 #' @export
 auto_ml <- function(mode = "unknown", engine = "h2o") {
   args <- list()

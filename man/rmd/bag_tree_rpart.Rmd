@@ -10,14 +10,16 @@
 ```{r}
 #| label: rpart-param-info
 #| echo: false
-defaults <- 
-  tibble::tibble(parsnip = c("tree_depth", "min_n", "cost_complexity", "class_cost"),
-                 default = c("30L", "2L", "0.01", "(see below)"))
+defaults <-
+  tibble::tibble(
+    parsnip = c("tree_depth", "min_n", "cost_complexity", "class_cost"),
+    default = c("30L", "2L", "0.01", "(see below)")
+  )
 
 param <-
- bag_tree() |> 
-  set_engine("rpart") |> 
-  set_mode("regression") |> 
+  bag_tree() |>
+  set_engine("rpart") |>
+  set_mode("regression") |>
   make_parameter_list(defaults)
 ```
 
@@ -38,12 +40,16 @@ For the `class_cost` parameter, the value can be a non-negative scalar for a cla
 `r uses_extension("bag_tree", "rpart", "classification")`
 
 ```{r}
-#| label: rpart-cls
+#| label: rpart-cls-bag-tree
 library(baguette)
 
-bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
-  set_engine("rpart") |> 
-  set_mode("classification") |> 
+bag_tree(
+  tree_depth = integer(1),
+  min_n = integer(1),
+  cost_complexity = double(1)
+) |>
+  set_engine("rpart") |>
+  set_mode("classification") |>
   translate()
 ```
 
@@ -56,9 +62,13 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 #| label: rpart-reg
 library(baguette)
 
-bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
-  set_engine("rpart") |> 
-  set_mode("regression") |> 
+bag_tree(
+  tree_depth = integer(1),
+  min_n = integer(1),
+  cost_complexity = double(1)
+) |>
+  set_engine("rpart") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -70,9 +80,13 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 #| label: rpart-creg
 library(censored)
 
-bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
-  set_engine("rpart") |> 
-  set_mode("censored regression") |> 
+bag_tree(
+  tree_depth = integer(1),
+  min_n = integer(1),
+  cost_complexity = double(1)
+) |>
+  set_engine("rpart") |>
+  set_mode("censored regression") |>
   translate()
 ```
 
@@ -93,11 +107,9 @@ bag_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1
 
 ```{r}
 #| label: predict-types
-
 parsnip:::get_from_env("bag_mars_predict") |>
   dplyr::filter(engine == "rpart") |>
   dplyr::select(mode, type)
-
 ```
 
 ## Other details

@@ -6,14 +6,16 @@
 ## Tuning parameters
 
 ```{r rpartScore-param-info, echo=FALSE}
-defaults <- 
-  tibble::tibble(parsnip = c("tree_depth", "min_n", "cost_complexity"),
-                 default = c("30L", "2L", "0.01"))
+defaults <-
+  tibble::tibble(
+    parsnip = c("tree_depth", "min_n", "cost_complexity"),
+    default = c("30L", "2L", "0.01")
+  )
 
 param <-
-  decision_tree() |> 
-  set_engine("rpartScore") |> 
-  set_mode("classification") |> 
+  decision_tree() |>
+  set_engine("rpartScore") |>
+  set_mode("classification") |>
   make_parameter_list(defaults)
 ```
 
@@ -25,11 +27,15 @@ param$item
 
 ## Translation from parsnip to the original package
 
-```{r, rpartScore-cls}
-#| label: rpart-cls
-decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
-  set_engine("rpartScore") |> 
-  set_mode("classification") |> 
+```{r}
+#| label: rpart-cls-decision-tree-ordered
+decision_tree(
+  tree_depth = integer(1),
+  min_n = integer(1),
+  cost_complexity = double(1)
+) |>
+  set_engine("rpartScore") |>
+  set_mode("classification") |>
   translate()
 ```
 

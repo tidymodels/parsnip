@@ -42,7 +42,7 @@ the metric and early stopping criteria on the validation set.
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-\code{\link[agua:h2o_train]{agua::h2o_train_xgboost()}} is a wrapper
+\code{\link[agua:h2o_train_xgboost]{agua::h2o_train_xgboost()}} is a wrapper
 around \code{\link[h2o:h2o.xgboost]{h2o::h2o.xgboost()}}.
 
 The \strong{agua} extension package is required to fit this model.

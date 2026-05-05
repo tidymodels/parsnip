@@ -4,7 +4,7 @@
 #' `ordinal_reg()` defines a generalized linear model that predicts an ordinal
 #' outcome. This function can fit classification models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("ordinal_reg")}
+#' `Rd parsnip:::make_engine_list("ordinal_reg")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -37,7 +37,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("ordinal_reg")}
+#' @seealso `Rd parsnip:::make_seealso_list("ordinal_reg")`
 #'
 #' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("ordinal_reg")

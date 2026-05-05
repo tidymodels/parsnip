@@ -6,7 +6,7 @@
 #' that can use nonlinear features created using multivariate adaptive
 #'  regression splines (MARS). This function can fit classification models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_flexible")}
+#' `Rd parsnip:::make_engine_list("discrim_flexible")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -23,7 +23,7 @@
 #'
 #' @template spec-references
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_flexible")}
+#' @seealso `Rd parsnip:::make_seealso_list("discrim_flexible")`
 #'
 #' @export
 discrim_flexible <-
