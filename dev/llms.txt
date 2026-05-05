@@ -9,6 +9,7 @@ the syntactical minutiae of the underlying packages.
 ## Installation
 
 ``` r
+
 # The easiest way to get parsnip is to install all of tidymodels:
 install.packages("tidymodels")
 
@@ -28,6 +29,7 @@ arguments. For example, to fit a random forest regression model, we
 might have:
 
 ``` r
+
 # From randomForest
 rf_1 <- randomForest(
   y ~ ., 
@@ -84,6 +86,7 @@ The goals of parsnip are to:
 Using the example above, the parsnip approach would be:
 
 ``` r
+
 library(parsnip)
 
 rand_forest(mtry = 10, trees = 2000) |>
@@ -105,6 +108,7 @@ The engine can be easily changed. To use Spark, the change is
 straightforward:
 
 ``` r
+
 rand_forest(mtry = 10, trees = 2000) |>
   set_engine("spark") |>
   set_mode("regression")
@@ -120,6 +124,7 @@ rand_forest(mtry = 10, trees = 2000) |>
 Either one of these model specifications can be fit in the same way:
 
 ``` r
+
 set.seed(192)
 rand_forest(mtry = 10, trees = 2000) |>
   set_engine("ranger", importance = "impurity") |>

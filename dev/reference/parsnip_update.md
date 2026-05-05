@@ -578,6 +578,7 @@ An updated model specification.
 ## Examples
 
 ``` r
+
 # ------------------------------------------------------------------------------
 
 model <- C5_rules(trees = 10, min_n = 2)

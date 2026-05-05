@@ -22,7 +22,11 @@ This model has 3 tuning parameters:
 
 ### Translation from parsnip to the original package (classification)
 
-    decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |>
+    decision_tree(
+      tree_depth = integer(1),
+      min_n = integer(1),
+      cost_complexity = double(1)
+    ) |>
       set_engine("rpart") |>
       set_mode("classification") |>
       translate()
@@ -43,7 +47,11 @@ This model has 3 tuning parameters:
 
 ### Translation from parsnip to the original package (regression)
 
-    decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |>
+    decision_tree(
+      tree_depth = integer(1),
+      min_n = integer(1),
+      cost_complexity = double(1)
+    ) |>
       set_engine("rpart") |>
       set_mode("regression") |>
       translate()

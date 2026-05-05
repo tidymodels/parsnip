@@ -13,6 +13,7 @@ In parsnip, there is a method called
 that can do this. It’s current methods are:
 
 ``` r
+
 library(parsnip)
 methods("multi_predict")
 ```
@@ -27,6 +28,7 @@ methods("multi_predict")
 We’ll use the attrition data in `rsample` to illustrate:
 
 ``` r
+
 library(tidymodels)
 ```
 
@@ -47,6 +49,7 @@ library(tidymodels)
     ## ✖ recipes::step()  masks stats::step()
 
 ``` r
+
 data(attrition, package = "modeldata")
 
 set.seed(4595)
@@ -59,6 +62,7 @@ A boosted classification tree is one of the most low-maintenance
 approaches that we could take to these data:
 
 ``` r
+
 # requires the xgboost package
 attrition_boost <- 
   boost_tree(mode = "classification", trees = 100) |> 
@@ -69,6 +73,7 @@ Suppose that 10-fold cross-validation was being used to tune the model
 over the number of trees:
 
 ``` r
+
 set.seed(616)
 folds <- vfold_cv(attrition_train)
 ```
@@ -77,6 +82,7 @@ The process would fit a model on 90% of the data and predict on the
 remaining 10%. Using `rsample`:
 
 ``` r
+
 model_data <- analysis(folds$splits[[1]])
 pred_data  <- assessment(folds$splits[[1]])
 
@@ -93,6 +99,7 @@ this model, there is an extra argument called `trees`. Candidate
 submodel values can be passed in with `trees`:
 
 ``` r
+
 fold_1_pred <- 
   multi_predict(
     fold_1_model, 
@@ -123,6 +130,7 @@ predicted (*n* = 111). The `.pred` column contains a list of tibbles and
 each has the predictions across the different number of trees:
 
 ``` r
+
 fold_1_pred$.pred[[1]]
 ```
 
@@ -147,6 +155,7 @@ but we first add row numbers so that we can track the predictions by
 test sample as well as the actual classes:
 
 ``` r
+
 fold_1_df <- 
   fold_1_pred |> 
   bind_cols(pred_data |> dplyr::select(Attrition)) |> 
@@ -173,6 +182,7 @@ fold_1_df
 For two samples, what do these look like over trees?
 
 ``` r
+
 fold_1_df |> 
   dplyr::filter(.row %in% c(1, 88)) |> 
   ggplot(aes(x = trees, y = .pred_No, col = Attrition, group = .row)) + 
@@ -192,6 +202,7 @@ What does performance look like over trees (using the area under the ROC
 curve)?
 
 ``` r
+
 fold_1_df |> 
   group_by(trees) |> 
   roc_auc(truth = Attrition, .pred_No) |> 

@@ -26,6 +26,7 @@ A tibble with column `value`.
 ## Examples
 
 ``` r
+
 nullmodel(mtcars[,-1], mtcars$mpg) |> tidy()
 #> # A tibble: 1 × 1
 #>   value

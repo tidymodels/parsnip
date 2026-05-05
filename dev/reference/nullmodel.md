@@ -90,6 +90,7 @@ with the most prevalent class is returned.
 ## Examples
 
 ``` r
+
 outcome <- factor(sample(letters[1:2],
                          size = 100,
                          prob = c(.1, .9),
