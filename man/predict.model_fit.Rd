@@ -55,9 +55,10 @@ time points at which the survival probability or hazard is estimated.
 \item \code{add_censoring_weights}: for \code{type} equal to \code{"survival"}, a single
 logical for whether to add inverse probability of censoring weight
 columns to the \code{.pred} list-column. Default is \code{FALSE}. When
-\code{TRUE}, \code{new_data} must contain a \code{\link[survival:Surv]{survival::Surv()}} outcome
-column. See \code{\link[=augment.model_fit]{augment.model_fit()}} and the \code{tidymodels.org}
-reference for details.
+\code{TRUE}, \code{new_data} must contain either a \code{\link[survival:Surv]{survival::Surv()}} outcome
+column or the variables referenced in the model formula's LHS so
+that the outcome can be reconstructed. See \code{\link[=augment.model_fit]{augment.model_fit()}}
+and the \code{tidymodels.org} reference for details.
 }}
 }
 \value{
@@ -143,7 +144,9 @@ performance metrics on the predicted survival probability, inverse probability
 of censoring weights (IPCW) are required (see the \code{tidymodels.org} reference
 below). Those require the outcome and are thus not returned by \code{predict()} by
 default. They are added when \code{add_censoring_weights = TRUE} and \code{new_data}
-contains the outcome as a \code{Surv} object, or via \code{\link[=augment.model_fit]{augment.model_fit()}}.
+contains either a \code{Surv} outcome column or the variables that built it in the
+fit's formula (e.g., \code{time} and \code{status} for \code{Surv(time, status)}). The same
+columns are added by \code{\link[=augment.model_fit]{augment.model_fit()}}.
 
 Also, when \code{type = "linear_pred"}, censored regression models will by default
 be formatted such that the linear predictor \emph{increases} with time. This may

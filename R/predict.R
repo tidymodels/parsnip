@@ -41,9 +41,10 @@
 #'     \item `add_censoring_weights`: for `type` equal to `"survival"`, a single
 #'            logical for whether to add inverse probability of censoring weight
 #'            columns to the `.pred` list-column. Default is `FALSE`. When
-#'            `TRUE`, `new_data` must contain a [survival::Surv()] outcome
-#'            column. See [augment.model_fit()] and the `tidymodels.org`
-#'            reference for details.
+#'            `TRUE`, `new_data` must contain either a [survival::Surv()] outcome
+#'            column or the variables referenced in the model formula's LHS so
+#'            that the outcome can be reconstructed. See [augment.model_fit()]
+#'            and the `tidymodels.org` reference for details.
 #'  }
 #' @details For `type = NULL`, `predict()` uses
 #'
@@ -71,7 +72,9 @@
 #' of censoring weights (IPCW) are required (see the `tidymodels.org` reference
 #' below). Those require the outcome and are thus not returned by `predict()` by
 #' default. They are added when `add_censoring_weights = TRUE` and `new_data`
-#' contains the outcome as a `Surv` object, or via [augment.model_fit()].
+#' contains either a `Surv` outcome column or the variables that built it in the
+#' fit's formula (e.g., `time` and `status` for `Surv(time, status)`). The same
+#' columns are added by [augment.model_fit()].
 #'
 #' Also, when `type = "linear_pred"`, censored regression models will by default
 #' be formatted such that the linear predictor _increases_ with time. This may

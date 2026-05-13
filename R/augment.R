@@ -25,12 +25,13 @@
 #' are created (if the model engine supports them). If the model supports
 #' survival prediction, the `eval_time` argument is required.
 #'
-#' If survival predictions are created and `new_data` contains a
-#' [survival::Surv()] object, additional columns are added for inverse
-#' probability of censoring weights (IPCW) are also created (see `tidymodels.org`
-#' page in the references below). This enables the user to compute performance
-#' metrics in the \pkg{yardstick} package. The same columns can be obtained
-#' directly from [predict.model_fit()] by setting
+#' If survival predictions are created and the survival outcome can be
+#' resolved from `new_data` (either as a literal [survival::Surv()] column or
+#' from the variables referenced in the model's formula LHS), additional
+#' columns are added for inverse probability of censoring weights (IPCW) (see
+#' `tidymodels.org` page in the references below). This enables the user to
+#' compute performance metrics in the \pkg{yardstick} package. The same
+#' columns can be obtained directly from [predict.model_fit()] by setting
 #' `add_censoring_weights = TRUE`.
 #'
 #' ## Quantile Regression
