@@ -281,7 +281,11 @@ fit_xy.model_spec <-
         cli::cli_warn("Engine set to {.val {object$engine}}.")
       }
     }
-    y_var <- colnames(y)
+    if (inherits(y, "Surv")) {
+      y_var = character(0)
+    } else {
+      y_var <- colnames(y)
+    }
 
     if (object$engine != "spark" & NCOL(y) == 1 & !(is.atomic(y))) {
       if (is.matrix(y)) {
