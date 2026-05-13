@@ -178,7 +178,7 @@ augment_censored <- function(x, new_data, eval_time = NULL) {
       )
     }
     .filter_eval_time(eval_time)
-    has_surv <- length(.find_surv_col(new_data, fail = FALSE)) != 0
+    has_surv <- !is.null(.get_surv(x, new_data, fail = FALSE))
     ret <- dplyr::bind_cols(
       predict(
         x,

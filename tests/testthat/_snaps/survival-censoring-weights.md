@@ -5,7 +5,8 @@
         add_censoring_weights = TRUE)
     Condition
       Error in `predict_survival()`:
-      ! `add_censoring_weights = TRUE` requires a <Surv> column in `new_data`.
+      ! `add_censoring_weights = TRUE` requires the survival outcome in `new_data`.
+      i Add a <Surv> column to `new_data`.
 
 # .get_surv() errors when y_var names a column that is not a Surv
 

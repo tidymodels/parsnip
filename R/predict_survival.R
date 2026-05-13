@@ -33,16 +33,7 @@ predict_survival.model_fit <- function(
   }
 
   if (add_censoring_weights) {
-    y_col <- .find_surv_col(new_data, fail = FALSE)
-    if (length(y_col) == 0) {
-      cli::cli_abort(
-        c(
-          "{.code add_censoring_weights = TRUE} requires a {.cls Surv} 
-           column in {.arg new_data}."
-        )
-      )
-    }
-    surv_outcome <- new_data[[y_col]]
+    surv_outcome <- .get_surv(object, new_data)
   }
 
   new_data <- prepare_data(object, new_data)
@@ -63,9 +54,9 @@ predict_survival.model_fit <- function(
   }
 
   if (add_censoring_weights) {
-    res[[y_col]] <- surv_outcome
+    res$.outcome_surv <- surv_outcome
     res <- .censoring_weights_graf(object, res)
-    res[[y_col]] <- NULL
+    res$.outcome_surv <- NULL
   }
 
   res
