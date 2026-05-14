@@ -57,6 +57,7 @@ Existing functions:
 For example, if you use the model formula `circumference ~ .` with the
 built-in `Orange` data, the values would be
 
+
      .preds() =   2          (the 2 remaining columns in `Orange`)
      .cols()  =   5          (1 numeric column + 4 from Tree dummy variables)
      .obs()   = 35
@@ -67,6 +68,7 @@ built-in `Orange` data, the values would be
      .dat()   = <data.frame> (The full data set)
 
 If the formula `Tree ~ .` were used:
+
 
      .preds() =   2          (the 2 numeric columns in `Orange`)
      .cols()  =   2          (same)
@@ -81,6 +83,7 @@ To use these in a model fit, pass them to a model specification. The
 evaluation is delayed until the time when the model is run via
 [`fit()`](https://generics.r-lib.org/reference/fit.html) (and the
 variables listed above are available). For example:
+
 
 
     library(modeldata)

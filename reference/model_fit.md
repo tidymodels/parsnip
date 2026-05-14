@@ -42,6 +42,7 @@ objects after seeing the data and applying a model.
 ## Examples
 
 ``` r
+
 # Keep the `x` matrix if the data are not too big.
 spec_obj <-
   linear_reg() |>

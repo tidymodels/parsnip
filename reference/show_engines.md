@@ -26,7 +26,7 @@ A tibble.
 
 ``` r
 show_engines("linear_reg")
-#> # A tibble: 8 × 2
+#> # A tibble: 9 × 2
 #>   engine   mode               
 #>   <chr>    <chr>              
 #> 1 lm       regression         
@@ -35,6 +35,7 @@ show_engines("linear_reg")
 #> 4 stan     regression         
 #> 5 spark    regression         
 #> 6 keras    regression         
-#> 7 brulee   regression         
-#> 8 quantreg quantile regression
+#> 7 keras3   regression         
+#> 8 brulee   regression         
+#> 9 quantreg quantile regression
 ```

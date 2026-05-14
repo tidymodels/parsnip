@@ -40,6 +40,7 @@ other functions and methods.
 ## Examples
 
 ``` r
+
 fitted_model <-
   linear_reg() |>
   set_engine("lm", model = TRUE) |>
@@ -57,7 +58,7 @@ repair_call(fitted_model, mtcars)$fit$call
 #> 
 #> $formula
 #> mpg ~ .
-#> <environment: 0x55cdd0981430>
+#> <environment: 0x562df013bca0>
 #> 
 #> $data
 #> mtcars

@@ -29,6 +29,7 @@ Rather than remembering these values, a common interface to these models
 can be used with
 
 ``` r
+
 library(parsnip)
 rf_mod <- rand_forest(trees = 2000)
 ```
@@ -64,6 +65,7 @@ the [`tune()`](https://hardhat.tidymodels.org/reference/tune.html)
 function. This provides a simple placeholder for the value.
 
 ``` r
+
 tune_mtry <- rand_forest(trees = 2000, mtry = tune())
 tune_mtry
 #> Random Forest Model Specification (unknown mode)
@@ -92,6 +94,7 @@ exposed in the function. For example, `rand_forest` has arguments for:
 The arguments to the default function are:
 
 ``` r
+
 args(rand_forest)
 #> function (mode = "unknown", engine = "ranger", mtry = NULL, trees = NULL, 
 #>     min_n = NULL) 
@@ -105,6 +108,7 @@ the ranger package has an option to set the internal random number seed.
 To set this to a specific value:
 
 ``` r
+
 rf_with_seed <- 
   rand_forest(trees = 2000, mtry = tune(), mode = "regression") |>
   set_engine("ranger", seed = 63233)
@@ -136,6 +140,7 @@ parameter. We can set that parameter’s value and then create the model
 fit:
 
 ``` r
+
 rf_with_seed |> 
   set_args(mtry = 4) |> 
   set_engine("ranger") |>
@@ -163,6 +168,7 @@ rf_with_seed |>
 Or, using the `randomForest` package:
 
 ``` r
+
 set.seed(56982)
 rf_with_seed |> 
   set_args(mtry = 4) |> 

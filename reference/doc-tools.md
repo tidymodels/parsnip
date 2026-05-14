@@ -80,6 +80,7 @@ make_engine_list("linear_reg")
 #>   \item \code{\link[parsnip:details_linear_reg_gls]{gls}²}
 #>   \item \code{\link[parsnip:details_linear_reg_h2o]{h2o}²}
 #>   \item \code{\link[parsnip:details_linear_reg_keras]{keras}}
+#>   \item \code{\link[parsnip:details_linear_reg_keras3]{keras3}}
 #>   \item \code{\link[parsnip:details_linear_reg_lme]{lme}²}
 #>   \item \code{\link[parsnip:details_linear_reg_lmer]{lmer}²}
 #>   \item \code{\link[parsnip:details_linear_reg_quantreg]{quantreg}}
@@ -105,6 +106,7 @@ cat(make_engine_list("linear_reg"))
 #>   \item \code{\link[parsnip:details_linear_reg_gls]{gls}²}
 #>   \item \code{\link[parsnip:details_linear_reg_h2o]{h2o}²}
 #>   \item \code{\link[parsnip:details_linear_reg_keras]{keras}}
+#>   \item \code{\link[parsnip:details_linear_reg_keras3]{keras3}}
 #>   \item \code{\link[parsnip:details_linear_reg_lme]{lme}²}
 #>   \item \code{\link[parsnip:details_linear_reg_lmer]{lmer}²}
 #>   \item \code{\link[parsnip:details_linear_reg_quantreg]{quantreg}}

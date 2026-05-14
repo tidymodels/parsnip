@@ -4,14 +4,7 @@
 models of different families are trained and ranked given their
 performance on the training data.
 
-There are different ways to fit this model, and the method of estimation
-is chosen by setting the model *engine*. The engine-specific pages for
-this model are listed below.
-
-- [`h2o`](https://parsnip.tidymodels.org/reference/details_auto_ml_h2o.md)`¹²`
-
-¹ The default engine. ² Requires a parsnip extension package for
-classification and regression.
+`Rd parsnip:::make_engine_list("auto_ml")`
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -64,7 +57,4 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ## See also
 
-[`fit()`](https://parsnip.tidymodels.org/reference/fit.md),
-[`set_engine()`](https://parsnip.tidymodels.org/reference/set_engine.md),
-[`update()`](https://rdrr.io/r/stats/update.html),
-[`h2o engine details`](https://parsnip.tidymodels.org/reference/details_auto_ml_h2o.md)
+`Rd parsnip:::make_seealso_list("auto_ml")`

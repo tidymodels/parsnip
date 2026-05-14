@@ -6,26 +6,7 @@ All trees in the ensemble are combined to produce a final prediction.
 This function can fit classification, regression, and censored
 regression models.
 
-There are different ways to fit this model, and the method of estimation
-is chosen by setting the model *engine*. The engine-specific pages for
-this model are listed below.
-
-- [`xgboost`](https://parsnip.tidymodels.org/reference/details_boost_tree_xgboost.md)`¹`
-
-- [`C5.0`](https://parsnip.tidymodels.org/reference/details_boost_tree_C5.0.md)
-
-- [`catboost`](https://parsnip.tidymodels.org/reference/details_boost_tree_catboost.md)`²`
-
-- [`h2o`](https://parsnip.tidymodels.org/reference/details_boost_tree_h2o.md)`²`
-
-- [`lightgbm`](https://parsnip.tidymodels.org/reference/details_boost_tree_lightgbm.md)`²`
-
-- [`mboost`](https://parsnip.tidymodels.org/reference/details_boost_tree_mboost.md)`²`
-
-- [`spark`](https://parsnip.tidymodels.org/reference/details_boost_tree_spark.md)
-
-¹ The default engine. ² Requires a parsnip extension package for
-censored regression, classification, and regression.
+`Rd parsnip:::make_engine_list("boost_tree")`
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -131,17 +112,7 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ## See also
 
-[`fit()`](https://parsnip.tidymodels.org/reference/fit.md),
-[`set_engine()`](https://parsnip.tidymodels.org/reference/set_engine.md),
-[`update()`](https://rdrr.io/r/stats/update.html),
-[`xgboost engine details`](https://parsnip.tidymodels.org/reference/details_boost_tree_xgboost.md),
-[`C5.0 engine details`](https://parsnip.tidymodels.org/reference/details_boost_tree_C5.0.md),
-[`catboost engine details`](https://parsnip.tidymodels.org/reference/details_boost_tree_catboost.md),
-[`h2o engine details`](https://parsnip.tidymodels.org/reference/details_boost_tree_h2o.md),
-[`lightgbm engine details`](https://parsnip.tidymodels.org/reference/details_boost_tree_lightgbm.md),
-[`mboost engine details`](https://parsnip.tidymodels.org/reference/details_boost_tree_mboost.md),
-[`spark engine details`](https://parsnip.tidymodels.org/reference/details_boost_tree_spark.md)
-,
+`Rd parsnip:::make_seealso_list("boost_tree")`,
 [`xgb_train()`](https://parsnip.tidymodels.org/reference/xgb_train.md),
 [`C5.0_train()`](https://parsnip.tidymodels.org/reference/C5.0_train.md)
 

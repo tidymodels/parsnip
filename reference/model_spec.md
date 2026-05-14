@@ -81,10 +81,12 @@ immediately evaluated inside of the function.
 
 parsnip model functions do not do this. For example, using
 
+
      rand_forest(mtry = ncol(mtcars) - 1)
 
 **does not** execute `ncol(mtcars) - 1` when creating the specification.
 This can be seen in the output:
+
 
      > rand_forest(mtry = ncol(mtcars) - 1)
      Random Forest Model Specification (unknown)
@@ -113,6 +115,7 @@ in the global environment but to use data descriptors such as
 [`.cols()`](https://parsnip.tidymodels.org/reference/descriptors.md).
 Another way of writing the previous specification is
 
+
      rand_forest(mtry = .cols() - 1)
 
 This is not dependent on any specific data object and is evaluated
@@ -123,10 +126,12 @@ quasiquotation. This would insert the actual R object into the model
 specification and might be the best idea when the data object is small.
 For example, using
 
+
      rand_forest(mtry = ncol(!!mtcars) - 1)
 
 would work (and be reproducible between sessions) but embeds the entire
 mtcars data set into the `mtry` expression:
+
 
      > rand_forest(mtry = ncol(!!mtcars) - 1)
      Random Forest Model Specification (unknown)
@@ -136,6 +141,7 @@ mtcars data set into the `mtry` expression:
 
 However, if there were an object with the number of columns in it, this
 wouldn't be too bad:
+
 
      > mtry_val <- ncol(mtcars) - 1
      > mtry_val

@@ -4,23 +4,7 @@
 multiclass data using the multinomial distribution. This function can
 fit classification models.
 
-There are different ways to fit this model, and the method of estimation
-is chosen by setting the model *engine*. The engine-specific pages for
-this model are listed below.
-
-- [`nnet`](https://parsnip.tidymodels.org/reference/details_multinom_reg_nnet.md)`¹`
-
-- [`brulee`](https://parsnip.tidymodels.org/reference/details_multinom_reg_brulee.md)
-
-- [`glmnet`](https://parsnip.tidymodels.org/reference/details_multinom_reg_glmnet.md)
-
-- [`h2o`](https://parsnip.tidymodels.org/reference/details_multinom_reg_h2o.md)`²`
-
-- [`keras`](https://parsnip.tidymodels.org/reference/details_multinom_reg_keras.md)
-
-- [`spark`](https://parsnip.tidymodels.org/reference/details_multinom_reg_spark.md)
-
-¹ The default engine. ² Requires a parsnip extension package.
+`Rd parsnip:::make_engine_list("multinom_reg")`
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -103,28 +87,21 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ## See also
 
-[`fit()`](https://parsnip.tidymodels.org/reference/fit.md),
-[`set_engine()`](https://parsnip.tidymodels.org/reference/set_engine.md),
-[`update()`](https://rdrr.io/r/stats/update.html),
-[`nnet engine details`](https://parsnip.tidymodels.org/reference/details_multinom_reg_nnet.md),
-[`brulee engine details`](https://parsnip.tidymodels.org/reference/details_multinom_reg_brulee.md),
-[`glmnet engine details`](https://parsnip.tidymodels.org/reference/details_multinom_reg_glmnet.md),
-[`h2o engine details`](https://parsnip.tidymodels.org/reference/details_multinom_reg_h2o.md),
-[`keras engine details`](https://parsnip.tidymodels.org/reference/details_multinom_reg_keras.md),
-[`spark engine details`](https://parsnip.tidymodels.org/reference/details_multinom_reg_spark.md)
+`Rd parsnip:::make_seealso_list("multinom_reg")`
 
 ## Examples
 
 ``` r
 show_engines("multinom_reg")
-#> # A tibble: 5 × 2
+#> # A tibble: 6 × 2
 #>   engine mode          
 #>   <chr>  <chr>         
 #> 1 glmnet classification
 #> 2 spark  classification
 #> 3 keras  classification
-#> 4 nnet   classification
-#> 5 brulee classification
+#> 4 keras3 classification
+#> 5 nnet   classification
+#> 6 brulee classification
 
 multinom_reg()
 #> Multinomial Regression Model Specification (classification)
