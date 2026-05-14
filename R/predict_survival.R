@@ -11,6 +11,7 @@ predict_survival.model_fit <- function(
   time = deprecated(),
   interval = "none",
   level = 0.95,
+  add_censoring_weights = FALSE,
   ...
 ) {
   if (lifecycle::is_present(time)) {
@@ -24,10 +25,15 @@ predict_survival.model_fit <- function(
   eval_time <- .filter_eval_time(eval_time)
 
   check_spec_pred_type(object, "survival")
+  check_bool(add_censoring_weights)
 
   if (inherits(object$fit, "try-error")) {
     cli::cli_warn("Model fit failed; cannot make predictions.")
     return(NULL)
+  }
+
+  if (add_censoring_weights) {
+    surv_outcome <- .get_surv(object, new_data)
   }
 
   new_data <- prepare_data(object, new_data)
@@ -45,6 +51,12 @@ predict_survival.model_fit <- function(
   # post-process the predictions
   if (!is.null(object$spec$method$pred$survival$post)) {
     res <- object$spec$method$pred$survival$post(res, object)
+  }
+
+  if (add_censoring_weights) {
+    res$.outcome_surv <- surv_outcome
+    res <- .censoring_weights_graf(object, res)
+    res$.outcome_surv <- NULL
   }
 
   res

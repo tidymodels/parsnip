@@ -38,6 +38,13 @@
 #'            linear predictors). Default value is `FALSE`.
 #'     \item `eval_time`: for `type` equal to `"survival"` or `"hazard"`, the
 #'            time points at which the survival probability or hazard is estimated.
+#'     \item `add_censoring_weights`: for `type` equal to `"survival"`, a single
+#'            logical for whether to add inverse probability of censoring weight
+#'            columns to the `.pred` list-column. Default is `FALSE`. When
+#'            `TRUE`, `new_data` must contain either a [survival::Surv()] outcome
+#'            column or the variables referenced in the model formula's LHS so
+#'            that the outcome can be reconstructed. See [augment.model_fit()]
+#'            and the `tidymodels.org` reference for details.
 #'  }
 #' @details For `type = NULL`, `predict()` uses
 #'
@@ -63,9 +70,11 @@
 #' `predict.model_fit()` does not require the outcome to be present. For
 #' performance metrics on the predicted survival probability, inverse probability
 #' of censoring weights (IPCW) are required (see the `tidymodels.org` reference
-#' below). Those require the outcome and are thus not returned by `predict()`.
-#' They can be added via [augment.model_fit()] if `new_data` contains a column
-#' with the outcome as a `Surv` object.
+#' below). Those require the outcome and are thus not returned by `predict()` by
+#' default. They are added when `add_censoring_weights = TRUE` and `new_data`
+#' contains either a `Surv` outcome column or the variables that built it in the
+#' fit's formula (e.g., `time` and `status` for `Surv(time, status)`). The same
+#' columns are added by [augment.model_fit()].
 #'
 #' Also, when `type = "linear_pred"`, censored regression models will by default
 #' be formatted such that the linear predictor _increases_ with time. This may
@@ -497,7 +506,8 @@ check_pred_type_dots <- function(
     "quantile_levels",
     "time",
     "eval_time",
-    "increasing"
+    "increasing",
+    "add_censoring_weights"
   )
 
   eval_time_types <- c("survival", "hazard")
@@ -549,6 +559,15 @@ check_pred_type_dots <- function(
     cli::cli_abort(
       "{.arg increasing} only applies to predictions of
        type 'linear_pred' for the mode censored regression.",
+      call = call
+    )
+  }
+
+  # `add_censoring_weights` only applies to survival predictions
+  if (any(nms == "add_censoring_weights") & type != "survival") {
+    cli::cli_abort(
+      "{.arg add_censoring_weights} should only be passed to {.fn predict} \\
+       when {.arg type} is {.val survival}.",
       call = call
     )
   }
