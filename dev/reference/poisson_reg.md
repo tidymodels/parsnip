@@ -3,29 +3,7 @@
 `poisson_reg()` defines a generalized linear model for count data that
 follow a Poisson distribution. This function can fit regression models.
 
-There are different ways to fit this model, and the method of estimation
-is chosen by setting the model *engine*. The engine-specific pages for
-this model are listed below.
-
-- [`glm`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_glm.md)`¹²`
-
-- [`gee`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_gee.md)`²`
-
-- [`glmer`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_glmer.md)`²`
-
-- [`glmnet`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_glmnet.md)`²`
-
-- [`h2o`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_h2o.md)`²`
-
-- [`hurdle`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_hurdle.md)`²`
-
-- [`stan`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_stan.md)`²`
-
-- [`stan_glmer`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_stan_glmer.md)`²`
-
-- [`zeroinfl`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_zeroinfl.md)`²`
-
-¹ The default engine. ² Requires a parsnip extension package.
+`Rd parsnip:::make_engine_list("poisson_reg")`
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -101,15 +79,4 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ## See also
 
-[`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md),
-[`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
-[`update()`](https://rdrr.io/r/stats/update.html),
-[`glm engine details`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_glm.md),
-[`gee engine details`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_gee.md),
-[`glmer engine details`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_glmer.md),
-[`glmnet engine details`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_glmnet.md),
-[`h2o engine details`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_h2o.md),
-[`hurdle engine details`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_hurdle.md),
-[`stan engine details`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_stan.md),
-[`stan_glmer engine details`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_stan_glmer.md),
-[`zeroinfl engine details`](https://parsnip.tidymodels.org/dev/reference/details_poisson_reg_zeroinfl.md)
+`Rd parsnip:::make_seealso_list("poisson_reg")`

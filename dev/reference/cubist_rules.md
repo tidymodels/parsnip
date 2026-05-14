@@ -4,13 +4,7 @@
 a tree ensemble and creates regression models within each rule. This
 function can fit regression models.
 
-There are different ways to fit this model, and the method of estimation
-is chosen by setting the model *engine*. The engine-specific pages for
-this model are listed below.
-
-- [`Cubist`](https://parsnip.tidymodels.org/dev/reference/details_cubist_rules_Cubist.md)`¹²`
-
-¹ The default engine. ² Requires a parsnip extension package.
+`Rd parsnip:::make_engine_list("cubist_rules")`
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -124,7 +118,4 @@ Kuhn M and Johnson K (2013). *Applied Predictive Modeling*. Springer.
 
 [`Cubist::cubist()`](http://topepo.github.io/Cubist/reference/cubist.default.md),
 [`Cubist::cubistControl()`](http://topepo.github.io/Cubist/reference/cubistControl.md),
-[`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md),
-[`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
-[`update()`](https://rdrr.io/r/stats/update.html),
-[`Cubist engine details`](https://parsnip.tidymodels.org/dev/reference/details_cubist_rules_Cubist.md)
+`Rd parsnip:::make_seealso_list("cubist_rules")`

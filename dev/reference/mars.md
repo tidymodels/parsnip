@@ -5,13 +5,7 @@ features for some predictors. These features resemble hinge functions
 and the result is a model that is a segmented regression in small
 dimensions. This function can fit classification and regression models.
 
-There are different ways to fit this model, and the method of estimation
-is chosen by setting the model *engine*. The engine-specific pages for
-this model are listed below.
-
-- [`earth`](https://parsnip.tidymodels.org/dev/reference/details_mars_earth.md)`¹`
-
-¹ The default engine.
+`Rd parsnip:::make_engine_list("mars")`
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -83,10 +77,7 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ## See also
 
-[`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md),
-[`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
-[`update()`](https://rdrr.io/r/stats/update.html),
-[`earth engine details`](https://parsnip.tidymodels.org/dev/reference/details_mars_earth.md)
+`Rd parsnip:::make_seealso_list("mars")`
 
 ## Examples
 

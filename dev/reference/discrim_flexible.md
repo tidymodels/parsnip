@@ -5,13 +5,7 @@ model that can use nonlinear features created using multivariate
 adaptive regression splines (MARS). This function can fit classification
 models.
 
-There are different ways to fit this model, and the method of estimation
-is chosen by setting the model *engine*. The engine-specific pages for
-this model are listed below.
-
-- [`earth`](https://parsnip.tidymodels.org/dev/reference/details_discrim_flexible_earth.md)`¹²`
-
-¹ The default engine. ² Requires a parsnip extension package.
+`Rd parsnip:::make_engine_list("discrim_flexible")`
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -83,7 +77,4 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ## See also
 
-[`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md),
-[`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
-[`update()`](https://rdrr.io/r/stats/update.html),
-[`earth engine details`](https://parsnip.tidymodels.org/dev/reference/details_discrim_flexible_earth.md)
+`Rd parsnip:::make_seealso_list("discrim_flexible")`

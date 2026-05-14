@@ -2,6 +2,8 @@
 
 ## parsnip (development version)
 
+## parsnip 1.6.0
+
 - [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md),
   [`logistic_reg()`](https://parsnip.tidymodels.org/dev/reference/logistic_reg.md),
   [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md), and
@@ -526,8 +528,8 @@ time to [`fit()`](https://generics.r-lib.org/reference/fit.html) and
 
 - Implemented a number of optimizations in parsnip’s backend that
   [substantially decrease evaluation
-  time](https://www.simonpcouch.com/blog/speedups-2023/#parsnip) to
-  [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+  time](https://simonpcouch.com/blog/2023-03-24-speedups-2023/index.html#parsnip)
+  to [`fit()`](https://generics.r-lib.org/reference/fit.html) and
   [`predict()`](https://rdrr.io/r/stats/predict.html)
   ([\#901](https://github.com/tidymodels/parsnip/issues/901),
   [\#902](https://github.com/tidymodels/parsnip/issues/902),

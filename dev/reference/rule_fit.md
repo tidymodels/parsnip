@@ -4,16 +4,7 @@
 tree ensemble and uses them as features in a regularized model. This
 function can fit classification and regression models.
 
-There are different ways to fit this model, and the method of estimation
-is chosen by setting the model *engine*. The engine-specific pages for
-this model are listed below.
-
-- [`xrf`](https://parsnip.tidymodels.org/dev/reference/details_rule_fit_xrf.md)`¹²`
-
-- [`h2o`](https://parsnip.tidymodels.org/dev/reference/details_rule_fit_h2o.md)`²`
-
-¹ The default engine. ² Requires a parsnip extension package for
-classification and regression.
+`Rd parsnip:::make_engine_list("rule_fit")`
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -133,12 +124,7 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ## See also
 
-`xrf::xrf.formula()`,
-[`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md),
-[`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
-[`update()`](https://rdrr.io/r/stats/update.html),
-[`xrf engine details`](https://parsnip.tidymodels.org/dev/reference/details_rule_fit_xrf.md),
-[`h2o engine details`](https://parsnip.tidymodels.org/dev/reference/details_rule_fit_h2o.md)
+`xrf::xrf.formula()`, `Rd parsnip:::make_seealso_list("rule_fit")`
 
 ## Examples
 

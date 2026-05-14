@@ -4,44 +4,7 @@
 predictors using a linear function. This function can fit regression
 models.
 
-There are different ways to fit this model, and the method of estimation
-is chosen by setting the model *engine*. The engine-specific pages for
-this model are listed below.
-
-- [`lm`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lm.md)`¹`
-
-- [`brulee`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_brulee.md)
-
-- [`gee`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_gee.md)`²`
-
-- [`glm`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_glm.md)
-
-- [`glmer`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_glmer.md)`²`
-
-- [`glmnet`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_glmnet.md)
-
-- [`gls`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_gls.md)`²`
-
-- [`h2o`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_h2o.md)`²`
-
-- [`keras`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_keras.md)
-
-- [`keras3`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_keras3.md)
-
-- [`lme`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lme.md)`²`
-
-- [`lmer`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lmer.md)`²`
-
-- [`quantreg`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_quantreg.md)
-
-- [`spark`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_spark.md)
-
-- [`stan`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_stan.md)
-
-- [`stan_glmer`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_stan_glmer.md)`²`
-
-¹ The default engine. ² Requires a parsnip extension package for
-regression.
+`Rd parsnip:::make_engine_list("linear_reg")`
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -113,25 +76,7 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ## See also
 
-[`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md),
-[`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
-[`update()`](https://rdrr.io/r/stats/update.html),
-[`lm engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lm.md),
-[`brulee engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_brulee.md),
-[`gee engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_gee.md),
-[`glm engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_glm.md),
-[`glmer engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_glmer.md),
-[`glmnet engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_glmnet.md),
-[`gls engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_gls.md),
-[`h2o engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_h2o.md),
-[`keras engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_keras.md),
-[`keras3 engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_keras3.md),
-[`lme engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lme.md),
-[`lmer engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lmer.md),
-[`quantreg engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_quantreg.md),
-[`spark engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_spark.md),
-[`stan engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_stan.md),
-[`stan_glmer engine details`](https://parsnip.tidymodels.org/dev/reference/details_linear_reg_stan_glmer.md)
+`Rd parsnip:::make_seealso_list("linear_reg")`
 
 ## Examples
 

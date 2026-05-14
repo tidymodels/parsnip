@@ -6,13 +6,7 @@ The structure of the model can be LDA, QDA, or some amalgam of the two.
 Bayes' theorem is used to compute the probability of each class, given
 the predictor values. This function can fit classification models.
 
-There are different ways to fit this model, and the method of estimation
-is chosen by setting the model *engine*. The engine-specific pages for
-this model are listed below.
-
-- [`klaR`](https://parsnip.tidymodels.org/dev/reference/details_discrim_regularized_klaR.md)`¹²`
-
-¹ The default engine. ² Requires a parsnip extension package.
+`Rd parsnip:::make_engine_list("discrim_regularized")`
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -97,7 +91,4 @@ American Statistical Association*, 84, 165-175.
 
 ## See also
 
-[`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md),
-[`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
-[`update()`](https://rdrr.io/r/stats/update.html),
-[`klaR engine details`](https://parsnip.tidymodels.org/dev/reference/details_discrim_regularized_klaR.md)
+`Rd parsnip:::make_seealso_list("discrim_regularized")`

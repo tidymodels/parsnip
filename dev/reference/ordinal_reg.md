@@ -3,17 +3,7 @@
 `ordinal_reg()` defines a generalized linear model that predicts an
 ordinal outcome. This function can fit classification models.
 
-There are different ways to fit this model, and the method of estimation
-is chosen by setting the model *engine*. The engine-specific pages for
-this model are listed below.
-
-- [`polr`](https://parsnip.tidymodels.org/dev/reference/details_ordinal_reg_polr.md)`¹²`
-
-- [`ordinalNet`](https://parsnip.tidymodels.org/dev/reference/details_ordinal_reg_ordinalNet.md)`²`
-
-- [`vglm`](https://parsnip.tidymodels.org/dev/reference/details_ordinal_reg_vglm.md)`²`
-
-¹ The default engine. ² Requires a parsnip extension package.
+`Rd parsnip:::make_engine_list("ordinal_reg")`
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -103,12 +93,7 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ## See also
 
-[`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md),
-[`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
-[`update()`](https://rdrr.io/r/stats/update.html),
-[`polr engine details`](https://parsnip.tidymodels.org/dev/reference/details_ordinal_reg_polr.md),
-[`ordinalNet engine details`](https://parsnip.tidymodels.org/dev/reference/details_ordinal_reg_ordinalNet.md),
-[`vglm engine details`](https://parsnip.tidymodels.org/dev/reference/details_ordinal_reg_vglm.md)
+`Rd parsnip:::make_seealso_list("ordinal_reg")`
 
 ## Examples
 
