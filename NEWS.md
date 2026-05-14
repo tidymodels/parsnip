@@ -238,7 +238,7 @@ This release of parsnip contains a number of new features and bug fixes, accompa
 
 ## Other changes
 
-* Implemented a number of optimizations in parsnip's backend that [substantially decrease evaluation time](https://www.simonpcouch.com/blog/speedups-2023/#parsnip) to `fit()` and `predict()` (#901, #902, #910, #921, #929, #923, #931, #932, #933).
+* Implemented a number of optimizations in parsnip's backend that [substantially decrease evaluation time](https://simonpcouch.com/blog/2023-03-24-speedups-2023/index.html#parsnip) to `fit()` and `predict()` (#901, #902, #910, #921, #929, #923, #931, #932, #933).
 
 * `logistic_reg()` will now warn at `fit()` when the outcome has more than two levels (#545).
 
