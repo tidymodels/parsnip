@@ -24,7 +24,7 @@ to use for fitting.}
 prediction. A single tree or boosted ensemble can be used. This function can
 fit classification models.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("C5_rules")}
+\verb{Rd parsnip:::make_engine_list("C5_rules")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -48,7 +48,7 @@ with the data.
 
 Each of the arguments in this function other than \code{mode} and \code{engine} are
 captured as \link[rlang:topic-quosure]{quosures}. To pass values
-programmatically, use the \link[rlang:!!]{injection operator} like so:
+programmatically, use the \link[rlang:injection-operator]{injection operator} like so:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{value <- 1
 C5_rules(argument = !!value)
@@ -69,5 +69,5 @@ Kaufmann Publishers.
 }
 \seealso{
 \code{\link[C50:C5.0]{C50::C5.0()}}, \code{\link[C50:C5.0Control]{C50::C5.0Control()}},
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("C5_rules")}
+\verb{Rd parsnip:::make_seealso_list("C5_rules")}
 }

@@ -22,13 +22,13 @@ maps to the parameter
 \code{\link[dials:shrinkage_correlation]{dials::shrinkage_correlation()}}.
 \item \code{lambda.var}: the shrinkage parameters for the predictor variances.
 This maps to
-\code{\link[dials:shrinkage_variance]{dials::shrinkage_variance()}}.
+\code{\link[dials:shrinkage_correlation]{dials::shrinkage_variance()}}.
 \item \code{lambda.freqs}: the shrinkage parameters for the class frequencies.
 This maps to
-\code{\link[dials:shrinkage_frequencies]{dials::shrinkage_frequencies()}}.
+\code{\link[dials:shrinkage_correlation]{dials::shrinkage_frequencies()}}.
 \item \code{diagonal}: a logical to make the model covariance diagonal or not.
 This maps to
-\code{\link[dials:diagonal_covariance]{dials::diagonal_covariance()}}.
+\code{\link[dials:shrinkage_correlation]{dials::diagonal_covariance()}}.
 }
 }
 

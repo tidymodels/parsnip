@@ -35,7 +35,7 @@ to use for fitting.}
 \code{poisson_reg()} defines a generalized linear model for count data that follow
 a Poisson distribution. This function can fit regression models.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("poisson_reg")}
+\verb{Rd parsnip:::make_engine_list("poisson_reg")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -51,7 +51,7 @@ with the data.
 
 Each of the arguments in this function other than \code{mode} and \code{engine} are
 captured as \link[rlang:topic-quosure]{quosures}. To pass values
-programmatically, use the \link[rlang:!!]{injection operator} like so:
+programmatically, use the \link[rlang:injection-operator]{injection operator} like so:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{value <- 1
 poisson_reg(argument = !!value)
@@ -61,5 +61,5 @@ poisson_reg(argument = !!value)
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("poisson_reg")}
+\verb{Rd parsnip:::make_seealso_list("poisson_reg")}
 }

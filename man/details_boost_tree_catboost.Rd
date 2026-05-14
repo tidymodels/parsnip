@@ -172,7 +172,7 @@ The \code{sample_size} argument is translated to the \code{subsample} parameter 
 catboost. The argument is interpreted by catboost as a \emph{proportion}
 rather than a count, so bonsai internally reparameterizes the
 \code{sample_size} argument with
-\code{\link[dials:sample_prop]{dials::sample_prop()}} during tuning.
+\code{\link[dials:trees]{dials::sample_prop()}} during tuning.
 
 The default value for \code{subsample} depends on the dataset size and the
 bootstrap type. For datasets with fewer than 100 observations, no

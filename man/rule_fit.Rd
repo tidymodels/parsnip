@@ -60,7 +60,7 @@ to use for fitting.}
 ensemble and uses them as features in a regularized model. This function can
 fit classification and regression models.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rule_fit")}
+\verb{Rd parsnip:::make_engine_list("rule_fit")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -82,7 +82,7 @@ with the data.
 
 Each of the arguments in this function other than \code{mode} and \code{engine} are
 captured as \link[rlang:topic-quosure]{quosures}. To pass values
-programmatically, use the \link[rlang:!!]{injection operator} like so:
+programmatically, use the \link[rlang:injection-operator]{injection operator} like so:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{value <- 1
 rule_fit(argument = !!value)
@@ -102,5 +102,5 @@ via rule ensembles." \emph{The Annals of Applied Statistics}, 2(3), 916-954.
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
-\code{\link[xrf:xrf.formula]{xrf::xrf.formula()}}, \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("rule_fit")}
+\code{\link[xrf:xrf.formula]{xrf::xrf.formula()}}, \verb{Rd parsnip:::make_seealso_list("rule_fit")}
 }
