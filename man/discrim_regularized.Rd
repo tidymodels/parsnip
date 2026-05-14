@@ -28,7 +28,7 @@ structure of the model can be LDA, QDA, or some amalgam of the two. Bayes'
 theorem is used to compute the probability of each class, given the
 predictor values. This function can fit classification models.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("discrim_regularized")}
+\verb{Rd parsnip:::make_engine_list("discrim_regularized")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -59,7 +59,7 @@ with the data.
 
 Each of the arguments in this function other than \code{mode} and \code{engine} are
 captured as \link[rlang:topic-quosure]{quosures}. To pass values
-programmatically, use the \link[rlang:!!]{injection operator} like so:
+programmatically, use the \link[rlang:injection-operator]{injection operator} like so:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{value <- 1
 discrim_regularized(argument = !!value)
@@ -72,5 +72,5 @@ Friedman, J (1989). Regularized Discriminant Analysis. \emph{Journal of the
 American Statistical Association}, 84, 165-175.
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("discrim_regularized")}
+\verb{Rd parsnip:::make_seealso_list("discrim_regularized")}
 }

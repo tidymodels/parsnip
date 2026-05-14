@@ -4,7 +4,7 @@
 \alias{details_mlp_brulee_two_layer}
 \title{Multilayer perceptron via brulee with two hidden layers}
 \description{
-\code{\link[brulee:brulee_mlp_two_layer]{brulee::brulee_mlp_two_layer()}} fits a neural network (with version 0.3.0.9000 or higher of brulee)
+\code{\link[brulee:brulee_mlp]{brulee::brulee_mlp_two_layer()}} fits a neural network (with version 0.3.0.9000 or higher of brulee)
 }
 \details{
 For this engine, there are multiple modes: classification and regression

@@ -36,7 +36,7 @@ ridge or weight decay).
 ## 
 ## Model fit template:
 ## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), penalty = double(1), 
-##     hidden_units = 1, activation = "linear")
+##     hidden_units = 1, act = "linear")
 }\if{html}{\out{</div>}}
 
 \code{\link[=keras_mlp]{keras_mlp()}} is a parsnip wrapper around keras code for

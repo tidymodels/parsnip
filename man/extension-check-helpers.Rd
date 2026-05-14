@@ -64,7 +64,7 @@ example.
 When \code{spec_is_loaded()} is \code{FALSE}, the \code{prompt_missing_implementation()}
 helper will construct an informative message to prompt users to load or
 install needed packages. It's \code{prompt} argument refers to the prompting
-function to use, usually \link[cli:cli_inform]{cli::cli_inform} or \link[cli:cli_abort]{cli::cli_abort}, and the
+function to use, usually \link[cli:cli_abort]{cli::cli_inform} or \link[cli:cli_abort]{cli::cli_abort}, and the
 ellipses are passed to that function.
 }
 \keyword{internal}

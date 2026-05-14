@@ -4,7 +4,7 @@
 \alias{details_mlp_qrnn}
 \title{Multilayer perceptron for quantile regression via qrnn}
 \description{
-\code{\link[qrnn:mcqrnn.fit]{qrnn::mcqrnn.fit()}} fits a neural network for quantile regression.
+\code{\link[qrnn:mcqrnn]{qrnn::mcqrnn.fit()}} fits a neural network for quantile regression.
 }
 \details{
 For this engine, there is a single mode: quantile regression

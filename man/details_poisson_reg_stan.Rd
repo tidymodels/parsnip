@@ -30,7 +30,7 @@ coefficients. The \code{"stan"} engine does not fit any hierarchical terms.
 centering all predictors).
 }
 
-See \code{\link[rstan:sampling]{rstan::sampling()}} and
+See \code{\link[rstan:stanmodel-method-sampling]{rstan::sampling()}} and
 \code{\link[rstanarm:priors]{rstanarm::priors()}} for more information on these
 and other options.
 }

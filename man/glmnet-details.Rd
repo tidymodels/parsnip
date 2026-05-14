@@ -167,7 +167,7 @@ predict(fit_ridge, mtcars[1:3,])
 
 \subsection{Tidying the model object}{
 
-\code{\link[broom:tidy]{broom::tidy()}} is a function that gives a summary of
+\code{\link[broom:reexports]{broom::tidy()}} is a function that gives a summary of
 the object as a tibble.
 
 \strong{tl;dr} \code{tidy()} on a \code{glmnet} model produced by parsnip gives the
