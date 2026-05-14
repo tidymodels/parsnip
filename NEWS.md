@@ -1,3 +1,5 @@
+# parsnip (development version)
+
 # parsnip 1.6.0
 
 * `linear_reg()`, `logistic_reg()`, `mlp()`, and `multinom_reg()` gain a new `"keras3"` engine powered by the keras3 package, which supports Keras v3 and its multi-backend design (TensorFlow, JAX, PyTorch) (#1243).
