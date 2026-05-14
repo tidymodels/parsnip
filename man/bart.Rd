@@ -46,7 +46,7 @@ on the logit scale). The default value is 2.}
 assemble the ensemble. This function can fit classification and regression
 models.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("bart")}
+\verb{Rd parsnip:::make_engine_list("bart")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -105,5 +105,5 @@ prior_test(coef = c(0.05, 0.5, .95), expo = c(1/2, 1, 2)) |>
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("bart")}
+\verb{Rd parsnip:::make_seealso_list("bart")}
 }

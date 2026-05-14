@@ -31,7 +31,7 @@ to use for fitting.}
 numeric predictors in a generalized linear model. This function can fit
 classification and regression models.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("gen_additive_mod")}
+\verb{Rd parsnip:::make_engine_list("gen_additive_mod")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -64,5 +64,5 @@ gen_additive_mod()
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("gen_additive_mod")}
+\verb{Rd parsnip:::make_seealso_list("gen_additive_mod")}
 }

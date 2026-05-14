@@ -43,7 +43,7 @@ model is \code{"polr"}.}
 \code{ordinal_reg()} defines a generalized linear model that predicts an ordinal
 outcome. This function can fit classification models.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("ordinal_reg")}
+\verb{Rd parsnip:::make_engine_list("ordinal_reg")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -79,6 +79,6 @@ ordinal_reg(mode = "classification")
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("ordinal_reg")}
+\verb{Rd parsnip:::make_seealso_list("ordinal_reg")}
 }
 \keyword{internal}

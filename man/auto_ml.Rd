@@ -19,7 +19,7 @@ to use for fitting.}
 many models of different families are trained and ranked given their
 performance on the training data.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("auto_ml")}
+\verb{Rd parsnip:::make_engine_list("auto_ml")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -45,5 +45,5 @@ auto_ml(argument = !!value)
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("auto_ml")}
+\verb{Rd parsnip:::make_seealso_list("auto_ml")}
 }

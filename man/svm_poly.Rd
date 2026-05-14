@@ -39,7 +39,7 @@ function that is only affected by very large model residuals and uses polynomial
 functions of the predictors. This function can fit classification and
 regression models.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("svm_poly")}
+\verb{Rd parsnip:::make_engine_list("svm_poly")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -72,5 +72,5 @@ svm_poly(mode = "classification", degree = 1.2)
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("svm_poly")}
+\verb{Rd parsnip:::make_seealso_list("svm_poly")}
 }

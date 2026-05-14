@@ -32,7 +32,7 @@ to use for fitting.}
 ensemble and creates regression models within each rule. This function can fit
 regression models.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("cubist_rules")}
+\verb{Rd parsnip:::make_engine_list("cubist_rules")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -99,5 +99,5 @@ Proceedings of the Tenth International Conference on Machine Learning, pp.
 Kuhn M and Johnson K (2013). \emph{Applied Predictive Modeling}. Springer.
 }
 \seealso{
-\code{\link[Cubist:cubist.default]{Cubist::cubist()}}, \code{\link[Cubist:cubistControl]{Cubist::cubistControl()}}, \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("cubist_rules")}
+\code{\link[Cubist:cubist.default]{Cubist::cubist()}}, \code{\link[Cubist:cubistControl]{Cubist::cubistControl()}}, \verb{Rd parsnip:::make_seealso_list("cubist_rules")}
 }

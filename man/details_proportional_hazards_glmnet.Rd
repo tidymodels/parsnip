@@ -105,8 +105,8 @@ predict(mod, pred_data, type = "survival", time = 500) |>
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 x 5
 ##   .eval_time .pred_survival   age ecog.ps    rx
 ##        <dbl>          <dbl> <dbl>   <dbl> <dbl>
-## 1        500          0.666    50       1     1
-## 2        500          0.769    50       1     2
+## 1        500          0.792    50       1     1
+## 2        500          0.842    50       1     2
 }\if{html}{\out{</div>}}
 
 Note that columns used in the \code{strata()} function \emph{will} also be

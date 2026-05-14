@@ -36,7 +36,7 @@ Available for specific engines only.}
 as a multiplicative function of covariates times a baseline hazard. This
 function can fit censored regression models.
 
-\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("proportional_hazards")}
+\verb{Rd parsnip:::make_engine_list("proportional_hazards")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -75,6 +75,6 @@ proportional_hazards(mode = "censored regression")
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("proportional_hazards")}
+\verb{Rd parsnip:::make_seealso_list("proportional_hazards")}
 }
 \keyword{internal}

@@ -10,14 +10,16 @@
 ```{r}
 #| label: rpart-param-info
 #| echo: false
-defaults <- 
-  tibble::tibble(parsnip = c("tree_depth", "min_n", "cost_complexity"),
-                 default = c("30L", "2L", "0.01"))
+defaults <-
+  tibble::tibble(
+    parsnip = c("tree_depth", "min_n", "cost_complexity"),
+    default = c("30L", "2L", "0.01")
+  )
 
 param <-
- decision_tree() |> 
-  set_engine("rpart") |> 
-  set_mode("regression") |> 
+  decision_tree() |>
+  set_engine("rpart") |>
+  set_mode("regression") |>
   make_parameter_list(defaults)
 ```
 
@@ -33,10 +35,14 @@ param$item
 ## Translation from parsnip to the original package (classification)
 
 ```{r}
-#| label: rpart-cls
-decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
-  set_engine("rpart") |> 
-  set_mode("classification") |> 
+#| label: rpart-cls-decision-tree
+decision_tree(
+  tree_depth = integer(1),
+  min_n = integer(1),
+  cost_complexity = double(1)
+) |>
+  set_engine("rpart") |>
+  set_mode("classification") |>
   translate()
 ```
 
@@ -45,9 +51,13 @@ decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = dou
 
 ```{r}
 #| label: rpart-reg
-decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
-  set_engine("rpart") |> 
-  set_mode("regression") |> 
+decision_tree(
+  tree_depth = integer(1),
+  min_n = integer(1),
+  cost_complexity = double(1)
+) |>
+  set_engine("rpart") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -64,9 +74,9 @@ decision_tree(
   tree_depth = integer(1),
   min_n = integer(1),
   cost_complexity = double(1)
-) |> 
-  set_engine("rpart") |> 
-  set_mode("censored regression") |> 
+) |>
+  set_engine("rpart") |>
+  set_mode("censored regression") |>
   translate()
 ```
 
@@ -86,11 +96,9 @@ decision_tree(
 
 ```{r}
 #| label: predict-types
-
 parsnip:::get_from_env("decision_tree_predict") |>
   dplyr::filter(engine == "rpart") |>
   dplyr::select(mode, type)
-
 ```
 
 ## Other details
