@@ -566,7 +566,7 @@ check_pred_type_dots <- function(
   # `add_censoring_weights` only applies to survival predictions
   if (any(nms == "add_censoring_weights") & type != "survival") {
     cli::cli_abort(
-      "{.arg add_censoring_weights} should only be passed to {.fn predict} \\
+      "{.arg add_censoring_weights} should only be passed to {.fn predict}
        when {.arg type} is {.val survival}.",
       call = call
     )

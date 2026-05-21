@@ -282,7 +282,7 @@ fit_xy.model_spec <-
       }
     }
     if (inherits(y, "Surv")) {
-      y_var = character(0)
+      y_var <- character(0)
     } else {
       y_var <- colnames(y)
     }
