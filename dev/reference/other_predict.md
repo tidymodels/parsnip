@@ -62,6 +62,7 @@ predict_survival(
   time = deprecated(),
   interval = "none",
   level = 0.95,
+  add_censoring_weights = FALSE,
   ...
 )
 
@@ -107,6 +108,16 @@ predict_time(object, ...)
   - `eval_time`: for `type` equal to `"survival"` or `"hazard"`, the
     time points at which the survival probability or hazard is
     estimated.
+
+  - `add_censoring_weights`: for `type` equal to `"survival"`, a single
+    logical for whether to add inverse probability of censoring weight
+    columns to the `.pred` list-column. Default is `FALSE`. When `TRUE`,
+    `new_data` must contain either a
+    [`survival::Surv()`](https://rdrr.io/pkg/survival/man/Surv.html)
+    outcome column or the variables referenced in the model formula's
+    LHS so that the outcome can be reconstructed. See
+    [`augment.model_fit()`](https://parsnip.tidymodels.org/dev/reference/augment.md)
+    and the `tidymodels.org` reference for details.
 
 - level:
 

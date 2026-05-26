@@ -112,6 +112,13 @@ the standard error of fit or prediction (on the scale of the
 linear predictors). Default value is <code>FALSE</code>.</p></li>
 <li><p><code>eval_time</code>: for <code>type</code> equal to <code>"survival"</code> or <code>"hazard"</code>, the
 time points at which the survival probability or hazard is estimated.</p></li>
+<li><p><code>add_censoring_weights</code>: for <code>type</code> equal to <code>"survival"</code>, a single
+logical for whether to add inverse probability of censoring weight
+columns to the <code>.pred</code> list-column. Default is <code>FALSE</code>. When
+<code>TRUE</code>, <code>new_data</code> must contain either a <code><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">survival::Surv()</a></code> outcome
+column or the variables referenced in the model formula's LHS so
+that the outcome can be reconstructed. See <code><a href="augment.html">augment.model_fit()</a></code>
+and the <code>tidymodels.org</code> reference for details.</p></li>
 </ul></dd>
 
 </dl></div>
@@ -178,9 +185,11 @@ offending points (with a warning).</p>
 <p><code>predict.model_fit()</code> does not require the outcome to be present. For
 performance metrics on the predicted survival probability, inverse probability
 of censoring weights (IPCW) are required (see the <code>tidymodels.org</code> reference
-below). Those require the outcome and are thus not returned by <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code>.
-They can be added via <code><a href="augment.html">augment.model_fit()</a></code> if <code>new_data</code> contains a column
-with the outcome as a <code>Surv</code> object.</p>
+below). Those require the outcome and are thus not returned by <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> by
+default. They are added when <code>add_censoring_weights = TRUE</code> and <code>new_data</code>
+contains either a <code>Surv</code> outcome column or the variables that built it in the
+fit's formula (e.g., <code>time</code> and <code>status</code> for <code>Surv(time, status)</code>). The same
+columns are added by <code><a href="augment.html">augment.model_fit()</a></code>.</p>
 <p>Also, when <code>type = "linear_pred"</code>, censored regression models will by default
 be formatted such that the linear predictor <em>increases</em> with time. This may
 have the opposite sign as what the underlying model's <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> method

@@ -2,6 +2,11 @@
 
 ## parsnip (development version)
 
+- For censored regression models, the censoring weights can now be added
+  to the predictions of survival probability by setting
+  `add_censoring_weights = TRUE` in `predict(type = "survival")`
+  ([\#1371](https://github.com/tidymodels/parsnip/issues/1371)).
+
 ## parsnip 1.6.0
 
 CRAN release: 2026-05-14

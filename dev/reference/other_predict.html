@@ -107,6 +107,7 @@
 <span>  time <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="st">"none"</span>,</span>
 <span>  level <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  add_censoring_weights <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -146,6 +147,13 @@ the standard error of fit or prediction (on the scale of the
 linear predictors). Default value is <code>FALSE</code>.</p></li>
 <li><p><code>eval_time</code>: for <code>type</code> equal to <code>"survival"</code> or <code>"hazard"</code>, the
 time points at which the survival probability or hazard is estimated.</p></li>
+<li><p><code>add_censoring_weights</code>: for <code>type</code> equal to <code>"survival"</code>, a single
+logical for whether to add inverse probability of censoring weight
+columns to the <code>.pred</code> list-column. Default is <code>FALSE</code>. When
+<code>TRUE</code>, <code>new_data</code> must contain either a <code><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">survival::Surv()</a></code> outcome
+column or the variables referenced in the model formula's LHS so
+that the outcome can be reconstructed. See <code><a href="augment.html">augment.model_fit()</a></code>
+and the <code>tidymodels.org</code> reference for details.</p></li>
 </ul></dd>
 
 

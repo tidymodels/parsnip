@@ -77,6 +77,16 @@ predict_raw(object, ...)
     time points at which the survival probability or hazard is
     estimated.
 
+  - `add_censoring_weights`: for `type` equal to `"survival"`, a single
+    logical for whether to add inverse probability of censoring weight
+    columns to the `.pred` list-column. Default is `FALSE`. When `TRUE`,
+    `new_data` must contain either a
+    [`survival::Surv()`](https://rdrr.io/pkg/survival/man/Surv.html)
+    outcome column or the variables referenced in the model formula's
+    LHS so that the outcome can be reconstructed. See
+    [`augment.model_fit()`](https://parsnip.tidymodels.org/dev/reference/augment.md)
+    and the `tidymodels.org` reference for details.
+
 ## Value
 
 With the exception of `type = "raw"`, the result of
@@ -162,11 +172,12 @@ adjust the values to fit this specification by removing offending points
 performance metrics on the predicted survival probability, inverse
 probability of censoring weights (IPCW) are required (see the
 `tidymodels.org` reference below). Those require the outcome and are
-thus not returned by
-[`predict()`](https://rdrr.io/r/stats/predict.html). They can be added
-via
-[`augment.model_fit()`](https://parsnip.tidymodels.org/dev/reference/augment.md)
-if `new_data` contains a column with the outcome as a `Surv` object.
+thus not returned by [`predict()`](https://rdrr.io/r/stats/predict.html)
+by default. They are added when `add_censoring_weights = TRUE` and
+`new_data` contains either a `Surv` outcome column or the variables that
+built it in the fit's formula (e.g., `time` and `status` for
+`Surv(time, status)`). The same columns are added by
+[`augment.model_fit()`](https://parsnip.tidymodels.org/dev/reference/augment.md).
 
 Also, when `type = "linear_pred"`, censored regression models will by
 default be formatted such that the linear predictor *increases* with

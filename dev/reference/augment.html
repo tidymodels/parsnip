@@ -105,11 +105,14 @@ This depends on what type of prediction types are available for the model.</p>
 <p>For these models, predictions for the expected time and survival probability
 are created (if the model engine supports them). If the model supports
 survival prediction, the <code>eval_time</code> argument is required.</p>
-<p>If survival predictions are created and <code>new_data</code> contains a
-<code><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">survival::Surv()</a></code> object, additional columns are added for inverse
-probability of censoring weights (IPCW) are also created (see <code>tidymodels.org</code>
-page in the references below). This enables the user to compute performance
-metrics in the <span class="pkg">yardstick</span> package.</p>
+<p>If survival predictions are created and the survival outcome can be
+resolved from <code>new_data</code> (either as a literal <code><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">survival::Surv()</a></code> column or
+from the variables referenced in the model's formula LHS), additional
+columns are added for inverse probability of censoring weights (IPCW) (see
+<code>tidymodels.org</code> page in the references below). This enables the user to
+compute performance metrics in the <span class="pkg">yardstick</span> package. The same
+columns can be obtained directly from <code><a href="predict.model_fit.html">predict.model_fit()</a></code> by setting
+<code>add_censoring_weights = TRUE</code>.</p>
 </div>
 
 <div class="section">
