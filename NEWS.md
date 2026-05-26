@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* For censored regression models, the censoring weights can now be added to the predictions of survival probability by setting `add_censoring_weights = TRUE` in `predict(type = "survival")` (#1371).
+
 # parsnip 1.6.0
 
 * `linear_reg()`, `logistic_reg()`, `mlp()`, and `multinom_reg()` gain a new `"keras3"` engine powered by the keras3 package, which supports Keras v3 and its multi-backend design (TensorFlow, JAX, PyTorch) (#1243).

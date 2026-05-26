@@ -73,6 +73,7 @@ predict_quantile(object, ...)
   time = deprecated(),
   interval = "none",
   level = 0.95,
+  add_censoring_weights = FALSE,
   ...
 )
 
@@ -104,6 +105,13 @@ the standard error of fit or prediction (on the scale of the
 linear predictors). Default value is \code{FALSE}.
 \item \code{eval_time}: for \code{type} equal to \code{"survival"} or \code{"hazard"}, the
 time points at which the survival probability or hazard is estimated.
+\item \code{add_censoring_weights}: for \code{type} equal to \code{"survival"}, a single
+logical for whether to add inverse probability of censoring weight
+columns to the \code{.pred} list-column. Default is \code{FALSE}. When
+\code{TRUE}, \code{new_data} must contain either a \code{\link[survival:Surv]{survival::Surv()}} outcome
+column or the variables referenced in the model formula's LHS so
+that the outcome can be reconstructed. See \code{\link[=augment.model_fit]{augment.model_fit()}}
+and the \code{tidymodels.org} reference for details.
 }}
 
 \item{level}{A single numeric value between zero and one for the

@@ -268,3 +268,44 @@ add_graf_weights_vec <- function(
 }
 
 # nocov end
+
+.get_surv <- function(
+  object,
+  new_data,
+  fail = TRUE,
+  call = rlang::caller_env()
+) {
+  y_var <- object$preproc$y_var
+  n_y <- length(y_var)
+
+  if (n_y == 1L && inherits(new_data[[y_var]], "Surv")) {
+    return(new_data[[y_var]])
+  }
+  if (n_y == 2L && all(y_var %in% names(new_data))) {
+    return(survival::Surv(new_data[[y_var[1]]], new_data[[y_var[2]]]))
+  }
+  if (n_y == 0L) {
+    y_col <- .find_surv_col(new_data, fail = FALSE)
+    if (length(y_col) != 0L) {
+      return(new_data[[y_col]])
+    }
+  }
+
+  if (!fail) {
+    return(NULL)
+  }
+  if (length(y_var) > 0L) {
+    hint <- "Add a {.cls Surv} column, or include the
+     {cli::qty(y_var)}variable{?s} used in the model formula ({.val {y_var}})."
+  } else {
+    hint <- "Add a {.cls Surv} column to {.arg new_data}."
+  }
+  cli::cli_abort(
+    c(
+      "{.code add_censoring_weights = TRUE} requires the survival outcome in 
+      {.arg new_data}.",
+      i = hint
+    ),
+    call = call
+  )
+}

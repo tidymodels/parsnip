@@ -25,11 +25,14 @@
 #' are created (if the model engine supports them). If the model supports
 #' survival prediction, the `eval_time` argument is required.
 #'
-#' If survival predictions are created and `new_data` contains a
-#' [survival::Surv()] object, additional columns are added for inverse
-#' probability of censoring weights (IPCW) are also created (see `tidymodels.org`
-#' page in the references below). This enables the user to compute performance
-#' metrics in the \pkg{yardstick} package.
+#' If survival predictions are created and the survival outcome can be
+#' resolved from `new_data` (either as a literal [survival::Surv()] column or
+#' from the variables referenced in the model's formula LHS), additional
+#' columns are added for inverse probability of censoring weights (IPCW) (see
+#' `tidymodels.org` page in the references below). This enables the user to
+#' compute performance metrics in the \pkg{yardstick} package. The same
+#' columns can be obtained directly from [predict.model_fit()] by setting
+#' `add_censoring_weights = TRUE`.
 #'
 #' ## Quantile Regression
 #'
@@ -176,15 +179,17 @@ augment_censored <- function(x, new_data, eval_time = NULL) {
       )
     }
     .filter_eval_time(eval_time)
+    has_surv <- !is.null(.get_surv(x, new_data, fail = FALSE))
     ret <- dplyr::bind_cols(
-      predict(x, new_data = new_data, type = "survival", eval_time = eval_time),
+      predict(
+        x,
+        new_data = new_data,
+        type = "survival",
+        eval_time = eval_time,
+        add_censoring_weights = has_surv
+      ),
       ret
     )
-    # Add inverse probability weights when the outcome is present in new_data
-    y_col <- .find_surv_col(new_data, fail = FALSE)
-    if (length(y_col) != 0) {
-      ret <- .censoring_weights_graf(x, ret)
-    }
   }
   ret
 }
