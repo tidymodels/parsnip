@@ -119,10 +119,14 @@ xy_xy <- function(
   )
   elapsed <- proc.time() - time
 
-  if (is.atomic(env$y)) {
-    y_name <- character(0)
+  if (!is.null(env$y_var)) {
+    y_name <- env$y_var
   } else {
-    y_name <- colnames(env$y)
+    if (is.atomic(env$y)) {
+      y_name <- character(0)
+    } else {
+      y_name <- colnames(env$y)
+    }
   }
   res$preproc <- list(y_var = y_name, x_names = colnames(env$x))
   res$elapsed <- list(elapsed = elapsed, print = control$verbosity > 1L)
