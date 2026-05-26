@@ -34,7 +34,7 @@ library(tidymodels)
 
     ## ── Attaching packages ──────────────────────── tidymodels 1.5.0.9000 ──
 
-    ## ✔ broom        1.0.12     ✔ rsample      1.3.2 
+    ## ✔ broom        1.0.13     ✔ rsample      1.3.2 
     ## ✔ dials        1.4.3      ✔ tailor       0.1.0 
     ## ✔ dplyr        1.2.1      ✔ tidyr        1.3.2 
     ## ✔ infer        1.1.0      ✔ tune         2.1.0 

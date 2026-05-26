@@ -4,6 +4,8 @@
 
 ## parsnip 1.6.0
 
+CRAN release: 2026-05-14
+
 - [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md),
   [`logistic_reg()`](https://parsnip.tidymodels.org/dev/reference/logistic_reg.md),
   [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md), and
