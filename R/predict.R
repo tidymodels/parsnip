@@ -588,8 +588,7 @@ prepare_data <- function(object, new_data) {
   translate_from_xy_to_formula <- any(preproc_names == "x_var", na.rm = TRUE)
   # For backwards compatibility, only do this if `y_var` is missing and
   # `x_names` is present
-  translate_from_xy_to_xy <- any(preproc_names == "x_names", na.rm = TRUE) &&
-    identical(object$preproc$y_var, character(0))
+  translate_from_xy_to_xy <- any(preproc_names == "x_names", na.rm = TRUE)
 
   if (translate_from_formula_to_xy) {
     new_data <- .convert_form_to_xy_new(object$preproc, new_data)$x
