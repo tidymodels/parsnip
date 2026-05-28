@@ -19,7 +19,7 @@ test_that('linear quantile regression via quantreg - single quantile', {
   one_quant_pred <- predict(one_quant, new_data = sac_test)
   expect_true(nrow(one_quant_pred) == nrow(sac_test))
   expect_named(one_quant_pred, ".pred_quantile")
-  expect_true(is.list(one_quant_pred[[1]]))
+  expect_type(one_quant_pred[[1]], "list")
   expect_s3_class(
     one_quant_pred$.pred_quantile[1],
     c("quantile_pred", "vctrs_vctr", "list")
@@ -37,7 +37,7 @@ test_that('linear quantile regression via quantreg - single quantile', {
   one_quant_one_row <- predict(one_quant, new_data = sac_test[1, ])
   expect_true(nrow(one_quant_one_row) == 1L)
   expect_named(one_quant_one_row, ".pred_quantile")
-  expect_true(is.list(one_quant_one_row[[1]]))
+  expect_type(one_quant_one_row[[1]], "list")
   expect_s3_class(
     one_quant_one_row$.pred_quantile[1],
     c("quantile_pred", "vctrs_vctr", "list")
@@ -72,7 +72,7 @@ test_that('linear quantile regression via quantreg - multiple quantiles', {
   ten_quant_pred <- predict(ten_quant, new_data = sac_test)
   expect_true(nrow(ten_quant_pred) == nrow(sac_test))
   expect_named(ten_quant_pred, ".pred_quantile")
-  expect_true(is.list(ten_quant_pred[[1]]))
+  expect_type(ten_quant_pred[[1]], "list")
   expect_s3_class(
     ten_quant_pred$.pred_quantile[1],
     c("quantile_pred", "vctrs_vctr", "list")
@@ -102,7 +102,7 @@ test_that('linear quantile regression via quantreg - multiple quantiles', {
   ten_quant_one_row <- predict(ten_quant, new_data = sac_test[1, ])
   expect_true(nrow(ten_quant_one_row) == 1L)
   expect_named(ten_quant_one_row, ".pred_quantile")
-  expect_true(is.list(ten_quant_one_row[[1]]))
+  expect_type(ten_quant_one_row[[1]], "list")
   expect_s3_class(
     ten_quant_one_row$.pred_quantile[1],
     c("quantile_pred", "vctrs_vctr", "list")

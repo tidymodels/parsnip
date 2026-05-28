@@ -54,7 +54,7 @@ test_that('fit cforest models', {
   expect_no_condition(
     fit_1 <- cforest_train(ridership ~ ., data = Chicago[, 1:5], ntree = 2)
   )
-  expect_equal(length(fit_1$nodes), 2)
+  expect_length(fit_1$nodes, 2)
   expect_no_condition(
     fit_2 <- cforest_train(
       ridership ~ .,

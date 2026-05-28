@@ -106,8 +106,8 @@ test_that("elapsed time parsnip mods", {
 
   expect_output(print(lm1), "Fit time:")
   expect_output(print(lm2), "Fit time:")
-  expect_true(!is.null(lm1$elapsed))
-  expect_true(!is.null(lm2$elapsed))
+  expect_false(is.null(lm1$elapsed))
+  expect_false(is.null(lm2$elapsed))
 
   lm3 <-
     linear_reg() |>

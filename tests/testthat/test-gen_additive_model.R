@@ -30,7 +30,7 @@ test_that('regression', {
 
   f_pred <- predict(f_res, head(mtcars))
   mgcv_pred <- predict(mgcv_mod, head(mtcars), type = "response")
-  expect_equal(names(f_pred), ".pred")
+  expect_named(f_pred, ".pred")
   expect_equal(f_pred[[".pred"]], mgcv_pred, ignore_attr = TRUE)
 
   f_ci <- predict(f_res, head(mtcars), type = "conf_int", std_error = TRUE)
@@ -79,7 +79,7 @@ test_that('classification', {
 
   f_pred <- predict(f_res, head(two_class_dat), type = "prob")
   mgcv_pred <- predict(mgcv_mod, head(two_class_dat), type = "response")
-  expect_equal(names(f_pred), c(".pred_Class1", ".pred_Class2"))
+  expect_named(f_pred, c(".pred_Class1", ".pred_Class2"))
   expect_equal(f_pred[[".pred_Class2"]], mgcv_pred, ignore_attr = TRUE)
   expect_type(f_pred[[".pred_Class1"]], "double")
   expect_type(f_pred[[".pred_Class2"]], "double")
