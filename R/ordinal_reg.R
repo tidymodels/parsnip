@@ -222,5 +222,50 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
     x$args$penalty <- rlang::eval_tidy(x$args$penalty)
   }
 
+  if (engine == "glmnetcr") {
+    pen <- rlang::eval_tidy(x$args$penalty)
+    if (length(pen) != 1L) {
+      msg <- c(
+        "x" = "The glmnetcr engine ignores {.arg penalty} in favor of a
+          path that enables prediction at interpolated penalty values.",
+        "!" = "{.arg penalty} was passed {length(pen)} value{?s}.",
+        "i" = "Use `path_values` to override the default path."
+      )
+      if (length(pen) > 1L) {
+        msg <- c(
+          msg,
+          c(
+            "i" = "To specify multiple values for total regularization,
+              use the {.pkg tune} package."
+          )
+        )
+      }
+      cli::cli_warn(msg, call = rlang::caller_env())
+    }
+
+    if (any(names(x$eng_args) == "path_values")) {
+      x$method$fit$args$lambda <- x$eng_args$path_values
+      x$eng_args$path_values <- NULL
+      x$method$fit$args$path_values <- NULL
+    } else {
+      x$method$fit$args$nlambda <- 120L
+      min_pen <-
+        if (
+          rlang::is_call(x$method$fit$args$lambda) ||
+          is.null(x$method$fit$args$lambda) ||
+          0 %in% x$method$fit$args$lambda
+        ) {
+          1e-08
+        } else {
+          min(x$method$fit$args$lambda)
+        }
+      x$method$fit$args$lambda.min.ratio <- min_pen
+      x$method$fit$args$lambda <- NULL
+    }
+    # Since the `fit` information is gone for the penalty, we need to have an
+    # evaluated value for the parameter.
+    x$args$penalty <- rlang::eval_tidy(x$args$penalty)
+  }
+
   x
 }
