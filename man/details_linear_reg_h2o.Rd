@@ -32,7 +32,7 @@ defaults to 0 (ridge regression) and 0.5 otherwise.
 
 \subsection{Translation from parsnip to the original package}{
 
-\code{\link[agua:h2o_train]{agua::h2o_train_glm()}} for \code{linear_reg()} is a
+\code{\link[agua:h2o_train_glm]{agua::h2o_train_glm()}} for \code{linear_reg()} is a
 wrapper around \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}} with
 \code{family = "gaussian"}.
 
