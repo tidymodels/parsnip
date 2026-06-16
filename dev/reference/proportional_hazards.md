@@ -4,7 +4,15 @@
 multiplicative function of covariates times a baseline hazard. This
 function can fit censored regression models.
 
-`Rd parsnip:::make_engine_list("proportional_hazards")`
+There are different ways to fit this model, and the method of estimation
+is chosen by setting the model *engine*. The engine-specific pages for
+this model are listed below.
+
+- [`survival`](https://parsnip.tidymodels.org/dev/reference/details_proportional_hazards_survival.md)`¹²`
+
+- [`glmnet`](https://parsnip.tidymodels.org/dev/reference/details_proportional_hazards_glmnet.md)`²`
+
+¹ The default engine. ² Requires a parsnip extension package.
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -89,7 +97,11 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ## See also
 
-`Rd parsnip:::make_seealso_list("proportional_hazards")`
+[`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md),
+[`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
+[`update()`](https://rdrr.io/r/stats/update.html),
+[`survival engine details`](https://parsnip.tidymodels.org/dev/reference/details_proportional_hazards_survival.md),
+[`glmnet engine details`](https://parsnip.tidymodels.org/dev/reference/details_proportional_hazards_glmnet.md)
 
 ## Examples
 

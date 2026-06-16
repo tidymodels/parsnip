@@ -4,7 +4,13 @@
 assemble the ensemble. This function can fit classification and
 regression models.
 
-`Rd parsnip:::make_engine_list("bart")`
+There are different ways to fit this model, and the method of estimation
+is chosen by setting the model *engine*. The engine-specific pages for
+this model are listed below.
+
+- [`dbarts`](https://parsnip.tidymodels.org/dev/reference/details_bart_dbarts.md)`¹`
+
+¹ The default engine.
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -97,7 +103,10 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ## See also
 
-`Rd parsnip:::make_seealso_list("bart")`
+[`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md),
+[`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
+[`update()`](https://rdrr.io/r/stats/update.html),
+[`dbarts engine details`](https://parsnip.tidymodels.org/dev/reference/details_bart_dbarts.md)
 
 ## Examples
 

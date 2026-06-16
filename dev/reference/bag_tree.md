@@ -3,7 +3,16 @@
 `bag_tree()` defines an ensemble of decision trees. This function can
 fit classification, regression, and censored regression models.
 
-`Rd parsnip:::make_engine_list("bag_tree")`
+There are different ways to fit this model, and the method of estimation
+is chosen by setting the model *engine*. The engine-specific pages for
+this model are listed below.
+
+- [`rpart`](https://parsnip.tidymodels.org/dev/reference/details_bag_tree_rpart.md)`¹²`
+
+- [`C5.0`](https://parsnip.tidymodels.org/dev/reference/details_bag_tree_C5.0.md)`²`
+
+¹ The default engine. ² Requires a parsnip extension package for
+censored regression, classification, and regression.
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -85,4 +94,8 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ## See also
 
-`Rd parsnip:::make_seealso_list("bag_tree")`
+[`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md),
+[`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
+[`update()`](https://rdrr.io/r/stats/update.html),
+[`rpart engine details`](https://parsnip.tidymodels.org/dev/reference/details_bag_tree_rpart.md),
+[`C5.0 engine details`](https://parsnip.tidymodels.org/dev/reference/details_bag_tree_C5.0.md)

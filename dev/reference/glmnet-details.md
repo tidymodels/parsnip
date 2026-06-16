@@ -155,8 +155,8 @@ engine-specific option:
 
 ### Tidying the model object
 
-[`broom::tidy()`](https://broom.tidymodels.org/reference/reexports.html)
-is a function that gives a summary of the object as a tibble.
+[`broom::tidy()`](https://generics.r-lib.org/reference/tidy.html) is a
+function that gives a summary of the object as a tibble.
 
 **tl;dr** [`tidy()`](https://generics.r-lib.org/reference/tidy.html) on
 a `glmnet` model produced by parsnip gives the coefficients for the

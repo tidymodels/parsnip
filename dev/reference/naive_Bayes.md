@@ -4,7 +4,17 @@
 probability of each class, given the predictor values. This function can
 fit classification models.
 
-`Rd parsnip:::make_engine_list("naive_Bayes")`
+There are different ways to fit this model, and the method of estimation
+is chosen by setting the model *engine*. The engine-specific pages for
+this model are listed below.
+
+- [`klaR`](https://parsnip.tidymodels.org/dev/reference/details_naive_Bayes_klaR.md)`¹²`
+
+- [`h2o`](https://parsnip.tidymodels.org/dev/reference/details_naive_Bayes_h2o.md)`²`
+
+- [`naivebayes`](https://parsnip.tidymodels.org/dev/reference/details_naive_Bayes_naivebayes.md)`²`
+
+¹ The default engine. ² Requires a parsnip extension package.
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -73,4 +83,9 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ## See also
 
-`Rd parsnip:::make_seealso_list("naive_Bayes")`
+[`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md),
+[`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
+[`update()`](https://rdrr.io/r/stats/update.html),
+[`klaR engine details`](https://parsnip.tidymodels.org/dev/reference/details_naive_Bayes_klaR.md),
+[`h2o engine details`](https://parsnip.tidymodels.org/dev/reference/details_naive_Bayes_h2o.md),
+[`naivebayes engine details`](https://parsnip.tidymodels.org/dev/reference/details_naive_Bayes_naivebayes.md)

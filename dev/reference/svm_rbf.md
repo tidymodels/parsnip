@@ -7,7 +7,13 @@ robust loss function that is only affected by very large model residuals
 and uses nonlinear functions of the predictors. The function can fit
 classification and regression models.
 
-`Rd parsnip:::make_engine_list("svm_rbf")`
+There are different ways to fit this model, and the method of estimation
+is chosen by setting the model *engine*. The engine-specific pages for
+this model are listed below.
+
+- [`kernlab`](https://parsnip.tidymodels.org/dev/reference/details_svm_rbf_kernlab.md)`¹`
+
+¹ The default engine.
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -81,7 +87,10 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ## See also
 
-`Rd parsnip:::make_seealso_list("svm_rbf")`
+[`fit()`](https://parsnip.tidymodels.org/dev/reference/fit.md),
+[`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
+[`update()`](https://rdrr.io/r/stats/update.html),
+[`kernlab engine details`](https://parsnip.tidymodels.org/dev/reference/details_svm_rbf_kernlab.md)
 
 ## Examples
 
