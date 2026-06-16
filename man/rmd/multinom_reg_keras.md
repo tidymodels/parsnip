@@ -32,7 +32,7 @@ multinom_reg(penalty = double(1)) |>
 ## 
 ## Model fit template:
 ## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), penalty = double(1), 
-##     hidden_units = 1, act = "linear")
+##     hidden_units = 1, activation = "linear")
 ```
 
 [keras_mlp()] is a parsnip wrapper around keras code for neural networks. This model fits a linear regression as a network with a single hidden unit. 
