@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* Fitting with sparse data now respects the model mode, so loading an extension package that registers an engine for a different mode can no longer alter sparse data support for the original mode (#1382).
+
 * For censored regression models, the censoring weights can now be added to the predictions of survival probability by setting `add_censoring_weights = TRUE` in `predict(type = "survival")` (#1371).
 
 # parsnip 1.6.0
