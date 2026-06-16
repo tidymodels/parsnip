@@ -127,7 +127,7 @@ test_that('kknn multi-predict', {
     pred_multi |> tidyr::unnest(cols = c(.pred)) |> nrow(),
     length(hpc_te) * length(k_vals)
   )
-  expect_equal(pred_multi |> nrow(), length(hpc_te))
+  expect_length(hpc_te, pred_multi |> nrow())
 
   pred_uni <- predict(res_xy, hpc[hpc_te, num_pred])
   pred_uni_obs <-
@@ -149,7 +149,7 @@ test_that('kknn multi-predict', {
     prob_multi |> tidyr::unnest(cols = c(.pred)) |> nrow(),
     length(hpc_te) * length(k_vals)
   )
-  expect_equal(prob_multi |> nrow(), length(hpc_te))
+  expect_length(hpc_te, prob_multi |> nrow())
 
   prob_uni <- predict(res_xy, hpc[hpc_te, num_pred], type = "prob")
   prob_uni_obs <-
@@ -180,7 +180,7 @@ test_that('kknn multi-predict', {
     pred_multi |> tidyr::unnest(cols = c(.pred)) |> nrow(),
     length(cars_te) * length(k_vals)
   )
-  expect_equal(pred_multi |> nrow(), length(cars_te))
+  expect_length(cars_te, pred_multi |> nrow())
 
   pred_uni <- predict(res_xy, mtcars[cars_te, -1])
   pred_uni_obs <-

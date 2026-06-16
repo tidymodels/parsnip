@@ -389,25 +389,25 @@ test_that("get_model_spec helper", {
 
   expect_type(mod1$fit, "list")
   expect_length(mod1$fit, 4)
-  expect_equal(names(mod1$fit), c("interface", "protect", "func", "defaults"))
+  expect_named(mod1$fit, c("interface", "protect", "func", "defaults"))
 
   expect_type(mod1$pred, "list")
   expect_length(mod1$pred, 4)
-  expect_equal(names(mod1$pred), c("numeric", "conf_int", "pred_int", "raw"))
+  expect_named(mod1$pred, c("numeric", "conf_int", "pred_int", "raw"))
 
   expect_type(mod1$pred$numeric, "list")
   expect_length(mod1$pred$numeric, 4)
-  expect_equal(names(mod1$pred$numeric), c("pre", "post", "func", "args"))
+  expect_named(mod1$pred$numeric, c("pre", "post", "func", "args"))
 
   expect_type(mod1$pred$conf_int, "list")
   expect_length(mod1$pred$conf_int, 4)
-  expect_equal(names(mod1$pred$conf_int), c("pre", "post", "func", "args"))
+  expect_named(mod1$pred$conf_int, c("pre", "post", "func", "args"))
 
   expect_type(mod1$pred$pred_int, "list")
   expect_length(mod1$pred$pred_int, 4)
-  expect_equal(names(mod1$pred$pred_int), c("pre", "post", "func", "args"))
+  expect_named(mod1$pred$pred_int, c("pre", "post", "func", "args"))
 
   expect_type(mod1$pred$raw, "list")
   expect_length(mod1$pred$raw, 4)
-  expect_equal(names(mod1$pred$raw), c("pre", "post", "func", "args"))
+  expect_named(mod1$pred$raw, c("pre", "post", "func", "args"))
 })
