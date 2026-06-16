@@ -28,12 +28,12 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{generics}{\code{\link[generics]{augment}}, \code{\link[generics]{fit}}, \code{\link[generics]{fit_xy}}, \code{\link[generics]{glance}}, \code{\link[generics]{required_pkgs}}, \code{\link[generics]{tidy}}, \code{\link[generics]{varying_args}}}
+  \item{generics}{\code{\link[generics:augment]{augment()}}, \code{\link[generics:fit]{fit()}}, \code{\link[generics:fit_xy]{fit_xy()}}, \code{\link[generics:glance]{glance()}}, \code{\link[generics:required_pkgs]{required_pkgs()}}, \code{\link[generics:tidy]{tidy()}}, \code{\link[generics:varying_args]{varying_args()}}}
 
-  \item{ggplot2}{\code{\link[ggplot2]{autoplot}}}
+  \item{ggplot2}{\code{\link[ggplot2:autoplot]{autoplot()}}}
 
-  \item{hardhat}{\code{\link[hardhat]{contr_one_hot}}, \code{\link[hardhat:hardhat-extract]{extract_fit_engine}}, \code{\link[hardhat:hardhat-extract]{extract_fit_time}}, \code{\link[hardhat:hardhat-extract]{extract_parameter_dials}}, \code{\link[hardhat:hardhat-extract]{extract_parameter_set_dials}}, \code{\link[hardhat:hardhat-extract]{extract_spec_parsnip}}, \code{\link[hardhat]{frequency_weights}}, \code{\link[hardhat]{importance_weights}}, \code{\link[hardhat]{tune}}}
+  \item{hardhat}{\code{\link[hardhat:contr_one_hot]{contr_one_hot()}}, \code{\link[hardhat:extract_fit_engine]{extract_fit_engine()}}, \code{\link[hardhat:extract_fit_time]{extract_fit_time()}}, \code{\link[hardhat:extract_parameter_dials]{extract_parameter_dials()}}, \code{\link[hardhat:extract_parameter_set_dials]{extract_parameter_set_dials()}}, \code{\link[hardhat:extract_spec_parsnip]{extract_spec_parsnip()}}, \code{\link[hardhat:frequency_weights]{frequency_weights()}}, \code{\link[hardhat:importance_weights]{importance_weights()}}, \code{\link[hardhat:tune]{tune()}}}
 
-  \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
+  \item{magrittr}{\code{\link[magrittr:\%>\%]{\%>\%}}}
 }}
 
