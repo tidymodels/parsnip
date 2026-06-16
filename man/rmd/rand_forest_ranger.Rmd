@@ -31,7 +31,7 @@ param$item
 
 `mtry` depends on the number of columns. The default in [ranger::ranger()] is `floor(sqrt(ncol(x)))`.
 
-`min_n` depends on the mode. For regression, a value of 5 is the default. For classification, a value of 10 is used. 
+`min_n` depends on the mode. For regression, a value of 5 is the default. For classification, a value of 10 is used. For censored regression, a value of 3 is used.
 
 ## Translation from parsnip to the original package (regression)
 
@@ -64,6 +64,24 @@ rand_forest(
 ```
 
 Note that a `ranger` probability forest is always fit (unless the `probability` argument is changed by the user via [set_engine()]).
+
+## Translation from parsnip to the original package (censored regression)
+
+`r uses_extension("rand_forest", "ranger", "censored regression")`
+
+```{r}
+#| label: ranger-creg
+library(censored)
+
+rand_forest(
+  mtry = integer(1),
+  trees = integer(1),
+  min_n = integer(1)
+) |>
+  set_engine("ranger") |>
+  set_mode("censored regression") |>
+  translate()
+```
 
 ## Preprocessing requirements
 
@@ -108,7 +126,8 @@ While this engine supports sparse data as an input, it doesn't use it any differ
 
 parsnip:::get_from_env("rand_forest_predict") |>
   dplyr::filter(engine == "ranger") |>
-  dplyr::select(mode, type)
+  dplyr::select(mode, type) |>
+  print(n = Inf)
 
 ```
 

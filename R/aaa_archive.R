@@ -10,6 +10,7 @@ model_info_table <-
       "proportional_hazards", "censored regression",         "survival",      "censored",
                "rand_forest", "censored regression",            "aorsf",      "censored",
                "rand_forest", "censored regression",         "partykit",      "censored",
+               "rand_forest", "censored regression",           "ranger",      "censored",
               "survival_reg", "censored regression",         "flexsurv",      "censored",
               "survival_reg", "censored regression",   "flexsurvspline",      "censored",
               "survival_reg", "censored regression",         "survival",      "censored",
