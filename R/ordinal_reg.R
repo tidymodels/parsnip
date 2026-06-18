@@ -160,6 +160,20 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
     }
   }
 
+  if (engine == "clm") {
+    link_arg <- x$method$fit$args$link
+    if (rlang::is_quosure(link_arg)) {
+      link_val <- rlang::eval_tidy(link_arg)
+    } else {
+      link_val <- link_arg
+    }
+    if (is.character(link_val) && length(link_val) == 1L && link_val == "logistic") {
+      x$method$fit$args$link <- rlang::new_quosure("logit", rlang::empty_env())
+    }
+
+
+  }
+
   # adapted from `.check_glmnet_penalty_fit()`
   if (engine == "ordinalNet") {
     pen <- rlang::eval_tidy(x$args$penalty)
