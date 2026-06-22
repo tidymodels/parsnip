@@ -160,6 +160,20 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
     }
   }
 
+  if (engine == "clm") {
+    link_arg <- x$method$fit$args$link
+    if (rlang::is_quosure(link_arg)) {
+      link_val <- rlang::eval_tidy(link_arg)
+    } else {
+      link_val <- link_arg
+    }
+    if (is.character(link_val) && length(link_val) == 1L && link_val == "logistic") {
+      x$method$fit$args$link <- rlang::new_quosure("logit", rlang::empty_env())
+    }
+
+
+  }
+
   # adapted from `.check_glmnet_penalty_fit()`
   if (engine == "ordinalNet") {
     pen <- rlang::eval_tidy(x$args$penalty)
@@ -216,6 +230,51 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
       x$method$fit$args$lambdaMinRatio <- min_lambda
       x$method$fit$args$includeLambda0 <- TRUE
       x$method$fit$args$lambdaVals <- NULL
+    }
+    # Since the `fit` information is gone for the penalty, we need to have an
+    # evaluated value for the parameter.
+    x$args$penalty <- rlang::eval_tidy(x$args$penalty)
+  }
+
+  if (engine == "glmnetcr") {
+    pen <- rlang::eval_tidy(x$args$penalty)
+    if (length(pen) != 1L) {
+      msg <- c(
+        "x" = "The glmnetcr engine ignores {.arg penalty} in favor of a
+          path that enables prediction at interpolated penalty values.",
+        "!" = "{.arg penalty} was passed {length(pen)} value{?s}.",
+        "i" = "Use `path_values` to override the default path."
+      )
+      if (length(pen) > 1L) {
+        msg <- c(
+          msg,
+          c(
+            "i" = "To specify multiple values for total regularization,
+              use the {.pkg tune} package."
+          )
+        )
+      }
+      cli::cli_warn(msg, call = rlang::caller_env())
+    }
+
+    if (any(names(x$eng_args) == "path_values")) {
+      x$method$fit$args$lambda <- x$eng_args$path_values
+      x$eng_args$path_values <- NULL
+      x$method$fit$args$path_values <- NULL
+    } else {
+      x$method$fit$args$nlambda <- 120L
+      min_pen <-
+        if (
+          rlang::is_call(x$method$fit$args$lambda) ||
+          is.null(x$method$fit$args$lambda) ||
+          0 %in% x$method$fit$args$lambda
+        ) {
+          1e-08
+        } else {
+          min(x$method$fit$args$lambda)
+        }
+      x$method$fit$args$lambda.min.ratio <- min_pen
+      x$method$fit$args$lambda <- NULL
     }
     # Since the `fit` information is gone for the penalty, we need to have an
     # evaluated value for the parameter.

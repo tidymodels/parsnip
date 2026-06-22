@@ -1574,6 +1574,13 @@
 ---
 
     Code
+      translate_args(logit_link)
+    Output
+      list()
+
+---
+
+    Code
       translate_args(ordinal_link)
     Condition
       Warning in `translate_args()`:
@@ -1621,6 +1628,23 @@
 ---
 
     Code
+      translate_args(glmnetcr)
+    Condition
+      Warning in `translate_args()`:
+      x The glmnetcr engine ignores `penalty` in favor of a path that enables prediction at interpolated penalty values.
+      ! `penalty` was passed 0 values.
+      i Use `path_values` to override the default path.
+    Output
+      $nlambda
+      [1] 120
+      
+      $lambda.min.ratio
+      [1] 1e-08
+      
+
+---
+
+    Code
       translate_args(penalty_ordinalNet)
     Output
       $nLambda
@@ -1652,6 +1676,36 @@
       
       $includeLambda0
       [1] TRUE
+      
+
+---
+
+    Code
+      translate_args(penalty_glmnetcr)
+    Output
+      $nlambda
+      [1] 120
+      
+      $lambda.min.ratio
+      [1] 1e-08
+      
+
+---
+
+    Code
+      translate_args(penalties_glmnetcr)
+    Condition
+      Warning in `translate_args()`:
+      x The glmnetcr engine ignores `penalty` in favor of a path that enables prediction at interpolated penalty values.
+      ! `penalty` was passed 5 values.
+      i Use `path_values` to override the default path.
+      i To specify multiple values for total regularization, use the tune package.
+    Output
+      $nlambda
+      [1] 120
+      
+      $lambda.min.ratio
+      [1] 1e-08
       
 
 # arguments (proportional_hazards)
