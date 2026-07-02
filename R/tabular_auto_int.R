@@ -2,8 +2,8 @@
 #'
 #' @description
 #' `tabular_auto_int()` uses an attention mechanism to automatically learn
-#' feature interactions for tabular data. This function can fit classification
-#' and regression models.
+#' embedding co-representations for tabular data. This function can fit
+#' classification and regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("tabular_auto_int")}
 #'
@@ -169,3 +169,9 @@ update.tabular_auto_int <-
       ...
     )
   }
+
+# ------------------------------------------------------------------------------
+
+set_new_model("tabular_auto_int")
+set_model_mode("tabular_auto_int", mode = "classification")
+set_model_mode("tabular_auto_int", mode = "regression")

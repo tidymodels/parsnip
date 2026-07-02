@@ -7,7 +7,9 @@
 %   R/naive_Bayes.R, R/nearest_neighbor.R, R/ordinal_reg.R, R/pls.R,
 %   R/poisson_reg.R, R/proportional_hazards.R, R/rand_forest.R, R/rule_fit.R,
 %   R/surv_reg.R, R/survival_reg.R, R/svm_linear.R, R/svm_poly.R, R/svm_rbf.R,
-%   R/tabular_auto_int.R, R/update.R
+%   R/tabular_auto_int.R, R/tabular_chronos.R, R/tabular_icl.R,
+%   R/tabular_pfn.R, R/tabular_resnet.R, R/tabular_rln.R, R/tabular_saint.R,
+%   R/update.R
 \name{update.bag_mars}
 \alias{update.bag_mars}
 \alias{update.bag_mlp}
@@ -41,6 +43,12 @@
 \alias{update.svm_poly}
 \alias{update.svm_rbf}
 \alias{update.tabular_auto_int}
+\alias{update.tabular_chronos}
+\alias{update.tabular_icl}
+\alias{update.tabular_pfn}
+\alias{update.tabular_resnet}
+\alias{update.tabular_rln}
+\alias{update.tabular_saint}
 \alias{parsnip_update}
 \title{Updating a model specification}
 \usage{
@@ -350,6 +358,93 @@
   fresh = FALSE,
   ...
 )
+
+\method{update}{tabular_chronos}(object, parameters = NULL, fresh = FALSE, ...)
+
+\method{update}{tabular_icl}(
+  object,
+  parameters = NULL,
+  num_estimators = NULL,
+  softmax_temperature = NULL,
+  fresh = FALSE,
+  ...
+)
+
+\method{update}{tabular_pfn}(
+  object,
+  parameters = NULL,
+  num_estimators = NULL,
+  softmax_temperature = NULL,
+  balance_probabilities = NULL,
+  average_before_softmax = NULL,
+  fresh = FALSE,
+  ...
+)
+
+\method{update}{tabular_resnet}(
+  object,
+  parameters = NULL,
+  hidden_units = NULL,
+  bottleneck_units = NULL,
+  residual_at = NULL,
+  penalty = NULL,
+  mixture = NULL,
+  dropout = NULL,
+  epochs = NULL,
+  activation = NULL,
+  learn_rate = NULL,
+  rate_schedule = NULL,
+  momentum = NULL,
+  batch_size = NULL,
+  class_weights = NULL,
+  stop_iter = NULL,
+  fresh = FALSE,
+  ...
+)
+
+\method{update}{tabular_rln}(
+  object,
+  parameters = NULL,
+  hidden_units = NULL,
+  penalty_type = NULL,
+  penalty_average = NULL,
+  step_rate = NULL,
+  activation = NULL,
+  epochs = NULL,
+  learn_rate = NULL,
+  rate_schedule = NULL,
+  momentum = NULL,
+  batch_size = NULL,
+  stop_iter = NULL,
+  fresh = FALSE,
+  ...
+)
+
+\method{update}{tabular_saint}(
+  object,
+  parameters = NULL,
+  epochs = NULL,
+  num_embedding = NULL,
+  attention_type = NULL,
+  num_attn_heads = NULL,
+  num_attn_blocks = NULL,
+  dropout_attn = NULL,
+  dropout_hidden = NULL,
+  dropout_last = NULL,
+  hidden_units = NULL,
+  hidden_activations = NULL,
+  target_token = NULL,
+  penalty = NULL,
+  mixture = NULL,
+  learn_rate = NULL,
+  rate_schedule = NULL,
+  momentum = NULL,
+  batch_size = NULL,
+  class_weights = NULL,
+  stop_iter = NULL,
+  fresh = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{A \link[=model_spec]{model specification}.}
@@ -537,6 +632,53 @@ batch.}
 
 \item{class_weights}{Numeric class weights for imbalanced data
 (classification only).}
+
+\item{num_estimators}{An integer for the ensemble size. Default is \code{8L}.}
+
+\item{softmax_temperature}{An adjustment factor that is a divisor in the
+exponents of the softmax function (see \code{\link[brulee:brulee_tab_icl]{brulee::brulee_tab_icl()}}). Defaults
+to 0.9.}
+
+\item{balance_probabilities}{A logical to adjust the prior probabilities in
+cases where there is a class imbalance. Default is \code{FALSE}. Classification
+only.}
+
+\item{average_before_softmax}{A logical. For cases where
+\code{num_estimators > 1}, should the average be done before using the softmax
+function or after? Default is \code{FALSE}.}
+
+\item{bottleneck_units}{The number of embeddings that are produced by batch
+normalization.}
+
+\item{residual_at}{An integer vector with the layer number should use a
+residual connection (i.e., skip layer).}
+
+\item{penalty_type}{A string for the regularization norm: \code{"L1"} (default
+in \code{brulee}) or \code{"L2"}. L1 is recommended by the original paper.}
+
+\item{penalty_average}{A positive numeric value for the target geometric mean
+of the per-weight regularization coefficients, on the natural scale.
+Best tuned on the log10 scale via \code{\link[dials:penalty_average]{dials::penalty_average()}}.}
+
+\item{step_rate}{A positive numeric value for the step size used to update
+the per-weight regularization coefficients, on the natural scale.
+Best tuned on the log10 scale via \code{\link[dials:step_rate]{dials::step_rate()}}.}
+
+\item{attention_type}{A character string for the type of attention to use.
+Options are \code{"column"} (SAINT-s), \code{"row"} (SAINT-i), or \code{"both"} (full
+SAINT).}
+
+\item{dropout_hidden}{A number between 0 (inclusive) and 1 denoting the
+proportion of values in the feed-forward layers set to zero during training.}
+
+\item{dropout_last}{A number between 0 (inclusive) and 1 denoting the
+proportion of values set to zero between the last hidden layer and the
+output head.}
+
+\item{target_token}{A logical for whether to use a learnable target token
+(CLS-like embedding) to aggregate information for prediction. When \code{TRUE},
+the model appends a special target token to the input that attends to all
+features via the attention mechanism.}
 }
 \value{
 An updated model specification.

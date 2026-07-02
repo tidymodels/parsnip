@@ -1,0 +1,97 @@
+```{r}
+#| child: aaa.Rmd
+#| include: false
+```
+
+`r descr_models("tabular_icl", "brulee")`
+
+## Tuning Parameters
+
+```{r}
+#| label: brulee-param-info
+#| echo: false
+defaults <-
+  tibble::tibble(
+    parsnip = c("num_estimators", "softmax_temperature"),
+    default = c("8L", "0.9"))
+
+spec <-
+  tabular_icl(
+    num_estimators = tune(),
+    softmax_temperature = tune()
+  ) |>
+  set_engine("brulee")
+
+param <- spec |> make_parameter_list(defaults)
+
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r}
+#| label: brulee-param-list
+#| echo: false
+#| results: asis
+param$item
+```
+
+TabICL is a pretrained (prior-data fitted) network; no weights are updated when the model is fit. The training set is ingested at fit time and predictions are made via in-context learning.
+
+Other engine arguments of interest:
+
+ - `normalization`: a character vector of per-member normalization methods (`"none"` or `"YeoJohnson"`).
+ - `training_set_limit`: the maximum number of training set rows used for in-context learning.
+ - `device`: the torch device to use (e.g., `"cpu"`).
+
+## Translation from parsnip to the original package (regression)
+
+```{r}
+#| label: brulee-reg
+tabular_icl(
+  num_estimators = integer(1),
+  softmax_temperature = double(1)
+) |>
+  set_engine("brulee") |>
+  set_mode("regression") |>
+  translate()
+```
+
+## Translation from parsnip to the original package (classification)
+
+```{r}
+#| label: brulee-cls
+tabular_icl(
+  num_estimators = integer(1),
+  softmax_temperature = double(1)
+) |>
+  set_engine("brulee") |>
+  set_mode("classification") |>
+  translate()
+```
+
+## Preprocessing requirements
+
+`brulee_tab_icl()` converts each predictor column to a numeric value internally: factor and character columns are ordinal-encoded and numeric columns are standardized (with an optional Yeo-Johnson transformation) inside the model. There is _no need to pre-encode factors as indicators_; a wide one-hot expansion degrades prediction quality for this model. Predictors also do not need to be scaled by the user.
+
+## Case weights
+
+```{r}
+#| child: template-no-case-weights.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("tabular_icl_predict") |>
+  dplyr::filter(engine == "brulee") |>
+  dplyr::select(mode, type)
+
+```
+
+## References
+
+ - Qu, J., Holzmüller, D., Varoquaux, G., & Morvan, M. L. (2025). TabICL: A tabular foundation model for in-context learning on large data. _arXiv preprint_ arXiv:2502.05564.
+
+ - Qu, J., Holzmüller, D., Varoquaux, G., & Morvan, M. L. (2026). TabICLv2: A better, faster, scalable, and open tabular foundation model. _arXiv preprint_ arXiv:2602.11139.

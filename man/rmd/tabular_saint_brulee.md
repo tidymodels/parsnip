@@ -1,0 +1,173 @@
+
+
+
+For this engine, there are multiple modes: 
+
+## Tuning Parameters
+
+
+
+This model has 0 tuning parameters:
+
+
+
+The use of the L1 penalty (a.k.a. the lasso penalty) does _not_ force parameters to be strictly zero (as it does in packages such as glmnet). The zeroing out of parameters is a specific feature the optimization method used in those packages.
+
+When `attention_type` is `"row"` or `"both"`, SAINT applies inter-sample (row) attention across the samples in a batch. The engine keeps this on at prediction time by default, so the prediction for a given row depends on which other rows are passed to `predict()` in the same call. To obtain batch-independent predictions, bypass row attention at predict time with `set_engine("brulee", row_attention_on_predict = FALSE)`.
+
+## Translation from parsnip to the original package (regression)
+
+
+``` r
+tabular_saint(
+  epochs = integer(1),
+  num_embedding = integer(1),
+  attention_type = character(1),
+  num_attn_heads = integer(1),
+  num_attn_blocks = integer(1),
+  dropout_attn = double(1),
+  dropout_hidden = double(1),
+  dropout_last = double(1),
+  hidden_units = integer(1),
+  hidden_activations = character(1),
+  target_token = logical(1),
+  penalty = double(1),
+  mixture = double(1),
+  learn_rate = double(1),
+  rate_schedule = character(1),
+  momentum = double(1),
+  batch_size = NULL,
+  class_weights = NULL,
+  stop_iter = integer(1)
+) |>
+  set_engine("brulee") |>
+  set_mode("regression") |>
+  translate()
+```
+
+```
+## ! parsnip could not locate an implementation for `tabular_saint` regression model
+##   specifications using the `brulee` engine.
+## i The parsnip extension package tabby implements support for this specification.
+## i Please install (if needed) and load to continue.
+```
+
+```
+## tabular saint Model Specification (regression)
+## 
+## Main Arguments:
+##   epochs = integer(1)
+##   num_embedding = integer(1)
+##   attention_type = character(1)
+##   num_attn_heads = integer(1)
+##   num_attn_blocks = integer(1)
+##   dropout_attn = double(1)
+##   dropout_hidden = double(1)
+##   dropout_last = double(1)
+##   hidden_units = integer(1)
+##   hidden_activations = character(1)
+##   target_token = logical(1)
+##   penalty = double(1)
+##   mixture = double(1)
+##   learn_rate = double(1)
+##   rate_schedule = character(1)
+##   momentum = double(1)
+##   stop_iter = integer(1)
+## 
+## Computational engine: brulee
+```
+
+Note that parsnip automatically sets linear activation in the last layer.
+
+## Translation from parsnip to the original package (classification)
+
+
+``` r
+tabular_saint(
+  epochs = integer(1),
+  num_embedding = integer(1),
+  attention_type = character(1),
+  num_attn_heads = integer(1),
+  num_attn_blocks = integer(1),
+  dropout_attn = double(1),
+  dropout_hidden = double(1),
+  dropout_last = double(1),
+  hidden_units = integer(1),
+  hidden_activations = character(1),
+  target_token = logical(1),
+  penalty = double(1),
+  mixture = double(1),
+  learn_rate = double(1),
+  rate_schedule = character(1),
+  momentum = double(1),
+  batch_size = NULL,
+  class_weights = NULL,
+  stop_iter = integer(1)
+) |>
+  set_engine("brulee") |>
+  set_mode("classification") |>
+  translate()
+```
+
+```
+## ! parsnip could not locate an implementation for `tabular_saint` classification
+##   model specifications using the `brulee` engine.
+## i The parsnip extension package tabby implements support for this specification.
+## i Please install (if needed) and load to continue.
+```
+
+```
+## tabular saint Model Specification (classification)
+## 
+## Main Arguments:
+##   epochs = integer(1)
+##   num_embedding = integer(1)
+##   attention_type = character(1)
+##   num_attn_heads = integer(1)
+##   num_attn_blocks = integer(1)
+##   dropout_attn = double(1)
+##   dropout_hidden = double(1)
+##   dropout_last = double(1)
+##   hidden_units = integer(1)
+##   hidden_activations = character(1)
+##   target_token = logical(1)
+##   penalty = double(1)
+##   mixture = double(1)
+##   learn_rate = double(1)
+##   rate_schedule = character(1)
+##   momentum = double(1)
+##   stop_iter = integer(1)
+## 
+## Computational engine: brulee
+```
+
+## Preprocessing requirements
+
+`brulee_saint()` natively handles factor predictors via learned embeddings. Factor columns are automatically detected and embedded, while numeric columns use a scaled embedding. There is _no need to pre-encode factors as indicators_.
+
+
+Predictors should have the same scale. One way to achieve this is to center and 
+scale each so that each predictor has mean zero and a variance of one.
+
+## Case weights
+
+
+The underlying model implementation does not allow for case weights. 
+
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("tabular_saint_predict") |>
+  dplyr::filter(engine == "brulee") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 0 x 2
+## # i 2 variables: mode <chr>, type <chr>
+```
+
+## References
+
+ - Somepalli, G., Goldblum, M., Schwarzschild, A., Bruss, C. B., & Goldstein, T. (2021). SAINT: Improved Neural Networks for Tabular Data via Row Attention and Contrastive Pre-Training. _arXiv preprint_ arXiv:2106.01342.

@@ -1,0 +1,107 @@
+```{r}
+#| child: aaa.Rmd
+#| include: false
+```
+
+`r descr_models("tabular_pfn", "tabpfn")`
+
+## Tuning Parameters
+
+```{r}
+#| label: tabpfn-param-info
+#| echo: false
+defaults <-
+  tibble::tibble(
+    parsnip = c("num_estimators", "softmax_temperature",
+                "balance_probabilities", "average_before_softmax"),
+    default = c("8L", "0.9", "FALSE", "FALSE"))
+
+spec <-
+  tabular_pfn(
+    num_estimators = tune(),
+    softmax_temperature = tune(),
+    balance_probabilities = tune(),
+    average_before_softmax = tune()
+  ) |>
+  set_engine("tabpfn")
+
+param <- spec |> make_parameter_list(defaults)
+
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r}
+#| label: tabpfn-param-list
+#| echo: false
+#| results: asis
+param$item
+```
+
+TabPFN is a pretrained (prior-data fitted) network; no weights are updated when the model is fit. The training set is ingested at fit time and predictions are made via in-context learning.
+
+Other engine arguments of interest:
+
+ - `training_set_limit`: the maximum number of training set rows used for in-context learning.
+ - `control`: a list of options produced by `tabpfn::control_tab_pfn()`.
+
+The tabpfn package runs the Python "tabpfn" library via reticulate, so a working Python environment is required; the package can create one automatically on first use. The pretrained model weights are downloaded from Hugging Face the first time a model is fit, and the model's license contains provisions for non-commercial use. See [tabpfn::tab_pfn()] for details on all of these topics.
+
+## Translation from parsnip to the original package (regression)
+
+```{r}
+#| label: tabpfn-reg
+tabular_pfn(
+  num_estimators = integer(1),
+  softmax_temperature = double(1),
+  balance_probabilities = logical(1),
+  average_before_softmax = logical(1)
+) |>
+  set_engine("tabpfn") |>
+  set_mode("regression") |>
+  translate()
+```
+
+## Translation from parsnip to the original package (classification)
+
+```{r}
+#| label: tabpfn-cls
+tabular_pfn(
+  num_estimators = integer(1),
+  softmax_temperature = double(1),
+  balance_probabilities = logical(1),
+  average_before_softmax = logical(1)
+) |>
+  set_engine("tabpfn") |>
+  set_mode("classification") |>
+  translate()
+```
+
+## Preprocessing requirements
+
+Predictors do not require preprocessing; missing values and factor predictors are allowed and are handled internally by the model. There is _no need to pre-encode factors as indicators_ or to scale the predictors.
+
+## Case weights
+
+```{r}
+#| child: template-no-case-weights.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("tabular_pfn_predict") |>
+  dplyr::filter(engine == "tabpfn") |>
+  dplyr::select(mode, type)
+
+```
+
+## References
+
+ - Hollmann, N., Müller, S., Purucker, L., Krishnakumar, A., Körfer, M., Hoo, S. B., Schirrmeister, R. T., & Hutter, F. (2025). Accurate predictions on small data with a tabular foundation model. _Nature_, 637(8045), 319-326.
+
+ - Hollmann, N., Müller, S., Eggensperger, K., & Hutter, F. (2022). TabPFN: A transformer that solves small tabular classification problems in a second. _arXiv preprint_ arXiv:2207.01848.
+
+ - Müller, S., Hollmann, N., Pineda Arango, S., Grabocka, J., & Hutter, F. (2021). Transformers can do Bayesian inference. _arXiv preprint_ arXiv:2112.10510.
