@@ -170,6 +170,108 @@ update.tabular_auto_int <-
     )
   }
 
+
+#' @export
+check_args.tabular_auto_int <- function(object, call = rlang::caller_env()) {
+  args <- lapply(object$args, rlang::eval_tidy)
+
+  check_number_decimal(
+    args$penalty,
+    min = 0,
+    allow_null = TRUE,
+    call = call,
+    arg = "penalty"
+  )
+  check_number_decimal(
+    args$mixture,
+    min = 0,
+    max = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "mixture"
+  )
+  check_number_decimal(
+    args$dropout,
+    min = 0,
+    max = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "dropout"
+  )
+  check_number_decimal(
+    args$dropout_attn,
+    min = 0,
+    max = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "dropout_attn"
+  )
+  check_number_decimal(
+    args$dropout_embedding,
+    min = 0,
+    max = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "dropout_embedding"
+  )
+  check_number_whole(
+    args$epochs,
+    min = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "epochs"
+  )
+  check_number_whole(
+    args$num_attn_feat,
+    min = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "num_attn_feat"
+  )
+  check_number_whole(
+    args$num_attn_heads,
+    min = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "num_attn_heads"
+  )
+  check_number_whole(
+    args$num_attn_blocks,
+    min = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "num_attn_blocks"
+  )
+  check_number_whole(
+    args$num_embedding,
+    min = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "num_embedding"
+  )
+  check_number_whole(
+    args$stop_iter,
+    min = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "stop_iter"
+  )
+
+  if (
+    is.numeric(args$penalty) &&
+      is.numeric(args$dropout) &&
+      args$dropout > 0 &&
+      args$penalty > 0
+  ) {
+    cli::cli_abort(
+      "Both weight decay and dropout should not be specified.",
+      call = call
+    )
+  }
+
+  invisible(object)
+}
+
 # ------------------------------------------------------------------------------
 
 set_new_model("tabular_auto_int")

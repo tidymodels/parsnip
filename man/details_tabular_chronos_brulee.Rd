@@ -8,7 +8,8 @@
 quantile or point forecasts.
 }
 \details{
-For this engine, there are multiple modes:
+For this engine, there are multiple modes: quantile regression and
+regression
 \subsection{Tuning Parameters}{
 
 This model has no tuning parameters. Chronos-2 is a pretrained
@@ -43,17 +44,16 @@ set of 21 quantile levels: (0.01, 0.05, …, 0.95, 0.99).
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## ! parsnip could not locate an implementation for `tabular_chronos` quantile
-##   regression model specifications using the `brulee` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-
-## tabular chronos Model Specification (quantile regression)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## tabular chronos Model Specification (quantile regression)
 ## 
 ## Engine-Specific Arguments:
 ##   prediction_length = 14
 ## 
-## Computational engine: brulee
+## Computational engine: brulee 
+## 
+## Model fit template:
+## brulee::brulee_chronos(formula = missing_arg(), data = missing_arg(), 
+##     prediction_length = 14, quantile_levels = quantile_levels)
 
 ## Quantile levels: 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, and 0.9.
 }\if{html}{\out{</div>}}
@@ -69,17 +69,16 @@ The regression mode returns the median point forecast.
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## ! parsnip could not locate an implementation for `tabular_chronos` regression model
-##   specifications using the `brulee` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-
-## tabular chronos Model Specification (regression)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## tabular chronos Model Specification (regression)
 ## 
 ## Engine-Specific Arguments:
 ##   prediction_length = 14
 ## 
-## Computational engine: brulee
+## Computational engine: brulee 
+## 
+## Model fit template:
+## brulee::brulee_chronos(formula = missing_arg(), data = missing_arg(), 
+##     prediction_length = 14)
 }\if{html}{\out{</div>}}
 }
 
@@ -87,8 +86,8 @@ The regression mode returns the median point forecast.
 
 There are no preprocessing requirements; the data are used as the
 historical context for the forecast. \strong{However}, any date column that
-is passed to the data is converted to a numeric value (similar to how
-\code{as.numeric(date)} world do). It might be beneficial to pass factors or
+is passed to the data is converted to a numeric value (similar to what
+\code{as.numeric(date)} would do). It might be beneficial to pass factors or
 indicators for cyclic characteristics of the date like year, week, day
 of the week etc.
 
@@ -111,8 +110,11 @@ The underlying model implementation does not allow for case weights.
   dplyr::select(mode, type)
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 0 x 2
-## # i 2 variables: mode <chr>, type <chr>
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 x 2
+##   mode                type    
+##   <chr>               <chr>   
+## 1 quantile regression quantile
+## 2 regression          numeric
 }\if{html}{\out{</div>}}
 }
 

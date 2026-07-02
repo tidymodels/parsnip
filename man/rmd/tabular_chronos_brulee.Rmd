@@ -44,7 +44,7 @@ tabular_chronos() |>
 
 ## Preprocessing requirements
 
-There are no preprocessing requirements; the data are used as the historical context for the forecast. **However**, any date column that is passed to the data is converted to a numeric value (similar to how `as.numeric(date)` world do). It might be beneficial to pass factors or indicators for cyclic characteristics of the date like year, week, day of the week etc. 
+There are no preprocessing requirements; the data are used as the historical context for the forecast. **However**, any date column that is passed to the data is converted to a numeric value (similar to what `as.numeric(date)` would do). It might be beneficial to pass factors or indicators for cyclic characteristics of the date like year, week, day of the week etc. 
 
 The parsnip interface forecasts a _single series_: `predict()` returns one row per horizon step, which cannot unambiguously represent more than one series, so supplying data with multiple `id_column` values is an error. For multi-series forecasting, call [brulee::brulee_chronos()] directly.
 

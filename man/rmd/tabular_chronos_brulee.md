@@ -1,7 +1,7 @@
 
 
 
-For this engine, there are multiple modes: 
+For this engine, there are multiple modes: quantile regression and regression
 
 ## Tuning Parameters
 
@@ -29,19 +29,16 @@ tabular_chronos() |>
 ```
 
 ```
-## ! parsnip could not locate an implementation for `tabular_chronos` quantile
-##   regression model specifications using the `brulee` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-```
-
-```
 ## tabular chronos Model Specification (quantile regression)
 ## 
 ## Engine-Specific Arguments:
 ##   prediction_length = 14
 ## 
-## Computational engine: brulee
+## Computational engine: brulee 
+## 
+## Model fit template:
+## brulee::brulee_chronos(formula = missing_arg(), data = missing_arg(), 
+##     prediction_length = 14, quantile_levels = quantile_levels)
 ```
 
 ```
@@ -61,24 +58,21 @@ tabular_chronos() |>
 ```
 
 ```
-## ! parsnip could not locate an implementation for `tabular_chronos` regression model
-##   specifications using the `brulee` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-```
-
-```
 ## tabular chronos Model Specification (regression)
 ## 
 ## Engine-Specific Arguments:
 ##   prediction_length = 14
 ## 
-## Computational engine: brulee
+## Computational engine: brulee 
+## 
+## Model fit template:
+## brulee::brulee_chronos(formula = missing_arg(), data = missing_arg(), 
+##     prediction_length = 14)
 ```
 
 ## Preprocessing requirements
 
-There are no preprocessing requirements; the data are used as the historical context for the forecast. **However**, any date column that is passed to the data is converted to a numeric value (similar to how `as.numeric(date)` world do). It might be beneficial to pass factors or indicators for cyclic characteristics of the date like year, week, day of the week etc. 
+There are no preprocessing requirements; the data are used as the historical context for the forecast. **However**, any date column that is passed to the data is converted to a numeric value (similar to what `as.numeric(date)` would do). It might be beneficial to pass factors or indicators for cyclic characteristics of the date like year, week, day of the week etc. 
 
 The parsnip interface forecasts a _single series_: `predict()` returns one row per horizon step, which cannot unambiguously represent more than one series, so supplying data with multiple `id_column` values is an error. For multi-series forecasting, call [brulee::brulee_chronos()] directly.
 
@@ -97,8 +91,11 @@ parsnip:::get_from_env("tabular_chronos_predict") |>
 ```
 
 ```
-## # A tibble: 0 x 2
-## # i 2 variables: mode <chr>, type <chr>
+## # A tibble: 2 x 2
+##   mode                type    
+##   <chr>               <chr>   
+## 1 quantile regression quantile
+## 2 regression          numeric
 ```
 
 ## References
