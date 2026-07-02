@@ -7,7 +7,7 @@
 %   R/naive_Bayes.R, R/nearest_neighbor.R, R/ordinal_reg.R, R/pls.R,
 %   R/poisson_reg.R, R/proportional_hazards.R, R/rand_forest.R, R/rule_fit.R,
 %   R/surv_reg.R, R/survival_reg.R, R/svm_linear.R, R/svm_poly.R, R/svm_rbf.R,
-%   R/update.R
+%   R/tabular_auto_int.R, R/update.R
 \name{update.bag_mars}
 \alias{update.bag_mars}
 \alias{update.bag_mlp}
@@ -40,6 +40,7 @@
 \alias{update.svm_linear}
 \alias{update.svm_poly}
 \alias{update.svm_rbf}
+\alias{update.tabular_auto_int}
 \alias{parsnip_update}
 \title{Updating a model specification}
 \usage{
@@ -323,6 +324,32 @@
   fresh = FALSE,
   ...
 )
+
+\method{update}{tabular_auto_int}(
+  object,
+  parameters = NULL,
+  epochs = NULL,
+  num_embedding = NULL,
+  hidden_units = NULL,
+  hidden_activations = NULL,
+  num_attn_feat = NULL,
+  num_attn_heads = NULL,
+  num_attn_blocks = NULL,
+  activation = NULL,
+  dropout = NULL,
+  dropout_attn = NULL,
+  dropout_embedding = NULL,
+  penalty = NULL,
+  mixture = NULL,
+  learn_rate = NULL,
+  rate_schedule = NULL,
+  momentum = NULL,
+  batch_size = NULL,
+  class_weights = NULL,
+  stop_iter = NULL,
+  fresh = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{A \link[=model_spec]{model specification}.}
@@ -345,7 +372,8 @@ modified in-place or replaced wholesale.}
 
 \item{...}{Not used for \code{update()}.}
 
-\item{hidden_units}{An integer for the number of units in the hidden model.}
+\item{hidden_units}{An integer vector for the number of units in the hidden
+layers after the attention mechanism.}
 
 \item{penalty}{An non-negative number representing the amount of
 regularization used by some of the engines.}
@@ -479,6 +507,36 @@ loss function (regression only)}
 \item{scale_factor}{A positive number for the polynomial scaling factor.}
 
 \item{rbf_sigma}{A positive number for radial basis function.}
+
+\item{num_embedding}{An integer for the dimensionality of the embedding space
+for features.}
+
+\item{hidden_activations}{A character vector denoting the activation functions
+for the hidden layers.}
+
+\item{num_attn_feat}{An integer for the number of attention features.}
+
+\item{num_attn_heads}{An integer for the number of attention heads in the
+multi-head attention mechanism.}
+
+\item{num_attn_blocks}{An integer for the number of sequential attention
+blocks.}
+
+\item{dropout_attn}{A number between 0 (inclusive) and 1 denoting the
+proportion of attention weights set to zero during model training.}
+
+\item{dropout_embedding}{A number between 0 (inclusive) and 1 denoting the
+proportion of embedding values set to zero during model training.}
+
+\item{rate_schedule}{A character string for the learning rate schedule.}
+
+\item{momentum}{A number for the momentum parameter in optimizers that use it.}
+
+\item{batch_size}{An integer for the number of training instances in each
+batch.}
+
+\item{class_weights}{Numeric class weights for imbalanced data
+(classification only).}
 }
 \value{
 An updated model specification.
