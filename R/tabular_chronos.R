@@ -98,6 +98,16 @@ update.tabular_chronos <-
 
 # ------------------------------------------------------------------------------
 
+#' @method check_args tabular_chronos
+#' @export
+check_args.tabular_chronos <- function(object, call = rlang::caller_env()) {
+  # No main (tunable) arguments to validate; forecast configuration is supplied
+  # as engine arguments and checked by brulee::brulee_chronos().
+  invisible(object)
+}
+
+# ------------------------------------------------------------------------------
+
 set_new_model("tabular_chronos")
 set_model_mode("tabular_chronos", mode = "quantile regression")
 set_model_mode("tabular_chronos", mode = "regression")
