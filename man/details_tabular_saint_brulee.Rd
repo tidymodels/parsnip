@@ -8,10 +8,34 @@
 inter-sample attention.
 }
 \details{
-For this engine, there are multiple modes:
+For this engine, there are multiple modes: classification and regression
 \subsection{Tuning Parameters}{
 
-This model has 0 tuning parameters:
+This model has 19 tuning parameters:
+\itemize{
+\item \code{epochs}: # Epochs (type: integer, default: 100L)
+\item \code{num_embedding}: # Embedding Dimensions (type: integer, default: 32L)
+\item \code{attention_type}: Attention Type (type: character, default: ‘both’)
+\item \code{num_attn_heads}: # Attention Heads (type: integer, default: 8L)
+\item \code{num_attn_blocks}: # Attention Blocks (type: integer, default: 6L)
+\item \code{dropout_attn}: Attention Dropout Rate (type: double, default: 0.1)
+\item \code{dropout_hidden}: Hidden Dropout Rate (type: double, default: 0.1)
+\item \code{dropout_last}: Final Layer Dropout Rate (type: double, default: 0.0)
+\item \code{hidden_units}: # Hidden Units (type: integer, default: 5L)
+\item \code{hidden_activations}: Activation Function (type: character, default:
+‘relu’)
+\item \code{target_token}: Use Target Token? (type: logical, default: TRUE)
+\item \code{penalty}: Amount of Regularization (type: double, default: 0.001)
+\item \code{mixture}: Proportion of Lasso Penalty (type: double, default: 0.0)
+\item \code{learn_rate}: Learning Rate (type: double, default: 0.0001)
+\item \code{rate_schedule}: Learning Rate Scheduler (type: character, default:
+‘none’)
+\item \code{momentum}: Gradient Descent Momentum (type: double, default: 0.0)
+\item \code{batch_size}: Batch Size (type: integer, default: NULL)
+\item \code{class_weights}: Minority Class Weight (type: double, default: NULL)
+\item \code{stop_iter}: # Iterations Before Stopping (type: integer, default:
+5L)
+}
 
 The use of the L1 penalty (a.k.a. the lasso penalty) does \emph{not} force
 parameters to be strictly zero (as it does in packages such as glmnet).
@@ -54,12 +78,7 @@ time with \code{set_engine("brulee", row_attention_on_predict = FALSE)}.
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## ! parsnip could not locate an implementation for `tabular_saint` regression model
-##   specifications using the `brulee` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-
-## tabular saint Model Specification (regression)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## tabular saint Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   epochs = integer(1)
@@ -80,7 +99,17 @@ time with \code{set_engine("brulee", row_attention_on_predict = FALSE)}.
 ##   momentum = double(1)
 ##   stop_iter = integer(1)
 ## 
-## Computational engine: brulee
+## Computational engine: brulee 
+## 
+## Model fit template:
+## brulee::brulee_saint(x = missing_arg(), y = missing_arg(), epochs = integer(1), 
+##     num_embedding = integer(1), attention_type = character(1), 
+##     num_attn_heads = integer(1), num_attn_blocks = integer(1), 
+##     dropout_attn = double(1), dropout_hidden = double(1), dropout_last = double(1), 
+##     hidden_units = integer(1), hidden_activations = character(1), 
+##     target_token = logical(1), penalty = double(1), mixture = double(1), 
+##     learn_rate = double(1), rate_schedule = character(1), momentum = double(1), 
+##     stop_iter = integer(1))
 }\if{html}{\out{</div>}}
 
 Note that parsnip automatically sets linear activation in the last
@@ -115,12 +144,7 @@ layer.
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## ! parsnip could not locate an implementation for `tabular_saint` classification
-##   model specifications using the `brulee` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-
-## tabular saint Model Specification (classification)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## tabular saint Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   epochs = integer(1)
@@ -141,7 +165,17 @@ layer.
 ##   momentum = double(1)
 ##   stop_iter = integer(1)
 ## 
-## Computational engine: brulee
+## Computational engine: brulee 
+## 
+## Model fit template:
+## brulee::brulee_saint(x = missing_arg(), y = missing_arg(), epochs = integer(1), 
+##     num_embedding = integer(1), attention_type = character(1), 
+##     num_attn_heads = integer(1), num_attn_blocks = integer(1), 
+##     dropout_attn = double(1), dropout_hidden = double(1), dropout_last = double(1), 
+##     hidden_units = integer(1), hidden_activations = character(1), 
+##     target_token = logical(1), penalty = double(1), mixture = double(1), 
+##     learn_rate = double(1), rate_schedule = character(1), momentum = double(1), 
+##     stop_iter = integer(1))
 }\if{html}{\out{</div>}}
 }
 
@@ -169,8 +203,12 @@ The underlying model implementation does not allow for case weights.
   dplyr::select(mode, type)
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 0 x 2
-## # i 2 variables: mode <chr>, type <chr>
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 classification class  
+## 3 classification prob
 }\if{html}{\out{</div>}}
 }
 

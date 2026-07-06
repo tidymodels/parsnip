@@ -8,10 +8,19 @@
 predictions via in-context learning.
 }
 \details{
-For this engine, there are multiple modes:
+For this engine, there are multiple modes: classification and regression
 \subsection{Tuning Parameters}{
 
-This model has 0 tuning parameters:
+This model has 4 tuning parameters:
+\itemize{
+\item \code{num_estimators}: # Estimators (type: integer, default: 8L)
+\item \code{softmax_temperature}: Softmax Temperature (type: double, default:
+0.9)
+\item \code{balance_probabilities}: Balance Probabilities? (type: logical,
+default: FALSE)
+\item \code{average_before_softmax}: Average Before Softmax? (type: logical,
+default: FALSE)
+}
 
 TabPFN is a pretrained (prior-data fitted) network; no weights are
 updated when the model is fit. The training set is ingested at fit time
@@ -46,12 +55,7 @@ topics.
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## ! parsnip could not locate an implementation for `tabular_pfn` regression model
-##   specifications using the `tabpfn` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-
-## tabular pfn Model Specification (regression)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## tabular pfn Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   num_estimators = integer(1)
@@ -59,7 +63,12 @@ topics.
 ##   balance_probabilities = logical(1)
 ##   average_before_softmax = logical(1)
 ## 
-## Computational engine: tabpfn
+## Computational engine: tabpfn 
+## 
+## Model fit template:
+## tabpfn::tab_pfn(formula = missing_arg(), data = missing_arg(), 
+##     num_estimators = integer(1), softmax_temperature = double(1), 
+##     balance_probabilities = logical(1), average_before_softmax = logical(1))
 }\if{html}{\out{</div>}}
 }
 
@@ -76,12 +85,7 @@ topics.
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## ! parsnip could not locate an implementation for `tabular_pfn` classification model
-##   specifications using the `tabpfn` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-
-## tabular pfn Model Specification (classification)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## tabular pfn Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   num_estimators = integer(1)
@@ -89,7 +93,12 @@ topics.
 ##   balance_probabilities = logical(1)
 ##   average_before_softmax = logical(1)
 ## 
-## Computational engine: tabpfn
+## Computational engine: tabpfn 
+## 
+## Model fit template:
+## tabpfn::tab_pfn(formula = missing_arg(), data = missing_arg(), 
+##     num_estimators = integer(1), softmax_temperature = double(1), 
+##     balance_probabilities = logical(1), average_before_softmax = logical(1))
 }\if{html}{\out{</div>}}
 }
 
@@ -113,8 +122,12 @@ The underlying model implementation does not allow for case weights.
   dplyr::select(mode, type)
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 0 x 2
-## # i 2 variables: mode <chr>, type <chr>
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 classification class  
+## 2 classification prob   
+## 3 regression     numeric
 }\if{html}{\out{</div>}}
 }
 

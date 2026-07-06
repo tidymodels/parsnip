@@ -8,10 +8,15 @@
 make predictions via in-context learning.
 }
 \details{
-For this engine, there are multiple modes:
+For this engine, there are multiple modes: classification and regression
 \subsection{Tuning Parameters}{
 
-This model has 0 tuning parameters:
+This model has 2 tuning parameters:
+\itemize{
+\item \code{num_estimators}: # Estimators (type: integer, default: 8L)
+\item \code{softmax_temperature}: Softmax Temperature (type: double, default:
+0.9)
+}
 
 TabICL is a pretrained (prior-data fitted) network; no weights are
 updated when the model is fit. The training set is ingested at fit time
@@ -38,18 +43,17 @@ in-context learning.
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## ! parsnip could not locate an implementation for `tabular_icl` regression model
-##   specifications using the `brulee` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-
-## tabular icl Model Specification (regression)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## tabular icl Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   num_estimators = integer(1)
 ##   softmax_temperature = double(1)
 ## 
-## Computational engine: brulee
+## Computational engine: brulee 
+## 
+## Model fit template:
+## brulee::brulee_tab_icl(formula = missing_arg(), data = missing_arg(), 
+##     num_estimators = integer(1), softmax_temperature = double(1))
 }\if{html}{\out{</div>}}
 }
 
@@ -64,18 +68,17 @@ in-context learning.
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## ! parsnip could not locate an implementation for `tabular_icl` classification model
-##   specifications using the `brulee` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-
-## tabular icl Model Specification (classification)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## tabular icl Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   num_estimators = integer(1)
 ##   softmax_temperature = double(1)
 ## 
-## Computational engine: brulee
+## Computational engine: brulee 
+## 
+## Model fit template:
+## brulee::brulee_tab_icl(formula = missing_arg(), data = missing_arg(), 
+##     num_estimators = integer(1), softmax_temperature = double(1))
 }\if{html}{\out{</div>}}
 }
 
@@ -101,8 +104,12 @@ The underlying model implementation does not allow for case weights.
   dplyr::select(mode, type)
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 0 x 2
-## # i 2 variables: mode <chr>, type <chr>
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 classification class  
+## 2 classification prob   
+## 3 regression     numeric
 }\if{html}{\out{</div>}}
 }
 

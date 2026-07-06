@@ -4,6 +4,8 @@
 
 * For censored regression models, the censoring weights can now be added to the predictions of survival probability by setting `add_censoring_weights = TRUE` in `predict(type = "survival")` (#1371).
 
+* New model specifications `tabular_auto_int()`, `tabular_chronos()`, `tabular_icl()`, `tabular_pfn()`, `tabular_resnet()`, `tabular_rln()`, and `tabular_saint()` were added for tabular deep-learning and foundation models, with engines provided by the tabby extension package (#1386).
+
 # parsnip 1.6.0
 
 * `linear_reg()`, `logistic_reg()`, `mlp()`, and `multinom_reg()` gain a new `"keras3"` engine powered by the keras3 package, which supports Keras v3 and its multi-backend design (TensorFlow, JAX, PyTorch) (#1243).

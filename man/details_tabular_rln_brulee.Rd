@@ -7,10 +7,25 @@
 \code{\link[brulee:brulee_rln]{brulee::brulee_rln()}} fits a regularization learning network.
 }
 \details{
-For this engine, there are multiple modes:
+For this engine, there is a single mode: regression
 \subsection{Tuning Parameters}{
 
-This model has 0 tuning parameters:
+This model has 11 tuning parameters:
+\itemize{
+\item \code{hidden_units}: # Hidden Units (type: integer, default: 5L)
+\item \code{penalty_type}: Penalty Type (type: character, default: ‘L1’)
+\item \code{penalty_average}: Penalty Average (type: double, default: 1e-10)
+\item \code{step_rate}: Step Rate (type: double, default: 1e6)
+\item \code{activation}: Activation Function (type: character, default: ‘relu’)
+\item \code{epochs}: # Epochs (type: integer, default: 100L)
+\item \code{learn_rate}: Learning Rate (type: double, default: 0.001)
+\item \code{rate_schedule}: Learning Rate Scheduler (type: character, default:
+‘none’)
+\item \code{momentum}: Gradient Descent Momentum (type: double, default: 0.0)
+\item \code{batch_size}: Batch Size (type: integer, default: NULL)
+\item \code{stop_iter}: # Iterations Before Stopping (type: integer, default:
+20L)
+}
 
 \code{penalty_average} and \code{step_rate} are specified on the natural scale but
 are best tuned on the log10 scale.
@@ -36,12 +51,7 @@ are best tuned on the log10 scale.
   translate()
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## ! parsnip could not locate an implementation for `tabular_rln` regression model
-##   specifications using the `brulee` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-
-## tabular rln Model Specification (regression)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## tabular rln Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   hidden_units = integer(1)
@@ -55,7 +65,14 @@ are best tuned on the log10 scale.
 ##   momentum = double(1)
 ##   stop_iter = integer(1)
 ## 
-## Computational engine: brulee
+## Computational engine: brulee 
+## 
+## Model fit template:
+## brulee::brulee_rln(x = missing_arg(), y = missing_arg(), hidden_units = integer(1), 
+##     penalty_type = character(1), penalty_average = double(1), 
+##     step_rate = double(1), activation = character(1), epochs = integer(1), 
+##     learn_rate = double(1), rate_schedule = character(1), momentum = double(1), 
+##     stop_iter = integer(1))
 }\if{html}{\out{</div>}}
 }
 
@@ -84,8 +101,10 @@ The underlying model implementation does not allow for case weights.
   dplyr::select(mode, type)
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 0 x 2
-## # i 2 variables: mode <chr>, type <chr>
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 1 x 2
+##   mode       type   
+##   <chr>      <chr>  
+## 1 regression numeric
 }\if{html}{\out{</div>}}
 }
 

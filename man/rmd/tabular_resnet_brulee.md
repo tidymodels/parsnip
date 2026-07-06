@@ -1,15 +1,41 @@
 
 
 
-For this engine, there are multiple modes: 
+For this engine, there are multiple modes: classification and regression
 
 ## Tuning Parameters
 
 
 
-This model has 0 tuning parameters:
+This model has 14 tuning parameters:
 
+- `hidden_units`: # Hidden Units (type: integer, default: 3L)
 
+- `bottleneck_units`: # Bottleneck Units (type: integer, default: same as hidden_units)
+
+- `residual_at`: Residual Locations (type: integer, default: NULL)
+
+- `penalty`: Amount of Regularization (type: double, default: 0.001)
+
+- `mixture`: Proportion of Lasso Penalty (type: double, default: 0.0)
+
+- `epochs`: # Epochs (type: integer, default: 100L)
+
+- `dropout`: Dropout Rate (type: double, default: 0.0)
+
+- `learn_rate`: Learning Rate (type: double, default: 0.01)
+
+- `activation`: Activation Function (type: character, default: 'relu')
+
+- `rate_schedule`: Learning Rate Scheduler (type: character, default: 'none')
+
+- `momentum`: Gradient Descent Momentum (type: double, default: 0.0)
+
+- `batch_size`: Batch Size (type: integer, default: NULL)
+
+- `class_weights`: Minority Class Weight (type: double, default: NULL)
+
+- `stop_iter`: # Iterations Before Stopping (type: integer, default: 5L)
 
 The use of the L1 penalty (a.k.a. the lasso penalty) does _not_ force parameters to be strictly zero (as it does in packages such as glmnet). The zeroing out of parameters is a specific feature the optimization method used in those packages.
 
@@ -39,13 +65,6 @@ tabular_resnet(
 ```
 
 ```
-## ! parsnip could not locate an implementation for `tabular_resnet` regression model
-##   specifications using the `brulee` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-```
-
-```
 ## tabular resnet Model Specification (regression)
 ## 
 ## Main Arguments:
@@ -61,7 +80,14 @@ tabular_resnet(
 ##   momentum = double(1)
 ##   stop_iter = integer(1)
 ## 
-## Computational engine: brulee
+## Computational engine: brulee 
+## 
+## Model fit template:
+## brulee::brulee_resnet(x = missing_arg(), y = missing_arg(), hidden_units = integer(1), 
+##     bottleneck_units = integer(1), penalty = double(1), mixture = double(1), 
+##     dropout = double(1), epochs = integer(1), activation = character(1), 
+##     learn_rate = double(1), rate_schedule = character(1), momentum = double(1), 
+##     stop_iter = integer(1))
 ```
 
 Note that parsnip automatically sets linear activation in the last layer.
@@ -92,13 +118,6 @@ tabular_resnet(
 ```
 
 ```
-## ! parsnip could not locate an implementation for `tabular_resnet` classification
-##   model specifications using the `brulee` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-```
-
-```
 ## tabular resnet Model Specification (classification)
 ## 
 ## Main Arguments:
@@ -114,7 +133,14 @@ tabular_resnet(
 ##   momentum = double(1)
 ##   stop_iter = integer(1)
 ## 
-## Computational engine: brulee
+## Computational engine: brulee 
+## 
+## Model fit template:
+## brulee::brulee_resnet(x = missing_arg(), y = missing_arg(), hidden_units = integer(1), 
+##     bottleneck_units = integer(1), penalty = double(1), mixture = double(1), 
+##     dropout = double(1), epochs = integer(1), activation = character(1), 
+##     learn_rate = double(1), rate_schedule = character(1), momentum = double(1), 
+##     stop_iter = integer(1))
 ```
 
 ## Preprocessing requirements
@@ -140,8 +166,12 @@ parsnip:::get_from_env("tabular_resnet_predict") |>
 ```
 
 ```
-## # A tibble: 0 x 2
-## # i 2 variables: mode <chr>, type <chr>
+## # A tibble: 3 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 classification class  
+## 3 classification prob
 ```
 
 ## References

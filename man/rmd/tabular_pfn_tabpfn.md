@@ -1,15 +1,21 @@
 
 
 
-For this engine, there are multiple modes: 
+For this engine, there are multiple modes: classification and regression
 
 ## Tuning Parameters
 
 
 
-This model has 0 tuning parameters:
+This model has 4 tuning parameters:
 
+- `num_estimators`: # Estimators (type: integer, default: 8L)
 
+- `softmax_temperature`: Softmax Temperature (type: double, default: 0.9)
+
+- `balance_probabilities`: Balance Probabilities? (type: logical, default: FALSE)
+
+- `average_before_softmax`: Average Before Softmax? (type: logical, default: FALSE)
 
 TabPFN is a pretrained (prior-data fitted) network; no weights are updated when the model is fit. The training set is ingested at fit time and predictions are made via in-context learning.
 
@@ -36,13 +42,6 @@ tabular_pfn(
 ```
 
 ```
-## ! parsnip could not locate an implementation for `tabular_pfn` regression model
-##   specifications using the `tabpfn` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-```
-
-```
 ## tabular pfn Model Specification (regression)
 ## 
 ## Main Arguments:
@@ -51,7 +50,12 @@ tabular_pfn(
 ##   balance_probabilities = logical(1)
 ##   average_before_softmax = logical(1)
 ## 
-## Computational engine: tabpfn
+## Computational engine: tabpfn 
+## 
+## Model fit template:
+## tabpfn::tab_pfn(formula = missing_arg(), data = missing_arg(), 
+##     num_estimators = integer(1), softmax_temperature = double(1), 
+##     balance_probabilities = logical(1), average_before_softmax = logical(1))
 ```
 
 ## Translation from parsnip to the original package (classification)
@@ -70,13 +74,6 @@ tabular_pfn(
 ```
 
 ```
-## ! parsnip could not locate an implementation for `tabular_pfn` classification model
-##   specifications using the `tabpfn` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-```
-
-```
 ## tabular pfn Model Specification (classification)
 ## 
 ## Main Arguments:
@@ -85,7 +82,12 @@ tabular_pfn(
 ##   balance_probabilities = logical(1)
 ##   average_before_softmax = logical(1)
 ## 
-## Computational engine: tabpfn
+## Computational engine: tabpfn 
+## 
+## Model fit template:
+## tabpfn::tab_pfn(formula = missing_arg(), data = missing_arg(), 
+##     num_estimators = integer(1), softmax_temperature = double(1), 
+##     balance_probabilities = logical(1), average_before_softmax = logical(1))
 ```
 
 ## Preprocessing requirements
@@ -107,8 +109,12 @@ parsnip:::get_from_env("tabular_pfn_predict") |>
 ```
 
 ```
-## # A tibble: 0 x 2
-## # i 2 variables: mode <chr>, type <chr>
+## # A tibble: 3 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 classification class  
+## 2 classification prob   
+## 3 regression     numeric
 ```
 
 ## References

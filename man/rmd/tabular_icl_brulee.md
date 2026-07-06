@@ -1,15 +1,17 @@
 
 
 
-For this engine, there are multiple modes: 
+For this engine, there are multiple modes: classification and regression
 
 ## Tuning Parameters
 
 
 
-This model has 0 tuning parameters:
+This model has 2 tuning parameters:
 
+- `num_estimators`: # Estimators (type: integer, default: 8L)
 
+- `softmax_temperature`: Softmax Temperature (type: double, default: 0.9)
 
 TabICL is a pretrained (prior-data fitted) network; no weights are updated when the model is fit. The training set is ingested at fit time and predictions are made via in-context learning.
 
@@ -33,20 +35,17 @@ tabular_icl(
 ```
 
 ```
-## ! parsnip could not locate an implementation for `tabular_icl` regression model
-##   specifications using the `brulee` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-```
-
-```
 ## tabular icl Model Specification (regression)
 ## 
 ## Main Arguments:
 ##   num_estimators = integer(1)
 ##   softmax_temperature = double(1)
 ## 
-## Computational engine: brulee
+## Computational engine: brulee 
+## 
+## Model fit template:
+## brulee::brulee_tab_icl(formula = missing_arg(), data = missing_arg(), 
+##     num_estimators = integer(1), softmax_temperature = double(1))
 ```
 
 ## Translation from parsnip to the original package (classification)
@@ -63,20 +62,17 @@ tabular_icl(
 ```
 
 ```
-## ! parsnip could not locate an implementation for `tabular_icl` classification model
-##   specifications using the `brulee` engine.
-## i The parsnip extension package tabby implements support for this specification.
-## i Please install (if needed) and load to continue.
-```
-
-```
 ## tabular icl Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   num_estimators = integer(1)
 ##   softmax_temperature = double(1)
 ## 
-## Computational engine: brulee
+## Computational engine: brulee 
+## 
+## Model fit template:
+## brulee::brulee_tab_icl(formula = missing_arg(), data = missing_arg(), 
+##     num_estimators = integer(1), softmax_temperature = double(1))
 ```
 
 ## Preprocessing requirements
@@ -98,8 +94,12 @@ parsnip:::get_from_env("tabular_icl_predict") |>
 ```
 
 ```
-## # A tibble: 0 x 2
-## # i 2 variables: mode <chr>, type <chr>
+## # A tibble: 3 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 classification class  
+## 2 classification prob   
+## 3 regression     numeric
 ```
 
 ## References
