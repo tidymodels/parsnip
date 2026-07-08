@@ -12,7 +12,7 @@
       check_args(tabular_saint(mode = "regression", attention_type = "diagonal"))
     Condition
       Error:
-      ! `penalty_type` must be one of "column", "row", or "both", not "diagonal".
+      ! `attention_type` must be one of "column", "row", or "both", not "diagonal".
 
 ---
 

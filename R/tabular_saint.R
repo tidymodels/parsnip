@@ -278,7 +278,7 @@ check_args.tabular_saint <- function(object, call = rlang::caller_env()) {
     arg_match0(
       args$attention_type,
       c("column", "row", "both"),
-      arg_nm = "penalty_type",
+      arg_nm = "attention_type",
       error_call = call
     )
   }
