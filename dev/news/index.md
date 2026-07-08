@@ -12,6 +12,19 @@
   `add_censoring_weights = TRUE` in `predict(type = "survival")`
   ([\#1371](https://github.com/tidymodels/parsnip/issues/1371)).
 
+- New model specifications
+  [`tabular_auto_int()`](https://parsnip.tidymodels.org/dev/reference/tabular_auto_int.md),
+  [`tabular_chronos()`](https://parsnip.tidymodels.org/dev/reference/tabular_chronos.md),
+  [`tabular_icl()`](https://parsnip.tidymodels.org/dev/reference/tabular_icl.md),
+  [`tabular_pfn()`](https://parsnip.tidymodels.org/dev/reference/tabular_pfn.md),
+  [`tabular_resnet()`](https://parsnip.tidymodels.org/dev/reference/tabular_resnet.md),
+  [`tabular_rln()`](https://parsnip.tidymodels.org/dev/reference/tabular_rln.md),
+  and
+  [`tabular_saint()`](https://parsnip.tidymodels.org/dev/reference/tabular_saint.md)
+  were added for tabular deep-learning and foundation models, with
+  engines provided by the tabby extension package
+  ([\#1386](https://github.com/tidymodels/parsnip/issues/1386)).
+
 ## parsnip 1.6.0
 
 CRAN release: 2026-05-14

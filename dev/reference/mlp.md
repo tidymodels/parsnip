@@ -75,11 +75,11 @@ mlp(
 
 - activation:
 
-  A single character string denoting the type of relationship between
-  the original predictors and the hidden unit layer. The activation
-  function between the hidden and output layers is automatically set to
-  either "linear" or "softmax" depending on the type of outcome.
-  Possible values depend on the engine being used.
+  A character vector denoting the type of relationship between the
+  different layers. The activation function between the hidden and
+  output layers is automatically set to either "linear" or "softmax"
+  depending on the type of outcome. Possible values depend on the engine
+  being used.
 
 - learn_rate:
 

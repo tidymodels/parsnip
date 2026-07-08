@@ -318,6 +318,126 @@ update(
   fresh = FALSE,
   ...
 )
+
+# S3 method for class 'tabular_auto_int'
+update(
+  object,
+  parameters = NULL,
+  epochs = NULL,
+  num_embedding = NULL,
+  hidden_units = NULL,
+  hidden_activations = NULL,
+  num_attn_feat = NULL,
+  num_attn_heads = NULL,
+  num_attn_blocks = NULL,
+  activation = NULL,
+  dropout = NULL,
+  dropout_attn = NULL,
+  dropout_embedding = NULL,
+  penalty = NULL,
+  mixture = NULL,
+  learn_rate = NULL,
+  rate_schedule = NULL,
+  momentum = NULL,
+  batch_size = NULL,
+  class_weights = NULL,
+  stop_iter = NULL,
+  fresh = FALSE,
+  ...
+)
+
+# S3 method for class 'tabular_chronos'
+update(object, parameters = NULL, fresh = FALSE, ...)
+
+# S3 method for class 'tabular_icl'
+update(
+  object,
+  parameters = NULL,
+  num_estimators = NULL,
+  softmax_temperature = NULL,
+  fresh = FALSE,
+  ...
+)
+
+# S3 method for class 'tabular_pfn'
+update(
+  object,
+  parameters = NULL,
+  num_estimators = NULL,
+  softmax_temperature = NULL,
+  balance_probabilities = NULL,
+  average_before_softmax = NULL,
+  fresh = FALSE,
+  ...
+)
+
+# S3 method for class 'tabular_resnet'
+update(
+  object,
+  parameters = NULL,
+  hidden_units = NULL,
+  bottleneck_units = NULL,
+  residual_at = NULL,
+  penalty = NULL,
+  mixture = NULL,
+  dropout = NULL,
+  epochs = NULL,
+  activation = NULL,
+  learn_rate = NULL,
+  rate_schedule = NULL,
+  momentum = NULL,
+  batch_size = NULL,
+  class_weights = NULL,
+  stop_iter = NULL,
+  fresh = FALSE,
+  ...
+)
+
+# S3 method for class 'tabular_rln'
+update(
+  object,
+  parameters = NULL,
+  hidden_units = NULL,
+  penalty_type = NULL,
+  penalty_average = NULL,
+  step_rate = NULL,
+  activation = NULL,
+  epochs = NULL,
+  learn_rate = NULL,
+  rate_schedule = NULL,
+  momentum = NULL,
+  batch_size = NULL,
+  stop_iter = NULL,
+  fresh = FALSE,
+  ...
+)
+
+# S3 method for class 'tabular_saint'
+update(
+  object,
+  parameters = NULL,
+  epochs = NULL,
+  num_embedding = NULL,
+  attention_type = NULL,
+  num_attn_heads = NULL,
+  num_attn_blocks = NULL,
+  dropout_attn = NULL,
+  dropout_hidden = NULL,
+  dropout_last = NULL,
+  hidden_units = NULL,
+  hidden_activations = NULL,
+  target_token = NULL,
+  penalty = NULL,
+  mixture = NULL,
+  learn_rate = NULL,
+  rate_schedule = NULL,
+  momentum = NULL,
+  batch_size = NULL,
+  class_weights = NULL,
+  stop_iter = NULL,
+  fresh = FALSE,
+  ...
+)
 ```
 
 ## Arguments
@@ -359,7 +479,8 @@ update(
 
 - hidden_units:
 
-  An integer for the number of units in the hidden model.
+  An integer vector for the number of units in the hidden layers after
+  the attention mechanism.
 
 - penalty:
 
@@ -497,11 +618,11 @@ update(
 
 - activation:
 
-  A single character string denoting the type of relationship between
-  the original predictors and the hidden unit layer. The activation
-  function between the hidden and output layers is automatically set to
-  either "linear" or "softmax" depending on the type of outcome.
-  Possible values depend on the engine being used.
+  A character vector denoting the type of relationship between the
+  different layers. The activation function between the hidden and
+  output layers is automatically set to either "linear" or "softmax"
+  depending on the type of outcome. Possible values depend on the engine
+  being used.
 
 - smoothness:
 
@@ -570,6 +691,123 @@ update(
 - rbf_sigma:
 
   A positive number for radial basis function.
+
+- num_embedding:
+
+  An integer for the dimensionality of the embedding space for features.
+
+- hidden_activations:
+
+  A character vector denoting the activation functions for the hidden
+  layers.
+
+- num_attn_feat:
+
+  An integer for the number of attention features.
+
+- num_attn_heads:
+
+  An integer for the number of attention heads in the multi-head
+  attention mechanism.
+
+- num_attn_blocks:
+
+  An integer for the number of sequential attention blocks.
+
+- dropout_attn:
+
+  A number between 0 (inclusive) and 1 denoting the proportion of
+  attention weights set to zero during model training.
+
+- dropout_embedding:
+
+  A number between 0 (inclusive) and 1 denoting the proportion of
+  embedding values set to zero during model training.
+
+- rate_schedule:
+
+  A character string for the learning rate schedule.
+
+- momentum:
+
+  A number for the momentum parameter in optimizers that use it.
+
+- batch_size:
+
+  An integer for the number of training instances in each batch.
+
+- class_weights:
+
+  Numeric class weights for imbalanced data (classification only).
+
+- num_estimators:
+
+  An integer for the ensemble size. Default is `8L`.
+
+- softmax_temperature:
+
+  An adjustment factor that is a divisor in the exponents of the softmax
+  function (see `brulee::brulee_tab_icl()`). Defaults to 0.9.
+
+- balance_probabilities:
+
+  A logical to adjust the prior probabilities in cases where there is a
+  class imbalance. Default is `FALSE`. Classification only.
+
+- average_before_softmax:
+
+  A logical. For cases where `num_estimators > 1`, should the average be
+  done before using the softmax function or after? Default is `FALSE`.
+
+- bottleneck_units:
+
+  The number of embeddings that are produced by batch normalization.
+
+- residual_at:
+
+  An integer vector with the layer number should use a residual
+  connection (i.e., skip layer).
+
+- penalty_type:
+
+  A string for the regularization norm: `"L1"` (default in `brulee`) or
+  `"L2"`. L1 is recommended by the original paper.
+
+- penalty_average:
+
+  A positive numeric value for the target geometric mean of the
+  per-weight regularization coefficients, on the natural scale. Best
+  tuned on the log10 scale via
+  [`dials::penalty_average()`](https://dials.tidymodels.org/reference/rln-param.html).
+
+- step_rate:
+
+  A positive numeric value for the step size used to update the
+  per-weight regularization coefficients, on the natural scale. Best
+  tuned on the log10 scale via
+  [`dials::step_rate()`](https://dials.tidymodels.org/reference/rln-param.html).
+
+- attention_type:
+
+  A character string for the type of attention to use. Options are
+  `"column"` (SAINT-s), `"row"` (SAINT-i), or `"both"` (full SAINT).
+
+- dropout_hidden:
+
+  A number between 0 (inclusive) and 1 denoting the proportion of values
+  in the feed-forward layers set to zero during training.
+
+- dropout_last:
+
+  A number between 0 (inclusive) and 1 denoting the proportion of values
+  set to zero between the last hidden layer and the output head.
+
+- target_token:
+
+  A logical for whether to use a learnable target token (CLS-like
+  embedding) to aggregate information for prediction. When `TRUE`, the
+  model appends a special target token to the input that attends to all
+  features via the attention mechanism.
 
 ## Value
 

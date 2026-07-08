@@ -144,6 +144,13 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_svm_linear_kernlab.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_svm_poly_kernlab.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_svm_rbf_kernlab.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_tabular_auto_int_brulee.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_tabular_chronos_brulee.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_tabular_icl_brulee.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_tabular_pfn_tabpfn.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_tabular_resnet_brulee.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_tabular_rln_brulee.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_tabular_saint_brulee.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/discrim_flexible.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/discrim_linear.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/discrim_quad.html</loc></url>
@@ -228,6 +235,13 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/svm_linear.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/svm_poly.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/svm_rbf.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/tabular_auto_int.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/tabular_chronos.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/tabular_icl.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/tabular_pfn.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/tabular_resnet.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/tabular_rln.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/tabular_saint.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/tidy._LiblineaR.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/tidy._elnet.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/tidy.model_fit.html</loc></url>

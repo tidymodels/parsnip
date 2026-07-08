@@ -43,7 +43,7 @@ be used in lieu of recreating the object from scratch."><meta property="og:image
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Updating a model specification</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/main/R/bag_mars.R" class="external-link"><code>R/bag_mars.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/main/R/bag_mlp.R" class="external-link"><code>R/bag_mlp.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/main/R/bag_tree.R" class="external-link"><code>R/bag_tree.R</code></a>, and 29 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/tidymodels/parsnip/blob/main/R/bag_mars.R" class="external-link"><code>R/bag_mars.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/main/R/bag_mlp.R" class="external-link"><code>R/bag_mlp.R</code></a>, <a href="https://github.com/tidymodels/parsnip/blob/main/R/bag_tree.R" class="external-link"><code>R/bag_tree.R</code></a>, and 36 more</small>
       <div class="d-none name"><code>parsnip_update.Rd</code></div>
     </div>
 
@@ -364,6 +364,126 @@ be used in lieu of recreating the object from scratch.</p>
 <span>  margin <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fresh <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'tabular_auto_int'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  parameters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  epochs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  num_embedding <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hidden_units <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hidden_activations <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  num_attn_feat <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  num_attn_heads <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  num_attn_blocks <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  activation <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dropout <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dropout_attn <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dropout_embedding <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  penalty <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mixture <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  learn_rate <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rate_schedule <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  momentum <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  batch_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  class_weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  stop_iter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fresh <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'tabular_chronos'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">object</span>, parameters <span class="op">=</span> <span class="cn">NULL</span>, fresh <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'tabular_icl'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  parameters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  num_estimators <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  softmax_temperature <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fresh <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'tabular_pfn'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  parameters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  num_estimators <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  softmax_temperature <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  balance_probabilities <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  average_before_softmax <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fresh <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'tabular_resnet'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  parameters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hidden_units <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bottleneck_units <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  residual_at <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  penalty <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mixture <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dropout <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  epochs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  activation <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  learn_rate <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rate_schedule <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  momentum <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  batch_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  class_weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  stop_iter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fresh <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'tabular_rln'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  parameters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hidden_units <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  penalty_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  penalty_average <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  step_rate <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  activation <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  epochs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  learn_rate <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rate_schedule <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  momentum <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  batch_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  stop_iter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fresh <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'tabular_saint'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  parameters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  epochs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  num_embedding <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  attention_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  num_attn_heads <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  num_attn_blocks <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dropout_attn <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dropout_hidden <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dropout_last <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hidden_units <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hidden_activations <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  target_token <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  penalty <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mixture <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  learn_rate <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rate_schedule <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  momentum <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  batch_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  class_weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  stop_iter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fresh <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -406,7 +526,8 @@ modified in-place or replaced wholesale.</p></dd>
 
 
 <dt id="arg-hidden-units">hidden_units<a class="anchor" aria-label="anchor" href="#arg-hidden-units"></a></dt>
-<dd><p>An integer for the number of units in the hidden model.</p></dd>
+<dd><p>An integer vector for the number of units in the hidden
+layers after the attention mechanism.</p></dd>
 
 
 <dt id="arg-penalty">penalty<a class="anchor" aria-label="anchor" href="#arg-penalty"></a></dt>
@@ -540,11 +661,11 @@ of model parameters randomly set to zero during model training.</p></dd>
 
 
 <dt id="arg-activation">activation<a class="anchor" aria-label="anchor" href="#arg-activation"></a></dt>
-<dd><p>A single character string denoting the type of relationship
-between the original predictors and the hidden unit layer. The activation
-function between the hidden and output layers is automatically set to either
-"linear" or "softmax" depending on the type of outcome. Possible values
-depend on the engine being used.</p></dd>
+<dd><p>A character vector denoting the type of relationship
+between the different layers. The activation function between the hidden and
+output layers is automatically set to either "linear" or "softmax"
+depending on the type of outcome. Possible values depend on the engine
+being used.</p></dd>
 
 
 <dt id="arg-smoothness">smoothness<a class="anchor" aria-label="anchor" href="#arg-smoothness"></a></dt>
@@ -614,6 +735,131 @@ loss function (regression only)</p></dd>
 
 <dt id="arg-rbf-sigma">rbf_sigma<a class="anchor" aria-label="anchor" href="#arg-rbf-sigma"></a></dt>
 <dd><p>A positive number for radial basis function.</p></dd>
+
+
+<dt id="arg-num-embedding">num_embedding<a class="anchor" aria-label="anchor" href="#arg-num-embedding"></a></dt>
+<dd><p>An integer for the dimensionality of the embedding space
+for features.</p></dd>
+
+
+<dt id="arg-hidden-activations">hidden_activations<a class="anchor" aria-label="anchor" href="#arg-hidden-activations"></a></dt>
+<dd><p>A character vector denoting the activation functions
+for the hidden layers.</p></dd>
+
+
+<dt id="arg-num-attn-feat">num_attn_feat<a class="anchor" aria-label="anchor" href="#arg-num-attn-feat"></a></dt>
+<dd><p>An integer for the number of attention features.</p></dd>
+
+
+<dt id="arg-num-attn-heads">num_attn_heads<a class="anchor" aria-label="anchor" href="#arg-num-attn-heads"></a></dt>
+<dd><p>An integer for the number of attention heads in the
+multi-head attention mechanism.</p></dd>
+
+
+<dt id="arg-num-attn-blocks">num_attn_blocks<a class="anchor" aria-label="anchor" href="#arg-num-attn-blocks"></a></dt>
+<dd><p>An integer for the number of sequential attention
+blocks.</p></dd>
+
+
+<dt id="arg-dropout-attn">dropout_attn<a class="anchor" aria-label="anchor" href="#arg-dropout-attn"></a></dt>
+<dd><p>A number between 0 (inclusive) and 1 denoting the
+proportion of attention weights set to zero during model training.</p></dd>
+
+
+<dt id="arg-dropout-embedding">dropout_embedding<a class="anchor" aria-label="anchor" href="#arg-dropout-embedding"></a></dt>
+<dd><p>A number between 0 (inclusive) and 1 denoting the
+proportion of embedding values set to zero during model training.</p></dd>
+
+
+<dt id="arg-rate-schedule">rate_schedule<a class="anchor" aria-label="anchor" href="#arg-rate-schedule"></a></dt>
+<dd><p>A character string for the learning rate schedule.</p></dd>
+
+
+<dt id="arg-momentum">momentum<a class="anchor" aria-label="anchor" href="#arg-momentum"></a></dt>
+<dd><p>A number for the momentum parameter in optimizers that use it.</p></dd>
+
+
+<dt id="arg-batch-size">batch_size<a class="anchor" aria-label="anchor" href="#arg-batch-size"></a></dt>
+<dd><p>An integer for the number of training instances in each
+batch.</p></dd>
+
+
+<dt id="arg-class-weights">class_weights<a class="anchor" aria-label="anchor" href="#arg-class-weights"></a></dt>
+<dd><p>Numeric class weights for imbalanced data
+(classification only).</p></dd>
+
+
+<dt id="arg-num-estimators">num_estimators<a class="anchor" aria-label="anchor" href="#arg-num-estimators"></a></dt>
+<dd><p>An integer for the ensemble size. Default is <code>8L</code>.</p></dd>
+
+
+<dt id="arg-softmax-temperature">softmax_temperature<a class="anchor" aria-label="anchor" href="#arg-softmax-temperature"></a></dt>
+<dd><p>An adjustment factor that is a divisor in the
+exponents of the softmax function (see <code>brulee::brulee_tab_icl()</code>). Defaults
+to 0.9.</p></dd>
+
+
+<dt id="arg-balance-probabilities">balance_probabilities<a class="anchor" aria-label="anchor" href="#arg-balance-probabilities"></a></dt>
+<dd><p>A logical to adjust the prior probabilities in
+cases where there is a class imbalance. Default is <code>FALSE</code>. Classification
+only.</p></dd>
+
+
+<dt id="arg-average-before-softmax">average_before_softmax<a class="anchor" aria-label="anchor" href="#arg-average-before-softmax"></a></dt>
+<dd><p>A logical. For cases where
+<code>num_estimators &gt; 1</code>, should the average be done before using the softmax
+function or after? Default is <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-bottleneck-units">bottleneck_units<a class="anchor" aria-label="anchor" href="#arg-bottleneck-units"></a></dt>
+<dd><p>The number of embeddings that are produced by batch
+normalization.</p></dd>
+
+
+<dt id="arg-residual-at">residual_at<a class="anchor" aria-label="anchor" href="#arg-residual-at"></a></dt>
+<dd><p>An integer vector with the layer number should use a
+residual connection (i.e., skip layer).</p></dd>
+
+
+<dt id="arg-penalty-type">penalty_type<a class="anchor" aria-label="anchor" href="#arg-penalty-type"></a></dt>
+<dd><p>A string for the regularization norm: <code>"L1"</code> (default
+in <code>brulee</code>) or <code>"L2"</code>. L1 is recommended by the original paper.</p></dd>
+
+
+<dt id="arg-penalty-average">penalty_average<a class="anchor" aria-label="anchor" href="#arg-penalty-average"></a></dt>
+<dd><p>A positive numeric value for the target geometric mean
+of the per-weight regularization coefficients, on the natural scale.
+Best tuned on the log10 scale via <code><a href="https://dials.tidymodels.org/reference/rln-param.html" class="external-link">dials::penalty_average()</a></code>.</p></dd>
+
+
+<dt id="arg-step-rate">step_rate<a class="anchor" aria-label="anchor" href="#arg-step-rate"></a></dt>
+<dd><p>A positive numeric value for the step size used to update
+the per-weight regularization coefficients, on the natural scale.
+Best tuned on the log10 scale via <code><a href="https://dials.tidymodels.org/reference/rln-param.html" class="external-link">dials::step_rate()</a></code>.</p></dd>
+
+
+<dt id="arg-attention-type">attention_type<a class="anchor" aria-label="anchor" href="#arg-attention-type"></a></dt>
+<dd><p>A character string for the type of attention to use.
+Options are <code>"column"</code> (SAINT-s), <code>"row"</code> (SAINT-i), or <code>"both"</code> (full
+SAINT).</p></dd>
+
+
+<dt id="arg-dropout-hidden">dropout_hidden<a class="anchor" aria-label="anchor" href="#arg-dropout-hidden"></a></dt>
+<dd><p>A number between 0 (inclusive) and 1 denoting the
+proportion of values in the feed-forward layers set to zero during training.</p></dd>
+
+
+<dt id="arg-dropout-last">dropout_last<a class="anchor" aria-label="anchor" href="#arg-dropout-last"></a></dt>
+<dd><p>A number between 0 (inclusive) and 1 denoting the
+proportion of values set to zero between the last hidden layer and the
+output head.</p></dd>
+
+
+<dt id="arg-target-token">target_token<a class="anchor" aria-label="anchor" href="#arg-target-token"></a></dt>
+<dd><p>A logical for whether to use a learnable target token
+(CLS-like embedding) to aggregate information for prediction. When <code>TRUE</code>,
+the model appends a special target token to the input that attends to all
+features via the attention mechanism.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -892,7 +1138,7 @@ loss function (regression only)</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
   </div></footer></body></html>

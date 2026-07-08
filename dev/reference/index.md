@@ -68,6 +68,20 @@
   : Polynomial support vector machines
 - [`svm_rbf()`](https://parsnip.tidymodels.org/dev/reference/svm_rbf.md)
   : Radial basis function support vector machines
+- [`tabular_auto_int()`](https://parsnip.tidymodels.org/dev/reference/tabular_auto_int.md)
+  : AutoInt: Automatic Feature Interaction Learning
+- [`tabular_chronos()`](https://parsnip.tidymodels.org/dev/reference/tabular_chronos.md)
+  : Chronos-2 pretrained forecasting model
+- [`tabular_icl()`](https://parsnip.tidymodels.org/dev/reference/tabular_icl.md)
+  : TabICL: prior data fitted networks
+- [`tabular_pfn()`](https://parsnip.tidymodels.org/dev/reference/tabular_pfn.md)
+  : TabPFN: prior data fitted networks
+- [`tabular_resnet()`](https://parsnip.tidymodels.org/dev/reference/tabular_resnet.md)
+  : Residual Neural Network for Tabular Data
+- [`tabular_rln()`](https://parsnip.tidymodels.org/dev/reference/tabular_rln.md)
+  : Regularization Learning Network
+- [`tabular_saint()`](https://parsnip.tidymodels.org/dev/reference/tabular_saint.md)
+  : SAINT: Self-Attention and Inter-sample Attention Transformer
 
 ## Infrastructure
 
@@ -186,6 +200,13 @@
   [`update(`*`<svm_linear>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
   [`update(`*`<svm_poly>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
   [`update(`*`<svm_rbf>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
+  [`update(`*`<tabular_auto_int>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
+  [`update(`*`<tabular_chronos>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
+  [`update(`*`<tabular_icl>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
+  [`update(`*`<tabular_pfn>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
+  [`update(`*`<tabular_resnet>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
+  [`update(`*`<tabular_rln>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
+  [`update(`*`<tabular_saint>`*`)`](https://parsnip.tidymodels.org/dev/reference/parsnip_update.md)
   : Updating a model specification
 - [`ctree_train()`](https://parsnip.tidymodels.org/dev/reference/ctree_train.md)
   [`cforest_train()`](https://parsnip.tidymodels.org/dev/reference/ctree_train.md)
