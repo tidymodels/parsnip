@@ -274,25 +274,12 @@ check_args.tabular_saint <- function(object, call = rlang::caller_env()) {
     arg = "stop_iter"
   )
 
-  if (
-    !is.null(args$attention_type) &&
-      !args$attention_type %in% c("column", "row", "both")
-  ) {
-    cli::cli_abort(
-      "{.arg attention_type} must be one of {.val column}, {.val row}, or {.val both}.",
-      call = call
-    )
-  }
-
-  if (
-    is.numeric(args$penalty) &&
-      is.numeric(args$dropout_attn) &&
-      args$dropout_attn > 0 &&
-      args$penalty > 0
-  ) {
-    cli::cli_abort(
-      "Both weight decay and dropout should not be specified.",
-      call = call
+  if (!is.null(args$attention_type)) {
+    arg_match0(
+      args$attention_type,
+      c("column", "row", "both"),
+      arg_nm = "penalty_type",
+      error_call = call
     )
   }
 

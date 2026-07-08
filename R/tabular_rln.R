@@ -148,10 +148,12 @@ update.tabular_rln <-
 check_args.tabular_rln <- function(object, call = rlang::caller_env()) {
   args <- lapply(object$args, rlang::eval_tidy)
 
-  if (!is.null(args$penalty_type) && !args$penalty_type %in% c("L1", "L2")) {
-    cli::cli_abort(
-      "{.arg penalty_type} must be {.val L1} or {.val L2}, not {.val {args$penalty_type}}.",
-      call = call
+  if (!is.null(args$penalty_type)) {
+    arg_match0(
+      args$penalty_type,
+      c("L1", "L2"),
+      arg_nm = "penalty_type",
+      error_call = call
     )
   }
 

@@ -257,18 +257,6 @@ check_args.tabular_auto_int <- function(object, call = rlang::caller_env()) {
     arg = "stop_iter"
   )
 
-  if (
-    is.numeric(args$penalty) &&
-      is.numeric(args$dropout) &&
-      args$dropout > 0 &&
-      args$penalty > 0
-  ) {
-    cli::cli_abort(
-      "Both weight decay and dropout should not be specified.",
-      call = call
-    )
-  }
-
   invisible(object)
 }
 

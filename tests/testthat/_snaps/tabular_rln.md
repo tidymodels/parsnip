@@ -12,7 +12,8 @@
       check_args(tabular_rln(penalty_type = "L3"))
     Condition
       Error:
-      ! `penalty_type` must be "L1" or "L2", not "L3".
+      ! `penalty_type` must be one of "L1" or "L2", not "L3".
+      i Did you mean "L1"?
 
 ---
 

@@ -66,8 +66,3 @@ test_that("check_args.tabular_saint() validates input values", {
     tabular_saint(mode = "regression", num_attn_heads = 0L) |> check_args()
   )
 })
-
-test_that("check_args.tabular_saint() rejects both penalty and dropout", {
-  spec <- tabular_saint(mode = "regression", penalty = 0.1, dropout_attn = 0.2)
-  expect_snapshot(error = TRUE, check_args(spec))
-})

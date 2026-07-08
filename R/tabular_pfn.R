@@ -138,7 +138,7 @@ check_args.tabular_pfn <- function(object, call = rlang::caller_env()) {
   )
   check_number_whole(
     args$num_estimators,
-    min = 0,
+    min = 1,
     allow_null = TRUE,
     call = call,
     arg = "num_estimators"

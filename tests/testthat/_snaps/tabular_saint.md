@@ -12,7 +12,7 @@
       check_args(tabular_saint(mode = "regression", attention_type = "diagonal"))
     Condition
       Error:
-      ! `attention_type` must be one of "column", "row", or "both".
+      ! `penalty_type` must be one of "column", "row", or "both", not "diagonal".
 
 ---
 
@@ -37,12 +37,4 @@
     Condition
       Error:
       ! `num_attn_heads` must be a whole number larger than or equal to 1 or `NULL`, not the number 0.
-
-# check_args.tabular_saint() rejects both penalty and dropout
-
-    Code
-      check_args(spec)
-    Condition
-      Error:
-      ! Both weight decay and dropout should not be specified.
 

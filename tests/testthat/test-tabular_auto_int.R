@@ -79,8 +79,3 @@ test_that("check_args.tabular_auto_int() validates input values", {
     tabular_auto_int(mode = "regression", stop_iter = 0L) |> check_args()
   )
 })
-
-test_that("check_args.tabular_auto_int() rejects both penalty and dropout", {
-  spec <- tabular_auto_int(mode = "regression", penalty = 0.1, dropout = 0.2)
-  expect_snapshot(error = TRUE, check_args(spec))
-})

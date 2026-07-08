@@ -102,7 +102,6 @@ tabular_resnet <-
 
 # ------------------------------------------------------------------------------
 
-#' Updating a model specification
 #' @method update tabular_resnet
 #' @rdname parsnip_update
 #' @inheritParams tabular_resnet
@@ -200,18 +199,6 @@ check_args.tabular_resnet <- function(object, call = rlang::caller_env()) {
     call = call,
     arg = "stop_iter"
   )
-
-  if (
-    is.numeric(args$penalty) &&
-      is.numeric(args$dropout) &&
-      args$dropout > 0 &&
-      args$penalty > 0
-  ) {
-    cli::cli_abort(
-      "Both weight decay and dropout should not be specified.",
-      call = call
-    )
-  }
 
   invisible(object)
 }

@@ -68,8 +68,3 @@ test_that("check_args.tabular_resnet() validates input values", {
     tabular_resnet(mode = "regression", stop_iter = 0L) |> check_args()
   )
 })
-
-test_that("check_args.tabular_resnet() rejects both penalty and dropout", {
-  spec <- tabular_resnet(mode = "regression", penalty = 0.1, dropout = 0.2)
-  expect_snapshot(error = TRUE, check_args(spec))
-})

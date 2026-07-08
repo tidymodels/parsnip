@@ -556,11 +556,11 @@ Available for specific engines only.}
 \item{dropout}{A number between 0 (inclusive) and 1 denoting the proportion
 of model parameters randomly set to zero during model training.}
 
-\item{activation}{A single character string denoting the type of relationship
-between the original predictors and the hidden unit layer. The activation
-function between the hidden and output layers is automatically set to either
-"linear" or "softmax" depending on the type of outcome. Possible values
-depend on the engine being used.}
+\item{activation}{A character vector denoting the type of relationship
+between the different layers. The activation function between the hidden and
+output layers is automatically set to either "linear" or "softmax"
+depending on the type of outcome. Possible values depend on the engine
+being used.}
 
 \item{smoothness}{An non-negative number representing the the relative
 smoothness of the class boundary. Smaller examples result in model flexible
