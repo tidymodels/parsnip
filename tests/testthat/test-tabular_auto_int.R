@@ -59,6 +59,10 @@ test_that("check_args.tabular_auto_int() validates input values", {
   )
   expect_snapshot(
     error = TRUE,
+    tabular_auto_int(mode = "regression", dropout = 1.5) |> check_args()
+  )
+  expect_snapshot(
+    error = TRUE,
     tabular_auto_int(mode = "regression", dropout_attn = 1.5) |> check_args()
   )
   expect_snapshot(

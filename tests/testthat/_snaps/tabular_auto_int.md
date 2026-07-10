@@ -25,6 +25,14 @@
 ---
 
     Code
+      check_args(tabular_auto_int(mode = "regression", dropout = 1.5))
+    Condition
+      Error:
+      ! `dropout` must be a number between 0 and 1 or `NULL`, not the number 1.5.
+
+---
+
+    Code
       check_args(tabular_auto_int(mode = "regression", dropout_attn = 1.5))
     Condition
       Error:
@@ -61,12 +69,4 @@
     Condition
       Error:
       ! `stop_iter` must be a whole number larger than or equal to 1 or `NULL`, not the number 0.
-
-# check_args.tabular_auto_int() rejects both penalty and dropout
-
-    Code
-      check_args(spec)
-    Condition
-      Error:
-      ! Both weight decay and dropout should not be specified.
 

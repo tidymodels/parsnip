@@ -38,11 +38,3 @@
       Error:
       ! `stop_iter` must be a whole number larger than or equal to 1 or `NULL`, not the number 0.
 
-# check_args.tabular_resnet() rejects both penalty and dropout
-
-    Code
-      check_args(spec)
-    Condition
-      Error:
-      ! Both weight decay and dropout should not be specified.
-
