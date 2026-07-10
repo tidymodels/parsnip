@@ -63,6 +63,22 @@ test_that("check_args.tabular_saint() validates input values", {
   )
   expect_snapshot(
     error = TRUE,
+    tabular_saint(mode = "regression", dropout_hidden = 2) |> check_args()
+  )
+  expect_snapshot(
+    error = TRUE,
+    tabular_saint(mode = "regression", dropout_last = -0.1) |> check_args()
+  )
+  expect_snapshot(
+    error = TRUE,
+    tabular_saint(mode = "regression", penalty = -1) |> check_args()
+  )
+  expect_snapshot(
+    error = TRUE,
+    tabular_saint(mode = "regression", epochs = -1L) |> check_args()
+  )
+  expect_snapshot(
+    error = TRUE,
     tabular_saint(mode = "regression", num_attn_heads = 0L) |> check_args()
   )
 })
