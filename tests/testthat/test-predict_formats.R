@@ -57,7 +57,10 @@ test_that('classification predictions', {
     lr_fit,
     new_data = class_dat[1:5, -1]
   )))
-  expect_named(predict(lr_fit, new_data = class_dat[1:5, -1], type = "prob"), c(".pred_high", ".pred_low"))
+  expect_named(
+    predict(lr_fit, new_data = class_dat[1:5, -1], type = "prob"),
+    c(".pred_high", ".pred_low")
+  )
 })
 
 
@@ -123,11 +126,17 @@ test_that('non-standard levels', {
     lr_fit_2,
     new_data = class_dat2[1:5, -1]
   )))
-  expect_named(predict(lr_fit_2, new_data = class_dat2[1:5, -1], type = "prob"), c(".pred_2low", ".pred_high+values"))
-  expect_named(predict_classprob.model_fit(
+  expect_named(
+    predict(lr_fit_2, new_data = class_dat2[1:5, -1], type = "prob"),
+    c(".pred_2low", ".pred_high+values")
+  )
+  expect_named(
+    predict_classprob.model_fit(
       lr_fit_2,
       new_data = class_dat2[1:5, -1]
-    ), c("2low", "high+values"))
+    ),
+    c("2low", "high+values")
+  )
 })
 
 test_that('predict(type = "prob") with level "class" (see #720)', {

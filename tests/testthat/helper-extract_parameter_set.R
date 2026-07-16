@@ -1,5 +1,8 @@
 check_parameter_set_tibble <- function(x) {
-  expect_named(x, c("name", "id", "source", "component", "component_id", "object"))
+  expect_named(
+    x,
+    c("name", "id", "source", "component", "component_id", "object")
+  )
   expect_type(x$name, "character")
   expect_type(x$id, "character")
   expect_type(x$source, "character")

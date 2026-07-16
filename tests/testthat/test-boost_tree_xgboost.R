@@ -87,9 +87,9 @@ test_that('xgboost execution, classification', {
   )
   # Check to see if the case weights had an effect
   expect_false(isTRUE(all.equal(
-      extract_xgb_evaluation_log(res_f),
-      extract_xgb_evaluation_log(res_f_wts)
-    )))
+    extract_xgb_evaluation_log(res_f),
+    extract_xgb_evaluation_log(res_f_wts)
+  )))
   expect_true(has_multi_predict(res_xy))
   expect_equal(multi_predict_args(res_xy), "trees")
 
