@@ -1,0 +1,138 @@
+```{r}
+#| child: aaa.Rmd
+#| include: false
+```
+
+`r descr_models("tabular_resnet", "brulee")`
+
+## Tuning Parameters
+
+```{r}
+#| label: brulee-param-info
+#| echo: false
+defaults <-
+  tibble::tibble(
+    parsnip =
+      c("epochs", "hidden_units", "bottleneck_units", "residual_at",
+        "activation", "penalty", "mixture", "dropout", "learn_rate",
+        "rate_schedule", "momentum", "batch_size", "class_weights",
+        "stop_iter"),
+    default = c("100L", "3L", "same as hidden_units", "NULL",
+                "'relu'", "0.001", "0.0", "0.0", "0.01",
+                "'none'", "0.0", "NULL", "NULL",
+                "5L"))
+
+spec <-
+  tabular_resnet(
+    epochs = tune(),
+    hidden_units = tune(),
+    bottleneck_units = tune(),
+    residual_at = tune(),
+    activation = tune(),
+    penalty = tune(),
+    mixture = tune(),
+    dropout = tune(),
+    learn_rate = tune(),
+    rate_schedule = tune(),
+    momentum = tune(),
+    batch_size = tune(),
+    class_weights = tune(),
+    stop_iter = tune()
+  ) |>
+  set_engine("brulee")
+
+param <- spec |> make_parameter_list(defaults)
+
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r}
+#| label: brulee-param-list
+#| echo: false
+#| results: asis
+param$item
+```
+
+The use of the L1 penalty (a.k.a. the lasso penalty) does _not_ force parameters to be strictly zero (as it does in packages such as glmnet). The zeroing out of parameters is a specific feature the optimization method used in those packages.
+
+## Translation from parsnip to the original package (regression)
+
+```{r}
+#| label: brulee-reg
+tabular_resnet(
+  epochs = integer(1),
+  hidden_units = integer(1),
+  bottleneck_units = integer(1),
+  residual_at = NULL,
+  activation = character(1),
+  penalty = double(1),
+  mixture = double(1),
+  dropout = double(1),
+  learn_rate = double(1),
+  rate_schedule = character(1),
+  momentum = double(1),
+  batch_size = NULL,
+  class_weights = NULL,
+  stop_iter = integer(1)
+) |>
+  set_engine("brulee") |>
+  set_mode("regression") |>
+  translate()
+```
+
+Note that parsnip automatically sets linear activation in the last layer.
+
+## Translation from parsnip to the original package (classification)
+
+```{r}
+#| label: brulee-cls
+tabular_resnet(
+  epochs = integer(1),
+  hidden_units = integer(1),
+  bottleneck_units = integer(1),
+  residual_at = NULL,
+  activation = character(1),
+  penalty = double(1),
+  mixture = double(1),
+  dropout = double(1),
+  learn_rate = double(1),
+  rate_schedule = character(1),
+  momentum = double(1),
+  batch_size = NULL,
+  class_weights = NULL,
+  stop_iter = integer(1)
+) |>
+  set_engine("brulee") |>
+  set_mode("classification") |>
+  translate()
+```
+
+## Preprocessing requirements
+
+`brulee_resnet()` requires numeric predictors. Factor or categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) before fitting; parsnip does _not_ create indicator variables for this engine, so use a recipe (or some other method) to make them numeric.
+
+```{r}
+#| child: template-same-scale.Rmd
+```
+
+## Case weights
+
+```{r}
+#| child: template-no-case-weights.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("tabular_resnet_predict") |>
+  dplyr::filter(engine == "brulee") |>
+  dplyr::select(mode, type)
+
+```
+
+## References
+
+ - Gorishniy, Y., Rubachev, I., Khrulkov, V., & Babenko, A. (2021). Revisiting deep learning models for tabular data. _Advances in Neural Information Processing Systems_, 34.

@@ -33,11 +33,11 @@ of model parameters randomly set to zero during model training.}
 
 \item{epochs}{An integer for the number of training iterations.}
 
-\item{activation}{A single character string denoting the type of relationship
-between the original predictors and the hidden unit layer. The activation
-function between the hidden and output layers is automatically set to either
-"linear" or "softmax" depending on the type of outcome. Possible values
-depend on the engine being used.}
+\item{activation}{A character vector denoting the type of relationship
+between the different layers. The activation function between the hidden and
+output layers is automatically set to either "linear" or "softmax"
+depending on the type of outcome. Possible values depend on the engine
+being used.}
 
 \item{learn_rate}{A number for the rate at which the boosting algorithm adapts
 from iteration-to-iteration (specific engines only). This is sometimes referred to

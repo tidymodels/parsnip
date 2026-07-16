@@ -69,6 +69,13 @@ reference:
   - svm_linear
   - svm_poly
   - svm_rbf
+  - tabular_auto_int
+  - tabular_chronos
+  - tabular_icl
+  - tabular_pfn
+  - tabular_resnet
+  - tabular_rln
+  - tabular_saint
 - title: Infrastructure
   contents:
   - autoplot.model_fit
