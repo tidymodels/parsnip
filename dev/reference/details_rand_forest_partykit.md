@@ -7,18 +7,18 @@ from the individual trees and combines them.
 
 ## Details
 
-For this engine, there are multiple modes: censored regression,
-regression, and classification
+For this engine, there are multiple modes: regression, classification,
+and censored regression
 
 ### Tuning Parameters
 
 This model has 3 tuning parameters:
 
-- `trees`: \# Trees (type: integer, default: 500L)
-
 - `min_n`: Minimal Node Size (type: integer, default: 20L)
 
 - `mtry`: \# Randomly Selected Predictors (type: integer, default: 5L)
+
+- `trees`: \# Trees (type: integer, default: 500L)
 
 ### Translation from parsnip to the original package (regression)
 
@@ -114,11 +114,11 @@ weights.
     ## # A tibble: 5 x 2
     ##   mode                type
     ##   <chr>               <chr>
-    ## 1 censored regression time
-    ## 2 censored regression survival
-    ## 3 regression          numeric
-    ## 4 classification      class
-    ## 5 classification      prob
+    ## 1 regression          numeric
+    ## 2 classification      class
+    ## 3 classification      prob
+    ## 4 censored regression time
+    ## 5 censored regression survival
 
 ### Other details
 

@@ -32,7 +32,7 @@ ridge or weight decay).
     ##
     ## Model fit template:
     ## parsnip::keras_mlp(x = missing_arg(), y = missing_arg(), penalty = double(1),
-    ##     hidden_units = 1, act = "linear")
+    ##     hidden_units = 1, activation = "linear")
 
 [`keras_mlp()`](https://parsnip.tidymodels.org/dev/reference/keras_mlp.md)
 is a parsnip wrapper around keras code for neural networks. This model

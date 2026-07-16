@@ -9,7 +9,7 @@ There are different ways to fit this model, and the method of estimation
 is chosen by setting the model *engine*. The engine-specific pages for
 this model are listed below.
 
-- [`ranger`](https://parsnip.tidymodels.org/dev/reference/details_rand_forest_ranger.md)`¹`
+- [`ranger`](https://parsnip.tidymodels.org/dev/reference/details_rand_forest_ranger.md)`¹²`
 
 - [`aorsf`](https://parsnip.tidymodels.org/dev/reference/details_rand_forest_aorsf.md)`²`
 

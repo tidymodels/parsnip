@@ -6,19 +6,19 @@ uses all predictions from the individual trees and combines them.
 
 ## Details
 
-For this engine, there are multiple modes: censored regression,
-classification, and regression
+For this engine, there are multiple modes: classification, regression,
+and censored regression
 
 ### Tuning Parameters
 
 This model has 3 tuning parameters:
 
+- `mtry`: \# Randomly Selected Predictors (type: integer, default:
+  ceiling(sqrt(n_predictors)))
+
 - `trees`: \# Trees (type: integer, default: 500L)
 
 - `min_n`: Minimal Node Size (type: integer, default: 5L)
-
-- `mtry`: \# Randomly Selected Predictors (type: integer, default:
-  ceiling(sqrt(n_predictors)))
 
 Additionally, this model has one engine-specific tuning parameter:
 
@@ -114,13 +114,13 @@ weights.
     ## # A tibble: 7 x 2
     ##   mode                type
     ##   <chr>               <chr>
-    ## 1 censored regression time
-    ## 2 censored regression survival
-    ## 3 classification      class
-    ## 4 classification      prob
-    ## 5 classification      raw
-    ## 6 regression          numeric
-    ## 7 regression          raw
+    ## 1 classification      class
+    ## 2 classification      prob
+    ## 3 classification      raw
+    ## 4 regression          numeric
+    ## 5 regression          raw
+    ## 6 censored regression time
+    ## 7 censored regression survival
 
 ### Other details
 

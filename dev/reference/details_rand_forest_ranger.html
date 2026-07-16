@@ -58,7 +58,8 @@ predictions from the individual trees and combines them.</p>
 
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>For this engine, there are multiple modes: classification and regression</p><div class="section">
+    <p>For this engine, there are multiple modes: classification, regression,
+and censored regression</p><div class="section">
 <h3 id="tuning-parameters">Tuning Parameters<a class="anchor" aria-label="anchor" href="#tuning-parameters"></a></h3>
 
 
@@ -69,7 +70,8 @@ below)</p></li>
 </ul><p><code>mtry</code> depends on the number of columns. The default in
 <code><a href="http://imbs-hl.github.io/ranger/reference/ranger.html" class="external-link">ranger::ranger()</a></code> is <code>floor(sqrt(ncol(x)))</code>.</p>
 <p><code>min_n</code> depends on the mode. For regression, a value of 5 is the
-default. For classification, a value of 10 is used.</p>
+default. For classification, a value of 10 is used. For censored
+regression, a value of 3 is used.</p>
 </div>
 
 <div class="section">
@@ -131,6 +133,38 @@ chosen value if it is not consistent with the actual data dimensions.</p>
 <p>Note that a <code>ranger</code> probability forest is always fit (unless the
 <code>probability</code> argument is changed by the user via
 <code><a href="set_engine.html">set_engine()</a></code>).</p>
+</div>
+
+<div class="section">
+<h3 id="translation-from-parsnip-to-the-original-package-censored-regression-">Translation from parsnip to the original package (censored regression)<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package-censored-regression-"></a></h3>
+
+
+<p>The <strong>censored</strong> extension package is required to fit this model.</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/censored" class="external-link">censored</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span></span>
+<span>  mtry <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
+<span>  trees <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
+<span>  min_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"ranger"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"censored regression"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="do">## Random Forest Model Specification (censored regression)</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="do">## Main Arguments:</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="do">##   mtry = integer(1)</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="do">##   trees = integer(1)</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="do">##   min_n = integer(1)</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="do">## Computational engine: ranger</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="do">## Model fit template:</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="do">## ranger::ranger(formula = missing_arg(), data = missing_arg(),</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="do">##     weights = missing_arg(), mtry = min_cols(~integer(1), x),</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="do">##     num.trees = integer(1), min.node.size = min_rows(~integer(1),</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="do">##         x), num.threads = 1, verbose = FALSE, seed = sample.int(10^5,</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="do">##         1))</span></span></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -203,17 +237,20 @@ functions from the <a href="https://butcher.tidymodels.org" class="external-link
 
 <p></p><div class="sourceCode r"><pre><code><span><span class="fu">parsnip</span><span class="fu">:::</span><span class="fu"><a href="../reference/get_model_env.html">get_from_env</a></span><span class="op">(</span><span class="st">"rand_forest_predict"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">engine</span> <span class="op">==</span> <span class="st">"ranger"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">mode</span>, <span class="va">type</span><span class="op">)</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="do">## # A tibble: 7 x 2</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="do">##   mode           type</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="do">##   &lt;chr&gt;          &lt;chr&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="do">## 1 classification class</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="do">## 2 classification prob</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="do">## 3 classification conf_int</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="do">## 4 classification raw</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="do">## 5 regression     numeric</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="do">## 6 regression     conf_int</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="do">## # i 1 more row</span></span></code></pre><p></p></div>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">mode</span>, <span class="va">type</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span>n <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="do">## # A tibble: 9 x 2</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="do">##   mode                type</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="do">##   &lt;chr&gt;               &lt;chr&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="do">## 1 classification      class</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="do">## 2 classification      prob</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="do">## 3 classification      conf_int</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="do">## 4 classification      raw</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="do">## 5 regression          numeric</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="do">## 6 regression          conf_int</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="do">## 7 regression          raw</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="do">## 8 censored regression time</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="do">## 9 censored regression survival</span></span></code></pre><p></p></div>
 </div>
 
 <div class="section">

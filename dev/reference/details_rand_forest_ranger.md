@@ -7,7 +7,8 @@ from the individual trees and combines them.
 
 ## Details
 
-For this engine, there are multiple modes: classification and regression
+For this engine, there are multiple modes: classification, regression,
+and censored regression
 
 ### Tuning Parameters
 
@@ -25,7 +26,8 @@ This model has 3 tuning parameters:
 is `floor(sqrt(ncol(x)))`.
 
 `min_n` depends on the mode. For regression, a value of 5 is the
-default. For classification, a value of 10 is used.
+default. For classification, a value of 10 is used. For censored
+regression, a value of 3 is used.
 
 ### Translation from parsnip to the original package (regression)
 
@@ -88,6 +90,37 @@ consistent with the actual data dimensions.
 Note that a `ranger` probability forest is always fit (unless the
 `probability` argument is changed by the user via
 [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md)).
+
+### Translation from parsnip to the original package (censored regression)
+
+The **censored** extension package is required to fit this model.
+
+    library(censored)
+
+    rand_forest(
+      mtry = integer(1),
+      trees = integer(1),
+      min_n = integer(1)
+    ) |>
+      set_engine("ranger") |>
+      set_mode("censored regression") |>
+      translate()
+
+    ## Random Forest Model Specification (censored regression)
+    ##
+    ## Main Arguments:
+    ##   mtry = integer(1)
+    ##   trees = integer(1)
+    ##   min_n = integer(1)
+    ##
+    ## Computational engine: ranger
+    ##
+    ## Model fit template:
+    ## ranger::ranger(formula = missing_arg(), data = missing_arg(),
+    ##     weights = missing_arg(), mtry = min_cols(~integer(1), x),
+    ##     num.trees = integer(1), min.node.size = min_rows(~integer(1),
+    ##         x), num.threads = 1, verbose = FALSE, seed = sample.int(10^5,
+    ##         1))
 
 ### Preprocessing requirements
 
@@ -153,18 +186,21 @@ functions from the [butcher](https://butcher.tidymodels.org) package.
 
     parsnip:::get_from_env("rand_forest_predict") |>
       dplyr::filter(engine == "ranger") |>
-      dplyr::select(mode, type)
+      dplyr::select(mode, type) |>
+      print(n = Inf)
 
-    ## # A tibble: 7 x 2
-    ##   mode           type
-    ##   <chr>          <chr>
-    ## 1 classification class
-    ## 2 classification prob
-    ## 3 classification conf_int
-    ## 4 classification raw
-    ## 5 regression     numeric
-    ## 6 regression     conf_int
-    ## # i 1 more row
+    ## # A tibble: 9 x 2
+    ##   mode                type
+    ##   <chr>               <chr>
+    ## 1 classification      class
+    ## 2 classification      prob
+    ## 3 classification      conf_int
+    ## 4 classification      raw
+    ## 5 regression          numeric
+    ## 6 regression          conf_int
+    ## 7 regression          raw
+    ## 8 censored regression time
+    ## 9 censored regression survival
 
 ### Examples
 
