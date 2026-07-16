@@ -167,11 +167,11 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
     } else {
       link_val <- link_arg
     }
-    if (is.character(link_val) && length(link_val) == 1L && link_val == "logistic") {
+    if (
+      is.character(link_val) && length(link_val) == 1L && link_val == "logistic"
+    ) {
       x$method$fit$args$link <- rlang::new_quosure("logit", rlang::empty_env())
     }
-
-
   }
 
   # adapted from `.check_glmnet_penalty_fit()`
@@ -266,8 +266,8 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
       min_pen <-
         if (
           rlang::is_call(x$method$fit$args$lambda) ||
-          is.null(x$method$fit$args$lambda) ||
-          0 %in% x$method$fit$args$lambda
+            is.null(x$method$fit$args$lambda) ||
+            0 %in% x$method$fit$args$lambda
         ) {
           1e-08
         } else {
