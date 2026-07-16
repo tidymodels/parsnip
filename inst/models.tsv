@@ -104,6 +104,7 @@
 "naive_Bayes"	"classification"	"naivebayes"	"discrim"
 "nearest_neighbor"	"classification"	"kknn"	NA
 "nearest_neighbor"	"regression"	"kknn"	NA
+"null_model"	"censored regression"	"survival"	"censored"
 "null_model"	"classification"	"parsnip"	NA
 "null_model"	"regression"	"parsnip"	NA
 "ordinal_reg"	"classification"	"ordinalNet"	"ordered"
@@ -124,6 +125,7 @@
 "proportional_hazards"	"censored regression"	"survival"	"censored"
 "rand_forest"	"censored regression"	"aorsf"	"censored"
 "rand_forest"	"censored regression"	"partykit"	"censored"
+"rand_forest"	"censored regression"	"ranger"	"censored"
 "rand_forest"	"classification"	"aorsf"	"bonsai"
 "rand_forest"	"classification"	"grf"	NA
 "rand_forest"	"classification"	"h2o"	"agua"
