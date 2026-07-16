@@ -5,8 +5,8 @@ specific_model <- function(x) {
 
 possible_engines <- function(object, ...) {
   m_env <- get_model_env()
-  engs <- rlang::env_get(m_env, specific_model(object))
-  unique(engs$engine)
+  engines <- m_env[[specific_model(object)]]
+  unique(engines$engine)
 }
 
 # ------------------------------------------------------------------------------
@@ -15,14 +15,26 @@ shhhh <- function(x) {
   suppressPackageStartupMessages(requireNamespace(x, quietly = TRUE))
 }
 
+# An installed package stays installed for the rest of the session, so
+# remember successful checks to avoid repeated `requireNamespace()` calls on
+# every fit. Failures are not cached so that installing a missing package
+# takes effect without restarting R.
+pkg_install_cache <- new.env(parent = emptyenv())
+
 is_installed <- function(pkg) {
-  res <- try(shhhh(pkg), silent = TRUE)
-  res
+  if (isTRUE(pkg_install_cache[[pkg]])) {
+    return(TRUE)
+  }
+  installed <- isTRUE(try(shhhh(pkg), silent = TRUE))
+  if (installed) {
+    pkg_install_cache[[pkg]] <- TRUE
+  }
+  installed
 }
 
 check_installs <- function(x, call = rlang::caller_env()) {
   if (length(x$method$libs) > 0) {
-    is_inst <- map_lgl(x$method$libs, is_installed)
+    is_inst <- vapply(x$method$libs, is_installed, logical(1))
     if (!all(is_inst)) {
       missing_pkg <- x$method$libs[!is_inst]
       missing_pkg <- paste0(missing_pkg, collapse = ", ")

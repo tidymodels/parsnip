@@ -64,9 +64,10 @@ translate.default <- function(x, engine = x$engine, ...) {
     cli::cli_abort("Model code depends on the mode; please specify one.")
   }
 
-  check_spec_mode_engine_val(class(x)[1], x$engine, x$mode)
-
+  # When `x$method` is populated, `add_methods()` has already validated this
+  # combination, so don't pay for the check twice.
   if (is.null(x$method)) {
+    check_spec_mode_engine_val(class(x)[1], x$engine, x$mode)
     x$method <- get_model_spec(mod_name, x$mode, engine)
   }
 
@@ -89,7 +90,7 @@ translate.default <- function(x, engine = x$engine, ...) {
   )
 
   # keep only modified args
-  modifed_args <- !purrr::map_lgl(actual_args, null_value)
+  modifed_args <- !vapply(actual_args, null_value, logical(1))
   actual_args <- actual_args[modifed_args]
 
   # look for defaults if not modified in other
@@ -148,10 +149,17 @@ get_args <- function(model, engine) {
   m_env <- get_model_env()
 
   args <- m_env[[paste0(model, "_args")]]
-  args <- vctrs::vec_slice(args, args$engine == engine)
-  args$engine <- NULL
+  is_engine <- args$engine == engine
 
-  args
+  tibble::new_tibble(
+    list(
+      parsnip = args$parsnip[is_engine],
+      original = args$original[is_engine],
+      func = args$func[is_engine],
+      has_submodel = args$has_submodel[is_engine]
+    ),
+    nrow = sum(is_engine)
+  )
 }
 
 # to replace harmonize

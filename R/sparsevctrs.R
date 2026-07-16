@@ -38,7 +38,10 @@ to_sparse_data_frame <- function(x, object, call = rlang::caller_env()) {
 }
 
 is_sparse_matrix <- function(x) {
-  methods::is(x, "sparseMatrix")
+  # All of the sparse matrix classes from the Matrix package are S4, and
+  # `isS4()` is much cheaper than `methods::is()` for the common case of a
+  # data frame or base matrix.
+  isS4(x) && methods::is(x, "sparseMatrix")
 }
 
 materialize_sparse_tibble <- function(x, object, input) {

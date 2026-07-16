@@ -9,14 +9,11 @@ form_form <-
       check_outcome(eval_tidy(rlang::f_lhs(env$formula), env$data), object)
 
       encoding_info <- get_encoding(class(object)[1])
-      encoding_info <-
-        vctrs::vec_slice(
-          encoding_info,
-          encoding_info$mode == object$mode &
-            encoding_info$engine == object$engine
-        )
+      is_spec_encoding <-
+        encoding_info$mode == object$mode &
+        encoding_info$engine == object$engine
 
-      remove_intercept <- encoding_info$remove_intercept
+      remove_intercept <- encoding_info$remove_intercept[is_spec_encoding]
       if (remove_intercept) {
         env$data <- env$data[,
           colnames(env$data) != "(Intercept)",
@@ -84,11 +81,12 @@ xy_xy <- function(
 
   check_outcome(env$y, object)
 
-  encoding_info <-
-    get_encoding(class(object)[1]) |>
-    dplyr::filter(mode == object$mode, engine == object$engine)
+  encoding_info <- get_encoding(class(object)[1])
+  is_spec_encoding <-
+    encoding_info$mode == object$mode &
+    encoding_info$engine == object$engine
 
-  remove_intercept <- encoding_info$remove_intercept
+  remove_intercept <- encoding_info$remove_intercept[is_spec_encoding]
   if (remove_intercept) {
     env$x <- env$x[, colnames(env$x) != "(Intercept)", drop = FALSE]
   }
@@ -142,13 +140,14 @@ form_xy <- function(
   ...,
   call = rlang::caller_env()
 ) {
-  encoding_info <-
-    get_encoding(class(object)[1]) |>
-    dplyr::filter(mode == object$mode, engine == object$engine)
+  encoding_info <- get_encoding(class(object)[1])
+  is_spec_encoding <-
+    encoding_info$mode == object$mode &
+    encoding_info$engine == object$engine
 
-  indicators <- encoding_info$predictor_indicators
-  remove_intercept <- encoding_info$remove_intercept
-  allow_sparse_x <- encoding_info$allow_sparse_x
+  indicators <- encoding_info$predictor_indicators[is_spec_encoding]
+  remove_intercept <- encoding_info$remove_intercept[is_spec_encoding]
+  allow_sparse_x <- encoding_info$allow_sparse_x[is_spec_encoding]
 
   if (allow_sparse_x && sparsevctrs::has_sparse_elements(env$data)) {
     target <- "dgCMatrix"
@@ -187,13 +186,11 @@ xy_form <- function(object, env, control, ...) {
   check_outcome(env$y, object)
 
   encoding_info <- get_encoding(class(object)[1])
-  encoding_info <-
-    vctrs::vec_slice(
-      encoding_info,
-      encoding_info$mode == object$mode & encoding_info$engine == object$engine
-    )
+  is_spec_encoding <-
+    encoding_info$mode == object$mode &
+    encoding_info$engine == object$engine
 
-  remove_intercept <- encoding_info$remove_intercept
+  remove_intercept <- encoding_info$remove_intercept[is_spec_encoding]
 
   data_obj <-
     .convert_xy_to_form_fit(

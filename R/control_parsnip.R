@@ -45,6 +45,11 @@ check_control <- function(x, call = rlang::caller_env()) {
   x
 }
 
+# A prebuilt default control object so that `fit()` and `fit_xy()` do not
+# construct a new one on every call. It is only used as the reference for
+# `condense_control()` and is never modified.
+default_parsnip_control <- control_parsnip()
+
 #' @export
 print.control_parsnip <- function(x, ...) {
   cat("parsnip control object\n")
