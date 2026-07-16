@@ -13,7 +13,7 @@
 \item{object}{A model fit object.}
 
 \item{...}{For \code{\link[=autoplot.glmnet]{autoplot.glmnet()}}, options to pass to
-\code{\link[ggrepel:geom_text_repel]{ggrepel::geom_label_repel()}}. Otherwise, this argument is ignored.}
+\code{\link[ggrepel:geom_label_repel]{ggrepel::geom_label_repel()}}. Otherwise, this argument is ignored.}
 
 \item{min_penalty}{A single, non-negative number for the smallest penalty
 value that should be shown in the plot. If left \code{NULL}, the whole data

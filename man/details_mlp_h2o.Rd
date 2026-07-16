@@ -52,7 +52,7 @@ in the input layer, which defaults to 0.
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-\link[agua:h2o_train]{agua::h2o_train_mlp} is a wrapper around
+\link[agua:h2o_train_mlp]{agua::h2o_train_mlp} is a wrapper around
 \code{\link[h2o:h2o.deeplearning]{h2o::h2o.deeplearning()}}.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{mlp(
