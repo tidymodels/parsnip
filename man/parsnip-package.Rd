@@ -24,6 +24,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Max Kuhn \email{max@posit.co} (\href{https://orcid.org/0000-0003-2402-136X}{ORCID})
   \item Davis Vaughan \email{davis@posit.co}
 }
 

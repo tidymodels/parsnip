@@ -1,0 +1,158 @@
+```{r}
+#| child: aaa.Rmd
+#| include: false
+```
+
+`r descr_models("tabular_auto_int", "brulee")`
+
+## Tuning Parameters
+
+```{r}
+#| label: brulee-param-info
+#| echo: false
+defaults <- 
+  tibble::tibble(
+    parsnip = 
+      c("epochs", "num_embedding", "hidden_units", "hidden_activations", 
+        "num_attn_feat", "num_attn_heads", "num_attn_blocks", "activation", 
+        "dropout", "dropout_attn", "dropout_embedding", "penalty", "mixture", 
+        "learn_rate", "rate_schedule", "momentum", "batch_size", "class_weights", 
+        "stop_iter"),
+    default = c("100L", "16L", "NULL", "NULL", 
+                "16L", "2L", "3L", "'relu'",
+                "0.0", "0.0", "0.0", "0.001", "0.0",
+                "0.01", "'none'", "0.0", "NULL", "NULL",
+                "5L"))
+
+spec <-
+  tabular_auto_int(
+    epochs = tune(),
+    num_embedding = tune(),
+    hidden_units = tune(),
+    hidden_activations = tune(),
+    num_attn_feat = tune(),
+    num_attn_heads = tune(),
+    num_attn_blocks = tune(),
+    activation = tune(),
+    dropout = tune(),
+    dropout_attn = tune(),
+    dropout_embedding = tune(),
+    penalty = tune(),
+    mixture = tune(),
+    learn_rate = tune(),
+    rate_schedule = tune(),
+    momentum = tune(),
+    batch_size = tune(),
+    class_weights = tune(),
+    stop_iter = tune()
+  ) |> 
+  set_engine("brulee")
+
+param <- spec |> make_parameter_list(defaults)
+
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r}
+#| label: brulee-param-list
+#| echo: false
+#| results: asis
+param$item
+```
+
+The use of the L1 penalty (a.k.a. the lasso penalty) does _not_ force parameters to be strictly zero (as it does in packages such as glmnet). The zeroing out of parameters is a specific feature the optimization method used in those packages.
+
+## Translation from parsnip to the original package (regression)
+
+```{r}
+#| label: brulee-reg
+tabular_auto_int(
+  epochs = integer(1),
+  num_embedding = integer(1),
+  hidden_units = NULL,
+  hidden_activations = NULL,
+  num_attn_feat = integer(1),
+  num_attn_heads = integer(1),
+  num_attn_blocks = integer(1),
+  activation = character(1),
+  dropout = double(1),
+  dropout_attn = double(1),
+  dropout_embedding = double(1),
+  penalty = double(1),
+  mixture = double(1),
+  learn_rate = double(1),
+  rate_schedule = tune(),
+  momentum = character(1),
+  batch_size = NULL,
+  class_weights = NULL,
+  stop_iter = integer(1)
+  ) |>  
+  set_engine("brulee") |> 
+  set_mode("regression") |> 
+  translate()
+```
+
+Note that parsnip automatically sets linear activation in the last layer. 
+
+## Translation from parsnip to the original package (classification)
+
+```{r}
+#| label: brulee-cls
+tabular_auto_int(
+  epochs = integer(1),
+  num_embedding = integer(1),
+  hidden_units = NULL,
+  hidden_activations = NULL,
+  num_attn_feat = integer(1),
+  num_attn_heads = integer(1),
+  num_attn_blocks = integer(1),
+  activation = character(1),
+  dropout = double(1),
+  dropout_attn = double(1),
+  dropout_embedding = double(1),
+  penalty = double(1),
+  mixture = double(1),
+  learn_rate = double(1),
+  rate_schedule = tune(),
+  momentum = character(1),
+  batch_size = NULL,
+  class_weights = NULL,
+  stop_iter = integer(1)
+) |> 
+  set_engine("brulee") |> 
+  set_mode("classification") |> 
+  translate()
+```
+
+## Preprocessing requirements
+
+`brulee_auto_int()` natively handles factor predictors via learned embeddings. Factor columns are automatically detected and embedded, while numeric columns use a scaled embedding. There is _no need to pre-encode factors as indicators_.
+
+```{r}
+#| child: template-same-scale.Rmd
+```
+
+## Case weights
+
+```{r}
+#| child: template-no-case-weights.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("tabular_auto_int_predict") |>
+  dplyr::filter(engine == "brulee") |>
+  dplyr::select(mode, type)
+
+```
+
+## References
+
+ - Song, W., Shi, C., Xiao, Z., Duan, Z., Xu, Y., Zhang, M., & Tang, J. (2019). AutoInt: Automatic Feature Interaction Learning via Self-Attentive Neural Networks. In _Proceedings of the 28th ACM International Conference on Information and Knowledge Management (CIKM)_.
+
+
+

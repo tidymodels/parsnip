@@ -48,12 +48,14 @@ parsnip:::get_from_env("null_model_predict") |>
 ```
 
 ```
-## # A tibble: 5 x 2
-##   mode           type   
-##   <chr>          <chr>  
-## 1 regression     numeric
-## 2 regression     raw    
-## 3 classification class  
-## 4 classification prob   
-## 5 classification raw
+## # A tibble: 7 x 2
+##   mode                type   
+##   <chr>               <chr>  
+## 1 regression          numeric
+## 2 regression          raw    
+## 3 classification      class  
+## 4 classification      prob   
+## 5 classification      raw    
+## 6 censored regression time   
+## # i 1 more row
 ```

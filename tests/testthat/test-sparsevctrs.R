@@ -287,6 +287,27 @@ test_that("to_sparse_data_frame() is used correctly", {
   )
 })
 
+test_that("allow_sparse() respects the model mode", {
+  # Registering an engine for another mode that disallows sparse data must not
+  # disable sparse support for a mode that allows it.
+  nm <- "boost_tree_encoding"
+  current <- get_from_env(nm)
+  withr::defer(set_env_val(nm, current))
+
+  spec <- boost_tree("regression", "xgboost")
+  expect_equal(allow_sparse(spec), TRUE)
+
+  extra <- current[current$engine == "xgboost", ][1, ]
+  extra$mode <- "censored regression"
+  extra$allow_sparse_x <- FALSE
+  set_env_val(nm, dplyr::bind_rows(current, extra))
+
+  expect_equal(allow_sparse(spec), TRUE)
+
+  spec$mode <- "censored regression"
+  expect_equal(allow_sparse(spec), FALSE)
+})
+
 test_that("maybe_sparse_matrix() is used correctly", {
   skip_if_not_installed("xgboost")
   skip_on_cran()

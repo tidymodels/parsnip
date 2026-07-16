@@ -33,11 +33,11 @@ of model parameters randomly set to zero during model training.}
 
 \item{epochs}{An integer for the number of training iterations.}
 
-\item{activation}{A single character string denoting the type of relationship
-between the original predictors and the hidden unit layer. The activation
-function between the hidden and output layers is automatically set to either
-"linear" or "softmax" depending on the type of outcome. Possible values
-depend on the engine being used.}
+\item{activation}{A character vector denoting the type of relationship
+between the different layers. The activation function between the hidden and
+output layers is automatically set to either "linear" or "softmax"
+depending on the type of outcome. Possible values depend on the engine
+being used.}
 
 \item{learn_rate}{A number for the rate at which the boosting algorithm adapts
 from iteration-to-iteration (specific engines only). This is sometimes referred to
@@ -48,7 +48,7 @@ as the shrinkage parameter.}
 feed-forward neural network). This function can fit classification and
 regression models.
 
-\verb{Rd parsnip:::make_engine_list("mlp")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("mlp")}
 
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
@@ -64,7 +64,7 @@ with the data.
 
 Each of the arguments in this function other than \code{mode} and \code{engine} are
 captured as \link[rlang:topic-quosure]{quosures}. To pass values
-programmatically, use the \link[rlang:injection-operator]{injection operator} like so:
+programmatically, use the \link[rlang:!!]{injection operator} like so:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{value <- 1
 mlp(argument = !!value)
@@ -81,5 +81,5 @@ mlp(mode = "classification", penalty = 0.01)
 \url{https://www.tidymodels.org}, \href{https://www.tmwr.org/}{\emph{Tidy Modeling with R}}, \href{https://www.tidymodels.org/find/parsnip/}{searchable table of parsnip models}
 }
 \seealso{
-\verb{Rd parsnip:::make_seealso_list("mlp")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("mlp")}
 }

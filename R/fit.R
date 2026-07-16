@@ -459,7 +459,7 @@ allow_sparse <- function(x) {
   }
 
   res <- get_from_env(paste0(class(x)[1], "_encoding"))
-  all(res$allow_sparse_x[res$engine == x$engine])
+  all(res$allow_sparse_x[res$engine == x$engine & res$mode == x$mode])
 }
 
 #' @method print model_fit
