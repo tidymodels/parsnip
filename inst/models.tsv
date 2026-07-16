@@ -161,3 +161,16 @@
 "svm_rbf"	"classification"	"liquidSVM"	NA
 "svm_rbf"	"regression"	"kernlab"	NA
 "svm_rbf"	"regression"	"liquidSVM"	NA
+"tabular_auto_int"	"classification"	"brulee"	"tabby"
+"tabular_auto_int"	"regression"	"brulee"	"tabby"
+"tabular_chronos"	"quantile regression"	"brulee"	"tabby"
+"tabular_chronos"	"regression"	"brulee"	"tabby"
+"tabular_icl"	"classification"	"brulee"	"tabby"
+"tabular_icl"	"regression"	"brulee"	"tabby"
+"tabular_pfn"	"classification"	"tabpfn"	"tabby"
+"tabular_pfn"	"regression"	"tabpfn"	"tabby"
+"tabular_resnet"	"classification"	"brulee"	"tabby"
+"tabular_resnet"	"regression"	"brulee"	"tabby"
+"tabular_rln"	"regression"	"brulee"	"tabby"
+"tabular_saint"	"classification"	"brulee"	"tabby"
+"tabular_saint"	"regression"	"brulee"	"tabby"

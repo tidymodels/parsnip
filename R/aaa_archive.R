@@ -95,7 +95,13 @@ model_info_table <-
                "ordinal_reg",      "classification",       "ordinalNet",       "ordered",
                "ordinal_reg",      "classification",             "vglm",       "ordered",
                "rand_forest",      "classification",    "ordinalForest",       "ordered",
+          "tabular_auto_int",      "classification",           "brulee",         "tabby",
+               "tabular_icl",      "classification",           "brulee",         "tabby",
+               "tabular_pfn",      "classification",           "tabpfn",         "tabby",
+            "tabular_resnet",      "classification",           "brulee",         "tabby",
+             "tabular_saint",      "classification",           "brulee",         "tabby",
                 "linear_reg", "quantile regression",         "quantreg",              NA,
+           "tabular_chronos", "quantile regression",           "brulee",         "tabby",
                "rand_forest", "quantile regression",              "grf",              NA,
                    "auto_ml",          "regression",              "h2o",          "agua",
                   "bag_mars",          "regression",            "earth",      "baguette",
@@ -162,5 +168,12 @@ model_info_table <-
                 "svm_linear",          "regression",          "kernlab",              NA,
                   "svm_poly",          "regression",          "kernlab",              NA,
                    "svm_rbf",          "regression",          "kernlab",              NA,
-                   "svm_rbf",          "regression",        "liquidSVM",              NA
+                   "svm_rbf",          "regression",        "liquidSVM",              NA,
+          "tabular_auto_int",          "regression",           "brulee",         "tabby",
+           "tabular_chronos",          "regression",           "brulee",         "tabby",
+               "tabular_icl",          "regression",           "brulee",         "tabby",
+               "tabular_rln",          "regression",           "brulee",         "tabby",
+               "tabular_pfn",          "regression",           "tabpfn",         "tabby",
+            "tabular_resnet",          "regression",           "brulee",         "tabby",
+             "tabular_saint",          "regression",           "brulee",         "tabby"
       )

@@ -1,0 +1,103 @@
+```{r}
+#| child: aaa.Rmd
+#| include: false
+```
+
+`r descr_models("tabular_rln", "brulee")`
+
+## Tuning Parameters
+
+```{r}
+#| label: brulee-param-info
+#| echo: false
+defaults <-
+  tibble::tibble(
+    parsnip =
+      c("hidden_units", "penalty_type", "penalty_average", "step_rate",
+        "activation", "epochs", "learn_rate", "rate_schedule", "momentum",
+        "batch_size", "stop_iter"),
+    default = c("5L", "'L1'", "1e-10", "1e6",
+                "'relu'", "100L", "0.001", "'none'", "0.0",
+                "NULL", "20L"))
+
+spec <-
+  tabular_rln(
+    hidden_units = tune(),
+    penalty_type = tune(),
+    penalty_average = tune(),
+    step_rate = tune(),
+    activation = tune(),
+    epochs = tune(),
+    learn_rate = tune(),
+    rate_schedule = tune(),
+    momentum = tune(),
+    batch_size = tune(),
+    stop_iter = tune()
+  ) |>
+  set_engine("brulee")
+
+param <- spec |> make_parameter_list(defaults)
+
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r}
+#| label: brulee-param-list
+#| echo: false
+#| results: asis
+param$item
+```
+
+`penalty_average` and `step_rate` are specified on the natural scale but are best tuned on the log10 scale.
+
+## Translation from parsnip to the original package (regression)
+
+```{r}
+#| label: brulee-reg
+tabular_rln(
+  hidden_units = integer(1),
+  penalty_type = character(1),
+  penalty_average = double(1),
+  step_rate = double(1),
+  activation = character(1),
+  epochs = integer(1),
+  learn_rate = double(1),
+  rate_schedule = character(1),
+  momentum = double(1),
+  batch_size = NULL,
+  stop_iter = integer(1)
+) |>
+  set_engine("brulee") |>
+  set_mode("regression") |>
+  translate()
+```
+
+## Preprocessing requirements
+
+`brulee_rln()` requires numeric predictors. Factor or categorical predictors need to be converted to numeric values (e.g., dummy or indicator variables) before fitting; parsnip does _not_ create indicator variables for this engine, so use a recipe (or some other method) to make them numeric.
+
+```{r}
+#| child: template-same-scale.Rmd
+```
+
+## Case weights
+
+```{r}
+#| child: template-no-case-weights.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("tabular_rln_predict") |>
+  dplyr::filter(engine == "brulee") |>
+  dplyr::select(mode, type)
+
+```
+
+## References
+
+ - Shavitt, I., & Segal, E. (2018). Regularization learning networks: Deep learning for tabular datasets. _Advances in Neural Information Processing Systems_, 31, 1379-1389.

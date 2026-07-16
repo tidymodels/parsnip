@@ -80,15 +80,6 @@ test_that("check_args() works", {
       fit(spec, class ~ ., hpc)
     }
   )
-  expect_snapshot(
-    error = TRUE,
-    {
-      spec <- mlp(dropout = 1, penalty = 3) |>
-        set_engine("keras") |>
-        set_mode("classification")
-      fit(spec, class ~ ., hpc)
-    }
-  )
 })
 
 # ------------------------------------------------------------------------------

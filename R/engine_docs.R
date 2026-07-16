@@ -70,7 +70,8 @@ extensions <- function() {
     "rules",
     "bonsai",
     "agua",
-    "ordered"
+    "ordered",
+    "tabby"
   )
 }
 
