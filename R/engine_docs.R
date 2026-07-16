@@ -60,19 +60,10 @@ knit_engine_docs <- function(pattern = NULL) {
 # ------------------------------------------------------------------------------
 
 extensions <- function() {
-  c(
-    "baguette",
-    "censored",
-    "discrim",
-    "multilevelmod",
-    "plsmod",
-    "poissonreg",
-    "rules",
-    "bonsai",
-    "agua",
-    "ordered",
-    "tabby"
-  )
+  # As of 2016-07, tabby is not yet on CRAN (tidymodels/tabby)
+  # fmt: skip
+  c("agua", "baguette", "bonsai", "censored", "discrim", "multilevelmod",
+    "ordered", "plsmod", "poissonreg", "rules", "tabby")
 }
 
 # ------------------------------------------------------------------------------
