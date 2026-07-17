@@ -23,6 +23,8 @@ this model are listed below.
 
 - [`randomForest`](https://parsnip.tidymodels.org/dev/reference/details_rand_forest_randomForest.md)
 
+- [`randomForestSRC`](https://parsnip.tidymodels.org/dev/reference/details_rand_forest_randomForestSRC.md)`²`
+
 - [`spark`](https://parsnip.tidymodels.org/dev/reference/details_rand_forest_spark.md)
 
 ¹ The default engine. ² Requires a parsnip extension package for
@@ -109,6 +111,7 @@ models](https://www.tidymodels.org/find/parsnip/)
 [`ordinalForest engine details`](https://parsnip.tidymodels.org/dev/reference/details_rand_forest_ordinalForest.md),
 [`partykit engine details`](https://parsnip.tidymodels.org/dev/reference/details_rand_forest_partykit.md),
 [`randomForest engine details`](https://parsnip.tidymodels.org/dev/reference/details_rand_forest_randomForest.md),
+[`randomForestSRC engine details`](https://parsnip.tidymodels.org/dev/reference/details_rand_forest_randomForestSRC.md),
 [`spark engine details`](https://parsnip.tidymodels.org/dev/reference/details_rand_forest_spark.md)
 
 ## Examples

@@ -133,6 +133,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_ordinalForest.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_partykit.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_randomForest.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_randomForestSRC.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_ranger.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_spark.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rule_fit_h2o.html</loc></url>
