@@ -275,12 +275,6 @@ check_pred_type <- function(object, type, ..., call = rlang::caller_env()) {
         "For hazard predictions, the object should be a censored regression.",
         call = call
       )
-    },
-    "linear_pred" = if (object$spec$mode != "censored regression") {
-      cli::cli_abort(
-        "For the linear predictor, the object should be a censored regression.",
-        call = call
-      )
     }
   )
 
