@@ -96,6 +96,24 @@ set_pred(
   model = "gen_additive_mod",
   eng = "mgcv",
   mode = "regression",
+  type = "linear_pred",
+  value = list(
+    pre = NULL,
+    post = function(x, object) tibble(.pred_linear_pred = unname(as.vector(x))),
+    func = c(fun = "predict"),
+    args = list(
+      object = rlang::expr(object$fit),
+      newdata = rlang::expr(new_data),
+      type = "link",
+      se.fit = FALSE
+    )
+  )
+)
+
+set_pred(
+  model = "gen_additive_mod",
+  eng = "mgcv",
+  mode = "regression",
   type = "raw",
   value = list(
     pre = NULL,
