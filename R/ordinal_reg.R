@@ -16,6 +16,8 @@
 #'  model is `"polr"`.
 #' @param ordinal_link The ordinal link function.
 #' @param odds_link The odds or probability link function.
+#' @param threshold_structure The threshold structure for the cutpoints (specific
+#'  engines only).
 #' @param penalty A non-negative number representing the total
 #'  amount of regularization (specific engines only).
 #' @param mixture A number between zero and one (inclusive) denoting the
@@ -51,6 +53,7 @@ ordinal_reg <-
     mode = "classification",
     ordinal_link = NULL,
     odds_link = NULL,
+    threshold_structure = NULL,
     penalty = NULL,
     mixture = NULL,
     engine = "polr"
@@ -62,6 +65,7 @@ ordinal_reg <-
     args <- list(
       ordinal_link = enquo(ordinal_link),
       odds_link = enquo(odds_link),
+      threshold_structure = enquo(threshold_structure),
       penalty = enquo(penalty),
       mixture = enquo(mixture)
     )
@@ -89,6 +93,7 @@ update.ordinal_reg <-
     parameters = NULL,
     ordinal_link = NULL,
     odds_link = NULL,
+    threshold_structure = NULL,
     penalty = NULL,
     mixture = NULL,
     fresh = FALSE,
@@ -97,6 +102,7 @@ update.ordinal_reg <-
     args <- list(
       ordinal_link = enquo(ordinal_link),
       odds_link = enquo(odds_link),
+      threshold_structure = enquo(threshold_structure),
       penalty = enquo(penalty),
       mixture = enquo(mixture)
     )
@@ -171,6 +177,22 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
       is.character(link_val) && length(link_val) == 1L && link_val == "logistic"
     ) {
       x$method$fit$args$link <- rlang::new_quosure("logit", rlang::empty_env())
+    }
+
+    thresh_arg <- x$method$fit$args$threshold
+    if (rlang::is_quosure(thresh_arg)) {
+      thresh_val <- rlang::eval_tidy(thresh_arg)
+    } else {
+      thresh_val <- thresh_arg
+    }
+    if (is.character(thresh_val) && length(thresh_val) == 1L) {
+      thresh_val <- switch(
+        thresh_val,
+        symmetric_median = "symmetric",
+        symmetric_zero = "symmetric2",
+        thresh_val
+      )
+      x$method$fit$args$threshold <- thresh_val
     }
   }
 

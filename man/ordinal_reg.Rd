@@ -8,6 +8,7 @@ ordinal_reg(
   mode = "classification",
   ordinal_link = NULL,
   odds_link = NULL,
+  threshold_structure = NULL,
   penalty = NULL,
   mixture = NULL,
   engine = "polr"
@@ -20,6 +21,9 @@ only possible value for this model is "classification".}
 \item{ordinal_link}{The ordinal link function.}
 
 \item{odds_link}{The odds or probability link function.}
+
+\item{threshold_structure}{The threshold structure for the cutpoints (specific
+engines only).}
 
 \item{penalty}{A non-negative number representing the total
 amount of regularization (specific engines only).}
