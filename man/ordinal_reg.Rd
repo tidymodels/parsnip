@@ -9,6 +9,7 @@ ordinal_reg(
   ordinal_link = NULL,
   odds_link = NULL,
   threshold_structure = NULL,
+  parallel_reg = NULL,
   penalty = NULL,
   mixture = NULL,
   engine = "polr"
@@ -22,8 +23,23 @@ only possible value for this model is "classification".}
 
 \item{odds_link}{The odds or probability link function.}
 
-\item{threshold_structure}{The threshold structure for the cutpoints (specific
-engines only).}
+\item{threshold_structure}{The threshold structure for the cutpoints
+(specific engines only).}
+
+\item{parallel_reg}{A specification for the parallel regression assumption.
+Possible values are:
+\itemize{
+\item \code{TRUE}: all terms parallel. This is the default.
+\item \code{FALSE}: all terms non-parallel.
+\item A formula with a logical LHS: \code{TRUE ~ x1 + x2} names the parallel
+terms; \code{FALSE ~ x1 + x2} names the non-parallel terms.
+\item A list of at most two of the above (at most one per logical value):
+specifies partial proportional odds, where some terms are parallel and
+others are non-parallel, possibly with overlap.
+}
+
+Available for specific engines only, and different engines accept different
+specifications.}
 
 \item{penalty}{A non-negative number representing the total
 amount of regularization (specific engines only).}

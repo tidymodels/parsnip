@@ -242,6 +242,7 @@
   ordinal_link = NULL,
   odds_link = NULL,
   threshold_structure = NULL,
+  parallel_reg = NULL,
   penalty = NULL,
   mixture = NULL,
   fresh = FALSE,
@@ -583,8 +584,23 @@ calculating Minkowski distance.}
 
 \item{odds_link}{The odds or probability link function.}
 
-\item{threshold_structure}{The threshold structure for the cutpoints (specific
-engines only).}
+\item{threshold_structure}{The threshold structure for the cutpoints
+(specific engines only).}
+
+\item{parallel_reg}{A specification for the parallel regression assumption.
+Possible values are:
+\itemize{
+\item \code{TRUE}: all terms parallel. This is the default.
+\item \code{FALSE}: all terms non-parallel.
+\item A formula with a logical LHS: \code{TRUE ~ x1 + x2} names the parallel
+terms; \code{FALSE ~ x1 + x2} names the non-parallel terms.
+\item A list of at most two of the above (at most one per logical value):
+specifies partial proportional odds, where some terms are parallel and
+others are non-parallel, possibly with overlap.
+}
+
+Available for specific engines only, and different engines accept different
+specifications.}
 
 \item{predictor_prop}{The maximum proportion of original predictors that can
 have \emph{non-zero} coefficients for each PLS component (via regularization).
