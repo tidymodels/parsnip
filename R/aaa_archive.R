@@ -131,6 +131,7 @@ model_info_table <-
     "proportional_hazards" , "censored regression" , "survival"         , "censored"      ,
     "rand_forest"          , "censored regression" , "aorsf"            , "censored"      ,
     "rand_forest"          , "censored regression" , "partykit"         , "censored"      ,
+    "rand_forest"          , "censored regression" , "randomForestSRC"  , "censored"      ,
     "rand_forest"          , "censored regression" , "ranger"           , "censored"      ,
     "rand_forest"          , "classification"      , "aorsf"            , "bonsai"        ,
     "rand_forest"          , "classification"      , "grf"              , NA              ,
