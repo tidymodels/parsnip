@@ -172,7 +172,7 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
 
   x <- translate.default(x, engine, ...)
 
-  # Reject `parallel_reg` for engines that don't support assumption violations
+  # reject `parallel_reg` for engines that don't support assumption violations
   if (! engine %in% c("clm", "vglm", "ordinalNet", "brms")) {
     pr <- rlang::eval_tidy(x$args$parallel_reg)
     if (! is.null(pr) && ! (isTRUE(pr))) {
@@ -189,12 +189,12 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
 
   # REVIEW: What's the preferred way to flag when a legitimate model parameter
   # is passed a value that the engine doesn't accept?
-  if (engine == "polr") {
+  if (engine == "polr" || engine == "clm") {
     oddslink <- rlang::eval_tidy(x$args$odds_link)
     if (!is.null(oddslink) && oddslink != "cumulative_link") {
       cli::cli_warn(
         c(
-          "!" = "The polr engine uses the cumulative link odds link;
+          "!" = "The {.val {engine}} engine uses the cumulative link odds link;
           {.arg odds_link} will be ignored."
         ),
         call = rlang::caller_env()
@@ -204,31 +204,23 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
 
   if (engine == "clm") {
     link_arg <- x$method$fit$args$link
-    if (rlang::is_quosure(link_arg)) {
-      link_val <- rlang::eval_tidy(link_arg)
-    } else {
-      link_val <- link_arg
-    }
-    if (
-      is.character(link_val) && length(link_val) == 1L && link_val == "logistic"
-    ) {
-      x$method$fit$args$link <- rlang::new_quosure("logit", rlang::empty_env())
-    }
+    if (rlang::is_quosure(link_arg))
+      link_arg <- rlang::eval_tidy(link_arg)
+    if (! is.null(link_arg) && link_arg == "logistic")
+      x$method$fit$args$link <- "logit"
 
     thresh_arg <- x$method$fit$args$threshold
-    if (rlang::is_quosure(thresh_arg)) {
-      thresh_val <- rlang::eval_tidy(thresh_arg)
-    } else {
-      thresh_val <- thresh_arg
-    }
-    if (is.character(thresh_val) && length(thresh_val) == 1L) {
-      thresh_val <- switch(
-        thresh_val,
+    if (rlang::is_quosure(thresh_arg))
+      thresh_arg <- rlang::eval_tidy(thresh_arg)
+    if (! is.null(thresh_arg)) {
+      x$method$fit$args$threshold <- switch(
+        thresh_arg,
+        flexible = "flexible",
         symmetric_median = "symmetric",
         symmetric_zero = "symmetric2",
-        thresh_val
+        equidistant = "equidistant",
+        thresh_arg
       )
-      x$method$fit$args$threshold <- thresh_val
     }
   }
 
