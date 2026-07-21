@@ -21,15 +21,15 @@
 #' @param parallel_reg A specification for the parallel regression assumption.
 #'  Possible values are:
 #'
-#'  * `TRUE`: all terms parallel. This is the default.
-#'  * `FALSE`: all terms non-parallel.
+#'  * A logical value: whether to make all terms parallel or all terms
+#'    non-parallel. (The default is `TRUE`. `NA` is disallowed.)
 #'  * A formula with a logical LHS: `TRUE ~ x1 + x2` names the parallel
 #'    terms; `FALSE ~ x1 + x2` names the non-parallel terms.
 #'  * A list of at most two of the above (at most one per logical value):
-#'    specifies partial proportional odds, where some terms are parallel and
-#'    others are non-parallel, possibly with overlap.
+#'    specifies a model in hich some terms are parallel and others are
+#'    non-parallel, possibly with overlap.
 #'
-#'  Available for specific engines only, and different engines accept different
+#'  Available for specific engines only. Different engines accept different
 #'  specifications.
 #' @param penalty A non-negative number representing the total
 #'  amount of regularization (specific engines only).
@@ -179,9 +179,8 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
       cli::cli_abort(
         c(
           "The {.val {engine}} engine does not support relaxing the
-          proportional odds assumption.",
-          "i" = "Use engine {.val clm} or {.val vglm} for non-proportional
-          odds models."
+          parallel regression assumption.",
+          "i" = "Use engine {.val clm} or {.val vglm} for non-parallel models."
         ),
         call = rlang::caller_env()
       )
