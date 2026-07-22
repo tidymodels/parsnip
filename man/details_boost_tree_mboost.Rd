@@ -32,9 +32,9 @@ The \strong{censored} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
-boost_tree() |> 
-  set_engine("mboost") |> 
-  set_mode("censored regression") |> 
+boost_tree() |>
+  set_engine("mboost") |>
+  set_mode("censored regression") |>
   translate()
 }\if{html}{\out{</div>}}
 
@@ -62,12 +62,9 @@ are not required for this model.
 
 \subsection{Case weights}{
 
-This model can utilize case weights during model fitting. To use them,
-see the documentation in \link{case_weights} and the examples
-on \code{tidymodels.org}.
-
-The \code{fit()} and \code{fit_xy()} arguments have arguments called
-\code{case_weights} that expect vectors of case weights.
+The underlying model implementation does allow for case weights when
+fitting the model but not for prediction so case weights are not enabled
+for this engine.
 }
 
 \subsection{Prediction types}{
