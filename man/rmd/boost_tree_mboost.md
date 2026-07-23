@@ -29,9 +29,9 @@ The **censored** extension package is required to fit this model.
 ``` r
 library(censored)
 
-boost_tree() |> 
-  set_engine("mboost") |> 
-  set_mode("censored regression") |> 
+boost_tree() |>
+  set_engine("mboost") |>
+  set_mode("censored regression") |>
   translate()
 ```
 
@@ -54,10 +54,7 @@ This engine does not require any special encoding of the predictors. Categorical
 
 ## Case weights
 
-
-This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
-
-The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+The underlying model implementation does allow for case weights when fitting the model but not for prediction so case weights are not enabled for this engine.
 
 ## Prediction types
 

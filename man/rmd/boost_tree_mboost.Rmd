@@ -10,13 +10,15 @@
 ```{r}
 #| label: mboost-param-info
 #| echo: false
-defaults <- 
-  tibble::tibble(parsnip = c("mtry", "trees", "tree_depth", "min_n", "loss_reduction"),
-                 default = c("see below", "100L", "2L", "10L", "0"))
+defaults <-
+  tibble::tibble(
+    parsnip = c("mtry", "trees", "tree_depth", "min_n", "loss_reduction"),
+    default = c("see below", "100L", "2L", "10L", "0")
+  )
 
 param <-
-  boost_tree() |> 
-  set_engine("mboost") |> 
+  boost_tree() |>
+  set_engine("mboost") |>
   set_mode("censored regression") |>
   make_parameter_list(defaults)
 ```
@@ -40,9 +42,9 @@ The `mtry` parameter is related to the number of predictors. The default is to u
 #| label: mboost-creg
 library(censored)
 
-boost_tree() |> 
-  set_engine("mboost") |> 
-  set_mode("censored regression") |> 
+boost_tree() |>
+  set_engine("mboost") |>
+  set_mode("censored regression") |>
   translate()
 ```
 
@@ -56,9 +58,7 @@ boost_tree() |>
 
 ## Case weights
 
-```{r}
-#| child: template-uses-case-weights.Rmd
-```
+The underlying model implementation does allow for case weights when fitting the model but not for prediction so case weights are not enabled for this engine.
 
 ## Prediction types
 
@@ -68,7 +68,6 @@ boost_tree() |>
 parsnip:::get_from_env("boost_tree_predict") |>
   dplyr::filter(engine == "mboost") |>
   dplyr::select(mode, type)
-
 ```
 
 ## Other details
