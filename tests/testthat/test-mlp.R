@@ -26,7 +26,7 @@ test_that("nnet_softmax", {
   obj <- mlp(mode = 'classification')
   obj$lvls <- c("a", "b")
   res <- nnet_softmax(matrix(c(0.8, 0.2)), obj)
-  expect_equal(names(res), obj$lvls)
+  expect_named(res, obj$lvls)
   expect_equal(res$b, 1 - res$a)
 })
 

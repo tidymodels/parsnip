@@ -457,20 +457,14 @@ test_that("global `contrasts` option is respected", {
   )
   fit_data <- fit_result$x
 
-  expect_identical(
-    names(fit_data),
-    c("class1", "class2", "class3", "compounds")
-  )
+  expect_named(fit_data, c("class1", "class2", "class3", "compounds"))
   expect_true(all(fit_data$class1 %in% c(-1, 0, 1)))
 
   # Predict time
   predict_result <- .convert_form_to_xy_new(fit_result, hpc)
   predict_data <- predict_result$x
 
-  expect_identical(
-    names(predict_data),
-    c("class1", "class2", "class3", "compounds")
-  )
+  expect_named(predict_data, c("class1", "class2", "class3", "compounds"))
   expect_true(all(predict_data$class1 %in% c(-1, 0, 1)))
 })
 

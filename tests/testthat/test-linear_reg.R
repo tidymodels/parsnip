@@ -348,7 +348,7 @@ test_that('lm can handle rankdeficient predictions', {
       predict(new_data = data2)
   )
 
-  expect_identical(names(preds), ".pred")
+  expect_named(preds, ".pred")
 })
 
 test_that("check_args() works", {

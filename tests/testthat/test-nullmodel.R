@@ -126,7 +126,7 @@ test_that('classification', {
       set_engine("parsnip") |>
       fit(class ~ ., data = hpc)
   )
-  expect_true(!is.null(null_model$fit))
+  expect_false(is.null(null_model$fit))
 })
 
 # ------------------------------------------------------------------------------
