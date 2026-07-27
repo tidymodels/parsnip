@@ -26,6 +26,9 @@
 #' str(ctrl)
 condense_control <- function(x, ref, ..., call = rlang::caller_env()) {
   check_dots_empty()
+  if (identical(class(x), class(ref)) && identical(names(x), names(ref))) {
+    return(x)
+  }
   mismatch <- setdiff(names(ref), names(x))
   if (length(mismatch)) {
     cli::cli_abort(

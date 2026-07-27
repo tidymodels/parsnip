@@ -24,3 +24,4 @@ derby.log
 ^\.vscode$
 ^[.]?air[.]toml$
 ^\.claude$
+^plans$
