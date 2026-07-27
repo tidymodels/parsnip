@@ -12,6 +12,12 @@
   `add_censoring_weights = TRUE` in `predict(type = "survival")`
   ([\#1371](https://github.com/tidymodels/parsnip/issues/1371)).
 
+- [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+  [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) have
+  less per-fit overhead, making small or repeated fits (such as during
+  tuning) faster
+  ([\#1071](https://github.com/tidymodels/parsnip/issues/1071)).
+
 - New model specifications
   [`tabular_auto_int()`](https://parsnip.tidymodels.org/dev/reference/tabular_auto_int.md),
   [`tabular_chronos()`](https://parsnip.tidymodels.org/dev/reference/tabular_chronos.md),
