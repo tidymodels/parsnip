@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* `ordinal_reg()` gains `threshold_structure` and `parallel_reg` arguments for controlling threshold constraints and the parallel regression assumption (proportional odds in logit-linked models). `threshold_structure` is character-valued and usable by the `clm` and `vglm` engines. `parallel_reg` accepts a logical value (applied to all terms), a formula with a logical LHS naming parallel or non-parallel terms, or a list combining both; the engines `clm`, `vglm`, and `ordinalNet` are compatible with different subsets of specifications.
+
 * Fitting with sparse data now respects the model mode, so loading an extension package that registers an engine for a different mode can no longer alter sparse data support for the original mode (#1382).
 
 * For censored regression models, the censoring weights can now be added to the predictions of survival probability by setting `add_censoring_weights = TRUE` in `predict(type = "survival")` (#1371).

@@ -16,6 +16,21 @@
 #'  model is `"polr"`.
 #' @param ordinal_link The ordinal link function.
 #' @param odds_link The odds or probability link function.
+#' @param threshold_structure The threshold structure for the cutpoints
+#'  (specific engines only).
+#' @param parallel_reg A specification for the parallel regression assumption.
+#'  Possible values are:
+#'
+#'  * A logical value: whether to make all terms parallel or all terms
+#'    non-parallel. (The default is `TRUE`. `NA` is disallowed.)
+#'  * A formula with a logical LHS: `TRUE ~ x1 + x2` names the parallel
+#'    terms; `FALSE ~ x1 + x2` names the non-parallel terms.
+#'  * A list of at most two of the above (at most one per logical value):
+#'    specifies a model in hich some terms are parallel and others are
+#'    non-parallel, possibly with overlap.
+#'
+#'  Available for specific engines only. Different engines accept different
+#'  specifications.
 #' @param penalty A non-negative number representing the total
 #'  amount of regularization (specific engines only).
 #' @param mixture A number between zero and one (inclusive) denoting the
@@ -51,6 +66,8 @@ ordinal_reg <-
     mode = "classification",
     ordinal_link = NULL,
     odds_link = NULL,
+    threshold_structure = NULL,
+    parallel_reg = NULL,
     penalty = NULL,
     mixture = NULL,
     engine = "polr"
@@ -62,6 +79,8 @@ ordinal_reg <-
     args <- list(
       ordinal_link = enquo(ordinal_link),
       odds_link = enquo(odds_link),
+      threshold_structure = enquo(threshold_structure),
+      parallel_reg = enquo(parallel_reg),
       penalty = enquo(penalty),
       mixture = enquo(mixture)
     )
@@ -89,6 +108,8 @@ update.ordinal_reg <-
     parameters = NULL,
     ordinal_link = NULL,
     odds_link = NULL,
+    threshold_structure = NULL,
+    parallel_reg = NULL,
     penalty = NULL,
     mixture = NULL,
     fresh = FALSE,
@@ -97,6 +118,8 @@ update.ordinal_reg <-
     args <- list(
       ordinal_link = enquo(ordinal_link),
       odds_link = enquo(odds_link),
+      threshold_structure = enquo(threshold_structure),
+      parallel_reg = enquo(parallel_reg),
       penalty = enquo(penalty),
       mixture = enquo(mixture)
     )
@@ -116,6 +139,10 @@ update.ordinal_reg <-
 #' @export
 check_args.ordinal_reg <- function(object, call = rlang::caller_env()) {
   args <- lapply(object$args, rlang::eval_tidy)
+
+  if (! is.null(args$parallel_reg)) {
+    validate_parallel_reg(args$parallel_reg, call = call)
+  }
 
   # copied from `check_args.linear_reg`
   check_number_decimal(
@@ -145,14 +172,29 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
 
   x <- translate.default(x, engine, ...)
 
+  # reject `parallel_reg` for engines that don't support assumption violations
+  if (! engine %in% c("clm", "vglm", "ordinalNet", "brms")) {
+    pr <- rlang::eval_tidy(x$args$parallel_reg)
+    if (! is.null(pr) && ! (isTRUE(pr))) {
+      cli::cli_abort(
+        c(
+          "The {.val {engine}} engine does not support relaxing the
+          parallel regression assumption.",
+          "i" = "Use engine {.val clm} or {.val vglm} for non-parallel models."
+        ),
+        call = rlang::caller_env()
+      )
+    }
+  }
+
   # REVIEW: What's the preferred way to flag when a legitimate model parameter
   # is passed a value that the engine doesn't accept?
-  if (engine == "polr") {
+  if (engine == "polr" || engine == "clm") {
     oddslink <- rlang::eval_tidy(x$args$odds_link)
     if (!is.null(oddslink) && oddslink != "cumulative_link") {
       cli::cli_warn(
         c(
-          "!" = "The polr engine uses the cumulative link odds link;
+          "!" = "The {.val {engine}} engine uses the cumulative link odds link;
           {.arg odds_link} will be ignored."
         ),
         call = rlang::caller_env()
@@ -162,15 +204,23 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
 
   if (engine == "clm") {
     link_arg <- x$method$fit$args$link
-    if (rlang::is_quosure(link_arg)) {
-      link_val <- rlang::eval_tidy(link_arg)
-    } else {
-      link_val <- link_arg
-    }
-    if (
-      is.character(link_val) && length(link_val) == 1L && link_val == "logistic"
-    ) {
-      x$method$fit$args$link <- rlang::new_quosure("logit", rlang::empty_env())
+    if (rlang::is_quosure(link_arg))
+      link_arg <- rlang::eval_tidy(link_arg)
+    if (! is.null(link_arg) && link_arg == "logistic")
+      x$method$fit$args$link <- "logit"
+
+    thresh_arg <- x$method$fit$args$threshold
+    if (rlang::is_quosure(thresh_arg))
+      thresh_arg <- rlang::eval_tidy(thresh_arg)
+    if (! is.null(thresh_arg)) {
+      x$method$fit$args$threshold <- switch(
+        thresh_arg,
+        flexible = "flexible",
+        symmetric_median = "symmetric",
+        symmetric_zero = "symmetric2",
+        equidistant = "equidistant",
+        thresh_arg
+      )
     }
   }
 
@@ -283,3 +333,72 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
 
   x
 }
+
+# ------------------------------------------------------------------------------
+
+validate_parallel_reg <- function(x, call = rlang::caller_env()) {
+  if (is.logical(x) && length(x) == 1L) {
+    return(invisible())
+  }
+
+  if (inherits(x, "formula") && length(x) == 3L) {
+    lhs <- x[[2L]]
+    if (!is.logical(lhs) || length(lhs) != 1L) {
+      cli::cli_abort(
+        "The LHS of {.arg parallel_reg} formula must be TRUE or FALSE.",
+        call = call
+      )
+    }
+    return(invisible())
+  }
+
+  # allow to pass `c(FALSE, TRUE)`
+  if (is.logical(x) && is.vector(x)) {
+    x <- as.list(x)
+  }
+  if (is.list(x)) {
+    if (length(x) > 2L) {
+      cli::cli_abort(
+        "{.arg parallel_reg} list can have at most 2 elements.",
+        call = call
+      )
+    }
+    lgl_vals <- character(0L)
+    for (el in x) {
+      if (is.logical(el) && length(el) == 1L) {
+        lgl_vals <- c(lgl_vals, as.character(el))
+      } else if (inherits(el, "formula") && length(el) == 3L) {
+        lhs <- el[[2L]]
+        if (!is.logical(lhs) || length(lhs) != 1L) {
+          cli::cli_abort(
+            "The LHS of each {.arg parallel_reg} formula must be TRUE or
+            FALSE.",
+            call = call
+          )
+        }
+        lgl_vals <- c(lgl_vals, as.character(lhs))
+      } else {
+        cli::cli_abort(
+          "Each element of {.arg parallel_reg} list must be a single logical
+          value or a formula with a logical LHS.",
+          call = call
+        )
+      }
+    }
+    if (any(duplicated(lgl_vals))) {
+      cli::cli_abort(
+        "{.arg parallel_reg} list cannot have duplicate logical values
+        (e.g. two entries with TRUE).",
+        call = call
+      )
+    }
+    return(invisible())
+  }
+
+  cli::cli_abort(
+    "{.arg parallel_reg} must be a single logical value, a formula with a
+    logical LHS, or a list of at most two such elements.",
+    call = call
+  )
+}
+
