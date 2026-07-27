@@ -73,8 +73,7 @@ pred_types <-
 #' @keywords internal
 #' @export
 get_model_env <- function() {
-  current <- utils::getFromNamespace("parsnip", ns = "parsnip")
-  current
+  parsnip
 }
 
 #' @rdname get_model_env
@@ -244,13 +243,11 @@ check_spec_mode_engine_val <- function(
   # Initially, check if the specification is well-defined in the current model
   # parsnip model environment. If so, return early.
   # If not, troubleshoot more precisely and raise a relevant error.
-  model_env_match <-
-    vctrs::vec_slice(
-      model_info,
-      model_info$engine == eng & model_info$mode == mode
-    )
+  n_matching_specs <- sum(
+    model_info$engine == eng & model_info$mode == mode
+  )
 
-  if (vctrs::vec_size(model_env_match) == 1) {
+  if (n_matching_specs == 1) {
     return(invisible(NULL))
   }
 
@@ -1259,12 +1256,11 @@ set_encoding <- function(model, mode, eng, options) {
 #' @keywords internal
 #' @export
 get_encoding <- function(model) {
-  check_model_exists(model)
-  nm <- paste0(model, "_encoding")
-  res <- try(get_from_env(nm), silent = TRUE)
-  if (inherits(res, "try-error")) {
+  encodings <- get_from_env(paste0(model, "_encoding"))
+  if (is.null(encodings)) {
+    check_model_exists(model)
     # for objects made before encodings were specified in parsnip
-    res <-
+    encodings <-
       get_from_env(model) |>
       dplyr::mutate(
         model = model,
@@ -1282,7 +1278,7 @@ get_encoding <- function(model) {
         remove_intercept
       )
   }
-  res
+  encodings
 }
 
 # ------------------------------------------------------------------------------
