@@ -13,6 +13,7 @@ form_form <-
         encoding_info$mode == object$mode &
         encoding_info$engine == object$engine
 
+      # this way of filtering is intentionally written in the base-R way for speed.
       remove_intercept <- encoding_info$remove_intercept[is_spec_encoding]
       if (remove_intercept) {
         env$data <- env$data[,
@@ -86,6 +87,7 @@ xy_xy <- function(
     encoding_info$mode == object$mode &
     encoding_info$engine == object$engine
 
+  # this way of filtering is intentionally written in the base-R way for speed.
   remove_intercept <- encoding_info$remove_intercept[is_spec_encoding]
   if (remove_intercept) {
     env$x <- env$x[, colnames(env$x) != "(Intercept)", drop = FALSE]
@@ -145,6 +147,7 @@ form_xy <- function(
     encoding_info$mode == object$mode &
     encoding_info$engine == object$engine
 
+  # this way of filtering is intentionally written in the base-R way for speed.
   indicators <- encoding_info$predictor_indicators[is_spec_encoding]
   remove_intercept <- encoding_info$remove_intercept[is_spec_encoding]
   allow_sparse_x <- encoding_info$allow_sparse_x[is_spec_encoding]
@@ -190,6 +193,7 @@ xy_form <- function(object, env, control, ...) {
     encoding_info$mode == object$mode &
     encoding_info$engine == object$engine
 
+  # this way of filtering is intentionally written in the base-R way for speed.
   remove_intercept <- encoding_info$remove_intercept[is_spec_encoding]
 
   data_obj <-
