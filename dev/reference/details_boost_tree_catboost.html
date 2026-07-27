@@ -65,9 +65,16 @@ catboost has native support for categorical predictors.</p>
 <h3 id="tuning-parameters">Tuning Parameters<a class="anchor" aria-label="anchor" href="#tuning-parameters"></a></h3>
 
 
-<p>This model has 3 tuning parameters:</p><ul><li><p><code>tree_depth</code>: Tree Depth (type: integer, default: 6L)</p></li>
+<p>This model has 7 tuning parameters:</p><ul><li><p><code>tree_depth</code>: Tree Depth (type: integer, default: 6L)</p></li>
 <li><p><code>trees</code>: # Trees (type: integer, default: 1000L)</p></li>
 <li><p><code>learn_rate</code>: Learning Rate (type: double, default: 0.03)</p></li>
+<li><p><code>mtry</code>: Proportion Randomly Selected Predictors (type: double,
+default: see below)</p></li>
+<li><p><code>min_n</code>: Minimal Node Size (type: integer, default: 1L)</p></li>
+<li><p><code>sample_size</code>: Proportion Observations Sampled (type: double, default:
+see below)</p></li>
+<li><p><code>stop_iter</code>: # Iterations Before Stopping (type: integer, default:
+Inf)</p></li>
 </ul><p>The <code>mtry</code> parameter controls the proportion of predictors that will be
 randomly sampled at each split. catboost’s <code>rsm</code> argument natively
 expects a proportion between 0 and 1. The default is to use all
@@ -119,9 +126,11 @@ the grow policy is <code>Lossguide</code>).</p></li>
 <span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="do">##</span></span>
 <span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="do">## Model fit template:</span></span>
 <span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="do">## bonsai::train_catboost(x = missing_arg(), y = missing_arg(),</span></span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="do">##     weights = missing_arg(), iterations = integer(), depth = integer(),</span></span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="do">##     learning_rate = numeric(), thread_count = 1, allow_writing_files = FALSE,</span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="do">##     random_seed = sample.int(10^5, 1))</span></span></code></pre><p></p></div>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="do">##     weights = missing_arg(), rsm = integer(), iterations = integer(),</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="do">##     min_data_in_leaf = integer(), depth = integer(), learning_rate = numeric(),</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="do">##     subsample = numeric(), early_stopping_rounds = integer(),</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="do">##     thread_count = 1, allow_writing_files = FALSE, random_seed = sample.int(10^5,</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="do">##         1))</span></span></code></pre><p></p></div>
 </div>
 
 <div class="section">
@@ -151,9 +160,11 @@ the grow policy is <code>Lossguide</code>).</p></li>
 <span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="do">##</span></span>
 <span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="do">## Model fit template:</span></span>
 <span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="do">## bonsai::train_catboost(x = missing_arg(), y = missing_arg(),</span></span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="do">##     weights = missing_arg(), iterations = integer(), depth = integer(),</span></span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="do">##     learning_rate = numeric(), thread_count = 1, allow_writing_files = FALSE,</span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="do">##     random_seed = sample.int(10^5, 1))</span></span></code></pre><p></p></div>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="do">##     weights = missing_arg(), rsm = integer(), iterations = integer(),</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="do">##     min_data_in_leaf = integer(), depth = integer(), learning_rate = numeric(),</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="do">##     subsample = numeric(), early_stopping_rounds = integer(),</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="do">##     thread_count = 1, allow_writing_files = FALSE, random_seed = sample.int(10^5,</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="do">##         1))</span></span></code></pre><p></p></div>
 <p><code>bonsai::train_catboost()</code> is a wrapper
 around <code>catboost::catboost.train()</code> (and other functions) that makes it
 easier to run this model.</p>
@@ -185,7 +196,7 @@ internally converted to numeric.</p>
 <p>This model can utilize case weights during model fitting. To use them,
 see the documentation in <a href="case_weights.html">case_weights</a> and the examples
 on <code>tidymodels.org</code>.</p>
-<p>The <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> and <code><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy()</a></code> arguments have arguments called
+<p>The <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> and <code><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy()</a></code> functions have arguments called
 <code>case_weights</code> that expect vectors of case weights.</p>
 </div>
 

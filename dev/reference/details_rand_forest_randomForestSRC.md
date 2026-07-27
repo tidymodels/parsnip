@@ -21,6 +21,8 @@ This model has 3 tuning parameters:
 
 ### Translation from parsnip to the original package (censored regression)
 
+The **censored** extension package is required to fit this model.
+
     library(censored)
 
     rand_forest() |>
@@ -54,7 +56,7 @@ see the documentation in
 and the examples on `tidymodels.org`.
 
 The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) functions
 have arguments called `case_weights` that expect vectors of case
 weights.
 

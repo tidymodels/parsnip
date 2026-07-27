@@ -62,16 +62,18 @@ is a wrapper around this function.</p>
 <h3 id="tuning-parameters">Tuning Parameters<a class="anchor" aria-label="anchor" href="#tuning-parameters"></a></h3>
 
 
-<p>This model has 8 tuning parameters:</p><ul><li><p><code>mtry</code>: Proportion Randomly Selected Predictors (type: double,
-default: see below)</p></li>
+<p>This model has 9 tuning parameters:</p><ul><li><p><code>tree_depth</code>: Tree Depth (type: integer, default: 6L)</p></li>
 <li><p><code>trees</code>: # Trees (type: integer, default: 15L)</p></li>
-<li><p><code>min_n</code>: Minimal Node Size (type: integer, default: 1L)</p></li>
-<li><p><code>tree_depth</code>: Tree Depth (type: integer, default: 6L)</p></li>
 <li><p><code>learn_rate</code>: Learning Rate (type: double, default: 0.3)</p></li>
+<li><p><code>mtry</code>: # Randomly Selected Predictors (type: integer, default: see
+below)</p></li>
+<li><p><code>min_n</code>: Minimal Node Size (type: integer, default: 1L)</p></li>
 <li><p><code>loss_reduction</code>: Minimum Loss Reduction (type: double, default: 0.0)</p></li>
 <li><p><code>sample_size</code>: Proportion Observations Sampled (type: double, default:
 1.0)</p></li>
 <li><p><code>penalty</code>: Amount of Regularization (type: double, default: 0.1)</p></li>
+<li><p><code>stop_iter</code>: # Iterations Before Stopping (type: integer, default:
+Inf)</p></li>
 </ul></div>
 
 <div class="section">

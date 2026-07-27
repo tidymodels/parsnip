@@ -72,6 +72,7 @@ ceiling(sqrt(n_predictors)))</p></li>
 <h3 id="translation-from-parsnip-to-the-original-package-censored-regression-">Translation from parsnip to the original package (censored regression)<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package-censored-regression-"></a></h3>
 
 
+<p>The <strong>censored</strong> extension package is required to fit this model.</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/censored" class="external-link">censored</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/rand_forest.html">rand_forest</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -107,7 +108,7 @@ are not required for this model.</p>
 <p>This model can utilize case weights during model fitting. To use them,
 see the documentation in <a href="case_weights.html">case_weights</a> and the examples
 on <code>tidymodels.org</code>.</p>
-<p>The <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> and <code><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy()</a></code> arguments have arguments called
+<p>The <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> and <code><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy()</a></code> functions have arguments called
 <code>case_weights</code> that expect vectors of case weights.</p>
 </div>
 

@@ -129,7 +129,7 @@ see the documentation in
 and the examples on `tidymodels.org`.
 
 The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) functions
 have arguments called `case_weights` that expect vectors of case
 weights.
 
@@ -139,16 +139,16 @@ weights.
       dplyr::filter(engine == "mgcv") |>
       dplyr::select(mode, type)
 
-    ## # A tibble: 7 x 2
+    ## # A tibble: 8 x 2
     ##   mode           type
     ##   <chr>          <chr>
     ## 1 regression     numeric
     ## 2 regression     conf_int
-    ## 3 regression     raw
-    ## 4 classification class
-    ## 5 classification prob
-    ## 6 classification raw
-    ## # i 1 more row
+    ## 3 regression     linear_pred
+    ## 4 regression     raw
+    ## 5 classification class
+    ## 6 classification prob
+    ## # i 2 more rows
 
 ### Saving fitted model objects
 
