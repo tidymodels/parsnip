@@ -17,7 +17,7 @@ This model has 3 tuning parameters:
 
 ## Translation from parsnip to the original package (censored regression)
 
-
+The **censored** extension package is required to fit this model.
 
 
 ``` r

@@ -23,6 +23,8 @@ ceiling(sqrt(n_predictors)))
 
 \subsection{Translation from parsnip to the original package (censored regression)}{
 
+The \strong{censored} extension package is required to fit this model.
+
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 rand_forest() |>
