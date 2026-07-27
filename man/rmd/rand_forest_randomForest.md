@@ -92,7 +92,7 @@ This engine does not require any special encoding of the predictors. Categorical
 
 This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
 
-The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+The `fit()` and `fit_xy()` functions have arguments called `case_weights` that expect vectors of case weights. 
 
 Note that the data passed to the `case.weights` column are not used for traditional case weights (where the objective function is multiplied by a row-specific weight). From `?randomForest::randomForest`: "A vector of length same as`y` that are positive weights used only in sampling data to grow each tree (not used in any other calculation)."
 

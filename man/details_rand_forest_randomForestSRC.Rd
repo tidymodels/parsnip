@@ -23,6 +23,8 @@ ceiling(sqrt(n_predictors)))
 
 \subsection{Translation from parsnip to the original package (censored regression)}{
 
+The \strong{censored} extension package is required to fit this model.
+
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
 rand_forest() |>
@@ -59,7 +61,7 @@ This model can utilize case weights during model fitting. To use them,
 see the documentation in \link{case_weights} and the examples
 on \code{tidymodels.org}.
 
-The \code{fit()} and \code{fit_xy()} arguments have arguments called
+The \code{fit()} and \code{fit_xy()} functions have arguments called
 \code{case_weights} that expect vectors of case weights.
 }
 
