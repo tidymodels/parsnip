@@ -137,7 +137,7 @@ For `ranger` confidence intervals, the intervals are  constructed using the form
 
 This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
 
-The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+The `fit()` and `fit_xy()` functions have arguments called `case_weights` that expect vectors of case weights. 
 
 Note that the data passed to the `case.weights` column are not used for traditional case weights (where the objective function is multiplied by a row-specific weight). From `?ranger::ranger`: "Observations with larger weights will be selected with higher probability in the bootstrap (or subsampled) samples for the trees."
 
