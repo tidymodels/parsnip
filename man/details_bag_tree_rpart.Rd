@@ -134,6 +134,7 @@ are not required for this model.
 }
 
 \subsection{Case weights}{
+\subsection{Classification and regression}{
 
 This model can utilize case weights during model fitting. To use them,
 see the documentation in \link{case_weights} and the examples
@@ -141,6 +142,13 @@ on \code{tidymodels.org}.
 
 The \code{fit()} and \code{fit_xy()} arguments have arguments called
 \code{case_weights} that expect vectors of case weights.
+}
+
+\subsection{Censored regression}{
+
+The underlying model implementation does not allow for case weights.
+}
+
 }
 
 \subsection{Prediction types}{
