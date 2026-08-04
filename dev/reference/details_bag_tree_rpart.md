@@ -125,6 +125,8 @@ are not required for this model.
 
 ### Case weights
 
+#### Classification and regression
+
 This model can utilize case weights during model fitting. To use them,
 see the documentation in
 [case_weights](https://parsnip.tidymodels.org/dev/reference/case_weights.md)
@@ -134,6 +136,10 @@ The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
 [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) functions
 have arguments called `case_weights` that expect vectors of case
 weights.
+
+#### Censored regression
+
+The underlying model implementation does not allow for case weights.
 
 ### Prediction types
 
