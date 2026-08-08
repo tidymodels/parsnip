@@ -12,18 +12,20 @@ is a wrapper around this function.
 For this engine, there are multiple modes: classification and regression
 \subsection{Tuning Parameters}{
 
-This model has 8 tuning parameters:
+This model has 9 tuning parameters:
 \itemize{
-\item \code{mtry}: Proportion Randomly Selected Predictors (type: double,
-default: see below)
-\item \code{trees}: # Trees (type: integer, default: 15L)
-\item \code{min_n}: Minimal Node Size (type: integer, default: 1L)
 \item \code{tree_depth}: Tree Depth (type: integer, default: 6L)
+\item \code{trees}: # Trees (type: integer, default: 15L)
 \item \code{learn_rate}: Learning Rate (type: double, default: 0.3)
+\item \code{mtry}: # Randomly Selected Predictors (type: integer, default: see
+below)
+\item \code{min_n}: Minimal Node Size (type: integer, default: 1L)
 \item \code{loss_reduction}: Minimum Loss Reduction (type: double, default: 0.0)
 \item \code{sample_size}: Proportion Observations Sampled (type: double, default:
 1.0)
 \item \code{penalty}: Amount of Regularization (type: double, default: 0.1)
+\item \code{stop_iter}: # Iterations Before Stopping (type: integer, default:
+Inf)
 }
 }
 

@@ -99,8 +99,16 @@ bag_tree(
 
 ## Case weights
 
+### Classification and regression
+
 ```{r}
 #| child: template-uses-case-weights.Rmd
+```
+
+### Censored regression
+
+```{r}
+#| child: template-no-case-weights.Rmd
 ```
 
 ## Prediction types

@@ -138,7 +138,7 @@ Factor/categorical predictors need to be converted to numeric values (e.g., dumm
 
 This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
 
-The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+The `fit()` and `fit_xy()` functions have arguments called `case_weights` that expect vectors of case weights. 
 
 ## Prediction types
 
@@ -150,16 +150,16 @@ parsnip:::get_from_env("gen_additive_mod_predict") |>
 ```
 
 ```
-## # A tibble: 7 x 2
-##   mode           type    
-##   <chr>          <chr>   
-## 1 regression     numeric 
-## 2 regression     conf_int
-## 3 regression     raw     
-## 4 classification class   
-## 5 classification prob    
-## 6 classification raw     
-## # i 1 more row
+## # A tibble: 8 x 2
+##   mode           type       
+##   <chr>          <chr>      
+## 1 regression     numeric    
+## 2 regression     conf_int   
+## 3 regression     linear_pred
+## 4 regression     raw        
+## 5 classification class      
+## 6 classification prob       
+## # i 2 more rows
 ```
 
 ## Saving fitted model objects

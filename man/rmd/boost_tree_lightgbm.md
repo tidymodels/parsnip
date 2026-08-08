@@ -119,7 +119,7 @@ Non-numeric predictors (i.e., factors) are internally converted to numeric. In t
 
 This model can utilize case weights during model fitting. To use them, see the documentation in [case_weights] and the examples on `tidymodels.org`. 
 
-The `fit()` and `fit_xy()` arguments have arguments called `case_weights` that expect vectors of case weights. 
+The `fit()` and `fit_xy()` functions have arguments called `case_weights` that expect vectors of case weights. 
 
 Although the source documentation is unclear about how the weights are utilized, it appears that the weights are applied to the objective function, not just the sampling mechanism. A GitHub issue ([`https://github.com/lightgbm-org/LightGBM/issues/1299`](https://github.com/lightgbm-org/LightGBM/issues/1299)) has evidence that the weights are a "multiplication applied to every positive label weight" and shows some C++ code to that effect.
 

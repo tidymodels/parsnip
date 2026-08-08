@@ -11,16 +11,11 @@ class(sprk) <- c(class(sprk), "tbl_spark")
 
 tester <-
   function(object, formula = NULL, data = NULL, model) {
-    check_interface(
-      formula,
-      data,
-      match.call(expand.dots = TRUE),
-      model
-    )
+    check_interface(formula, data, model)
   }
 tester_xy <-
   function(object, x = NULL, y = NULL, model) {
-    check_xy_interface(x, y, match.call(expand.dots = TRUE), model)
+    check_xy_interface(x, y, model)
   }
 
 
@@ -106,8 +101,8 @@ test_that("elapsed time parsnip mods", {
 
   expect_output(print(lm1), "Fit time:")
   expect_output(print(lm2), "Fit time:")
-  expect_true(!is.null(lm1$elapsed))
-  expect_true(!is.null(lm2$elapsed))
+  expect_false(is.null(lm1$elapsed))
+  expect_false(is.null(lm2$elapsed))
 
   lm3 <-
     linear_reg() |>
