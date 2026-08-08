@@ -1,6 +1,8 @@
 # parsnip (development version)
 
-* `ordinal_reg()` gains `threshold_structure` and `parallel_reg` arguments for controlling threshold constraints and the parallel regression assumption (proportional odds in logit-linked models). `threshold_structure` is character-valued and usable by the `clm` and `vglm` engines. `parallel_reg` accepts a logical value (applied to all terms), a formula with a logical LHS naming parallel or non-parallel terms, or a list combining both; the engines `clm`, `vglm`, and `ordinalNet` are compatible with different subsets of specifications.
+* `ordinal_reg()` gains `threshold_structure` and `parallel_reg` arguments for controlling threshold constraints and the parallel regression assumption. `threshold_structure` is character-valued and usable by the `clm` and `vglm` engines. `parallel_reg` is logical-valued and usable by the `clm`, `vglm`, and `ordinalNet` engines.
+
+* `gen_additive_mod()`'s `vgam` translator handles as engine parameters the four arguments corresponding to `ordinal_reg()` model parameters.
 
 * Fitting with sparse data now respects the model mode, so loading an extension package that registers an engine for a different mode can no longer alter sparse data support for the original mode (#1382).
 
