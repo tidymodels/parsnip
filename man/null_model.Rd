@@ -65,19 +65,18 @@ call. For this type of model, the template of the fit calls are below:
 \subsection{Prediction types}{
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("null_model_predict") |>
+  dplyr::filter(engine == "parsnip") |>
   dplyr::select(mode, type)
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 7 x 2
-##   mode                type   
-##   <chr>               <chr>  
-## 1 regression          numeric
-## 2 regression          raw    
-## 3 classification      class  
-## 4 classification      prob   
-## 5 classification      raw    
-## 6 censored regression time   
-## # i 1 more row
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 5 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob   
+## 5 classification raw
 }\if{html}{\out{</div>}}
 }
 }

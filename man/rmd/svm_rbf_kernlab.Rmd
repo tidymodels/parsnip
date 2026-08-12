@@ -86,6 +86,7 @@ Note that the `"kernlab"` engine does not naturally estimate class probabilities
 #| label: predict-types
 
 parsnip:::get_from_env("svm_rbf_predict") |>
+  dplyr::filter(engine == "kernlab") |>
   dplyr::select(mode, type) |> 
   print(n = Inf)
 
@@ -108,4 +109,3 @@ The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/l
  - Karatzoglou, A,  Smola, A,  Hornik, K, and A Zeileis. 2004. ["kernlab - An S4 Package for Kernel Methods in R."](https://www.jstatsoft.org/article/view/v011i09), _Journal of Statistical Software_. 
  
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
-

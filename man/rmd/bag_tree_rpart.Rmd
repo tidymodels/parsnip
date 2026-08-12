@@ -115,7 +115,7 @@ bag_tree(
 
 ```{r}
 #| label: predict-types
-parsnip:::get_from_env("bag_mars_predict") |>
+parsnip:::get_from_env("bag_tree_predict") |>
   dplyr::filter(engine == "rpart") |>
   dplyr::select(mode, type)
 ```

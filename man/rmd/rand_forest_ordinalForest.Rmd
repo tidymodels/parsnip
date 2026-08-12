@@ -57,6 +57,15 @@ rand_forest(
 
 By default, parallel processing is turned off. When tuning, it is more efficient to parallelize over the resamples and tuning parameters. To parallelize the construction of the trees within the model, change the `num.threads` argument via [set_engine()]. 
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "ordinalForest") |>
+  dplyr::select(mode, type)
+```
+
 ## References
 
 - Hornung R. 2020. Ordinal Forests. _Journal of Classification_ 37:4-17. \doi{10.1007/s00357-018-9302-x}.

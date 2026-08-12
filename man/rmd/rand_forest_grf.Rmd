@@ -101,7 +101,15 @@ The regression and classification models enable the use of case weights. The qua
 
 The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `rand_forest()` with the `"grf"` engine.
 
+## Prediction types
+
+```{r}
+#| label: predict-types
+parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "grf") |>
+  dplyr::select(mode, type)
+```
+
 ## References
 
 Athey, Susan, Julie Tibshirani, and Stefan Wager. "Generalized Random Forests". _Annals of Statistics_, 47(2), 2019.
-
