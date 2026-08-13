@@ -35,7 +35,9 @@ The model can accept case weights.
 With parsnip, we suggest using the _fixed effects_ formula method when fitting, but the details of the correlation structure should be passed to `set_engine()` since it is an irregular (but required) argument:
 
 ```{r}
+#| message: false
 library(tidymodels)
+library(multilevelmod)
 # load nlme to be able to use the `cor*()` functions
 library(nlme)
 
@@ -50,6 +52,7 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 
 ```r
 library(tidymodels)
+library(multilevelmod)
 
 gls_spec <- 
   linear_reg() |> 

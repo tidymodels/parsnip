@@ -58,7 +58,9 @@ the grow policy is \code{Lossguide}).
 
 The \strong{bonsai} extension package is required to fit this model.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(bonsai)
+
+boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), sample_size = numeric(), stop_iter = integer()
 ) |>
@@ -94,7 +96,9 @@ The \strong{bonsai} extension package is required to fit this model.
 
 The \strong{bonsai} extension package is required to fit this model.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(bonsai)
+
+boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), sample_size = numeric(), stop_iter = integer()
 ) |>

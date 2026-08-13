@@ -43,6 +43,8 @@ param$item
 
 ```{r}
 #| label: h2o-reg
+library(agua)
+
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric(), stop_iter = integer()
@@ -58,6 +60,8 @@ boost_tree(
 
 ```{r}
 #| label: h2o-cls
+library(agua)
+
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric(), stop_iter = integer()

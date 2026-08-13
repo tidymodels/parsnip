@@ -23,7 +23,9 @@ The **baguette** extension package is required to fit this model.
 
 
 ``` r
-bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |> 
+library(baguette)
+
+bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |>
   set_engine("earth") |> 
   set_mode("regression") |> 
   translate()
@@ -119,4 +121,3 @@ parsnip:::get_from_env("bag_mars_predict") |>
  - Milborrow, S. ["Notes on the earth package."](http://www.milbo.org/doc/earth-notes.pdf) 
  
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
-

@@ -45,6 +45,8 @@ LightGBM has a large number of engine parameters. The current list is found at [
 
 ```{r}
 #| label: lightgbm-reg
+library(bonsai)
+
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric()
@@ -60,6 +62,8 @@ boost_tree(
 
 ```{r}
 #| label: lightgbm-cls
+library(bonsai)
+
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric()
@@ -121,6 +125,8 @@ You can specify an alternative objective using `set_engine()`:
 ```{r}
 #| label: lightgbm-objective
 #| eval: false
+library(bonsai)
+
 boost_tree() |>
   set_engine("lightgbm", objective = "multiclassova") |>
   set_mode("classification")

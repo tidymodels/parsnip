@@ -43,7 +43,8 @@ of: “rules_and_linear”, “rules”, “linear”, defaults to
 
 The \strong{agua} extension package is required to fit this model.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(rules)
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(agua)
+library(rules)
 
 rule_fit(
   trees = integer(1),
@@ -78,7 +79,9 @@ wrapper around \code{\link[h2o:h2o.rulefit]{h2o::h2o.rulefit()}}.
 
 The \strong{agua} extension package is required to fit this model.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{rule_fit(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(agua)
+
+rule_fit(
   trees = integer(1),
   tree_depth = integer(1),
   penalty = numeric(1)

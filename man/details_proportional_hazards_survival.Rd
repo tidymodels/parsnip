@@ -53,7 +53,8 @@ learn more about using special terms in formulas with tidymodels, see
 For example, in this model, the numeric column \code{rx} is used to estimate
 two different baseline hazards for each value of the column:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(survival)
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
+library(survival)
 
 proportional_hazards() |> 
   fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) |> 

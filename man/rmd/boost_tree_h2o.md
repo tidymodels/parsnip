@@ -37,6 +37,8 @@ The **agua** extension package is required to fit this model.
 
 
 ``` r
+library(agua)
+
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric(), stop_iter = integer()
@@ -74,6 +76,8 @@ The **agua** extension package is required to fit this model.
 
 
 ``` r
+library(agua)
+
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric(), stop_iter = integer()

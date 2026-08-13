@@ -78,6 +78,8 @@ With parsnip, we suggest using the formula method when fitting:
 
 ```r
 library(tidymodels)
+library(multilevelmod)
+
 data("riesby")
 
 linear_reg() |> 
@@ -89,6 +91,7 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 
 ```r
 library(tidymodels)
+library(multilevelmod)
 
 glmer_spec <- 
   linear_reg() |> 

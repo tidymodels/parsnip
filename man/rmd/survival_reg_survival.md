@@ -50,6 +50,7 @@ For example, in this model, the numeric column `rx` is used to estimate two diff
 
 
 ``` r
+library(censored)
 library(survival)
 
 survival_reg() |> 

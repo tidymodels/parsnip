@@ -34,6 +34,7 @@ The model formula can include _special_ terms, such as [survival::strata()]. The
 For example, in this model, the numeric column `rx` is used to estimate two different baseline hazards for each value of the column:
 
 ```{r}
+library(censored)
 library(survival)
 
 proportional_hazards() |> 
