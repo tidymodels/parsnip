@@ -88,6 +88,38 @@ translate.gen_additive_mod <- function(x, engine = x$engine, ...) {
   }
   x <- translate.default(x, engine, ...)
 
+  if (engine == "vgam") {
+    link_arg <- x$method$fit$args$link
+    if (rlang::is_quosure(link_arg)) {
+      link_arg <- rlang::eval_tidy(link_arg)
+    }
+    if (!is.null(link_arg)) {
+      x$method$fit$args$link <- match_ordinal_link_vglm(link_arg)
+    }
+
+    family_arg <- x$method$fit$args$family
+    if (rlang::is_quosure(family_arg)) {
+      family_arg <- rlang::eval_tidy(family_arg)
+    }
+    if (!is.null(family_arg)) {
+      x$method$fit$args$family <- match_ordinal_family(family_arg)
+    }
+
+    thresh_arg <- x$method$fit$args$Thresh
+    if (rlang::is_quosure(thresh_arg)) {
+      thresh_arg <- rlang::eval_tidy(thresh_arg)
+    }
+    if (!is.null(thresh_arg)) {
+      x$method$fit$args$Thresh <- match_threshold_structure_vglm(thresh_arg)
+    }
+
+    # `acat()` does not support certain link functions
+    check_ordinal_link_family_vglm(
+      family = x$method$fit$args$family,
+      link = x$method$fit$args$link
+    )
+  }
+
   x
 }
 

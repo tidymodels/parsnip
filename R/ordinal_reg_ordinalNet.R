@@ -12,3 +12,29 @@
 NULL
 
 # See inst/README-DOCS.md for a description of how these files are processed.
+
+# ------------------------------------------------------------------------------
+# Helpers for the `ordinalNet` engine
+#
+# These functions match standardized dials parameter values to values native
+# to `ordinalNet::ordinalNet()`. They are used by `translate.ordinal_reg()`.
+
+match_ordinal_link_ordinalNet <- function(link) {
+  if (!is.character(link)) {
+    return(link)
+  }
+  link <- match.arg(link, dials::values_ordinal_link)
+  # REVIEW: Change `logistic` to `logit` in {dials}?
+  if (link == "logistic") {
+    link <- "logit"
+  }
+  if (link == "loglog") {
+    cli::cli_abort(
+      c(
+        "The `ordinalNet` engine does not support the log-log ordinal link.",
+        "i" = "See `?ordinalNet::ordinalNet` for provided link functions."
+      )
+    )
+  }
+  link
+}
