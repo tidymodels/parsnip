@@ -29,17 +29,17 @@ test_that('numeric model', {
     fit(compounds ~ ., data = hpc_bad, control = ctrl)
 
   expect_snapshot(num_res <- predict(lm_mod, hpc_bad[1:11, -1]))
-  expect_equal(num_res, NULL)
+  expect_null(num_res)
 
   expect_snapshot(
     ci_res <- predict(lm_mod, hpc_bad[1:11, -1], type = "conf_int")
   )
-  expect_equal(ci_res, NULL)
+  expect_null(ci_res)
 
   expect_snapshot(
     pi_res <- predict(lm_mod, hpc_bad[1:11, -1], type = "pred_int")
   )
-  expect_equal(pi_res, NULL)
+  expect_null(pi_res)
 })
 
 # ------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ test_that('classification model', {
         lending_club |> dplyr::slice(1:7) |> dplyr::select(-Class)
       )
   )
-  expect_equal(cls_res, NULL)
+  expect_null(cls_res)
 
   expect_snapshot(
     prb_res <-
@@ -71,7 +71,7 @@ test_that('classification model', {
         type = "prob"
       )
   )
-  expect_equal(prb_res, NULL)
+  expect_null(prb_res)
 
   expect_snapshot(
     ci_res <-
@@ -81,5 +81,5 @@ test_that('classification model', {
         type = "conf_int"
       )
   )
-  expect_equal(ci_res, NULL)
+  expect_null(ci_res)
 })

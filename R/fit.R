@@ -122,7 +122,7 @@ fit.model_spec <-
         "Please set the mode in the {.help [model specification](parsnip::model_spec)}."
       )
     }
-    control <- condense_control(control, control_parsnip())
+    control <- condense_control(control, default_parsnip_control)
     check_case_weights(case_weights, object)
 
     if (inherits(formula, "recipe")) {
@@ -140,8 +140,6 @@ fit.model_spec <-
       data <- sparsevctrs::coerce_to_sparse_tibble(data, rlang::caller_env(0))
     }
 
-    dots <- quos(...)
-
     if (length(possible_engines(object)) == 0) {
       prompt_missing_implementation(
         spec = object,
@@ -157,12 +155,11 @@ fit.model_spec <-
       }
     }
 
-    if (all(c("x", "y") %in% names(dots))) {
+    if (all(c("x", "y") %in% ...names())) {
       cli::cli_abort(
         "{.fn fit.model_spec} is for the formula methods. Use {.fn fit_xy} instead."
       )
     }
-    cl <- match.call(expand.dots = TRUE)
     # Create an environment with the evaluated argument objects. This will be
     # used when a model call is made later.
     eval_env <- rlang::env()
@@ -186,7 +183,7 @@ fit.model_spec <-
     data <- materialize_sparse_tibble(data, object, "data")
 
     fit_interface <-
-      check_interface(eval_env$formula, eval_env$data, cl, object)
+      check_interface(eval_env$formula, eval_env$data, object)
 
     if (object$engine == "spark" && !inherits(eval_env$data, "tbl_spark")) {
       cli::cli_abort(
@@ -266,14 +263,13 @@ fit_xy.model_spec <-
       cli::cli_abort("Survival models must use the formula interface.")
     }
 
-    control <- condense_control(control, control_parsnip())
+    control <- condense_control(control, default_parsnip_control)
 
     if (is.null(colnames(x))) {
       cli::cli_abort("{.arg {x}} should have column names.")
     }
     check_case_weights(case_weights, object)
 
-    dots <- quos(...)
     if (is.null(object$engine)) {
       eng_vals <- possible_engines(object)
       object$engine <- eng_vals[1]
@@ -297,7 +293,6 @@ fit_xy.model_spec <-
 
     x <- to_sparse_data_frame(x, object)
 
-    cl <- match.call(expand.dots = TRUE)
     eval_env <- rlang::env()
     eval_env$x <- x
     eval_env$y <- y
@@ -309,7 +304,7 @@ fit_xy.model_spec <-
     }
 
     # TODO case weights: pass in eval_env not individual elements
-    fit_interface <- check_xy_interface(eval_env$x, eval_env$y, cl, object)
+    fit_interface <- check_xy_interface(eval_env$x, eval_env$y, object)
 
     if (object$engine == "spark") {
       cli::cli_abort(
@@ -391,7 +386,7 @@ eval_mod <- function(e, capture = FALSE, catch = FALSE, envir = NULL, ...) {
 
 # ------------------------------------------------------------------------------
 
-check_interface <- function(formula, data, cl, model, call = caller_env()) {
+check_interface <- function(formula, data, model, call = caller_env()) {
   check_formula(formula, call = call)
   check_inherits(data, c("data.frame", "dgCMatrix", "tbl_spark"), call = call)
 
@@ -404,7 +399,7 @@ check_interface <- function(formula, data, cl, model, call = caller_env()) {
   cli::cli_abort("Error when checking the interface.", call = call)
 }
 
-check_xy_interface <- function(x, y, cl, model, call = caller_env()) {
+check_xy_interface <- function(x, y, model, call = caller_env()) {
   sparse_ok <- allow_sparse(model)
   sparse_x <- inherits(x, "dgCMatrix")
   if (!sparse_ok & sparse_x) {

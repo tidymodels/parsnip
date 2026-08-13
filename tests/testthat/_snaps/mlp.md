@@ -50,16 +50,6 @@
       Error in `fit()`:
       ! `dropout` must be a number between 0 and 1 or `NULL`, not the number -1.
 
----
-
-    Code
-      spec <- set_mode(set_engine(mlp(dropout = 1, penalty = 3), "keras"),
-      "classification")
-      fit(spec, class ~ ., hpc)
-    Condition
-      Error in `fit()`:
-      ! Both weight decay and dropout should not be specified.
-
 # tunables
 
     Code
