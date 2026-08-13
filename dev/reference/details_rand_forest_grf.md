@@ -149,6 +149,22 @@ contains examples for
 [`rand_forest()`](https://parsnip.tidymodels.org/dev/reference/rand_forest.md)
 with the `"grf"` engine.
 
+### Prediction types
+
+    parsnip:::get_from_env("rand_forest_predict") |>
+      dplyr::filter(engine == "grf") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 6 x 2
+    ##   mode                type
+    ##   <chr>               <chr>
+    ## 1 classification      class
+    ## 2 classification      prob
+    ## 3 classification      conf_int
+    ## 4 regression          numeric
+    ## 5 regression          conf_int
+    ## 6 quantile regression quantile
+
 ### References
 
 Athey, Susan, Julie Tibshirani, and Stefan Wager. “Generalized Random

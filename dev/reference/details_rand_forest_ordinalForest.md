@@ -79,6 +79,18 @@ parallelize the construction of the trees within the model, change the
 `num.threads` argument via
 [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md).
 
+### Prediction types
+
+    parsnip:::get_from_env("rand_forest_predict") |>
+      dplyr::filter(engine == "ordinalForest") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 2 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 classification class
+    ## 2 classification prob
+
 ### References
 
 - Hornung R. 2020. Ordinal Forests. *Journal of Classification* 37:4-17.
