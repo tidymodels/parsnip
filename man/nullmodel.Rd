@@ -9,7 +9,7 @@
 \usage{
 nullmodel(x, ...)
 
-\method{nullmodel}{default}(x = NULL, y, ...)
+\method{nullmodel}{default}(x = NULL, y, quantile_levels = NULL, ...)
 
 \method{print}{nullmodel}(x, ...)
 
@@ -17,44 +17,53 @@ nullmodel(x, ...)
 }
 \arguments{
 \item{x}{An optional matrix or data frame of predictors. These values are
-not used in the model fit}
+not used in the model fit.}
 
-\item{\dots}{Optional arguments (not yet used)}
+\item{\dots}{Optional arguments (not yet used).}
 
 \item{y}{A numeric vector (for regression) or factor (for classification) of
-outcomes}
+outcomes.}
 
-\item{object}{An object of class \code{nullmodel}}
+\item{quantile_levels}{A numeric vector of probabilities used to compute
+outcome quantiles. When \code{NULL}, the mean is computed for numeric outcomes.}
 
-\item{new_data}{A matrix or data frame of predictors (only used to determine
-the number of predictions to return)}
+\item{object}{An object of class \code{nullmodel}.}
 
-\item{type}{Either "raw" (for regression), "class" or "prob" (for
-classification)}
+\item{new_data}{A matrix or data frame of predictors, only used to determine
+the number of predictions to return.}
+
+\item{type}{Either \code{"raw"} (for regression), \code{"quantile"} (for quantile
+regression), \code{"class"}, or \code{"prob"} (for classification).}
 }
 \value{
-The output of \code{nullmodel()} is a list of class \code{nullmodel}
-with elements \item{call }{the function call} \item{value }{the mean of
-\code{y} or the most prevalent class} \item{levels }{when \code{y} is a
-factor, a vector of levels. \code{NULL} otherwise} \item{pct }{when \code{y}
-is a factor, a data frame with a column for each class (\code{NULL}
-otherwise). The column for the most prevalent class has the proportion of
-the training samples with that class (the other columns are zero). } \item{n
-}{the number of elements in \code{y}}
+The output of \code{nullmodel()} is a list of class \code{nullmodel} with
+elements:
+\itemize{
+\item \code{call}: The function call.
+\item \code{value}: The mean or quantiles of \code{y}, or the most prevalent class.
+\item \code{levels}: When \code{y} is a factor, a vector of levels; \code{NULL} otherwise.
+\item \code{quantile_levels}: The probabilities used to compute quantiles, or \code{NULL}.
+\item \code{pct}: When \code{y} is a factor, a data frame with a column for each class
+(\code{NULL} otherwise). The column for the most prevalent class has the
+proportion of the training samples with that class; the other columns are
+zero.
+\item \code{n}: The number of elements in \code{y}.
+}
 
-\code{predict.nullmodel()} returns either a factor or numeric vector
-depending on the class of \code{y}. All predictions are always the same.
+\code{predict.nullmodel()} returns a factor, numeric vector, or matrix depending
+on the class of \code{y} and whether quantiles were requested. All
+predictions are always the same.
 }
 \description{
-Fit a single mean or largest class model. \code{nullmodel()} is the underlying
-computational function for the \code{null_model()} specification.
+Fit a single mean, set of quantiles, or largest class model. \code{nullmodel()} is
+the underlying computational function for the \code{null_model()} specification.
 }
 \details{
 \code{nullmodel()} emulates other model building functions, but returns the
-simplest model possible given a training set: a single mean for numeric
-outcomes and the most prevalent class for factor outcomes. When class
-probabilities are requested, the percentage of the training set samples with
-the most prevalent class is returned.
+simplest model possible given a training set: a single mean or set of
+quantiles for numeric outcomes and the most prevalent class for factor
+outcomes. When class probabilities are requested, the percentage of the
+training set samples with the most prevalent class is returned.
 }
 \examples{
 \dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}

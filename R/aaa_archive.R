@@ -108,6 +108,7 @@ model_info_table <-
     "nearest_neighbor"     , "regression"          , "kknn"             , NA              ,
     "null_model"           , "censored regression" , "survival"         , "censored"      ,
     "null_model"           , "classification"      , "parsnip"          , NA              ,
+    "null_model"           , "quantile regression" , "parsnip"          , NA              ,
     "null_model"           , "regression"          , "parsnip"          , NA              ,
     "ordinal_reg"          , "classification"      , "clm"              , "ordered"       ,
     "ordinal_reg"          , "classification"      , "glmnetcr"         , "ordered"       ,

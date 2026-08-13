@@ -14,6 +14,14 @@ null_model() |>
 ```
 
 ```{r}
+#| label: parsnip-quantile-reg
+null_model() |>
+  set_engine("parsnip") |>
+  set_mode("quantile regression", quantile_levels = c(0.25, 0.5, 0.75)) |>
+  translate()
+```
+
+```{r}
 #| label: parsnip-cls
 null_model() |> 
   set_engine("parsnip") |> 
