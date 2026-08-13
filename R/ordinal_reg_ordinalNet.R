@@ -24,7 +24,6 @@ match_ordinal_link_ordinalNet <- function(link) {
     return(link)
   }
   link <- match.arg(link, dials::values_ordinal_link)
-  # REVIEW: Change `logistic` to `logit` in {dials}?
   if (link == "logistic") {
     link <- "logit"
   }

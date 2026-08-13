@@ -213,8 +213,6 @@ check_ordinal_reg_parallel <- function(x, engine, call = rlang::caller_env()) {
 }
 
 warn_ordinal_reg_odds_link <- function(x, engine, call = rlang::caller_env()) {
-  # REVIEW: What's the preferred way to flag when a legitimate model parameter
-  # is passed a value that the engine doesn't accept?
   if (engine == "polr" || engine == "clm") {
     oddslink <- eval_ordinal_arg(x$args$odds_link)
     if (!is.null(oddslink) && oddslink != "cumulative_link") {
@@ -282,7 +280,6 @@ eval_ordinal_arg <- function(x) {
   x
 }
 
-# TODO: Move to a more shared R script.
 match_ordinal_family <- function(family) {
   if (!is.character(family)) {
     return(family)
@@ -332,20 +329,9 @@ translate_ordinal_reg_ordinalNet <- function(x, call = rlang::caller_env()) {
     x$eng_args$path_values <- NULL
     x$method$fit$args$path_values <- NULL
   } else {
-    # } else if (! rlang::is_call(x$method$fit$args$lambdaVals)) {
-    # NOTES: `ordinalNet` models won't use values of `lambdaVals` at
-    # predict-time outside the range used at fit-time. To enable a prediction
-    # using a practical range of penalties _including the `penalty` value used
-    # to fit_ (assuming a path wasn't specified), the code below passes values
-    # to `ordinalNet()` arguments that ensure an extensive path that includes
-    # the value passed to `penalty` (stored in `lambdaVals`). The alternative,
-    # which i find equally reasonable, is to do nothing and disallow
-    # predictions using any but the specified `penalty` parameter. Local
-    # experiments suggest that, in contrast to `glmnet`, obtaining estimates
-    # for the whole path can be much more expensive than for a single value.
-    # The internal path calculation yields a maximum penalty that zeroes out
-    # all penalized coefficients, so by including 0 we ensure that all values
-    # can be interpolated.
+    # `ordinalNet` cannot predict outside its fitted penalty range. Generate a
+    # path that includes the requested penalty and zero, noting that fitting the
+    # full path can be substantially more expensive than fitting one value.
     x$method$fit$args$nLambda <- 120L
     if (
       rlang::is_call(x$method$fit$args$lambdaVals) ||

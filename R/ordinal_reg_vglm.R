@@ -20,7 +20,6 @@ NULL
 # by `translate.ordinal_reg()` and `translate.gen_additive_mod()`.
 values_ordinal_link_vglm <- c(
   dials::values_ordinal_link,
-  # TODO: Expand to include link functions to other domains than [0,1].
   c("foldsqrt", "logc", "gord", "pord", "nbord")
 )
 
@@ -67,7 +66,6 @@ match_ordinal_link_vglm <- function(link) {
     )
   ) {
     link <- match.arg(link, values_ordinal_link_vglm)
-    # REVIEW: Change `logistic` to `logit` in {dials}?
     if (link == "logistic") {
       link <- "logit"
     }
