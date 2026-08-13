@@ -132,18 +132,12 @@ update.ordinal_reg <-
 check_args.ordinal_reg <- function(object, call = rlang::caller_env()) {
   args <- lapply(object$args, rlang::eval_tidy)
 
-  if (!is.null(args$parallel_reg)) {
-    if (
-      !is.logical(args$parallel_reg) ||
-        length(args$parallel_reg) != 1L ||
-        is.na(args$parallel_reg)
-    ) {
-      cli::cli_abort(
-        "{.arg parallel_reg} must be a single logical value.",
-        call = call
-      )
-    }
-  }
+  check_bool(
+    args$parallel_reg,
+    allow_null = TRUE,
+    call = call,
+    arg = "parallel_reg"
+  )
 
   # copied from `check_args.linear_reg`
   check_number_decimal(
