@@ -70,7 +70,7 @@ Suggests:
     testthat (>= 3.0.0),
     withr,
     xgboost (>= 1.5.0.1)
-Remote:
+Remotes:
     tidymodels/dials#462
 VignetteBuilder: 
     knitr
