@@ -34,6 +34,21 @@ ordinal_reg() \%>\%
 }\if{html}{\out{</div>}}
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("ordinal_reg_predict") |>
+  dplyr::filter(engine == "polr") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob
+}\if{html}{\out{</div>}}
+}
+
 \subsection{References}{
 \itemize{
 \item Bürkner P-C, Vuorre M. 2019. Ordinal Regression Models in Psychology:

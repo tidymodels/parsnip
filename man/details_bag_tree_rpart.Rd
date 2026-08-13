@@ -153,13 +153,19 @@ The underlying model implementation does not allow for case weights.
 
 \subsection{Prediction types}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("bag_mars_predict") |>
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("bag_tree_predict") |>
   dplyr::filter(engine == "rpart") |>
   dplyr::select(mode, type)
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 0 x 2
-## # i 2 variables: mode <chr>, type <chr>
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 5 x 2
+##   mode                type    
+##   <chr>               <chr>   
+## 1 regression          numeric 
+## 2 classification      class   
+## 3 classification      prob    
+## 4 censored regression time    
+## 5 censored regression survival
 }\if{html}{\out{</div>}}
 }
 

@@ -61,7 +61,7 @@ bag_tree(min_n = integer()) |>
 ```{r}
 #| label: predict-types
 
-parsnip:::get_from_env("bag_mars_predict") |>
+parsnip:::get_from_env("bag_tree_predict") |>
   dplyr::filter(engine == "C5.0") |>
   dplyr::select(mode, type)
 
@@ -72,4 +72,3 @@ parsnip:::get_from_env("bag_mars_predict") |>
  - Breiman, L. 1996. "Bagging predictors". Machine Learning. 24 (2): 123-140
  
  - Kuhn, M, and K Johnson. 2013. *Applied Predictive Modeling*. Springer.
-

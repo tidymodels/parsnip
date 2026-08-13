@@ -161,6 +161,25 @@ The “Fitting and Predicting with parsnip”
 contains examples for \code{rand_forest()} with the \code{"grf"} engine.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "grf") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 6 x 2
+##   mode                type    
+##   <chr>               <chr>   
+## 1 classification      class   
+## 2 classification      prob    
+## 3 classification      conf_int
+## 4 regression          numeric 
+## 5 regression          conf_int
+## 6 quantile regression quantile
+}\if{html}{\out{</div>}}
+}
+
 \subsection{References}{
 
 Athey, Susan, Julie Tibshirani, and Stefan Wager. “Generalized Random
