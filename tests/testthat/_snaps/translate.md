@@ -1567,7 +1567,7 @@
       translate_args(adjacent_categories)
     Condition
       Warning in `translate_args()`:
-      ! The polr engine uses the cumulative link odds link; `odds_link` will be ignored.
+      ! The "polr" engine uses the cumulative link odds link; `odds_link` will be ignored.
     Output
       list()
 
