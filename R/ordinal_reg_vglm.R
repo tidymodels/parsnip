@@ -30,26 +30,17 @@ values_threshold_structure_vglm <- c(
 )
 
 translate_ordinal_vgam_args <- function(args) {
-  link_arg <- args$link
-  if (rlang::is_quosure(link_arg)) {
-    link_arg <- rlang::eval_tidy(link_arg)
-  }
+  link_arg <- eval_ordinal_arg(args$link)
   if (!is.null(link_arg)) {
     args$link <- match_ordinal_link_vglm(link_arg)
   }
 
-  family_arg <- args$family
-  if (rlang::is_quosure(family_arg)) {
-    family_arg <- rlang::eval_tidy(family_arg)
-  }
+  family_arg <- eval_ordinal_arg(args$family)
   if (!is.null(family_arg)) {
     args$family <- match_ordinal_family(family_arg)
   }
 
-  thresh_arg <- args$Thresh
-  if (rlang::is_quosure(thresh_arg)) {
-    thresh_arg <- rlang::eval_tidy(thresh_arg)
-  }
+  thresh_arg <- eval_ordinal_arg(args$Thresh)
   if (!is.null(thresh_arg)) {
     args$Thresh <- match_threshold_structure_vglm(thresh_arg)
   }
@@ -63,44 +54,27 @@ translate_ordinal_vgam_args <- function(args) {
   args
 }
 
-# TODO: Move to a more shared R script.
-match_ordinal_family <- function(family) {
-  if (!is.character(family)) {
-    return(family)
-  }
-  if (family %in% c("cumulative", "acat", "cratio", "sratio")) {
-    return(family)
-  }
-  family <- match.arg(family, dials::values_odds_link)
-  switch(
-    family,
-    cumulative_link = "cumulative",
-    adjacent_categories = "acat",
-    continuation_ratio = "cratio",
-    stopping_ratio = "sratio"
-  )
-}
-
 match_ordinal_link_vglm <- function(link) {
   if (!is.character(link)) {
     return(link)
   }
-  link_vgam <-
-    # fmt: skip
-    if (
-      link %in% c(
-        "logitlink", "probitlink", "logloglink", "clogloglink", "cauchitlink",
-        "foldsqrtlink", "logclink", "gordlink", "pordlink", "nbordlink"
-      )
-    ) {
-      link
-    } else {
-      link <- match.arg(link, values_ordinal_link_vglm)
-      # REVIEW: Change `logistic` to `logit` in {dials}?
-      if (link == "logistic") link <- "logit"
-      paste0(link, "link")
+
+  # fmt: skip
+  if (
+    !link %in% c(
+      "logitlink", "probitlink", "logloglink", "clogloglink", "cauchitlink",
+      "foldsqrtlink", "logclink", "gordlink", "pordlink", "nbordlink"
+    )
+  ) {
+    link <- match.arg(link, values_ordinal_link_vglm)
+    # REVIEW: Change `logistic` to `logit` in {dials}?
+    if (link == "logistic") {
+      link <- "logit"
     }
-  if (link_vgam == "logloglink") {
+    link <- paste0(link, "link")
+  }
+
+  if (link == "logloglink") {
     cli::cli_abort(
       c(
         "The {.pkg VGAM} engines do not support the log-log ordinal link.",
@@ -108,7 +82,7 @@ match_ordinal_link_vglm <- function(link) {
       )
     )
   }
-  link_vgam
+  link
 }
 
 match_threshold_structure_vglm <- function(Thresh) {

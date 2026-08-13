@@ -168,8 +168,6 @@ translate.ordinal_reg <- function(
   ...,
   call = rlang::caller_env()
 ) {
-  dots <- list(...)
-
   x <- translate.default(x, engine, ...)
 
   check_ordinal_reg_parallel(x, engine, call = call)
@@ -197,7 +195,7 @@ translate.ordinal_reg <- function(
 check_ordinal_reg_parallel <- function(x, engine, call = rlang::caller_env()) {
   # reject `parallel_reg` for engines that don't support assumption violations
   if (!engine %in% c("clm", "vglm", "ordinalNet", "brms")) {
-    pr <- rlang::eval_tidy(x$args$parallel_reg)
+    pr <- eval_ordinal_arg(x$args$parallel_reg)
     if (!is.null(pr) && !(isTRUE(pr))) {
       cli::cli_abort(
         c(
@@ -218,7 +216,7 @@ warn_ordinal_reg_odds_link <- function(x, engine, call = rlang::caller_env()) {
   # REVIEW: What's the preferred way to flag when a legitimate model parameter
   # is passed a value that the engine doesn't accept?
   if (engine == "polr" || engine == "clm") {
-    oddslink <- rlang::eval_tidy(x$args$odds_link)
+    oddslink <- eval_ordinal_arg(x$args$odds_link)
     if (!is.null(oddslink) && oddslink != "cumulative_link") {
       cli::cli_warn(
         c(
@@ -234,18 +232,12 @@ warn_ordinal_reg_odds_link <- function(x, engine, call = rlang::caller_env()) {
 }
 
 translate_ordinal_reg_clm <- function(x) {
-  link_arg <- x$method$fit$args$link
-  if (rlang::is_quosure(link_arg)) {
-    link_arg <- rlang::eval_tidy(link_arg)
-  }
+  link_arg <- eval_ordinal_arg(x$method$fit$args$link)
   if (!is.null(link_arg) && link_arg == "logistic") {
     x$method$fit$args$link <- "logit"
   }
 
-  thresh_arg <- x$method$fit$args$threshold
-  if (rlang::is_quosure(thresh_arg)) {
-    thresh_arg <- rlang::eval_tidy(thresh_arg)
-  }
+  thresh_arg <- eval_ordinal_arg(x$method$fit$args$threshold)
   if (!is.null(thresh_arg)) {
     x$method$fit$args$threshold <- switch(
       thresh_arg,
@@ -262,10 +254,7 @@ translate_ordinal_reg_clm <- function(x) {
   # `<resp> ~ .` against all variables (including the response).
   # The formula is constructed at fit time, when the model formula is
   # available, rather than at translation time.
-  parallel_arg <- x$method$fit$args$parallel_reg
-  if (rlang::is_quosure(parallel_arg)) {
-    parallel_arg <- rlang::eval_tidy(parallel_arg)
-  }
+  parallel_arg <- eval_ordinal_arg(x$method$fit$args$parallel_reg)
   if (isFALSE(parallel_arg)) {
     x$method$fit$args$nominal <-
       rlang::expr(ordinal_reg_nominal_formula(formula))
@@ -286,6 +275,31 @@ ordinal_reg_nominal_formula <- function(formula) {
   rlang::new_formula(NULL, rhs, env = rlang::f_env(formula))
 }
 
+eval_ordinal_arg <- function(x) {
+  if (rlang::is_quosure(x)) {
+    x <- rlang::eval_tidy(x)
+  }
+  x
+}
+
+# TODO: Move to a more shared R script.
+match_ordinal_family <- function(family) {
+  if (!is.character(family)) {
+    return(family)
+  }
+  if (family %in% c("cumulative", "acat", "cratio", "sratio")) {
+    return(family)
+  }
+  family <- match.arg(family, dials::values_odds_link)
+  switch(
+    family,
+    cumulative_link = "cumulative",
+    adjacent_categories = "acat",
+    continuation_ratio = "cratio",
+    stopping_ratio = "sratio"
+  )
+}
+
 translate_ordinal_reg_vglm <- function(x) {
   x$method$fit$args <- translate_ordinal_vgam_args(x$method$fit$args)
 
@@ -293,26 +307,17 @@ translate_ordinal_reg_vglm <- function(x) {
 }
 
 translate_ordinal_reg_ordinalNet <- function(x, call = rlang::caller_env()) {
-  link_arg <- x$method$fit$args$link
-  if (rlang::is_quosure(link_arg)) {
-    link_arg <- rlang::eval_tidy(link_arg)
-  }
+  link_arg <- eval_ordinal_arg(x$method$fit$args$link)
   if (!is.null(link_arg)) {
     x$method$fit$args$link <- match_ordinal_link_ordinalNet(link_arg)
   }
 
-  family_arg <- x$method$fit$args$family
-  if (rlang::is_quosure(family_arg)) {
-    family_arg <- rlang::eval_tidy(family_arg)
-  }
+  family_arg <- eval_ordinal_arg(x$method$fit$args$family)
   if (!is.null(family_arg)) {
     x$method$fit$args$family <- match_ordinal_family(family_arg)
   }
 
-  parallel_arg <- x$method$fit$args$parallel_reg
-  if (rlang::is_quosure(parallel_arg)) {
-    parallel_arg <- rlang::eval_tidy(parallel_arg)
-  }
+  parallel_arg <- eval_ordinal_arg(x$method$fit$args$parallel_reg)
   if (isFALSE(parallel_arg)) {
     x$method$fit$args$parallelTerms <- FALSE
     x$method$fit$args$nonparallelTerms <- TRUE
@@ -342,17 +347,16 @@ translate_ordinal_reg_ordinalNet <- function(x, call = rlang::caller_env()) {
     # all penalized coefficients, so by including 0 we ensure that all values
     # can be interpolated.
     x$method$fit$args$nLambda <- 120L
-    min_lambda <-
-      if (
-        rlang::is_call(x$method$fit$args$lambdaVals) ||
-          is.null(x$method$fit$args$lambdaVals) ||
-          0 %in% x$method$fit$args$lambdaVals
-      ) {
-        1e-08
-      } else {
+    if (
+      rlang::is_call(x$method$fit$args$lambdaVals) ||
+        is.null(x$method$fit$args$lambdaVals) ||
+        0 %in% x$method$fit$args$lambdaVals
+    ) {
+      x$method$fit$args$lambdaMinRatio <- 1e-08
+    } else {
+      x$method$fit$args$lambdaMinRatio <-
         min(x$method$fit$args$lambdaVals)
-      }
-    x$method$fit$args$lambdaMinRatio <- min_lambda
+    }
     x$method$fit$args$includeLambda0 <- TRUE
     x$method$fit$args$lambdaVals <- NULL
   }
@@ -372,17 +376,16 @@ translate_ordinal_reg_glmnetcr <- function(x, call = rlang::caller_env()) {
     x$method$fit$args$path_values <- NULL
   } else {
     x$method$fit$args$nlambda <- 120L
-    min_pen <-
-      if (
-        rlang::is_call(x$method$fit$args$lambda) ||
-          is.null(x$method$fit$args$lambda) ||
-          0 %in% x$method$fit$args$lambda
-      ) {
-        1e-08
-      } else {
+    if (
+      rlang::is_call(x$method$fit$args$lambda) ||
+        is.null(x$method$fit$args$lambda) ||
+        0 %in% x$method$fit$args$lambda
+    ) {
+      x$method$fit$args$lambda.min.ratio <- 1e-08
+    } else {
+      x$method$fit$args$lambda.min.ratio <-
         min(x$method$fit$args$lambda)
-      }
-    x$method$fit$args$lambda.min.ratio <- min_pen
+    }
     x$method$fit$args$lambda <- NULL
   }
   # Since the `fit` information is gone for the penalty, we need to have an
