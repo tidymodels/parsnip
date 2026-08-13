@@ -60,6 +60,31 @@ test_that("engine documentation uses matching prediction registrations", {
       declared <- c("null_model", "parsnip")
     }
 
+    parameter_list <- regexpr("make_parameter_list\\(", text)
+    if (parameter_list[[1]] != -1) {
+      parameter_setup <- substr(text, 1, parameter_list[[1]])
+      parameter_engine <- extract_engine_doc_match(
+        'set_engine\\("([^"]+)"',
+        parameter_setup
+      )
+      if (
+        is.null(parameter_engine) ||
+          parameter_engine[[1]] != declared[[2]]
+      ) {
+        problems <- c(
+          problems,
+          paste0(
+            basename(rmd_file),
+            " uses engine ",
+            if (is.null(parameter_engine)) "none" else parameter_engine[[1]],
+            " for its parameter list; expected ",
+            declared[[2]],
+            "."
+          )
+        )
+      }
+    }
+
     chunk <- prediction_doc_chunk(lines)
     if (is.null(chunk)) {
       problems <- c(
