@@ -29,6 +29,40 @@ values_threshold_structure_vglm <- c(
   "qnorm"
 )
 
+translate_ordinal_vgam_args <- function(args) {
+  link_arg <- args$link
+  if (rlang::is_quosure(link_arg)) {
+    link_arg <- rlang::eval_tidy(link_arg)
+  }
+  if (!is.null(link_arg)) {
+    args$link <- match_ordinal_link_vglm(link_arg)
+  }
+
+  family_arg <- args$family
+  if (rlang::is_quosure(family_arg)) {
+    family_arg <- rlang::eval_tidy(family_arg)
+  }
+  if (!is.null(family_arg)) {
+    args$family <- match_ordinal_family(family_arg)
+  }
+
+  thresh_arg <- args$Thresh
+  if (rlang::is_quosure(thresh_arg)) {
+    thresh_arg <- rlang::eval_tidy(thresh_arg)
+  }
+  if (!is.null(thresh_arg)) {
+    args$Thresh <- match_threshold_structure_vglm(thresh_arg)
+  }
+
+  # `acat()` does not support certain link functions
+  check_ordinal_link_family_vglm(
+    family = args$family,
+    link = args$link
+  )
+
+  args
+}
+
 # TODO: Move to a more shared R script.
 match_ordinal_family <- function(family) {
   if (!is.character(family)) {
