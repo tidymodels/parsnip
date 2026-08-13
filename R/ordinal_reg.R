@@ -132,10 +132,12 @@ update.ordinal_reg <-
 check_args.ordinal_reg <- function(object, call = rlang::caller_env()) {
   args <- lapply(object$args, rlang::eval_tidy)
 
-  if (! is.null(args$parallel_reg)) {
-    if (! is.logical(args$parallel_reg) ||
+  if (!is.null(args$parallel_reg)) {
+    if (
+      !is.logical(args$parallel_reg) ||
         length(args$parallel_reg) != 1L ||
-        is.na(args$parallel_reg)) {
+        is.na(args$parallel_reg)
+    ) {
       cli::cli_abort(
         "{.arg parallel_reg} must be a single logical value.",
         call = call
@@ -172,9 +174,9 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
   x <- translate.default(x, engine, ...)
 
   # reject `parallel_reg` for engines that don't support assumption violations
-  if (! engine %in% c("clm", "vglm", "ordinalNet", "brms")) {
+  if (!engine %in% c("clm", "vglm", "ordinalNet", "brms")) {
     pr <- rlang::eval_tidy(x$args$parallel_reg)
-    if (! is.null(pr) && ! (isTRUE(pr))) {
+    if (!is.null(pr) && !(isTRUE(pr))) {
       cli::cli_abort(
         c(
           "The {.val {engine}} engine does not support relaxing the
@@ -202,17 +204,19 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
   }
 
   if (engine == "clm") {
-
     link_arg <- x$method$fit$args$link
-    if (rlang::is_quosure(link_arg))
+    if (rlang::is_quosure(link_arg)) {
       link_arg <- rlang::eval_tidy(link_arg)
-    if (! is.null(link_arg) && link_arg == "logistic")
+    }
+    if (!is.null(link_arg) && link_arg == "logistic") {
       x$method$fit$args$link <- "logit"
+    }
 
     thresh_arg <- x$method$fit$args$threshold
-    if (rlang::is_quosure(thresh_arg))
+    if (rlang::is_quosure(thresh_arg)) {
       thresh_arg <- rlang::eval_tidy(thresh_arg)
-    if (! is.null(thresh_arg)) {
+    }
+    if (!is.null(thresh_arg)) {
       x$method$fit$args$threshold <- switch(
         thresh_arg,
         flexible = "flexible",
@@ -229,8 +233,9 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
     # The formula is constructed at fit time, when the model formula is
     # available, rather than at translation time.
     parallel_arg <- x$method$fit$args$parallel_reg
-    if (rlang::is_quosure(parallel_arg))
+    if (rlang::is_quosure(parallel_arg)) {
       parallel_arg <- rlang::eval_tidy(parallel_arg)
+    }
     if (isFALSE(parallel_arg)) {
       x$method$fit$args$nominal <-
         rlang::expr(
@@ -248,24 +253,29 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
   }
 
   if (engine == "vglm") {
-
     link_arg <- x$method$fit$args$link
-    if (rlang::is_quosure(link_arg))
+    if (rlang::is_quosure(link_arg)) {
       link_arg <- rlang::eval_tidy(link_arg)
-    if (! is.null(link_arg))
+    }
+    if (!is.null(link_arg)) {
       x$method$fit$args$link <- match_ordinal_link_vglm(link_arg)
+    }
 
     family_arg <- x$method$fit$args$family
-    if (rlang::is_quosure(family_arg))
+    if (rlang::is_quosure(family_arg)) {
       family_arg <- rlang::eval_tidy(family_arg)
-    if (! is.null(family_arg))
+    }
+    if (!is.null(family_arg)) {
       x$method$fit$args$family <- match_ordinal_family(family_arg)
+    }
 
     thresh_arg <- x$method$fit$args$Thresh
-    if (rlang::is_quosure(thresh_arg))
+    if (rlang::is_quosure(thresh_arg)) {
       thresh_arg <- rlang::eval_tidy(thresh_arg)
-    if (! is.null(thresh_arg))
+    }
+    if (!is.null(thresh_arg)) {
       x$method$fit$args$Thresh <- match_threshold_structure_vglm(thresh_arg)
+    }
 
     # `acat()` does not support certain link functions
     check_ordinal_link_family_vglm(
@@ -276,22 +286,26 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
 
   # adapted from `.check_glmnet_penalty_fit()`
   if (engine == "ordinalNet") {
-
     link_arg <- x$method$fit$args$link
-    if (rlang::is_quosure(link_arg))
+    if (rlang::is_quosure(link_arg)) {
       link_arg <- rlang::eval_tidy(link_arg)
-    if (! is.null(link_arg))
+    }
+    if (!is.null(link_arg)) {
       x$method$fit$args$link <- match_ordinal_link_ordinalNet(link_arg)
+    }
 
     family_arg <- x$method$fit$args$family
-    if (rlang::is_quosure(family_arg))
+    if (rlang::is_quosure(family_arg)) {
       family_arg <- rlang::eval_tidy(family_arg)
-    if (! is.null(family_arg))
+    }
+    if (!is.null(family_arg)) {
       x$method$fit$args$family <- match_ordinal_family(family_arg)
+    }
 
     parallel_arg <- x$method$fit$args$parallel_reg
-    if (rlang::is_quosure(parallel_arg))
+    if (rlang::is_quosure(parallel_arg)) {
       parallel_arg <- rlang::eval_tidy(parallel_arg)
+    }
     if (isFALSE(parallel_arg)) {
       x$method$fit$args$parallelTerms <- FALSE
       x$method$fit$args$nonparallelTerms <- TRUE
@@ -359,7 +373,6 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
   }
 
   if (engine == "glmnetcr") {
-
     pen <- rlang::eval_tidy(x$args$penalty)
     if (length(pen) != 1L) {
       msg <- c(

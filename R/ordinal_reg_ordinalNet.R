@@ -20,12 +20,14 @@ NULL
 # to `ordinalNet::ordinalNet()`. They are used by `translate.ordinal_reg()`.
 
 match_ordinal_link_ordinalNet <- function(link) {
-  if (! is.character(link)) {
+  if (!is.character(link)) {
     return(link)
   }
   link <- match.arg(link, dials::values_ordinal_link)
   # REVIEW: Change `logistic` to `logit` in {dials}?
-  if (link == "logistic") link <- "logit"
+  if (link == "logistic") {
+    link <- "logit"
+  }
   if (link == "loglog") {
     cli::cli_abort(
       c(

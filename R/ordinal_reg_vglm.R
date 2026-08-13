@@ -31,7 +31,7 @@ values_threshold_structure_vglm <- c(
 
 # TODO: Move to a more shared R script.
 match_ordinal_family <- function(family) {
-  if (! is.character(family)) {
+  if (!is.character(family)) {
     return(family)
   }
   if (family %in% c("cumulative", "acat", "cratio", "sratio")) {
@@ -48,14 +48,17 @@ match_ordinal_family <- function(family) {
 }
 
 match_ordinal_link_vglm <- function(link) {
-  if (! is.character(link)) {
+  if (!is.character(link)) {
     return(link)
   }
   link_vgam <-
-    if (link %in% c(
-      "logitlink", "probitlink", "logloglink", "clogloglink", "cauchitlink",
-      "foldsqrtlink", "logclink", "gordlink", "pordlink", "nbordlink"
-    )) {
+    # fmt: skip
+    if (
+      link %in% c(
+        "logitlink", "probitlink", "logloglink", "clogloglink", "cauchitlink",
+        "foldsqrtlink", "logclink", "gordlink", "pordlink", "nbordlink"
+      )
+    ) {
       link
     } else {
       link <- match.arg(link, values_ordinal_link_vglm)
@@ -75,7 +78,7 @@ match_ordinal_link_vglm <- function(link) {
 }
 
 match_threshold_structure_vglm <- function(Thresh) {
-  if (! is.character(Thresh)) {
+  if (!is.character(Thresh)) {
     return(Thresh)
   }
   Thresh <- match.arg(Thresh, values_threshold_structure_vglm)
@@ -91,7 +94,8 @@ match_threshold_structure_vglm <- function(Thresh) {
 
 check_ordinal_link_family_vglm <- function(family, link) {
   if (
-    is.character(family) && is.character(link) &&
+    is.character(family) &&
+      is.character(link) &&
       family == "acat" &&
       link %in% c("logitlink", "probitlink", "clogloglink")
   ) {
