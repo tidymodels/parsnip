@@ -268,20 +268,22 @@ translate_ordinal_reg_clm <- function(x) {
   }
   if (isFALSE(parallel_arg)) {
     x$method$fit$args$nominal <-
-      rlang::expr(
-        rlang::new_formula(
-          NULL,
-          rlang::parse_expr(
-            paste(all.vars(formula[[3L]]), collapse = " + ")
-          )
-        )
-      )
+      rlang::expr(ordinal_reg_nominal_formula(formula))
   } else if (isTRUE(parallel_arg)) {
     x$method$fit$args$nominal <- NULL
   }
   x$method$fit$args$parallel_reg <- NULL
 
   x
+}
+
+ordinal_reg_nominal_formula <- function(formula) {
+  terms <- rlang::syms(all.vars(formula[[3L]]))
+  rhs <- Reduce(
+    function(x, y) rlang::call2("+", x, y),
+    terms
+  )
+  rlang::new_formula(NULL, rhs, env = rlang::f_env(formula))
 }
 
 translate_ordinal_reg_vglm <- function(x) {
