@@ -44,7 +44,7 @@ Suggests:
     bench,
     C50,
     covr,
-    dials (>= 1.4.2),
+    dials (>= 1.4.4.9000),
     earth,
     ggrepel,
     keras,
@@ -70,6 +70,8 @@ Suggests:
     testthat (>= 3.0.0),
     withr,
     xgboost (>= 1.5.0.1)
+Remote:
+    tidymodels/dials#462
 VignetteBuilder: 
     knitr
 ByteCompile: true

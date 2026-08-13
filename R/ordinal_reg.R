@@ -168,11 +168,39 @@ check_args.ordinal_reg <- function(object, call = rlang::caller_env()) {
 # ------------------------------------------------------------------------------
 
 #' @export
-translate.ordinal_reg <- function(x, engine = x$engine, ...) {
+translate.ordinal_reg <- function(
+  x,
+  engine = x$engine,
+  ...,
+  call = rlang::caller_env()
+) {
   dots <- list(...)
 
   x <- translate.default(x, engine, ...)
 
+  check_ordinal_reg_parallel(x, engine, call = call)
+  warn_ordinal_reg_odds_link(x, engine, call = call)
+
+  if (engine == "clm") {
+    x <- translate_ordinal_reg_clm(x)
+  }
+
+  if (engine == "vglm") {
+    x <- translate_ordinal_reg_vglm(x)
+  }
+
+  if (engine == "ordinalNet") {
+    x <- translate_ordinal_reg_ordinalNet(x, call = call)
+  }
+
+  if (engine == "glmnetcr") {
+    x <- translate_ordinal_reg_glmnetcr(x, call = call)
+  }
+
+  x
+}
+
+check_ordinal_reg_parallel <- function(x, engine, call = rlang::caller_env()) {
   # reject `parallel_reg` for engines that don't support assumption violations
   if (!engine %in% c("clm", "vglm", "ordinalNet", "brms")) {
     pr <- rlang::eval_tidy(x$args$parallel_reg)
@@ -183,11 +211,15 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
           parallel regression assumption.",
           "i" = "Use engine {.val clm} or {.val vglm} for non-parallel models."
         ),
-        call = rlang::caller_env()
+        call = call
       )
     }
   }
 
+  invisible(NULL)
+}
+
+warn_ordinal_reg_odds_link <- function(x, engine, call = rlang::caller_env()) {
   # REVIEW: What's the preferred way to flag when a legitimate model parameter
   # is passed a value that the engine doesn't accept?
   if (engine == "polr" || engine == "clm") {
@@ -198,224 +230,224 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
           "!" = "The {.val {engine}} engine uses the cumulative link odds link;
           {.arg odds_link} will be ignored."
         ),
-        call = rlang::caller_env()
+        call = call
       )
     }
   }
 
-  if (engine == "clm") {
-    link_arg <- x$method$fit$args$link
-    if (rlang::is_quosure(link_arg)) {
-      link_arg <- rlang::eval_tidy(link_arg)
-    }
-    if (!is.null(link_arg) && link_arg == "logistic") {
-      x$method$fit$args$link <- "logit"
-    }
+  invisible(NULL)
+}
 
-    thresh_arg <- x$method$fit$args$threshold
-    if (rlang::is_quosure(thresh_arg)) {
-      thresh_arg <- rlang::eval_tidy(thresh_arg)
-    }
-    if (!is.null(thresh_arg)) {
-      x$method$fit$args$threshold <- switch(
-        thresh_arg,
-        flexible = "flexible",
-        symmetric_median = "symmetric",
-        symmetric_zero = "symmetric2",
-        equidistant = "equidistant",
-        thresh_arg
-      )
-    }
-
-    # translate `parallel_reg` to the `nominal` formula accepted by `clm()`
-    # NB: The formula must be explicitly constructed since `clm()` would expand
-    # `<resp> ~ .` against all variables (including the response).
-    # The formula is constructed at fit time, when the model formula is
-    # available, rather than at translation time.
-    parallel_arg <- x$method$fit$args$parallel_reg
-    if (rlang::is_quosure(parallel_arg)) {
-      parallel_arg <- rlang::eval_tidy(parallel_arg)
-    }
-    if (isFALSE(parallel_arg)) {
-      x$method$fit$args$nominal <-
-        rlang::expr(
-          rlang::new_formula(
-            NULL,
-            rlang::parse_expr(
-              paste(all.vars(formula[[3L]]), collapse = " + ")
-            )
-          )
-        )
-    } else if (isTRUE(parallel_arg)) {
-      x$method$fit$args$nominal <- NULL
-    }
-    x$method$fit$args$parallel_reg <- NULL
+translate_ordinal_reg_clm <- function(x) {
+  link_arg <- x$method$fit$args$link
+  if (rlang::is_quosure(link_arg)) {
+    link_arg <- rlang::eval_tidy(link_arg)
+  }
+  if (!is.null(link_arg) && link_arg == "logistic") {
+    x$method$fit$args$link <- "logit"
   }
 
-  if (engine == "vglm") {
-    link_arg <- x$method$fit$args$link
-    if (rlang::is_quosure(link_arg)) {
-      link_arg <- rlang::eval_tidy(link_arg)
-    }
-    if (!is.null(link_arg)) {
-      x$method$fit$args$link <- match_ordinal_link_vglm(link_arg)
-    }
-
-    family_arg <- x$method$fit$args$family
-    if (rlang::is_quosure(family_arg)) {
-      family_arg <- rlang::eval_tidy(family_arg)
-    }
-    if (!is.null(family_arg)) {
-      x$method$fit$args$family <- match_ordinal_family(family_arg)
-    }
-
-    thresh_arg <- x$method$fit$args$Thresh
-    if (rlang::is_quosure(thresh_arg)) {
-      thresh_arg <- rlang::eval_tidy(thresh_arg)
-    }
-    if (!is.null(thresh_arg)) {
-      x$method$fit$args$Thresh <- match_threshold_structure_vglm(thresh_arg)
-    }
-
-    # `acat()` does not support certain link functions
-    check_ordinal_link_family_vglm(
-      family = x$method$fit$args$family,
-      link = x$method$fit$args$link
+  thresh_arg <- x$method$fit$args$threshold
+  if (rlang::is_quosure(thresh_arg)) {
+    thresh_arg <- rlang::eval_tidy(thresh_arg)
+  }
+  if (!is.null(thresh_arg)) {
+    x$method$fit$args$threshold <- switch(
+      thresh_arg,
+      flexible = "flexible",
+      symmetric_median = "symmetric",
+      symmetric_zero = "symmetric2",
+      equidistant = "equidistant",
+      thresh_arg
     )
   }
 
-  # adapted from `.check_glmnet_penalty_fit()`
-  if (engine == "ordinalNet") {
-    link_arg <- x$method$fit$args$link
-    if (rlang::is_quosure(link_arg)) {
-      link_arg <- rlang::eval_tidy(link_arg)
-    }
-    if (!is.null(link_arg)) {
-      x$method$fit$args$link <- match_ordinal_link_ordinalNet(link_arg)
-    }
-
-    family_arg <- x$method$fit$args$family
-    if (rlang::is_quosure(family_arg)) {
-      family_arg <- rlang::eval_tidy(family_arg)
-    }
-    if (!is.null(family_arg)) {
-      x$method$fit$args$family <- match_ordinal_family(family_arg)
-    }
-
-    parallel_arg <- x$method$fit$args$parallel_reg
-    if (rlang::is_quosure(parallel_arg)) {
-      parallel_arg <- rlang::eval_tidy(parallel_arg)
-    }
-    if (isFALSE(parallel_arg)) {
-      x$method$fit$args$parallelTerms <- FALSE
-      x$method$fit$args$nonparallelTerms <- TRUE
-    }
-    x$method$fit$args$parallel_reg <- NULL
-
-    pen <- rlang::eval_tidy(x$args$penalty)
-    if (length(pen) != 1L) {
-      msg <- c(
-        "x" = "The ordinalNet engine ignores {.arg penalty} in favor of a
-          path that enables prediction at interpolated penalty values.",
-        "!" = "{.arg penalty} was passed {length(pen)} value{?s}.",
-        "i" = "Use `path_values` to override the default path."
-      )
-      if (length(pen) > 1L) {
-        msg <- c(
-          msg,
-          c(
-            "i" = "To specify multiple values for total regularization,
-              use the {.pkg tune} package."
+  # translate `parallel_reg` to the `nominal` formula accepted by `clm()`
+  # NB: The formula must be explicitly constructed since `clm()` would expand
+  # `<resp> ~ .` against all variables (including the response).
+  # The formula is constructed at fit time, when the model formula is
+  # available, rather than at translation time.
+  parallel_arg <- x$method$fit$args$parallel_reg
+  if (rlang::is_quosure(parallel_arg)) {
+    parallel_arg <- rlang::eval_tidy(parallel_arg)
+  }
+  if (isFALSE(parallel_arg)) {
+    x$method$fit$args$nominal <-
+      rlang::expr(
+        rlang::new_formula(
+          NULL,
+          rlang::parse_expr(
+            paste(all.vars(formula[[3L]]), collapse = " + ")
           )
         )
-      }
-      cli::cli_warn(msg, call = rlang::caller_env())
-    }
-
-    # adapted from `set_glmnet_penalty_path()`
-    if (any(names(x$eng_args) == "path_values")) {
-      x$method$fit$args$lambdaVals <- x$eng_args$path_values
-      x$eng_args$path_values <- NULL
-      x$method$fit$args$path_values <- NULL
-    } else {
-      # } else if (! rlang::is_call(x$method$fit$args$lambdaVals)) {
-      # NOTES: `ordinalNet` models won't use values of `lambdaVals` at
-      # predict-time outside the range used at fit-time. To enable a prediction
-      # using a practical range of penalties _including the `penalty` value used
-      # to fit_ (assuming a path wasn't specified), the code below passes values
-      # to `ordinalNet()` arguments that ensure an extensive path that includes
-      # the value passed to `penalty` (stored in `lambdaVals`). The alternative,
-      # which i find equally reasonable, is to do nothing and disallow
-      # predictions using any but the specified `penalty` parameter. Local
-      # experiments suggest that, in contrast to `glmnet`, obtaining estimates
-      # for the whole path can be much more expensive than for a single value.
-      # The internal path calculation yields a maximum penalty that zeroes out
-      # all penalized coefficients, so by including 0 we ensure that all values
-      # can be interpolated.
-      x$method$fit$args$nLambda <- 120L
-      min_lambda <-
-        if (
-          rlang::is_call(x$method$fit$args$lambdaVals) ||
-            is.null(x$method$fit$args$lambdaVals) ||
-            0 %in% x$method$fit$args$lambdaVals
-        ) {
-          1e-08
-        } else {
-          min(x$method$fit$args$lambdaVals)
-        }
-      x$method$fit$args$lambdaMinRatio <- min_lambda
-      x$method$fit$args$includeLambda0 <- TRUE
-      x$method$fit$args$lambdaVals <- NULL
-    }
-    # Since the `fit` information is gone for the penalty, we need to have an
-    # evaluated value for the parameter.
-    x$args$penalty <- rlang::eval_tidy(x$args$penalty)
-  }
-
-  if (engine == "glmnetcr") {
-    pen <- rlang::eval_tidy(x$args$penalty)
-    if (length(pen) != 1L) {
-      msg <- c(
-        "x" = "The glmnetcr engine ignores {.arg penalty} in favor of a
-          path that enables prediction at interpolated penalty values.",
-        "!" = "{.arg penalty} was passed {length(pen)} value{?s}.",
-        "i" = "Use `path_values` to override the default path."
       )
-      if (length(pen) > 1L) {
-        msg <- c(
-          msg,
-          c(
-            "i" = "To specify multiple values for total regularization,
-              use the {.pkg tune} package."
-          )
-        )
-      }
-      cli::cli_warn(msg, call = rlang::caller_env())
-    }
-
-    if (any(names(x$eng_args) == "path_values")) {
-      x$method$fit$args$lambda <- x$eng_args$path_values
-      x$eng_args$path_values <- NULL
-      x$method$fit$args$path_values <- NULL
-    } else {
-      x$method$fit$args$nlambda <- 120L
-      min_pen <-
-        if (
-          rlang::is_call(x$method$fit$args$lambda) ||
-            is.null(x$method$fit$args$lambda) ||
-            0 %in% x$method$fit$args$lambda
-        ) {
-          1e-08
-        } else {
-          min(x$method$fit$args$lambda)
-        }
-      x$method$fit$args$lambda.min.ratio <- min_pen
-      x$method$fit$args$lambda <- NULL
-    }
-    # Since the `fit` information is gone for the penalty, we need to have an
-    # evaluated value for the parameter.
-    x$args$penalty <- rlang::eval_tidy(x$args$penalty)
+  } else if (isTRUE(parallel_arg)) {
+    x$method$fit$args$nominal <- NULL
   }
+  x$method$fit$args$parallel_reg <- NULL
 
   x
+}
+
+translate_ordinal_reg_vglm <- function(x) {
+  link_arg <- x$method$fit$args$link
+  if (rlang::is_quosure(link_arg)) {
+    link_arg <- rlang::eval_tidy(link_arg)
+  }
+  if (!is.null(link_arg)) {
+    x$method$fit$args$link <- match_ordinal_link_vglm(link_arg)
+  }
+
+  family_arg <- x$method$fit$args$family
+  if (rlang::is_quosure(family_arg)) {
+    family_arg <- rlang::eval_tidy(family_arg)
+  }
+  if (!is.null(family_arg)) {
+    x$method$fit$args$family <- match_ordinal_family(family_arg)
+  }
+
+  thresh_arg <- x$method$fit$args$Thresh
+  if (rlang::is_quosure(thresh_arg)) {
+    thresh_arg <- rlang::eval_tidy(thresh_arg)
+  }
+  if (!is.null(thresh_arg)) {
+    x$method$fit$args$Thresh <- match_threshold_structure_vglm(thresh_arg)
+  }
+
+  # `acat()` does not support certain link functions
+  check_ordinal_link_family_vglm(
+    family = x$method$fit$args$family,
+    link = x$method$fit$args$link
+  )
+
+  x
+}
+
+translate_ordinal_reg_ordinalNet <- function(x, call = rlang::caller_env()) {
+  link_arg <- x$method$fit$args$link
+  if (rlang::is_quosure(link_arg)) {
+    link_arg <- rlang::eval_tidy(link_arg)
+  }
+  if (!is.null(link_arg)) {
+    x$method$fit$args$link <- match_ordinal_link_ordinalNet(link_arg)
+  }
+
+  family_arg <- x$method$fit$args$family
+  if (rlang::is_quosure(family_arg)) {
+    family_arg <- rlang::eval_tidy(family_arg)
+  }
+  if (!is.null(family_arg)) {
+    x$method$fit$args$family <- match_ordinal_family(family_arg)
+  }
+
+  parallel_arg <- x$method$fit$args$parallel_reg
+  if (rlang::is_quosure(parallel_arg)) {
+    parallel_arg <- rlang::eval_tidy(parallel_arg)
+  }
+  if (isFALSE(parallel_arg)) {
+    x$method$fit$args$parallelTerms <- FALSE
+    x$method$fit$args$nonparallelTerms <- TRUE
+  }
+  x$method$fit$args$parallel_reg <- NULL
+
+  check_ordinal_reg_penalty(x$args$penalty, "ordinalNet", call = call)
+
+  # adapted from `set_glmnet_penalty_path()`
+  if (any(names(x$eng_args) == "path_values")) {
+    x$method$fit$args$lambdaVals <- x$eng_args$path_values
+    x$eng_args$path_values <- NULL
+    x$method$fit$args$path_values <- NULL
+  } else {
+    # } else if (! rlang::is_call(x$method$fit$args$lambdaVals)) {
+    # NOTES: `ordinalNet` models won't use values of `lambdaVals` at
+    # predict-time outside the range used at fit-time. To enable a prediction
+    # using a practical range of penalties _including the `penalty` value used
+    # to fit_ (assuming a path wasn't specified), the code below passes values
+    # to `ordinalNet()` arguments that ensure an extensive path that includes
+    # the value passed to `penalty` (stored in `lambdaVals`). The alternative,
+    # which i find equally reasonable, is to do nothing and disallow
+    # predictions using any but the specified `penalty` parameter. Local
+    # experiments suggest that, in contrast to `glmnet`, obtaining estimates
+    # for the whole path can be much more expensive than for a single value.
+    # The internal path calculation yields a maximum penalty that zeroes out
+    # all penalized coefficients, so by including 0 we ensure that all values
+    # can be interpolated.
+    x$method$fit$args$nLambda <- 120L
+    min_lambda <-
+      if (
+        rlang::is_call(x$method$fit$args$lambdaVals) ||
+          is.null(x$method$fit$args$lambdaVals) ||
+          0 %in% x$method$fit$args$lambdaVals
+      ) {
+        1e-08
+      } else {
+        min(x$method$fit$args$lambdaVals)
+      }
+    x$method$fit$args$lambdaMinRatio <- min_lambda
+    x$method$fit$args$includeLambda0 <- TRUE
+    x$method$fit$args$lambdaVals <- NULL
+  }
+  # Since the `fit` information is gone for the penalty, we need to have an
+  # evaluated value for the parameter.
+  x$args$penalty <- rlang::eval_tidy(x$args$penalty)
+
+  x
+}
+
+translate_ordinal_reg_glmnetcr <- function(x, call = rlang::caller_env()) {
+  check_ordinal_reg_penalty(x$args$penalty, "glmnetcr", call = call)
+
+  if (any(names(x$eng_args) == "path_values")) {
+    x$method$fit$args$lambda <- x$eng_args$path_values
+    x$eng_args$path_values <- NULL
+    x$method$fit$args$path_values <- NULL
+  } else {
+    x$method$fit$args$nlambda <- 120L
+    min_pen <-
+      if (
+        rlang::is_call(x$method$fit$args$lambda) ||
+          is.null(x$method$fit$args$lambda) ||
+          0 %in% x$method$fit$args$lambda
+      ) {
+        1e-08
+      } else {
+        min(x$method$fit$args$lambda)
+      }
+    x$method$fit$args$lambda.min.ratio <- min_pen
+    x$method$fit$args$lambda <- NULL
+  }
+  # Since the `fit` information is gone for the penalty, we need to have an
+  # evaluated value for the parameter.
+  x$args$penalty <- rlang::eval_tidy(x$args$penalty)
+
+  x
+}
+
+# adapted from `.check_glmnet_penalty_fit()`
+check_ordinal_reg_penalty <- function(
+  penalty,
+  engine,
+  call = rlang::caller_env()
+) {
+  pen <- rlang::eval_tidy(penalty)
+  if (length(pen) != 1L) {
+    msg <- c(
+      "x" = "The {engine} engine ignores {.arg penalty} in favor of a
+        path that enables prediction at interpolated penalty values.",
+      "!" = "{.arg penalty} was passed {length(pen)} value{?s}.",
+      "i" = "Use `path_values` to override the default path."
+    )
+    if (length(pen) > 1L) {
+      msg <- c(
+        msg,
+        c(
+          "i" = "To specify multiple values for total regularization,
+            use the {.pkg tune} package."
+        )
+      )
+    }
+    cli::cli_warn(msg, call = call)
+  }
+
+  invisible(NULL)
 }
