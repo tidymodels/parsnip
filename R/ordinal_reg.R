@@ -203,7 +203,8 @@ check_ordinal_reg_parallel <- function(x, engine, call = rlang::caller_env()) {
         c(
           "The {.val {engine}} engine does not support relaxing the
           parallel regression assumption.",
-          "i" = "Use engine {.val clm} or {.val vglm} for non-parallel models."
+          "i" = "Use the {.val clm}, {.val vglm}, or {.val ordinalNet} engine
+          for non-parallel models."
         ),
         call = call
       )

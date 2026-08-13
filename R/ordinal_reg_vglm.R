@@ -103,7 +103,7 @@ match_ordinal_link_vglm <- function(link) {
   if (link_vgam == "logloglink") {
     cli::cli_abort(
       c(
-        "The `vglm` engine does not support the log-log ordinal link.",
+        "The {.pkg VGAM} engines do not support the log-log ordinal link.",
         "i" = "See `?VGAM::Links` for provided link functions."
       )
     )
