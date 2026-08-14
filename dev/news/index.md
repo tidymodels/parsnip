@@ -2,6 +2,10 @@
 
 ## parsnip (development version)
 
+- [`null_model()`](https://parsnip.tidymodels.org/dev/reference/null_model.md)
+  now supports quantile regression mode, where fitting computes the
+  requested empirical quantiles of the outcome.
+
 - Corrected documentation that referred to
   [`fit()`](https://generics.r-lib.org/reference/fit.html) and
   [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) as
