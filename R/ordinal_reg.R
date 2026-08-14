@@ -20,9 +20,7 @@
 #'  (specific engines only).
 #' @param parallel_reg Logical; whether predictor effects are shared across
 #'   thresholds (`TRUE`) or category-specific effects (`FALSE`). The default,
-#'   `NULL` uses the engine default.
-#'
-#'   Available for specific engines only.
+#'   `NULL`, uses the engine default. Available for specific engines only.
 #' @param penalty A non-negative number representing the total
 #'  amount of regularization (specific engines only).
 #' @param mixture A number between zero and one (inclusive) denoting the
@@ -390,10 +388,10 @@ check_ordinal_reg_penalty <- function(
   pen <- rlang::eval_tidy(penalty)
   if (length(pen) != 1L) {
     msg <- c(
-      "x" = "The {engine} engine ignores {.arg penalty} in favor of a
+      "x" = "The {.val {engine}} engine ignores {.arg penalty} in favor of a
         path that enables prediction at interpolated penalty values.",
       "!" = "{.arg penalty} was passed {length(pen)} value{?s}.",
-      "i" = "Use `path_values` to override the default path."
+      "i" = "Use {.arg path_values} to override the default path."
     )
     if (length(pen) > 1L) {
       msg <- c(
