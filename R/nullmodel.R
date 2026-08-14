@@ -55,9 +55,10 @@ nullmodel <- function(x, ...) UseMethod("nullmodel")
 #' @export
 #' @rdname nullmodel
 nullmodel.default <- function(x = NULL, y, quantile_levels = NULL, ...) {
+  lvls <- NULL
+  pct <- NULL
+
   if (!is.null(quantile_levels)) {
-    lvls <- NULL
-    pct <- NULL
     value <- stats::quantile(
       y,
       probs = quantile_levels,
@@ -69,8 +70,6 @@ nullmodel.default <- function(x = NULL, y, quantile_levels = NULL, ...) {
     value <- names(tab)[which.max(tab)]
     pct <- tab / sum(tab)
   } else {
-    lvls <- NULL
-    pct <- NULL
     if (is.null(dim(y))) {
       value <- mean(y, na.rm = TRUE)
     } else {
