@@ -3,7 +3,7 @@
     Code
       res <- fit(lc_basic, funded_amnt ~ term, data = lending_club, control = ctrl)
     Condition
-      Error in `check_outcome()`:
+      Error in `fit()`:
       ! For a classification model, the outcome should be a <factor>, not an integer vector.
 
 # submodel prediction

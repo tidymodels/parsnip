@@ -45,7 +45,7 @@
     Code
       res <- fit(lc_basic, funded_amnt ~ term, data = lending_club, control = ctrl)
     Condition
-      Error in `check_outcome()`:
+      Error in `fit()`:
       ! For a classification model, the outcome should be a <factor>, not an integer vector.
 
 ---
@@ -54,7 +54,7 @@
       glm_form_catch <- fit(lc_basic, funded_amnt ~ term, data = lending_club,
       control = caught_ctrl)
     Condition
-      Error in `check_outcome()`:
+      Error in `fit()`:
       ! For a classification model, the outcome should be a <factor>, not an integer vector.
 
 ---
@@ -63,7 +63,7 @@
       glm_xy_catch <- fit_xy(lc_basic, control = caught_ctrl, x = lending_club[,
         num_pred], y = lending_club$total_bal_il)
     Condition
-      Error in `check_outcome()`:
+      Error in `fit_xy()`:
       ! For a classification model, the outcome should be a <factor>, not an integer vector.
 
 # liblinear execution
@@ -71,7 +71,7 @@
     Code
       res <- fit(ll_basic, funded_amnt ~ term, data = lending_club, control = ctrl)
     Condition
-      Error in `check_outcome()`:
+      Error in `fit()`:
       ! For a classification model, the outcome should be a <factor>, not an integer vector.
 
 ---
@@ -80,7 +80,7 @@
       glm_form_catch <- fit(ll_basic, funded_amnt ~ term, data = lending_club,
       control = caught_ctrl)
     Condition
-      Error in `check_outcome()`:
+      Error in `fit()`:
       ! For a classification model, the outcome should be a <factor>, not an integer vector.
 
 ---
@@ -89,7 +89,7 @@
       glm_xy_catch <- fit_xy(ll_basic, control = caught_ctrl, x = lending_club[,
         num_pred], y = lending_club$total_bal_il)
     Condition
-      Error in `check_outcome()`:
+      Error in `fit_xy()`:
       ! For a classification model, the outcome should be a <factor>, not an integer vector.
 
 # check_args() works

@@ -6,7 +6,11 @@
 form_form <-
   function(object, control, env, ..., call = rlang::caller_env()) {
     if (inherits(env$data, "data.frame")) {
-      check_outcome(eval_tidy(rlang::f_lhs(env$formula), env$data), object)
+      check_outcome(
+        eval_tidy(rlang::f_lhs(env$formula), env$data),
+        object,
+        call = call
+      )
 
       encoding_info <- get_encoding(class(object)[1])
       is_spec_encoding <-
@@ -80,7 +84,7 @@ xy_xy <- function(
     )
   }
 
-  check_outcome(env$y, object)
+  check_outcome(env$y, object, call = call)
 
   encoding_info <- get_encoding(class(object)[1])
   is_spec_encoding <-
@@ -185,8 +189,8 @@ form_xy <- function(
   res
 }
 
-xy_form <- function(object, env, control, ...) {
-  check_outcome(env$y, object)
+xy_form <- function(object, env, control, call = rlang::caller_env(), ...) {
+  check_outcome(env$y, object, call = call)
 
   encoding_info <- get_encoding(class(object)[1])
   is_spec_encoding <-
