@@ -1584,7 +1584,7 @@
       translate_args(ordinal_link)
     Condition
       Warning in `translate_args()`:
-      x The ordinalNet engine ignores `penalty` in favor of a path that enables prediction at interpolated penalty values.
+      x The "ordinalNet" engine ignores `penalty` in favor of a path that enables prediction at interpolated penalty values.
       ! `penalty` was passed 0 values.
       i Use `path_values` to override the default path.
     Output
@@ -1611,7 +1611,7 @@
       translate_args(ordinalNet)
     Condition
       Warning in `translate_args()`:
-      x The ordinalNet engine ignores `penalty` in favor of a path that enables prediction at interpolated penalty values.
+      x The "ordinalNet" engine ignores `penalty` in favor of a path that enables prediction at interpolated penalty values.
       ! `penalty` was passed 0 values.
       i Use `path_values` to override the default path.
     Output
@@ -1631,7 +1631,7 @@
       translate_args(glmnetcr)
     Condition
       Warning in `translate_args()`:
-      x The glmnetcr engine ignores `penalty` in favor of a path that enables prediction at interpolated penalty values.
+      x The "glmnetcr" engine ignores `penalty` in favor of a path that enables prediction at interpolated penalty values.
       ! `penalty` was passed 0 values.
       i Use `path_values` to override the default path.
     Output
@@ -1663,7 +1663,7 @@
       translate_args(penalties_ordinalNet)
     Condition
       Warning in `translate_args()`:
-      x The ordinalNet engine ignores `penalty` in favor of a path that enables prediction at interpolated penalty values.
+      x The "ordinalNet" engine ignores `penalty` in favor of a path that enables prediction at interpolated penalty values.
       ! `penalty` was passed 5 values.
       i Use `path_values` to override the default path.
       i To specify multiple values for total regularization, use the tune package.
@@ -1696,7 +1696,7 @@
       translate_args(penalties_glmnetcr)
     Condition
       Warning in `translate_args()`:
-      x The glmnetcr engine ignores `penalty` in favor of a path that enables prediction at interpolated penalty values.
+      x The "glmnetcr" engine ignores `penalty` in favor of a path that enables prediction at interpolated penalty values.
       ! `penalty` was passed 5 values.
       i Use `path_values` to override the default path.
       i To specify multiple values for total regularization, use the tune package.
