@@ -28,9 +28,7 @@ only possible value for this model is "classification".}
 
 \item{parallel_reg}{Logical; whether predictor effects are shared across
 thresholds (\code{TRUE}) or category-specific effects (\code{FALSE}). The default,
-\code{NULL} uses the engine default.
-
-Available for specific engines only.}
+\code{NULL}, uses the engine default. Available for specific engines only.}
 
 \item{penalty}{A non-negative number representing the total
 amount of regularization (specific engines only).}

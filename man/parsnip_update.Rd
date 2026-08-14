@@ -589,9 +589,7 @@ calculating Minkowski distance.}
 
 \item{parallel_reg}{Logical; whether predictor effects are shared across
 thresholds (\code{TRUE}) or category-specific effects (\code{FALSE}). The default,
-\code{NULL} uses the engine default.
-
-Available for specific engines only.}
+\code{NULL}, uses the engine default. Available for specific engines only.}
 
 \item{predictor_prop}{The maximum proportion of original predictors that can
 have \emph{non-zero} coefficients for each PLS component (via regularization).
