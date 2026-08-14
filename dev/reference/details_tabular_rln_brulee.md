@@ -39,6 +39,8 @@ are best tuned on the log10 scale.
 
 ### Translation from parsnip to the original package (regression)
 
+    library(tabby)
+
     tabular_rln(
       hidden_units = integer(1),
       penalty_type = character(1),

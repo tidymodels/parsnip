@@ -32,6 +32,8 @@ Other engine arguments of interest:
 
 ### Translation from parsnip to the original package (regression)
 
+    library(tabby)
+
     tabular_icl(
       num_estimators = integer(1),
       softmax_temperature = double(1)
@@ -53,6 +55,8 @@ Other engine arguments of interest:
     ##     num_estimators = integer(1), softmax_temperature = double(1))
 
 ### Translation from parsnip to the original package (classification)
+
+    library(tabby)
 
     tabular_icl(
       num_estimators = integer(1),

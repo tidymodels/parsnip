@@ -94,6 +94,7 @@ The model can accept case weights.
 With parsnip, we suggest using the formula method when fitting:
 
     library(tidymodels)
+    library(multilevelmod)
 
     poisson_reg() |>
       set_engine("stan_glmer") |>
@@ -104,6 +105,7 @@ workflow. In this case, you can add the appropriate columns using
 `add_variables()` then supply the typical formula when adding the model:
 
     library(tidymodels)
+    library(multilevelmod)
 
     glmer_spec <-
       poisson_reg() |>

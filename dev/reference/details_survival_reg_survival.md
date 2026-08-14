@@ -57,6 +57,7 @@ in formulas with tidymodels, see
 For example, in this model, the numeric column `rx` is used to estimate
 two different scale parameters for each value of the column:
 
+    library(censored)
     library(survival)
 
     survival_reg() |>

@@ -50,6 +50,8 @@ When fitting a parsnip model with this engine directly, the formula
 method is required and the formula is just passed through. For example:
 
     library(tidymodels)
+    library(poissonreg)
+
     tidymodels_prefer()
 
     data("bioChemists", package = "pscl")
@@ -76,6 +78,8 @@ However, when using a workflow, the best approach is to avoid using
 and use
 [`workflows::add_variables()`](https://workflows.tidymodels.org/reference/add_variables.html)
 in conjunction with a model formula:
+
+    library(poissonreg)
 
     data("bioChemists", package = "pscl")
     spec <-

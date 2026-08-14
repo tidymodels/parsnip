@@ -28,6 +28,8 @@ default. For classification, a value of 10 is used.
 
 ### Translation from parsnip to the original package (classification)
 
+    library(ordered)
+
     rand_forest(
       mtry = integer(1),
       trees = integer(1),

@@ -75,6 +75,8 @@ fitting, but the random effects formula should be passed to
 since it is an irregular (but required) argument:
 
     library(tidymodels)
+    library(multilevelmod)
+
     data("riesby")
 
     linear_reg() |>
@@ -86,6 +88,7 @@ workflow. In this case, you can add the appropriate columns using
 `add_variables()` then supply the typical formula when adding the model:
 
     library(tidymodels)
+    library(multilevelmod)
 
     lme_spec <-
       linear_reg() |>

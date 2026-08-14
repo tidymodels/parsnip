@@ -27,6 +27,8 @@ classification and `floor(ncol(x)/3)` for regression.
 
 `agua::h2o_train_rf()` is a wrapper around `h2o::h2o.randomForest()`.
 
+    library(agua)
+
     rand_forest(
       mtry = integer(1),
       trees = integer(1),
@@ -57,6 +59,8 @@ will adjust the number of neighbors if the chosen value if it is not
 consistent with the actual data dimensions.
 
 ### Translation from parsnip to the original package (classification)
+
+    library(agua)
 
     rand_forest(
       mtry = integer(1),

@@ -35,7 +35,7 @@ is a wrapper around `h2o::h2o.glm()` with `family = 'poisson'`.
 
 The **agua** extension package is required to fit this model.
 
-    library(poissonreg)
+    library(agua)
 
     poisson_reg(penalty = double(1), mixture = double(1)) |>
       set_engine("h2o") |>

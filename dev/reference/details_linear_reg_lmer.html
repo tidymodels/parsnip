@@ -123,6 +123,8 @@ next section.</p>
 <p>The model can accept case weights.</p>
 <p>With parsnip, we suggest using the formula method when fitting:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/multilevelmod" class="external-link">multilevelmod</a></span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"riesby"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -132,6 +134,7 @@ next section.</p>
 workflow. In this case, you can add the appropriate columns using
 <code>add_variables()</code> then supply the typical formula when adding the model:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/multilevelmod" class="external-link">multilevelmod</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">lmer_spec</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>

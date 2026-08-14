@@ -48,6 +48,8 @@ method used in those packages.
 
 ### Translation from parsnip to the original package (regression)
 
+    library(tabby)
+
     tabular_resnet(
       epochs = integer(1),
       hidden_units = integer(1),
@@ -96,6 +98,8 @@ Note that parsnip automatically sets linear activation in the last
 layer.
 
 ### Translation from parsnip to the original package (classification)
+
+    library(tabby)
 
     tabular_resnet(
       epochs = integer(1),

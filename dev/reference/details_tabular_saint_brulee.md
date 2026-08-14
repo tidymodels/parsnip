@@ -67,6 +67,8 @@ time with `set_engine("brulee", row_attention_on_predict = FALSE)`.
 
 ### Translation from parsnip to the original package (regression)
 
+    library(tabby)
+
     tabular_saint(
       epochs = integer(1),
       num_embedding = integer(1),
@@ -129,6 +131,8 @@ Note that parsnip automatically sets linear activation in the last
 layer.
 
 ### Translation from parsnip to the original package (classification)
+
+    library(tabby)
 
     tabular_saint(
       epochs = integer(1),

@@ -60,6 +60,8 @@ Two in particular are:
 
 The **bonsai** extension package is required to fit this model.
 
+    library(bonsai)
+
     boost_tree(
       mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
       learn_rate = numeric(), sample_size = numeric(), stop_iter = integer()
@@ -92,6 +94,8 @@ The **bonsai** extension package is required to fit this model.
 ### Translation from parsnip to the original package (classification)
 
 The **bonsai** extension package is required to fit this model.
+
+    library(bonsai)
 
     boost_tree(
       mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),

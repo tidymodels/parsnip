@@ -28,6 +28,8 @@ reference below).
 
 The **baguette** extension package is required to fit this model.
 
+    library(baguette)
+
     bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |>
       set_engine("earth") |>
       set_mode("regression") |>

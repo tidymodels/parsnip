@@ -42,7 +42,9 @@ The **ordered** extension package is required to fit this model.
 This model should be used with a model formula so that smooth terms can
 be specified. For example:
 
+    library(ordered)
     library(VGAM)
+
     # Make number of cylinders and ordered factor
     ord_cars <- mtcars[, -1]
     ord_cars$cyl <- as.ordered(ord_cars$cyl)
@@ -59,6 +61,8 @@ using `s(x, df = 10)`) in the formula.
 When using a workflow, pass the *model formula* to
 [`workflows::add_model()`](https://workflows.tidymodels.org/reference/add_model.html)’s
 `formula` argument, and a simplified *preprocessing formula* elsewhere.
+
+    library(ordered)
 
     spec <-
       gen_additive_mod() |>

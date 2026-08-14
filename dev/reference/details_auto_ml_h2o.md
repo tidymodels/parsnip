@@ -46,6 +46,8 @@ Engine arguments of interest
 
 ### Translation from parsnip to the original package (classification)
 
+    library(agua)
+
     auto_ml() |>
       set_engine("h2o") |>
       set_mode("classification") |>

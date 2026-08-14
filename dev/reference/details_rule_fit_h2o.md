@@ -42,7 +42,7 @@ Other engine arguments of interest:
 
 The **agua** extension package is required to fit this model.
 
-    library(rules)
+    library(agua)
 
     rule_fit(
       trees = integer(1),
@@ -74,6 +74,8 @@ The **agua** extension package is required to fit this model.
 is a wrapper around `h2o::h2o.rulefit()`.
 
 The **agua** extension package is required to fit this model.
+
+    library(agua)
 
     rule_fit(
       trees = integer(1),

@@ -125,6 +125,8 @@ next section.</p>
 fitting, but the random effects formula should be passed to
 <code><a href="set_engine.html">set_engine()</a></code> since it is an irregular (but required) argument:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/multilevelmod" class="external-link">multilevelmod</a></span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"riesby"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -134,6 +136,7 @@ fitting, but the random effects formula should be passed to
 workflow. In this case, you can add the appropriate columns using
 <code>add_variables()</code> then supply the typical formula when adding the model:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/multilevelmod" class="external-link">multilevelmod</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">lme_spec</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>

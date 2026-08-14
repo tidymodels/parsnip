@@ -106,6 +106,8 @@ infrastructure (e.g. <code><a href="https://rdrr.io/r/stats/model.matrix.html" 
 <p>When fitting a parsnip model with this engine directly, the formula
 method is required and the formula is just passed through. For example:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/poissonreg" class="external-link">poissonreg</a></span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu"><a href="https://tidymodels.tidymodels.org/reference/tidymodels_prefer.html" class="external-link">tidymodels_prefer</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"bioChemists"</span>, package <span class="op">=</span> <span class="st">"pscl"</span><span class="op">)</span></span>
@@ -129,7 +131,9 @@ method is required and the formula is just passed through. For example:</p>
 <code><a href="https://workflows.tidymodels.org/reference/add_formula.html" class="external-link">workflows::add_formula()</a></code> and use
 <code><a href="https://workflows.tidymodels.org/reference/add_variables.html" class="external-link">workflows::add_variables()</a></code> in
 conjunction with a model formula:</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"bioChemists"</span>, package <span class="op">=</span> <span class="st">"pscl"</span><span class="op">)</span></span>
+<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/poissonreg" class="external-link">poissonreg</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"bioChemists"</span>, package <span class="op">=</span> <span class="st">"pscl"</span><span class="op">)</span></span>
 <span><span class="va">spec</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/poisson_reg.html">poisson_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"zeroinfl"</span><span class="op">)</span></span>

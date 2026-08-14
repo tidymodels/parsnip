@@ -33,6 +33,8 @@ defaults to 0 (ridge regression) and 0.5 otherwise.
 [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md)
 is a wrapper around `h2o::h2o.glm()` with `family = 'multinomial'`.
 
+    library(agua)
+
     multinom_reg(penalty = double(1), mixture = double(1)) |>
       set_engine("h2o") |>
       translate()

@@ -33,6 +33,8 @@ defaults to 0 (ridge regression) and 0.5 otherwise.
 [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md)
 is a wrapper around `h2o::h2o.glm()` with `family = "gaussian"`.
 
+    library(agua)
+
     linear_reg(penalty = 1, mixture = 0.5) |>
       set_engine("h2o") |>
       translate()

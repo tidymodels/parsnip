@@ -36,6 +36,8 @@ The **agua** extension package is required to fit this model.
 
 `agua::h2o_train_nb()` is a wrapper around `h2o::h2o.naiveBayes()`.
 
+    library(agua)
+
     naive_Bayes(Laplace = numeric(0)) |>
       set_engine("h2o") |>
       translate()

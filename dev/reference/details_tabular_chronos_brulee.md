@@ -40,6 +40,8 @@ model only allows a specific set of 21 quantile levels: (0.01, 0.05, …,
 
 ### Translation from parsnip to the original package (quantile regression)
 
+    library(tabby)
+
     tabular_chronos() |>
       set_engine("brulee", prediction_length = 14) |>
       set_mode("quantile regression", quantile_levels = (1:9) / 10) |>
@@ -61,6 +63,8 @@ model only allows a specific set of 21 quantile levels: (0.01, 0.05, …,
 ### Translation from parsnip to the original package (regression)
 
 The regression mode returns the median point forecast.
+
+    library(tabby)
 
     tabular_chronos() |>
       set_engine("brulee", prediction_length = 14) |>

@@ -47,6 +47,7 @@ to
 since it is an irregular (but required) argument:
 
     library(tidymodels)
+    library(multilevelmod)
     # load nlme to be able to use the `cor*()` functions
     library(nlme)
 
@@ -80,6 +81,7 @@ workflow. In this case, you can add the appropriate columns using
 `add_variables()` then supply the typical formula when adding the model:
 
     library(tidymodels)
+    library(multilevelmod)
 
     gls_spec <-
       linear_reg() |>

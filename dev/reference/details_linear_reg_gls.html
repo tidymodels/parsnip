@@ -100,6 +100,7 @@ next section.</p>
 fitting, but the details of the correlation structure should be passed
 to <code><a href="set_engine.html">set_engine()</a></code> since it is an irregular (but required) argument:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/multilevelmod" class="external-link">multilevelmod</a></span><span class="op">)</span></span>
 <span><span class="co"># load nlme to be able to use the `cor*()` functions</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://svn.r-project.org/R-packages/trunk/nlme/" class="external-link">nlme</a></span><span class="op">)</span></span>
 <span></span>
@@ -130,6 +131,7 @@ to <code><a href="set_engine.html">set_engine()</a></code> since it is an irregu
 workflow. In this case, you can add the appropriate columns using
 <code>add_variables()</code> then supply the typical formula when adding the model:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org" class="external-link">tidymodels</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/multilevelmod" class="external-link">multilevelmod</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">gls_spec</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/linear_reg.html">linear_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>

@@ -92,7 +92,9 @@ parameters are:</p><ul><li><p><code>link</code>: the link function such as <code
 
 <p>This model should be used with a model formula so that smooth terms can
 be specified. For example:</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.stat.auckland.ac.nz/~yee/VGAM/" class="external-link">VGAM</a></span><span class="op">)</span></span>
+<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ordered</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.stat.auckland.ac.nz/~yee/VGAM/" class="external-link">VGAM</a></span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># Make number of cylinders and ordered factor</span></span>
 <span><span class="va">ord_cars</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="va">ord_cars</span><span class="op">$</span><span class="va">cyl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.ordered</a></span><span class="op">(</span><span class="va">ord_cars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span></span>
@@ -107,7 +109,9 @@ using <code>s(x, df = 10)</code>) in the formula.</p>
 <p>When using a workflow, pass the <em>model formula</em> to
 <code><a href="https://workflows.tidymodels.org/reference/add_model.html" class="external-link">workflows::add_model()</a></code>’s <code>formula</code> argument,
 and a simplified <em>preprocessing formula</em> elsewhere.</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="va">spec</span> <span class="op">&lt;-</span></span>
+<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ordered</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">spec</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/gen_additive_mod.html">gen_additive_mod</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"vgam"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span></span>

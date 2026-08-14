@@ -21,6 +21,8 @@ This model has 3 tuning parameters:
 
 ### Translation from parsnip to the original package
 
+    library(ordered)
+
     decision_tree(
       tree_depth = integer(1),
       min_n = integer(1),

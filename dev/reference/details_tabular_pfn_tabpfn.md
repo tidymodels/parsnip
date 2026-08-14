@@ -42,6 +42,8 @@ details on all of these topics.
 
 ### Translation from parsnip to the original package (regression)
 
+    library(tabby)
+
     tabular_pfn(
       num_estimators = integer(1),
       softmax_temperature = double(1),
@@ -68,6 +70,8 @@ details on all of these topics.
     ##     balance_probabilities = logical(1), average_before_softmax = logical(1))
 
 ### Translation from parsnip to the original package (classification)
+
+    library(tabby)
 
     tabular_pfn(
       num_estimators = integer(1),

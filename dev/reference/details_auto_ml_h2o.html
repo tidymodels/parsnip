@@ -96,7 +96,9 @@ performance assessment and potential early stopping.</p></li>
 <h3 id="translation-from-parsnip-to-the-original-package-classification-">Translation from parsnip to the original package (classification)<a class="anchor" aria-label="anchor" href="#translation-from-parsnip-to-the-original-package-classification-"></a></h3>
 
 
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/auto_ml.html">auto_ml</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://agua.tidymodels.org/" class="external-link">agua</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/auto_ml.html">auto_ml</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"h2o"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/translate.html">translate</a></span><span class="op">(</span><span class="op">)</span></span></code></pre><p></p></div>

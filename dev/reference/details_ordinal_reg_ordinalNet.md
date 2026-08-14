@@ -75,6 +75,8 @@ To do this, you can use
 [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md)
 to pass a vector of penalty values as so:
 
+    library(ordered)
+
     # Example of setting a wide penalty range
     penalties <- 10^seq(-10, 0, length.out = 20)
 
