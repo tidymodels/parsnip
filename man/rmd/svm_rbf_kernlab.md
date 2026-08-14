@@ -98,24 +98,20 @@ The underlying model implementation does not allow for case weights.
 
 ``` r
 parsnip:::get_from_env("svm_rbf_predict") |>
+  dplyr::filter(engine == "kernlab") |>
   dplyr::select(mode, type) |> 
   print(n = Inf)
 ```
 
 ```
-## # A tibble: 10 x 2
-##    mode           type   
-##    <chr>          <chr>  
-##  1 regression     numeric
-##  2 regression     raw    
-##  3 classification class  
-##  4 classification prob   
-##  5 classification raw    
-##  6 regression     numeric
-##  7 regression     raw    
-##  8 classification class  
-##  9 classification prob   
-## 10 classification raw
+## # A tibble: 5 x 2
+##   mode           type   
+##   <chr>          <chr>  
+## 1 regression     numeric
+## 2 regression     raw    
+## 3 classification class  
+## 4 classification prob   
+## 5 classification raw
 ```
 
 ## Saving fitted model objects
@@ -134,4 +130,3 @@ The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/l
  - Karatzoglou, A,  Smola, A,  Hornik, K, and A Zeileis. 2004. ["kernlab - An S4 Package for Kernel Methods in R."](https://www.jstatsoft.org/article/view/v011i09), _Journal of Statistical Software_. 
  
  - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
-

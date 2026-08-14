@@ -83,6 +83,21 @@ parallelize the construction of the trees within the model, change the
 \code{num.threads} argument via \code{\link[=set_engine]{set_engine()}}.
 }
 
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "ordinalForest") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob
+}\if{html}{\out{</div>}}
+}
+
 \subsection{References}{
 \itemize{
 \item Hornung R. 2020. Ordinal Forests. \emph{Journal of Classification} 37:4-17.

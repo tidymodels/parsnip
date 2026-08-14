@@ -14,7 +14,7 @@ defaults <-
 
 param <-
   ordinal_reg() |>
-  set_engine("ordinalNet") |>
+  set_engine("vglm") |>
   set_mode("classification") |>
   make_parameter_list(defaults)
 ```
