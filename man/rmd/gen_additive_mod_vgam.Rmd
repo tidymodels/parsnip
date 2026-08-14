@@ -32,6 +32,7 @@ This model should be used with a model formula so that smooth terms can be speci
 #| eval: false
 library(ordered)
 library(VGAM)
+
 # Make number of cylinders and ordered factor
 ord_cars <- mtcars[, -1]
 ord_cars$cyl <- as.ordered(ord_cars$cyl)

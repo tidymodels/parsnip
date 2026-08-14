@@ -55,6 +55,8 @@ When `attention_type` is `"row"` or `"both"`, SAINT applies inter-sample (row) a
 
 
 ``` r
+library(tabby)
+
 tabular_saint(
   epochs = integer(1),
   num_embedding = integer(1),
@@ -122,6 +124,8 @@ Note that parsnip automatically sets linear activation in the last layer.
 
 
 ``` r
+library(tabby)
+
 tabular_saint(
   epochs = integer(1),
   num_embedding = integer(1),

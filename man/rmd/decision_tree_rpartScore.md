@@ -19,6 +19,8 @@ This model has 3 tuning parameters:
 
 
 ``` r
+library(ordered)
+
 decision_tree(
   tree_depth = integer(1),
   min_n = integer(1),

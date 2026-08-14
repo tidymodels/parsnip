@@ -40,7 +40,6 @@ a wrapper around \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}} with
 The \strong{agua} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(agua)
-library(poissonreg)
 
 poisson_reg(penalty = double(1), mixture = double(1)) |> 
   set_engine("h2o") |> 

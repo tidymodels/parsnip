@@ -30,7 +30,9 @@ default. For classification, a value of 10 is used.
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{rand_forest(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ordered)
+
+rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)

@@ -31,6 +31,8 @@ param$item
 ## Translation from parsnip to the original package (classification)
 
 ```{r, ordinalForest-cls}
+library(ordered)
+
 rand_forest(
   mtry = integer(1),
   trees = integer(1),

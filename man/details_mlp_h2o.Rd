@@ -55,7 +55,9 @@ in the input layer, which defaults to 0.
 \link[agua:h2o_train_mlp]{agua::h2o_train_mlp} is a wrapper around
 \code{\link[h2o:h2o.deeplearning]{h2o::h2o.deeplearning()}}.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{mlp(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(agua)
+
+mlp(
   hidden_units = integer(1),
   penalty = double(1),
   dropout = double(1),
@@ -90,7 +92,9 @@ in the input layer, which defaults to 0.
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{mlp(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(agua)
+
+mlp(
   hidden_units = integer(1),
   penalty = double(1),
   dropout = double(1),

@@ -29,6 +29,8 @@ param$item
 
 ```{r}
 #| label: rpart-cls-decision-tree-ordered
+library(ordered)
+
 decision_tree(
   tree_depth = integer(1),
   min_n = integer(1),

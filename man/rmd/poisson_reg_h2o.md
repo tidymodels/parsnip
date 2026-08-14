@@ -27,7 +27,6 @@ The **agua** extension package is required to fit this model.
 
 ``` r
 library(agua)
-library(poissonreg)
 
 poisson_reg(penalty = double(1), mixture = double(1)) |> 
   set_engine("h2o") |> 

@@ -22,6 +22,8 @@ The `quantile_levels` are taken from the mode (via [parsnip::set_mode()]) and fo
 
 
 ``` r
+library(tabby)
+
 tabular_chronos() |>
   set_engine("brulee", prediction_length = 14) |>
   set_mode("quantile regression", quantile_levels = (1:9) / 10) |>
@@ -51,6 +53,8 @@ The regression mode returns the median point forecast.
 
 
 ``` r
+library(tabby)
+
 tabular_chronos() |>
   set_engine("brulee", prediction_length = 14) |>
   set_mode("regression") |>

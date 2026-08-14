@@ -38,7 +38,9 @@ set of 21 quantile levels: (0.01, 0.05, …, 0.95, 0.99).
 
 \subsection{Translation from parsnip to the original package (quantile regression)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{tabular_chronos() |>
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tabby)
+
+tabular_chronos() |>
   set_engine("brulee", prediction_length = 14) |>
   set_mode("quantile regression", quantile_levels = (1:9) / 10) |>
   translate()
@@ -63,7 +65,9 @@ set of 21 quantile levels: (0.01, 0.05, …, 0.95, 0.99).
 
 The regression mode returns the median point forecast.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{tabular_chronos() |>
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tabby)
+
+tabular_chronos() |>
   set_engine("brulee", prediction_length = 14) |>
   set_mode("regression") |>
   translate()

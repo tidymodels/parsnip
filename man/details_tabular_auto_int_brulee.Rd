@@ -45,7 +45,9 @@ method used in those packages.
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{tabular_auto_int(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tabby)
+
+tabular_auto_int(
   epochs = integer(1),
   num_embedding = integer(1),
   hidden_units = NULL,
@@ -108,7 +110,9 @@ layer.
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{tabular_auto_int(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tabby)
+
+tabular_auto_int(
   epochs = integer(1),
   num_embedding = integer(1),
   hidden_units = NULL,

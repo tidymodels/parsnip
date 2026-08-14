@@ -44,7 +44,6 @@ of: “rules_and_linear”, “rules”, “linear”, defaults to
 The \strong{agua} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(agua)
-library(rules)
 
 rule_fit(
   trees = integer(1),

@@ -37,7 +37,9 @@ defaults to 0 (ridge regression) and 0.5 otherwise.
 a wrapper around \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}} with
 \code{family = 'multinomial'}.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{multinom_reg(penalty = double(1), mixture = double(1)) |> 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(agua)
+
+multinom_reg(penalty = double(1), mixture = double(1)) |>
   set_engine("h2o") |> 
   translate()
 }\if{html}{\out{</div>}}

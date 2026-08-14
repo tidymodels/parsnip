@@ -37,6 +37,8 @@ This model has 11 tuning parameters:
 
 
 ``` r
+library(tabby)
+
 tabular_rln(
   hidden_units = integer(1),
   penalty_type = character(1),

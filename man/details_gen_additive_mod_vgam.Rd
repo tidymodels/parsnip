@@ -50,6 +50,7 @@ be specified. For example:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ordered)
 library(VGAM)
+
 # Make number of cylinders and ordered factor
 ord_cars <- mtcars[, -1]
 ord_cars$cyl <- as.ordered(ord_cars$cyl)

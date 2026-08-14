@@ -30,6 +30,8 @@ The tabpfn package runs the Python "tabpfn" library via reticulate, so a working
 
 
 ``` r
+library(tabby)
+
 tabular_pfn(
   num_estimators = integer(1),
   softmax_temperature = double(1),
@@ -62,6 +64,8 @@ tabular_pfn(
 
 
 ``` r
+library(tabby)
+
 tabular_pfn(
   num_estimators = integer(1),
   softmax_temperature = double(1),
