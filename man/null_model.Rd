@@ -8,55 +8,74 @@ null_model(mode = "classification", engine = "parsnip")
 }
 \arguments{
 \item{mode}{A single character string for the type of model. The only
-possible values for this model are \code{"regression"} and \code{"classification"}.}
+possible values for this model are \code{"regression"}, \code{"quantile regression"},
+and \code{"classification"}.}
 
 \item{engine}{A single character string specifying what computational engine
 to use for fitting. Possible engines are listed below. The default for this
 model is \code{"parsnip"}.}
 }
 \description{
-Fit a single mean or largest class model. \code{null_model()} is the user-facing
-function that relies on the underlying computational function, \code{nullmodel()}.
+Fit a single mean, set of quantiles, or largest class model. \code{null_model()} is
+the user-facing function that relies on the underlying computational
+function, \code{nullmodel()}.
 }
 \details{
 \code{null_model()} defines a simple, non-informative model. It doesn't have any
-main arguments. This function can fit classification and regression models.
+main arguments. This function can fit classification, regression, and
+quantile regression models.
 
 \code{null_model()} emulates other model building functions, but returns the
-simplest model possible given a training set: a single mean for numeric
-outcomes and the most prevalent class for factor outcomes. When class
-probabilities are requested, the percentage of the training set samples with
-the most prevalent class is returned.
+simplest model possible given a training set: a single mean or set of
+quantiles for numeric outcomes and the most prevalent class for factor
+outcomes. When class probabilities are requested, the percentage of the
+training set samples with the most prevalent class is returned.
 }
 \section{Engine Details}{
 Engines may have pre-set default arguments when executing the model fit
 call. For this type of model, the template of the fit calls are below:
 \subsection{parsnip}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{null_model() |> 
-  set_engine("parsnip") |> 
-  set_mode("regression") |> 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{null_model() |>
+  set_engine("parsnip") |>
+  set_mode("regression") |>
   translate()
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## Null Model Specification (regression)
-## 
-## Computational engine: parsnip 
-## 
+##
+## Computational engine: parsnip
+##
 ## Model fit template:
 ## parsnip::nullmodel(x = missing_arg(), y = missing_arg())
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{null_model() |> 
-  set_engine("parsnip") |> 
-  set_mode("classification") |> 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{null_model() |>
+  set_engine("parsnip") |>
+  set_mode("quantile regression", quantile_levels = c(0.25, 0.5, 0.75)) |>
+  translate()
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Null Model Specification (quantile regression)
+##
+## Computational engine: parsnip
+##
+## Model fit template:
+## parsnip::nullmodel(x = missing_arg(), y = missing_arg(), quantile_levels = quantile_levels)
+
+## Quantile levels: 0.25, 0.5, and 0.75.
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{null_model() |>
+  set_engine("parsnip") |>
+  set_mode("classification") |>
   translate()
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## Null Model Specification (classification)
-## 
-## Computational engine: parsnip 
-## 
+##
+## Computational engine: parsnip
+##
 ## Model fit template:
 ## parsnip::nullmodel(x = missing_arg(), y = missing_arg())
 }\if{html}{\out{</div>}}
@@ -69,14 +88,15 @@ call. For this type of model, the template of the fit calls are below:
   dplyr::select(mode, type)
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 5 x 2
-##   mode           type   
-##   <chr>          <chr>  
-## 1 regression     numeric
-## 2 regression     raw    
-## 3 classification class  
-## 4 classification prob   
-## 5 classification raw
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 6 x 2
+##   mode                type
+##   <chr>               <chr>
+## 1 quantile regression quantile
+## 2 regression          numeric
+## 3 regression          raw
+## 4 classification      class
+## 5 classification      prob
+## 6 classification      raw
 }\if{html}{\out{</div>}}
 }
 }
