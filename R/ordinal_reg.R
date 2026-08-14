@@ -56,7 +56,7 @@ ordinal_reg <-
     engine = "polr"
   ) {
     if (mode != "classification") {
-      rlang::abort("`mode` should be 'classification'")
+      cli::cli_abort("{.arg mode} should be {.val classification}.")
     }
 
     args <- list(

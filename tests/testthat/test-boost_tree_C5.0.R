@@ -42,7 +42,6 @@ test_that('C5.0 execution', {
       lc_basic,
       funded_amnt ~ term,
       data = lending_club,
-      engine = "C5.0",
       control = ctrl
     )
   )

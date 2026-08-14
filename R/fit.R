@@ -443,7 +443,7 @@ check_xy_interface <- function(x, y, model, call = caller_env()) {
     return("data.frame")
   }
 
-  check_outcome(y, model)
+  check_outcome(y, model, call = call)
 
   cli::cli_abort("Error when checking the interface.", call = call)
 }

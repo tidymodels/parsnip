@@ -1,12 +1,10 @@
 # C5.0 execution
 
     Code
-      res <- fit(lc_basic, funded_amnt ~ term, data = lending_club, engine = "C5.0",
-      control = ctrl)
+      res <- fit(lc_basic, funded_amnt ~ term, data = lending_club, control = ctrl)
     Condition
-      Error in `.convert_form_to_xy_fit()`:
-      ! The argument `engine` cannot be used to create the data.
-      Possible arguments are subset or weights.
+      Error in `fit()`:
+      ! For a classification model, the outcome should be a <factor>, not an integer vector.
 
 # submodel prediction
 

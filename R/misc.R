@@ -401,15 +401,15 @@ new_model_spec <- function(
 
 # ------------------------------------------------------------------------------
 
-check_outcome <- function(y, spec) {
+check_outcome <- function(y, spec, call = rlang::caller_env()) {
   if (spec$mode == "unknown") {
     return(invisible(NULL))
   }
 
-  has_no_outcome <- if (is.atomic(y)) {
-    is.null(y)
+  if (is.atomic(y)) {
+    has_no_outcome <- is.null(y)
   } else {
-    length(y) == 0
+    has_no_outcome <- length(y) == 0
   }
   if (isTRUE(has_no_outcome)) {
     cli::cli_abort(
@@ -418,46 +418,51 @@ check_outcome <- function(y, spec) {
         "i" = "Ensure that you have specified an outcome column and that it \\
                hasn't been removed in pre-processing."
       ),
-      call = NULL
+      call = call
     )
   }
 
   if (spec$mode == "regression") {
-    outcome_is_numeric <- if (is.atomic(y)) {
-      is.numeric(y)
+    if (is.atomic(y)) {
+      outcome_is_numeric <- is.numeric(y)
     } else {
-      all(map_lgl(y, is.numeric))
+      outcome_is_numeric <- all(map_lgl(y, is.numeric))
     }
     if (!outcome_is_numeric) {
       cli::cli_abort(
         "For a regression model, the outcome should be {.cls numeric}, not
-        {.obj_type_friendly {y}}."
+        {.obj_type_friendly {y}}.",
+        call = call
       )
     }
   }
 
   if (spec$mode == "classification") {
-    outcome_is_factor <- if (is.atomic(y)) {
-      is.factor(y)
+    if (is.atomic(y)) {
+      outcome_is_factor <- is.factor(y)
     } else {
-      all(map_lgl(y, is.factor))
+      outcome_is_factor <- all(map_lgl(y, is.factor))
     }
     if (!outcome_is_factor) {
       cli::cli_abort(
         "For a classification model, the outcome should be a {.cls factor}, not
-        {.obj_type_friendly {y}}."
+        {.obj_type_friendly {y}}.",
+        call = call
       )
     }
 
     if (inherits(spec, "logistic_reg") && is.atomic(y) && nlevels(y) > 2) {
       # warn rather than error since some engines handle this case by binning
       # all but the first level as the non-event, so this may be intended
-      cli::cli_warn(c(
-        "!" = "Logistic regression is intended for modeling binary outcomes, \\
+      cli::cli_warn(
+        c(
+          "!" = "Logistic regression is intended for modeling binary outcomes, \\
                but there are {length(levels(y))} levels in the outcome.",
-        "i" = "If this is unintended, adjust outcome levels accordingly or \\
+          "i" = "If this is unintended, adjust outcome levels accordingly or \\
                see the {.fn multinom_reg} function."
-      ))
+        ),
+        call = call
+      )
     }
   }
 
@@ -466,7 +471,8 @@ check_outcome <- function(y, spec) {
     if (!outcome_is_surv) {
       cli::cli_abort(
         "For a censored regression model, the outcome should be a {.cls Surv} object, not
-        {.obj_type_friendly {y}}."
+        {.obj_type_friendly {y}}.",
+        call = call
       )
     }
   }
