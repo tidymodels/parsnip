@@ -10,7 +10,7 @@ test_that("testing", {
 test_that("odds_link", {
   # a legitimate odds link function not recognized by {dials}
   tidy_spec <- ordinal_reg(engine = "polr", odds_link = "adjacent_categories")
-  expect_warning(translate(tidy_spec), "odds_link")
+  expect_snapshot(. <- translate(tidy_spec))
 })
 
 test_that("parallel_reg is validated", {
@@ -18,18 +18,15 @@ test_that("parallel_reg is validated", {
   expect_no_error(check_args(ordinal_reg(parallel_reg = TRUE)))
   expect_no_error(check_args(ordinal_reg(parallel_reg = FALSE)))
 
-  expect_error(
-    check_args(ordinal_reg(parallel_reg = NA)),
-    "`parallel_reg` must be `TRUE`, `FALSE`, or `NULL`"
-  )
-  expect_error(
-    check_args(ordinal_reg(parallel_reg = c(TRUE, FALSE))),
-    "`parallel_reg` must be `TRUE`, `FALSE`, or `NULL`"
-  )
-  expect_error(
-    check_args(ordinal_reg(parallel_reg = 1)),
-    "`parallel_reg` must be `TRUE`, `FALSE`, or `NULL`"
-  )
+  expect_snapshot(error = TRUE, {
+    check_args(ordinal_reg(parallel_reg = NA))
+  })
+  expect_snapshot(error = TRUE, {
+    check_args(ordinal_reg(parallel_reg = c(TRUE, FALSE)))
+  })
+  expect_snapshot(error = TRUE, {
+    check_args(ordinal_reg(parallel_reg = 1))
+  })
 })
 
 test_that("clm arguments are translated", {
@@ -78,20 +75,18 @@ test_that("VGAM arguments are translated", {
   expect_equal(result$method$fit$args$Thresh, "equid")
   expect_equal(result$method$fit$args$untouched, 1)
 
-  expect_error(
-    match_ordinal_link_vglm("loglog"),
-    "VGAM engines do not support"
-  )
-  expect_error(
+  expect_snapshot(error = TRUE, {
+    match_ordinal_link_vglm("loglog")
+  })
+  expect_snapshot(error = TRUE, {
     translate_ordinal_vgam_args(
       list(
         link = rlang::quo("logistic"),
         family = rlang::quo("adjacent_categories"),
         Thresh = NULL
       )
-    ),
-    "adjacent_categories"
-  )
+    )
+  })
 })
 
 test_that("ordinalNet arguments are translated", {
@@ -119,9 +114,8 @@ test_that("ordinalNet arguments are translated", {
 test_that("unsupported non-parallel models give engine guidance", {
   spec <- ordinal_reg(parallel_reg = FALSE)
 
-  expect_error(
-    check_ordinal_reg_parallel(spec, "polr"),
-    '"clm", "vglm", or "ordinalNet"'
-  )
+  expect_snapshot(error = TRUE, {
+    check_ordinal_reg_parallel(spec, "polr")
+  })
   expect_no_error(check_ordinal_reg_parallel(spec, "ordinalNet"))
 })
