@@ -89,6 +89,19 @@ test_that("VGAM arguments are translated", {
   })
 })
 
+test_that("parameter values are matched against the model argument", {
+  expect_snapshot(error = TRUE, {
+    match_ordinal_link_vglm("logisitc")
+  })
+  # no partial matching
+  expect_snapshot(error = TRUE, {
+    match_ordinal_family("cumu")
+  })
+  expect_snapshot(error = TRUE, {
+    match_threshold_structure_vglm(c("flexible", "equidistant"))
+  })
+})
+
 test_that("ordinalNet arguments are translated", {
   x <- new_ordinal_translation(
     list(

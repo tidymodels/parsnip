@@ -23,7 +23,13 @@ match_ordinal_link_ordinalNet <- function(link, call = rlang::caller_env()) {
   if (!is.character(link)) {
     return(link)
   }
-  link <- match.arg(link, dials::values_ordinal_link)
+  check_string(link, arg = "ordinal_link", call = call)
+  link <- rlang::arg_match0(
+    link,
+    dials::values_ordinal_link,
+    arg_nm = "ordinal_link",
+    error_call = call
+  )
   if (link == "logistic") {
     link <- "logit"
   }

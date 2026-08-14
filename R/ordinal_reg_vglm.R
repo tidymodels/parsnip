@@ -36,12 +36,12 @@ translate_ordinal_vgam_args <- function(args, call = rlang::caller_env()) {
 
   family_arg <- eval_ordinal_arg(args$family)
   if (!is.null(family_arg)) {
-    args$family <- match_ordinal_family(family_arg)
+    args$family <- match_ordinal_family(family_arg, call = call)
   }
 
   thresh_arg <- eval_ordinal_arg(args$Thresh)
   if (!is.null(thresh_arg)) {
-    args$Thresh <- match_threshold_structure_vglm(thresh_arg)
+    args$Thresh <- match_threshold_structure_vglm(thresh_arg, call = call)
   }
 
   # `acat()` does not support certain link functions
@@ -58,6 +58,7 @@ match_ordinal_link_vglm <- function(link, call = rlang::caller_env()) {
   if (!is.character(link)) {
     return(link)
   }
+  check_string(link, arg = "ordinal_link", call = call)
 
   # fmt: skip
   if (
@@ -66,7 +67,12 @@ match_ordinal_link_vglm <- function(link, call = rlang::caller_env()) {
       "foldsqrtlink", "logclink", "gordlink", "pordlink", "nbordlink"
     )
   ) {
-    link <- match.arg(link, values_ordinal_link_vglm)
+    link <- rlang::arg_match0(
+      link,
+      values_ordinal_link_vglm,
+      arg_nm = "ordinal_link",
+      error_call = call
+    )
     if (link == "logistic") {
       link <- "logit"
     }
@@ -85,11 +91,20 @@ match_ordinal_link_vglm <- function(link, call = rlang::caller_env()) {
   link
 }
 
-match_threshold_structure_vglm <- function(Thresh) {
+match_threshold_structure_vglm <- function(
+  Thresh,
+  call = rlang::caller_env()
+) {
   if (!is.character(Thresh)) {
     return(Thresh)
   }
-  Thresh <- match.arg(Thresh, values_threshold_structure_vglm)
+  check_string(Thresh, arg = "threshold_structure", call = call)
+  Thresh <- rlang::arg_match0(
+    Thresh,
+    values_threshold_structure_vglm,
+    arg_nm = "threshold_structure",
+    error_call = call
+  )
   switch(
     Thresh,
     flexible = "free",

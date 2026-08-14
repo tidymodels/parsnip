@@ -278,14 +278,20 @@ eval_ordinal_arg <- function(x) {
   x
 }
 
-match_ordinal_family <- function(family) {
+match_ordinal_family <- function(family, call = rlang::caller_env()) {
   if (!is.character(family)) {
     return(family)
   }
+  check_string(family, arg = "odds_link", call = call)
   if (family %in% c("cumulative", "acat", "cratio", "sratio")) {
     return(family)
   }
-  family <- match.arg(family, dials::values_odds_link)
+  family <- rlang::arg_match0(
+    family,
+    dials::values_odds_link,
+    arg_nm = "odds_link",
+    error_call = call
+  )
   switch(
     family,
     cumulative_link = "cumulative",
@@ -315,7 +321,7 @@ translate_ordinal_reg_ordinalNet <- function(x, call = rlang::caller_env()) {
 
   family_arg <- eval_ordinal_arg(x$method$fit$args$family)
   if (!is.null(family_arg)) {
-    x$method$fit$args$family <- match_ordinal_family(family_arg)
+    x$method$fit$args$family <- match_ordinal_family(family_arg, call = call)
   }
 
   parallel_arg <- eval_ordinal_arg(x$method$fit$args$parallel_reg)
