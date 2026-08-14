@@ -28,10 +28,10 @@ values_threshold_structure_vglm <- c(
   "qnorm"
 )
 
-translate_ordinal_vgam_args <- function(args) {
+translate_ordinal_vgam_args <- function(args, call = rlang::caller_env()) {
   link_arg <- eval_ordinal_arg(args$link)
   if (!is.null(link_arg)) {
-    args$link <- match_ordinal_link_vglm(link_arg)
+    args$link <- match_ordinal_link_vglm(link_arg, call = call)
   }
 
   family_arg <- eval_ordinal_arg(args$family)
@@ -47,13 +47,14 @@ translate_ordinal_vgam_args <- function(args) {
   # `acat()` does not support certain link functions
   check_ordinal_link_family_vglm(
     family = args$family,
-    link = args$link
+    link = args$link,
+    call = call
   )
 
   args
 }
 
-match_ordinal_link_vglm <- function(link) {
+match_ordinal_link_vglm <- function(link, call = rlang::caller_env()) {
   if (!is.character(link)) {
     return(link)
   }
@@ -77,7 +78,8 @@ match_ordinal_link_vglm <- function(link) {
       c(
         "The {.pkg VGAM} engines do not support the log-log ordinal link.",
         "i" = "See `?VGAM::Links` for provided link functions."
-      )
+      ),
+      call = call
     )
   }
   link
@@ -98,7 +100,11 @@ match_threshold_structure_vglm <- function(Thresh) {
   )
 }
 
-check_ordinal_link_family_vglm <- function(family, link) {
+check_ordinal_link_family_vglm <- function(
+  family,
+  link,
+  call = rlang::caller_env()
+) {
   if (
     is.character(family) &&
       is.character(link) &&
@@ -110,7 +116,8 @@ check_ordinal_link_family_vglm <- function(family, link) {
         "The {.val adjacent_categories} family is not compatible with
          the {.val {link}} link function.",
         "i" = "Use {.val cauchitlink} or {.val identitylink} instead."
-      )
+      ),
+      call = call
     )
   }
   invisible(NULL)

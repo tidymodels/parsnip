@@ -176,7 +176,7 @@ translate.ordinal_reg <- function(
   }
 
   if (engine == "vglm") {
-    x <- translate_ordinal_reg_vglm(x)
+    x <- translate_ordinal_reg_vglm(x, call = call)
   }
 
   if (engine == "ordinalNet") {
@@ -295,8 +295,11 @@ match_ordinal_family <- function(family) {
   )
 }
 
-translate_ordinal_reg_vglm <- function(x) {
-  x$method$fit$args <- translate_ordinal_vgam_args(x$method$fit$args)
+translate_ordinal_reg_vglm <- function(x, call = rlang::caller_env()) {
+  x$method$fit$args <- translate_ordinal_vgam_args(
+    x$method$fit$args,
+    call = call
+  )
 
   x
 }
@@ -304,7 +307,10 @@ translate_ordinal_reg_vglm <- function(x) {
 translate_ordinal_reg_ordinalNet <- function(x, call = rlang::caller_env()) {
   link_arg <- eval_ordinal_arg(x$method$fit$args$link)
   if (!is.null(link_arg)) {
-    x$method$fit$args$link <- match_ordinal_link_ordinalNet(link_arg)
+    x$method$fit$args$link <- match_ordinal_link_ordinalNet(
+      link_arg,
+      call = call
+    )
   }
 
   family_arg <- eval_ordinal_arg(x$method$fit$args$family)

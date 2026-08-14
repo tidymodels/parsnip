@@ -35,7 +35,7 @@
     Code
       match_ordinal_link_vglm("loglog")
     Condition
-      Error in `match_ordinal_link_vglm()`:
+      Error:
       ! The VGAM engines do not support the log-log ordinal link.
       i See `?VGAM::Links` for provided link functions.
 
@@ -45,7 +45,7 @@
       translate_ordinal_vgam_args(list(link = rlang::quo("logistic"), family = rlang::quo(
         "adjacent_categories"), Thresh = NULL))
     Condition
-      Error in `check_ordinal_link_family_vglm()`:
+      Error:
       ! The "adjacent_categories" family is not compatible with the "logitlink" link function.
       i Use "cauchitlink" or "identitylink" instead.
 

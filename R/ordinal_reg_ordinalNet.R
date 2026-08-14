@@ -19,7 +19,7 @@ NULL
 # These functions match standardized dials parameter values to values native
 # to `ordinalNet::ordinalNet()`. They are used by `translate.ordinal_reg()`.
 
-match_ordinal_link_ordinalNet <- function(link) {
+match_ordinal_link_ordinalNet <- function(link, call = rlang::caller_env()) {
   if (!is.character(link)) {
     return(link)
   }
@@ -32,7 +32,8 @@ match_ordinal_link_ordinalNet <- function(link) {
       c(
         "The `ordinalNet` engine does not support the log-log ordinal link.",
         "i" = "See `?ordinalNet::ordinalNet` for provided link functions."
-      )
+      ),
+      call = call
     )
   }
   link
