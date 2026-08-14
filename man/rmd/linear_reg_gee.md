@@ -52,6 +52,7 @@ With parsnip, we suggest using the formula method when fitting:
 
 ```r
 library(tidymodels)
+library(multilevelmod)
 
 linear_reg() |> 
   set_engine("gee", corstr = "exchangeable") |> 
@@ -62,6 +63,7 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 
 ```r
 library(tidymodels)
+library(multilevelmod)
 
 gee_spec <- 
   linear_reg() |> 
@@ -107,4 +109,3 @@ parsnip:::get_from_env("linear_reg_predict") |>
  - Liang, K.Y. and Zeger, S.L. (1986) Longitudinal data analysis using generalized linear models. _Biometrika_, 73 13–22.
 
  - Zeger, S.L. and Liang, K.Y. (1986) Longitudinal data analysis for discrete and continuous outcomes. _Biometrics_, 42 121–130.
-

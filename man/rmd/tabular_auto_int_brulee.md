@@ -53,6 +53,8 @@ The use of the L1 penalty (a.k.a. the lasso penalty) does _not_ force parameters
 
 
 ``` r
+library(tabby)
+
 tabular_auto_int(
   epochs = integer(1),
   num_embedding = integer(1),
@@ -117,6 +119,8 @@ Note that parsnip automatically sets linear activation in the last layer.
 
 
 ``` r
+library(tabby)
+
 tabular_auto_int(
   epochs = integer(1),
   num_embedding = integer(1),

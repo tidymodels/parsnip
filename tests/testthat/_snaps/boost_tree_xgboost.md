@@ -140,11 +140,11 @@
       evaluation_log:
         iter validation_quantile
        <num>               <num>
-           1            7.009181
-           2            6.548682
+           1            7.281056
+           2            6.935199
          ---                 ---
-          49            5.314723
-          50            5.304116
+          49            5.021312
+          50            5.012909
 
 ---
 
@@ -181,7 +181,7 @@
           0.9)), data = x$data, nrounds = 50, evals = x$watchlist, 
           verbose = 0, early_stopping_rounds = 2)
       # of features: 20 
-      # of rounds:  42 
+      # of rounds:  50 
       xgb.attributes:
          best_iteration, best_score 
       callbacks:
@@ -189,9 +189,9 @@
       evaluation_log:
         iter validation_quantile
        <num>               <num>
-           1            7.009181
-           2            6.548682
+           1            7.281056
+           2            6.935199
          ---                 ---
-          41            5.339619
-          42            5.342320
+          49            5.021312
+          50            5.012909
 

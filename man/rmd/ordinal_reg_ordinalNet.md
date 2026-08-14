@@ -65,6 +65,8 @@ We suggest that you set the collection of penalty values when fitting the model.
 To do this, you can use `set_engine()` to pass a vector of penalty values as so: 
 
 ```r
+library(ordered)
+
 # Example of setting a wide penalty range
 penalties <- 10^seq(-10, 0, length.out = 20)
 

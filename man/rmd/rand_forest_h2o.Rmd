@@ -37,6 +37,8 @@ param$item
 
 ```{r}
 #| label: h2o-reg
+library(agua)
+
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
@@ -53,6 +55,8 @@ rand_forest(
 
 ```{r}
 #| label: h2o-cls
+library(agua)
+
 rand_forest(
   mtry = integer(1),
   trees = integer(1),

@@ -51,6 +51,8 @@ With parsnip, we suggest using the formula method when fitting:
 
 ```r
 library(tidymodels)
+library(multilevelmod)
+
 data("toenail", package = "HSAUR3")
 
 logistic_reg() |> 
@@ -62,6 +64,7 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 
 ```r
 library(tidymodels)
+library(multilevelmod)
 
 glmer_spec <- 
   logistic_reg() |> 

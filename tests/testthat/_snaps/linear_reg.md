@@ -45,7 +45,7 @@
     Code
       res <- fit_xy(hpc_basic, x = hpc[, num_pred], y = hpc$class, control = ctrl)
     Condition
-      Error in `check_outcome()`:
+      Error in `fit_xy()`:
       ! For a regression model, the outcome should be <numeric>, not a <factor> object.
 
 ---
@@ -54,7 +54,7 @@
       res <- fit_xy(hpc_basic, x = hpc[, num_pred], y = as.character(hpc$class),
       control = ctrl)
     Condition
-      Error in `check_outcome()`:
+      Error in `fit_xy()`:
       ! For a regression model, the outcome should be <numeric>, not a character vector.
 
 ---
@@ -62,7 +62,7 @@
     Code
       res <- fit(hpc_basic, hpc_bad_form, data = hpc, control = ctrl)
     Condition
-      Error in `check_outcome()`:
+      Error in `fit()`:
       ! For a regression model, the outcome should be <numeric>, not a <factor> object.
 
 ---
@@ -70,7 +70,7 @@
     Code
       lm_form_catch <- fit(hpc_basic, hpc_bad_form, data = hpc, control = caught_ctrl)
     Condition
-      Error in `check_outcome()`:
+      Error in `fit()`:
       ! For a regression model, the outcome should be <numeric>, not a <factor> object.
 
 # glm execution
@@ -78,7 +78,7 @@
     Code
       res <- fit_xy(hpc_glm, x = hpc[, num_pred], y = hpc$class, control = ctrl)
     Condition
-      Error in `check_outcome()`:
+      Error in `fit_xy()`:
       ! For a regression model, the outcome should be <numeric>, not a <factor> object.
 
 ---
@@ -86,7 +86,7 @@
     Code
       res <- fit(hpc_glm, hpc_bad_form, data = hpc, control = ctrl)
     Condition
-      Error in `check_outcome()`:
+      Error in `fit()`:
       ! For a regression model, the outcome should be <numeric>, not a <factor> object.
 
 ---
@@ -94,7 +94,7 @@
     Code
       lm_form_catch <- fit(hpc_glm, hpc_bad_form, data = hpc, control = caught_ctrl)
     Condition
-      Error in `check_outcome()`:
+      Error in `fit()`:
       ! For a regression model, the outcome should be <numeric>, not a <factor> object.
 
 # newdata error trapping

@@ -4,6 +4,8 @@
 
 * `gen_additive_mod()`'s `vgam` translator handles as engine parameters the four arguments corresponding to `ordinal_reg()` model parameters.
 
+* `null_model()` now supports quantile regression mode, where fitting computes the requested empirical quantiles of the outcome.
+
 * Corrected documentation that referred to `fit()` and `fit_xy()` as arguments rather than functions in the case weights template (#1394).
 
 * Fitting with sparse data now respects the model mode, so loading an extension package that registers an engine for a different mode can no longer alter sparse data support for the original mode (#1382).

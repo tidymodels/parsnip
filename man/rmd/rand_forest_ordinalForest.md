@@ -23,6 +23,8 @@ This model has 3 tuning parameters:
 
 
 ``` r
+library(ordered)
+
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
@@ -65,6 +67,23 @@ The `fit()` and `fit_xy()` functions have arguments called `case_weights` that e
 ## Other notes
 
 By default, parallel processing is turned off. When tuning, it is more efficient to parallelize over the resamples and tuning parameters. To parallelize the construction of the trees within the model, change the `num.threads` argument via [set_engine()]. 
+
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "ordinalForest") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 2 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob
+```
 
 ## References
 

@@ -25,6 +25,8 @@ Other engine arguments of interest:
 
 
 ``` r
+library(tabby)
+
 tabular_icl(
   num_estimators = integer(1),
   softmax_temperature = double(1)
@@ -52,6 +54,8 @@ tabular_icl(
 
 
 ``` r
+library(tabby)
+
 tabular_icl(
   num_estimators = integer(1),
   softmax_temperature = double(1)

@@ -77,6 +77,7 @@ With parsnip, we suggest using the formula method when fitting:
 
 ```r
 library(tidymodels)
+library(multilevelmod)
 
 poisson_reg() |> 
   set_engine("stan_glmer") |> 
@@ -87,6 +88,7 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 
 ```r
 library(tidymodels)
+library(multilevelmod)
 
 glmer_spec <- 
   poisson_reg() |> 

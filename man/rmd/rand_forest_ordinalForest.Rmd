@@ -31,6 +31,8 @@ param$item
 ## Translation from parsnip to the original package (classification)
 
 ```{r, ordinalForest-cls}
+library(ordered)
+
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
@@ -56,6 +58,15 @@ rand_forest(
 ## Other notes
 
 By default, parallel processing is turned off. When tuning, it is more efficient to parallelize over the resamples and tuning parameters. To parallelize the construction of the trees within the model, change the `num.threads` argument via [set_engine()]. 
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "ordinalForest") |>
+  dplyr::select(mode, type)
+```
 
 ## References
 

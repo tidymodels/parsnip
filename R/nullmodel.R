@@ -1,36 +1,43 @@
 #' Fit a simple, non-informative model
 #'
-#' Fit a single mean or largest class model. `nullmodel()` is the underlying
-#' computational function for the `null_model()` specification.
+#' Fit a single mean, set of quantiles, or largest class model. `nullmodel()` is
+#' the underlying computational function for the `null_model()` specification.
 #'
 #' `nullmodel()` emulates other model building functions, but returns the
-#' simplest model possible given a training set: a single mean for numeric
-#' outcomes and the most prevalent class for factor outcomes. When class
-#' probabilities are requested, the percentage of the training set samples with
-#' the most prevalent class is returned.
+#' simplest model possible given a training set: a single mean or set of
+#' quantiles for numeric outcomes and the most prevalent class for factor
+#' outcomes. When class probabilities are requested, the percentage of the
+#' training set samples with the most prevalent class is returned.
 #'
 #' @aliases nullmodel nullmodel.default predict.nullmodel
 #' @param x An optional matrix or data frame of predictors. These values are
-#' not used in the model fit
+#' not used in the model fit.
 #' @param y A numeric vector (for regression) or factor (for classification) of
-#' outcomes
-#' @param \dots Optional arguments (not yet used)
-#' @param object An object of class \code{nullmodel}
-#' @param new_data A matrix or data frame of predictors (only used to determine
-#' the number of predictions to return)
-#' @param type Either "raw" (for regression), "class" or "prob" (for
-#' classification)
-#' @return The output of `nullmodel()` is a list of class \code{nullmodel}
-#' with elements \item{call }{the function call} \item{value }{the mean of
-#' \code{y} or the most prevalent class} \item{levels }{when \code{y} is a
-#' factor, a vector of levels. \code{NULL} otherwise} \item{pct }{when \code{y}
-#' is a factor, a data frame with a column for each class (\code{NULL}
-#' otherwise). The column for the most prevalent class has the proportion of
-#' the training samples with that class (the other columns are zero). } \item{n
-#' }{the number of elements in \code{y}}
+#' outcomes.
+#' @param quantile_levels A numeric vector of probabilities used to compute
+#' outcome quantiles. When `NULL`, the mean is computed for numeric outcomes.
+#' @param \dots Optional arguments (not yet used).
+#' @param object An object of class `nullmodel`.
+#' @param new_data A matrix or data frame of predictors, only used to determine
+#' the number of predictions to return.
+#' @param type Either `"raw"` (for regression), `"quantile"` (for quantile
+#' regression), `"class"`, or `"prob"` (for classification).
+#' @return The output of `nullmodel()` is a list of class `nullmodel` with
+#' elements:
 #'
-#' `predict.nullmodel()` returns either a factor or numeric vector
-#' depending on the class of \code{y}. All predictions are always the same.
+#' - `call`: The function call.
+#' - `value`: The mean or quantiles of `y`, or the most prevalent class.
+#' - `levels`: When `y` is a factor, a vector of levels; `NULL` otherwise.
+#' - `quantile_levels`: The probabilities used to compute quantiles, or `NULL`.
+#' - `pct`: When `y` is a factor, a data frame with a column for each class
+#'   (`NULL` otherwise). The column for the most prevalent class has the
+#'   proportion of the training samples with that class; the other columns are
+#'   zero.
+#' - `n`: The number of elements in `y`.
+#'
+#' `predict.nullmodel()` returns a factor, numeric vector, or matrix depending
+#' on the class of `y` and whether quantiles were requested. All
+#' predictions are always the same.
 #' @keywords models internal
 #' @examplesIf !parsnip:::is_cran_check()
 #'
@@ -47,15 +54,22 @@ nullmodel <- function(x, ...) UseMethod("nullmodel")
 
 #' @export
 #' @rdname nullmodel
-nullmodel.default <- function(x = NULL, y, ...) {
-  if (is.factor(y)) {
+nullmodel.default <- function(x = NULL, y, quantile_levels = NULL, ...) {
+  lvls <- NULL
+  pct <- NULL
+
+  if (!is.null(quantile_levels)) {
+    value <- stats::quantile(
+      y,
+      probs = quantile_levels,
+      na.rm = TRUE
+    )
+  } else if (is.factor(y)) {
     lvls <- levels(y)
     tab <- table(y)
     value <- names(tab)[which.max(tab)]
     pct <- tab / sum(tab)
   } else {
-    lvls <- NULL
-    pct <- NULL
     if (is.null(dim(y))) {
       value <- mean(y, na.rm = TRUE)
     } else {
@@ -68,6 +82,7 @@ nullmodel.default <- function(x = NULL, y, ...) {
       call = match.call(),
       value = value,
       levels = lvls,
+      quantile_levels = quantile_levels,
       pct = pct,
       n = length(y[[1]])
     ),
@@ -78,9 +93,17 @@ nullmodel.default <- function(x = NULL, y, ...) {
 #' @export
 #' @rdname nullmodel
 print.nullmodel <- function(x, ...) {
+  if (!is.null(x$quantile_levels)) {
+    model_type <- "Quantile Regression"
+  } else if (is.null(x$levels)) {
+    model_type <- "Regression"
+  } else {
+    model_type <- "Classification"
+  }
+
   cat(
     "Null",
-    ifelse(is.null(x$levels), "Classification", "Regression"),
+    model_type,
     "Model\n"
   )
   x$call
@@ -135,20 +158,23 @@ predict.nullmodel <- function(object, new_data = NULL, type = NULL, ...) {
 
 #' Null model
 #'
-#' Fit a single mean or largest class model. `null_model()` is the user-facing
-#' function that relies on the underlying computational function, `nullmodel()`.
+#' Fit a single mean, set of quantiles, or largest class model. `null_model()` is
+#' the user-facing function that relies on the underlying computational
+#' function, `nullmodel()`.
 #'
 #' `null_model()` defines a simple, non-informative model. It doesn't have any
-#'  main arguments. This function can fit classification and regression models.
+#'  main arguments. This function can fit classification, regression, and
+#' quantile regression models.
 #'
 #' `null_model()` emulates other model building functions, but returns the
-#' simplest model possible given a training set: a single mean for numeric
-#' outcomes and the most prevalent class for factor outcomes. When class
-#' probabilities are requested, the percentage of the training set samples with
-#' the most prevalent class is returned.
+#' simplest model possible given a training set: a single mean or set of
+#' quantiles for numeric outcomes and the most prevalent class for factor
+#' outcomes. When class probabilities are requested, the percentage of the
+#' training set samples with the most prevalent class is returned.
 #'
 #' @param mode A single character string for the type of model. The only
-#' possible values for this model are `"regression"` and `"classification"`.
+#' possible values for this model are `"regression"`, `"quantile regression"`,
+#' and `"classification"`.
 #' @param engine A single character string specifying what computational engine
 #' to use for fitting. Possible engines are listed below. The default for this
 #' model is `"parsnip"`.

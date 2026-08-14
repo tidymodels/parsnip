@@ -179,7 +179,7 @@
     Code
       fit(reg_spec, ~mpg, mtcars)
     Condition
-      Error:
+      Error in `fit()`:
       ! `linear_reg()` was unable to find an outcome.
       i Ensure that you have specified an outcome column and that it hasn't been removed in pre-processing.
 
@@ -188,7 +188,7 @@
     Code
       fit_xy(reg_spec, data.frame(x = 1:5), y = NULL)
     Condition
-      Error:
+      Error in `fit_xy()`:
       ! `linear_reg()` was unable to find an outcome.
       i Ensure that you have specified an outcome column and that it hasn't been removed in pre-processing.
 
@@ -215,7 +215,7 @@
     Code
       fit(class_spec, ~mpg, mtcars)
     Condition
-      Error:
+      Error in `fit()`:
       ! `logistic_reg()` was unable to find an outcome.
       i Ensure that you have specified an outcome column and that it hasn't been removed in pre-processing.
 
@@ -224,7 +224,7 @@
     Code
       check_outcome(1:2, cens_spec)
     Condition
-      Error in `check_outcome()`:
+      Error:
       ! For a censored regression model, the outcome should be a <Surv> object, not an integer vector.
 
 # obtaining prediction columns

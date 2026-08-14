@@ -41,7 +41,9 @@ This model should be used with a model formula so that smooth terms can be speci
 
 
 ``` r
+library(ordered)
 library(VGAM)
+
 # Make number of cylinders and ordered factor
 ord_cars <- mtcars[, -1]
 ord_cars$cyl <- as.ordered(ord_cars$cyl)
@@ -59,7 +61,9 @@ When using a workflow, pass the _model formula_ to [workflows::add_model()]'s `f
 
 
 ``` r
-spec <- 
+library(ordered)
+
+spec <-
   gen_additive_mod() |> 
   set_engine("vgam") |> 
   set_mode("classification")

@@ -14,6 +14,14 @@ null_model() |>
 ```
 
 ```{r}
+#| label: parsnip-quantile-reg
+null_model() |>
+  set_engine("parsnip") |>
+  set_mode("quantile regression", quantile_levels = c(0.25, 0.5, 0.75)) |>
+  translate()
+```
+
+```{r}
 #| label: parsnip-cls
 null_model() |> 
   set_engine("parsnip") |> 
@@ -27,6 +35,7 @@ null_model() |>
 #| label: predict-types
 
 parsnip:::get_from_env("null_model_predict") |>
+  dplyr::filter(engine == "parsnip") |>
   dplyr::select(mode, type)
 
 ```

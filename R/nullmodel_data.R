@@ -1,13 +1,21 @@
 set_new_model("null_model")
 
 set_model_mode("null_model", "classification")
+set_model_mode("null_model", "quantile regression")
 set_model_mode("null_model", "regression")
 
 # ------------------------------------------------------------------------------
 
 set_model_engine("null_model", "classification", "parsnip")
+set_model_engine("null_model", "quantile regression", "parsnip")
 set_model_engine("null_model", "regression", "parsnip")
 set_dependency("null_model", "parsnip", "parsnip", mode = "classification")
+set_dependency(
+  "null_model",
+  "parsnip",
+  "parsnip",
+  mode = "quantile regression"
+)
 set_dependency("null_model", "parsnip", "parsnip", mode = "regression")
 
 set_fit(
@@ -37,6 +45,30 @@ set_encoding(
 set_fit(
   model = "null_model",
   eng = "parsnip",
+  mode = "quantile regression",
+  value = list(
+    interface = "matrix",
+    protect = c("x", "y"),
+    func = c(fun = "nullmodel", pkg = "parsnip"),
+    defaults = list(quantile_levels = quote(quantile_levels))
+  )
+)
+
+set_encoding(
+  model = "null_model",
+  eng = "parsnip",
+  mode = "quantile regression",
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = FALSE,
+    remove_intercept = FALSE,
+    allow_sparse_x = TRUE
+  )
+)
+
+set_fit(
+  model = "null_model",
+  eng = "parsnip",
   mode = "classification",
   value = list(
     interface = "matrix",
@@ -55,6 +87,23 @@ set_encoding(
     compute_intercept = FALSE,
     remove_intercept = FALSE,
     allow_sparse_x = TRUE
+  )
+)
+
+set_pred(
+  model = "null_model",
+  eng = "parsnip",
+  mode = "quantile regression",
+  type = "quantile",
+  value = list(
+    pre = NULL,
+    post = matrix_to_quantile_pred,
+    func = c(fun = "predict"),
+    args = list(
+      object = quote(object$fit),
+      new_data = quote(new_data),
+      type = "quantile"
+    )
   )
 )
 

@@ -23,6 +23,8 @@ This model has 3 tuning parameters:
 
 
 ``` r
+library(agua)
+
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
@@ -55,6 +57,8 @@ rand_forest(
 
 
 ``` r
+library(agua)
+
 rand_forest(
   mtry = integer(1),
   trees = integer(1),

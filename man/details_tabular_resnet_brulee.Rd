@@ -39,7 +39,9 @@ method used in those packages.
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{tabular_resnet(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tabby)
+
+tabular_resnet(
   epochs = integer(1),
   hidden_units = integer(1),
   bottleneck_units = integer(1),
@@ -91,7 +93,9 @@ layer.
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{tabular_resnet(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tabby)
+
+tabular_resnet(
   epochs = integer(1),
   hidden_units = integer(1),
   bottleneck_units = integer(1),

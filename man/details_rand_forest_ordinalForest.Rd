@@ -30,7 +30,9 @@ default. For classification, a value of 10 is used.
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{rand_forest(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ordered)
+
+rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
@@ -81,6 +83,21 @@ By default, parallel processing is turned off. When tuning, it is more
 efficient to parallelize over the resamples and tuning parameters. To
 parallelize the construction of the trees within the model, change the
 \code{num.threads} argument via \code{\link[=set_engine]{set_engine()}}.
+}
+
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "ordinalForest") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob
+}\if{html}{\out{</div>}}
 }
 
 \subsection{References}{

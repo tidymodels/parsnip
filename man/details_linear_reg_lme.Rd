@@ -83,6 +83,8 @@ fitting, but the random effects formula should be passed to
 \code{set_engine()} since it is an irregular (but required) argument:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+library(multilevelmod)
+
 data("riesby")
 
 linear_reg() |> 
@@ -95,6 +97,7 @@ workflow. In this case, you can add the appropriate columns using
 \code{add_variables()} then supply the typical formula when adding the model:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+library(multilevelmod)
 
 lme_spec <- 
   linear_reg() |> 

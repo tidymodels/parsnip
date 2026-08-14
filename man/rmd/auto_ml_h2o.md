@@ -44,7 +44,9 @@ auto_ml() |>
 
 
 ``` r
-auto_ml() |>  
+library(agua)
+
+auto_ml() |>
   set_engine("h2o") |> 
   set_mode("classification") |> 
   translate()

@@ -65,6 +65,8 @@ call would look like:
 With \code{parsnip}, we suggest using the formula method when fitting:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+library(multilevelmod)
+
 data("toenail", package = "HSAUR3")
 
 logistic_reg() |> 
@@ -77,6 +79,7 @@ workflow. In this case, you can add the appropriate columns using
 \code{add_variables()} then supply the GEE formula when adding the model:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+library(multilevelmod)
 
 gee_spec <- 
   logistic_reg() |> 

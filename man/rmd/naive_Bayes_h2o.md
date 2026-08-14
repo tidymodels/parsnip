@@ -31,7 +31,9 @@ The **agua** extension package is required to fit this model.
 
 
 ``` r
-naive_Bayes(Laplace = numeric(0)) |> 
+library(agua)
+
+naive_Bayes(Laplace = numeric(0)) |>
   set_engine("h2o") |> 
   translate()
 ```

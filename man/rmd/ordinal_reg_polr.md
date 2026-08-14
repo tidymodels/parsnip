@@ -30,6 +30,23 @@ ordinal_reg() %>%
 ## MASS::polr(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
 ```
 
+## Prediction types
+
+
+``` r
+parsnip:::get_from_env("ordinal_reg_predict") |>
+  dplyr::filter(engine == "polr") |>
+  dplyr::select(mode, type)
+```
+
+```
+## # A tibble: 2 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob
+```
+
 ## References
 
 - Bürkner P-C, Vuorre M. 2019. Ordinal Regression Models in Psychology: A Tutorial. _Advances in Methods and Practices in Psychological Science_ 2(1):77-101. \doi{10.1177/2515245918823199}.

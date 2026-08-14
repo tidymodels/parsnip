@@ -56,6 +56,8 @@ When fitting a parsnip model with this engine directly, the formula
 method is required and the formula is just passed through. For example:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+library(poissonreg)
+
 tidymodels_prefer()
 
 data("bioChemists", package = "pscl")
@@ -84,7 +86,9 @@ However, when using a workflow, the best approach is to avoid using
 \code{\link[workflows:add_variables]{workflows::add_variables()}} in
 conjunction with a model formula:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{data("bioChemists", package = "pscl")
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(poissonreg)
+
+data("bioChemists", package = "pscl")
 spec <- 
   poisson_reg() |> 
   set_engine("zeroinfl")

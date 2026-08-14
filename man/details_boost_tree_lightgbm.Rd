@@ -50,7 +50,9 @@ found at
 
 The \strong{bonsai} extension package is required to fit this model.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(bonsai)
+
+boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric()
 ) |>
@@ -85,7 +87,9 @@ The \strong{bonsai} extension package is required to fit this model.
 
 The \strong{bonsai} extension package is required to fit this model.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(bonsai)
+
+boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric()
 ) |> 
@@ -229,7 +233,9 @@ is \code{regression}.
 
 You can specify an alternative objective using \code{set_engine()}:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree() |>
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(bonsai)
+
+boost_tree() |>
   set_engine("lightgbm", objective = "multiclassova") |>
   set_mode("classification")
 }\if{html}{\out{</div>}}
