@@ -52,7 +52,9 @@ auto_ml() |>
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{auto_ml() |>  
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(agua)
+
+auto_ml() |>
   set_engine("h2o") |> 
   set_mode("classification") |> 
   translate()

@@ -39,6 +39,8 @@ Other engine arguments of interest:
 
 
 ``` r
+library(agua)
+
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
@@ -76,6 +78,8 @@ mlp(
 
 
 ``` r
+library(agua)
+
 mlp(
   hidden_units = integer(1),
   penalty = double(1),

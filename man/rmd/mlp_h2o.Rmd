@@ -47,6 +47,8 @@ Other engine arguments of interest:
 
 ```{r}
 #| label: h2o-reg
+library(agua)
+
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
@@ -64,6 +66,8 @@ mlp(
 
 ```{r}
 #| label: h2o-cls
+library(agua)
+
 mlp(
   hidden_units = integer(1),
   penalty = double(1),

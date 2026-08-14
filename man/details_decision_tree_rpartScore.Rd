@@ -22,7 +22,9 @@ This model has 3 tuning parameters:
 
 \subsection{Translation from parsnip to the original package}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{decision_tree(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ordered)
+
+decision_tree(
   tree_depth = integer(1),
   min_n = integer(1),
   cost_complexity = double(1)

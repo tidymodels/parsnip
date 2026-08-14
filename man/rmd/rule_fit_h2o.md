@@ -36,7 +36,7 @@ The **agua** extension package is required to fit this model.
 
 
 ``` r
-library(rules)
+library(agua)
 
 rule_fit(
   trees = integer(1),
@@ -72,6 +72,8 @@ The **agua** extension package is required to fit this model.
 
 
 ``` r
+library(agua)
+
 rule_fit(
   trees = integer(1),
   tree_depth = integer(1),

@@ -47,7 +47,9 @@ around \code{\link[h2o:h2o.xgboost]{h2o::h2o.xgboost()}}.
 
 The \strong{agua} extension package is required to fit this model.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(agua)
+
+boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric(), stop_iter = integer()
 ) |>
@@ -82,7 +84,9 @@ The \strong{agua} extension package is required to fit this model.
 
 The \strong{agua} extension package is required to fit this model.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{boost_tree(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(agua)
+
+boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric(), stop_iter = integer()
 ) |> 

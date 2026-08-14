@@ -49,7 +49,9 @@ param$item
 
 ```{r}
 #| label: h2o-cls
-naive_Bayes(Laplace = numeric(0)) |> 
+library(agua)
+
+naive_Bayes(Laplace = numeric(0)) |>
   set_engine("h2o") |> 
   translate()
 ```

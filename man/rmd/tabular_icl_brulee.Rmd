@@ -47,6 +47,8 @@ Other engine arguments of interest:
 
 ```{r}
 #| label: brulee-reg
+library(tabby)
+
 tabular_icl(
   num_estimators = integer(1),
   softmax_temperature = double(1)
@@ -60,6 +62,8 @@ tabular_icl(
 
 ```{r}
 #| label: brulee-cls
+library(tabby)
+
 tabular_icl(
   num_estimators = integer(1),
   softmax_temperature = double(1)

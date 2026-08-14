@@ -23,6 +23,8 @@ This model has 3 tuning parameters:
 
 
 ``` r
+library(ordered)
+
 rand_forest(
   mtry = integer(1),
   trees = integer(1),

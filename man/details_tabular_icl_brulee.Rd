@@ -34,7 +34,9 @@ in-context learning.
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{tabular_icl(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tabby)
+
+tabular_icl(
   num_estimators = integer(1),
   softmax_temperature = double(1)
 ) |>
@@ -59,7 +61,9 @@ in-context learning.
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{tabular_icl(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tabby)
+
+tabular_icl(
   num_estimators = integer(1),
   softmax_temperature = double(1)
 ) |>

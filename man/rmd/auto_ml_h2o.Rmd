@@ -23,7 +23,6 @@ Engine arguments of interest
 
 ```{r}
 #| label: h2o-reg
-
 library(agua)
 
 auto_ml() |>
@@ -37,7 +36,9 @@ auto_ml() |>
 
 ```{r}
 #| label: h2o-cls
-auto_ml() |>  
+library(agua)
+
+auto_ml() |>
   set_engine("h2o") |> 
   set_mode("classification") |> 
   translate()

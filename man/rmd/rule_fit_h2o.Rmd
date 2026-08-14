@@ -50,7 +50,7 @@ Other engine arguments of interest:
 
 ```{r}
 #| label: h2o-reg
-library(rules)
+library(agua)
 
 rule_fit(
   trees = integer(1),
@@ -70,6 +70,8 @@ rule_fit(
 
 ```{r}
 #| label: h2o-cls
+library(agua)
+
 rule_fit(
   trees = integer(1),
   tree_depth = integer(1),

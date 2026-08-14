@@ -48,7 +48,9 @@ gen_additive_mod() \%>\%
 This model should be used with a model formula so that smooth terms can
 be specified. For example:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(VGAM)
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ordered)
+library(VGAM)
+
 # Make number of cylinders and ordered factor
 ord_cars <- mtcars[, -1]
 ord_cars$cyl <- as.ordered(ord_cars$cyl)
@@ -67,7 +69,9 @@ When using a workflow, pass the \emph{model formula} to
 \code{\link[workflows:add_model]{workflows::add_model()}}’s \code{formula} argument,
 and a simplified \emph{preprocessing formula} elsewhere.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{spec <- 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ordered)
+
+spec <-
   gen_additive_mod() |> 
   set_engine("vgam") |> 
   set_mode("classification")

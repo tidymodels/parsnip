@@ -33,7 +33,9 @@ are best tuned on the log10 scale.
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{tabular_rln(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tabby)
+
+tabular_rln(
   hidden_units = integer(1),
   penalty_type = character(1),
   penalty_average = double(1),

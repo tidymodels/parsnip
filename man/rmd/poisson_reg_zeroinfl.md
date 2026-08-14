@@ -46,6 +46,8 @@ When fitting a parsnip model with this engine directly, the formula method is re
 
 ``` r
 library(tidymodels)
+library(poissonreg)
+
 tidymodels_prefer()
 
 data("bioChemists", package = "pscl")
@@ -74,6 +76,8 @@ However, when using a workflow, the best approach is to avoid using [workflows::
 
 
 ``` r
+library(poissonreg)
+
 data("bioChemists", package = "pscl")
 spec <- 
   poisson_reg() |> 

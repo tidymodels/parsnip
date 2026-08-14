@@ -43,6 +43,8 @@ The use of the L1 penalty (a.k.a. the lasso penalty) does _not_ force parameters
 
 
 ``` r
+library(tabby)
+
 tabular_resnet(
   epochs = integer(1),
   hidden_units = integer(1),
@@ -96,6 +98,8 @@ Note that parsnip automatically sets linear activation in the last layer.
 
 
 ``` r
+library(tabby)
+
 tabular_resnet(
   epochs = integer(1),
   hidden_units = integer(1),

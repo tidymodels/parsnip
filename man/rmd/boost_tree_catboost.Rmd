@@ -53,6 +53,8 @@ Two in particular are:
 
 ```{r}
 #| label: catboost-reg
+library(bonsai)
+
 boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), sample_size = numeric(), stop_iter = integer()
@@ -68,6 +70,8 @@ boost_tree(
 
 ```{r}
 #| label: catboost-cls
+library(bonsai)
+
 boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), sample_size = numeric(), stop_iter = integer()

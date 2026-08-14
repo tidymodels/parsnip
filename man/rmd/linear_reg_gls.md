@@ -44,6 +44,7 @@ With parsnip, we suggest using the _fixed effects_ formula method when fitting, 
 
 ``` r
 library(tidymodels)
+library(multilevelmod)
 # load nlme to be able to use the `cor*()` functions
 library(nlme)
 
@@ -79,6 +80,7 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 
 ```r
 library(tidymodels)
+library(multilevelmod)
 
 gls_spec <- 
   linear_reg() |> 

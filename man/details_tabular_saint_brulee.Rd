@@ -52,7 +52,9 @@ time with \code{set_engine("brulee", row_attention_on_predict = FALSE)}.
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{tabular_saint(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tabby)
+
+tabular_saint(
   epochs = integer(1),
   num_embedding = integer(1),
   attention_type = character(1),
@@ -118,7 +120,9 @@ layer.
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{tabular_saint(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tabby)
+
+tabular_saint(
   epochs = integer(1),
   num_embedding = integer(1),
   attention_type = character(1),

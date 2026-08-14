@@ -35,6 +35,8 @@ The **bonsai** extension package is required to fit this model.
 
 
 ``` r
+library(bonsai)
+
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric()
@@ -72,6 +74,8 @@ The **bonsai** extension package is required to fit this model.
 
 
 ``` r
+library(bonsai)
+
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric()
@@ -167,6 +171,8 @@ You can specify an alternative objective using `set_engine()`:
 
 
 ``` r
+library(bonsai)
+
 boost_tree() |>
   set_engine("lightgbm", objective = "multiclassova") |>
   set_mode("classification")

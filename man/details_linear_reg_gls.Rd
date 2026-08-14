@@ -52,6 +52,7 @@ fitting, but the details of the correlation structure should be passed
 to \code{set_engine()} since it is an irregular (but required) argument:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+library(multilevelmod)
 # load nlme to be able to use the `cor*()` functions
 library(nlme)
 
@@ -87,6 +88,7 @@ workflow. In this case, you can add the appropriate columns using
 \code{add_variables()} then supply the typical formula when adding the model:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(tidymodels)
+library(multilevelmod)
 
 gls_spec <- 
   linear_reg() |> 

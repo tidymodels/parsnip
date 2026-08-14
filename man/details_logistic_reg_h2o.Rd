@@ -39,8 +39,10 @@ a wrapper around \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}}. h2o will
 automatically picks the link function and distribution family or
 binomial responses.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() |> 
-  set_engine("h2o") |> 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(agua)
+
+logistic_reg() |>
+  set_engine("h2o") |>
   translate()
 }\if{html}{\out{</div>}}
 
@@ -56,7 +58,9 @@ binomial responses.
 To use a non-default argument in \code{\link[h2o:h2o.glm]{h2o::h2o.glm()}},
 pass in as an engine argument to \code{set_engine()}:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{logistic_reg() |> 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(agua)
+
+logistic_reg() |>
   set_engine("h2o", compute_p_values = TRUE) |> 
   translate()
 }\if{html}{\out{</div>}}
