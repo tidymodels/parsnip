@@ -154,6 +154,10 @@ check_args.ordinal_reg <- function(object, call = rlang::caller_env()) {
     arg = "penalty"
   )
 
+  # engine compatibility checks
+  check_ordinal_reg_odds_link(object, object$engine, call = call)
+  check_ordinal_reg_parallel(object, object$engine, call = call)
+
   invisible(object)
 }
 
@@ -167,9 +171,6 @@ translate.ordinal_reg <- function(
   call = rlang::caller_env()
 ) {
   x <- translate.default(x, engine, ...)
-
-  check_ordinal_reg_parallel(x, engine, call = call)
-  check_ordinal_reg_odds_link(x, engine, call = call)
 
   if (engine == "clm") {
     x <- translate_ordinal_reg_clm(x)
