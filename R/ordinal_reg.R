@@ -193,7 +193,7 @@ translate.ordinal_reg <- function(
 
 check_ordinal_reg_parallel <- function(x, engine, call = rlang::caller_env()) {
   # reject `parallel_reg` for engines that don't support assumption violations
-  if (!engine %in% c("clm", "vglm", "ordinalNet", "brms")) {
+  if (!engine %in% c("clm", "vglm", "ordinalNet")) {
     pr <- eval_ordinal_arg(x$args$parallel_reg)
     if (!is.null(pr) && !(isTRUE(pr))) {
       cli::cli_abort(
