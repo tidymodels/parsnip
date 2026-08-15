@@ -194,7 +194,7 @@ translate.ordinal_reg <- function(
 check_ordinal_reg_parallel <- function(x, engine, call = rlang::caller_env()) {
   # reject `parallel_reg` for engines that don't support assumption violations
   if (!engine %in% c("clm", "vglm", "ordinalNet")) {
-    pr <- eval_ordinal_arg(x$args$parallel_reg)
+    pr <- rlang::eval_tidy(x$args$parallel_reg)
     if (!is.null(pr) && !(isTRUE(pr))) {
       cli::cli_abort(
         c(
@@ -214,7 +214,7 @@ check_ordinal_reg_parallel <- function(x, engine, call = rlang::caller_env()) {
 check_ordinal_reg_odds_link <- function(x, engine, call = rlang::caller_env()) {
   if (engine == "polr" || engine == "clm" ||
       engine == "lrm" || engine == "orm") {
-    oddslink <- eval_ordinal_arg(x$args$odds_link)
+    oddslink <- rlang::eval_tidy(x$args$odds_link)
     if (!is.null(oddslink) && oddslink != "cumulative_link") {
       cli::cli_abort(
         c(
@@ -231,12 +231,12 @@ check_ordinal_reg_odds_link <- function(x, engine, call = rlang::caller_env()) {
 }
 
 translate_ordinal_reg_clm <- function(x) {
-  link_arg <- eval_ordinal_arg(x$method$fit$args$link)
+  link_arg <- rlang::eval_tidy(x$method$fit$args$link)
   if (!is.null(link_arg) && link_arg == "logistic") {
     x$method$fit$args$link <- "logit"
   }
 
-  thresh_arg <- eval_ordinal_arg(x$method$fit$args$threshold)
+  thresh_arg <- rlang::eval_tidy(x$method$fit$args$threshold)
   if (!is.null(thresh_arg)) {
     x$method$fit$args$threshold <- switch(
       thresh_arg,
@@ -253,7 +253,7 @@ translate_ordinal_reg_clm <- function(x) {
   # `<resp> ~ .` against all variables (including the response).
   # The formula is constructed at fit time, when the model formula is
   # available, rather than at translation time.
-  parallel_arg <- eval_ordinal_arg(x$method$fit$args$parallel_reg)
+  parallel_arg <- rlang::eval_tidy(x$method$fit$args$parallel_reg)
   if (isFALSE(parallel_arg)) {
     x$method$fit$args$nominal <-
       rlang::expr(ordinal_reg_nominal_formula(formula))
@@ -272,13 +272,6 @@ ordinal_reg_nominal_formula <- function(formula) {
     terms
   )
   rlang::new_formula(NULL, rhs, env = rlang::f_env(formula))
-}
-
-eval_ordinal_arg <- function(x) {
-  if (rlang::is_quosure(x)) {
-    x <- rlang::eval_tidy(x)
-  }
-  x
 }
 
 match_ordinal_family <- function(family, call = rlang::caller_env()) {
@@ -314,7 +307,7 @@ translate_ordinal_reg_vglm <- function(x, call = rlang::caller_env()) {
 }
 
 translate_ordinal_reg_ordinalNet <- function(x, call = rlang::caller_env()) {
-  link_arg <- eval_ordinal_arg(x$method$fit$args$link)
+  link_arg <- rlang::eval_tidy(x$method$fit$args$link)
   if (!is.null(link_arg)) {
     x$method$fit$args$link <- match_ordinal_link_ordinalNet(
       link_arg,
@@ -322,12 +315,12 @@ translate_ordinal_reg_ordinalNet <- function(x, call = rlang::caller_env()) {
     )
   }
 
-  family_arg <- eval_ordinal_arg(x$method$fit$args$family)
+  family_arg <- rlang::eval_tidy(x$method$fit$args$family)
   if (!is.null(family_arg)) {
     x$method$fit$args$family <- match_ordinal_family(family_arg, call = call)
   }
 
-  parallel_arg <- eval_ordinal_arg(x$method$fit$args$parallel_reg)
+  parallel_arg <- rlang::eval_tidy(x$method$fit$args$parallel_reg)
   if (isFALSE(parallel_arg)) {
     x$method$fit$args$parallelTerms <- FALSE
     x$method$fit$args$nonparallelTerms <- TRUE

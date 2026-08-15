@@ -29,17 +29,17 @@ values_threshold_structure_vglm <- c(
 )
 
 translate_ordinal_vgam_args <- function(args, call = rlang::caller_env()) {
-  link_arg <- eval_ordinal_arg(args$link)
+  link_arg <- rlang::eval_tidy(args$link)
   if (!is.null(link_arg)) {
     args$link <- match_ordinal_link_vglm(link_arg, call = call)
   }
 
-  family_arg <- eval_ordinal_arg(args$family)
+  family_arg <- rlang::eval_tidy(args$family)
   if (!is.null(family_arg)) {
     args$family <- match_ordinal_family(family_arg, call = call)
   }
 
-  thresh_arg <- eval_ordinal_arg(args$Thresh)
+  thresh_arg <- rlang::eval_tidy(args$Thresh)
   if (!is.null(thresh_arg)) {
     args$Thresh <- match_threshold_structure_vglm(thresh_arg, call = call)
   }
