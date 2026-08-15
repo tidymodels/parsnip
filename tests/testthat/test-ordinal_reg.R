@@ -48,7 +48,7 @@ test_that("clm arguments are translated", {
   nominal <- rlang::eval_tidy(result$method$fit$args$nominal)
   expect_equal(
     rlang::f_rhs(nominal),
-    rlang::expr(`not valid` + x)
+    rlang::expr(`not valid` + log(x))
   )
   expect_identical(rlang::f_env(nominal), rlang::f_env(formula))
 

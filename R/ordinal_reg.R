@@ -249,29 +249,17 @@ translate_ordinal_reg_clm <- function(x) {
   }
 
   # translate `parallel_reg` to the `nominal` formula accepted by `clm()`
-  # NB: The formula must be explicitly constructed since `clm()` would expand
-  # `<resp> ~ .` against all variables (including the response).
-  # The formula is constructed at fit time, when the model formula is
+  # NB: The formula is constructed at fit time, when the model formula is
   # available, rather than at translation time.
   parallel_arg <- rlang::eval_tidy(x$method$fit$args$parallel_reg)
   if (isFALSE(parallel_arg)) {
-    x$method$fit$args$nominal <-
-      rlang::expr(ordinal_reg_nominal_formula(formula))
+    x$method$fit$args$nominal <- rlang::expr(formula[-2L])
   } else if (isTRUE(parallel_arg)) {
     x$method$fit$args$nominal <- NULL
   }
   x$method$fit$args$parallel_reg <- NULL
 
   x
-}
-
-ordinal_reg_nominal_formula <- function(formula) {
-  terms <- rlang::syms(all.vars(formula[[3L]]))
-  rhs <- Reduce(
-    function(x, y) rlang::call2("+", x, y),
-    terms
-  )
-  rlang::new_formula(NULL, rhs, env = rlang::f_env(formula))
 }
 
 match_ordinal_family <- function(family, call = rlang::caller_env()) {
