@@ -169,7 +169,7 @@ translate.ordinal_reg <- function(
   x <- translate.default(x, engine, ...)
 
   check_ordinal_reg_parallel(x, engine, call = call)
-  warn_ordinal_reg_odds_link(x, engine, call = call)
+  check_ordinal_reg_odds_link(x, engine, call = call)
 
   if (engine == "clm") {
     x <- translate_ordinal_reg_clm(x)
@@ -210,14 +210,16 @@ check_ordinal_reg_parallel <- function(x, engine, call = rlang::caller_env()) {
   invisible(NULL)
 }
 
-warn_ordinal_reg_odds_link <- function(x, engine, call = rlang::caller_env()) {
-  if (engine == "polr" || engine == "clm") {
+check_ordinal_reg_odds_link <- function(x, engine, call = rlang::caller_env()) {
+  if (engine == "polr" || engine == "clm" ||
+      engine == "lrm" || engine == "orm") {
     oddslink <- eval_ordinal_arg(x$args$odds_link)
     if (!is.null(oddslink) && oddslink != "cumulative_link") {
-      cli::cli_warn(
+      cli::cli_abort(
         c(
-          "!" = "The {.val {engine}} engine uses the cumulative link odds link;
-          {.arg odds_link} will be ignored."
+          "The {.val {engine}} engine supports only the cumulative odds link.",
+          "i" = "Use the {.val vglm} or {.val ordinalNet} engine
+          for alternative odds links."
         ),
         call = call
       )
