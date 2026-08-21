@@ -212,8 +212,7 @@ check_ordinal_reg_parallel <- function(x, engine, call = rlang::caller_env()) {
 }
 
 check_ordinal_reg_odds_link <- function(x, engine, call = rlang::caller_env()) {
-  if (engine == "polr" || engine == "clm" ||
-      engine == "lrm" || engine == "orm") {
+  if (engine %in% c("polr", "clm", "lrm", "orm")) {
     oddslink <- rlang::eval_tidy(x$args$odds_link)
     if (!is.null(oddslink) && oddslink != "cumulative_link") {
       cli::cli_abort(
