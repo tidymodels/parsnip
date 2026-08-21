@@ -10,3 +10,130 @@
 NULL
 
 # See inst/README-DOCS.md for a description of how these files are processed.
+
+# ------------------------------------------------------------------------------
+# Helpers for the `vglm` and `vgam` engines
+#
+# These functions match standardized dials parameter values to values native to
+# `VGAM::vglm()` and `VGAM::vgam()`. The family helper is also used for the
+# `ordinalNet` engine, which recognizes the same native families. They are used
+# by `translate.ordinal_reg()` and `translate.gen_additive_mod()`.
+values_ordinal_link_vglm <- c(
+  dials::values_ordinal_link,
+  c("foldsqrt", "logc", "gord", "pord", "nbord")
+)
+
+values_threshold_structure_vglm <- c(
+  dials::values_threshold_structure,
+  "qnorm"
+)
+
+translate_ordinal_vgam_args <- function(args, call = rlang::caller_env()) {
+  link_arg <- rlang::eval_tidy(args$link)
+  if (!is.null(link_arg)) {
+    args$link <- match_ordinal_link_vglm(link_arg, call = call)
+  }
+
+  family_arg <- rlang::eval_tidy(args$family)
+  if (!is.null(family_arg)) {
+    args$family <- match_ordinal_family(family_arg, call = call)
+  }
+
+  thresh_arg <- rlang::eval_tidy(args$Thresh)
+  if (!is.null(thresh_arg)) {
+    args$Thresh <- match_threshold_structure_vglm(thresh_arg, call = call)
+  }
+
+  # `acat()` does not support certain link functions
+  check_ordinal_link_family_vglm(
+    family = args$family,
+    link = args$link,
+    call = call
+  )
+
+  args
+}
+
+match_ordinal_link_vglm <- function(link, call = rlang::caller_env()) {
+  if (!is.character(link)) {
+    return(link)
+  }
+  check_string(link, arg = "ordinal_link", call = call)
+
+  # fmt: skip
+  if (
+    !link %in% c(
+      "logitlink", "probitlink", "logloglink", "clogloglink", "cauchitlink",
+      "foldsqrtlink", "logclink", "gordlink", "pordlink", "nbordlink"
+    )
+  ) {
+    link <- rlang::arg_match0(
+      link,
+      values_ordinal_link_vglm,
+      arg_nm = "ordinal_link",
+      error_call = call
+    )
+    if (link == "logistic") {
+      link <- "logit"
+    }
+    link <- paste0(link, "link")
+  }
+
+  if (link == "logloglink") {
+    cli::cli_abort(
+      c(
+        "The {.pkg VGAM} engines do not support the log-log ordinal link.",
+        "i" = "See `?VGAM::Links` for provided link functions."
+      ),
+      call = call
+    )
+  }
+  link
+}
+
+match_threshold_structure_vglm <- function(
+  Thresh,
+  call = rlang::caller_env()
+) {
+  if (!is.character(Thresh)) {
+    return(Thresh)
+  }
+  check_string(Thresh, arg = "threshold_structure", call = call)
+  Thresh <- rlang::arg_match0(
+    Thresh,
+    values_threshold_structure_vglm,
+    arg_nm = "threshold_structure",
+    error_call = call
+  )
+  switch(
+    Thresh,
+    flexible = "free",
+    symmetric_median = "symm1",
+    symmetric_zero = "symm0",
+    equidistant = "equid",
+    qnorm = "qnorm"
+  )
+}
+
+check_ordinal_link_family_vglm <- function(
+  family,
+  link,
+  call = rlang::caller_env()
+) {
+  if (
+    is.character(family) &&
+      is.character(link) &&
+      family == "acat" &&
+      link %in% c("logitlink", "probitlink", "clogloglink")
+  ) {
+    cli::cli_abort(
+      c(
+        "The {.val adjacent_categories} family is not compatible with
+         the {.val {link}} link function.",
+        "i" = "Use {.val cauchitlink} or {.val identitylink} instead."
+      ),
+      call = call
+    )
+  }
+  invisible(NULL)
+}

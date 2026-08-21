@@ -81,12 +81,24 @@ update.gen_additive_mod <- function(
 
 
 #' @export
-translate.gen_additive_mod <- function(x, engine = x$engine, ...) {
+translate.gen_additive_mod <- function(
+  x,
+  engine = x$engine,
+  ...,
+  call = rlang::caller_env()
+) {
   if (is.null(engine)) {
     message("Used `engine = 'mgcv'` for translation.")
     engine <- "gam"
   }
   x <- translate.default(x, engine, ...)
+
+  if (engine == "vgam") {
+    x$method$fit$args <- translate_ordinal_vgam_args(
+      x$method$fit$args,
+      call = call
+    )
+  }
 
   x
 }

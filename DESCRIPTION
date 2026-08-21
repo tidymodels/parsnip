@@ -22,6 +22,7 @@ Depends:
     R (>= 4.1)
 Imports: 
     cli,
+    dials (>= 1.4.4.9000),
     dplyr (>= 1.1.0),
     generics (>= 0.1.2),
     ggplot2,
@@ -44,7 +45,6 @@ Suggests:
     bench,
     C50,
     covr,
-    dials (>= 1.4.2),
     earth,
     ggrepel,
     keras,
@@ -70,6 +70,8 @@ Suggests:
     testthat (>= 3.0.0),
     withr,
     xgboost (>= 1.5.0.1)
+Remotes:
+    tidymodels/dials#462
 VignetteBuilder: 
     knitr
 ByteCompile: true
