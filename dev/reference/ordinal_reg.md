@@ -25,6 +25,8 @@ ordinal_reg(
   mode = "classification",
   ordinal_link = NULL,
   odds_link = NULL,
+  threshold_structure = NULL,
+  parallel_reg = NULL,
   penalty = NULL,
   mixture = NULL,
   engine = "polr"
@@ -45,6 +47,16 @@ ordinal_reg(
 - odds_link:
 
   The odds or probability link function.
+
+- threshold_structure:
+
+  The threshold structure for the cutpoints (specific engines only).
+
+- parallel_reg:
+
+  Logical; whether predictor effects are shared across thresholds
+  (`TRUE`) or category-specific effects (`FALSE`). The default, `NULL`,
+  uses the engine default. Available for specific engines only.
 
 - penalty:
 

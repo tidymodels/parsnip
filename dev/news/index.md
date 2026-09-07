@@ -2,6 +2,14 @@
 
 ## parsnip (development version)
 
+- [`ordinal_reg()`](https://parsnip.tidymodels.org/dev/reference/ordinal_reg.md)
+  gains arguments `threshold_structure` and `parallel_reg` to control
+  threshold constraints and the parallel regression assumption. The
+  `ordinalNet` engine can use `parallel_reg` while the `clm` and `vglm`
+  engines can use both new arguments
+  ([\#1393](https://github.com/tidymodels/parsnip/issues/1393),
+  [@corybrunson](https://github.com/corybrunson)).
+
 - [`null_model()`](https://parsnip.tidymodels.org/dev/reference/null_model.md)
   now supports quantile regression mode, where fitting computes the
   requested empirical quantiles of the outcome.

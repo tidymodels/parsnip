@@ -9,7 +9,7 @@ be used in lieu of recreating the object from scratch."><meta property="og:image
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.6.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.6.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -264,6 +264,8 @@ be used in lieu of recreating the object from scratch.</p>
 <span>  parameters <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  ordinal_link <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  odds_link <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  threshold_structure <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  parallel_reg <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  penalty <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  mixture <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fresh <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -698,6 +700,17 @@ calculating Minkowski distance.</p></dd>
 
 <dt id="arg-odds-link">odds_link<a class="anchor" aria-label="anchor" href="#arg-odds-link"></a></dt>
 <dd><p>The odds or probability link function.</p></dd>
+
+
+<dt id="arg-threshold-structure">threshold_structure<a class="anchor" aria-label="anchor" href="#arg-threshold-structure"></a></dt>
+<dd><p>The threshold structure for the cutpoints
+(specific engines only).</p></dd>
+
+
+<dt id="arg-parallel-reg">parallel_reg<a class="anchor" aria-label="anchor" href="#arg-parallel-reg"></a></dt>
+<dd><p>Logical; whether predictor effects are shared across
+thresholds (<code>TRUE</code>) or category-specific effects (<code>FALSE</code>). The default,
+<code>NULL</code>, uses the engine default. Available for specific engines only.</p></dd>
 
 
 <dt id="arg-predictor-prop">predictor_prop<a class="anchor" aria-label="anchor" href="#arg-predictor-prop"></a></dt>
