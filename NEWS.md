@@ -1,20 +1,6 @@
 # parsnip (development version)
 
-* `ordinal_reg()` gains arguments `threshold_structure` and `parallel_reg` to control threshold constraints and the parallel regression assumption. The `ordinalNet` engine can use `parallel_reg` while the `clm` and `vglm` engines can use both new arguments (#1393). Here are the current tunable model arguments for `ordinal_reg()`:
-  - `ordinal_link` (`polr`, `clm`, `vglm`, `orm`, `ordinalNet`)
-  - `odds_link` (`vglm`, `ordinalNet`)
-  - `threshold_structure` (`clm`, `vglm`)
-  - `parallel_reg` (`clm`, `vglm`, `ordinalNet`)
-  - `penalty` (`lrm`, `orm`, `ordinalNet`, `glmnetcr`)
-  - `mixture` (`ordinalNet`, `glmnetcr`)
-
-* `ordinal_reg()` argument value translation has been moved from the `translate()` method in parsnip to engine wrappers in ordered, with the exception of penalty path assembly for `ordinalNet` and `glmnetcr`.
-
-* The `vgam` engine for `gen_additive_mod` has arguments corresponding to all four `ordinal_reg()`-specific model arguments; these are exposed as engine arguments but tuned by the same dials (#1393):
-  - `link` (`dials::ordinal_link()`)
-  - `family` (`dials::odds_link()`)
-  - `Thresh` (`dials::threshold_structure()`)
-  - `parallel` (`dials::parallel_reg()`)
+* `ordinal_reg()` gains arguments `threshold_structure` and `parallel_reg` to control threshold constraints and the parallel regression assumption. The `ordinalNet` engine can use `parallel_reg` while the `clm` and `vglm` engines can use both new arguments (#1393, @corybrunson).
 
 * `null_model()` now supports quantile regression mode, where fitting computes the requested empirical quantiles of the outcome.
 
