@@ -81,12 +81,7 @@ update.gen_additive_mod <- function(
 
 
 #' @export
-translate.gen_additive_mod <- function(
-  x,
-  engine = x$engine,
-  ...,
-  call = rlang::caller_env()
-) {
+translate.gen_additive_mod <- function(x, engine = x$engine, ...) {
   if (is.null(engine)) {
     message("Used `engine = 'mgcv'` for translation.")
     engine <- "gam"
