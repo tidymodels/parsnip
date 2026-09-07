@@ -12,4 +12,3 @@
 NULL
 
 # See inst/README-DOCS.md for a description of how these files are processed.
-
