@@ -97,7 +97,10 @@ glm_grouped <- function(formula, data, weights, ...) {
 
   if (length(lvls) != 2) {
     cli::cli_abort(
-      "The response column {.val response} should be a two-level factor."
+      c(
+        "The response column {.field {response}} should be a two-level factor.",
+        i = "It has {length(lvls)} level{?s}: {.val {lvls}}."
+      )
     )
   }
 
