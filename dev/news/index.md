@@ -2,6 +2,14 @@
 
 ## parsnip (development version)
 
+- The deprecated `quantile` argument now reaches its deprecation warning
+  when passed via `predict(type = "quantile")` instead of being rejected
+  as an unknown argument. The error for unknown arguments passed to
+  [`predict()`](https://rdrr.io/r/stats/predict.html) now lists the
+  offending argument names.
+  ([@bjornkallerud](https://github.com/bjornkallerud),
+  [\#1258](https://github.com/tidymodels/parsnip/issues/1258))
+
 - [`ordinal_reg()`](https://parsnip.tidymodels.org/dev/reference/ordinal_reg.md)
   gains arguments `threshold_structure` and `parallel_reg` to control
   threshold constraints and the parallel regression assumption. The
