@@ -386,18 +386,23 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
 #' @rdname glmnet_helpers
 #' @keywords internal
 #' @export
-.check_glmnet_penalty_fit <- function(x, call = rlang::caller_env()) {
+.check_glmnet_penalty_fit <- function(
+    x,
+    engine,
+    call = rlang::caller_env()
+) {
   pen <- rlang::eval_tidy(x$args$penalty)
 
-  if (length(pen) != 1) {
+  if (length(pen) != 1L) {
     cli::cli_abort(
       c(
-        "x" = "For the glmnet engine, {.arg penalty} must be a single number
-        (or a value of {.fn tune}).",
+        "x" = "For the {.val {engine}} engine, {.arg penalty} must be
+        a single number (or a value of {.fn tune}).",
         "!" = "There are {length(pen)} value{?s} for {.arg penalty}.",
         "i" = "To try multiple values for total regularization, use the
         {.pkg tune} package.",
-        "i" = "To predict multiple penalties, use {.fn multi_predict}."
+        "i" = "To predict multiple penalties, use {.fn multi_predict}.",
+        "i" = "To override the default path, use {.arg path_values}."
       ),
       call = call
     )
@@ -448,18 +453,18 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
   penalty
 }
 
-set_glmnet_penalty_path <- function(x) {
+set_glmnet_penalty_path <- function(x, penalty_arg) {
   if (any(names(x$eng_args) == "path_values")) {
-    # Since we decouple the parsnip `penalty` argument from being the same
-    # as the glmnet `lambda` value, `path_values` allows users to set the
-    # path differently from the default that glmnet uses. See
+    # Since we decouple the parsnip `penalty` argument from the engine argument
+    # (e.g. `lambda` in glmnet), `path_values` allows users to set the path
+    # differently from the default that the engine uses. See
     # https://github.com/tidymodels/parsnip/issues/431
-    x$method$fit$args$lambda <- x$eng_args$path_values
+    x$method$fit$args[[penalty_arg]] <- x$eng_args$path_values
     x$eng_args$path_values <- NULL
     x$method$fit$args$path_values <- NULL
   } else {
     # See discussion in https://github.com/tidymodels/parsnip/issues/195
-    x$method$fit$args$lambda <- NULL
+    x$method$fit$args[[penalty_arg]] <- NULL
   }
   x
 }
