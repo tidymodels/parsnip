@@ -32,7 +32,6 @@ test_that('bad input', {
 # ------------------------------------------------------------------------------
 
 num_pred <- colnames(hpc)[1:3]
-hpc_bad_form <- as.formula(class ~ term)
 hpc_basic <- mars(mode = "regression") |> set_engine("earth")
 
 # ------------------------------------------------------------------------------

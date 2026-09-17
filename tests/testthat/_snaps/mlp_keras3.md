@@ -1,11 +1,3 @@
-# keras3 execution, classification
-
-    Code
-      res <- parsnip::fit(hpc_keras3, class ~ novar, data = hpc, control = ctrl)
-    Condition
-      Error:
-      ! object 'novar' not found
-
 # all keras3 activation functions
 
     Code

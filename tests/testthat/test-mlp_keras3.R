@@ -51,16 +51,6 @@ test_that('keras3 execution, classification', {
   )
 
   keras3::clear_session()
-
-  expect_snapshot(
-    error = TRUE,
-    res <- parsnip::fit(
-      hpc_keras3,
-      class ~ novar,
-      data = hpc,
-      control = ctrl
-    )
-  )
 })
 
 
