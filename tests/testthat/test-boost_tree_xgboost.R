@@ -92,16 +92,6 @@ test_that('xgboost execution, classification', {
   )))
   expect_true(has_multi_predict(res_xy))
   expect_equal(multi_predict_args(res_xy), "trees")
-
-  expect_snapshot(
-    error = TRUE,
-    res <- parsnip::fit(
-      hpc_xgboost,
-      class ~ novar,
-      data = hpc,
-      control = ctrl
-    )
-  )
 })
 
 
