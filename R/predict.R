@@ -498,6 +498,7 @@ check_pred_type_dots <- function(
     "level",
     "std_error",
     "quantile_levels",
+    "quantile",
     "time",
     "eval_time",
     "increasing",
@@ -509,10 +510,9 @@ check_pred_type_dots <- function(
   is_pred_arg <- names(the_dots) %in% other_args
   if (!all(is_pred_arg)) {
     bad_args <- names(the_dots)[!is_pred_arg]
-    bad_args <- paste0("`", bad_args, "`", collapse = ", ")
     cli::cli_abort(
       "The ellipses are not used to pass args to the model function's
-         predict function. These arguments cannot be used: {.val bad_args}",
+       predict function. These arguments cannot be used: {.arg {bad_args}}",
       call = call
     )
   }
