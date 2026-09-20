@@ -137,5 +137,5 @@ T. (2021). SAINT: Improved Neural Networks for Tabular Data via Row
 Attention and Contrastive Pre-Training. arXiv:2106.01342.
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_saint")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_saint")}, \code{\link[brulee:brulee_saint]{brulee::brulee_saint()}}
 }

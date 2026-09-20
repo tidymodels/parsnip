@@ -6,7 +6,7 @@
 #' and an attention mechanism is use to make relevant predictions for specific
 #' (i.e., real) data sets.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("tabular_icl")}
+#' `Rd parsnip:::make_engine_list("tabular_icl")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -42,7 +42,7 @@
 #' better, faster, scalable, and open tabular foundation model. arXiv preprint
 #' arXiv:2602.11139.
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_icl")} [brulee::brulee_tab_icl()]
+#' @seealso `Rd parsnip:::make_seealso_list("tabular_icl")`, [brulee::brulee_tab_icl()]
 #'
 #' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("tabular_icl")

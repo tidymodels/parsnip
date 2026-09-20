@@ -5,7 +5,7 @@
 #' weight learns its own adaptive regularization coefficient. This function can
 #' fit regression models only.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("tabular_rln")}
+#' `Rd parsnip:::make_engine_list("tabular_rln")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -39,7 +39,7 @@
 #'
 #' @templateVar modeltype tabular_rln
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_rln")}
+#' @seealso `Rd parsnip:::make_seealso_list("tabular_rln")`, [brulee::brulee_rln()]
 #'
 #' @references
 #' Shavitt, I., & Segal, E. (2018). Regularization learning networks: Deep
