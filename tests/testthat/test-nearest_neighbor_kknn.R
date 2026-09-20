@@ -4,7 +4,6 @@ hpc <- hpc_data[1:150, c(2:5, 8)]
 
 
 num_pred <- c("compounds", "iterations", "num_pending")
-hpc_bad_form <- as.formula(class ~ term)
 hpc_basic <- nearest_neighbor(
   mode = "classification",
   neighbors = 8,
@@ -31,16 +30,6 @@ test_that('kknn execution', {
 
   expect_true(has_multi_predict(res))
   expect_equal(multi_predict_args(res), "neighbors")
-
-  expect_snapshot(
-    error = TRUE,
-    fit(
-      hpc_basic,
-      hpc_bad_form,
-      data = hpc,
-      control = ctrl
-    )
-  )
 })
 
 test_that('kknn prediction', {

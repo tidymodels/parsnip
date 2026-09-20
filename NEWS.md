@@ -1,18 +1,20 @@
 # parsnip (development version)
 
+* New model specifications `tabular_auto_int()`, `tabular_chronos()`, `tabular_icl()`, `tabular_pfn()`, `tabular_resnet()`, `tabular_rln()`, and `tabular_saint()` were added for tabular deep-learning and foundation models, with engines provided by the tabby extension package (#1386).
+
+* `fit()` and `fit_xy()` have less per-fit overhead, making small or repeated fits (such as during tuning) faster (#1071).
+
+* The deprecated `quantile` argument now reaches its deprecation warning when passed via `predict(type = "quantile")` instead of being rejected as an unknown argument. The error for unknown arguments passed to `predict()` now lists the offending argument names. (@bjornkallerud, #1258)
+
 * `ordinal_reg()` gains arguments `threshold_structure` and `parallel_reg` to control threshold constraints and the parallel regression assumption. The `ordinalNet` engine can use `parallel_reg` while the `clm` and `vglm` engines can use both new arguments (#1393, @corybrunson).
 
 * `null_model()` now supports quantile regression mode, where fitting computes the requested empirical quantiles of the outcome.
-
-* Corrected documentation that referred to `fit()` and `fit_xy()` as arguments rather than functions in the case weights template (#1394).
 
 * Fitting with sparse data now respects the model mode, so loading an extension package that registers an engine for a different mode can no longer alter sparse data support for the original mode (#1382).
 
 * For censored regression models, the censoring weights can now be added to the predictions of survival probability by setting `add_censoring_weights = TRUE` in `predict(type = "survival")` (#1371).
 
-* `fit()` and `fit_xy()` have less per-fit overhead, making small or repeated fits (such as during tuning) faster (#1071).
-
-* New model specifications `tabular_auto_int()`, `tabular_chronos()`, `tabular_icl()`, `tabular_pfn()`, `tabular_resnet()`, `tabular_rln()`, and `tabular_saint()` were added for tabular deep-learning and foundation models, with engines provided by the tabby extension package (#1386).
+* Corrected documentation that referred to `fit()` and `fit_xy()` as arguments rather than functions in the case weights template (#1394).
 
 # parsnip 1.6.0
 

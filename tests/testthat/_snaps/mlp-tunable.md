@@ -56,3 +56,17 @@
       stop_iter                 | pkg: dials, fun: stop_iter | engine
       rate_schedule             | pkg: dials, fun: rate_schedule, values: none, decay_time, decay_expo, cyclic, step | engine
 
+# tunable parameters for mlp + qrnn
+
+    Code
+      display_tunable_call_info(set_mode(set_engine(mlp(), "qrnn"),
+      "quantile regression", quantile_levels = (1:10) / 10))
+    Output
+      hidden_units              | pkg: dials, fun: hidden_units | main
+      penalty                   | pkg: dials, fun: penalty | main
+      epochs                    | pkg: dials, fun: epochs | main
+      activation                | pkg: dials, fun: activation, values: sigmoid, elu, relu, softplus | main
+      learn_rate                | pkg: dials, fun: learn_rate | main
+      iterbreak                 | pkg: dials, fun: stop_iter | engine
+      minibatch                 | pkg: dials, fun: batch_size | engine
+

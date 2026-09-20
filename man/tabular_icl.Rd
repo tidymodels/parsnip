@@ -58,5 +58,5 @@ better, faster, scalable, and open tabular foundation model. arXiv preprint
 arXiv:2602.11139.
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_icl")} \code{\link[brulee:brulee_tab_icl]{brulee::brulee_tab_icl()}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_icl")}, \code{\link[brulee:brulee_tab_icl]{brulee::brulee_tab_icl()}}
 }

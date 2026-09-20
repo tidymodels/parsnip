@@ -7,7 +7,7 @@
 #' data is ingested at fit time and the model forecasts a fixed horizon. This
 #' function can fit quantile regression and regression models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("tabular_chronos")}
+#' `Rd parsnip:::make_engine_list("tabular_chronos")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -42,7 +42,7 @@
 #'
 #' @templateVar modeltype tabular_chronos
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_chronos")} [brulee::brulee_chronos()]
+#' @seealso `Rd parsnip:::make_seealso_list("tabular_chronos")`,  [brulee::brulee_chronos()]
 #'
 #' @references
 #' Ansari, A. F., Shchur, O., Küken, J., Auer, A., Han, B., Mercado, P., et al.

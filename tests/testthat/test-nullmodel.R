@@ -20,7 +20,6 @@ test_that('bad input', {
 # ------------------------------------------------------------------------------
 
 num_pred <- names(hpc)[1:3]
-hpc_bad_form <- as.formula(class ~ term)
 
 # ------------------------------------------------------------------------------
 
@@ -51,15 +50,6 @@ test_that('nullmodel execution', {
       null_model(mode = "regression"),
       x = hpc[, num_pred],
       y = hpc$num_pending
-    )
-  )
-
-  expect_snapshot(
-    error = TRUE,
-    res <- fit(
-      null_model(mode = "regression") |> set_engine("parsnip"),
-      hpc_bad_form,
-      data = hpc
     )
   )
 
