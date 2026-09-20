@@ -387,9 +387,9 @@ format_glmnet_multinom_class <- function(pred, penalty, lvl, n_obs) {
 #' @keywords internal
 #' @export
 .check_glmnet_penalty_fit <- function(
-    x,
-    engine,
-    call = rlang::caller_env()
+  x,
+  engine,
+  call = rlang::caller_env()
 ) {
   pen <- rlang::eval_tidy(x$args$penalty)
 
