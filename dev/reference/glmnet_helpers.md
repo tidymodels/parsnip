@@ -14,7 +14,7 @@ single value. Multiple values are allowed for
 ## Usage
 
 ``` r
-.check_glmnet_penalty_fit(x, call = rlang::caller_env())
+.check_glmnet_penalty_fit(x, engine, call = rlang::caller_env())
 
 .check_glmnet_penalty_predict(
   penalty = NULL,
