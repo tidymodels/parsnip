@@ -55,7 +55,6 @@ set_model_arg(
   has_submodel = FALSE
 )
 
-
 set_fit(
   model = "mlp",
   eng = "keras",
@@ -904,6 +903,36 @@ set_model_arg(
   has_submodel = FALSE
 )
 
+set_model_arg(
+  model = "mlp",
+  eng = "qrnn",
+  parsnip = "learn_rate",
+  original = "alpha",
+  func = list(pkg = "dials", fun = "learn_rate"),
+  has_submodel = FALSE
+)
+
+## some engine arguments
+
+set_model_arg(
+  model = "mlp",
+  eng = "qrnn",
+  parsnip = "iterbreak",
+  original = "iterbreak",
+  func = list(pkg = "dials", fun = "stop_iter"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "qrnn",
+  parsnip = "minibatch",
+  original = "minibatch",
+  func = list(pkg = "dials", fun = "batch_size"),
+  has_submodel = FALSE
+)
+
+## other registrations
 
 set_fit(
   model = "mlp",
