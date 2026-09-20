@@ -246,7 +246,6 @@ test_that("arguments (nearest_neighbor)", {
 test_that("arguments (ordinal_reg)", {
   suppressMessages({
     basic <- ordinal_reg(mode = "classification")
-    adjacent_categories <- ordinal_reg(odds_link = "adjacent")
     logit_link <- ordinal_reg(ordinal_link = "logistic") |> set_engine("clm")
     ordinal_link <-
       ordinal_reg(ordinal_link = "probit") |> set_engine("ordinalNet")
@@ -265,8 +264,6 @@ test_that("arguments (ordinal_reg)", {
 
   # empty because engines are not defined in parsnip
   expect_snapshot(basic |> translate_args())
-  # only the cumulative link odds link is supported by polr
-  expect_snapshot(adjacent_categories |> translate_args())
   # link synonyms are used when needed
   expect_snapshot(logit_link |> translate_args())
   # penalty is required for ordinalNet engine

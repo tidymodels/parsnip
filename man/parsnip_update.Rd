@@ -241,6 +241,8 @@
   parameters = NULL,
   ordinal_link = NULL,
   odds_link = NULL,
+  threshold_structure = NULL,
+  parallel_reg = NULL,
   penalty = NULL,
   mixture = NULL,
   fresh = FALSE,
@@ -581,6 +583,13 @@ calculating Minkowski distance.}
 \item{ordinal_link}{The ordinal link function.}
 
 \item{odds_link}{The odds or probability link function.}
+
+\item{threshold_structure}{The threshold structure for the cutpoints
+(specific engines only).}
+
+\item{parallel_reg}{Logical; whether predictor effects are shared across
+thresholds (\code{TRUE}) or category-specific effects (\code{FALSE}). The default,
+\code{NULL}, uses the engine default. Available for specific engines only.}
 
 \item{predictor_prop}{The maximum proportion of original predictors that can
 have \emph{non-zero} coefficients for each PLS component (via regularization).

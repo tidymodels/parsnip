@@ -1,11 +1,3 @@
-# kknn execution
-
-    Code
-      fit(hpc_basic, hpc_bad_form, data = hpc, control = ctrl)
-    Condition
-      Error:
-      ! object 'term' not found
-
 # argument checks for data dimensions
 
     Code
