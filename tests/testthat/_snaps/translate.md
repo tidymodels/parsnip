@@ -504,10 +504,11 @@
       translate_args(set_engine(basic, "glmnet"))
     Condition
       Error in `translate()`:
-      x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      x For the "glmnet" engine, `penalty` must be a single number (or a value of `tune()`).
       ! There are 0 values for `penalty`.
       i To try multiple values for total regularization, use the tune package.
       i To predict multiple penalties, use `multi_predict()`.
+      i To override the default path, use `path_values`.
 
 ---
 
@@ -555,10 +556,11 @@
       translate_args(set_engine(mixture, "glmnet"))
     Condition
       Error in `translate()`:
-      x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      x For the "glmnet" engine, `penalty` must be a single number (or a value of `tune()`).
       ! There are 0 values for `penalty`.
       i To try multiple values for total regularization, use the tune package.
       i To predict multiple penalties, use `multi_predict()`.
+      i To override the default path, use `path_values`.
 
 ---
 
@@ -688,10 +690,11 @@
       translate_args(set_engine(basic, "glmnet"))
     Condition
       Error in `translate()`:
-      x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      x For the "glmnet" engine, `penalty` must be a single number (or a value of `tune()`).
       ! There are 0 values for `penalty`.
       i To try multiple values for total regularization, use the tune package.
       i To predict multiple penalties, use `multi_predict()`.
+      i To override the default path, use `path_values`.
 
 ---
 
@@ -827,10 +830,11 @@
       translate_args(set_engine(mixture, "glmnet"))
     Condition
       Error in `translate()`:
-      x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      x For the "glmnet" engine, `penalty` must be a single number (or a value of `tune()`).
       ! There are 0 values for `penalty`.
       i To try multiple values for total regularization, use the tune package.
       i To predict multiple penalties, use `multi_predict()`.
+      i To override the default path, use `path_values`.
 
 ---
 
@@ -968,10 +972,11 @@
       translate_args(set_engine(mixture_v, "glmnet"))
     Condition
       Error in `translate()`:
-      x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      x For the "glmnet" engine, `penalty` must be a single number (or a value of `tune()`).
       ! There are 0 values for `penalty`.
       i To try multiple values for total regularization, use the tune package.
       i To predict multiple penalties, use `multi_predict()`.
+      i To override the default path, use `path_values`.
 
 ---
 
@@ -1349,10 +1354,11 @@
       translate_args(set_engine(basic, "glmnet"))
     Condition
       Error in `translate()`:
-      x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      x For the "glmnet" engine, `penalty` must be a single number (or a value of `tune()`).
       ! There are 0 values for `penalty`.
       i To try multiple values for total regularization, use the tune package.
       i To predict multiple penalties, use `multi_predict()`.
+      i To override the default path, use `path_values`.
 
 ---
 
@@ -1711,10 +1717,11 @@
       translate_args(basic_incomplete)
     Condition
       Error in `translate()`:
-      x For the glmnet engine, `penalty` must be a single number (or a value of `tune()`).
+      x For the "glmnet" engine, `penalty` must be a single number (or a value of `tune()`).
       ! There are 0 values for `penalty`.
       i To try multiple values for total regularization, use the tune package.
       i To predict multiple penalties, use `multi_predict()`.
+      i To override the default path, use `path_values`.
 
 # arguments (rand_forest)
 

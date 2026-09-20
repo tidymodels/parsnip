@@ -5,7 +5,7 @@
 \alias{.check_glmnet_penalty_predict}
 \title{Helper functions for checking the penalty of glmnet models}
 \usage{
-.check_glmnet_penalty_fit(x, call = rlang::caller_env())
+.check_glmnet_penalty_fit(x, engine, call = rlang::caller_env())
 
 .check_glmnet_penalty_predict(
   penalty = NULL,
