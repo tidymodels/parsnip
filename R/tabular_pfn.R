@@ -6,7 +6,7 @@
 #' and an attention mechanism is use to make relevant predictions for specific
 #' (i.e., real) data sets.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("tabular_pfn")}
+#' `Rd parsnip:::make_engine_list("tabular_pfn")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -54,7 +54,7 @@
 #' Frank Hutter. "Transformers can do Bayesian inference." _arXiv preprint_
 #' arXiv:2112.10510 (2021).
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_pfn")} [tabpfn::tab_pfn()]
+#' @seealso `Rd parsnip:::make_seealso_list("tabular_pfn")`, [tabpfn::tab_pfn()]
 #'
 #' @examplesIf !parsnip:::is_cran_check()
 #' show_engines("tabular_pfn")

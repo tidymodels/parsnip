@@ -69,5 +69,5 @@ Ansari, A. F., Shchur, O., Küken, J., Auer, A., Han, B., Mercado, P., et al.
 \emph{arXiv preprint} arXiv:2510.15821.
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_chronos")} \code{\link[brulee:brulee_chronos]{brulee::brulee_chronos()}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_chronos")},  \code{\link[brulee:brulee_chronos]{brulee::brulee_chronos()}}
 }

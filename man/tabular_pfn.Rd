@@ -72,5 +72,5 @@ Frank Hutter. "Transformers can do Bayesian inference." \emph{arXiv preprint}
 arXiv:2112.10510 (2021).
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_pfn")} \code{\link[tabpfn:tab_pfn]{tabpfn::tab_pfn()}}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_pfn")}, \code{\link[tabpfn:tab_pfn]{tabpfn::tab_pfn()}}
 }

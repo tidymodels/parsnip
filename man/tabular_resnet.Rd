@@ -93,5 +93,5 @@ tabular_resnet(mode = "classification", penalty = 0.01)
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_resnet")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_resnet")}, \code{\link[brulee:brulee_resnet]{brulee::brulee_resnet()}}
 }

@@ -83,5 +83,5 @@ learning for tabular datasets. \emph{Advances in Neural Information Processing
 Systems}, 31, 1379-1389.
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_rln")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_rln")}, \code{\link[brulee:brulee_rln]{brulee::brulee_rln()}}
 }

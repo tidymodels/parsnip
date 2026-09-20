@@ -118,5 +118,5 @@ tabular_auto_int(mode = "classification", num_attn_blocks = 4)
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_auto_int")}
+\Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_auto_int")}, \code{\link[brulee:brulee_auto_int]{brulee::brulee_auto_int()}}
 }

@@ -5,7 +5,7 @@
 #' to learn feature interactions for tabular data. This function can fit
 #' classification and regression models.
 #'
-#' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("tabular_saint")}
+#' `Rd parsnip:::make_engine_list("tabular_saint")`
 #'
 #' More information on how \pkg{parsnip} is used for modeling is at
 #' \url{https://www.tidymodels.org/}.
@@ -57,7 +57,7 @@
 #' change with its neighbors), bypass row attention at predict time with
 #' `set_engine("brulee", row_attention_on_predict = FALSE)`.
 #'
-#' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_saint")}
+#' @seealso `Rd parsnip:::make_seealso_list("tabular_saint")`, [brulee::brulee_saint()]
 #'
 #' @references
 #' Somepalli, G., Goldblum, M., Schwarzschild, A., Bruss, C. B., & Goldstein,
