@@ -35,7 +35,7 @@ test_that("tunable parameters for mlp + qrnn", {
     display_tunable_call_info(
       mlp() |>
         set_engine("qrnn") |>
-        set_mode("quantile regression", quantile_levels = (1:10)/10)
+        set_mode("quantile regression", quantile_levels = (1:10) / 10)
     )
   )
 })
