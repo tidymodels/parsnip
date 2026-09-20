@@ -29,3 +29,13 @@ test_that("tunable parameters for mlp + brulee_two_layer", {
     )
   )
 })
+
+test_that("tunable parameters for mlp + qrnn", {
+  expect_snapshot(
+    display_tunable_call_info(
+      mlp() |>
+        set_engine("qrnn") |>
+        set_mode("quantile regression", quantile_levels = (1:10)/10)
+    )
+  )
+})
