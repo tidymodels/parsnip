@@ -388,79 +388,95 @@ export(varying_args)
 export(xgb_predict)
 export(xgb_train)
 import(rlang)
-importFrom(dplyr,arrange)
-importFrom(dplyr,bind_cols)
-importFrom(dplyr,bind_rows)
-importFrom(dplyr,collect)
-importFrom(dplyr,full_join)
-importFrom(dplyr,group_by)
-importFrom(dplyr,mutate)
-importFrom(dplyr,pull)
-importFrom(dplyr,rename)
-importFrom(dplyr,select)
-importFrom(dplyr,starts_with)
-importFrom(dplyr,summarise)
-importFrom(dplyr,tally)
-importFrom(generics,augment)
-importFrom(generics,fit)
-importFrom(generics,fit_xy)
-importFrom(generics,glance)
-importFrom(generics,required_pkgs)
-importFrom(generics,tidy)
-importFrom(generics,tunable)
-importFrom(generics,tune_args)
-importFrom(generics,varying_args)
+importFrom(dplyr,
+  arrange,
+  bind_cols,
+  bind_rows,
+  collect,
+  full_join,
+  group_by,
+  mutate,
+  pull,
+  rename,
+  select,
+  starts_with,
+  summarise,
+  tally
+)
+importFrom(generics,
+  augment,
+  fit,
+  fit_xy,
+  glance,
+  required_pkgs,
+  tidy,
+  tunable,
+  tune_args,
+  varying_args
+)
 importFrom(ggplot2,autoplot)
 importFrom(glue,glue_collapse)
-importFrom(hardhat,contr_one_hot)
-importFrom(hardhat,extract_fit_engine)
-importFrom(hardhat,extract_fit_time)
-importFrom(hardhat,extract_parameter_dials)
-importFrom(hardhat,extract_parameter_set_dials)
-importFrom(hardhat,extract_spec_parsnip)
-importFrom(hardhat,frequency_weights)
-importFrom(hardhat,importance_weights)
-importFrom(hardhat,tune)
+importFrom(hardhat,
+  contr_one_hot,
+  extract_fit_engine,
+  extract_fit_time,
+  extract_parameter_dials,
+  extract_parameter_set_dials,
+  extract_spec_parsnip,
+  frequency_weights,
+  importance_weights,
+  tune
+)
 importFrom(lifecycle,deprecated)
 importFrom(magrittr,"%>%")
 importFrom(pillar,type_sum)
-importFrom(purrr,"%||%")
-importFrom(purrr,as_vector)
-importFrom(purrr,imap)
-importFrom(purrr,imap_lgl)
-importFrom(purrr,map)
-importFrom(purrr,map_chr)
-importFrom(purrr,map_dbl)
-importFrom(purrr,map_lgl)
-importFrom(stats,.checkMFClasses)
-importFrom(stats,.getXlevels)
-importFrom(stats,as.formula)
-importFrom(stats,binomial)
-importFrom(stats,coef)
-importFrom(stats,delete.response)
-importFrom(stats,model.frame)
-importFrom(stats,model.matrix)
-importFrom(stats,model.offset)
-importFrom(stats,model.response)
-importFrom(stats,model.weights)
-importFrom(stats,na.omit)
-importFrom(stats,na.pass)
-importFrom(stats,predict)
-importFrom(stats,qnorm)
-importFrom(stats,qt)
-importFrom(stats,quantile)
-importFrom(stats,setNames)
-importFrom(stats,terms)
-importFrom(stats,update)
-importFrom(tibble,as_tibble)
-importFrom(tibble,is_tibble)
-importFrom(tibble,tibble)
+importFrom(purrr,
+  "%||%",
+  as_vector,
+  imap,
+  imap_lgl,
+  map,
+  map_chr,
+  map_dbl,
+  map_lgl
+)
+importFrom(stats,
+  .checkMFClasses,
+  .getXlevels,
+  as.formula,
+  binomial,
+  coef,
+  delete.response,
+  model.frame,
+  model.matrix,
+  model.offset,
+  model.response,
+  model.weights,
+  na.omit,
+  na.pass,
+  predict,
+  qnorm,
+  qt,
+  quantile,
+  setNames,
+  terms,
+  update
+)
+importFrom(tibble,
+  as_tibble,
+  is_tibble,
+  tibble
+)
 importFrom(tidyr,gather)
-importFrom(utils,capture.output)
-importFrom(utils,getFromNamespace)
-importFrom(utils,globalVariables)
-importFrom(utils,head)
-importFrom(utils,methods)
-importFrom(utils,stack)
-importFrom(vctrs,vec_size)
-importFrom(vctrs,vec_unique)
+importFrom(utils,
+  capture.output,
+  getFromNamespace,
+  globalVariables,
+  head,
+  methods,
+  stack
+)
+importFrom(vctrs,
+  vec_size,
+  vec_unique
+)
