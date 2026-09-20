@@ -125,6 +125,7 @@ tabular_resnet(
 [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
 [`update()`](https://rdrr.io/r/stats/update.html),
 [`brulee engine details`](https://parsnip.tidymodels.org/dev/reference/details_tabular_resnet_brulee.md)
+, `brulee::brulee_resnet()`
 
 ## Examples
 

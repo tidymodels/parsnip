@@ -115,6 +115,7 @@ Processing Systems*, 31, 1379-1389.
 [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
 [`update()`](https://rdrr.io/r/stats/update.html),
 [`brulee engine details`](https://parsnip.tidymodels.org/dev/reference/details_tabular_rln_brulee.md)
+, `brulee::brulee_rln()`
 
 ## Examples
 

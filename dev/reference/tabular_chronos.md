@@ -78,7 +78,7 @@ al. (2025). "Chronos-2: From univariate to universal forecasting."
 [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
 [`update()`](https://rdrr.io/r/stats/update.html),
 [`brulee engine details`](https://parsnip.tidymodels.org/dev/reference/details_tabular_chronos_brulee.md)
-`brulee::brulee_chronos()`
+, `brulee::brulee_chronos()`
 
 ## Examples
 

@@ -2,6 +2,25 @@
 
 ## parsnip (development version)
 
+- New model specifications
+  [`tabular_auto_int()`](https://parsnip.tidymodels.org/dev/reference/tabular_auto_int.md),
+  [`tabular_chronos()`](https://parsnip.tidymodels.org/dev/reference/tabular_chronos.md),
+  [`tabular_icl()`](https://parsnip.tidymodels.org/dev/reference/tabular_icl.md),
+  [`tabular_pfn()`](https://parsnip.tidymodels.org/dev/reference/tabular_pfn.md),
+  [`tabular_resnet()`](https://parsnip.tidymodels.org/dev/reference/tabular_resnet.md),
+  [`tabular_rln()`](https://parsnip.tidymodels.org/dev/reference/tabular_rln.md),
+  and
+  [`tabular_saint()`](https://parsnip.tidymodels.org/dev/reference/tabular_saint.md)
+  were added for tabular deep-learning and foundation models, with
+  engines provided by the tabby extension package
+  ([\#1386](https://github.com/tidymodels/parsnip/issues/1386)).
+
+- [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+  [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) have
+  less per-fit overhead, making small or repeated fits (such as during
+  tuning) faster
+  ([\#1071](https://github.com/tidymodels/parsnip/issues/1071)).
+
 - The deprecated `quantile` argument now reaches its deprecation warning
   when passed via `predict(type = "quantile")` instead of being rejected
   as an unknown argument. The error for unknown arguments passed to
@@ -22,12 +41,6 @@
   now supports quantile regression mode, where fitting computes the
   requested empirical quantiles of the outcome.
 
-- Corrected documentation that referred to
-  [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-  [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) as
-  arguments rather than functions in the case weights template
-  ([\#1394](https://github.com/tidymodels/parsnip/issues/1394)).
-
 - Fitting with sparse data now respects the model mode, so loading an
   extension package that registers an engine for a different mode can no
   longer alter sparse data support for the original mode
@@ -38,24 +51,11 @@
   `add_censoring_weights = TRUE` in `predict(type = "survival")`
   ([\#1371](https://github.com/tidymodels/parsnip/issues/1371)).
 
-- [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-  [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) have
-  less per-fit overhead, making small or repeated fits (such as during
-  tuning) faster
-  ([\#1071](https://github.com/tidymodels/parsnip/issues/1071)).
-
-- New model specifications
-  [`tabular_auto_int()`](https://parsnip.tidymodels.org/dev/reference/tabular_auto_int.md),
-  [`tabular_chronos()`](https://parsnip.tidymodels.org/dev/reference/tabular_chronos.md),
-  [`tabular_icl()`](https://parsnip.tidymodels.org/dev/reference/tabular_icl.md),
-  [`tabular_pfn()`](https://parsnip.tidymodels.org/dev/reference/tabular_pfn.md),
-  [`tabular_resnet()`](https://parsnip.tidymodels.org/dev/reference/tabular_resnet.md),
-  [`tabular_rln()`](https://parsnip.tidymodels.org/dev/reference/tabular_rln.md),
-  and
-  [`tabular_saint()`](https://parsnip.tidymodels.org/dev/reference/tabular_saint.md)
-  were added for tabular deep-learning and foundation models, with
-  engines provided by the tabby extension package
-  ([\#1386](https://github.com/tidymodels/parsnip/issues/1386)).
+- Corrected documentation that referred to
+  [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+  [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) as
+  arguments rather than functions in the case weights template
+  ([\#1394](https://github.com/tidymodels/parsnip/issues/1394)).
 
 ## parsnip 1.6.0
 

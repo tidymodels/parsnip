@@ -72,7 +72,7 @@ preprint arXiv:2602.11139.
 [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
 [`update()`](https://rdrr.io/r/stats/update.html),
 [`brulee engine details`](https://parsnip.tidymodels.org/dev/reference/details_tabular_icl_brulee.md)
-`brulee::brulee_tab_icl()`
+, `brulee::brulee_tab_icl()`
 
 ## Examples
 

@@ -56,13 +56,18 @@
 <h3 id="tuning-parameters">Tuning Parameters<a class="anchor" aria-label="anchor" href="#tuning-parameters"></a></h3>
 
 
-<p>This model has 4 tuning parameters:</p><ul><li><p><code>hidden_units</code>: # Hidden Units (type: integer, default: 2L)</p></li>
+<p>This model has 5 tuning parameters:</p><ul><li><p><code>hidden_units</code>: # Hidden Units (type: integer, default: 2L)</p></li>
 <li><p><code>penalty</code>: Amount of Regularization (type: double, default: 0.0)</p></li>
 <li><p><code>epochs</code>: # Epochs (type: integer, default: 5000L)</p></li>
 <li><p><code>activation</code>: Activation Function (type: character, default:
 ‘sigmoid’)</p></li>
-</ul><p>Other engine arguments of interest:</p><ul><li><p><code>n.trials</code>: number of repeated trials used to avoid local minima.</p></li>
+<li><p><code>learn_rate</code>: Learning Rate (type: double, default: 0.01)</p></li>
+</ul><p><em>Note</em>: the learning rate is only used when <code>method = "adam"</code>.</p>
+<p>Other engine arguments of interest:</p><ul><li><p><code>n.trials</code>: number of repeated trials used to avoid local minima.</p></li>
 <li><p><code>method</code>: The optimization technique (<code>"nlm"</code> or <code>"adam"</code>).</p></li>
+<li><p><code>iterbreak</code>: the maximum number of ADAM iterations without progress
+before the optimization is stopped.</p></li>
+<li><p><code>minibatch</code>: the batch size for ADAM.</p></li>
 </ul></div>
 
 <div class="section">
@@ -73,7 +78,8 @@
 <span>  hidden_units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
 <span>  penalty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
 <span>  epochs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
-<span>  activation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span>  activation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
+<span>  learn_rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/set_engine.html">set_engine</a></span><span class="op">(</span><span class="st">"qrnn"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"quantile regression"</span>, quantile_levels <span class="op">=</span> <span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">/</span> <span class="fl">4</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -85,15 +91,16 @@
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="do">##   penalty = double(1)</span></span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="do">##   epochs = integer(1)</span></span>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="do">##   activation = character(1)</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="do">##</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="do">## Computational engine: qrnn</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="do">##</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="do">## Model fit template:</span></span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="do">## parsnip::mcqrnn_train(x = missing_arg(), y = missing_arg(), n.hidden = integer(1),</span></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="do">##     penalty = double(1), iter.max = integer(1), Th = character(1),</span></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="do">##     trace = FALSE, tau = quantile_levels)</span></span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="do">## Quantile levels: 0.25, 0.5, and 0.75.</span></span></code></pre><p></p></div>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="do">##   learn_rate = double(1)</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="do">## Computational engine: qrnn</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="do">## Model fit template:</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="do">## parsnip::mcqrnn_train(x = missing_arg(), y = missing_arg(), n.hidden = integer(1),</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="do">##     penalty = double(1), iter.max = integer(1), Th = character(1),</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="do">##     alpha = double(1), trace = FALSE, tau = quantile_levels)</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="do">## Quantile levels: 0.25, 0.5, and 0.75.</span></span></code></pre><p></p></div>
 </div>
 
 <div class="section">

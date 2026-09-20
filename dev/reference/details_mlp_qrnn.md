@@ -8,7 +8,7 @@ For this engine, there is a single mode: quantile regression
 
 ### Tuning Parameters
 
-This model has 4 tuning parameters:
+This model has 5 tuning parameters:
 
 - `hidden_units`: \# Hidden Units (type: integer, default: 2L)
 
@@ -19,11 +19,20 @@ This model has 4 tuning parameters:
 - `activation`: Activation Function (type: character, default:
   ‘sigmoid’)
 
+- `learn_rate`: Learning Rate (type: double, default: 0.01)
+
+*Note*: the learning rate is only used when `method = "adam"`.
+
 Other engine arguments of interest:
 
 - `n.trials`: number of repeated trials used to avoid local minima.
 
 - `method`: The optimization technique (`"nlm"` or `"adam"`).
+
+- `iterbreak`: the maximum number of ADAM iterations without progress
+  before the optimization is stopped.
+
+- `minibatch`: the batch size for ADAM.
 
 ### Translation from parsnip to the original package (quantile regression)
 
@@ -31,7 +40,8 @@ Other engine arguments of interest:
       hidden_units = integer(1),
       penalty = double(1),
       epochs = integer(1),
-      activation = character(1)
+      activation = character(1),
+      learn_rate = double(1)
     ) |>
       set_engine("qrnn") |>
       set_mode("quantile regression", quantile_levels = (1:3) / 4) |>
@@ -44,13 +54,14 @@ Other engine arguments of interest:
     ##   penalty = double(1)
     ##   epochs = integer(1)
     ##   activation = character(1)
+    ##   learn_rate = double(1)
     ##
     ## Computational engine: qrnn
     ##
     ## Model fit template:
     ## parsnip::mcqrnn_train(x = missing_arg(), y = missing_arg(), n.hidden = integer(1),
     ##     penalty = double(1), iter.max = integer(1), Th = character(1),
-    ##     trace = FALSE, tau = quantile_levels)
+    ##     alpha = double(1), trace = FALSE, tau = quantile_levels)
 
     ## Quantile levels: 0.25, 0.5, and 0.75.
 

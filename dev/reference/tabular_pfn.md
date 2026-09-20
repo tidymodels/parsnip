@@ -89,7 +89,7 @@ preprint* arXiv:2112.10510 (2021).
 [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
 [`update()`](https://rdrr.io/r/stats/update.html),
 [`tabpfn engine details`](https://parsnip.tidymodels.org/dev/reference/details_tabular_pfn_tabpfn.md)
-`tabpfn::tab_pfn()`
+, `tabpfn::tab_pfn()`
 
 ## Examples
 

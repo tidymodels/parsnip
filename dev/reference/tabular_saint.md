@@ -181,6 +181,7 @@ via Row Attention and Contrastive Pre-Training. arXiv:2106.01342.
 [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
 [`update()`](https://rdrr.io/r/stats/update.html),
 [`brulee engine details`](https://parsnip.tidymodels.org/dev/reference/details_tabular_saint_brulee.md)
+, `brulee::brulee_saint()`
 
 ## Examples
 
