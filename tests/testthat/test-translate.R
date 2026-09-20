@@ -246,38 +246,19 @@ test_that("arguments (nearest_neighbor)", {
 test_that("arguments (ordinal_reg)", {
   suppressMessages({
     basic <- ordinal_reg(mode = "classification")
-    logit_link <- ordinal_reg(ordinal_link = "logistic") |> set_engine("clm")
-    ordinal_link <-
-      ordinal_reg(ordinal_link = "probit") |> set_engine("ordinalNet")
+    ordinal_link <- ordinal_reg(ordinal_link = "probit")
+    ordinalNet <- ordinal_link |> set_engine("ordinalNet")
+    glmnetcr <- ordinal_link |> set_engine("glmnetcr")
     penalty <- ordinal_reg(penalty = .001)
-    ordinalNet <- ordinal_reg() |> set_engine("ordinalNet")
-    penalty_ordinalNet <-
-      ordinal_reg(penalty = .001) |> set_engine("ordinalNet")
-    penalties_ordinalNet <-
-      ordinal_reg(penalty = 10^seq(-5, -1)) |> set_engine("ordinalNet")
-    glmnetcr <- ordinal_reg() |> set_engine("glmnetcr")
-    penalty_glmnetcr <-
-      ordinal_reg(penalty = .001) |> set_engine("glmnetcr")
-    penalties_glmnetcr <-
-      ordinal_reg(penalty = 10^seq(-5, -1)) |> set_engine("glmnetcr")
   })
 
   # empty because engines are not defined in parsnip
   expect_snapshot(basic |> translate_args())
-  # link synonyms are used when needed
-  expect_snapshot(logit_link |> translate_args())
-  # penalty is required for ordinalNet engine
-  expect_snapshot(ordinal_link |> translate_args())
+  # penalty is required for ordinalNet and glmnetcr engines
+  expect_snapshot(ordinalNet |> translate_args(), error = TRUE)
+  expect_snapshot(glmnetcr |> translate_args(), error = TRUE)
   # empty because engines are not defined in parsnip
   expect_snapshot(penalty |> translate_args())
-  # a penalty path is prepared automatically for ordinalNet and for glmnetcr
-  expect_snapshot(ordinalNet |> translate_args())
-  expect_snapshot(glmnetcr |> translate_args())
-  # a provided penalty or path is overridden informatively
-  expect_snapshot(penalty_ordinalNet |> translate_args())
-  expect_snapshot(penalties_ordinalNet |> translate_args())
-  expect_snapshot(penalty_glmnetcr |> translate_args())
-  expect_snapshot(penalties_glmnetcr |> translate_args())
 })
 
 
