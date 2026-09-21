@@ -1470,6 +1470,96 @@
       [1] "multinomial"
       
 
+# arguments (nearest_neighbor)
+
+    Code
+      translate_args(set_engine(basic, "kknn"))
+    Output
+      $formula
+      missing_arg()
+      
+      $data
+      missing_arg()
+      
+      $ks
+      min_rows(5, data, 5)
+      
+
+---
+
+    Code
+      translate_args(set_engine(neighbors, "kknn"))
+    Output
+      $formula
+      missing_arg()
+      
+      $data
+      missing_arg()
+      
+      $ks
+      min_rows(2, data, 5)
+      
+
+---
+
+    Code
+      translate_args(set_engine(neighbors, "kknn", scale = FALSE))
+    Output
+      $formula
+      missing_arg()
+      
+      $data
+      missing_arg()
+      
+      $ks
+      min_rows(2, data, 5)
+      
+      $scale
+      <quosure>
+      expr: ^FALSE
+      env:  empty
+      
+
+---
+
+    Code
+      translate_args(set_engine(weight_func, "kknn"))
+    Output
+      $formula
+      missing_arg()
+      
+      $data
+      missing_arg()
+      
+      $kernel
+      <quosure>
+      expr: ^"triangular"
+      env:  empty
+      
+      $ks
+      min_rows(5, data, 5)
+      
+
+---
+
+    Code
+      translate_args(set_engine(dist_power, "kknn"))
+    Output
+      $formula
+      missing_arg()
+      
+      $data
+      missing_arg()
+      
+      $distance
+      <quosure>
+      expr: ^2
+      env:  empty
+      
+      $ks
+      min_rows(5, data, 5)
+      
+
 # arguments (ordinal_reg)
 
     Code
