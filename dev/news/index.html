@@ -54,7 +54,11 @@
 <li><p>Fitting with sparse data now respects the model mode, so loading an extension package that registers an engine for a different mode can no longer alter sparse data support for the original mode (<a href="https://github.com/tidymodels/parsnip/issues/1382" class="external-link">#1382</a>).</p></li>
 <li><p>For censored regression models, the censoring weights can now be added to the predictions of survival probability by setting <code>add_censoring_weights = TRUE</code> in <code>predict(type = "survival")</code> (<a href="https://github.com/tidymodels/parsnip/issues/1371" class="external-link">#1371</a>).</p></li>
 <li><p>Corrected documentation that referred to <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> and <code><a href="https://generics.r-lib.org/reference/fit_xy.html" class="external-link">fit_xy()</a></code> as arguments rather than functions in the case weights template (<a href="https://github.com/tidymodels/parsnip/issues/1394" class="external-link">#1394</a>).</p></li>
+</ul><div class="section level3">
+<h3 id="breaking-change-development-version">Breaking Change<a class="anchor" aria-label="anchor" href="#breaking-change-development-version"></a></h3>
+<ul><li>Two <code><a href="../reference/translate.html">translate()</a></code> helper functions for glmnet are generalized and used to de-duplicate code for ordinalNet and glmnetcr. The latter two no longer silently modify penalty path-governing engine arguments (<a href="https://github.com/corybrunson" class="external-link">@corybrunson</a>, <a href="https://github.com/tidymodels/parsnip/issues/1412" class="external-link">#1412</a> &amp; <a href="https://github.com/tidymodels/parsnip/issues/1424" class="external-link">#1424</a>), which will impact code that relied on these modifications.</li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.6.0" id="parsnip-160">parsnip 1.6.0<a class="anchor" aria-label="anchor" href="#parsnip-160"></a></h2><p class="text-muted">CRAN release: 2026-05-14</p>
 <ul><li>
