@@ -932,6 +932,15 @@ set_model_arg(
   has_submodel = FALSE
 )
 
+set_model_arg(
+  model = "mlp",
+  eng = "qrnn",
+  parsnip = "n.hidden2",
+  original = "n.hidden2",
+  func = list(pkg = "dials", fun = "hidden_units_2"),
+  has_submodel = FALSE
+)
+
 ## other registrations
 
 set_fit(

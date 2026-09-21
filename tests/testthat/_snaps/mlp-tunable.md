@@ -69,4 +69,5 @@
       learn_rate                | pkg: dials, fun: learn_rate | main
       iterbreak                 | pkg: dials, fun: stop_iter | engine
       minibatch                 | pkg: dials, fun: batch_size | engine
+      n.hidden2                 | pkg: dials, fun: hidden_units_2 | engine
 
