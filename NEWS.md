@@ -16,6 +16,10 @@
 
 * Corrected documentation that referred to `fit()` and `fit_xy()` as arguments rather than functions in the case weights template (#1394).
 
+## Breaking Change
+
+* Two `translate()` helper functions for glmnet are generalized and used to de-duplicate code for ordinalNet and glmnetcr. The latter two no longer silently modify penalty path-governing engine arguments (@corybrunson, #1412 & #1424), which will impact code that relied on these modifications.
+
 # parsnip 1.6.0
 
 * `linear_reg()`, `logistic_reg()`, `mlp()`, and `multinom_reg()` gain a new `"keras3"` engine powered by the keras3 package, which supports Keras v3 and its multi-backend design (TensorFlow, JAX, PyTorch) (#1243).

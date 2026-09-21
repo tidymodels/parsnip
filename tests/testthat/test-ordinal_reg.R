@@ -45,27 +45,6 @@ test_that("parallel_reg cannot be combined with a nominal engine argument", {
   )
 })
 
-test_that("ordinalNet penalty path is built during translation", {
-  # value translation (link/family/parallel_reg) is handled in {ordered}'s
-  # `ordinalNet_wrapper()`; parsnip only constructs the penalty path here
-  x <- new_ordinal_translation(
-    list(
-      link = rlang::quo("probit"),
-      family = rlang::quo("stopping_ratio"),
-      parallel_reg = rlang::quo(FALSE),
-      lambdaVals = 0.2
-    ),
-    penalty = 0.1
-  )
-
-  result <- translate_ordinal_reg_ordinalNet(x)
-
-  expect_equal(result$method$fit$args$lambdaMinRatio, 0.2)
-  expect_equal(result$method$fit$args$nLambda, 120L)
-  expect_true(result$method$fit$args$includeLambda0)
-  expect_null(result$method$fit$args$lambdaVals)
-})
-
 test_that("unsupported non-parallel models give engine guidance", {
   spec <- ordinal_reg(parallel_reg = FALSE)
 

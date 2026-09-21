@@ -237,103 +237,17 @@ translate.ordinal_reg <- function(
 ) {
   x <- translate.default(x, engine, ...)
 
-  # penalty path assembly
+  # penalty path assembly for glmnet-style engines
   if (engine == "ordinalNet") {
-    x <- translate_ordinal_reg_ordinalNet(x, call = call)
+    .check_glmnet_penalty_fit(x, "ordinalNet", call = call)
+    x <- set_glmnet_penalty_path(x, "lambdaVals")
+    x$args$penalty <- rlang::eval_tidy(x$args$penalty)
   }
   if (engine == "glmnetcr") {
-    x <- translate_ordinal_reg_glmnetcr(x, call = call)
+    .check_glmnet_penalty_fit(x, "glmnetcr", call = call)
+    x <- set_glmnet_penalty_path(x, "lambda")
+    x$args$penalty <- rlang::eval_tidy(x$args$penalty)
   }
 
   x
-}
-
-translate_ordinal_reg_ordinalNet <- function(x, call = rlang::caller_env()) {
-  check_ordinal_reg_penalty(x$args$penalty, "ordinalNet", call = call)
-
-  # adapted from `set_glmnet_penalty_path()`
-  if (any(names(x$eng_args) == "path_values")) {
-    x$method$fit$args$lambdaVals <- x$eng_args$path_values
-    x$eng_args$path_values <- NULL
-    x$method$fit$args$path_values <- NULL
-  } else {
-    # `ordinalNet` cannot predict outside its fitted penalty range. Generate a
-    # path that includes the requested penalty and zero, noting that fitting the
-    # full path can be substantially more expensive than fitting one value.
-    x$method$fit$args$nLambda <- 120L
-    if (
-      rlang::is_call(x$method$fit$args$lambdaVals) ||
-        is.null(x$method$fit$args$lambdaVals) ||
-        0 %in% x$method$fit$args$lambdaVals
-    ) {
-      x$method$fit$args$lambdaMinRatio <- 1e-08
-    } else {
-      x$method$fit$args$lambdaMinRatio <-
-        min(x$method$fit$args$lambdaVals)
-    }
-    x$method$fit$args$includeLambda0 <- TRUE
-    x$method$fit$args$lambdaVals <- NULL
-  }
-  # Since the `fit` information is gone for the penalty, we need to have an
-  # evaluated value for the parameter.
-  x$args$penalty <- rlang::eval_tidy(x$args$penalty)
-
-  x
-}
-
-translate_ordinal_reg_glmnetcr <- function(x, call = rlang::caller_env()) {
-  check_ordinal_reg_penalty(x$args$penalty, "glmnetcr", call = call)
-
-  if (any(names(x$eng_args) == "path_values")) {
-    x$method$fit$args$lambda <- x$eng_args$path_values
-    x$eng_args$path_values <- NULL
-    x$method$fit$args$path_values <- NULL
-  } else {
-    x$method$fit$args$nlambda <- 120L
-    if (
-      rlang::is_call(x$method$fit$args$lambda) ||
-        is.null(x$method$fit$args$lambda) ||
-        0 %in% x$method$fit$args$lambda
-    ) {
-      x$method$fit$args$lambda.min.ratio <- 1e-08
-    } else {
-      x$method$fit$args$lambda.min.ratio <-
-        min(x$method$fit$args$lambda)
-    }
-    x$method$fit$args$lambda <- NULL
-  }
-  # Since the `fit` information is gone for the penalty, we need to have an
-  # evaluated value for the parameter.
-  x$args$penalty <- rlang::eval_tidy(x$args$penalty)
-
-  x
-}
-
-# adapted from `.check_glmnet_penalty_fit()`
-check_ordinal_reg_penalty <- function(
-  penalty,
-  engine,
-  call = rlang::caller_env()
-) {
-  pen <- rlang::eval_tidy(penalty)
-  if (length(pen) != 1L) {
-    msg <- c(
-      "x" = "The {.val {engine}} engine ignores {.arg penalty} in favor of a
-        path that enables prediction at interpolated penalty values.",
-      "!" = "{.arg penalty} was passed {length(pen)} value{?s}.",
-      "i" = "Use {.arg path_values} to override the default path."
-    )
-    if (length(pen) > 1L) {
-      msg <- c(
-        msg,
-        c(
-          "i" = "To specify multiple values for total regularization,
-            use the {.pkg tune} package."
-        )
-      )
-    }
-    cli::cli_warn(msg, call = call)
-  }
-
-  invisible(NULL)
 }
