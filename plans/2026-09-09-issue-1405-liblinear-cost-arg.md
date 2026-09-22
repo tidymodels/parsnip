@@ -91,3 +91,44 @@ In `/Users/max/github/parsnip/tests/testthat/test-svm_linear.R` (snapshots in `t
 - Behavior change: fitted results change for every existing `svm_linear()`/LiblineaR model with a non-default `cost`, and past tuning results over `cost` with this engine were meaningless (all candidates were identical fits up to solver randomness). Worth an explicit NEWS callout.
 - Run the arg-name audit described above across all built-in engine data files and file separate issues for any other mismatches found.
 - No blockers; the code fix is one word, with test-reference regeneration and engine-doc re-knitting as the bulk of the work.
+
+## Work items
+
+Executed 2026-09-22 on branch `liblinear-version` (off `main` at 8ca7373e).
+
+- [x] Change `original = "C"` to `original = "cost"` in `R/svm_linear_data.R:17` (LiblineaR only; the kernlab block at line 153 keeps `"C"`)
+- [x] Confirm `translate()` now emits `cost =` for both LiblineaR modes
+- [x] Confirm a parsnip fit is byte-identical to a direct `LiblineaR::LiblineaR(..., cost = 1/8)` call, and differs from the `cost = 1` default
+- [x] Add a `translate: LiblineaR` snapshot test covering regression (`cost` + `svr_eps`) and classification
+- [x] Add a `cost reaches the LiblineaR engine` regression test comparing the fitted `W` against a direct engine call
+- [x] Re-knit `man/rmd/svm_linear_LiblineaR.md` and re-document `man/details_svm_linear_LiblineaR.Rd`
+- [x] Add the `NEWS.md` bullet
+- [x] Run the `original`-vs-formals audit across all built-in engine registrations
+- [x] `air format .` and full `devtools::test()`
+
+### Notes from execution
+
+The plan expected the hardcoded reference predictions in `test-svm_linear.R` to change. They did not: `liblinear_class` (`c(1L, 1L, 2L)` → VF, VF, F) is the same at `cost = 1/8` as it was at the engine default of `cost = 1`, so that test passed unchanged. It is therefore not a guard against this bug at all, which is why the new `cost reaches the LiblineaR engine` test compares the fitted coefficient matrix against a direct engine call instead of comparing predictions.
+
+The `liblinear_pred` regression references sit inside a test that was `skip("fix this later")` — which turned out to be the stopgap for #1413, added in commit 5273f0fb. That was fixed on this branch too; see [issue 1413](2026-09-22-1200-liblinear-epsilon-test-references.md). The two issues are independent: `cost` moves the type-11 regression solver by a relative ~5e-6 on this data, inside the test's own tolerance, so #1405 neither caused nor fixed #1413.
+
+The full `devtools::test()` run ends at `FAIL 1 | WARN 0 | SKIP 8 | PASS 1785`. The one failure is `test-model_basics.R:6:3`, where `print(bart())` prints `Call: NULL` instead of the usual specification output. It is unrelated to this change and pre-existing: it reproduces on a clean tree with these changes stashed, and it does not reproduce when `test-model_basics.R` is run on its own, so it is test pollution from a package attached earlier in the full run. Worth a separate issue.
+
+Knitting the engine docs did not need the tabby workaround. `devtools::load_all()` followed by `knitr::knit("man/rmd/svm_linear_LiblineaR.Rmd", ...)` from the package root produced a two-line diff and nothing else; `devtools::document()` then rewrote only `details_svm_linear_LiblineaR.Rd`, with no `NAMESPACE` churn.
+
+### Audit result
+
+The audit compares every registered `original` name against the union of formals of the `set_fit()` function and its S3/S4 methods. After the LiblineaR fix it reports no genuine mismatch. Every remaining flag was manually confirmed to be deliberate dots-forwarding to a real formal of an inner function:
+
+| Model / engine | Flagged `original` | Real destination |
+|---|---|---|
+| `boost_tree`, `decision_tree` / C5.0 | `CF`, `noGlobalPruning`, `winnow`, `fuzzyThreshold`, `bands` | `C50::C5.0Control()` formals |
+| `boost_tree` / xgboost | `alpha`, `lambda`, `scale_pos_weight` | xgboost `params` list via `xgb_train()` dots |
+| `decision_tree` / rpart | `cp`, `minsplit`, `maxdepth` | `rpart::rpart.control()` formals |
+| `mars` / earth | `nk` | `earth:::earth.fit()` formal, reached through `earth.default()` dots |
+| `mlp` / qrnn | `n.hidden`, `n.hidden2`, `penalty`, `iter.max`, `Th` | `qrnn::mcqrnn.fit()` formals |
+| `mlp` / qrnn | `alpha`, `iterbreak`, `minibatch` | `qrnn::adam()` formals, reached through `mcqrnn.fit()` dots |
+| `multinom_reg` / nnet | `decay` | `nnet:::nnet.default()` formal |
+| `svm_linear`, `svm_poly`, `svm_rbf` / kernlab | `C`, `sigma`, `degree`, `scale`, `epsilon` | documented `kernlab::ksvm()` arguments; all its S4 methods declare a bare `(x, ...)` signature, so formals-based checking cannot resolve them |
+
+`svm_rbf` / liquidSVM could not be checked because the package is not installed. No follow-up issues to file.

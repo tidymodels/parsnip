@@ -32,6 +32,23 @@ test_that('bad input', {
   )
 })
 
+test_that('translate: LiblineaR', {
+  expect_snapshot(
+    translate(
+      svm_linear(cost = 1, margin = 0.1) |>
+        set_engine("LiblineaR") |>
+        set_mode("regression")
+    )
+  )
+  expect_snapshot(
+    translate(
+      svm_linear(cost = 1) |>
+        set_engine("LiblineaR") |>
+        set_mode("classification")
+    )
+  )
+})
+
 # ------------------------------------------------------------------------------
 
 reg_mod <-
@@ -79,10 +96,6 @@ test_that('linear svm regression: LiblineaR', {
 
 test_that('linear svm regression prediction: LiblineaR', {
   skip_if_not_installed("LiblineaR")
-  skip("fix this later")
-
-  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128), ] |>
-    droplevels()
 
   ind <- c(2, 1, 143)
 
@@ -94,19 +107,22 @@ test_that('linear svm regression prediction: LiblineaR', {
       control = ctrl
     )
 
-  liblinear_pred <-
-    structure(
-      list(.pred = c(85.13979, 576.16232, 1886.10132)),
-      row.names = c(NA, -3L),
-      class = c("tbl_df", "tbl", "data.frame")
+  # Computed from the engine rather than hardcoded so that LIBLINEAR solver
+  # changes cannot break this test. The suppressed warning is the engine
+  # reporting its own `svr_eps` default, which parsnip silences via `ctrl`.
+  liblinear_fit <- suppressWarnings(
+    LiblineaR::LiblineaR(
+      as.matrix(hpc[, c(1, 3, 4)]),
+      hpc$input_fields,
+      type = 11,
+      cost = 1 / 4
     )
+  )
+  liblinear_pred <-
+    predict(liblinear_fit, as.matrix(hpc[ind, c(1, 3, 4)]))$predictions
 
   parsnip_pred <- predict(reg_form, hpc[ind, -c(2, 5)])
-  expect_equal(
-    as.data.frame(liblinear_pred),
-    as.data.frame(parsnip_pred),
-    tolerance = 0.0001
-  )
+  expect_equal(parsnip_pred$.pred, liblinear_pred, tolerance = 0.0001)
 
   reg_xy_form <-
     fit_xy(
@@ -121,11 +137,7 @@ test_that('linear svm regression prediction: LiblineaR', {
   )
 
   parsnip_xy_pred <- predict(reg_xy_form, hpc[ind, -c(2, 5)])
-  expect_equal(
-    as.data.frame(liblinear_pred),
-    as.data.frame(parsnip_xy_pred),
-    tolerance = 0.0001
-  )
+  expect_equal(parsnip_xy_pred$.pred, liblinear_pred, tolerance = 0.0001)
 })
 
 # ------------------------------------------------------------------------------
@@ -213,6 +225,37 @@ test_that('linear svm classification prediction: LiblineaR', {
     error = TRUE,
     predict(cls_xy_form, hpc_no_m[ind, -5], type = "prob")
   )
+})
+
+
+test_that('cost reaches the LiblineaR engine', {
+  skip_if_not_installed("LiblineaR")
+
+  hpc_no_m <- hpc[-c(84, 85, 86, 87, 88, 109, 128), ] |>
+    droplevels()
+  x <- as.matrix(hpc_no_m[, 1:4])
+
+  set.seed(34562)
+  cls_form <-
+    fit(
+      cls_mod,
+      class ~ .,
+      data = hpc_no_m,
+      control = ctrl
+    )
+
+  set.seed(34562)
+  liblinear_fit <- LiblineaR::LiblineaR(
+    x,
+    hpc_no_m$class,
+    type = 1,
+    cost = 1 / 8
+  )
+  expect_equal(extract_fit_engine(cls_form)$W, liblinear_fit$W)
+
+  set.seed(34562)
+  default_fit <- LiblineaR::LiblineaR(x, hpc_no_m$class, type = 1)
+  expect_gt(max(abs(liblinear_fit$W - default_fit$W)), 0)
 })
 
 # ------------------------------------------------------------------------------

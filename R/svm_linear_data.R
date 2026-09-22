@@ -14,7 +14,7 @@ set_model_arg(
   model = "svm_linear",
   eng = "LiblineaR",
   parsnip = "cost",
-  original = "C",
+  original = "cost",
   func = list(pkg = "dials", fun = "cost", range = c(-10, 5)),
   has_submodel = FALSE
 )
