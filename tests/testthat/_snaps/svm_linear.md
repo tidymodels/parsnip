@@ -47,6 +47,41 @@
       Error in `translate()`:
       ! The LiblineaR engine argument of `type = 11` does not correspond to an SVM classification model.
 
+# translate: LiblineaR
+
+    Code
+      translate(set_mode(set_engine(svm_linear(cost = 1, margin = 0.1), "LiblineaR"),
+      "regression"))
+    Output
+      Linear Support Vector Machine Model Specification (regression)
+      
+      Main Arguments:
+        cost = 1
+        margin = 0.1
+      
+      Computational engine: LiblineaR 
+      
+      Model fit template:
+      LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), cost = 1, 
+          svr_eps = 0.1, type = 11)
+
+---
+
+    Code
+      translate(set_mode(set_engine(svm_linear(cost = 1), "LiblineaR"),
+      "classification"))
+    Output
+      Linear Support Vector Machine Model Specification (classification)
+      
+      Main Arguments:
+        cost = 1
+      
+      Computational engine: LiblineaR 
+      
+      Model fit template:
+      LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), cost = 1, 
+          type = 1)
+
 # linear svm classification prediction: LiblineaR
 
     Code

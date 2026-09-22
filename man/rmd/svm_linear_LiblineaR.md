@@ -40,7 +40,7 @@ svm_linear(
 ## Computational engine: LiblineaR 
 ## 
 ## Model fit template:
-## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), C = double(1), 
+## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), cost = double(1), 
 ##     svr_eps = double(1), type = 11)
 ```
 
@@ -65,7 +65,7 @@ svm_linear(
 ## Computational engine: LiblineaR 
 ## 
 ## Model fit template:
-## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), C = double(1), 
+## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), cost = double(1), 
 ##     type = 1)
 ```
 
