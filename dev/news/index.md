@@ -27,6 +27,22 @@
   now supports quantile regression mode, where fitting computes the
   requested empirical quantiles of the outcome.
 
+- [`bart()`](https://parsnip.tidymodels.org/dev/reference/bart.md)
+  classification fits with the `"dbarts"` engine now return each
+  observation’s own confidence and prediction interval bounds. The
+  bounds were sorted across observations, so each row received some
+  other row’s rank-matched limits. Regression intervals were unaffected
+  ([\#1407](https://github.com/tidymodels/parsnip/issues/1407)).
+
+- [`mars()`](https://parsnip.tidymodels.org/dev/reference/mars.md)
+  classification fits with the `"earth"` engine now return correct
+  `predict(type = "class")` results for outcomes with three or more
+  levels. A binary threshold rule was applied regardless of the number
+  of levels, so every multiclass prediction was wrong and the last level
+  could never be predicted. Binary outcomes are unaffected
+  ([\#472](https://github.com/tidymodels/parsnip/issues/472),
+  [\#1409](https://github.com/tidymodels/parsnip/issues/1409)).
+
 - For censored regression models, the censoring weights can now be added
   to the predictions of survival probability by setting
   `add_censoring_weights = TRUE` in `predict(type = "survival")`
