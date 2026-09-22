@@ -20,6 +20,8 @@
 
 * The deprecated `quantile` argument now reaches its deprecation warning when passed via `predict(type = "quantile")` instead of being rejected as an unknown argument. The error for unknown arguments passed to `predict()` now lists the offending argument names. (@bjornkallerud, #1258)
 
+* Model and engine arguments are now evaluated while the model call is assembled, so the call an engine records no longer contains quosures. This fixes `mars()` fits with the earth engine when `prune_method = "cv"` is combined with `prod_degree` (#432), and `set_engine("glmnet", relax = TRUE)` for every glmnet engine, which also covers the poissonreg and censored wrappers (#1069). Both engines re-evaluate their own recorded call with base `eval()`, which cannot handle quosures. A fitted object's `$fit$call` now shows values such as `degree = 2` rather than `degree = ~2`.
+
 * `boost_tree()` with the `"xgboost"` engine now warns once per session when `monotone_constraints` is supplied for binary classification. The signs of the constraints are relative to the event level, which is the first factor level unless `event_level = "second"` is set, so `monotone_constraints = 1` constrains the probability of that level rather than of the second one. The engine documentation now describes the convention. Fitted models are unchanged (#796).
 
 * `mars()` classification fits with the `"earth"` engine now return correct `predict(type = "class")` results for outcomes with three or more levels. A binary threshold rule was applied regardless of the number of levels, so every multiclass prediction was wrong and the last level could never be predicted. Binary outcomes are unaffected (#472, #1409).

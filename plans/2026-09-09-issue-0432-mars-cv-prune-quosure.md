@@ -158,3 +158,47 @@ succeeds; the existing behavior for unevaluable arguments is preserved by
 - Related: #1069 (glmnet `relax = TRUE`) is the same defect and is fixed by the general approach; note that in its thread when closing.
 - Tunability follow-up from the thread: after this fix, `prune_method = tune()` with `"cv"` in the grid still requires users to set `nfold` as an engine argument (earth errors otherwise); that is earth behavior, not a parsnip bug, but worth a documentation note in the earth engine docs.
 - Not addressed here: `prune_method = "exhaustive"` failures reported in the issue body reproduce in earth directly and are out of scope.
+
+## Work items
+
+Executed 2026-09-22 on branch `quosure-eval-bugs` (off `main` at aff7f0f1), together with [issue 1069](2026-09-09-issue-1069-glmnet-relax.md).
+
+- [x] Reproduce both failures
+- [x] Take the general fix: evaluate quosure fit args in `make_form_call()` and `make_xy_call()`
+- [x] Measure the blast radius across the full suite before committing to the approach
+- [x] Update the four ranger descriptor assertions
+- [x] Tests for #432 in `test-mars.R` and #1069 in a new `test-glmnet-engines.R`
+- [x] Shared `NEWS.md` bullet
+- [x] `air format .` and full `R CMD check`
+
+### The two plans disagreed; the general fix won on measured evidence
+
+This plan recommended the general fix; the #1069 plan explicitly rejected it as too large a blast radius and wanted a glmnet-targeted fix, deferring the general version into #878. Rather than pick on intuition, the general fix was applied and the full suite run.
+
+Measured fallout: **four assertions in one test**, all the same thing, and no snapshot churn anywhere.
+
+```
+test-rand_forest_ranger.R:362, 376, 390, 404 - "additional descriptor tests"
+  actual:   double vector (7, 20, 10, 1)
+  expected: <quosure/formula>
+```
+
+That is small enough that two separate fixes were not justified, especially as the general version also inoculates every other engine that re-evaluates its recorded call.
+
+### Where this plan's reasoning was wrong
+
+This plan predicted descriptors would be unaffected because `maybe_eval()` falls back when evaluation fails. That is incorrect: `scoped_descrs()` has **already run** by the time the call is assembled, so `min(.lvls())` evaluates *successfully* to `7`. Descriptors do not fall back, they resolve.
+
+So the general fix does change one deliberately tested behaviour — ranger's recorded call now holds `class.weights = c(7, 20, 10, 1)` instead of the quosure. Verified the fit itself is identical: same `mtry`, same `num.trees`, same `prediction.error`, same predictions. Only the recorded call differs, and the new content is what `repair_call()` would have produced anyway.
+
+topepo confirmed that descriptors are being removed or disabled and that breaking them is acceptable, which settled the question. The four assertions were updated to expect `c(min(table(hpc$class)), 20, 10, 1)` — the resolved value, written so it is not a magic number — and the now-meaningless `ignore_formula_env = TRUE` arguments were dropped.
+
+### Implementation note
+
+`make_xy_call()` computed a local `fit_args` and then never used it; it mutates and passes `object$method$fit$args` to `make_call()` instead. That local was dead code before this change. The fix therefore assigns back into `object$method$fit$args` on the xy path and into the local on the formula path, with a comment noting the asymmetry.
+
+The helper gates on `rlang::is_quosure()` so data placeholders (`sym()`, `expr(missing_arg())`) are untouched, and reuses `maybe_eval()` so genuinely unevaluable expressions still fall back rather than erroring at fit time.
+
+### Follow-up now unblocked
+
+The quosure-evaluation loop in `multi_predict._earth()` (`R/mars.R:159-167`) and the equivalent in `repair_call()` are now dead for these paths and can be simplified once descriptors are gone.

@@ -216,8 +216,18 @@ make_call <- function(fun, ns, args, ...) {
 }
 
 
+# Engine arguments are stored as quosures. Most engines never notice, because
+# `eval_mod()` uses `rlang::eval_tidy()`. But an engine that re-evaluates its
+# own recorded call with base `eval()` (earth's `pmethod = "cv"` path,
+# glmnet's `relax = TRUE` path) sees the raw quosure and fails. Evaluate them
+# while the call is built so the recorded call holds plain values. See #432
+# and #1069.
+eval_fit_args <- function(args) {
+  purrr::map(args, function(x) if (rlang::is_quosure(x)) maybe_eval(x) else x)
+}
+
 make_form_call <- function(object, env = NULL) {
-  fit_args <- object$method$fit$args
+  fit_args <- eval_fit_args(object$method$fit$args)
   uses_weights <- has_weights(env)
 
   # In model specification code using `set_fit()`, there are two main arguments
@@ -273,7 +283,9 @@ make_form_call <- function(object, env = NULL) {
 
 # TODO we need something to indicate that case weights are being used.
 make_xy_call <- function(object, target, env, call = rlang::caller_env()) {
-  fit_args <- object$method$fit$args
+  # NB: unlike `make_form_call()`, this builds the call from
+  # `object$method$fit$args` rather than a local copy
+  object$method$fit$args <- eval_fit_args(object$method$fit$args)
   uses_weights <- has_weights(env)
 
   # See the comments above in make_form_call()

@@ -359,3 +359,27 @@ test_that('class predictions for multiclass', {
     ifelse(prob_bn$.pred_Class2 >= 0.5, "Class2", "Class1")
   )
 })
+
+test_that("prune_method = 'cv' works with prod_degree", {
+  skip_if_not_installed("earth")
+  # Issue 432
+
+  set.seed(28193)
+  n_obs <- 200
+  dat <- data.frame(x1 = rnorm(n_obs, 5, 3), x2 = rnorm(n_obs, 2, 1))
+  dat$y <- dat$x1 + dat$x2 + rnorm(n_obs, sd = 0.5)
+
+  cv_fit <-
+    mars(mode = "regression", prod_degree = 2, prune_method = "cv") |>
+    set_engine("earth", nfold = 3) |>
+    fit(y ~ ., data = dat)
+
+  expect_s3_class(extract_fit_engine(cv_fit), "earth")
+
+  # earth re-evaluates its recorded call with base `eval()`, so no argument
+  # may still be a quosure
+  expect_all_false(
+    purrr::map_lgl(as.list(extract_fit_engine(cv_fit)$call), rlang::is_quosure)
+  )
+  expect_equal(extract_fit_engine(cv_fit)$call$degree, 2)
+})
