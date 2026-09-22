@@ -66,6 +66,21 @@
   ([@bjornkallerud](https://github.com/bjornkallerud),
   [\#1258](https://github.com/tidymodels/parsnip/issues/1258))
 
+- Model and engine arguments are now evaluated while the model call is
+  assembled, so the call an engine records no longer contains quosures.
+  This fixes
+  [`mars()`](https://parsnip.tidymodels.org/dev/reference/mars.md) fits
+  with the earth engine when `prune_method = "cv"` is combined with
+  `prod_degree`
+  ([\#432](https://github.com/tidymodels/parsnip/issues/432)), and
+  `set_engine("glmnet", relax = TRUE)` for every glmnet engine, which
+  also covers the poissonreg and censored wrappers
+  ([\#1069](https://github.com/tidymodels/parsnip/issues/1069)). Both
+  engines re-evaluate their own recorded call with base
+  [`eval()`](https://rdrr.io/r/base/eval.html), which cannot handle
+  quosures. A fitted object’s `$fit$call` now shows values such as
+  `degree = 2` rather than `degree = ~2`.
+
 - [`boost_tree()`](https://parsnip.tidymodels.org/dev/reference/boost_tree.md)
   with the `"xgboost"` engine now warns once per session when
   `monotone_constraints` is supplied for binary classification. The

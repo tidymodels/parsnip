@@ -62,7 +62,7 @@ fit_obj
 #> 
 #> 
 #> Call:
-#> stats::lm(formula = mpg ~ ., data = data, x = ~.obs() < 500)
+#> stats::lm(formula = mpg ~ ., data = data, x = TRUE)
 #> 
 #> Coefficients:
 #> (Intercept)          cyl         disp           hp         drat  

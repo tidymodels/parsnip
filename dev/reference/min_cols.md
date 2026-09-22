@@ -65,7 +65,7 @@ rand_forest(mtry = 2, min_n = 100, trees = 3) |>
 #> Ranger result
 #> 
 #> Call:
-#>  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~2,      x), num.trees = ~3, min.node.size = min_rows(~100, x), num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) 
+#>  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~2,      x), num.trees = 3, min.node.size = min_rows(~100, x), num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) 
 #> 
 #> Type:                             Regression 
 #> Number of trees:                  3 

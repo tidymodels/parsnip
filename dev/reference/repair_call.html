@@ -99,7 +99,7 @@ functions and methods.</p>
 <span class="r-in"><span><span class="co"># In this call, note that `data` is not `mtcars` and the `model = ~TRUE`</span></span></span>
 <span class="r-in"><span><span class="co"># indicates that the `model` argument is an rlang quosure.</span></span></span>
 <span class="r-in"><span><span class="va">fitted_model</span><span class="op">$</span><span class="va">fit</span><span class="op">$</span><span class="va">call</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> stats::lm(formula = mpg ~ ., data = data, model = ~TRUE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> stats::lm(formula = mpg ~ ., data = data, model = TRUE)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># All better:</span></span></span>
 <span class="r-in"><span><span class="fu">repair_call</span><span class="op">(</span><span class="va">fitted_model</span>, <span class="va">mtcars</span><span class="op">)</span><span class="op">$</span><span class="va">fit</span><span class="op">$</span><span class="va">call</span></span></span>
@@ -108,7 +108,7 @@ functions and methods.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mpg ~ .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5589f80ec248&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55cd68bb0fd8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mtcars</span>

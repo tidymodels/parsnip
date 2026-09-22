@@ -124,7 +124,7 @@ data.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Ranger result</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~2,      x), num.trees = ~3, min.node.size = min_rows(~100, x), num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~2,      x), num.trees = 3, min.node.size = min_rows(~100, x), num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Type:                             Regression </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of trees:                  3 </span>
