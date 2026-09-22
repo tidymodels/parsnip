@@ -773,6 +773,71 @@ test_that("fit and prediction with `event_level`", {
   expect_equal(pred_p_2[[".pred_male"]], pred_xgb_2)
 })
 
+test_that("`monotone_constraints` warns about the event level", {
+  skip_if_not_installed("xgboost")
+  skip_on_cran()
+  # Issue 796
+  withr::local_options(rlib_warning_verbosity = "verbose")
+
+  set.seed(1)
+  cls_dat <- data.frame(
+    x = runif(60),
+    cls = factor(rep(c("no", "yes"), 30), levels = c("no", "yes"))
+  )
+  cls_spec <- boost_tree(trees = 5) |> set_mode("classification")
+
+  expect_snapshot(
+    mono_fit <- cls_spec |>
+      set_engine("xgboost", monotone_constraints = 1) |>
+      fit(cls ~ x, data = cls_dat, control = ctrl)
+  )
+  # the constraint still reaches xgboost, which normalises it to a string
+  expect_equal(extract_xgb_param(mono_fit, "monotone_constraints"), "(1)")
+
+  # the warning names whichever level is the event level
+  expect_snapshot(
+    mono_fit_2 <- cls_spec |>
+      set_engine("xgboost", monotone_constraints = 1, event_level = "second") |>
+      fit(cls ~ x, data = cls_dat, control = ctrl)
+  )
+})
+
+test_that("`monotone_constraints` is quiet outside binary classification", {
+  skip_if_not_installed("xgboost")
+  skip_on_cran()
+  # Issue 796
+  withr::local_options(rlib_warning_verbosity = "verbose")
+
+  set.seed(1)
+  cls_dat <- data.frame(
+    x = runif(60),
+    cls = factor(rep(c("no", "yes"), 30), levels = c("no", "yes"))
+  )
+
+  # binary, but no constraints supplied
+  expect_no_condition(
+    boost_tree(trees = 5) |>
+      set_mode("classification") |>
+      set_engine("xgboost") |>
+      fit(cls ~ x, data = cls_dat, control = ctrl)
+  )
+
+  reg_dat <- data.frame(x = runif(60), y = runif(60))
+  expect_no_condition(
+    boost_tree(trees = 5) |>
+      set_mode("regression") |>
+      set_engine("xgboost", monotone_constraints = 1) |>
+      fit(y ~ x, data = reg_dat, control = ctrl)
+  )
+
+  expect_no_condition(
+    boost_tree(trees = 5) |>
+      set_mode("classification") |>
+      set_engine("xgboost", monotone_constraints = 1) |>
+      fit(Species ~ Sepal.Length, data = iris, control = ctrl)
+  )
+})
+
 test_that("count/proportion parameters", {
   skip_if_not_installed("xgboost")
   skip_on_cran()

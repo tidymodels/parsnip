@@ -1,26 +1,32 @@
 # parsnip (development version)
 
+## New Features
+
 * New model specifications `tabular_auto_int()`, `tabular_chronos()`, `tabular_icl()`, `tabular_pfn()`, `tabular_resnet()`, `tabular_rln()`, and `tabular_saint()` were added for tabular deep-learning and foundation models, with engines provided by the tabby extension package (#1386).
 
 * `fit()` and `fit_xy()` have less per-fit overhead, making small or repeated fits (such as during tuning) faster (#1071).
 
-* The deprecated `quantile` argument now reaches its deprecation warning when passed via `predict(type = "quantile")` instead of being rejected as an unknown argument. The error for unknown arguments passed to `predict()` now lists the offending argument names. (@bjornkallerud, #1258)
+* `null_model()` now supports quantile regression mode, where fitting computes the requested empirical quantiles of the outcome.
 
-* `mars()` classification fits with the `"earth"` engine now return correct `predict(type = "class")` results for outcomes with three or more levels. A binary threshold rule was applied regardless of the number of levels, so every multiclass prediction was wrong and the last level could never be predicted. Binary outcomes are unaffected (#472, #1409).
+* For censored regression models, the censoring weights can now be added to the predictions of survival probability by setting `add_censoring_weights = TRUE` in `predict(type = "survival")` (#1371).
 
 * `ordinal_reg()` gains arguments `threshold_structure` and `parallel_reg` to control threshold constraints and the parallel regression assumption. The `ordinalNet` engine can use `parallel_reg` while the `clm` and `vglm` engines can use both new arguments (#1393, @corybrunson).
 
-* `multi_predict_args()` and `has_multi_predict()` work again for fitted workflows, returning the submodel argument names and `TRUE` instead of `NULL` and `FALSE`. They read from an outdated internal workflows structure. Both now error informatively on an untrained workflow rather than silently reporting that it has no submodel arguments (#1410).
+## Bug Fixes 
 
-* `null_model()` now supports quantile regression mode, where fitting computes the requested empirical quantiles of the outcome.
+* The deprecated `quantile` argument now reaches its deprecation warning when passed via `predict(type = "quantile")` instead of being rejected as an unknown argument. The error for unknown arguments passed to `predict()` now lists the offending argument names. (@bjornkallerud, #1258)
+
+* `boost_tree()` with the `"xgboost"` engine now warns once per session when `monotone_constraints` is supplied for binary classification. The signs of the constraints are relative to the event level, which is the first factor level unless `event_level = "second"` is set, so `monotone_constraints = 1` constrains the probability of that level rather than of the second one. The engine documentation now describes the convention. Fitted models are unchanged (#796).
+
+* `mars()` classification fits with the `"earth"` engine now return correct `predict(type = "class")` results for outcomes with three or more levels. A binary threshold rule was applied regardless of the number of levels, so every multiclass prediction was wrong and the last level could never be predicted. Binary outcomes are unaffected (#472, #1409).
+
+* `multi_predict_args()` and `has_multi_predict()` work again for fitted workflows, returning the submodel argument names and `TRUE` instead of `NULL` and `FALSE`. They read from an outdated internal workflows structure. Both now error informatively on an untrained workflow rather than silently reporting that it has no submodel arguments (#1410).
 
 * `predict_raw()` no longer errors when `opts` contains an argument name that collides with a protected prediction argument such as `newdata` or `object`. The colliding entry is now dropped with a warning; previously every path through that branch failed with "attempt to select less than one element". This also covers `predict(type = "raw", opts = ...)` (#1408).
 
 * `svm_linear()` with the `"LiblineaR"` engine now passes `cost` to `LiblineaR::LiblineaR()`. It was previously mapped to a nonexistent `C` argument, which the engine silently absorbed into its dots, so every fit used the engine default of `cost = 1` and tuning over `cost` had no effect. Fitted results will change for any model with a non-default `cost` (#1405).
 
 * Fitting with sparse data now respects the model mode, so loading an extension package that registers an engine for a different mode can no longer alter sparse data support for the original mode (#1382).
-
-* For censored regression models, the censoring weights can now be added to the predictions of survival probability by setting `add_censoring_weights = TRUE` in `predict(type = "survival")` (#1371).
 
 * Corrected documentation that referred to `fit()` and `fit_xy()` as arguments rather than functions in the case weights template (#1394).
 
