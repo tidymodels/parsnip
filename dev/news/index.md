@@ -2,6 +2,8 @@
 
 ## parsnip (development version)
 
+### New Features
+
 - New model specifications
   [`tabular_auto_int()`](https://parsnip.tidymodels.org/dev/reference/tabular_auto_int.md),
   [`tabular_chronos()`](https://parsnip.tidymodels.org/dev/reference/tabular_chronos.md),
@@ -21,6 +23,25 @@
   tuning) faster
   ([\#1071](https://github.com/tidymodels/parsnip/issues/1071)).
 
+- [`null_model()`](https://parsnip.tidymodels.org/dev/reference/null_model.md)
+  now supports quantile regression mode, where fitting computes the
+  requested empirical quantiles of the outcome.
+
+- For censored regression models, the censoring weights can now be added
+  to the predictions of survival probability by setting
+  `add_censoring_weights = TRUE` in `predict(type = "survival")`
+  ([\#1371](https://github.com/tidymodels/parsnip/issues/1371)).
+
+- [`ordinal_reg()`](https://parsnip.tidymodels.org/dev/reference/ordinal_reg.md)
+  gains arguments `threshold_structure` and `parallel_reg` to control
+  threshold constraints and the parallel regression assumption. The
+  `ordinalNet` engine can use `parallel_reg` while the `clm` and `vglm`
+  engines can use both new arguments
+  ([\#1393](https://github.com/tidymodels/parsnip/issues/1393),
+  [@corybrunson](https://github.com/corybrunson)).
+
+### Bug Fixes
+
 - The deprecated `quantile` argument now reaches its deprecation warning
   when passed via `predict(type = "quantile")` instead of being rejected
   as an unknown argument. The error for unknown arguments passed to
@@ -28,6 +49,16 @@
   offending argument names.
   ([@bjornkallerud](https://github.com/bjornkallerud),
   [\#1258](https://github.com/tidymodels/parsnip/issues/1258))
+
+- [`boost_tree()`](https://parsnip.tidymodels.org/dev/reference/boost_tree.md)
+  with the `"xgboost"` engine now warns once per session when
+  `monotone_constraints` is supplied for binary classification. The
+  signs of the constraints are relative to the event level, which is the
+  first factor level unless `event_level = "second"` is set, so
+  `monotone_constraints = 1` constrains the probability of that level
+  rather than of the second one. The engine documentation now describes
+  the convention. Fitted models are unchanged
+  ([\#796](https://github.com/tidymodels/parsnip/issues/796)).
 
 - [`mars()`](https://parsnip.tidymodels.org/dev/reference/mars.md)
   classification fits with the `"earth"` engine now return correct
@@ -38,14 +69,6 @@
   ([\#472](https://github.com/tidymodels/parsnip/issues/472),
   [\#1409](https://github.com/tidymodels/parsnip/issues/1409)).
 
-- [`ordinal_reg()`](https://parsnip.tidymodels.org/dev/reference/ordinal_reg.md)
-  gains arguments `threshold_structure` and `parallel_reg` to control
-  threshold constraints and the parallel regression assumption. The
-  `ordinalNet` engine can use `parallel_reg` while the `clm` and `vglm`
-  engines can use both new arguments
-  ([\#1393](https://github.com/tidymodels/parsnip/issues/1393),
-  [@corybrunson](https://github.com/corybrunson)).
-
 - [`multi_predict_args()`](https://parsnip.tidymodels.org/dev/reference/has_multi_predict.md)
   and
   [`has_multi_predict()`](https://parsnip.tidymodels.org/dev/reference/has_multi_predict.md)
@@ -55,10 +78,6 @@
   untrained workflow rather than silently reporting that it has no
   submodel arguments
   ([\#1410](https://github.com/tidymodels/parsnip/issues/1410)).
-
-- [`null_model()`](https://parsnip.tidymodels.org/dev/reference/null_model.md)
-  now supports quantile regression mode, where fitting computes the
-  requested empirical quantiles of the outcome.
 
 - [`predict_raw()`](https://parsnip.tidymodels.org/dev/reference/predict.model_fit.md)
   no longer errors when `opts` contains an argument name that collides
@@ -81,11 +100,6 @@
   extension package that registers an engine for a different mode can no
   longer alter sparse data support for the original mode
   ([\#1382](https://github.com/tidymodels/parsnip/issues/1382)).
-
-- For censored regression models, the censoring weights can now be added
-  to the predictions of survival probability by setting
-  `add_censoring_weights = TRUE` in `predict(type = "survival")`
-  ([\#1371](https://github.com/tidymodels/parsnip/issues/1371)).
 
 - Corrected documentation that referred to
   [`fit()`](https://generics.r-lib.org/reference/fit.html) and

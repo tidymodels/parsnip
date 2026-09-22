@@ -365,6 +365,24 @@ the outcome. To use a different loss, pass the <code>objective</code> argument t
 <code><a href="set_engine.html">set_engine()</a></code> directly.</p>
 </div>
 
+<div class="section">
+<h4 id="monotonic-constraints">Monotonic constraints<a class="anchor" aria-label="anchor" href="#monotonic-constraints"></a></h4>
+
+
+<p>For binary classification, the signs of the <code>monotone_constraints</code>
+engine argument are relative to the event level rather than to the
+second factor level. parsnip converts the outcome so that the event
+level is the one xgboost models, and <code>event_level</code> defaults to
+<code>"first"</code>. With the default and an outcome with levels <code>c("no", "yes")</code>,
+<code>monotone_constraints = 1</code> therefore forces the probability of <code>"no"</code> to
+be nondecreasing in that predictor, which is the opposite of what the
+usual <code>0</code>/<code>1</code> outcome coding would suggest. Set <code>event_level = "second"</code>
+to constrain the probability of <code>"yes"</code> instead, or negate the
+constraint. parsnip warns once per session when <code>monotone_constraints</code>
+is used for binary classification. Regression and multiclass
+classification are unaffected.</p>
+</div>
+
 
 </div>
 
