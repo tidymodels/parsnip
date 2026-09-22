@@ -46,9 +46,27 @@
   ([\#1393](https://github.com/tidymodels/parsnip/issues/1393),
   [@corybrunson](https://github.com/corybrunson)).
 
+- [`multi_predict_args()`](https://parsnip.tidymodels.org/dev/reference/has_multi_predict.md)
+  and
+  [`has_multi_predict()`](https://parsnip.tidymodels.org/dev/reference/has_multi_predict.md)
+  work again for fitted workflows, returning the submodel argument names
+  and `TRUE` instead of `NULL` and `FALSE`. They read from an outdated
+  internal workflows structure. Both now error informatively on an
+  untrained workflow rather than silently reporting that it has no
+  submodel arguments
+  ([\#1410](https://github.com/tidymodels/parsnip/issues/1410)).
+
 - [`null_model()`](https://parsnip.tidymodels.org/dev/reference/null_model.md)
   now supports quantile regression mode, where fitting computes the
   requested empirical quantiles of the outcome.
+
+- [`predict_raw()`](https://parsnip.tidymodels.org/dev/reference/predict.model_fit.md)
+  no longer errors when `opts` contains an argument name that collides
+  with a protected prediction argument such as `newdata` or `object`.
+  The colliding entry is now dropped with a warning; previously every
+  path through that branch failed with “attempt to select less than one
+  element”. This also covers `predict(type = "raw", opts = ...)`
+  ([\#1408](https://github.com/tidymodels/parsnip/issues/1408)).
 
 - [`svm_linear()`](https://parsnip.tidymodels.org/dev/reference/svm_linear.md)
   with the `"LiblineaR"` engine now passes `cost` to
