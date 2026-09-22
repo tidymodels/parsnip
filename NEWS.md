@@ -18,6 +18,8 @@
 
 * `boost_tree()` with the `"xgboost"` engine now warns once per session when `monotone_constraints` is supplied for binary classification. The signs of the constraints are relative to the event level, which is the first factor level unless `event_level = "second"` is set, so `monotone_constraints = 1` constrains the probability of that level rather than of the second one. The engine documentation now describes the convention. Fitted models are unchanged (#796).
 
+* `boost_tree()` models fit with the `"xgboost"` engine and a function-valued `objective` now error informatively for `predict(type = "class")` and `predict(type = "prob")` instead of returning raw margins labelled as probabilities. xgboost cannot report whether a custom objective produces margins or probabilities, so parsnip cannot convert them; use `predict(type = "raw")` and apply the matching inverse link yourself, or register a custom engine that post-processes the predictions. Fitting, `type = "raw"`, and regression are unaffected (#999).
+
 * `mars()` classification fits with the `"earth"` engine now return correct `predict(type = "class")` results for outcomes with three or more levels. A binary threshold rule was applied regardless of the number of levels, so every multiclass prediction was wrong and the last level could never be predicted. Binary outcomes are unaffected (#472, #1409).
 
 * `multi_predict_args()` and `has_multi_predict()` work again for fitted workflows, returning the submodel argument names and `TRUE` instead of `NULL` and `FALSE`. They read from an outdated internal workflows structure. Both now error informatively on an untrained workflow rather than silently reporting that it has no submodel arguments (#1410).

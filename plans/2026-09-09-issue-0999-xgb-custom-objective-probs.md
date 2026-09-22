@@ -92,3 +92,51 @@ Update and extend `tests/testthat/test-boost_tree_xgboost.R`, test `'xgboost alt
 - The existing test at `tests/testthat/test-boost_tree_xgboost.R:269-272` encodes the old behavior and must be updated (see above); check whether extension packages or tune snapshots exercise the same path.
 - Non-function but unrecognized string objectives (e.g., `objective = "binary:hinge"`, which returns 0/1) still flow through the prob/class post-processing unchecked; a broader allowlist could be a follow-up, kept out of scope here to limit behavior changes.
 - Related issues: #873, #875 (made custom objectives passable), and the tidymodels post-processing infrastructure work for the long-term fix.
+
+## Work items
+
+Executed 2026-09-22 on branch `xgboost-obj-function` (off `main` at b6c64a21, after #796 merged as #1430).
+
+- [x] Reproduce raw margins being returned as probabilities
+- [x] Add `check_xgb_supported_objective()` in `R/boost_tree.R`
+- [x] Call it from the `class` and `prob` post-processors in `R/boost_tree_data.R`
+- [x] Confirm `type = "raw"`, regression, and string objectives are unaffected
+- [x] Confirm `multi_predict()` is covered by the same guard
+- [x] Replace the test assertions that encoded the old behavior
+- [x] `NEWS.md` bullet
+- [x] `air format .` and full `R CMD check`
+
+### Verification matrix
+
+```
+prob            ERRORS
+class           ERRORS
+raw             OK      (margins: -1.594 3.101 3.101 -1.16 0.043 1.205)
+mp class        ERRORS
+mp prob         ERRORS
+default prob    OK
+default class   OK
+reg custom obj  OK
+```
+
+The plan's reasoning for guarding in `post` rather than `pre` is confirmed: `xgb_by_tree()` calls the `post` functions directly, so `multi_predict()` is covered by the same two call sites with no extra work.
+
+Detection reads `object$spec$eng_args$objective` via `rlang::eval_tidy()`, not `object$fit$params$objective`. Confirmed necessary — xgboost does not store a function objective on the booster at all (it comes back `NULL` on 3.2.1.1), which is exactly why `switch(object$params$objective %||% 3L, ...)` silently fell through to the default branch in the first place.
+
+### Error call
+
+`cli::cli_abort(call = NULL)` rather than `call = caller_env()`. The caller is an anonymous `post` function, so the default rendered as ``Error in `object$spec$method$pred$class$post()` ``, which leaks an internal path and tells the user nothing. `call = NULL` renders a plain `Error:` followed by the message. Naming `predict()` explicitly was rejected because the same guard fires from `multi_predict()`.
+
+### Test changes
+
+`tests/testthat/test-boost_tree_xgboost.R`, `'xgboost alternate objective'`: the two assertions at the end (`expect_no_error(predict(...))` plus `expect_s3_class(..., "data.frame")`) encoded the buggy behavior and were replaced with error snapshots for `class` and `prob`, a class-based `expect_error()` for `multi_predict()`, and positive assertions that the fit still succeeds and `type = "raw"` still returns three doubles. The regression assertions earlier in the test are untouched.
+
+`multi_predict()` uses `expect_error(class = "xgboost_custom_objective_error")` rather than a snapshot, deliberately: purrr wraps the failure with an `In index: 1` prefix and a `Caused by error in ... at parsnip/R/boost_tree.R:NNN` line, so a snapshot would bake in a source line number and churn on every unrelated edit to the file. The condition class is the stable contract.
+
+### Snapshot hazard, avoided this time
+
+The `snapshot_accept()` trap recorded in the #796 plan applies to this same file. Avoided by letting the ordinary test run write the brand-new snapshots directly into `_snaps/boost_tree_xgboost.md` and never calling `snapshot_accept()`. Verified the diff is 20 insertions and 0 deletions, with the skipped `xgboost execution, quantile regression` block intact.
+
+### Still open
+
+Non-function but unrecognised string objectives (for example `objective = "binary:hinge"`, which returns 0/1) still flow through the prob and class post-processing unchecked. Out of scope here, as the plan set out; an allowlist would be a broader behavior change.

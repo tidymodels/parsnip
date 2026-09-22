@@ -256,10 +256,26 @@ test_that('xgboost alternate objective', {
     set_engine("xgboost", objective = logregobj) |>
     set_mode("classification")
 
+  # fitting with a function objective still works
   xgb_fit2 <- spec2 |> fit(vs ~ ., data = mtcars |> mutate(vs = as.factor(vs)))
   expect_equal(rlang::eval_tidy(xgb_fit2$spec$eng_args$objective), logregobj)
-  expect_no_error(xgb_preds2 <- predict(xgb_fit2, new_data = mtcars[1, -8]))
-  expect_s3_class(xgb_preds2, "data.frame")
+
+  # ...but the margins it returns cannot be turned into probabilities (#999)
+  cls_data <- mtcars[1:3, -8]
+  expect_snapshot(error = TRUE, predict(xgb_fit2, new_data = cls_data))
+  expect_snapshot(
+    error = TRUE,
+    predict(xgb_fit2, new_data = cls_data, type = "prob")
+  )
+  expect_error(
+    multi_predict(xgb_fit2, new_data = cls_data, trees = 2, type = "class"),
+    class = "xgboost_custom_objective_error"
+  )
+
+  # raw margins are still available
+  raw_preds <- predict(xgb_fit2, new_data = cls_data, type = "raw")
+  expect_type(raw_preds, "double")
+  expect_length(raw_preds, 3L)
 })
 
 test_that('submodel prediction', {

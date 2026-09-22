@@ -491,6 +491,37 @@ maybe_proportion <- function(x, nm) {
   }
 }
 
+# xgboost cannot report whether a custom objective returns margins or
+# probabilities, so parsnip has no way to put the predictions on the
+# probability scale. See #999.
+check_xgb_supported_objective <- function(object) {
+  objective <- object$spec$eng_args$objective
+  if (is.null(objective)) {
+    return(invisible(NULL))
+  }
+  objective <- rlang::eval_tidy(objective)
+
+  if (is.function(objective)) {
+    cli::cli_abort(
+      c(
+        "Class and probability predictions are not available for xgboost
+         models fit with a function-valued {.arg objective}.",
+        "i" = "xgboost returns raw margins for a custom objective, and parsnip
+               cannot know which inverse link would convert them to
+               probabilities.",
+        "i" = "Use {.code predict(type = \"raw\")} and apply the inverse link
+               yourself, or register a custom engine that post-processes the
+               predictions."
+      ),
+      class = "xgboost_custom_objective_error",
+      # the caller is an internal `post` function; naming it is not helpful
+      call = NULL
+    )
+  }
+
+  invisible(NULL)
+}
+
 #' @rdname xgb_train
 #' @param new_data A rectangular data object, such as a data frame.
 #' @keywords internal
