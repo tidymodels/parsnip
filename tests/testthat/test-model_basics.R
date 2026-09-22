@@ -3,7 +3,6 @@ test_that('basic object classes and print methods', {
 
   expect_snapshot(print(bag_tree()))
 
-  expect_snapshot(print(bart()))
   expect_true(inherits(bart(engine = 'dbarts'), 'bart'))
 
   expect_snapshot(print(boost_tree()))

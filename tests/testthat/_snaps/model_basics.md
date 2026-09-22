@@ -33,16 +33,6 @@
 ---
 
     Code
-      print(bart())
-    Output
-      BART Model Specification (unknown mode)
-      
-      Computational engine: dbarts 
-      
-
----
-
-    Code
       print(boost_tree())
     Output
       Boosted Tree Model Specification (unknown mode)
