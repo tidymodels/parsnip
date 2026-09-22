@@ -29,6 +29,15 @@
   ([@bjornkallerud](https://github.com/bjornkallerud),
   [\#1258](https://github.com/tidymodels/parsnip/issues/1258))
 
+- [`mars()`](https://parsnip.tidymodels.org/dev/reference/mars.md)
+  classification fits with the `"earth"` engine now return correct
+  `predict(type = "class")` results for outcomes with three or more
+  levels. A binary threshold rule was applied regardless of the number
+  of levels, so every multiclass prediction was wrong and the last level
+  could never be predicted. Binary outcomes are unaffected
+  ([\#472](https://github.com/tidymodels/parsnip/issues/472),
+  [\#1409](https://github.com/tidymodels/parsnip/issues/1409)).
+
 - [`ordinal_reg()`](https://parsnip.tidymodels.org/dev/reference/ordinal_reg.md)
   gains arguments `threshold_structure` and `parallel_reg` to control
   threshold constraints and the parallel regression assumption. The
