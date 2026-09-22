@@ -323,6 +323,22 @@ the outcome. To use a different loss, pass the \code{objective} argument to
 \code{\link[=set_engine]{set_engine()}} directly.
 }
 
+\subsection{Monotonic constraints}{
+
+For binary classification, the signs of the \code{monotone_constraints}
+engine argument are relative to the event level rather than to the
+second factor level. parsnip converts the outcome so that the event
+level is the one xgboost models, and \code{event_level} defaults to
+\code{"first"}. With the default and an outcome with levels \code{c("no", "yes")},
+\code{monotone_constraints = 1} therefore forces the probability of \code{"no"} to
+be nondecreasing in that predictor, which is the opposite of what the
+usual \code{0}/\code{1} outcome coding would suggest. Set \code{event_level = "second"}
+to constrain the probability of \code{"yes"} instead, or negate the
+constraint. parsnip warns once per session when \code{monotone_constraints}
+is used for binary classification. Regression and multiclass
+classification are unaffected.
+}
+
 }
 
 \subsection{Saving fitted model objects}{

@@ -94,3 +94,39 @@ Add to `tests/testthat/test-boost_tree_xgboost.R`, next to the existing `"fit an
 - Option (a) will warn on every fit during tuning; tune collects and de-duplicates warnings, but the noise is a real cost — an alternative is `cli::cli_inform()` or warning only once per session (`rlang::warn(..., .frequency = "once")`).
 - Regenerating `man/rmd/boost_tree_xgboost.md` from the `.Rmd` requires the engine-docs knit workflow (deregister tabby's duplicate engine registrations in-session first, per the project memory note).
 - Related: the same event-level label inversion affects any other xgboost `params` entry that is asymmetric in the label (e.g., `scale_pos_weight`); worth an audit but out of scope here.
+
+## Work items
+
+Executed 2026-09-22 on branch `xgboost-monotone-constraints` (off `main` at 11c10db6). Option (a) chosen by topepo, with the warning fired once per session.
+
+- [x] Reproduce the reported behavior
+- [x] Confirm the convention is internally consistent rather than an inversion
+- [x] Warn in `xgb_train()` after `process_others()` when `monotone_constraints` is set and the outcome has two levels
+- [x] Verify silence for regression, multiclass, and fits without constraints
+- [x] Document the convention in `man/rmd/boost_tree_xgboost.Rmd` and re-knit
+- [x] Tests in `tests/testthat/test-boost_tree_xgboost.R`
+- [x] `NEWS.md` bullet
+- [x] `air format .` and full `R CMD check`
+
+### The classification question, settled
+
+The triage overview called this a silent sign inversion. That overstates it. The behavior is a coherent convention — `+1` makes `P(event level)` nondecreasing under *both* `event_level` settings, confirmed live:
+
+```
+event_level=first   +1 -> P(no)  at x=0.05: 0.5167  x=0.95: 0.5167  (nondecreasing)
+event_level=second  +1 -> P(yes) at x=0.05: 0.0251  x=0.95: 0.9571  (nondecreasing)
+```
+
+The `event_level = "first"` case only looks broken because the constraint fights the data hard enough to degenerate to a constant fit. It is nondecreasing, just trivially so. This is what makes option (a) right: there is a real invariant to document, and option (b) would have discarded it and silently changed every existing fit.
+
+### Implementation notes
+
+`cli::cli_warn()` forwards `...` straight to `rlang::warn()`, so `.frequency = "once"` and `.frequency_id` work without abandoning the project's cli style. Confirmed one warning across three consecutive fits at default verbosity, so tuning is not flooded. Tests set `withr::local_options(rlib_warning_verbosity = "verbose")` so the snapshots are deterministic regardless of what ran earlier in the session.
+
+The guard is `!is.null(others$monotone_constraints) && num_class == 2`. `num_class` is `nlevels(y)`, which is `0` for numeric outcomes, so regression and multiclass are excluded without a separate mode check. Placing the check after `process_others()` also catches constraints smuggled in through the deprecated `params` list.
+
+### Snapshot hazard worth remembering
+
+`testthat::snapshot_accept("boost_tree_xgboost")` **deleted** the `xgboost execution, quantile regression` snapshots, because that test is skipped on this machine (it needs xgboost 3.4.0.0; 3.2.1.1 is installed) and accept promotes the partial `.new.md` wholesale. The file was restored from `HEAD` and the two new entries merged in by hand. Final diff is 22 insertions and 0 deletions. Any future snapshot work in this file needs the same care while that version skip is in place.
+
+Also note xgboost normalises `monotone_constraints = 1` to the string `"(1)"` in the stored params, which is what the round-trip assertion checks. That explains the `"(1)"` syntax the reporter used and that Emil queried in the thread.
