@@ -1,3 +1,23 @@
+# xgboost alternate objective
+
+    Code
+      predict(xgb_fit2, new_data = cls_data)
+    Condition
+      Error:
+      ! Class and probability predictions are not available for xgboost models fit with a function-valued `objective`.
+      i xgboost returns raw margins for a custom objective, and parsnip cannot know which inverse link would convert them to probabilities.
+      i Use `predict(type = "raw")` and apply the inverse link yourself, or register a custom engine that post-processes the predictions.
+
+---
+
+    Code
+      predict(xgb_fit2, new_data = cls_data, type = "prob")
+    Condition
+      Error:
+      ! Class and probability predictions are not available for xgboost models fit with a function-valued `objective`.
+      i xgboost returns raw margins for a custom objective, and parsnip cannot know which inverse link would convert them to probabilities.
+      i Use `predict(type = "raw")` and apply the inverse link yourself, or register a custom engine that post-processes the predictions.
+
 # submodel prediction
 
     Code

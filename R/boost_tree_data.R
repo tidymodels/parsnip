@@ -187,6 +187,7 @@ set_pred(
   value = list(
     pre = NULL,
     post = function(x, object) {
+      check_xgb_supported_objective(object)
       if (is.vector(x)) {
         event_level <- get_event_level(object$spec)
         if (event_level == "first") {
@@ -212,6 +213,7 @@ set_pred(
   value = list(
     pre = NULL,
     post = function(x, object) {
+      check_xgb_supported_objective(object)
       if (is.vector(x)) {
         event_level <- get_event_level(object$spec)
         if (event_level == "first") {
