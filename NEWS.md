@@ -6,6 +6,8 @@
 
 * The deprecated `quantile` argument now reaches its deprecation warning when passed via `predict(type = "quantile")` instead of being rejected as an unknown argument. The error for unknown arguments passed to `predict()` now lists the offending argument names. (@bjornkallerud, #1258)
 
+* `mars()` classification fits with the `"earth"` engine now return correct `predict(type = "class")` results for outcomes with three or more levels. A binary threshold rule was applied regardless of the number of levels, so every multiclass prediction was wrong and the last level could never be predicted. Binary outcomes are unaffected (#472, #1409).
+
 * `ordinal_reg()` gains arguments `threshold_structure` and `parallel_reg` to control threshold constraints and the parallel regression assumption. The `ordinalNet` engine can use `parallel_reg` while the `clm` and `vglm` engines can use both new arguments (#1393, @corybrunson).
 
 * `null_model()` now supports quantile regression mode, where fitting computes the requested empirical quantiles of the outcome.
