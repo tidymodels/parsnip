@@ -102,3 +102,97 @@ Risks and related items:
 - Check tune and workflows revdeps for callers of these generics on workflow objects; tune calls `multi_predict_args()` on parsnip fits (not workflows) in its submodel handling, so impact should be nil, but a quick grep of tune/finetune is cheap.
 
 - Blocker: none; the fix is self-contained. The only decision needed is the Suggests addition for tests.
+
+## Work items
+
+Executed 2026-09-22 on branch `model-predict-args` (off `main` at 67ace4e1), together with [issue 1408](2026-09-09-issue-1408-predict-raw-opts.md).
+
+- [x] Fix `has_multi_predict.workflow()` to delegate through `hardhat::extract_fit_parsnip()`
+- [x] Fix `multi_predict_args.workflow()` the same way, and actually return the value
+- [x] Confirm the fix changes behavior (tests fail without it, pass with it)
+- [x] Add the `NEWS.md` bullet
+- [x] `air format .` and full `R CMD check`
+- [x] Hand the cross-package tests over for extratests rather than adding `workflows` to Suggests
+
+### The Suggests question, resolved
+
+Do **not** add `workflows` to parsnip's `Suggests`. parsnip sits low in the tidymodels dependency graph and workflows Imports it, so the reverse edge risks an indirect circular dependency. Cross-package tests belong in the separate `extratests` repo.
+
+The tests were written in parsnip temporarily, only to confirm the fix, then removed. Verified they discriminate — the same file against unfixed source:
+
+```
+                             without fix      with fix
+multi_predict_args(knn wf)   NULL             "neighbors"
+has_multi_predict(knn wf)    FALSE            TRUE
+multi_predict_args(lm wf)    NULL             NA_character_
+has_multi_predict(lm wf)     FALSE            FALSE
+```
+
+The test file and its snapshot are handed to topepo for a PR against extratests. Their content is reproduced below so it is not lost with the branch.
+
+### Untrained workflows
+
+The behavior change the plan flagged is real and is now covered by a snapshot in the handed-over tests. Previously `multi_predict_args()` returned invisible `NULL` and `has_multi_predict()` returned `FALSE` for an untrained workflow; both now error through hardhat:
+
+```
+Error in `hardhat::extract_fit_parsnip()`:
+! Can't extract a model fit from an untrained workflow.
+i Do you need to call `fit()`?
+```
+
+That is a better answer than silently claiming the workflow has no submodel arguments, so it was kept rather than guarded against.
+
+### Test code for extratests
+
+```r
+test_that('multi_predict helpers work on fitted workflows', {
+  skip_if_not_installed("workflows")
+  skip_if_not_installed("kknn")
+  # Issue 1410
+
+  library(workflows)
+
+  knn_fit <-
+    workflow() |>
+    add_formula(mpg ~ .) |>
+    add_model(
+      nearest_neighbor(neighbors = 7) |>
+        set_engine("kknn") |>
+        set_mode("regression")
+    ) |>
+    fit(data = mtcars)
+
+  expect_identical(multi_predict_args(knn_fit), "neighbors")
+  expect_identical(has_multi_predict(knn_fit), TRUE)
+
+  # the workflow and the parsnip fit it wraps agree
+  expect_identical(
+    multi_predict_args(knn_fit),
+    multi_predict_args(extract_fit_parsnip(knn_fit))
+  )
+
+  lm_fit <-
+    workflow() |>
+    add_formula(mpg ~ .) |>
+    add_model(linear_reg() |> set_engine("lm")) |>
+    fit(data = mtcars)
+
+  expect_identical(multi_predict_args(lm_fit), NA_character_)
+  expect_identical(has_multi_predict(lm_fit), FALSE)
+})
+
+test_that('multi_predict helpers error on untrained workflows', {
+  skip_if_not_installed("workflows")
+  # Issue 1410
+
+  library(workflows)
+
+  wf <-
+    workflow() |>
+    add_formula(mpg ~ .) |>
+    add_model(linear_reg() |> set_engine("lm"))
+
+  expect_snapshot(error = TRUE, multi_predict_args(wf))
+  expect_snapshot(error = TRUE, has_multi_predict(wf))
+})
+```

@@ -93,7 +93,7 @@ has_multi_predict.model_fit <- function(object, ...) {
 #' @export
 #' @rdname has_multi_predict
 has_multi_predict.workflow <- function(object, ...) {
-  has_multi_predict(object$fit$model$model)
+  has_multi_predict(hardhat::extract_fit_parsnip(object), ...)
 }
 
 
@@ -134,5 +134,5 @@ multi_predict_args.model_fit <- function(object, ...) {
 #' @export
 #' @rdname has_multi_predict
 multi_predict_args.workflow <- function(object, ...) {
-  object <- object$fit$model$model
+  multi_predict_args(hardhat::extract_fit_parsnip(object), ...)
 }

@@ -80,3 +80,28 @@ Risks and related items:
 - If maintainers prefer the strictly minimal fix (silent drop, exactly as suggested in the issue body), remove the `cli_warn()` call; the test then becomes an `expect_no_condition()` plus a result-equality check.
 
 - `predict.model_fit(type = "raw")` funnels through this function (R/predict.R:205), so the fix also covers `predict(..., type = "raw", opts = ...)`; worth one test via that route as well.
+
+## Work items
+
+Executed 2026-09-22 on branch `model-predict-args` (off `main` at 67ace4e1), together with [issue 1410](2026-09-09-issue-1410-multi-predict-args-workflow.md).
+
+- [x] Change `opts[[!dup_args]]` to `opts[!dup_args]` in `R/predict_raw.R` and warn about the dropped entries
+- [x] Add `tests/testthat/test-predict_raw.R` (new file)
+- [x] Cover the `predict(type = "raw")` route as well
+- [x] Add the `NEWS.md` bullet
+- [x] `air format .` and full `R CMD check`
+
+### Notes from execution
+
+Took the recommended warn-rather-than-silently-drop option, matching the precedent at `R/predict.R:179-183`.
+
+`cli::qty()` handles the singular/plural split, verified both ways:
+
+```
+The argument `newdata` in `opts` is protected and will be ignored.
+The arguments `newdata` and `object` in `opts` are protected and will be ignored.
+```
+
+The tests assert the returned value equals `predict_raw(fit, mtcars)` in all three colliding cases, so the drop is confirmed to be a no-op on the result rather than merely non-erroring. The unprotected case checks `opts = list(type = "terms")` reaches the engine by asserting the returned matrix's dimensions and column names, which is stronger than the class check the plan suggested.
+
+No new Suggests: both tests use an `lm` fit on `mtcars`.
