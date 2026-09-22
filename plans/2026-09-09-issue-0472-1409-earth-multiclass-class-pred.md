@@ -146,3 +146,44 @@ existing `'classification probabilities for multiclass'` test (added for
 - The same hardcoded binary rule may exist downstream and should be checked in those repos (fixes belong there, not in parsnip): discrim's `discrim_flexible()` earth/fda prediction post-processors (tidymodels/discrim), and baguette's `bag_mars()` class prediction path (tidymodels/baguette). File issues there if the pattern `ifelse(x[, 1] >= 0.5, ...)` appears.
 - Risk is low: binary behavior is unchanged, and multiclass class predictions could not previously have been correct, so no one can be depending on the old output.
 - The multiclass glm fit itself can throw `glm.fit` convergence warnings (earth fits one binomial glm per level); that is earth behavior and out of scope here.
+
+## Work items
+
+Executed 2026-09-22 on branch `earth-multiclass-class-pred` (off `main` at 8ca7373e).
+
+- [x] Reproduce the bug on `main` and confirm the shape of earth's `type = "response"` output for binary and multiclass outcomes
+- [x] Add `earth_class_pred()` next to `earth_glm_covert()` in `R/aaa_models.R`
+- [x] Register it as the `type = "class"` post for the earth engine in `R/mars_data.R`
+- [x] Add `class predictions for multiclass` to `tests/testthat/test-mars.R`, beside the `#1334` prob test
+- [x] Add the `NEWS.md` bullet
+- [x] Check the downstream packages named below for the same pattern
+- [x] `air format .` and full `devtools::test()`
+
+### Notes from execution
+
+The helper branches on `ncol(x) == 1` rather than the `length(object$lvl) == 2` the plan proposed. Both are equivalent for earth, but keying on the column count matches its sibling `earth_glm_covert()` exactly and tests the thing the code actually indexes into. Verified live: for `two_class_dat` earth returns a one-column matrix named `Class2` (the *second* level's probability, which is what makes the existing threshold rule correct), and for iris it returns a 150x3 matrix with colnames `setosa versicolor virginica` matching `object$lvl`.
+
+The plan's decision not to unify the two branches through `earth_glm_covert()` is worth keeping: `which.max` on a normalized two-column matrix would flip the exact-0.5 tie from `lvl[2]` to `lvl[1]`. No row in `two_class_dat` sits at exactly 0.5, so it is latent rather than observable, but it would be a silent behavior change for no gain.
+
+Before and after on iris, all 150 rows:
+
+```
+before                                  after
+             set  ver  vir                          set  ver  vir
+  setosa       0   50   50                setosa     50    0    0
+  versicolor  50    0    0                versicolor  0   49    1
+  virginica    0    0    0                virginica   0    1   49
+```
+
+The two remaining errors are the genuinely overlapping versicolor/virginica pair.
+
+Beyond the plan's suggested assertions, the test also checks that the predicted class equals the arg-max of `predict(type = "prob")` across all 150 iris rows, and that binary predictions equal a 0.5 threshold on `.pred_Class2` across all of `two_class_dat`. Those two tie `class` to `prob` directly, which is the invariant that was actually broken.
+
+### Downstream check
+
+The follow-up below anticipated the same `ifelse(x[, 1] >= 0.5, ...)` rule in discrim and baguette. It is not there, so there is nothing to file:
+
+- discrim 1.1.0: `discrim_flexible()` registers `type = "class"` with `post = NULL`, delegating to `discrim::pred_wrapper()` and on to `mda::predict.fda()`, which handles multiclass natively. Its `prob` type uses `prob_matrix_to_tibble` with `type = "posterior"`.
+- baguette 1.1.0: `bag_mars()` registers `type = "class"` with `post = fix_column_names`, delegating to baguette's own bagged `predict()` with `type = "class"`.
+
+Neither `R/` tree contains a `0.5` threshold in any prediction path.

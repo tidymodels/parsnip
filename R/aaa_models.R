@@ -1293,3 +1293,16 @@ earth_glm_covert <- function(x, object) {
   colnames(x) <- object$lvl
   x
 }
+
+earth_class_pred <- function(x, object) {
+  # For two classes, earth returns a single column of the probability of the
+  # second level. For three or more, it returns one column per level.
+  if (ncol(x) == 1) {
+    res <- ifelse(x[, 1] >= 0.5, object$lvl[2], object$lvl[1])
+  } else {
+    best <- apply(x, 1, which.max)
+    res <- if (is.null(colnames(x))) object$lvl[best] else colnames(x)[best]
+  }
+
+  unname(res)
+}

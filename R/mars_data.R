@@ -130,10 +130,7 @@ set_pred(
   type = "class",
   value = list(
     pre = NULL,
-    post = function(x, object) {
-      x <- ifelse(x[, 1] >= 0.5, object$lvl[2], object$lvl[1])
-      x
-    },
+    post = earth_class_pred,
     func = c(fun = "predict"),
     args = list(
       object = quote(object$fit),

@@ -314,3 +314,48 @@ test_that('classification probabilities for multiclass', {
   expect_s3_class(res_bn, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(res_bn), 3L)
 })
+
+test_that('class predictions for multiclass', {
+  skip_if_not_installed("earth")
+  skip_if_not_installed("modeldata")
+  # Issues 472 and 1409
+
+  spec <- mars(mode = "classification", engine = "earth")
+
+  ### Multiclass
+  set.seed(123)
+  suppressWarnings({
+    fit_mc <- fit(spec, Species ~ ., iris)
+  })
+
+  # Test with one row from each class
+  res_mc <- predict(fit_mc, iris[c(1, 51, 101), ], type = "class")
+  expect_named(res_mc, ".pred_class")
+  expect_s3_class(res_mc$.pred_class, "factor")
+  expect_equal(levels(res_mc$.pred_class), levels(iris$Species))
+  expect_equal(
+    as.character(res_mc$.pred_class),
+    c("setosa", "versicolor", "virginica")
+  )
+
+  # The predicted class is the one with the largest probability
+  prob_mc <- predict(fit_mc, iris, type = "prob")
+  expect_equal(
+    as.character(predict(fit_mc, iris, type = "class")$.pred_class),
+    levels(iris$Species)[apply(prob_mc, 1, which.max)]
+  )
+
+  ### Binary
+  set.seed(123)
+  suppressWarnings({
+    fit_bn <- fit(spec, Class ~ ., two_class_dat)
+  })
+
+  res_bn <- predict(fit_bn, two_class_dat, type = "class")
+  prob_bn <- predict(fit_bn, two_class_dat, type = "prob")
+  expect_equal(levels(res_bn$.pred_class), levels(two_class_dat$Class))
+  expect_equal(
+    as.character(res_bn$.pred_class),
+    ifelse(prob_bn$.pred_Class2 >= 0.5, "Class2", "Class1")
+  )
+})
