@@ -43,7 +43,7 @@ Parsnip changes the default range for `cost` to `c(-10, 5)`.
     ## Computational engine: LiblineaR
     ##
     ## Model fit template:
-    ## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), C = double(1),
+    ## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), cost = double(1),
     ##     svr_eps = double(1), type = 11)
 
 ### Translation from parsnip to the original package (classification)
@@ -63,7 +63,7 @@ Parsnip changes the default range for `cost` to `c(-10, 5)`.
     ## Computational engine: LiblineaR
     ##
     ## Model fit template:
-    ## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), C = double(1),
+    ## LiblineaR::LiblineaR(x = missing_arg(), y = missing_arg(), cost = double(1),
     ##     type = 1)
 
 The `margin` parameter does not apply to classification models.

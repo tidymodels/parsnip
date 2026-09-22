@@ -41,6 +41,15 @@
   now supports quantile regression mode, where fitting computes the
   requested empirical quantiles of the outcome.
 
+- [`svm_linear()`](https://parsnip.tidymodels.org/dev/reference/svm_linear.md)
+  with the `"LiblineaR"` engine now passes `cost` to
+  [`LiblineaR::LiblineaR()`](https://rdrr.io/pkg/LiblineaR/man/LiblineaR.html).
+  It was previously mapped to a nonexistent `C` argument, which the
+  engine silently absorbed into its dots, so every fit used the engine
+  default of `cost = 1` and tuning over `cost` had no effect. Fitted
+  results will change for any model with a non-default `cost`
+  ([\#1405](https://github.com/tidymodels/parsnip/issues/1405)).
+
 - Fitting with sparse data now respects the model mode, so loading an
   extension package that registers an engine for a different mode can no
   longer alter sparse data support for the original mode
