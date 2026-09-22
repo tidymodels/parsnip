@@ -76,6 +76,17 @@
   the convention. Fitted models are unchanged
   ([\#796](https://github.com/tidymodels/parsnip/issues/796)).
 
+- [`boost_tree()`](https://parsnip.tidymodels.org/dev/reference/boost_tree.md)
+  models fit with the `"xgboost"` engine and a function-valued
+  `objective` now error informatively for `predict(type = "class")` and
+  `predict(type = "prob")` instead of returning raw margins labelled as
+  probabilities. xgboost cannot report whether a custom objective
+  produces margins or probabilities, so parsnip cannot convert them; use
+  `predict(type = "raw")` and apply the matching inverse link yourself,
+  or register a custom engine that post-processes the predictions.
+  Fitting, `type = "raw"`, and regression are unaffected
+  ([\#999](https://github.com/tidymodels/parsnip/issues/999)).
+
 - [`mars()`](https://parsnip.tidymodels.org/dev/reference/mars.md)
   classification fits with the `"earth"` engine now return correct
   `predict(type = "class")` results for outcomes with three or more
