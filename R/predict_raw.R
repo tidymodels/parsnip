@@ -6,7 +6,11 @@ predict_raw.model_fit <- function(object, new_data, opts = list(), ...) {
   protected_args <- names(object$spec$method$pred$raw$args)
   dup_args <- names(opts) %in% protected_args
   if (any(dup_args)) {
-    opts <- opts[[!dup_args]]
+    cli::cli_warn(
+      "{cli::qty(sum(dup_args))}The argument{?s} {.arg {names(opts)[dup_args]}}
+       in {.arg opts} {?is/are} protected and will be ignored."
+    )
+    opts <- opts[!dup_args]
   }
   if (length(opts) > 0) {
     object$spec$method$pred$raw$args <-

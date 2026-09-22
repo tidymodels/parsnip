@@ -10,7 +10,11 @@
 
 * `ordinal_reg()` gains arguments `threshold_structure` and `parallel_reg` to control threshold constraints and the parallel regression assumption. The `ordinalNet` engine can use `parallel_reg` while the `clm` and `vglm` engines can use both new arguments (#1393, @corybrunson).
 
+* `multi_predict_args()` and `has_multi_predict()` work again for fitted workflows, returning the submodel argument names and `TRUE` instead of `NULL` and `FALSE`. They read from an outdated internal workflows structure. Both now error informatively on an untrained workflow rather than silently reporting that it has no submodel arguments (#1410).
+
 * `null_model()` now supports quantile regression mode, where fitting computes the requested empirical quantiles of the outcome.
+
+* `predict_raw()` no longer errors when `opts` contains an argument name that collides with a protected prediction argument such as `newdata` or `object`. The colliding entry is now dropped with a warning; previously every path through that branch failed with "attempt to select less than one element". This also covers `predict(type = "raw", opts = ...)` (#1408).
 
 * `svm_linear()` with the `"LiblineaR"` engine now passes `cost` to `LiblineaR::LiblineaR()`. It was previously mapped to a nonexistent `C` argument, which the engine silently absorbed into its dots, so every fit used the engine default of `cost = 1` and tuning over `cost` had no effect. Fitted results will change for any model with a non-default `cost` (#1405).
 
