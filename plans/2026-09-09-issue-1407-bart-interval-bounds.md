@@ -108,3 +108,43 @@ Add to `/Users/max/github/parsnip/tests/testthat/test-bart.R` (currently only ha
 - Behavior change: interval values will change for anyone who obtained (silently wrong) results before; that is the point of the fix.
 - Related latent problems in the same function, worth separate issues rather than scope creep here: (1) an outcome factor with unused (or more than two) levels breaks the interval branch via the `obj$lvl` name mismatch (the error in the issue reprex) and would also mislabel `class`/`prob` predictions — dbarts BART classification is binary-only and parsnip does not check this at fit time; (2) line 175 uses `obj$lv`, which only works through `$` partial matching of `obj$lvl` and would hit the same 3-name/2-column mismatch for non-dropped levels in the `prob` branch.
 - No blockers; dbarts is available and the fix is local to `dbart_predict_calc()`.
+
+## Work items
+
+Executed 2026-09-22 on branch `bart-interval-sorts` (off `main` at 11c10db6).
+
+- [x] Reproduce the scrambling and confirm each bound column is a sorted pool
+- [x] Drop the `apply(bnds, 1, sort)` line and index the 2 x n quantile matrix by row
+- [x] Verify all four columns match the per-observation quantiles exactly
+- [x] Confirm the regression branch is untouched
+- [x] Tests in `tests/testthat/test-bart.R`, confirmed to fail without the fix
+- [x] `NEWS.md` bullet
+- [x] `air format .` and full `R CMD check`
+
+### Confirmation of the diagnosis
+
+Reproduced on five setosa rows. The returned `.pred_upper_versicolor` was `0.0484, 0.0497, 0.0656, 0.0750, 0.0766` — exactly the ascending sort of the true per-observation upper quantiles `0.0497, 0.0766, 0.0750, 0.0656, 0.0484`. Row 1's true upper bound is `0.0497` but it was handed row 5's `0.0484`. Same pattern on the lower bounds. After the fix all four columns match the directly computed quantiles to `all.equal()` tolerance.
+
+The plan's reasoning for dropping the sort rather than replacing it with `apply(bnds, 2, sort)` holds: `quantile()` is monotone in the probability and `lo < hi` by construction at lines 155-156, so `bnds[1, ] <= bnds[2, ]` per column already. The tests assert that invariant anyway via `expect_all_true()`.
+
+### Test determinism
+
+The exact-match assertions use `type = "ev"`, which evaluates the stored trees and draws no new samples, so comparing parsnip's output against `apply(post, 2, quantile, ...)` on the same fitted object is deterministic. Verified the four exact-match assertions all fail against unfixed source and pass after, so they genuinely guard the defect rather than merely exercising the code path.
+
+`type = "ppd"` was left alone as the plan suggested — it draws from the posterior predictive, so an exact-match comparison would need matched `set.seed()` calls on both sides for little added value. The `pred_int` path shares the same fixed code, so it is covered by construction.
+
+### Partial matching in the `prob` branch, also fixed
+
+Line 175 used `obj$lv`, which only resolved through `$` partial matching of `obj$lvl`. Fixed on this branch at topepo's request.
+
+Behaviour-neutral today — a `model_fit` has elements `lvl ordered spec fit preproc elapsed censor_probs`, none named `lv`, so the partial match always landed on `lvl`. It was not harmless though: under `options(warnPartialMatchDollar = TRUE)`, which strict CI setups enable, every `type = "prob"` prediction emitted `partial match of 'lv' to 'lvl'`. It would also have started resolving to the wrong element the moment anything named `lv` was added to the object.
+
+Swept all six BART predict paths (`prob`, `class`, `conf_int`, `pred_int`, regression `numeric`, regression `conf_int`) under `warnPartialMatchDollar = TRUE`; all are clean after the change. The guard test runs the four classification types with that option set via `withr::local_options()`, so a regression to `obj$lv` fails the suite rather than passing silently. Confirmed it fails against unfixed source.
+
+No `NEWS.md` bullet: results are unchanged and this is an internal robustness fix, which the project conventions exclude.
+
+### Still open in the same function
+
+Not caused by this fix, and still present:
+
+- An outcome factor with unused levels breaks the interval branch — `obj$lvl` keeps the unused level, so `paste0(".pred_lower_", obj$lvl)` generates more names than the tibble has columns. That is the `rlang::set_names()` error in the original issue reprex, which is why the repro and the tests both `droplevels()`. The underlying assumption is that dbarts BART classification is binary-only and parsnip never checks it at fit time. Worth a separate issue.

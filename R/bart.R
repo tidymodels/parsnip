@@ -172,7 +172,7 @@ dbart_predict_calc <- function(
     mn <- colMeans(post_dist, na.rm = TRUE)
     res <-
       tibble::tibble(a = 1 - mn, b = mn) |>
-      setNames(paste0(".pred_", obj$lv))
+      setNames(paste0(".pred_", obj$lvl))
   } else if (type %in% c("conf_int", "pred_int")) {
     if (mod_mode == "regression") {
       res <-
@@ -181,15 +181,15 @@ dbart_predict_calc <- function(
           .pred_upper = apply(post_dist, 2, quantile, probs = hi, na.rm = TRUE)
         )
     } else {
+      # rows are the lower and upper quantiles, columns are observations
       bnds <- apply(post_dist, 2, quantile, probs = c(lo, hi), na.rm = TRUE)
-      bnds <- apply(bnds, 1, function(x) sort(x))
 
       res <-
         tibble::tibble(
-          .pred_lower_a = 1 - bnds[, 2],
-          .pred_lower_b = bnds[, 1],
-          .pred_upper_a = 1 - bnds[, 1],
-          .pred_upper_b = bnds[, 2]
+          .pred_lower_a = 1 - bnds[2, ],
+          .pred_lower_b = bnds[1, ],
+          .pred_upper_a = 1 - bnds[1, ],
+          .pred_upper_b = bnds[2, ]
         ) |>
         rlang::set_names(
           c(
