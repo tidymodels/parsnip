@@ -59,6 +59,28 @@
       ! 1000 samples were requested but there were 333 rows in the data.
       i 333 will be used.
 
+# `monotone_constraints` warns about the event level
+
+    Code
+      mono_fit <- fit(set_engine(cls_spec, "xgboost", monotone_constraints = 1), cls ~
+        x, data = cls_dat, control = ctrl)
+    Condition
+      Warning:
+      ! The signs of `monotone_constraints` are relative to the event level, which is the first level of the outcome factor.
+      i `monotone_constraints = 1` makes the probability of the first level nondecreasing in that predictor.
+      This warning is displayed once per session.
+
+---
+
+    Code
+      mono_fit_2 <- fit(set_engine(cls_spec, "xgboost", monotone_constraints = 1,
+        event_level = "second"), cls ~ x, data = cls_dat, control = ctrl)
+    Condition
+      Warning:
+      ! The signs of `monotone_constraints` are relative to the event level, which is the second level of the outcome factor.
+      i `monotone_constraints = 1` makes the probability of the second level nondecreasing in that predictor.
+      This warning is displayed once per session.
+
 # count/proportion parameters
 
     Code

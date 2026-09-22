@@ -341,6 +341,21 @@ xgb_train <- function(
 
   others <- process_others(others, arg_list)
 
+  if (!is.null(others$monotone_constraints) && num_class == 2) {
+    cli::cli_warn(
+      c(
+        "!" = "The signs of {.arg monotone_constraints} are relative to the
+               event level, which is the {event_level} level of the outcome
+               factor.",
+        "i" = "{.code monotone_constraints = 1} makes the probability of the
+               {event_level} level nondecreasing in that predictor."
+      ),
+      class = "xgboost_monotone_direction_warning",
+      .frequency = "once",
+      .frequency_id = "xgboost_monotone_direction"
+    )
+  }
+
   if (utils::packageVersion("xgboost") >= "2.0.0.0") {
     if (!is.null(num_class) && num_class > 2) {
       arg_list$num_class <- num_class
