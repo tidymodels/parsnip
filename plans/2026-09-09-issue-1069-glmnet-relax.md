@@ -200,3 +200,24 @@ Risks and related work:
   refactor), poissonreg#82 (upstream report, fixed by this change).
 
 - No blockers; the fix is self-contained in parsnip.
+
+## Work items
+
+Fixed on branch `quosure-eval-bugs` together with [issue 432](2026-09-09-issue-0432-mars-cv-prune-quosure.md), which carries the full write-up.
+
+- [x] Reproduce `relax = TRUE` failing on both the formula and matrix interfaces
+- [x] Fix, via the general quosure evaluation in `make_form_call()`/`make_xy_call()`
+- [x] Tests in a new `tests/testthat/test-glmnet-engines.R`
+- [x] Shared `NEWS.md` bullet
+
+### This plan's recommendation was not taken
+
+This plan preferred a glmnet-targeted fix in `set_glmnet_penalty_path()` and judged the general fix too risky, suggesting it be folded into #878. The general fix was measured instead of assumed: across the full suite it breaks four assertions in a single ranger descriptor test and causes no snapshot churn. Given that, and that the general version also fixes #432 and inoculates any other engine that re-evaluates its recorded call, the general fix was taken.
+
+One consequence worth recording: because the evaluation happens when the **call is assembled** rather than during `translate()`, `translate(spec)$method$fit$args` still contains quosures. The test this plan proposed — asserting no element of the translate output is a quosure — therefore does not apply and was replaced with the equivalent assertion on the fitted object's recorded call, which is the thing that actually has to be quosure-free.
+
+### Test note
+
+The plan's second reprex used `maxit = 1000`. Current glmnet deprecates passing `maxit` directly (`Passing 'maxit' to glmnet() is deprecated. Use control = list(maxit = ...) instead.`), so the "extra engine argument" variant uses `standardize = FALSE` instead, which exercises the same path without a deprecation warning.
+
+Verified fixed on both interfaces, with `$relaxed` populated on the fitted glmnet object in each case.

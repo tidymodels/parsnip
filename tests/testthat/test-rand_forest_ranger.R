@@ -349,7 +349,9 @@ test_that('additional descriptor tests', {
 
   ##
 
-  exp_wts <- rlang::quo(c(min(.lvls()), 20, 10, 1))
+  # descriptors are resolved while the fit call is built, so the recorded call
+  # holds the value rather than the quosure (#432, #1069)
+  exp_wts <- c(min(table(hpc$class)), 20, 10, 1)
 
   descr_other_xy <- fit_xy(
     rand_forest(mode = "classification", mtry = 2) |>
@@ -361,8 +363,7 @@ test_that('additional descriptor tests', {
   expect_equal(extract_fit_engine(descr_other_xy)$mtry, 2)
   expect_equal(
     extract_fit_engine(descr_other_xy)$call$class.weights,
-    exp_wts,
-    ignore_formula_env = TRUE
+    exp_wts
   )
 
   descr_other_f <- fit(
@@ -375,8 +376,7 @@ test_that('additional descriptor tests', {
   expect_equal(extract_fit_engine(descr_other_f)$mtry, 2)
   expect_equal(
     extract_fit_engine(descr_other_f)$call$class.weights,
-    exp_wts,
-    ignore_formula_env = TRUE
+    exp_wts
   )
 
   descr_other_xy <- fit_xy(
@@ -389,8 +389,7 @@ test_that('additional descriptor tests', {
   expect_equal(extract_fit_engine(descr_other_xy)$mtry, 2)
   expect_equal(
     extract_fit_engine(descr_other_xy)$call$class.weights,
-    exp_wts,
-    ignore_formula_env = TRUE
+    exp_wts
   )
 
   descr_other_f <- fit(
@@ -403,8 +402,7 @@ test_that('additional descriptor tests', {
   expect_equal(extract_fit_engine(descr_other_f)$mtry, 2)
   expect_equal(
     extract_fit_engine(descr_other_f)$call$class.weights,
-    exp_wts,
-    ignore_formula_env = TRUE
+    exp_wts
   )
 })
 
