@@ -6,10 +6,8 @@
 #    predict_glmnet(penalty = NULL)             <-- checks and sets penalty
 #     predict.model_fit()                       <-- checks for extra vars in ...
 #      predict_numeric()
-#       predict_numeric._<glmnet-class>()
-#        predict_numeric_glmnet()
-#         predict_numeric.model_fit()
-#          predict.<glmnet-class>()
+#       predict_numeric.model_fit()
+#        predict.<glmnet-class>()
 
 # glmnet call stack using `multi_predict` when object has
 # classes "_<glmnet-class>" and "model_fit":
@@ -49,21 +47,6 @@ predict_glmnet <- function(
   predict.model_fit(object, new_data = new_data, type = type, opts = opts, ...)
 }
 
-predict_numeric_glmnet <- function(object, new_data, ...) {
-  object$spec <- eval_args(object$spec)
-  predict_numeric.model_fit(object, new_data = new_data, ...)
-}
-
-predict_class_glmnet <- function(object, new_data, ...) {
-  object$spec <- eval_args(object$spec)
-  predict_class.model_fit(object, new_data = new_data, ...)
-}
-
-predict_classprob_glmnet <- function(object, new_data, ...) {
-  object$spec <- eval_args(object$spec)
-  predict_classprob.model_fit(object, new_data = new_data, ...)
-}
-
 predict_raw_glmnet <- function(object, new_data, opts = list(), ...) {
   object$spec <- eval_args(object$spec)
 
@@ -83,19 +66,10 @@ predict_raw_glmnet <- function(object, new_data, opts = list(), ...) {
 predict._elnet <- predict_glmnet
 
 #' @export
-predict_numeric._elnet <- predict_numeric_glmnet
-
-#' @export
 predict_raw._elnet <- predict_raw_glmnet
 
 #' @export
 predict._lognet <- predict_glmnet
-
-#' @export
-predict_class._lognet <- predict_class_glmnet
-
-#' @export
-predict_classprob._lognet <- predict_classprob_glmnet
 
 #' @export
 predict_raw._lognet <- predict_raw_glmnet
@@ -104,25 +78,10 @@ predict_raw._lognet <- predict_raw_glmnet
 predict._multnet <- predict_glmnet
 
 #' @export
-predict_class._multnet <- predict_class_glmnet
-
-#' @export
-predict_classprob._multnet <- predict_classprob_glmnet
-
-#' @export
 predict_raw._multnet <- predict_raw_glmnet
 
 #' @export
 predict._glmnetfit <- predict_glmnet
-
-#' @export
-predict_numeric._glmnetfit <- predict_numeric_glmnet
-
-#' @export
-predict_class._glmnetfit <- predict_class_glmnet
-
-#' @export
-predict_classprob._glmnetfit <- predict_classprob_glmnet
 
 #' @export
 predict_raw._glmnetfit <- predict_raw_glmnet
@@ -216,7 +175,9 @@ multi_predict_glmnet <- function(
 
   model_type <- class(object$spec)[1]
 
-  if (object$spec$mode == "classification") {
+  # `type = "raw"` is passed straight through to glmnet, so parsnip neither
+  # sets a glmnet-level type nor post-processes the result (#857)
+  if (object$spec$mode == "classification" && type != "raw") {
     if (
       type == "prob" |
         model_type == "logistic_reg"
@@ -235,6 +196,10 @@ multi_predict_glmnet <- function(
     penalty = penalty,
     multi = TRUE
   )
+
+  if (type == "raw") {
+    return(pred)
+  }
 
   res <- switch(
     model_type,
