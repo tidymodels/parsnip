@@ -6,7 +6,7 @@ Two places in parsnip reached into a list with `$` using a name that does not ex
 
 Found by sweeping the test suite under `options(warnPartialMatchDollar = TRUE)`. That sweep was prompted by the same defect in `R/bart.R` (`obj$lv` for `obj$lvl`), fixed earlier in #1407.
 
-No issue number; this came out of the sweep directly. No `NEWS.md` bullet — results are unchanged and the project conventions exclude internal fixes.
+No issue number; this came out of the sweep directly.
 
 ## Work items
 
@@ -19,6 +19,7 @@ No issue number; this came out of the sweep directly. No `NEWS.md` bullet — re
 - [x] Fix `tests/testthat/test-mlp.R:27`
 - [x] Fix `R/aaa_multi_predict.R:19`, found via a stray snapshot rather than the sweep
 - [x] Final sweep: parsnip's own code is clean
+- [x] `NEWS.md` bullet
 - [x] `air format .` and full `R CMD check`
 
 ## The defects
@@ -67,4 +68,4 @@ Branch `no-partial-matches`, off `main` at 15deaf38. Two branches were open at t
 - `glmnet-predict-fixes` (#857, #878) — no files in common.
 - `argument-passing-processing` (#492, #1251) — also touches `R/fit_helpers.R`, but its nearest hunk starts at line 59 while this change is at line 52. Seven lines apart with three lines of diff context, so the hunks do not touch and either merge order is clean.
 
-Skipping the `NEWS.md` bullet also avoids the only file all three branches would otherwise have contended over.
+`NEWS.md` is touched by all the concurrent branches, so a conflict there is expected; topepo asked for the bullet regardless rather than omit it to dodge one. The bullet is deliberately framed as behaviour-neutral, because it is: every one of these accesses resolved to the right element already.
