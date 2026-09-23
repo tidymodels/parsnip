@@ -102,6 +102,18 @@
   Fitting, `type = "raw"`, and regression are unaffected
   ([\#999](https://github.com/tidymodels/parsnip/issues/999)).
 
+- [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+  [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) now
+  error when extra arguments are passed through `...`. The documentation
+  always said these were ignored, but depending on the combination of
+  user and engine interface they were silently dropped, silently applied
+  (a `subset` argument really did subset the training data on the
+  formula-to-xy path), or raised an internal “unused argument” error.
+  Pass engine arguments to
+  [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md)
+  and case weights to the `case_weights` argument
+  ([\#492](https://github.com/tidymodels/parsnip/issues/492)).
+
 - [`mars()`](https://parsnip.tidymodels.org/dev/reference/mars.md)
   classification fits with the `"earth"` engine now return correct
   `predict(type = "class")` results for outcomes with three or more
@@ -128,6 +140,14 @@
   path through that branch failed with “attempt to select less than one
   element”. This also covers `predict(type = "raw", opts = ...)`
   ([\#1408](https://github.com/tidymodels/parsnip/issues/1408)).
+
+- [`set_model_arg()`](https://parsnip.tidymodels.org/dev/reference/set_new_model.md)
+  now stores `func` as a list when given the named character vector form
+  shown in its documentation, such as
+  `c(pkg = "dials", fun = "mixture")`. That form registered without
+  complaint but made tuning fail much later with
+  `$ operator is invalid for atomic vectors`
+  ([\#1251](https://github.com/tidymodels/parsnip/issues/1251)).
 
 - [`svm_linear()`](https://parsnip.tidymodels.org/dev/reference/svm_linear.md)
   with the `"LiblineaR"` engine now passes `cost` to

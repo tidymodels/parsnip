@@ -114,13 +114,16 @@ underlying model function uses.</p></dd>
 
 
 <dt id="arg-func">func<a class="anchor" aria-label="anchor" href="#arg-func"></a></dt>
-<dd><p>A named character vector that describes how to call
-a function. <code>func</code> should have elements <code>pkg</code> and <code>fun</code>. The
+<dd><p>A named character vector or named list that describes how
+to call a function. <code>func</code> should have elements <code>pkg</code> and <code>fun</code>. The
 former is optional but is recommended and the latter is
 required. For example, <code>c(pkg = "stats", fun = "lm")</code> would be
 used to invoke the usual linear regression function. In some
 cases, it is helpful to use <code>c(fun = "predict")</code> when using a
-package's <code>predict</code> method.</p></dd>
+package's <code>predict</code> method. <code>set_model_arg()</code> stores <code>func</code> as a
+list, so either form may be given there; it also accepts the
+optional <code>range</code>, <code>trans</code>, and <code>values</code> elements used to describe a
+tuning parameter, which require the list form.</p></dd>
 
 
 <dt id="arg-has-submodel">has_submodel<a class="anchor" aria-label="anchor" href="#arg-has-submodel"></a></dt>

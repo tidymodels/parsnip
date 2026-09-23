@@ -58,9 +58,10 @@ fit_xy(object, x, y, case_weights = NULL, control = control_parsnip(), ...)
 
 - ...:
 
-  Not currently used; values passed here will be ignored. Other options
-  required to fit the model should be passed using
-  [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md).
+  Must be empty; an error is raised if any arguments are passed here.
+  Options required to fit the model should be passed to
+  [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md),
+  and case weights to the `case_weights` argument.
 
 - x:
 
