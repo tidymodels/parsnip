@@ -106,3 +106,59 @@ Add to `/Users/max/github/parsnip/tests/testthat/test-fit_interfaces.R` (snapsho
 - Decision point for maintainers: hard error immediately (proposed) versus one release of a deprecation warning for the previously functional `subset`/`weights` on the formula-to-xy path.
 - Related: the `...` docs for `fit()`/`fit_xy()` and the `case_weights` argument should cross-reference each other so ex-`weights` users find the replacement.
 - No blockers; the change is local to `R/fit.R` and `R/fit_helpers.R`.
+
+## Work items
+
+Executed 2026-09-23 on branch `argument-passing-processing` (off `main` at 15deaf38), together with [issue 1251](2026-09-09-issue-1251-set-model-arg-func-vector.md).
+
+- [x] Reproduce all four interface pathways
+- [x] Add `check_fit_dots()` next to `eval_mod()` in `R/fit.R`
+- [x] Call it in `fit.model_spec()` after the existing `x`/`y` check, and in `fit_xy.model_spec()`
+- [x] Remove the now-dead `...` plumbing
+- [x] Update the `@param ...` roxygen and re-document
+- [x] Tests in `tests/testthat/test-fit_interfaces.R`
+- [x] `NEWS.md` bullet
+- [x] `air format .` and full `R CMD check`
+
+### Before and after
+
+All four pathways, `subset = 1:7` against 32-row `mtcars`:
+
+```
+                       before                          after
+1 form_form (lm)       fit on all 32 rows              informative error
+2 form_xy (glmnet)     fit on 7 rows (!)               informative error
+3 xy_xy (glmnet)       "unused argument (subset = ..)" informative error
+4 xy_form (lm)         "unused argument (subset = ..)" informative error
+```
+
+Path 2 is the one that matters most: `subset` genuinely changed which rows were fit, directly contradicting the documentation.
+
+The hard error was taken rather than a release of `lifecycle::deprecate_warn()`, per topepo. See the risk note below.
+
+### Dead plumbing removed
+
+With the check at both entry points, the forwarding underneath is unreachable:
+
+- `...` dropped from the `form_xy()` calls in the `fit()` switch and from the `xy_xy()`/`xy_form()` calls in the `fit_xy()` switch.
+- `...` dropped from the `form_form()` call inside `xy_form()`.
+- `...` dropped from `eval_mod()`'s signature and from all four of its `eval_tidy()` calls. It no longer takes dots at all.
+- `form_xy()` no longer splices dots into `.convert_form_to_xy_fit()`.
+
+`.convert_form_to_xy_fit()` and `check_form_dots()` are untouched — that is an exported developer helper with its own documented `...` contract, and it still accepts `subset`/`weights` when called directly. The `...` stay in the two S3 method signatures because the `generics::fit()`/`fit_xy()` generics require them.
+
+### Ordering
+
+`check_fit_dots()` sits *after* the `x`/`y`-in-dots check, so `fit(spec, formula, data, x = 1, y = 2)` still gets the specific "use `fit_xy()`" message rather than the generic dots error. Covered by a snapshot.
+
+Separately: `fit(spec, x = ..., y = ...)` with no formula errors with `argument "formula" is missing, with no default`, because `check_formula()` runs earlier. Verified this is pre-existing on `main` and unchanged by this work.
+
+### Risk worth flagging
+
+This tightens behaviour that demonstrably worked. Code passing `subset` or `weights` to `fit()` with an xy-interface engine such as glmnet previously got a genuinely subsetted or weighted fit and will now error. Worth a revdepcheck run before release. tune, workflows and the extension packages do not pass dots into `fit()`/`fit_xy()` themselves, so the exposure is user code.
+
+### Follow-on refactor
+
+At topepo's request, the error trapping inside `eval_mod()` was pulled out into `eval_mod_catch()`. `eval_mod()` had four branches from crossing `capture` with `catch`, duplicating the `eval_tidy()` call in each; it now has two, with the `try(..., silent = TRUE)` decision in one place.
+
+Purely internal — no `NEWS.md` bullet. Verified all four `capture`/`catch` combinations are unchanged, including that `catch = TRUE` still returns a `try-error` object rather than throwing, and that a failing fit under `control_parsnip(catch = TRUE)` still stores that object in the model fit.

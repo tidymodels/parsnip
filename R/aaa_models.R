@@ -506,13 +506,16 @@ check_interface_val <- function(x, call = call) {
 #' @param eng A single character string for the model engine.
 #' @param has_submodel A single logical for whether the argument
 #'  can make predictions on multiple submodels at once.
-#' @param func A named character vector that describes how to call
-#'  a function. `func` should have elements `pkg` and `fun`. The
+#' @param func A named character vector or named list that describes how
+#'  to call a function. `func` should have elements `pkg` and `fun`. The
 #'  former is optional but is recommended and the latter is
 #'  required. For example, `c(pkg = "stats", fun = "lm")` would be
 #'  used to invoke the usual linear regression function. In some
 #'  cases, it is helpful to use `c(fun = "predict")` when using a
-#'  package's `predict` method.
+#'  package's `predict` method. `set_model_arg()` stores `func` as a
+#'  list, so either form may be given there; it also accepts the
+#'  optional `range`, `trans`, and `values` elements used to describe a
+#'  tuning parameter, which require the list form.
 #' @param type A single character value for the type of prediction. Possible
 #'  values are: `class`, `conf_int`, `numeric`, `pred_int`, `prob`, `quantile`,
 #'   and `raw`.
@@ -732,6 +735,11 @@ set_model_arg <- function(model, eng, parsnip, original, func, has_submodel) {
   check_string(original, allow_empty = FALSE)
   check_func_val(func)
   check_bool(has_submodel)
+
+  # Consumers of a tuning parameter's `func` reach into it with `$`, which
+  # errors on an atomic vector. Store a list so the documented
+  # `c(pkg = , fun = )` form works too. See #1251.
+  func <- as.list(func)
 
   # First-wins: skip if this argument is already registered.
   # This prevents conflicts when extension packages try to register

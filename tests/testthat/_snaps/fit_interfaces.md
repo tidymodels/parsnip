@@ -76,3 +76,41 @@
     i Please install (if needed) and load to continue.
     
 
+# `fit()` and `fit_xy()` reject extra arguments
+
+    Code
+      fit(spec, mpg ~ disp + hp, data = mtcars, subset = 1:7)
+    Condition
+      Error in `fit()`:
+      ! `...` must be empty.
+      x Problematic argument: `subset`.
+      i Arguments for the model fit should be passed to `set_engine()`, and case weights to the `case_weights` argument.
+
+---
+
+    Code
+      fit_xy(spec, x = x, y = mtcars$mpg, subset = 1:7)
+    Condition
+      Error in `fit_xy()`:
+      ! `...` must be empty.
+      x Problematic argument: `subset`.
+      i Arguments for the model fit should be passed to `set_engine()`, and case weights to the `case_weights` argument.
+
+---
+
+    Code
+      fit(spec, mpg ~ disp + hp, data = mtcars, subset = 1:7, foo = 1)
+    Condition
+      Error in `fit()`:
+      ! `...` must be empty.
+      x Problematic arguments: `subset` and `foo`.
+      i Arguments for the model fit should be passed to `set_engine()`, and case weights to the `case_weights` argument.
+
+---
+
+    Code
+      fit(spec, mpg ~ disp + hp, data = mtcars, x = 1, y = 2)
+    Condition
+      Error in `fit()`:
+      ! `fit.model_spec()` is for the formula methods. Use `fit_xy()` instead.
+
