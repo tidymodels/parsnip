@@ -59,8 +59,7 @@ form_form <-
       fit_call,
       capture = control$verbosity == 0,
       catch = control$catch,
-      envir = env,
-      ...
+      envir = env
     )
     elapsed <- proc.time() - time
     res$preproc <- list(y_var = all.vars(rlang::f_lhs(env$formula)))
@@ -118,8 +117,7 @@ xy_xy <- function(
     fit_call,
     capture = control$verbosity == 0,
     catch = control$catch,
-    envir = env,
-    ...
+    envir = env
   )
   elapsed <- proc.time() - time
 
@@ -163,7 +161,6 @@ form_xy <- function(
   data_obj <- .convert_form_to_xy_fit(
     formula = env$formula,
     data = env$data,
-    ...,
     composition = target,
     indicators = indicators,
     remove_intercept = remove_intercept,
@@ -215,8 +212,7 @@ xy_form <- function(object, env, control, call = rlang::caller_env(), ...) {
   res <- form_form(
     object = object,
     env = env,
-    control = control,
-    ...
+    control = control
   )
   if (!is.null(env$y_var)) {
     data_obj$y_var <- env$y_var

@@ -14,6 +14,14 @@
 #'  multiple rows per sub-model. Note that, within the tibbles, the column names
 #'  follow the usual standard based on prediction `type` (i.e. `.pred_class` for
 #'  `type = "class"` and so on).
+#'
+#'  `type = "raw"` is the exception: it returns the engine's own prediction
+#'  object with no parsnip post-processing, so it is not a tibble with a
+#'  `.pred` list-column. For glmnet engines this is a matrix with one column
+#'  per penalty value, or a three-dimensional array for `multinom_reg()`.
+#'  Because `...` is passed to the engine but `type` is a named argument of
+#'  `multi_predict()` itself, an engine-level prediction type cannot be
+#'  supplied this way; the engine's default is used.
 #' @export
 multi_predict <- function(object, ...) {
   # `[[` rather than `$`: this runs before dispatch, so `object` may be any

@@ -213,3 +213,46 @@ Risks and related work:
 - Coordinate with #878 (removal of `predict_<type>_glmnet()` wrappers and
   `eval_args()`): the internal raw call stack this fix relies on is exactly
   what #878 reshuffles.
+
+## Work items
+
+Executed 2026-09-22 on branch `glmnet-predict-fixes` (off `main` at 15deaf38), together with #878.
+
+- [x] Reproduce all three failure modes
+- [x] Skip the glmnet-level `type` mapping and the post-processing `switch()` when `type == "raw"`
+- [x] Confirm the other prediction types are unchanged
+- [x] Carve out `type = "raw"` in the `multi_predict()` `@return` docs and re-document
+- [x] Tests in `tests/testthat/test-glmnet-engines.R`
+- [x] `NEWS.md` bullet
+- [x] #878: remove the per-type glmnet predict wrappers
+- [x] `air format .` and full `R CMD check`
+
+### Verified shapes
+
+Exactly what the plan predicted, with `penalty = c(0.1, 0.5)` and five rows:
+
+```
+linear_reg   raw -> matrix 5 x 2
+logistic_reg raw -> matrix 5 x 2
+multinom_reg raw -> array  5 x 4 x 2   (observations x levels x penalties)
+```
+
+All other types (`numeric`, `class`, `prob`) still return the nested `.pred` tibble; asserted for all three model types as a regression guard.
+
+### #878, resolved in the same branch
+
+The issue asked whether the per-type glmnet predict wrappers are necessary. They are not.
+
+`predict_numeric_glmnet()`, `predict_class_glmnet()` and `predict_classprob_glmnet()` had one job each — call `eval_args(object$spec)` and delegate to the `model_fit` method. On the `predict()` path that is already redundant: `predict._elnet` routes through `predict_glmnet()`, which calls `eval_args()` at `R/glmnet-engines.R:46` before `predict.model_fit()` dispatches onward. The only way the wrappers could matter is a direct call to the exported `predict_numeric()`, `predict_class()` or `predict_classprob()` generics.
+
+Tested that case explicitly before deleting anything — output is `identical()` with and without the wrappers, for `linear_reg` numeric, `logistic_reg` class and prob, and `multinom_reg` class and prob. Removed the three functions and the eight `S3method()` registrations that pointed at them, and updated the call-stack comment at the top of the file, which documented the extra hop.
+
+`predict_raw_glmnet()` stays: it also sets `opts$s <- object$spec$args$penalty`, which is real work, and is what the issue title means by "for all types but `raw`".
+
+A `NEWS.md` bullet for #878 was added later, on the `no-partial-matches` branch, once topepo asked for the missing bullets to be filled in. It was initially skipped as an internal cleanup, but that undersold it: removing the eight `S3method()` registrations changes dispatch for a custom model carrying one of glmnet's fitted classes, which is a real user-visible consequence even though predictions from ordinary glmnet models are untouched.
+
+Deliberately **not** in scope: deprecating `eval_args()`. The triage overview bundled that into #878 but the issue body does not mention it, and `eval_args()` calls `maybe_eval()` — precisely the helper that [#1433](2026-09-22-1645-remove-data-descriptors.md) will simplify once data descriptors are gone. Doing it now would collide with that work.
+
+### Documentation
+
+`multi_predict()`'s `@return` previously promised a tibble with a `.pred` list-column unconditionally. It now carves out `type = "raw"`, describes the glmnet shapes, and records the point from the plan's follow-ups that an engine-level prediction type cannot be routed through `...`, because `type` is a named argument of `multi_predict()` itself.

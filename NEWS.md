@@ -8,10 +8,6 @@
 
 * `null_model()` now supports quantile regression mode, where fitting computes the requested empirical quantiles of the outcome.
 
-* `bart()` classification fits with the `"dbarts"` engine now return each observation's own confidence and prediction interval bounds. The bounds were sorted across observations, so each row received some other row's rank-matched limits. Regression intervals were unaffected (#1407).
-
-* `mars()` classification fits with the `"earth"` engine now return correct `predict(type = "class")` results for outcomes with three or more levels. A binary threshold rule was applied regardless of the number of levels, so every multiclass prediction was wrong and the last level could never be predicted. Binary outcomes are unaffected (#472, #1409).
-
 * For censored regression models, the censoring weights can now be added to the predictions of survival probability by setting `add_censoring_weights = TRUE` in `predict(type = "survival")` (#1371).
 
 * `ordinal_reg()` gains arguments `threshold_structure` and `parallel_reg` to control threshold constraints and the parallel regression assumption. The `ordinalNet` engine can use `parallel_reg` while the `clm` and `vglm` engines can use both new arguments (#1393, @corybrunson).
@@ -24,15 +20,25 @@
 
 * Model and engine arguments are now evaluated while the model call is assembled, so the call an engine records no longer contains quosures. This fixes `mars()` fits with the earth engine when `prune_method = "cv"` is combined with `prod_degree` (#432), and `set_engine("glmnet", relax = TRUE)` for every glmnet engine, which also covers the poissonreg and censored wrappers (#1069). Both engines re-evaluate their own recorded call with base `eval()`, which cannot handle quosures. A fitted object's `$fit$call` now shows values such as `degree = 2` rather than `degree = ~2`.
 
+* `bart()` classification fits with the `"dbarts"` engine now return each observation's own confidence and prediction interval bounds. The bounds were sorted across observations, so each row received some other row's rank-matched limits. Regression intervals were unaffected (#1407).
+
 * `boost_tree()` with the `"xgboost"` engine now warns once per session when `monotone_constraints` is supplied for binary classification. The signs of the constraints are relative to the event level, which is the first factor level unless `event_level = "second"` is set, so `monotone_constraints = 1` constrains the probability of that level rather than of the second one. The engine documentation now describes the convention. Fitted models are unchanged (#796).
 
 * `boost_tree()` models fit with the `"xgboost"` engine and a function-valued `objective` now error informatively for `predict(type = "class")` and `predict(type = "prob")` instead of returning raw margins labelled as probabilities. xgboost cannot report whether a custom objective produces margins or probabilities, so parsnip cannot convert them; use `predict(type = "raw")` and apply the matching inverse link yourself, or register a custom engine that post-processes the predictions. Fitting, `type = "raw"`, and regression are unaffected (#999).
 
+* `fit()` and `fit_xy()` now error when extra arguments are passed through `...`. The documentation always said these were ignored, but depending on the combination of user and engine interface they were silently dropped, silently applied (a `subset` argument really did subset the training data on the formula-to-xy path), or raised an internal "unused argument" error. Pass engine arguments to `set_engine()` and case weights to the `case_weights` argument (#492).
+
 * `mars()` classification fits with the `"earth"` engine now return correct `predict(type = "class")` results for outcomes with three or more levels. A binary threshold rule was applied regardless of the number of levels, so every multiclass prediction was wrong and the last level could never be predicted. Binary outcomes are unaffected (#472, #1409).
+
+* `multi_predict()` for glmnet engine fits now passes `type = "raw"` through to glmnet with no post-processing. It was silently ignored for `linear_reg()`, which returned the usual nested `.pred` tibble, and errored unhelpfully for `logistic_reg()` and `multinom_reg()`. The result is glmnet's own prediction object — a matrix with one column per penalty, or a three-dimensional array for `multinom_reg()` — rather than a tibble (#857).
+
+* The per-type glmnet prediction methods (`predict_numeric._elnet()`, `predict_class._lognet()` and the six others like them) were removed. Each only evaluated the model specification before handing off to the corresponding `model_fit()` method, which the `predict()` path already does beforehand. Predictions from glmnet models are unchanged. A custom model that carries one of glmnet's fitted classes, such as `_elnet`, now reaches parsnip's `model_fit()` methods for these prediction types rather than the glmnet ones (#878).
 
 * `multi_predict_args()` and `has_multi_predict()` work again for fitted workflows, returning the submodel argument names and `TRUE` instead of `NULL` and `FALSE`. They read from an outdated internal workflows structure. Both now error informatively on an untrained workflow rather than silently reporting that it has no submodel arguments (#1410).
 
 * `predict_raw()` no longer errors when `opts` contains an argument name that collides with a protected prediction argument such as `newdata` or `object`. The colliding entry is now dropped with a warning; previously every path through that branch failed with "attempt to select less than one element". This also covers `predict(type = "raw", opts = ...)` (#1408).
+
+* `set_model_arg()` now stores `func` as a list when given the named character vector form shown in its documentation, such as `c(pkg = "dials", fun = "mixture")`. That form registered without complaint but made tuning fail much later with `$ operator is invalid for atomic vectors` (#1251).
 
 * `svm_linear()` with the `"LiblineaR"` engine now passes `cost` to `LiblineaR::LiblineaR()`. It was previously mapped to a nonexistent `C` argument, which the engine silently absorbed into its dots, so every fit used the engine default of `cost = 1` and tuning over `cost` had no effect. Fitted results will change for any model with a non-default `cost` (#1405).
 
