@@ -50,6 +50,14 @@
   ([@bjornkallerud](https://github.com/bjornkallerud),
   [\#1258](https://github.com/tidymodels/parsnip/issues/1258))
 
+- Several internal list accesses that resolved only through `$` partial
+  matching were corrected: the outcome levels recorded when fitting from
+  a formula, the `"ranger"` prediction post-processor, and the
+  [`multi_predict()`](https://parsnip.tidymodels.org/dev/reference/multi_predict.md)
+  generic’s check for a failed fit. Results are unchanged, but each
+  would have silently started reading a different element had one with a
+  shorter name been added.
+
 - Model and engine arguments are now evaluated while the model call is
   assembled, so the call an engine records no longer contains quosures.
   This fixes
@@ -128,6 +136,19 @@
   [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md)
   — rather than a tibble
   ([\#857](https://github.com/tidymodels/parsnip/issues/857)).
+
+- The per-type glmnet prediction methods (`predict_numeric._elnet()`,
+  `predict_class._lognet()` and the six others like them) were removed.
+  Each only evaluated the model specification before handing off to the
+  corresponding
+  [`model_fit()`](https://parsnip.tidymodels.org/dev/reference/model_fit.md)
+  method, which the [`predict()`](https://rdrr.io/r/stats/predict.html)
+  path already does beforehand. Predictions from glmnet models are
+  unchanged. A custom model that carries one of glmnet’s fitted classes,
+  such as `_elnet`, now reaches parsnip’s
+  [`model_fit()`](https://parsnip.tidymodels.org/dev/reference/model_fit.md)
+  methods for these prediction types rather than the glmnet ones
+  ([\#878](https://github.com/tidymodels/parsnip/issues/878)).
 
 - [`multi_predict_args()`](https://parsnip.tidymodels.org/dev/reference/has_multi_predict.md)
   and
