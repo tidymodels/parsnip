@@ -16,7 +16,9 @@
 #'  `type = "class"` and so on).
 #' @export
 multi_predict <- function(object, ...) {
-  if (inherits(object$fit, "try-error")) {
+  # `[[` rather than `$`: this runs before dispatch, so `object` may be any
+  # object, and `$fit` would partial match (an earth fit has `fitted.values`)
+  if (inherits(object[["fit"]], "try-error")) {
     cli::cli_warn("Model fit failed; cannot make predictions.")
     return(NULL)
   }

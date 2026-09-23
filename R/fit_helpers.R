@@ -49,7 +49,7 @@ form_form <-
     fit_call <- make_form_call(object, env = env)
 
     res <- list(
-      lvl = y_levels$lvl,
+      lvl = y_levels$lvls,
       ordered = y_levels$ordered,
       spec = object
     )

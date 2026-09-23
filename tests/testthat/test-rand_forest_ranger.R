@@ -82,7 +82,7 @@ test_that('ranger classification prediction', {
   xy_pred <- predict(
     extract_fit_engine(xy_fit),
     data = lending_club[1:6, num_pred]
-  )$prediction
+  )$predictions
   xy_pred <- colnames(xy_pred)[apply(xy_pred, 1, which.max)]
   xy_pred <- factor(xy_pred, levels = levels(lending_club$Class))
   expect_equal(
@@ -105,7 +105,7 @@ test_that('ranger classification prediction', {
   form_pred <- predict(
     extract_fit_engine(form_fit),
     data = lending_club[1:6, c("funded_amnt", "int_rate")]
-  )$prediction
+  )$predictions
   form_pred <- colnames(form_pred)[apply(form_pred, 1, which.max)]
   form_pred <- factor(form_pred, levels = levels(lending_club$Class))
   expect_equal(
@@ -255,7 +255,7 @@ test_that('ranger regression prediction', {
   xy_pred <- predict(
     extract_fit_engine(xy_fit),
     data = tail(mtcars[, -1])
-  )$prediction
+  )$predictions
 
   expect_equal(xy_pred, predict(xy_fit, new_data = tail(mtcars[, -1]))$.pred)
 })
@@ -426,7 +426,7 @@ test_that('ranger classification prediction', {
   xy_class_pred <- predict(
     extract_fit_engine(xy_class_fit),
     data = hpc[c(1, 51, 101), 1:4]
-  )$prediction
+  )$predictions
   xy_class_pred <- colnames(xy_class_pred)[apply(xy_class_pred, 1, which.max)]
   xy_class_pred <- factor(xy_class_pred, levels = levels(hpc$class))
 
@@ -448,7 +448,7 @@ test_that('ranger classification prediction', {
   xy_prob_pred <- predict(
     extract_fit_engine(xy_prob_fit),
     data = hpc[c(1, 51, 101), 1:4]
-  )$prediction
+  )$predictions
   xy_prob_pred <- colnames(xy_prob_pred)[apply(xy_prob_pred, 1, which.max)]
   xy_prob_pred <- factor(xy_prob_pred, levels = levels(hpc$class))
 
@@ -462,7 +462,7 @@ test_that('ranger classification prediction', {
     data = hpc[c(1, 51, 101), 1:4],
     type = "response"
   )
-  xy_prob_prob <- as_tibble(xy_prob_prob$prediction)
+  xy_prob_prob <- as_tibble(xy_prob_prob$predictions)
   names(xy_prob_prob) <- paste0(".pred_", names(xy_prob_prob))
   expect_equal(
     xy_prob_prob,
@@ -565,4 +565,26 @@ test_that('argument checks for data dimensions', {
   expect_equal(extract_fit_engine(f_fit)$min.node.size, nrow(penguins))
   expect_equal(extract_fit_engine(xy_fit)$mtry, 6)
   expect_equal(extract_fit_engine(xy_fit)$min.node.size, nrow(penguins))
+})
+
+test_that("ranger predictions do not rely on `$` partial matching", {
+  skip_if_not_installed("ranger")
+
+  # ranger returns `predictions`, which the `class` post once read as
+  # `$prediction`
+  withr::local_options(warnPartialMatchDollar = TRUE)
+
+  reg_fit <- rand_forest(trees = 20) |>
+    set_engine("ranger", seed = 1) |>
+    set_mode("regression") |>
+    fit(mpg ~ ., data = mtcars)
+  expect_no_condition(predict(reg_fit, mtcars[1:3, -1]))
+
+  cls_dat <- transform(mtcars, vs = factor(vs))
+  cls_fit <- rand_forest(trees = 20) |>
+    set_engine("ranger", seed = 1, probability = TRUE) |>
+    set_mode("classification") |>
+    fit(vs ~ ., data = cls_dat)
+  expect_no_condition(predict(cls_fit, cls_dat[1:3, ], type = "class"))
+  expect_no_condition(predict(cls_fit, cls_dat[1:3, ], type = "prob"))
 })
