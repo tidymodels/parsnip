@@ -279,6 +279,48 @@ test_that('adding a new argument', {
   )
 })
 
+test_that('a character vector `func` is stored as a list', {
+  # Issue 1251
+  set_model_arg(
+    model = "sponge",
+    eng = "gum",
+    parsnip = "chr_vec",
+    original = "chr_vec",
+    func = c(pkg = "foo", fun = "baz"),
+    has_submodel = FALSE
+  )
+
+  args <- get_from_env("sponge_args")
+  stored <- args$func[[which(args$parsnip == "chr_vec")]]
+
+  expect_type(stored, "list")
+  expect_named(stored, c("pkg", "fun"))
+  expect_identical(stored, list(pkg = "foo", fun = "baz"))
+})
+
+test_that('list and character vector `func` register as one argument', {
+  # Issue 1251
+  set_model_arg(
+    model = "sponge",
+    eng = "gum",
+    parsnip = "same_arg",
+    original = "same_arg",
+    func = list(pkg = "foo", fun = "qux"),
+    has_submodel = FALSE
+  )
+  set_model_arg(
+    model = "sponge",
+    eng = "gum",
+    parsnip = "same_arg",
+    original = "same_arg",
+    func = c(pkg = "foo", fun = "qux"),
+    has_submodel = FALSE
+  )
+
+  args <- get_from_env("sponge_args")
+  expect_equal(sum(args$parsnip == "same_arg"), 1)
+})
+
 
 # ------------------------------------------------------------------------------
 

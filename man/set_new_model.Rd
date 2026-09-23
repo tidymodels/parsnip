@@ -59,13 +59,16 @@ that parsnip exposes.}
 \item{original}{A single character string for the argument name that
 underlying model function uses.}
 
-\item{func}{A named character vector that describes how to call
-a function. \code{func} should have elements \code{pkg} and \code{fun}. The
+\item{func}{A named character vector or named list that describes how
+to call a function. \code{func} should have elements \code{pkg} and \code{fun}. The
 former is optional but is recommended and the latter is
 required. For example, \code{c(pkg = "stats", fun = "lm")} would be
 used to invoke the usual linear regression function. In some
 cases, it is helpful to use \code{c(fun = "predict")} when using a
-package's \code{predict} method.}
+package's \code{predict} method. \code{set_model_arg()} stores \code{func} as a
+list, so either form may be given there; it also accepts the
+optional \code{range}, \code{trans}, and \code{values} elements used to describe a
+tuning parameter, which require the list form.}
 
 \item{has_submodel}{A single logical for whether the argument
 can make predictions on multiple submodels at once.}

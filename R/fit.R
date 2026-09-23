@@ -19,9 +19,9 @@
 #'   examples.
 #' @param control A named list with elements `verbosity` and
 #'  `catch`. See [control_parsnip()].
-#' @param ... Not currently used; values passed here will be
-#'  ignored. Other options required to fit the model should be
-#'  passed using `set_engine()`.
+#' @param ... Must be empty; an error is raised if any arguments are
+#'  passed here. Options required to fit the model should be passed to
+#'  `set_engine()`, and case weights to the `case_weights` argument.
 #' @details  `fit()` and `fit_xy()` substitute the current arguments in the model
 #'  specification into the computational engine's code, check them
 #'  for validity, then fit the model using the data and the
@@ -160,6 +160,7 @@ fit.model_spec <-
         "{.fn fit.model_spec} is for the formula methods. Use {.fn fit_xy} instead."
       )
     }
+    check_fit_dots(...)
     # Create an environment with the evaluated argument objects. This will be
     # used when a model call is made later.
     eval_env <- rlang::env()
@@ -219,15 +220,13 @@ fit.model_spec <-
           object = object,
           control = control,
           env = eval_env,
-          target = object$method$fit$interface,
-          ...
+          target = object$method$fit$interface
         ),
         formula_data.frame = form_xy(
           object = object,
           control = control,
           env = eval_env,
-          target = object$method$fit$interface,
-          ...
+          target = object$method$fit$interface
         ),
 
         cli::cli_abort("{.val {interfaces}} is unknown.")
@@ -262,6 +261,7 @@ fit_xy.model_spec <-
     if (inherits(object, "surv_reg")) {
       cli::cli_abort("Survival models must use the formula interface.")
     }
+    check_fit_dots(...)
 
     control <- condense_control(control, default_parsnip_control)
 
@@ -334,8 +334,7 @@ fit_xy.model_spec <-
           object = object,
           env = eval_env,
           control = control,
-          target = "matrix",
-          ...
+          target = "matrix"
         ),
 
         data.frame_data.frame = ,
@@ -343,8 +342,7 @@ fit_xy.model_spec <-
           object = object,
           env = eval_env,
           control = control,
-          target = "data.frame",
-          ...
+          target = "data.frame"
         ),
 
         # heterogenous combinations
@@ -352,8 +350,7 @@ fit_xy.model_spec <-
         data.frame_formula = xy_form(
           object = object,
           env = eval_env,
-          control = control,
-          ...
+          control = control
         ),
         cli::cli_abort("{.val {interfaces}} is unknown.")
       )
@@ -365,21 +362,44 @@ fit_xy.model_spec <-
 
 # ------------------------------------------------------------------------------
 
-eval_mod <- function(e, capture = FALSE, catch = FALSE, envir = NULL, ...) {
-  if (capture) {
-    if (catch) {
-      junk <- capture.output(
-        res <- try(eval_tidy(e, env = envir, ...), silent = TRUE)
-      )
-    } else {
-      junk <- capture.output(res <- eval_tidy(e, env = envir, ...))
-    }
+# `fit()` and `fit_xy()` have never supported extra arguments, but each
+# interface pathway treated them differently: silently dropped, silently
+# applied, or an internal "unused argument" error. See #492.
+check_fit_dots <- function(..., call = rlang::caller_env()) {
+  dot_names <- ...names()
+  if (length(dot_names) > 0) {
+    cli::cli_abort(
+      c(
+        "{.arg ...} must be empty.",
+        "x" = "Problematic argument{?s}: {.arg {dot_names}}.",
+        "i" = "Arguments for the model fit should be passed to
+               {.fn set_engine}, and case weights to the {.arg case_weights}
+               argument."
+      ),
+      call = call
+    )
+  }
+  invisible(NULL)
+}
+
+# `catch` comes from `control_parsnip()`: when it is `TRUE` a failed fit is
+# returned as a `try-error` object and stored in the model fit, rather than
+# thrown.
+eval_mod_catch <- function(e, catch = FALSE, envir = NULL) {
+  if (catch) {
+    try(eval_tidy(e, env = envir), silent = TRUE)
   } else {
-    if (catch) {
-      res <- try(eval_tidy(e, env = envir, ...), silent = TRUE)
-    } else {
-      res <- eval_tidy(e, env = envir, ...)
-    }
+    eval_tidy(e, env = envir)
+  }
+}
+
+eval_mod <- function(e, capture = FALSE, catch = FALSE, envir = NULL) {
+  if (capture) {
+    junk <- capture.output(
+      res <- eval_mod_catch(e, catch = catch, envir = envir)
+    )
+  } else {
+    res <- eval_mod_catch(e, catch = catch, envir = envir)
   }
   res
 }

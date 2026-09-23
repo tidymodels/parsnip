@@ -87,3 +87,23 @@ Add to `/Users/max/github/parsnip/tests/testthat/test-registration.R`, next to t
 - Edge case: a character vector cannot faithfully carry the optional `range`/`trans`/`values` elements (they are typically non-character); coercing such a vector produces string elements. That input was already broken before this fix, so no regression.
 - tune's private copy of `eval_call_info()` still uses `$`; storing lists makes that moot, but a hardening PR to tune (accept atomic `call_info` or error clearly) could be filed separately.
 - Related but distinct: #1252 (glmnet predict dispatch), initially suspected by the same reporter; no action needed here.
+
+## Work items
+
+Executed 2026-09-23 on branch `argument-passing-processing`, together with [issue 492](2026-09-09-issue-0492-fit-dots-inconsistent.md).
+
+- [x] Reproduce the late `$ operator is invalid for atomic vectors` failure
+- [x] Coerce with `as.list()` in `set_model_arg()` after `check_func_val()`
+- [x] Update the shared `@param func` roxygen and re-document
+- [x] Tests in `tests/testthat/test-registration.R`
+- [x] `NEWS.md` bullet
+
+### Confirmed
+
+Before: `typeof(tunable(spec)$call_info[[1]])` was `character`, and `extract_parameter_set_dials()` failed with `$ operator is invalid for atomic vectors`. After: the stored value is a `list`, extraction returns the `mixture` parameter, and a registration made with `c(pkg = , fun = )` is `identical()` to the same registration made with `list(pkg = , fun = )`.
+
+Option (a) from the plan, as recommended. The coercion is confined to `set_model_arg()`: `set_fit()` and `set_pred()` share `check_func_val()` but their consumers use single-bracket `func["fun"]` and feed the result to `rlang::call2()`, so coercing those would return a length-1 list and break them.
+
+### Test placement
+
+The two new tests register extra arguments on the shared `"sponge"` toy model, and the existing `'adding a new argument'` test asserts the *entire* `sponge_args` tibble is a single row. They therefore have to run after it, not before — placing them earlier fails that test through shared registry state rather than through any defect.

@@ -37,9 +37,9 @@ examples.}
 \item{control}{A named list with elements \code{verbosity} and
 \code{catch}. See \code{\link[=control_parsnip]{control_parsnip()}}.}
 
-\item{...}{Not currently used; values passed here will be
-ignored. Other options required to fit the model should be
-passed using \code{set_engine()}.}
+\item{...}{Must be empty; an error is raised if any arguments are
+passed here. Options required to fit the model should be passed to
+\code{set_engine()}, and case weights to the \code{case_weights} argument.}
 
 \item{x}{A matrix, sparse matrix, or data frame of predictors. Only some
 models have support for sparse matrix input. See \code{parsnip::get_encoding()}

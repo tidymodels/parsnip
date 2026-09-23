@@ -26,11 +26,15 @@
 
 * `boost_tree()` models fit with the `"xgboost"` engine and a function-valued `objective` now error informatively for `predict(type = "class")` and `predict(type = "prob")` instead of returning raw margins labelled as probabilities. xgboost cannot report whether a custom objective produces margins or probabilities, so parsnip cannot convert them; use `predict(type = "raw")` and apply the matching inverse link yourself, or register a custom engine that post-processes the predictions. Fitting, `type = "raw"`, and regression are unaffected (#999).
 
+* `fit()` and `fit_xy()` now error when extra arguments are passed through `...`. The documentation always said these were ignored, but depending on the combination of user and engine interface they were silently dropped, silently applied (a `subset` argument really did subset the training data on the formula-to-xy path), or raised an internal "unused argument" error. Pass engine arguments to `set_engine()` and case weights to the `case_weights` argument (#492).
+
 * `mars()` classification fits with the `"earth"` engine now return correct `predict(type = "class")` results for outcomes with three or more levels. A binary threshold rule was applied regardless of the number of levels, so every multiclass prediction was wrong and the last level could never be predicted. Binary outcomes are unaffected (#472, #1409).
 
 * `multi_predict_args()` and `has_multi_predict()` work again for fitted workflows, returning the submodel argument names and `TRUE` instead of `NULL` and `FALSE`. They read from an outdated internal workflows structure. Both now error informatively on an untrained workflow rather than silently reporting that it has no submodel arguments (#1410).
 
 * `predict_raw()` no longer errors when `opts` contains an argument name that collides with a protected prediction argument such as `newdata` or `object`. The colliding entry is now dropped with a warning; previously every path through that branch failed with "attempt to select less than one element". This also covers `predict(type = "raw", opts = ...)` (#1408).
+
+* `set_model_arg()` now stores `func` as a list when given the named character vector form shown in its documentation, such as `c(pkg = "dials", fun = "mixture")`. That form registered without complaint but made tuning fail much later with `$ operator is invalid for atomic vectors` (#1251).
 
 * `svm_linear()` with the `"LiblineaR"` engine now passes `cost` to `LiblineaR::LiblineaR()`. It was previously mapped to a nonexistent `C` argument, which the engine silently absorbed into its dots, so every fit used the engine default of `cost = 1` and tuning over `cost` had no effect. Fitted results will change for any model with a non-default `cost` (#1405).
 

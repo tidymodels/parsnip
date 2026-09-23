@@ -192,3 +192,32 @@ test_that("overhead of parsnip interface is minimal (#1071)", {
     )
   )
 })
+
+test_that("`fit()` and `fit_xy()` reject extra arguments", {
+  # Issue 492
+  spec <- linear_reg() |> set_engine("lm")
+  x <- mtcars[, c("disp", "hp")]
+
+  expect_snapshot(
+    error = TRUE,
+    fit(spec, mpg ~ disp + hp, data = mtcars, subset = 1:7)
+  )
+  expect_snapshot(
+    error = TRUE,
+    fit_xy(spec, x = x, y = mtcars$mpg, subset = 1:7)
+  )
+  expect_snapshot(
+    error = TRUE,
+    fit(spec, mpg ~ disp + hp, data = mtcars, subset = 1:7, foo = 1)
+  )
+
+  # the `fit_xy()` redirect still takes precedence over the dots check
+  expect_snapshot(
+    error = TRUE,
+    fit(spec, mpg ~ disp + hp, data = mtcars, x = 1, y = 2)
+  )
+
+  # fits without extra arguments are unaffected
+  expect_no_condition(fit(spec, mpg ~ disp + hp, data = mtcars))
+  expect_no_condition(fit_xy(spec, x = x, y = mtcars$mpg))
+})
