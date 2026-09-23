@@ -27,22 +27,6 @@
   now supports quantile regression mode, where fitting computes the
   requested empirical quantiles of the outcome.
 
-- [`bart()`](https://parsnip.tidymodels.org/dev/reference/bart.md)
-  classification fits with the `"dbarts"` engine now return each
-  observation’s own confidence and prediction interval bounds. The
-  bounds were sorted across observations, so each row received some
-  other row’s rank-matched limits. Regression intervals were unaffected
-  ([\#1407](https://github.com/tidymodels/parsnip/issues/1407)).
-
-- [`mars()`](https://parsnip.tidymodels.org/dev/reference/mars.md)
-  classification fits with the `"earth"` engine now return correct
-  `predict(type = "class")` results for outcomes with three or more
-  levels. A binary threshold rule was applied regardless of the number
-  of levels, so every multiclass prediction was wrong and the last level
-  could never be predicted. Binary outcomes are unaffected
-  ([\#472](https://github.com/tidymodels/parsnip/issues/472),
-  [\#1409](https://github.com/tidymodels/parsnip/issues/1409)).
-
 - For censored regression models, the censoring weights can now be added
   to the predictions of survival probability by setting
   `add_censoring_weights = TRUE` in `predict(type = "survival")`
@@ -80,6 +64,13 @@
   [`eval()`](https://rdrr.io/r/base/eval.html), which cannot handle
   quosures. A fitted object’s `$fit$call` now shows values such as
   `degree = 2` rather than `degree = ~2`.
+
+- [`bart()`](https://parsnip.tidymodels.org/dev/reference/bart.md)
+  classification fits with the `"dbarts"` engine now return each
+  observation’s own confidence and prediction interval bounds. The
+  bounds were sorted across observations, so each row received some
+  other row’s rank-matched limits. Regression intervals were unaffected
+  ([\#1407](https://github.com/tidymodels/parsnip/issues/1407)).
 
 - [`boost_tree()`](https://parsnip.tidymodels.org/dev/reference/boost_tree.md)
   with the `"xgboost"` engine now warns once per session when
@@ -122,6 +113,21 @@
   could never be predicted. Binary outcomes are unaffected
   ([\#472](https://github.com/tidymodels/parsnip/issues/472),
   [\#1409](https://github.com/tidymodels/parsnip/issues/1409)).
+
+- [`multi_predict()`](https://parsnip.tidymodels.org/dev/reference/multi_predict.md)
+  for glmnet engine fits now passes `type = "raw"` through to glmnet
+  with no post-processing. It was silently ignored for
+  [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md),
+  which returned the usual nested `.pred` tibble, and errored
+  unhelpfully for
+  [`logistic_reg()`](https://parsnip.tidymodels.org/dev/reference/logistic_reg.md)
+  and
+  [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md).
+  The result is glmnet’s own prediction object — a matrix with one
+  column per penalty, or a three-dimensional array for
+  [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md)
+  — rather than a tibble
+  ([\#857](https://github.com/tidymodels/parsnip/issues/857)).
 
 - [`multi_predict_args()`](https://parsnip.tidymodels.org/dev/reference/has_multi_predict.md)
   and

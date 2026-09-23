@@ -139,6 +139,13 @@ There is a list-column named <code>.pred</code> that contains tibbles with
 multiple rows per sub-model. Note that, within the tibbles, the column names
 follow the usual standard based on prediction <code>type</code> (i.e. <code>.pred_class</code> for
 <code>type = "class"</code> and so on).</p>
+<p><code>type = "raw"</code> is the exception: it returns the engine's own prediction
+object with no parsnip post-processing, so it is not a tibble with a
+<code>.pred</code> list-column. For glmnet engines this is a matrix with one column
+per penalty value, or a three-dimensional array for <code><a href="multinom_reg.html">multinom_reg()</a></code>.
+Because <code>...</code> is passed to the engine but <code>type</code> is a named argument of
+<code>multi_predict()</code> itself, an engine-level prediction type cannot be
+supplied this way; the engine's default is used.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
