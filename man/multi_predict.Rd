@@ -74,6 +74,14 @@ There is a list-column named \code{.pred} that contains tibbles with
 multiple rows per sub-model. Note that, within the tibbles, the column names
 follow the usual standard based on prediction \code{type} (i.e. \code{.pred_class} for
 \code{type = "class"} and so on).
+
+\code{type = "raw"} is the exception: it returns the engine's own prediction
+object with no parsnip post-processing, so it is not a tibble with a
+\code{.pred} list-column. For glmnet engines this is a matrix with one column
+per penalty value, or a three-dimensional array for \code{multinom_reg()}.
+Because \code{...} is passed to the engine but \code{type} is a named argument of
+\code{multi_predict()} itself, an engine-level prediction type cannot be
+supplied this way; the engine's default is used.
 }
 \description{
 For some models, predictions can be made on sub-models in the model object.
