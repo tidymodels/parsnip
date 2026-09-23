@@ -249,6 +249,8 @@ Tested that case explicitly before deleting anything — output is `identical()`
 
 `predict_raw_glmnet()` stays: it also sets `opts$s <- object$spec$args$penalty`, which is real work, and is what the issue title means by "for all types but `raw`".
 
+A `NEWS.md` bullet for #878 was added later, on the `no-partial-matches` branch, once topepo asked for the missing bullets to be filled in. It was initially skipped as an internal cleanup, but that undersold it: removing the eight `S3method()` registrations changes dispatch for a custom model carrying one of glmnet's fitted classes, which is a real user-visible consequence even though predictions from ordinary glmnet models are untouched.
+
 Deliberately **not** in scope: deprecating `eval_args()`. The triage overview bundled that into #878 but the issue body does not mention it, and `eval_args()` calls `maybe_eval()` — precisely the helper that [#1433](2026-09-22-1645-remove-data-descriptors.md) will simplify once data descriptors are gone. Doing it now would collide with that work.
 
 ### Documentation

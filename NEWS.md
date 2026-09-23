@@ -16,6 +16,8 @@
 
 * The deprecated `quantile` argument now reaches its deprecation warning when passed via `predict(type = "quantile")` instead of being rejected as an unknown argument. The error for unknown arguments passed to `predict()` now lists the offending argument names. (@bjornkallerud, #1258)
 
+* Several internal list accesses that resolved only through `$` partial matching were corrected: the outcome levels recorded when fitting from a formula, the `"ranger"` prediction post-processor, and the `multi_predict()` generic's check for a failed fit. Results are unchanged, but each would have silently started reading a different element had one with a shorter name been added.
+
 * Model and engine arguments are now evaluated while the model call is assembled, so the call an engine records no longer contains quosures. This fixes `mars()` fits with the earth engine when `prune_method = "cv"` is combined with `prod_degree` (#432), and `set_engine("glmnet", relax = TRUE)` for every glmnet engine, which also covers the poissonreg and censored wrappers (#1069). Both engines re-evaluate their own recorded call with base `eval()`, which cannot handle quosures. A fitted object's `$fit$call` now shows values such as `degree = 2` rather than `degree = ~2`.
 
 * `bart()` classification fits with the `"dbarts"` engine now return each observation's own confidence and prediction interval bounds. The bounds were sorted across observations, so each row received some other row's rank-matched limits. Regression intervals were unaffected (#1407).
@@ -29,6 +31,8 @@
 * `mars()` classification fits with the `"earth"` engine now return correct `predict(type = "class")` results for outcomes with three or more levels. A binary threshold rule was applied regardless of the number of levels, so every multiclass prediction was wrong and the last level could never be predicted. Binary outcomes are unaffected (#472, #1409).
 
 * `multi_predict()` for glmnet engine fits now passes `type = "raw"` through to glmnet with no post-processing. It was silently ignored for `linear_reg()`, which returned the usual nested `.pred` tibble, and errored unhelpfully for `logistic_reg()` and `multinom_reg()`. The result is glmnet's own prediction object — a matrix with one column per penalty, or a three-dimensional array for `multinom_reg()` — rather than a tibble (#857).
+
+* The per-type glmnet prediction methods (`predict_numeric._elnet()`, `predict_class._lognet()` and the six others like them) were removed. Each only evaluated the model specification before handing off to the corresponding `model_fit()` method, which the `predict()` path already does beforehand. Predictions from glmnet models are unchanged. A custom model that carries one of glmnet's fitted classes, such as `_elnet`, now reaches parsnip's `model_fit()` methods for these prediction types rather than the glmnet ones (#878).
 
 * `multi_predict_args()` and `has_multi_predict()` work again for fitted workflows, returning the submodel argument names and `TRUE` instead of `NULL` and `FALSE`. They read from an outdated internal workflows structure. Both now error informatively on an untrained workflow rather than silently reporting that it has no submodel arguments (#1410).
 

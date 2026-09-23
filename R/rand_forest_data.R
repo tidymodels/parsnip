@@ -349,7 +349,7 @@ set_pred(
       x
     },
     post = function(x, object) {
-      x <- x$prediction
+      x <- x$predictions
       as_tibble(x)
     },
     func = c(fun = "predict"),

@@ -221,3 +221,22 @@ test_that("`fit()` and `fit_xy()` reject extra arguments", {
   expect_no_condition(fit(spec, mpg ~ disp + hp, data = mtcars))
   expect_no_condition(fit_xy(spec, x = x, y = mtcars$mpg))
 })
+
+test_that("fitting does not rely on `$` partial matching", {
+  skip_if_not_installed("modeldata")
+
+  # `levels_from_formula()` returns `lvls`, which `form_form()` once read as
+  # `$lvl`
+  withr::local_options(warnPartialMatchDollar = TRUE)
+
+  cls_dat <- transform(mtcars, vs = factor(vs))
+  spec <- logistic_reg() |> set_engine("glm")
+
+  expect_no_condition(cls_fit <- fit(spec, vs ~ mpg, data = cls_dat))
+  expect_equal(cls_fit$lvl, levels(cls_dat$vs))
+
+  expect_no_condition(
+    xy_fit <- fit_xy(spec, x = mtcars["mpg"], y = cls_dat$vs)
+  )
+  expect_equal(xy_fit$lvl, levels(cls_dat$vs))
+})
