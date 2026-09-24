@@ -171,7 +171,7 @@ test_that('svm rbf classification probabilities', {
       list(
         .pred_class = structure(
           c(1L, 1L, 3L),
-          .Label = c("VF", "F", "L"),
+          levels = c("VF", "F", "L"),
           class = "factor"
         )
       ),
