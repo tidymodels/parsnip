@@ -261,7 +261,7 @@ fit_xy.model_spec <-
     if (inherits(object, "surv_reg")) {
       cli::cli_abort("Survival models must use the formula interface.")
     }
-    check_fit_dots(...)
+    check_fit_dots(..., formula = FALSE)
 
     control <- condense_control(control, default_parsnip_control)
 
@@ -365,21 +365,44 @@ fit_xy.model_spec <-
 # `fit()` and `fit_xy()` have never supported extra arguments, but each
 # interface pathway treated them differently: silently dropped, silently
 # applied, or an internal "unused argument" error. See #492.
-check_fit_dots <- function(..., call = rlang::caller_env()) {
+check_fit_dots <- function(..., formula = TRUE, call = rlang::caller_env()) {
   dot_names <- ...names()
-  if (length(dot_names) > 0) {
-    cli::cli_abort(
-      c(
-        "{.arg ...} must be empty.",
-        "x" = "Problematic argument{?s}: {.arg {dot_names}}.",
-        "i" = "Arguments for the model fit should be passed to
-               {.fn set_engine}, and case weights to the {.arg case_weights}
-               argument."
-      ),
-      call = call
-    )
+  if (length(dot_names) == 0) {
+    return(invisible(NULL))
   }
-  invisible(NULL)
+
+  msg <-
+    c(
+      "{.arg ...} must be empty.",
+      "x" = "Problematic argument{?s}: {.arg {dot_names}}.",
+      "i" = "Arguments for the model fit should be passed to
+             {.fn set_engine}, and case weights to the {.arg case_weights}
+             argument."
+    )
+
+  # The generic advice above is not enough for `offset`: passing a bare column
+  # name to `set_engine()` fails, since it is never evaluated against the data.
+  # See #1439.
+  if ("offset" %in% dot_names) {
+    if (formula) {
+      msg <-
+        c(
+          msg,
+          "i" = "To use an offset, include it in the formula, as in
+                 {.code y ~ x + offset(z)}."
+        )
+    } else {
+      msg <-
+        c(
+          msg,
+          "i" = "To use an offset with {.fn fit_xy}, pass the offset vector
+                 itself to {.fn set_engine}, as in
+                 {.code set_engine(\"lm\", offset = data$z)}."
+        )
+    }
+  }
+
+  cli::cli_abort(msg, call = call)
 }
 
 # `catch` comes from `control_parsnip()`: when it is `TRUE` a failed fit is
