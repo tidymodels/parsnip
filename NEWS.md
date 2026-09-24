@@ -44,6 +44,8 @@
 
 ## Breaking Change
 
+* The data descriptors `.cols()`, `.preds()`, `.obs()`, `.lvls()`, `.facts()`, `.x()`, `.y()`, and `.dat()` have been removed. These let a model specification refer to properties of the training data that were only known at fit time, as in `rand_forest(mtry = .cols() - 1)`. Supporting them was the main reason model and engine arguments were held unevaluated all the way to the model call, which is what caused engines that re-evaluate their own recorded call to fail (#432, #1069). Compute the value directly instead, or set the argument inside a workflow or tuning grid where the data are already known (#1433).
+
 * Two `translate()` helper functions for glmnet are generalized and used to de-duplicate code for ordinalNet and glmnetcr. The latter two no longer silently modify penalty path-governing engine arguments (@corybrunson, #1412 & #1424), which will impact code that relied on these modifications.
 
 # parsnip 1.6.0

@@ -42,10 +42,10 @@ stores model objects after seeing the data and applying a model.
 \examples{
 \dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 
-# Keep the `x` matrix if the data are not too big.
+# Keep the `x` matrix in the fitted model object.
 spec_obj <-
   linear_reg() |>
-  set_engine("lm", x = .obs() < 500)
+  set_engine("lm", x = TRUE)
 spec_obj
 
 fit_obj <- fit(spec_obj, mpg ~ ., data = mtcars)

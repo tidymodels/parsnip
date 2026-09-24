@@ -34,12 +34,6 @@ form_form <-
     # prob rewrite this as simple subset/levels
     y_levels <- levels_from_formula(env$formula, env$data)
 
-    # if descriptors are needed, update descr_env with the calculated values
-    if (requires_descrs(object)) {
-      data_stats <- get_descr_form(env$formula, env$data, call = call)
-      scoped_descrs(data_stats)
-    }
-
     # evaluate quoted args once here to check them
     object <- check_args(object, call = call)
 
@@ -94,12 +88,6 @@ xy_xy <- function(
   remove_intercept <- encoding_info$remove_intercept[is_spec_encoding]
   if (remove_intercept) {
     env$x <- env$x[, colnames(env$x) != "(Intercept)", drop = FALSE]
-  }
-
-  # if descriptors are needed, update descr_env with the calculated values
-  if (requires_descrs(object)) {
-    data_stats <- get_descr_xy(env$x, env$y, call = call)
-    scoped_descrs(data_stats)
   }
 
   # evaluate quoted args once here to check them

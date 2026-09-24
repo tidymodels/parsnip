@@ -113,18 +113,9 @@ session where those same data objects do not exist.
 }
 
 The best way to avoid these issues is to not reference any data
-objects in the global environment but to use data descriptors
-such as \code{.cols()}. Another way of writing the previous
-specification is
+objects in the global environment.
 
-\preformatted{
- rand_forest(mtry = .cols() - 1)
-}
-
-This is not dependent on any specific data object and
-is evaluated immediately before the model fitting process begins.
-
-One less advantageous approach to solving this issue is to use
+One approach is to use
 quasiquotation. This would insert the actual R object into the
 model specification and might be the best idea when the data
 object is small. For example, using

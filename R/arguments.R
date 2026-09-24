@@ -149,7 +149,10 @@ set_mode.default <- function(object, mode, ...) {
 # ------------------------------------------------------------------------------
 
 maybe_eval <- function(x) {
-  # if descriptors are in `x`, eval fails
+  # The `try()` was originally here because data descriptors could not be
+  # evaluated outside a fit. They are gone, but an argument can still refer to
+  # something unavailable at this point, so the fallback stays. Collapsing this
+  # to a bare `eval_tidy()` is a separate change with its own blast radius.
   y <- try(rlang::eval_tidy(x), silent = TRUE)
   if (inherits(y, "try-error")) {
     y <- x
