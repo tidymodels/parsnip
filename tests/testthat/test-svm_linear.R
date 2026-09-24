@@ -192,7 +192,7 @@ test_that('linear svm classification prediction: LiblineaR', {
       list(
         .pred_class = structure(
           c(1L, 1L, 2L),
-          .Label = c("VF", "F", "L"),
+          levels = c("VF", "F", "L"),
           class = "factor"
         )
       ),
@@ -401,7 +401,7 @@ test_that('linear svm classification prediction: kernlab', {
       list(
         .pred_class = structure(
           c(1L, 1L, 3L),
-          .Label = c("VF", "F", "L"),
+          levels = c("VF", "F", "L"),
           class = "factor"
         )
       ),
