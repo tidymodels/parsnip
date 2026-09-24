@@ -58,7 +58,7 @@ repair_call(fitted_model, mtcars)$fit$call
 #> 
 #> $formula
 #> mpg ~ .
-#> <environment: 0x5633302e54a0>
+#> <environment: 0x55f6fb1eaad8>
 #> 
 #> $data
 #> mtcars

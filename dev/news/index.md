@@ -110,8 +110,15 @@
   formula-to-xy path), or raised an internal “unused argument” error.
   Pass engine arguments to
   [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md)
-  and case weights to the `case_weights` argument
-  ([\#492](https://github.com/tidymodels/parsnip/issues/492)).
+  and case weights to the `case_weights` argument. Passing `offset` gets
+  specific advice, since the general suggestion does not work for it:
+  use [`offset()`](https://rdrr.io/r/stats/offset.html) in the formula,
+  or pass the offset vector to
+  [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md)
+  when using
+  [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html)
+  ([\#492](https://github.com/tidymodels/parsnip/issues/492),
+  [\#1439](https://github.com/tidymodels/parsnip/issues/1439)).
 
 - [`mars()`](https://parsnip.tidymodels.org/dev/reference/mars.md)
   classification fits with the `"earth"` engine now return correct
