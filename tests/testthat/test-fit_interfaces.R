@@ -222,6 +222,31 @@ test_that("`fit()` and `fit_xy()` reject extra arguments", {
   expect_no_condition(fit_xy(spec, x = x, y = mtcars$mpg))
 })
 
+test_that("`offset` in `...` gets interface-specific advice", {
+  # Issue 1439
+  spec <- linear_reg() |> set_engine("lm")
+  dat <- transform(mtcars, lo = log(wt))
+
+  # `fit()` points at the formula, `fit_xy()` cannot
+  expect_snapshot(
+    error = TRUE,
+    fit(spec, mpg ~ wt + cyl, offset = lo, data = dat)
+  )
+  expect_snapshot(
+    error = TRUE,
+    fit_xy(spec, x = dat[, c("wt", "cyl")], y = dat$mpg, offset = dat$lo)
+  )
+
+  # both routes the messages recommend actually apply the offset
+  form_fit <- fit(spec, mpg ~ wt + cyl + offset(lo), data = dat)
+  expect_false(is.null(extract_fit_engine(form_fit)$offset))
+
+  xy_fit <- linear_reg() |>
+    set_engine("lm", offset = dat$lo) |>
+    fit_xy(x = dat[, c("wt", "cyl")], y = dat$mpg)
+  expect_false(is.null(extract_fit_engine(xy_fit)$offset))
+})
+
 test_that("fitting does not rely on `$` partial matching", {
   skip_if_not_installed("modeldata")
 

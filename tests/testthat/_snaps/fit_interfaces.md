@@ -114,3 +114,25 @@
       Error in `fit()`:
       ! `fit.model_spec()` is for the formula methods. Use `fit_xy()` instead.
 
+# `offset` in `...` gets interface-specific advice
+
+    Code
+      fit(spec, mpg ~ wt + cyl, offset = lo, data = dat)
+    Condition
+      Error in `fit()`:
+      ! `...` must be empty.
+      x Problematic argument: `offset`.
+      i Arguments for the model fit should be passed to `set_engine()`, and case weights to the `case_weights` argument.
+      i To use an offset, include it in the formula, as in `y ~ x + offset(z)`.
+
+---
+
+    Code
+      fit_xy(spec, x = dat[, c("wt", "cyl")], y = dat$mpg, offset = dat$lo)
+    Condition
+      Error in `fit_xy()`:
+      ! `...` must be empty.
+      x Problematic argument: `offset`.
+      i Arguments for the model fit should be passed to `set_engine()`, and case weights to the `case_weights` argument.
+      i To use an offset with `fit_xy()`, pass the offset vector itself to `set_engine()`, as in `set_engine("lm", offset = data$z)`.
+
