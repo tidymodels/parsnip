@@ -107,3 +107,43 @@ test_that("classification probabilities are named from the outcome levels", {
     c(".pred_setosa", ".pred_versicolor")
   )
 })
+
+test_that("classification requires exactly two outcome levels", {
+  skip_if_not_installed("dbarts")
+
+  spec <- bart(trees = 5) |>
+    set_engine("dbarts") |>
+    set_mode("classification")
+
+  # unused levels: the fix is `droplevels()`, so the message says so
+  unused_last <- iris[iris$Species != "virginica", ]
+  expect_snapshot(error = TRUE, fit(spec, Species ~ ., data = unused_last))
+
+  # an unused *first* level previously gave dbarts codes of 1 and 2 rather
+  # than 0 and 1, so the returned "probabilities" were not on [0, 1]
+  unused_first <- iris[iris$Species != "setosa", ]
+  unused_first$Species <- factor(
+    unused_first$Species,
+    levels = levels(iris$Species)
+  )
+  expect_snapshot(error = TRUE, fit(spec, Species ~ ., data = unused_first))
+
+  # genuinely multiclass: `droplevels()` would not help, so it is not suggested
+  expect_snapshot(error = TRUE, fit(spec, Species ~ ., data = iris))
+
+  # a clean binary outcome is unaffected, and its probabilities are valid
+  binary <- unused_last
+  binary$Species <- droplevels(binary$Species)
+  set.seed(83156)
+  cls_fit <- fit(spec, Species ~ ., data = binary)
+  probs <- predict(cls_fit, binary[c(1, 51), ], type = "prob")
+  expect_all_true(unlist(probs) >= 0 & unlist(probs) <= 1)
+
+  # regression is unaffected by the check
+  expect_no_error(
+    bart(trees = 5) |>
+      set_engine("dbarts") |>
+      set_mode("regression") |>
+      fit(mpg ~ ., data = mtcars)
+  )
+})

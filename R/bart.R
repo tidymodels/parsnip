@@ -99,6 +99,43 @@ bart <-
 
 # ------------------------------------------------------------------------------
 
+# dbarts fits binary classification only. It is handed the factor codes, so a
+# third level silently becomes a `y` value of 2 and the "probabilities" that
+# come back are not on [0, 1]. Error rather than return nonsense. See #1444.
+#' @export
+check_outcome_levels.bart <- function(spec, y, call = rlang::caller_env()) {
+  if (!identical(spec$engine, "dbarts") || nlevels(y) == 2) {
+    return(invisible(NULL))
+  }
+
+  used <- levels(droplevels(y))
+  unused <- setdiff(levels(y), used)
+
+  msg <-
+    c(
+      "!" = "BART classification with the {.val dbarts} engine requires an
+             outcome with exactly 2 levels, but {.val {nlevels(y)}} were
+             given: {.val {levels(y)}}.",
+      "i" = "dbarts models a binary outcome, so additional levels cannot be
+             fit."
+    )
+
+  if (length(used) == 2) {
+    msg <-
+      c(
+        msg,
+        "i" = "Only {.val {used}} appear in the data.",
+        # `qty()` must be the last quantity set before `{?s}`
+        "i" = "{cli::qty(unused)}Use {.fn droplevels} to drop the unused
+               level{?s} {.val {unused}}."
+      )
+  }
+
+  cli::cli_abort(msg, call = call)
+}
+
+# ------------------------------------------------------------------------------
+
 #' @method update bart
 #' @rdname parsnip_update
 #' @inheritParams bart

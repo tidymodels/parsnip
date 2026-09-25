@@ -7,6 +7,7 @@
 \alias{check_args}
 \alias{update_dot_check}
 \alias{new_model_spec}
+\alias{check_outcome_levels}
 \alias{check_final_param}
 \alias{update_main_parameters}
 \alias{update_engine_parameters}
@@ -34,6 +35,8 @@ new_model_spec(
   user_specified_engine = TRUE,
   quantile_levels = NULL
 )
+
+check_outcome_levels(spec, y, call = rlang::caller_env())
 
 check_final_param(x, call = rlang::caller_env())
 

@@ -145,6 +145,34 @@ update.logistic_reg <-
 
 # ------------------------------------------------------------------------------
 
+# Most engines cannot fit this. `glm` bins every level after the first into the
+# event and `keras3` returns a column per level, but in both cases the
+# probability columns parsnip labels do not mean what their names say.
+# `LiblineaR` is excluded because it genuinely fits a multiclass model, and
+# `multinom_reg()` has no LiblineaR engine to send those users to. See #1444.
+#' @export
+check_outcome_levels.logistic_reg <- function(
+  spec,
+  y,
+  call = rlang::caller_env()
+) {
+  if (nlevels(y) <= 2 || identical(spec$engine, "LiblineaR")) {
+    return(invisible(NULL))
+  }
+
+  cli::cli_abort(
+    c(
+      "!" = "Logistic regression models a binary outcome, but the outcome
+             has {nlevels(y)} levels: {.val {levels(y)}}.",
+      "i" = "Use {.fn multinom_reg} for an outcome with more than two
+             levels, or collapse the outcome to two levels."
+    ),
+    call = call
+  )
+}
+
+# ------------------------------------------------------------------------------
+
 #' @export
 check_args.logistic_reg <- function(object, call = rlang::caller_env()) {
   args <- lapply(object$args, rlang::eval_tidy)

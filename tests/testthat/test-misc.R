@@ -176,6 +176,33 @@ test_that('check_for_newdata points out correct context', {
   expect_snapshot(error = TRUE, fn(newdata = "boop!"))
 })
 
+test_that('logistic_reg() errors for more than two outcome levels', {
+  # Issue 1444
+  expect_snapshot(
+    error = TRUE,
+    check_outcome(iris$Species, logistic_reg())
+  )
+
+  # via `fit()` as well, not just the checker
+  expect_snapshot(
+    error = TRUE,
+    fit(logistic_reg() |> set_engine("glm"), Species ~ ., data = iris)
+  )
+
+  # LiblineaR genuinely fits a multiclass model and `multinom_reg()` has no
+  # LiblineaR engine, so it is exempt
+  expect_no_error(
+    check_outcome(iris$Species, logistic_reg() |> set_engine("LiblineaR"))
+  )
+
+  # two levels are unaffected for either engine
+  binary <- droplevels(iris$Species[iris$Species != "virginica"])
+  expect_no_error(check_outcome(binary, logistic_reg()))
+  expect_no_error(
+    check_outcome(binary, logistic_reg() |> set_engine("LiblineaR"))
+  )
+})
+
 test_that('check_outcome works as expected', {
   reg_spec <- linear_reg()
 
