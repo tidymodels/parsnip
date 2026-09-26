@@ -80,6 +80,20 @@
   other row’s rank-matched limits. Regression intervals were unaffected
   ([\#1407](https://github.com/tidymodels/parsnip/issues/1407)).
 
+- [`bart()`](https://parsnip.tidymodels.org/dev/reference/bart.md)
+  classification with the `"dbarts"` engine now errors when the outcome
+  does not have exactly two levels. dbarts models a binary outcome, but
+  parsnip passed it the factor codes without checking, so a third level
+  became a `y` value of `2` and the returned “probabilities” were not on
+  `[0, 1]`. This also affected a two-level outcome that retained an
+  unused level: class and probability predictions were silently
+  mislabelled, and interval predictions errored inside
+  [`rlang::set_names()`](https://rlang.r-lib.org/reference/set_names.html).
+  The new error names the unused levels and suggests
+  [`droplevels()`](https://rdrr.io/r/base/droplevels.html) when that is
+  the problem
+  ([\#1444](https://github.com/tidymodels/parsnip/issues/1444)).
+
 - [`boost_tree()`](https://parsnip.tidymodels.org/dev/reference/boost_tree.md)
   with the `"xgboost"` engine now warns once per session when
   `monotone_constraints` is supplied for binary classification. The
@@ -119,6 +133,20 @@
   [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html)
   ([\#492](https://github.com/tidymodels/parsnip/issues/492),
   [\#1439](https://github.com/tidymodels/parsnip/issues/1439)).
+
+- [`logistic_reg()`](https://parsnip.tidymodels.org/dev/reference/logistic_reg.md)
+  now errors when the outcome has more than two levels, instead of
+  warning. Most engines cannot fit this: `glm` collapses every level
+  after the first into the event and `keras3` returns a column per
+  level, but in both cases the probability columns parsnip labels do not
+  mean what their names say, and `glmnet`, `stan`, and `brulee` error
+  inside the engine. The `LiblineaR` engine is exempt, since it
+  genuinely fits a multiclass model and
+  [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md)
+  has no LiblineaR engine. The warning was added in 1.1.0
+  ([\#545](https://github.com/tidymodels/parsnip/issues/545)); erroring
+  reflects that for most engines the result was not usable
+  ([\#1444](https://github.com/tidymodels/parsnip/issues/1444)).
 
 - [`mars()`](https://parsnip.tidymodels.org/dev/reference/mars.md)
   classification fits with the `"earth"` engine now return correct

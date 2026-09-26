@@ -26,6 +26,8 @@ new_model_spec(
   quantile_levels = NULL
 )
 
+check_outcome_levels(spec, y, call = rlang::caller_env())
+
 check_final_param(x, call = rlang::caller_env())
 
 update_main_parameters(args, param, call = rlang::caller_env())
