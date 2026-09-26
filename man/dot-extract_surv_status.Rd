@@ -3,6 +3,9 @@
 \name{.extract_surv_status}
 \alias{.extract_surv_status}
 \title{Extract survival status}
+\usage{
+.extract_surv_status(surv)
+}
 \arguments{
 \item{surv}{A single \code{\link[survival:Surv]{survival::Surv()}} object.}
 }
