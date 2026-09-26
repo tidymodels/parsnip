@@ -156,6 +156,24 @@
       Error in `fn()`:
       ! Please use `new_data` instead of `newdata`.
 
+# logistic_reg() errors for more than two outcome levels
+
+    Code
+      check_outcome(iris$Species, logistic_reg())
+    Condition
+      Error:
+      ! Logistic regression models a binary outcome, but the outcome has 3 levels: "setosa", "versicolor", and "virginica".
+      i Use `multinom_reg()` for an outcome with more than two levels, or collapse the outcome to two levels.
+
+---
+
+    Code
+      fit(set_engine(logistic_reg(), "glm"), Species ~ ., data = iris)
+    Condition
+      Error in `fit()`:
+      ! Logistic regression models a binary outcome, but the outcome has 3 levels: "setosa", "versicolor", and "virginica".
+      i Use `multinom_reg()` for an outcome with more than two levels, or collapse the outcome to two levels.
+
 # check_outcome works as expected
 
     Code

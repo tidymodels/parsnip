@@ -406,11 +406,25 @@ check_outcome <- function(y, spec, call = rlang::caller_env()) {
     return(invisible(NULL))
   }
 
+  check_outcome_exists(y, spec, call = call)
+
+  switch(
+    spec$mode,
+    "regression" = check_outcome_numeric(y, spec, call = call),
+    "classification" = check_outcome_factor(y, spec, call = call),
+    "censored regression" = check_outcome_surv(y, spec, call = call)
+  )
+
+  invisible(NULL)
+}
+
+check_outcome_exists <- function(y, spec, call = rlang::caller_env()) {
   if (is.atomic(y)) {
     has_no_outcome <- is.null(y)
   } else {
     has_no_outcome <- length(y) == 0
   }
+
   if (isTRUE(has_no_outcome)) {
     cli::cli_abort(
       c(
@@ -422,61 +436,74 @@ check_outcome <- function(y, spec, call = rlang::caller_env()) {
     )
   }
 
-  if (spec$mode == "regression") {
-    if (is.atomic(y)) {
-      outcome_is_numeric <- is.numeric(y)
-    } else {
-      outcome_is_numeric <- all(map_lgl(y, is.numeric))
-    }
-    if (!outcome_is_numeric) {
-      cli::cli_abort(
-        "For a regression model, the outcome should be {.cls numeric}, not
-        {.obj_type_friendly {y}}.",
-        call = call
-      )
-    }
+  invisible(NULL)
+}
+
+check_outcome_numeric <- function(y, spec, call = rlang::caller_env()) {
+  if (is.atomic(y)) {
+    outcome_is_numeric <- is.numeric(y)
+  } else {
+    outcome_is_numeric <- all(map_lgl(y, is.numeric))
   }
 
-  if (spec$mode == "classification") {
-    if (is.atomic(y)) {
-      outcome_is_factor <- is.factor(y)
-    } else {
-      outcome_is_factor <- all(map_lgl(y, is.factor))
-    }
-    if (!outcome_is_factor) {
-      cli::cli_abort(
-        "For a classification model, the outcome should be a {.cls factor}, not
-        {.obj_type_friendly {y}}.",
-        call = call
-      )
-    }
-
-    if (inherits(spec, "logistic_reg") && is.atomic(y) && nlevels(y) > 2) {
-      # warn rather than error since some engines handle this case by binning
-      # all but the first level as the non-event, so this may be intended
-      cli::cli_warn(
-        c(
-          "!" = "Logistic regression is intended for modeling binary outcomes, \\
-               but there are {length(levels(y))} levels in the outcome.",
-          "i" = "If this is unintended, adjust outcome levels accordingly or \\
-               see the {.fn multinom_reg} function."
-        ),
-        call = call
-      )
-    }
+  if (!outcome_is_numeric) {
+    cli::cli_abort(
+      "For a regression model, the outcome should be {.cls numeric}, not
+      {.obj_type_friendly {y}}.",
+      call = call
+    )
   }
 
-  if (spec$mode == "censored regression") {
-    outcome_is_surv <- inherits(y, "Surv")
-    if (!outcome_is_surv) {
-      cli::cli_abort(
-        "For a censored regression model, the outcome should be a {.cls Surv} object, not
-        {.obj_type_friendly {y}}.",
-        call = call
-      )
-    }
+  invisible(NULL)
+}
+
+check_outcome_factor <- function(y, spec, call = rlang::caller_env()) {
+  if (is.atomic(y)) {
+    outcome_is_factor <- is.factor(y)
+  } else {
+    outcome_is_factor <- all(map_lgl(y, is.factor))
   }
 
+  if (!outcome_is_factor) {
+    cli::cli_abort(
+      "For a classification model, the outcome should be a {.cls factor}, not
+      {.obj_type_friendly {y}}.",
+      call = call
+    )
+  }
+
+  # `nlevels()` is only meaningful for a single outcome vector
+  if (is.atomic(y)) {
+    check_outcome_levels(spec, y, call = call)
+  }
+
+  invisible(NULL)
+}
+
+check_outcome_surv <- function(y, spec, call = rlang::caller_env()) {
+  if (!inherits(y, "Surv")) {
+    cli::cli_abort(
+      "For a censored regression model, the outcome should be a {.cls Surv} object, not
+      {.obj_type_friendly {y}}.",
+      call = call
+    )
+  }
+
+  invisible(NULL)
+}
+
+# Some models can only fit an outcome with a certain number of levels. Those
+# models define a method, next to their `check_args()` method; by default any
+# number of levels is allowed.
+#' @export
+#' @keywords internal
+#' @rdname add_on_exports
+check_outcome_levels <- function(spec, y, call = rlang::caller_env()) {
+  UseMethod("check_outcome_levels")
+}
+
+#' @export
+check_outcome_levels.default <- function(spec, y, call = rlang::caller_env()) {
   invisible(NULL)
 }
 
