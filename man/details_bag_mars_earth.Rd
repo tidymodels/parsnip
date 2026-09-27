@@ -126,7 +126,8 @@ implementation, \emph{building models with weights can be slow}.”
 123-140
 \item Friedman, J. 1991. “Multivariate Adaptive Regression Splines.” \emph{The
 Annals of Statistics}, vol. 19, no. 1, pp. 1-67.
-\item Milborrow, S. \href{http://www.milbo.org/doc/earth-notes.pdf}{“Notes on the earth package.”}
+\item Milborrow, S. “Notes on the earth package.”
+(\verb{http://www.milbo.org/doc/earth-notes.pdf})
 \item Kuhn, M, and K Johnson. 2013. \emph{Applied Predictive Modeling}. Springer.
 }
 }
