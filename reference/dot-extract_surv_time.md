@@ -3,6 +3,12 @@
 Extract the time component(s) from a
 [`survival::Surv()`](https://rdrr.io/pkg/survival/man/Surv.html) object.
 
+## Usage
+
+``` r
+.extract_surv_time(surv)
+```
+
 ## Arguments
 
 - surv:

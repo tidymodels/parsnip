@@ -29,6 +29,18 @@ The **ordered** extension package is required to fit this model.
     ## Model fit template:
     ## MASS::polr(formula = missing_arg(), data = missing_arg(), weights = missing_arg())
 
+### Prediction types
+
+    parsnip:::get_from_env("ordinal_reg_predict") |>
+      dplyr::filter(engine == "polr") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 2 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 classification class
+    ## 2 classification prob
+
 ### References
 
 - Bürkner P-C, Vuorre M. 2019. Ordinal Regression Models in Psychology:

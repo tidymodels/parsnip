@@ -35,7 +35,7 @@ is a wrapper around `h2o::h2o.glm()` with `family = 'poisson'`.
 
 The **agua** extension package is required to fit this model.
 
-    library(poissonreg)
+    library(agua)
 
     poisson_reg(penalty = double(1), mixture = double(1)) |>
       set_engine("h2o") |>
@@ -77,7 +77,7 @@ see the documentation in
 and the examples on `tidymodels.org`.
 
 The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) functions
 have arguments called `case_weights` that expect vectors of case
 weights.
 

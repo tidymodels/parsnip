@@ -28,6 +28,8 @@ default. For classification, a value of 10 is used.
 
 ### Translation from parsnip to the original package (classification)
 
+    library(ordered)
+
     rand_forest(
       mtry = integer(1),
       trees = integer(1),
@@ -67,7 +69,7 @@ see the documentation in
 and the examples on `tidymodels.org`.
 
 The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) functions
 have arguments called `case_weights` that expect vectors of case
 weights.
 
@@ -78,6 +80,18 @@ efficient to parallelize over the resamples and tuning parameters. To
 parallelize the construction of the trees within the model, change the
 `num.threads` argument via
 [`set_engine()`](https://parsnip.tidymodels.org/reference/set_engine.md).
+
+### Prediction types
+
+    parsnip:::get_from_env("rand_forest_predict") |>
+      dplyr::filter(engine == "ordinalForest") |>
+      dplyr::select(mode, type)
+
+    ## # A tibble: 2 x 2
+    ##   mode           type
+    ##   <chr>          <chr>
+    ## 1 classification class
+    ## 2 classification prob
 
 ### References
 

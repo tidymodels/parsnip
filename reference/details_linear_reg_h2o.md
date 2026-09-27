@@ -33,6 +33,8 @@ defaults to 0 (ridge regression) and 0.5 otherwise.
 [`linear_reg()`](https://parsnip.tidymodels.org/reference/linear_reg.md)
 is a wrapper around `h2o::h2o.glm()` with `family = "gaussian"`.
 
+    library(agua)
+
     linear_reg(penalty = 1, mixture = 0.5) |>
       set_engine("h2o") |>
       translate()
@@ -73,7 +75,7 @@ see the documentation in
 and the examples on `tidymodels.org`.
 
 The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) functions
 have arguments called `case_weights` that expect vectors of case
 weights.
 

@@ -3,6 +3,12 @@
 Extract the status from a
 [`survival::Surv()`](https://rdrr.io/pkg/survival/man/Surv.html) object.
 
+## Usage
+
+``` r
+.extract_surv_status(surv)
+```
+
 ## Arguments
 
 - surv:

@@ -58,6 +58,7 @@ call would look like:
 With parsnip, we suggest using the formula method when fitting:
 
     library(tidymodels)
+    library(multilevelmod)
 
     linear_reg() |>
       set_engine("gee", corstr = "exchangeable") |>
@@ -68,6 +69,7 @@ workflow. In this case, you can add the appropriate columns using
 `add_variables()` then supply the GEE formula when adding the model:
 
     library(tidymodels)
+    library(multilevelmod)
 
     gee_spec <-
       linear_reg() |>

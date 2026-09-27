@@ -42,7 +42,7 @@ Other engine arguments of interest:
 
 The **agua** extension package is required to fit this model.
 
-    library(rules)
+    library(agua)
 
     rule_fit(
       trees = integer(1),
@@ -74,6 +74,8 @@ The **agua** extension package is required to fit this model.
 a wrapper around `h2o::h2o.rulefit()`.
 
 The **agua** extension package is required to fit this model.
+
+    library(agua)
 
     rule_fit(
       trees = integer(1),
@@ -114,7 +116,7 @@ see the documentation in
 and the examples on `tidymodels.org`.
 
 The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) functions
 have arguments called `case_weights` that expect vectors of case
 weights.
 

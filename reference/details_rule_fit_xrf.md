@@ -10,18 +10,18 @@ For this engine, there are multiple modes: classification and regression
 
 ### Tuning Parameters
 
-This model has 8 tuning parameters:
-
-- `mtry`: Proportion Randomly Selected Predictors (type: double,
-  default: see below)
-
-- `trees`: \# Trees (type: integer, default: 15L)
-
-- `min_n`: Minimal Node Size (type: integer, default: 1L)
+This model has 9 tuning parameters:
 
 - `tree_depth`: Tree Depth (type: integer, default: 6L)
 
+- `trees`: \# Trees (type: integer, default: 15L)
+
 - `learn_rate`: Learning Rate (type: double, default: 0.3)
+
+- `mtry`: \# Randomly Selected Predictors (type: integer, default: see
+  below)
+
+- `min_n`: Minimal Node Size (type: integer, default: 1L)
 
 - `loss_reduction`: Minimum Loss Reduction (type: double, default: 0.0)
 
@@ -29,6 +29,9 @@ This model has 8 tuning parameters:
   1.0)
 
 - `penalty`: Amount of Regularization (type: double, default: 0.1)
+
+- `stop_iter`: \# Iterations Before Stopping (type: integer, default:
+  Inf)
 
 ### Translation from parsnip to the underlying model call (regression)
 

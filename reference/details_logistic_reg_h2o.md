@@ -35,6 +35,8 @@ defaults to 0 (ridge regression) and 0.5 otherwise.
 is a wrapper around `h2o::h2o.glm()`. h2o will automatically picks the
 link function and distribution family or binomial responses.
 
+    library(agua)
+
     logistic_reg() |>
       set_engine("h2o") |>
       translate()
@@ -50,6 +52,8 @@ link function and distribution family or binomial responses.
 To use a non-default argument in `h2o::h2o.glm()`, pass in as an engine
 argument to
 [`set_engine()`](https://parsnip.tidymodels.org/reference/set_engine.md):
+
+    library(agua)
 
     logistic_reg() |>
       set_engine("h2o", compute_p_values = TRUE) |>
@@ -102,7 +106,7 @@ see the documentation in
 and the examples on `tidymodels.org`.
 
 The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) functions
 have arguments called `case_weights` that expect vectors of case
 weights.
 

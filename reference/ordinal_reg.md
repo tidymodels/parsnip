@@ -3,7 +3,17 @@
 `ordinal_reg()` defines a generalized linear model that predicts an
 ordinal outcome. This function can fit classification models.
 
-`Rd parsnip:::make_engine_list("ordinal_reg")`
+There are different ways to fit this model, and the method of estimation
+is chosen by setting the model *engine*. The engine-specific pages for
+this model are listed below.
+
+- [`polr`](https://parsnip.tidymodels.org/reference/details_ordinal_reg_polr.md)`¹²`
+
+- [`ordinalNet`](https://parsnip.tidymodels.org/reference/details_ordinal_reg_ordinalNet.md)`²`
+
+- [`vglm`](https://parsnip.tidymodels.org/reference/details_ordinal_reg_vglm.md)`²`
+
+¹ The default engine. ² Requires a parsnip extension package.
 
 More information on how parsnip is used for modeling is at
 <https://www.tidymodels.org/>.
@@ -15,6 +25,8 @@ ordinal_reg(
   mode = "classification",
   ordinal_link = NULL,
   odds_link = NULL,
+  threshold_structure = NULL,
+  parallel_reg = NULL,
   penalty = NULL,
   mixture = NULL,
   engine = "polr"
@@ -35,6 +47,16 @@ ordinal_reg(
 - odds_link:
 
   The odds or probability link function.
+
+- threshold_structure:
+
+  The threshold structure for the cutpoints (specific engines only).
+
+- parallel_reg:
+
+  Logical; whether predictor effects are shared across thresholds
+  (`TRUE`) or category-specific effects (`FALSE`). The default, `NULL`,
+  uses the engine default. Available for specific engines only.
 
 - penalty:
 
@@ -93,7 +115,12 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ## See also
 
-`Rd parsnip:::make_seealso_list("ordinal_reg")`
+[`fit()`](https://parsnip.tidymodels.org/reference/fit.md),
+[`set_engine()`](https://parsnip.tidymodels.org/reference/set_engine.md),
+[`update()`](https://rdrr.io/r/stats/update.html),
+[`polr engine details`](https://parsnip.tidymodels.org/reference/details_ordinal_reg_polr.md),
+[`ordinalNet engine details`](https://parsnip.tidymodels.org/reference/details_ordinal_reg_ordinalNet.md),
+[`vglm engine details`](https://parsnip.tidymodels.org/reference/details_ordinal_reg_vglm.md)
 
 ## Examples
 

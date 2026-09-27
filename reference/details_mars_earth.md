@@ -86,7 +86,7 @@ see the documentation in
 and the examples on `tidymodels.org`.
 
 The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) functions
 have arguments called `case_weights` that expect vectors of case
 weights.
 
@@ -127,7 +127,7 @@ contains examples for
 - Friedman, J. 1991. “Multivariate Adaptive Regression Splines.” *The
   Annals of Statistics*, vol. 19, no. 1, pp. 1-67.
 
-- Milborrow, S. [“Notes on the earth
-  package.”](http://www.milbo.org/doc/earth-notes.pdf)
+- Milborrow, S. “Notes on the earth package.”
+  (`http://www.milbo.org/doc/earth-notes.pdf`)
 
 - Kuhn, M, and K Johnson. 2013. *Applied Predictive Modeling*. Springer.

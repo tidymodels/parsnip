@@ -75,6 +75,8 @@ To do this, you can use
 [`set_engine()`](https://parsnip.tidymodels.org/reference/set_engine.md)
 to pass a vector of penalty values as so:
 
+    library(ordered)
+
     # Example of setting a wide penalty range
     penalties <- 10^seq(-10, 0, length.out = 20)
 
@@ -108,7 +110,7 @@ see the documentation in
 and the examples on `tidymodels.org`.
 
 The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) functions
 have arguments called `case_weights` that expect vectors of case
 weights.
 

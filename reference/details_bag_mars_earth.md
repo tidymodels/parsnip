@@ -28,6 +28,8 @@ reference below).
 
 The **baguette** extension package is required to fit this model.
 
+    library(baguette)
+
     bag_mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |>
       set_engine("earth") |>
       set_mode("regression") |>
@@ -92,7 +94,7 @@ see the documentation in
 and the examples on `tidymodels.org`.
 
 The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) functions
 have arguments called `case_weights` that expect vectors of case
 weights.
 
@@ -119,7 +121,7 @@ implementation, *building models with weights can be slow*.”
 - Friedman, J. 1991. “Multivariate Adaptive Regression Splines.” *The
   Annals of Statistics*, vol. 19, no. 1, pp. 1-67.
 
-- Milborrow, S. [“Notes on the earth
-  package.”](http://www.milbo.org/doc/earth-notes.pdf)
+- Milborrow, S. “Notes on the earth package.”
+  (`http://www.milbo.org/doc/earth-notes.pdf`)
 
 - Kuhn, M, and K Johnson. 2013. *Applied Predictive Modeling*. Springer.

@@ -1,6 +1,251 @@
 # Changelog
 
+## parsnip 1.6.1
+
+### Breaking Change
+
+- Two
+  [`translate()`](https://parsnip.tidymodels.org/reference/translate.md)
+  helper functions for glmnet are generalized and used to de-duplicate
+  code for ordinalNet and glmnetcr. The latter two no longer silently
+  modify penalty path-governing engine arguments
+  ([@corybrunson](https://github.com/corybrunson),
+  [\#1412](https://github.com/tidymodels/parsnip/issues/1412) &
+  [\#1424](https://github.com/tidymodels/parsnip/issues/1424)), which
+  will impact code that relied on these modifications.
+
+- [`logistic_reg()`](https://parsnip.tidymodels.org/reference/logistic_reg.md)
+  now errors when the outcome has more than two levels, instead of
+  warning. Most engines cannot fit this: `glm` collapses every level
+  after the first into the event and `keras3` returns a column per
+  level, but in both cases the probability columns parsnip labels do not
+  mean what their names say, and `glmnet`, `stan`, and `brulee` error
+  inside the engine. The `LiblineaR` engine is exempt, since it
+  genuinely fits a multiclass model and
+  [`multinom_reg()`](https://parsnip.tidymodels.org/reference/multinom_reg.md)
+  has no LiblineaR engine. The warning was added in 1.1.0
+  ([\#545](https://github.com/tidymodels/parsnip/issues/545)); erroring
+  reflects that for most engines the result was not usable
+  ([\#1444](https://github.com/tidymodels/parsnip/issues/1444)).
+
+### New Features
+
+- New model specifications
+  [`tabular_auto_int()`](https://parsnip.tidymodels.org/reference/tabular_auto_int.md),
+  [`tabular_chronos()`](https://parsnip.tidymodels.org/reference/tabular_chronos.md),
+  [`tabular_icl()`](https://parsnip.tidymodels.org/reference/tabular_icl.md),
+  [`tabular_pfn()`](https://parsnip.tidymodels.org/reference/tabular_pfn.md),
+  [`tabular_resnet()`](https://parsnip.tidymodels.org/reference/tabular_resnet.md),
+  [`tabular_rln()`](https://parsnip.tidymodels.org/reference/tabular_rln.md),
+  and
+  [`tabular_saint()`](https://parsnip.tidymodels.org/reference/tabular_saint.md)
+  were added for tabular deep-learning and foundation models, with
+  engines provided by the tabby extension package
+  ([\#1386](https://github.com/tidymodels/parsnip/issues/1386)).
+
+- [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+  [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) have
+  less per-fit overhead, making small or repeated fits (such as during
+  tuning) faster
+  ([\#1071](https://github.com/tidymodels/parsnip/issues/1071)).
+
+- [`null_model()`](https://parsnip.tidymodels.org/reference/null_model.md)
+  now supports quantile regression mode, where fitting computes the
+  requested empirical quantiles of the outcome.
+
+- For censored regression models, the censoring weights can now be added
+  to the predictions of survival probability by setting
+  `add_censoring_weights = TRUE` in `predict(type = "survival")`
+  ([\#1371](https://github.com/tidymodels/parsnip/issues/1371)).
+
+- [`ordinal_reg()`](https://parsnip.tidymodels.org/reference/ordinal_reg.md)
+  gains arguments `threshold_structure` and `parallel_reg` to control
+  threshold constraints and the parallel regression assumption. The
+  `ordinalNet` engine can use `parallel_reg` while the `clm` and `vglm`
+  engines can use both new arguments
+  ([\#1393](https://github.com/tidymodels/parsnip/issues/1393),
+  [@corybrunson](https://github.com/corybrunson)).
+
+### Bug Fixes
+
+- The deprecated `quantile` argument now reaches its deprecation warning
+  when passed via `predict(type = "quantile")` instead of being rejected
+  as an unknown argument. The error for unknown arguments passed to
+  [`predict()`](https://rdrr.io/r/stats/predict.html) now lists the
+  offending argument names.
+  ([@bjornkallerud](https://github.com/bjornkallerud),
+  [\#1258](https://github.com/tidymodels/parsnip/issues/1258))
+
+- Several internal list accesses that resolved only through `$` partial
+  matching were corrected: the outcome levels recorded when fitting from
+  a formula, the `"ranger"` prediction post-processor, and the
+  [`multi_predict()`](https://parsnip.tidymodels.org/reference/multi_predict.md)
+  generic’s check for a failed fit. Results are unchanged, but each
+  would have silently started reading a different element had one with a
+  shorter name been added.
+
+- Model and engine arguments are now evaluated while the model call is
+  assembled, so the call an engine records no longer contains quosures.
+  This fixes
+  [`mars()`](https://parsnip.tidymodels.org/reference/mars.md) fits with
+  the earth engine when `prune_method = "cv"` is combined with
+  `prod_degree`
+  ([\#432](https://github.com/tidymodels/parsnip/issues/432)), and
+  `set_engine("glmnet", relax = TRUE)` for every glmnet engine, which
+  also covers the poissonreg and censored wrappers
+  ([\#1069](https://github.com/tidymodels/parsnip/issues/1069)). Both
+  engines re-evaluate their own recorded call with base
+  [`eval()`](https://rdrr.io/r/base/eval.html), which cannot handle
+  quosures. A fitted object’s `$fit$call` now shows values such as
+  `degree = 2` rather than `degree = ~2`.
+
+- [`bart()`](https://parsnip.tidymodels.org/reference/bart.md)
+  classification fits with the `"dbarts"` engine now return each
+  observation’s own confidence and prediction interval bounds. The
+  bounds were sorted across observations, so each row received some
+  other row’s rank-matched limits. Regression intervals were unaffected
+  ([\#1407](https://github.com/tidymodels/parsnip/issues/1407)).
+
+- [`bart()`](https://parsnip.tidymodels.org/reference/bart.md)
+  classification with the `"dbarts"` engine now errors when the outcome
+  does not have exactly two levels. dbarts models a binary outcome, but
+  parsnip passed it the factor codes without checking, so a third level
+  became a `y` value of `2` and the returned “probabilities” were not on
+  `[0, 1]`. This also affected a two-level outcome that retained an
+  unused level: class and probability predictions were silently
+  mislabelled, and interval predictions errored inside
+  [`rlang::set_names()`](https://rlang.r-lib.org/reference/set_names.html).
+  The new error names the unused levels and suggests
+  [`droplevels()`](https://rdrr.io/r/base/droplevels.html) when that is
+  the problem
+  ([\#1444](https://github.com/tidymodels/parsnip/issues/1444)).
+
+- [`boost_tree()`](https://parsnip.tidymodels.org/reference/boost_tree.md)
+  with the `"xgboost"` engine now warns once per session when
+  `monotone_constraints` is supplied for binary classification. The
+  signs of the constraints are relative to the event level, which is the
+  first factor level unless `event_level = "second"` is set, so
+  `monotone_constraints = 1` constrains the probability of that level
+  rather than of the second one. The engine documentation now describes
+  the convention. Fitted models are unchanged
+  ([\#796](https://github.com/tidymodels/parsnip/issues/796)).
+
+- [`boost_tree()`](https://parsnip.tidymodels.org/reference/boost_tree.md)
+  models fit with the `"xgboost"` engine and a function-valued
+  `objective` now error informatively for `predict(type = "class")` and
+  `predict(type = "prob")` instead of returning raw margins labelled as
+  probabilities. xgboost cannot report whether a custom objective
+  produces margins or probabilities, so parsnip cannot convert them; use
+  `predict(type = "raw")` and apply the matching inverse link yourself,
+  or register a custom engine that post-processes the predictions.
+  Fitting, `type = "raw"`, and regression are unaffected
+  ([\#999](https://github.com/tidymodels/parsnip/issues/999)).
+
+- [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+  [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) now
+  error when extra arguments are passed through `...`. The documentation
+  always said these were ignored, but depending on the combination of
+  user and engine interface they were silently dropped, silently applied
+  (a `subset` argument really did subset the training data on the
+  formula-to-xy path), or raised an internal “unused argument” error.
+  Pass engine arguments to
+  [`set_engine()`](https://parsnip.tidymodels.org/reference/set_engine.md)
+  and case weights to the `case_weights` argument. Passing `offset` gets
+  specific advice, since the general suggestion does not work for it:
+  use [`offset()`](https://rdrr.io/r/stats/offset.html) in the formula,
+  or pass the offset vector to
+  [`set_engine()`](https://parsnip.tidymodels.org/reference/set_engine.md)
+  when using
+  [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html)
+  ([\#492](https://github.com/tidymodels/parsnip/issues/492),
+  [\#1439](https://github.com/tidymodels/parsnip/issues/1439)).
+
+- [`mars()`](https://parsnip.tidymodels.org/reference/mars.md)
+  classification fits with the `"earth"` engine now return correct
+  `predict(type = "class")` results for outcomes with three or more
+  levels. A binary threshold rule was applied regardless of the number
+  of levels, so every multiclass prediction was wrong and the last level
+  could never be predicted. Binary outcomes are unaffected
+  ([\#472](https://github.com/tidymodels/parsnip/issues/472),
+  [\#1409](https://github.com/tidymodels/parsnip/issues/1409)).
+
+- [`multi_predict()`](https://parsnip.tidymodels.org/reference/multi_predict.md)
+  for glmnet engine fits now passes `type = "raw"` through to glmnet
+  with no post-processing. It was silently ignored for
+  [`linear_reg()`](https://parsnip.tidymodels.org/reference/linear_reg.md),
+  which returned the usual nested `.pred` tibble, and errored
+  unhelpfully for
+  [`logistic_reg()`](https://parsnip.tidymodels.org/reference/logistic_reg.md)
+  and
+  [`multinom_reg()`](https://parsnip.tidymodels.org/reference/multinom_reg.md).
+  The result is glmnet’s own prediction object — a matrix with one
+  column per penalty, or a three-dimensional array for
+  [`multinom_reg()`](https://parsnip.tidymodels.org/reference/multinom_reg.md)
+  — rather than a tibble
+  ([\#857](https://github.com/tidymodels/parsnip/issues/857)).
+
+- The per-type glmnet prediction methods (`predict_numeric._elnet()`,
+  `predict_class._lognet()` and the six others like them) were removed.
+  Each only evaluated the model specification before handing off to the
+  corresponding
+  [`model_fit()`](https://parsnip.tidymodels.org/reference/model_fit.md)
+  method, which the [`predict()`](https://rdrr.io/r/stats/predict.html)
+  path already does beforehand. Predictions from glmnet models are
+  unchanged. A custom model that carries one of glmnet’s fitted classes,
+  such as `_elnet`, now reaches parsnip’s
+  [`model_fit()`](https://parsnip.tidymodels.org/reference/model_fit.md)
+  methods for these prediction types rather than the glmnet ones
+  ([\#878](https://github.com/tidymodels/parsnip/issues/878)).
+
+- [`multi_predict_args()`](https://parsnip.tidymodels.org/reference/has_multi_predict.md)
+  and
+  [`has_multi_predict()`](https://parsnip.tidymodels.org/reference/has_multi_predict.md)
+  work again for fitted workflows, returning the submodel argument names
+  and `TRUE` instead of `NULL` and `FALSE`. They read from an outdated
+  internal workflows structure. Both now error informatively on an
+  untrained workflow rather than silently reporting that it has no
+  submodel arguments
+  ([\#1410](https://github.com/tidymodels/parsnip/issues/1410)).
+
+- [`predict_raw()`](https://parsnip.tidymodels.org/reference/predict.model_fit.md)
+  no longer errors when `opts` contains an argument name that collides
+  with a protected prediction argument such as `newdata` or `object`.
+  The colliding entry is now dropped with a warning; previously every
+  path through that branch failed with “attempt to select less than one
+  element”. This also covers `predict(type = "raw", opts = ...)`
+  ([\#1408](https://github.com/tidymodels/parsnip/issues/1408)).
+
+- [`set_model_arg()`](https://parsnip.tidymodels.org/reference/set_new_model.md)
+  now stores `func` as a list when given the named character vector form
+  shown in its documentation, such as
+  `c(pkg = "dials", fun = "mixture")`. That form registered without
+  complaint but made tuning fail much later with
+  `$ operator is invalid for atomic vectors`
+  ([\#1251](https://github.com/tidymodels/parsnip/issues/1251)).
+
+- [`svm_linear()`](https://parsnip.tidymodels.org/reference/svm_linear.md)
+  with the `"LiblineaR"` engine now passes `cost` to
+  [`LiblineaR::LiblineaR()`](https://rdrr.io/pkg/LiblineaR/man/LiblineaR.html).
+  It was previously mapped to a nonexistent `C` argument, which the
+  engine silently absorbed into its dots, so every fit used the engine
+  default of `cost = 1` and tuning over `cost` had no effect. Fitted
+  results will change for any model with a non-default `cost`
+  ([\#1405](https://github.com/tidymodels/parsnip/issues/1405)).
+
+- Fitting with sparse data now respects the model mode, so loading an
+  extension package that registers an engine for a different mode can no
+  longer alter sparse data support for the original mode
+  ([\#1382](https://github.com/tidymodels/parsnip/issues/1382)).
+
+- Corrected documentation that referred to
+  [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+  [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) as
+  arguments rather than functions in the case weights template
+  ([\#1394](https://github.com/tidymodels/parsnip/issues/1394)).
+
 ## parsnip 1.6.0
+
+CRAN release: 2026-05-14
 
 - [`linear_reg()`](https://parsnip.tidymodels.org/reference/linear_reg.md),
   [`logistic_reg()`](https://parsnip.tidymodels.org/reference/logistic_reg.md),

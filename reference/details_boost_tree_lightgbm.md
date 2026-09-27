@@ -52,6 +52,8 @@ found at <https://lightgbm.readthedocs.io/en/latest/Parameters.html>.
 
 The **bonsai** extension package is required to fit this model.
 
+    library(bonsai)
+
     boost_tree(
       mtry = integer(), trees = integer(), tree_depth = integer(),
       learn_rate = numeric(), min_n = integer(), loss_reduction = numeric()
@@ -83,6 +85,8 @@ The **bonsai** extension package is required to fit this model.
 ### Translation from parsnip to the original package (classification)
 
 The **bonsai** extension package is required to fit this model.
+
+    library(bonsai)
 
     boost_tree(
       mtry = integer(), trees = integer(), tree_depth = integer(),
@@ -136,7 +140,7 @@ see the documentation in
 and the examples on `tidymodels.org`.
 
 The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) functions
 have arguments called `case_weights` that expect vectors of case
 weights.
 
@@ -226,6 +230,8 @@ is `regression`.
 
 You can specify an alternative objective using
 [`set_engine()`](https://parsnip.tidymodels.org/reference/set_engine.md):
+
+    library(bonsai)
 
     boost_tree() |>
       set_engine("lightgbm", objective = "multiclassova") |>

@@ -63,12 +63,16 @@ get_encoding(model)
 
 - func:
 
-  A named character vector that describes how to call a function. `func`
-  should have elements `pkg` and `fun`. The former is optional but is
-  recommended and the latter is required. For example,
+  A named character vector or named list that describes how to call a
+  function. `func` should have elements `pkg` and `fun`. The former is
+  optional but is recommended and the latter is required. For example,
   `c(pkg = "stats", fun = "lm")` would be used to invoke the usual
   linear regression function. In some cases, it is helpful to use
   `c(fun = "predict")` when using a package's `predict` method.
+  `set_model_arg()` stores `func` as a list, so either form may be given
+  there; it also accepts the optional `range`, `trans`, and `values`
+  elements used to describe a tuning parameter, which require the list
+  form.
 
 - has_submodel:
 

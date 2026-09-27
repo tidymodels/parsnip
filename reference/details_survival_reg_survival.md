@@ -57,6 +57,7 @@ in formulas with tidymodels, see
 For example, in this model, the numeric column `rx` is used to estimate
 two different scale parameters for each value of the column:
 
+    library(censored)
     library(survival)
 
     survival_reg() |>
@@ -89,7 +90,7 @@ see the documentation in
 and the examples on `tidymodels.org`.
 
 The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) functions
 have arguments called `case_weights` that expect vectors of case
 weights.
 

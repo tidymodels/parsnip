@@ -125,24 +125,36 @@ are not required for this model.
 
 ### Case weights
 
+#### Classification and regression
+
 This model can utilize case weights during model fitting. To use them,
 see the documentation in
 [case_weights](https://parsnip.tidymodels.org/reference/case_weights.md)
 and the examples on `tidymodels.org`.
 
 The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) functions
 have arguments called `case_weights` that expect vectors of case
 weights.
 
+#### Censored regression
+
+The underlying model implementation does not allow for case weights.
+
 ### Prediction types
 
-    parsnip:::get_from_env("bag_mars_predict") |>
+    parsnip:::get_from_env("bag_tree_predict") |>
       dplyr::filter(engine == "rpart") |>
       dplyr::select(mode, type)
 
-    ## # A tibble: 0 x 2
-    ## # i 2 variables: mode <chr>, type <chr>
+    ## # A tibble: 5 x 2
+    ##   mode                type
+    ##   <chr>               <chr>
+    ## 1 regression          numeric
+    ## 2 classification      class
+    ## 3 classification      prob
+    ## 4 censored regression time
+    ## 5 censored regression survival
 
 ### Other details
 

@@ -50,6 +50,8 @@ When fitting a parsnip model with this engine directly, the formula
 method is required and the formula is just passed through. For example:
 
     library(tidymodels)
+    library(poissonreg)
+
     tidymodels_prefer()
 
     data("bioChemists", package = "pscl")
@@ -76,6 +78,8 @@ However, when using a workflow, the best approach is to avoid using
 and use
 [`workflows::add_variables()`](https://workflows.tidymodels.org/reference/add_variables.html)
 in conjunction with a model formula:
+
+    library(poissonreg)
 
     data("bioChemists", package = "pscl")
     spec <-
@@ -113,7 +117,7 @@ see the documentation in
 and the examples on `tidymodels.org`.
 
 The [`fit()`](https://generics.r-lib.org/reference/fit.html) and
-[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) arguments
+[`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) functions
 have arguments called `case_weights` that expect vectors of case
 weights.
 

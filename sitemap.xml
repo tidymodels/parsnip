@@ -1,5 +1,6 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://parsnip.tidymodels.org/404.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/AGENTS.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/CODE_OF_CONDUCT.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/CONTRIBUTING.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/LICENSE-text.html</loc></url>
@@ -134,6 +135,7 @@
 <url><loc>https://parsnip.tidymodels.org/reference/details_rand_forest_ordinalForest.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/reference/details_rand_forest_partykit.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/reference/details_rand_forest_randomForest.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/reference/details_rand_forest_randomForestSRC.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/reference/details_rand_forest_ranger.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/reference/details_rand_forest_spark.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/reference/details_rule_fit_h2o.html</loc></url>
@@ -145,6 +147,13 @@
 <url><loc>https://parsnip.tidymodels.org/reference/details_svm_linear_kernlab.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/reference/details_svm_poly_kernlab.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/reference/details_svm_rbf_kernlab.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/reference/details_tabular_auto_int_brulee.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/reference/details_tabular_chronos_brulee.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/reference/details_tabular_icl_brulee.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/reference/details_tabular_pfn_tabpfn.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/reference/details_tabular_resnet_brulee.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/reference/details_tabular_rln_brulee.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/reference/details_tabular_saint_brulee.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/reference/discrim_flexible.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/reference/discrim_linear.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/reference/discrim_quad.html</loc></url>
@@ -229,6 +238,13 @@
 <url><loc>https://parsnip.tidymodels.org/reference/svm_linear.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/reference/svm_poly.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/reference/svm_rbf.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/reference/tabular_auto_int.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/reference/tabular_chronos.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/reference/tabular_icl.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/reference/tabular_pfn.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/reference/tabular_resnet.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/reference/tabular_rln.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/reference/tabular_saint.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/reference/tidy._LiblineaR.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/reference/tidy._elnet.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/reference/tidy.model_fit.html</loc></url>
