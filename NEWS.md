@@ -1,4 +1,10 @@
-# parsnip (development version)
+# parsnip 1.6.1
+
+## Breaking Change
+
+* Two `translate()` helper functions for glmnet are generalized and used to de-duplicate code for ordinalNet and glmnetcr. The latter two no longer silently modify penalty path-governing engine arguments (@corybrunson, #1412 & #1424), which will impact code that relied on these modifications.
+
+* `logistic_reg()` now errors when the outcome has more than two levels, instead of warning. Most engines cannot fit this: `glm` collapses every level after the first into the event and `keras3` returns a column per level, but in both cases the probability columns parsnip labels do not mean what their names say, and `glmnet`, `stan`, and `brulee` error inside the engine. The `LiblineaR` engine is exempt, since it genuinely fits a multiclass model and `multinom_reg()` has no LiblineaR engine. The warning was added in 1.1.0 (#545); erroring reflects that for most engines the result was not usable (#1444).
 
 ## New Features
 
@@ -30,8 +36,6 @@
 
 * `fit()` and `fit_xy()` now error when extra arguments are passed through `...`. The documentation always said these were ignored, but depending on the combination of user and engine interface they were silently dropped, silently applied (a `subset` argument really did subset the training data on the formula-to-xy path), or raised an internal "unused argument" error. Pass engine arguments to `set_engine()` and case weights to the `case_weights` argument. Passing `offset` gets specific advice, since the general suggestion does not work for it: use `offset()` in the formula, or pass the offset vector to `set_engine()` when using `fit_xy()` (#492, #1439).
 
-* `logistic_reg()` now errors when the outcome has more than two levels, instead of warning. Most engines cannot fit this: `glm` collapses every level after the first into the event and `keras3` returns a column per level, but in both cases the probability columns parsnip labels do not mean what their names say, and `glmnet`, `stan`, and `brulee` error inside the engine. The `LiblineaR` engine is exempt, since it genuinely fits a multiclass model and `multinom_reg()` has no LiblineaR engine. The warning was added in 1.1.0 (#545); erroring reflects that for most engines the result was not usable (#1444).
-
 * `mars()` classification fits with the `"earth"` engine now return correct `predict(type = "class")` results for outcomes with three or more levels. A binary threshold rule was applied regardless of the number of levels, so every multiclass prediction was wrong and the last level could never be predicted. Binary outcomes are unaffected (#472, #1409).
 
 * `multi_predict()` for glmnet engine fits now passes `type = "raw"` through to glmnet with no post-processing. It was silently ignored for `linear_reg()`, which returned the usual nested `.pred` tibble, and errored unhelpfully for `logistic_reg()` and `multinom_reg()`. The result is glmnet's own prediction object — a matrix with one column per penalty, or a three-dimensional array for `multinom_reg()` — rather than a tibble (#857).
@@ -49,10 +53,6 @@
 * Fitting with sparse data now respects the model mode, so loading an extension package that registers an engine for a different mode can no longer alter sparse data support for the original mode (#1382).
 
 * Corrected documentation that referred to `fit()` and `fit_xy()` as arguments rather than functions in the case weights template (#1394).
-
-## Breaking Change
-
-* Two `translate()` helper functions for glmnet are generalized and used to de-duplicate code for ordinalNet and glmnetcr. The latter two no longer silently modify penalty path-governing engine arguments (@corybrunson, #1412 & #1424), which will impact code that relied on these modifications.
 
 # parsnip 1.6.0
 

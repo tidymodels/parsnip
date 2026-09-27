@@ -3,6 +3,9 @@
 \name{.extract_surv_time}
 \alias{.extract_surv_time}
 \title{Extract survival time}
+\usage{
+.extract_surv_time(surv)
+}
 \arguments{
 \item{surv}{A single \code{\link[survival:Surv]{survival::Surv()}} object.}
 }

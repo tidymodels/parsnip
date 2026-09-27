@@ -7,13 +7,11 @@
 
 [![R-CMD-check](https://github.com/tidymodels/parsnip/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidymodels/parsnip/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/tidymodels/parsnip/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/parsnip?branch=main)
+coverage](https://codecov.io/gh/tidymodels/parsnip/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/parsnip)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![Downloads](https://cranlogs.r-pkg.org/badges/parsnip)](https://CRAN.R-project.org/package=parsnip)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![Codecov test
-coverage](https://codecov.io/gh/tidymodels/parsnip/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/parsnip)
 <!-- badges: end -->
 
 ## Introduction
@@ -145,7 +143,7 @@ rand_forest(mtry = 10, trees = 2000) |>
 #> Ranger result
 #> 
 #> Call:
-#>  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~10,      x), num.trees = ~2000, importance = ~"impurity", num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) 
+#>  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~10,      x), num.trees = 2000, importance = "impurity", num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) 
 #> 
 #> Type:                             Regression 
 #> Number of trees:                  2000 
