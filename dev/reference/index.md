@@ -276,10 +276,10 @@
 - [`req_pkgs()`](https://parsnip.tidymodels.org/dev/reference/req_pkgs.md)
   **\[deprecated\]** : Determine required packages for a model
 
-- [`.extract_surv_status`](https://parsnip.tidymodels.org/dev/reference/dot-extract_surv_status.md)
+- [`.extract_surv_status()`](https://parsnip.tidymodels.org/dev/reference/dot-extract_surv_status.md)
   : Extract survival status
 
-- [`.extract_surv_time`](https://parsnip.tidymodels.org/dev/reference/dot-extract_surv_time.md)
+- [`.extract_surv_time()`](https://parsnip.tidymodels.org/dev/reference/dot-extract_surv_time.md)
   : Extract survival time
 
 - [`.model_param_name_key()`](https://parsnip.tidymodels.org/dev/reference/dot-model_param_name_key.md)

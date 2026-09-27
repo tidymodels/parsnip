@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.6.0.9002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.6.1.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -181,7 +181,7 @@
 <span><span class="co">#&gt; Ranger result</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Call:</span></span>
-<span><span class="co">#&gt;  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~10,      x), num.trees = ~2000, importance = ~"impurity", num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) </span></span>
+<span><span class="co">#&gt;  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~10,      x), num.trees = 2000, importance = "impurity", num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Type:                             Regression </span></span>
 <span><span class="co">#&gt; Number of trees:                  2000 </span></span>
@@ -256,11 +256,10 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/tidymodels/parsnip/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/tidymodels/parsnip/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://app.codecov.io/gh/tidymodels/parsnip?branch=main" class="external-link"><img src="https://codecov.io/gh/tidymodels/parsnip/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://app.codecov.io/gh/tidymodels/parsnip" class="external-link"><img src="https://codecov.io/gh/tidymodels/parsnip/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://CRAN.R-project.org/package=parsnip" class="external-link"><img src="https://www.r-pkg.org/badges/version/parsnip" alt="CRAN status"></a></li>
 <li><a href="https://CRAN.R-project.org/package=parsnip" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/parsnip" alt="Downloads"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
-<li><a href="https://app.codecov.io/gh/tidymodels/parsnip" class="external-link"><img src="https://codecov.io/gh/tidymodels/parsnip/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 

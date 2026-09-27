@@ -121,7 +121,7 @@ implementation, *building models with weights can be slow*.”
 - Friedman, J. 1991. “Multivariate Adaptive Regression Splines.” *The
   Annals of Statistics*, vol. 19, no. 1, pp. 1-67.
 
-- Milborrow, S. [“Notes on the earth
-  package.”](http://www.milbo.org/doc/earth-notes.pdf)
+- Milborrow, S. “Notes on the earth package.”
+  (`http://www.milbo.org/doc/earth-notes.pdf`)
 
 - Kuhn, M, and K Johnson. 2013. *Applied Predictive Modeling*. Springer.

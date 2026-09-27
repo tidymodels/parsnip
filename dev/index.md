@@ -135,7 +135,7 @@ rand_forest(mtry = 10, trees = 2000) |>
 #> Ranger result
 #> 
 #> Call:
-#>  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~10,      x), num.trees = ~2000, importance = ~"impurity", num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) 
+#>  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~10,      x), num.trees = 2000, importance = "impurity", num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) 
 #> 
 #> Type:                             Regression 
 #> Number of trees:                  2000 

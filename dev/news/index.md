@@ -2,6 +2,34 @@
 
 ## parsnip (development version)
 
+## parsnip 1.6.1
+
+### Breaking Change
+
+- Two
+  [`translate()`](https://parsnip.tidymodels.org/dev/reference/translate.md)
+  helper functions for glmnet are generalized and used to de-duplicate
+  code for ordinalNet and glmnetcr. The latter two no longer silently
+  modify penalty path-governing engine arguments
+  ([@corybrunson](https://github.com/corybrunson),
+  [\#1412](https://github.com/tidymodels/parsnip/issues/1412) &
+  [\#1424](https://github.com/tidymodels/parsnip/issues/1424)), which
+  will impact code that relied on these modifications.
+
+- [`logistic_reg()`](https://parsnip.tidymodels.org/dev/reference/logistic_reg.md)
+  now errors when the outcome has more than two levels, instead of
+  warning. Most engines cannot fit this: `glm` collapses every level
+  after the first into the event and `keras3` returns a column per
+  level, but in both cases the probability columns parsnip labels do not
+  mean what their names say, and `glmnet`, `stan`, and `brulee` error
+  inside the engine. The `LiblineaR` engine is exempt, since it
+  genuinely fits a multiclass model and
+  [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md)
+  has no LiblineaR engine. The warning was added in 1.1.0
+  ([\#545](https://github.com/tidymodels/parsnip/issues/545)); erroring
+  reflects that for most engines the result was not usable
+  ([\#1444](https://github.com/tidymodels/parsnip/issues/1444)).
+
 ### New Features
 
 - New model specifications
@@ -134,20 +162,6 @@
   ([\#492](https://github.com/tidymodels/parsnip/issues/492),
   [\#1439](https://github.com/tidymodels/parsnip/issues/1439)).
 
-- [`logistic_reg()`](https://parsnip.tidymodels.org/dev/reference/logistic_reg.md)
-  now errors when the outcome has more than two levels, instead of
-  warning. Most engines cannot fit this: `glm` collapses every level
-  after the first into the event and `keras3` returns a column per
-  level, but in both cases the probability columns parsnip labels do not
-  mean what their names say, and `glmnet`, `stan`, and `brulee` error
-  inside the engine. The `LiblineaR` engine is exempt, since it
-  genuinely fits a multiclass model and
-  [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md)
-  has no LiblineaR engine. The warning was added in 1.1.0
-  ([\#545](https://github.com/tidymodels/parsnip/issues/545)); erroring
-  reflects that for most engines the result was not usable
-  ([\#1444](https://github.com/tidymodels/parsnip/issues/1444)).
-
 - [`mars()`](https://parsnip.tidymodels.org/dev/reference/mars.md)
   classification fits with the `"earth"` engine now return correct
   `predict(type = "class")` results for outcomes with three or more
@@ -230,18 +244,6 @@
   [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) as
   arguments rather than functions in the case weights template
   ([\#1394](https://github.com/tidymodels/parsnip/issues/1394)).
-
-### Breaking Change
-
-- Two
-  [`translate()`](https://parsnip.tidymodels.org/dev/reference/translate.md)
-  helper functions for glmnet are generalized and used to de-duplicate
-  code for ordinalNet and glmnetcr. The latter two no longer silently
-  modify penalty path-governing engine arguments
-  ([@corybrunson](https://github.com/corybrunson),
-  [\#1412](https://github.com/tidymodels/parsnip/issues/1412) &
-  [\#1424](https://github.com/tidymodels/parsnip/issues/1424)), which
-  will impact code that relied on these modifications.
 
 ## parsnip 1.6.0
 

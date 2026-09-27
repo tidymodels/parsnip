@@ -135,7 +135,7 @@ rand_forest(mtry = 10, trees = 2000) |>
 #> Ranger result
 #> 
 #> Call:
-#>  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~10,      x), num.trees = ~2000, importance = ~"impurity", num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) 
+#>  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~10,      x), num.trees = 2000, importance = "impurity", num.threads = 1,      verbose = FALSE, seed = sample.int(10^5, 1)) 
 #> 
 #> Type:                             Regression 
 #> Number of trees:                  2000 
@@ -452,10 +452,10 @@ By contributing to this project, you agree to abide by its terms.
 - [`req_pkgs()`](https://parsnip.tidymodels.org/dev/reference/req_pkgs.md)
   **\[deprecated\]** : Determine required packages for a model
 
-- [`.extract_surv_status`](https://parsnip.tidymodels.org/dev/reference/dot-extract_surv_status.md)
+- [`.extract_surv_status()`](https://parsnip.tidymodels.org/dev/reference/dot-extract_surv_status.md)
   : Extract survival status
 
-- [`.extract_surv_time`](https://parsnip.tidymodels.org/dev/reference/dot-extract_surv_time.md)
+- [`.extract_surv_time()`](https://parsnip.tidymodels.org/dev/reference/dot-extract_surv_time.md)
   : Extract survival time
 
 - [`.model_param_name_key()`](https://parsnip.tidymodels.org/dev/reference/dot-model_param_name_key.md)
