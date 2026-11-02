@@ -539,7 +539,7 @@ set_model_arg(
   eng = "brulee",
   parsnip = "hidden_units",
   original = "hidden_units",
-  func = list(pkg = "dials", fun = "hidden_units"),
+  func = list(pkg = "dials", fun = "hidden_units", range = c(2L, 50L)),
   has_submodel = FALSE
 )
 
@@ -557,7 +557,7 @@ set_model_arg(
   eng = "brulee",
   parsnip = "epochs",
   original = "epochs",
-  func = list(pkg = "dials", fun = "epochs"),
+  func = list(pkg = "dials", fun = "epochs", range = c(5L, 500L)),
   has_submodel = FALSE
 )
 
@@ -575,7 +575,7 @@ set_model_arg(
   eng = "brulee",
   parsnip = "learn_rate",
   original = "learn_rate",
-  func = list(pkg = "dials", fun = "learn_rate", range = c(-2.5, -0.5)),
+  func = list(pkg = "dials", fun = "learn_rate", range = c(-3, -1 / 5)),
   has_submodel = FALSE
 )
 
@@ -587,8 +587,132 @@ set_model_arg(
   func = list(
     pkg = "dials",
     fun = "activation",
-    values = c('relu', 'elu', 'tanh')
+    values = c("relu", "tanh", "elu", "log_sigmoid", "tanhshrink")
   ),
+  has_submodel = FALSE
+)
+
+
+# Engine-specific tunable parameters for brulee
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee",
+  parsnip = "mixture",
+  original = "mixture",
+  func = list(pkg = "dials", fun = "mixture"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee",
+  parsnip = "momentum",
+  original = "momentum",
+  func = list(pkg = "dials", fun = "momentum", range = c(0.00, 0.99)),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee",
+  parsnip = "batch_size",
+  original = "batch_size",
+  func = list(pkg = "dials", fun = "batch_size", range = c(3L, 8L)),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee",
+  parsnip = "class_weights",
+  original = "class_weights",
+  func = list(pkg = "dials", fun = "class_weights"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee",
+  parsnip = "stop_iter",
+  original = "stop_iter",
+  func = list(pkg = "dials", fun = "stop_iter"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee",
+  parsnip = "validation",
+  original = "validation",
+  func = list(pkg = "dials", fun = "validation_set_prop"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee",
+  parsnip = "rate_schedule",
+  original = "rate_schedule",
+  func = list(
+    pkg = "dials",
+    fun = "rate_schedule",
+    values = c("none", "decay_time", "decay_expo", "cyclic", "step")
+  ),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee",
+  parsnip = "initial",
+  original = "initial",
+  func = list(pkg = "dials", fun = "rate_initial"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee",
+  parsnip = "largest",
+  original = "largest",
+  func = list(pkg = "dials", fun = "rate_largest"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee",
+  parsnip = "reduction",
+  original = "reduction",
+  func = list(pkg = "dials", fun = "rate_reduction"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee",
+  parsnip = "steps",
+  original = "steps",
+  func = list(pkg = "dials", fun = "rate_steps"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee",
+  parsnip = "step_size",
+  original = "step_size",
+  func = list(pkg = "dials", fun = "rate_step_size"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee",
+  parsnip = "decay",
+  original = "decay",
+  func = list(pkg = "dials", fun = "rate_decay"),
   has_submodel = FALSE
 )
 
@@ -703,7 +827,7 @@ set_model_arg(
   eng = "brulee_two_layer",
   parsnip = "hidden_units",
   original = "hidden_units",
-  func = list(pkg = "dials", fun = "hidden_units"),
+  func = list(pkg = "dials", fun = "hidden_units", range = c(2L, 50L)),
   has_submodel = FALSE
 )
 
@@ -721,7 +845,7 @@ set_model_arg(
   eng = "brulee_two_layer",
   parsnip = "epochs",
   original = "epochs",
-  func = list(pkg = "dials", fun = "epochs"),
+  func = list(pkg = "dials", fun = "epochs", range = c(5L, 500L)),
   has_submodel = FALSE
 )
 
@@ -739,7 +863,7 @@ set_model_arg(
   eng = "brulee_two_layer",
   parsnip = "learn_rate",
   original = "learn_rate",
-  func = list(pkg = "dials", fun = "learn_rate", range = c(-2.5, -0.5)),
+  func = list(pkg = "dials", fun = "learn_rate", range = c(-3, -1 / 5)),
   has_submodel = FALSE
 )
 
@@ -751,8 +875,154 @@ set_model_arg(
   func = list(
     pkg = "dials",
     fun = "activation",
-    values = c('relu', 'elu', 'tanh')
+    values = c("relu", "tanh", "elu", "log_sigmoid", "tanhshrink")
   ),
+  has_submodel = FALSE
+)
+
+
+# Engine-specific tunable parameters for brulee_two_layer
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "hidden_units_2",
+  original = "hidden_units_2",
+  func = list(pkg = "dials", fun = "hidden_units_2", range = c(2L, 50L)),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "activation_2",
+  original = "activation_2",
+  func = list(
+    pkg = "dials",
+    fun = "activation_2",
+    values = c("relu", "tanh", "elu", "log_sigmoid", "tanhshrink")
+  ),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "mixture",
+  original = "mixture",
+  func = list(pkg = "dials", fun = "mixture"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "momentum",
+  original = "momentum",
+  func = list(pkg = "dials", fun = "momentum", range = c(0.00, 0.99)),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "batch_size",
+  original = "batch_size",
+  func = list(pkg = "dials", fun = "batch_size", range = c(3L, 8L)),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "class_weights",
+  original = "class_weights",
+  func = list(pkg = "dials", fun = "class_weights"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "stop_iter",
+  original = "stop_iter",
+  func = list(pkg = "dials", fun = "stop_iter"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "validation",
+  original = "validation",
+  func = list(pkg = "dials", fun = "validation_set_prop"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "rate_schedule",
+  original = "rate_schedule",
+  func = list(
+    pkg = "dials",
+    fun = "rate_schedule",
+    values = c("none", "decay_time", "decay_expo", "cyclic", "step")
+  ),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "initial",
+  original = "initial",
+  func = list(pkg = "dials", fun = "rate_initial"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "largest",
+  original = "largest",
+  func = list(pkg = "dials", fun = "rate_largest"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "reduction",
+  original = "reduction",
+  func = list(pkg = "dials", fun = "rate_reduction"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "steps",
+  original = "steps",
+  func = list(pkg = "dials", fun = "rate_steps"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "step_size",
+  original = "step_size",
+  func = list(pkg = "dials", fun = "rate_step_size"),
+  has_submodel = FALSE
+)
+
+set_model_arg(
+  model = "mlp",
+  eng = "brulee_two_layer",
+  parsnip = "decay",
+  original = "decay",
+  func = list(pkg = "dials", fun = "rate_decay"),
   has_submodel = FALSE
 )
 

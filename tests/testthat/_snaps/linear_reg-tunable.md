@@ -47,14 +47,14 @@
     Code
       display_tunable_call_info(set_engine(linear_reg(), "brulee"))
     Output
-      epochs                    | pkg: dials, fun: epochs, range: c(  5, 500) | engine
       penalty                   | pkg: dials, fun: penalty | main
       mixture                   | pkg: dials, fun: mixture | main
+      epochs                    | pkg: dials, fun: epochs, range: c(  5, 500) | engine
       learn_rate                | pkg: dials, fun: learn_rate, range: c(-3.00, -0.20) | engine
       momentum                  | pkg: dials, fun: momentum, range: c(0.00, 0.99) | engine
       batch_size                | pkg: dials, fun: batch_size, range: c(3, 8) | engine
       stop_iter                 | pkg: dials, fun: stop_iter | engine
-      rate_schedule             | pkg: dials, fun: rate_schedule, values: none, decay_time, decay_expo, cyclic, step | engine
+      validation                | pkg: dials, fun: validation_set_prop | engine
 
 # tunable parameters for linear_reg + quantreg
 

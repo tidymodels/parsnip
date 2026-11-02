@@ -439,44 +439,72 @@
       
        arguments: 
          keras:            
-            hidden_units --> hidden_units
-            penalty      --> penalty
-            dropout      --> dropout
-            epochs       --> epochs
-            activation   --> activation
+            hidden_units   --> hidden_units
+            penalty        --> penalty
+            dropout        --> dropout
+            epochs         --> epochs
+            activation     --> activation
          keras3:           
-            hidden_units --> hidden_units
-            penalty      --> penalty
-            dropout      --> dropout
-            epochs       --> epochs
-            activation   --> activation
+            hidden_units   --> hidden_units
+            penalty        --> penalty
+            dropout        --> dropout
+            epochs         --> epochs
+            activation     --> activation
          nnet:             
-            hidden_units --> size
-            penalty      --> decay
-            epochs       --> maxit
+            hidden_units   --> size
+            penalty        --> decay
+            epochs         --> maxit
          brulee:           
-            hidden_units --> hidden_units
-            penalty      --> penalty
-            epochs       --> epochs
-            dropout      --> dropout
-            learn_rate   --> learn_rate
-            activation   --> activation
+            hidden_units   --> hidden_units
+            penalty        --> penalty
+            epochs         --> epochs
+            dropout        --> dropout
+            learn_rate     --> learn_rate
+            activation     --> activation
+            mixture        --> mixture
+            momentum       --> momentum
+            batch_size     --> batch_size
+            class_weights  --> class_weights
+            stop_iter      --> stop_iter
+            validation     --> validation
+            rate_schedule  --> rate_schedule
+            initial        --> initial
+            largest        --> largest
+            reduction      --> reduction
+            steps          --> steps
+            step_size      --> step_size
+            decay          --> decay
          brulee_two_layer: 
-            hidden_units --> hidden_units
-            penalty      --> penalty
-            epochs       --> epochs
-            dropout      --> dropout
-            learn_rate   --> learn_rate
-            activation   --> activation
+            hidden_units   --> hidden_units
+            penalty        --> penalty
+            epochs         --> epochs
+            dropout        --> dropout
+            learn_rate     --> learn_rate
+            activation     --> activation
+            hidden_units_2 --> hidden_units_2
+            activation_2   --> activation_2
+            mixture        --> mixture
+            momentum       --> momentum
+            batch_size     --> batch_size
+            class_weights  --> class_weights
+            stop_iter      --> stop_iter
+            validation     --> validation
+            rate_schedule  --> rate_schedule
+            initial        --> initial
+            largest        --> largest
+            reduction      --> reduction
+            steps          --> steps
+            step_size      --> step_size
+            decay          --> decay
          qrnn:             
-            hidden_units --> n.hidden
-            penalty      --> penalty
-            epochs       --> iter.max
-            activation   --> Th
-            learn_rate   --> alpha
-            iterbreak    --> iterbreak
-            minibatch    --> minibatch
-            n.hidden2    --> n.hidden2
+            hidden_units   --> n.hidden
+            penalty        --> penalty
+            epochs         --> iter.max
+            activation     --> Th
+            learn_rate     --> alpha
+            iterbreak      --> iterbreak
+            minibatch      --> minibatch
+            n.hidden2      --> n.hidden2
       
        fit modules:
                    engine                mode
