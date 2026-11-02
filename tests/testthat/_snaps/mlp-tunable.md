@@ -34,7 +34,6 @@
       batch_size                | pkg: dials, fun: batch_size, range: c(3, 8) | engine
       class_weights             | pkg: dials, fun: class_weights | engine
       stop_iter                 | pkg: dials, fun: stop_iter | engine
-      validation                | pkg: dials, fun: validation_set_prop | engine
       rate_schedule             | pkg: dials, fun: rate_schedule, values: none, decay_time, decay_expo, cyclic, step | engine
       initial                   | pkg: dials, fun: rate_initial | engine
       largest                   | pkg: dials, fun: rate_largest | engine
@@ -61,7 +60,6 @@
       batch_size                | pkg: dials, fun: batch_size, range: c(3, 8) | engine
       class_weights             | pkg: dials, fun: class_weights | engine
       stop_iter                 | pkg: dials, fun: stop_iter | engine
-      validation                | pkg: dials, fun: validation_set_prop | engine
       rate_schedule             | pkg: dials, fun: rate_schedule, values: none, decay_time, decay_expo, cyclic, step | engine
       initial                   | pkg: dials, fun: rate_initial | engine
       largest                   | pkg: dials, fun: rate_largest | engine

@@ -41,5 +41,4 @@
       batch_size                | pkg: dials, fun: batch_size, range: c(3, 8) | engine
       class_weights             | pkg: dials, fun: class_weights | engine
       stop_iter                 | pkg: dials, fun: stop_iter | engine
-      validation                | pkg: dials, fun: validation_set_prop | engine
 

@@ -189,7 +189,7 @@
     Code
       tunable(set_engine(linear_reg(), "brulee"))
     Output
-      # A tibble: 8 x 5
+      # A tibble: 7 x 5
         name       call_info        source     component  component_id
         <chr>      <list>           <chr>      <chr>      <chr>       
       1 penalty    <named list [2]> model_spec linear_reg main        
@@ -199,7 +199,6 @@
       5 momentum   <named list [3]> model_spec linear_reg engine      
       6 batch_size <named list [3]> model_spec linear_reg engine      
       7 stop_iter  <named list [2]> model_spec linear_reg engine      
-      8 validation <named list [2]> model_spec linear_reg engine      
 
 ---
 

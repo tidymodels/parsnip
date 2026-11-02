@@ -466,7 +466,6 @@
             batch_size     --> batch_size
             class_weights  --> class_weights
             stop_iter      --> stop_iter
-            validation     --> validation
             rate_schedule  --> rate_schedule
             initial        --> initial
             largest        --> largest
@@ -488,7 +487,6 @@
             batch_size     --> batch_size
             class_weights  --> class_weights
             stop_iter      --> stop_iter
-            validation     --> validation
             rate_schedule  --> rate_schedule
             initial        --> initial
             largest        --> largest

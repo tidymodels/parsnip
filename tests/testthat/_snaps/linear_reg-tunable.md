@@ -54,7 +54,6 @@
       momentum                  | pkg: dials, fun: momentum, range: c(0.00, 0.99) | engine
       batch_size                | pkg: dials, fun: batch_size, range: c(3, 8) | engine
       stop_iter                 | pkg: dials, fun: stop_iter | engine
-      validation                | pkg: dials, fun: validation_set_prop | engine
 
 # tunable parameters for linear_reg + quantreg
 

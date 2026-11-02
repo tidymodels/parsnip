@@ -55,7 +55,7 @@
     Code
       tunable(set_engine(mlp(), "brulee"))
     Output
-      # A tibble: 19 x 5
+      # A tibble: 18 x 5
          name          call_info        source     component component_id
          <chr>         <list>           <chr>      <chr>     <chr>       
        1 hidden_units  <named list [3]> model_spec mlp       main        
@@ -69,21 +69,20 @@
        9 batch_size    <named list [3]> model_spec mlp       engine      
       10 class_weights <named list [2]> model_spec mlp       engine      
       11 stop_iter     <named list [2]> model_spec mlp       engine      
-      12 validation    <named list [2]> model_spec mlp       engine      
-      13 rate_schedule <named list [3]> model_spec mlp       engine      
-      14 initial       <named list [2]> model_spec mlp       engine      
-      15 largest       <named list [2]> model_spec mlp       engine      
-      16 reduction     <named list [2]> model_spec mlp       engine      
-      17 steps         <named list [2]> model_spec mlp       engine      
-      18 step_size     <named list [2]> model_spec mlp       engine      
-      19 decay         <named list [2]> model_spec mlp       engine      
+      12 rate_schedule <named list [3]> model_spec mlp       engine      
+      13 initial       <named list [2]> model_spec mlp       engine      
+      14 largest       <named list [2]> model_spec mlp       engine      
+      15 reduction     <named list [2]> model_spec mlp       engine      
+      16 steps         <named list [2]> model_spec mlp       engine      
+      17 step_size     <named list [2]> model_spec mlp       engine      
+      18 decay         <named list [2]> model_spec mlp       engine      
 
 ---
 
     Code
       tunable(set_engine(mlp(), "brulee_two_layer"))
     Output
-      # A tibble: 21 x 5
+      # A tibble: 20 x 5
          name           call_info        source     component component_id
          <chr>          <list>           <chr>      <chr>     <chr>       
        1 hidden_units   <named list [3]> model_spec mlp       main        
@@ -96,7 +95,16 @@
        8 activation_2   <named list [3]> model_spec mlp       engine      
        9 mixture        <named list [2]> model_spec mlp       engine      
       10 momentum       <named list [3]> model_spec mlp       engine      
-      # i 11 more rows
+      11 batch_size     <named list [3]> model_spec mlp       engine      
+      12 class_weights  <named list [2]> model_spec mlp       engine      
+      13 stop_iter      <named list [2]> model_spec mlp       engine      
+      14 rate_schedule  <named list [3]> model_spec mlp       engine      
+      15 initial        <named list [2]> model_spec mlp       engine      
+      16 largest        <named list [2]> model_spec mlp       engine      
+      17 reduction      <named list [2]> model_spec mlp       engine      
+      18 steps          <named list [2]> model_spec mlp       engine      
+      19 step_size      <named list [2]> model_spec mlp       engine      
+      20 decay          <named list [2]> model_spec mlp       engine      
 
 ---
 

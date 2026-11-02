@@ -40,10 +40,9 @@ test_that("tunable parameters for mlp + qrnn", {
   )
 })
 
-test_that("brulee scheduler and validation engine args are tunable", {
+test_that("brulee scheduler engine args are tunable", {
   res <- tunable(mlp() |> set_engine("brulee"))
   eng_args <- c(
-    validation = "validation_set_prop",
     initial = "rate_initial",
     largest = "rate_largest",
     reduction = "rate_reduction",

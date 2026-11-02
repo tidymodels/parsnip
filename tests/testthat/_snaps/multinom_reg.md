@@ -75,7 +75,7 @@
     Code
       tunable(set_engine(multinom_reg(), "brulee"))
     Output
-      # A tibble: 9 x 5
+      # A tibble: 8 x 5
         name          call_info        source     component    component_id
         <chr>         <list>           <chr>      <chr>        <chr>       
       1 penalty       <named list [2]> model_spec multinom_reg main        
@@ -86,7 +86,6 @@
       6 batch_size    <named list [3]> model_spec multinom_reg engine      
       7 class_weights <named list [2]> model_spec multinom_reg engine      
       8 stop_iter     <named list [2]> model_spec multinom_reg engine      
-      9 validation    <named list [2]> model_spec multinom_reg engine      
 
 ---
 

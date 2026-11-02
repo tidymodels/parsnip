@@ -785,15 +785,6 @@ set_model_arg(
   has_submodel = FALSE
 )
 
-set_model_arg(
-  model = "logistic_reg",
-  eng = "brulee",
-  parsnip = "validation",
-  original = "validation",
-  func = list(pkg = "dials", fun = "validation_set_prop"),
-  has_submodel = FALSE
-)
-
 
 set_fit(
   model = "logistic_reg",
