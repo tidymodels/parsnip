@@ -42,18 +42,3 @@
       loss_reduction            | pkg: dials, fun: loss_reduction | main
       sample_size               | pkg: dials, fun: sample_size | main
 
-# tunable parameters for boost_tree + lightgbm
-
-    Code
-      display_tunable_call_info(set_engine(boost_tree(), "lightgbm"))
-    Output
-      num_leaves                | pkg: dials, fun: num_leaves | engine
-
-# tunable parameters for boost_tree + catboost
-
-    Code
-      display_tunable_call_info(set_engine(boost_tree(), "catboost"))
-    Output
-      max_leaves                | pkg: dials, fun: num_leaves | engine
-      l2_leaf_reg               | pkg: dials, fun: penalty, range: c(-4.00,  1.00) | engine
-

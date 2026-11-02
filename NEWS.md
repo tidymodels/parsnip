@@ -1,5 +1,9 @@
 # parsnip (development version)
 
+* The tunable parameters for engines registered in extension packages (lightgbm, catboost, partykit, aorsf, and flexsurvspline) are no longer hard-coded in parsnip's `tunable()` methods; those packages now register them with `set_model_arg()`.
+
+* The brulee engines for `linear_reg()`, `logistic_reg()`, `multinom_reg()`, and `mlp()` now register their tunable engine arguments with `set_model_arg()` instead of overriding `tunable()`. As a result, the learning rate scheduler arguments `initial`, `largest`, `reduction`, `steps`, `step_size`, and `decay` are now tunable for the `mlp()` engines, and `rate_schedule` is no longer listed for `linear_reg()`, `logistic_reg()`, and `multinom_reg()` since their brulee fitting functions do not use it.
+
 # parsnip 1.6.1
 
 ## Breaking Change

@@ -21,11 +21,3 @@ test_that("tunable parameters for decision_tree + spark", {
     )
   )
 })
-
-test_that("tunable parameters for decision_tree + partykit", {
-  expect_snapshot(
-    display_tunable_call_info(
-      decision_tree() |> set_engine("partykit")
-    )
-  )
-})

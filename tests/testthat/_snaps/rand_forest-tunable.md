@@ -32,19 +32,3 @@
       trees                     | pkg: dials, fun: trees | main
       min_n                     | pkg: dials, fun: min_n | main
 
-# tunable parameters for rand_forest + partykit
-
-    Code
-      display_tunable_call_info(set_engine(rand_forest(), "partykit"))
-    Output
-      mincriterion              | pkg: dials, fun: conditional_min_criterion | engine
-      teststat                  | pkg: dials, fun: conditional_test_statistic | engine
-      testtype                  | pkg: dials, fun: conditional_test_type | engine
-
-# tunable parameters for rand_forest + aorsf
-
-    Code
-      display_tunable_call_info(set_engine(rand_forest(), "aorsf"))
-    Output
-      split_min_stat            | pkg: dials, fun: conditional_min_criterion | engine
-
