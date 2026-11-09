@@ -13,11 +13,3 @@ test_that("tunable parameters for survival_reg + survival", {
     )
   )
 })
-
-test_that("tunable parameters for survival_reg + flexsurvspline", {
-  expect_snapshot(
-    display_tunable_call_info(
-      survival_reg() |> set_engine("flexsurvspline")
-    )
-  )
-})

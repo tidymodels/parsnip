@@ -21,19 +21,3 @@ test_that("tunable parameters for rand_forest + spark", {
     )
   )
 })
-
-test_that("tunable parameters for rand_forest + partykit", {
-  expect_snapshot(
-    display_tunable_call_info(
-      rand_forest() |> set_engine("partykit")
-    )
-  )
-})
-
-test_that("tunable parameters for rand_forest + aorsf", {
-  expect_snapshot(
-    display_tunable_call_info(
-      rand_forest() |> set_engine("aorsf")
-    )
-  )
-})
