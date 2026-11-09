@@ -2,7 +2,35 @@
 
 ## parsnip (development version)
 
+- The tunable parameters for engines registered in extension packages
+  (lightgbm, catboost, partykit, aorsf, and flexsurvspline) are no
+  longer hard-coded in parsnip’s
+  [`tunable()`](https://generics.r-lib.org/reference/tunable.html)
+  methods; those packages now register them with
+  [`set_model_arg()`](https://parsnip.tidymodels.org/dev/reference/set_new_model.md).
+
+- The brulee engines for
+  [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md),
+  [`logistic_reg()`](https://parsnip.tidymodels.org/dev/reference/logistic_reg.md),
+  [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md),
+  and [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md) now
+  register their tunable engine arguments with
+  [`set_model_arg()`](https://parsnip.tidymodels.org/dev/reference/set_new_model.md)
+  instead of overriding
+  [`tunable()`](https://generics.r-lib.org/reference/tunable.html). As a
+  result, the learning rate scheduler arguments `initial`, `largest`,
+  `reduction`, `steps`, `step_size`, and `decay` are now tunable for the
+  [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md)
+  engines, and `rate_schedule` is no longer listed for
+  [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md),
+  [`logistic_reg()`](https://parsnip.tidymodels.org/dev/reference/logistic_reg.md),
+  and
+  [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md)
+  since their brulee fitting functions do not use it.
+
 ## parsnip 1.6.1
+
+CRAN release: 2026-09-27
 
 ### Breaking Change
 
