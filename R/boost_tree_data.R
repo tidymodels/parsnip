@@ -186,20 +186,7 @@ set_pred(
   type = "class",
   value = list(
     pre = NULL,
-    post = function(x, object) {
-      check_xgb_supported_objective(object)
-      if (is.vector(x)) {
-        event_level <- get_event_level(object$spec)
-        if (event_level == "first") {
-          x <- ifelse(x >= 0.5, object$lvl[1], object$lvl[2])
-        } else {
-          x <- ifelse(x >= 0.5, object$lvl[2], object$lvl[1])
-        }
-      } else {
-        x <- object$lvl[apply(x, 1, which.max)]
-      }
-      x
-    },
+    post = xgb_class_post,
     func = c(pkg = NULL, fun = "xgb_predict"),
     args = list(object = quote(object$fit), new_data = quote(new_data))
   )
@@ -212,21 +199,7 @@ set_pred(
   type = "prob",
   value = list(
     pre = NULL,
-    post = function(x, object) {
-      check_xgb_supported_objective(object)
-      if (is.vector(x)) {
-        event_level <- get_event_level(object$spec)
-        if (event_level == "first") {
-          x <- tibble(v1 = x, v2 = 1 - x)
-        } else {
-          x <- tibble(v1 = 1 - x, v2 = x)
-        }
-      } else {
-        x <- as_tibble(x, .name_repair = "minimal")
-      }
-      colnames(x) <- object$lvl
-      x
-    },
+    post = xgb_prob_post,
     func = c(pkg = NULL, fun = "xgb_predict"),
     args = list(object = quote(object$fit), new_data = quote(new_data))
   )
@@ -278,6 +251,270 @@ set_encoding(
 set_pred(
   model = "boost_tree",
   eng = "xgboost",
+  mode = "quantile regression",
+  type = "quantile",
+  value = list(
+    pre = NULL,
+    post = matrix_to_quantile_pred,
+    func = c(fun = "xgb_predict"),
+    args = list(object = quote(object$fit), new_data = quote(new_data))
+  )
+)
+
+# ------------------------------------------------------------------------------
+
+# The xgboost3 engine passes factor predictors to xgboost as categorical
+# features instead of making indicator columns.
+
+set_model_engine("boost_tree", "classification", "xgboost3")
+set_model_engine("boost_tree", "regression", "xgboost3")
+set_model_engine("boost_tree", "quantile regression", "xgboost3")
+set_dependency("boost_tree", "xgboost3", "xgboost", mode = "classification")
+set_dependency("boost_tree", "xgboost3", "xgboost", mode = "regression")
+set_dependency(
+  "boost_tree",
+  "xgboost3",
+  "xgboost",
+  mode = "quantile regression"
+)
+
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost3",
+  parsnip = "tree_depth",
+  original = "max_depth",
+  func = list(pkg = "dials", fun = "tree_depth"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost3",
+  parsnip = "trees",
+  original = "nrounds",
+  func = list(pkg = "dials", fun = "trees"),
+  has_submodel = TRUE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost3",
+  parsnip = "learn_rate",
+  original = "eta",
+  func = list(pkg = "dials", fun = "learn_rate", range = c(-3, -1 / 2)),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost3",
+  parsnip = "mtry",
+  original = "colsample_bynode",
+  func = list(pkg = "dials", fun = "mtry"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost3",
+  parsnip = "min_n",
+  original = "min_child_weight",
+  func = list(pkg = "dials", fun = "min_n"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost3",
+  parsnip = "loss_reduction",
+  original = "gamma",
+  func = list(pkg = "dials", fun = "loss_reduction"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost3",
+  parsnip = "sample_size",
+  original = "subsample",
+  func = list(pkg = "dials", fun = "sample_prop", range = c(0.5, 1.0)),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost3",
+  parsnip = "stop_iter",
+  original = "early_stop",
+  func = list(pkg = "dials", fun = "stop_iter"),
+  has_submodel = FALSE
+)
+
+# Engine-specific tunable parameters for xgboost3
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost3",
+  parsnip = "alpha",
+  original = "alpha",
+  func = list(pkg = "dials", fun = "penalty_L1"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost3",
+  parsnip = "lambda",
+  original = "lambda",
+  func = list(pkg = "dials", fun = "penalty_L2"),
+  has_submodel = FALSE
+)
+set_model_arg(
+  model = "boost_tree",
+  eng = "xgboost3",
+  parsnip = "scale_pos_weight",
+  original = "scale_pos_weight",
+  func = list(pkg = "dials", fun = "scale_pos_weight"),
+  has_submodel = FALSE
+)
+
+set_fit(
+  model = "boost_tree",
+  eng = "xgboost3",
+  mode = "regression",
+  value = list(
+    interface = "data.frame",
+    protect = c("x", "y", "weights"),
+    func = c(pkg = "parsnip", fun = "xgb_train"),
+    defaults = list(nthread = 1, verbose = 0)
+  )
+)
+
+set_encoding(
+  model = "boost_tree",
+  eng = "xgboost3",
+  mode = "regression",
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = TRUE,
+    allow_sparse_x = TRUE
+  )
+)
+
+set_pred(
+  model = "boost_tree",
+  eng = "xgboost3",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "xgb_predict"),
+    args = list(object = quote(object$fit), new_data = quote(new_data))
+  )
+)
+
+set_pred(
+  model = "boost_tree",
+  eng = "xgboost3",
+  mode = "regression",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "xgb_predict"),
+    args = list(object = quote(object$fit), new_data = quote(new_data))
+  )
+)
+
+set_fit(
+  model = "boost_tree",
+  eng = "xgboost3",
+  mode = "classification",
+  value = list(
+    interface = "data.frame",
+    protect = c("x", "y", "weights"),
+    func = c(pkg = "parsnip", fun = "xgb_train"),
+    defaults = list(nthread = 1, verbose = 0)
+  )
+)
+
+set_encoding(
+  model = "boost_tree",
+  eng = "xgboost3",
+  mode = "classification",
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = TRUE,
+    allow_sparse_x = TRUE
+  )
+)
+
+set_pred(
+  model = "boost_tree",
+  eng = "xgboost3",
+  mode = "classification",
+  type = "class",
+  value = list(
+    pre = NULL,
+    post = xgb_class_post,
+    func = c(pkg = NULL, fun = "xgb_predict"),
+    args = list(object = quote(object$fit), new_data = quote(new_data))
+  )
+)
+
+set_pred(
+  model = "boost_tree",
+  eng = "xgboost3",
+  mode = "classification",
+  type = "prob",
+  value = list(
+    pre = NULL,
+    post = xgb_prob_post,
+    func = c(pkg = NULL, fun = "xgb_predict"),
+    args = list(object = quote(object$fit), new_data = quote(new_data))
+  )
+)
+
+set_pred(
+  model = "boost_tree",
+  eng = "xgboost3",
+  mode = "classification",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "xgb_predict"),
+    args = list(object = quote(object$fit), new_data = quote(new_data))
+  )
+)
+
+
+set_fit(
+  model = "boost_tree",
+  eng = "xgboost3",
+  mode = "quantile regression",
+  value = list(
+    interface = "data.frame",
+    protect = c("x", "y", "weights"),
+    func = c(pkg = "parsnip", fun = "xgb_train"),
+    defaults = list(
+      nthread = 1,
+      verbose = 0,
+      quantile_alpha = expr(quantile_levels),
+      objective = "reg:quantileerror"
+    )
+  )
+)
+
+set_encoding(
+  model = "boost_tree",
+  eng = "xgboost3",
+  mode = "quantile regression",
+  options = list(
+    predictor_indicators = "none",
+    compute_intercept = FALSE,
+    remove_intercept = TRUE,
+    allow_sparse_x = TRUE
+  )
+)
+
+set_pred(
+  model = "boost_tree",
+  eng = "xgboost3",
   mode = "quantile regression",
   type = "quantile",
   value = list(

@@ -1,0 +1,185 @@
+```{r}
+#| child: aaa.Rmd
+#| include: false
+```
+
+`r descr_models("boost_tree", "xgboost3")`. This engine is the same as the `"xgboost"` engine except that factor predictors are passed to xgboost as categorical features rather than converted to indicator variables. It requires xgboost version 3.0.0 or later when factor predictors are used.
+
+## Tuning Parameters
+
+```{r}
+#| label: xgboost3-param-info
+#| echo: false
+defaults <- 
+  tibble::tibble(parsnip = c("tree_depth", "trees", "learn_rate", "mtry", "min_n", "loss_reduction", "sample_size", "stop_iter"),
+                 default = c("6L", "15L", "0.3", "see below", "1L", "0.0", "1.0", "Inf"))
+
+# For this model, this is the same for all modes
+param <-
+ boost_tree() |> 
+  set_engine("xgboost3") |> 
+  set_mode("regression") |> 
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r}
+#| label: xgboost3-param-list
+#| echo: false
+#| results: asis
+param$item
+```
+
+For `mtry`, the default value of `NULL` translates to using all available columns.
+
+XGBoost has a large number of engine parameters. The current list is found at [`https://xgboost.readthedocs.io/en/stable/parameter.html`](https://xgboost.readthedocs.io/en/stable/parameter.html).
+
+## Translation from parsnip to the original package (regression)
+
+```{r}
+#| label: xgboost3-reg
+boost_tree(
+  mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
+  learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
+  stop_iter = integer()
+) |>
+  set_engine("xgboost3") |>
+  set_mode("regression") |>
+  translate()
+```
+
+## Translation from parsnip to the original package (classification)
+
+```{r}
+#| label: xgboost3-cls
+boost_tree(
+  mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
+  learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
+  stop_iter = integer()
+) |> 
+  set_engine("xgboost3") |> 
+  set_mode("classification") |> 
+  translate()
+```
+
+## Translation from parsnip to the original package (quantile regression)
+
+```{r}
+#| label: xgboost3-qnt
+boost_tree(
+  mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
+  learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
+  stop_iter = integer()
+) |>
+  set_engine("xgboost3") |>
+  set_mode("quantile regression", quantile_levels = (1:3) / 4) |> 
+  translate()
+```
+
+[xgb_train()] is a wrapper around [xgboost::xgb.train()] (and other functions) that makes it easier to run this model. 
+
+## Preprocessing requirements
+
+Factor predictors are passed to xgboost as categorical features, so there is no need to create dummy or indicator variables. Other non-numeric predictors (e.g., character columns) should be converted to factors before fitting. This applies to both [fit.model_spec()] and [fit_xy.model_spec()].
+
+xgboost does not save the levels of factor predictors and uses their integer codes when predicting. parsnip saves a zero-row copy of the training predictors and, before predicting, converts factor and character columns in the new data to the levels seen during training. Values with levels that were not in the training set are converted to `NA` (with a warning) and are treated by xgboost as missing.
+
+The `max_cat_to_onehot` and `max_cat_threshold` engine arguments control how xgboost splits categorical features. Categorical features cannot be used with `tree_method = "exact"`.
+
+For classification, non-numeric outcomes (i.e., factors) are internally converted to numeric. For binary classification, the `event_level` argument of `set_engine()` can be set to either `"first"` or `"second"` to specify which level should be used as the event. This can be helpful when a watchlist is used to monitor performance from with the xgboost training process.  
+
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("boost_tree_predict") |>
+  dplyr::filter(engine == "xgboost3") |>
+  dplyr::select(mode, type)
+
+```
+
+## Sparse Data
+
+```{r}
+#| child: template-uses-sparse-data.Rmd
+```
+
+## Other details
+
+### Interfacing with the `params` argument
+
+The xgboost function that parsnip indirectly wraps, [xgboost::xgb.train()], takes most arguments via the `params` list argument. To supply engine-specific arguments that are documented in [xgboost::xgb.train()] as arguments to be passed via `params`, supply the list elements directly as named arguments to [set_engine()] rather than as elements in `params`. For example, pass a non-default evaluation metric like this:
+
+```{r}
+# good
+boost_tree() |>
+  set_engine("xgboost", eval_metric = "mae")
+```
+
+...rather than this:
+
+```{r}
+# bad
+boost_tree() |>
+  set_engine("xgboost", params = list(eval_metric = "mae"))
+```
+
+parsnip will then route arguments as needed. In the case that arguments are passed to `params` via [set_engine()], parsnip will warn and re-route the arguments as needed. Note, though, that arguments passed to `params` cannot be tuned.
+
+### Sparse matrices
+
+When there are no factor predictors, xgboost can use data in a sparse format. If your predictor data are already in this format, then use [fit_xy.model_spec()] to pass it to the model function. Data frames with factor columns are passed to xgboost as data frames. 
+
+### Parallel processing
+
+By default, the model is trained without parallel processing. This can be change by passing the `nthread` parameter to [set_engine()]. However, it is unwise to combine this with external parallel processing when using the \pkg{tune} package. 
+
+### Interpreting `mtry`
+
+```{r}
+#| child: template-mtry-prop.Rmd
+```
+
+### Early stopping
+
+```{r}
+#| child: template-early-stopping.Rmd
+```
+
+Note that, since the `validation` argument provides an alternative interface to `watchlist`, the `watchlist` argument is guarded by parsnip and will be ignored (with a warning) if passed.
+
+### Objective function
+
+parsnip chooses the objective function based on the characteristics of the outcome. To use a different loss, pass the `objective` argument to [set_engine()] directly.
+
+### Monotonic constraints
+
+For binary classification, the signs of the `monotone_constraints` engine argument are relative to the event level rather than to the second factor level. parsnip converts the outcome so that the event level is the one xgboost models, and `event_level` defaults to `"first"`. With the default and an outcome with levels `c("no", "yes")`, `monotone_constraints = 1` therefore forces the probability of `"no"` to be nondecreasing in that predictor, which is the opposite of what the usual `0`/`1` outcome coding would suggest. Set `event_level = "second"` to constrain the probability of `"yes"` instead, or negate the constraint. parsnip warns once per session when `monotone_constraints` is used for binary classification. Regression and multiclass classification are unaffected.
+
+## Saving fitted model objects
+
+```{r}
+#| child: template-butcher.Rmd
+```
+
+```{r}
+#| child: template-bundle.Rmd
+```
+
+## Examples 
+
+The "Fitting and Predicting with parsnip" [article](https://www.tidymodels.org/learn/models/parsnip-predictions/) contains examples for `boost_tree()` with the `"xgboost"` engine, which also apply to the `"xgboost3"` engine.
+
+## References
+
+ - [XGBoost: A Scalable Tree Boosting System](https://arxiv.org/abs/1603.02754)
+ 
+ - Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
