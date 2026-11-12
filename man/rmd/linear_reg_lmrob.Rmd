@@ -1,0 +1,73 @@
+```{r}
+#| include: false
+library(parsnip)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+options(width = 80)
+```
+
+For this engine, there is a single mode: regression.
+
+## Tuning Parameters
+
+This engine has no tuning parameters. Arguments to [robustbase::lmrob()], such
+as `method` or `control`, can be supplied through `set_engine()`.
+The `penalty` and `mixture` arguments to `linear_reg()` do not apply to this engine.
+
+## Translation from parsnip to the original package
+
+```{r}
+linear_reg() |>
+  set_engine("lmrob") |>
+  translate()
+```
+
+The default estimator is an MM-estimator. See [robustbase::lmrob()] and
+[robustbase::lmrob.control()] for the available estimators and their controls.
+The initial robust fit uses random subsampling, so set the random seed to
+reproduce a fit.
+
+## Preprocessing requirements
+
+```{r}
+#| child: template-makes-dummies.Rmd
+```
+
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
+Case weights are passed to the `weights` argument of [robustbase::lmrob()].
+They are prior weights, distinct from the robustness weights calculated by the
+estimator. See the robustbase documentation for their interpretation.
+
+## Prediction types
+
+```{r}
+parsnip:::get_from_env("linear_reg_predict") |>
+  dplyr::filter(engine == "lmrob") |>
+  dplyr::select(mode, type)
+```
+
+Confidence and prediction intervals use [robustbase::predict.lmrob()] and its
+covariance and scale estimates. The `level` argument to `predict()` sets their
+nominal coverage. These intervals retain the assumptions of the underlying method;
+robust estimation does not by itself guarantee coverage under arbitrary
+contamination or heteroscedasticity.
+
+Use `type = "raw"` with `opts` to pass prediction arguments directly to
+[robustbase::predict.lmrob()].
+
+## Examples
+
+```{r}
+#| eval: !parsnip:::is_cran_check()
+set.seed(123)
+robust_fit <- linear_reg() |>
+  set_engine("lmrob") |>
+  fit(stack.loss ~ ., data = stackloss)
+
+predict(robust_fit, new_data = stackloss[1:3, ])
+predict(robust_fit, new_data = stackloss[1:3, ], type = "conf_int", level = 0.90)
+```

@@ -64,6 +64,7 @@ model_info_table <-
     "linear_reg"           , "regression"          , "lm"               , NA              ,
     "linear_reg"           , "regression"          , "lme"              , "multilevelmod" ,
     "linear_reg"           , "regression"          , "lmer"             , "multilevelmod" ,
+    "linear_reg"           , "regression"          , "lmrob"            , NA              ,
     "linear_reg"           , "regression"          , "spark"            , NA              ,
     "linear_reg"           , "regression"          , "stan"             , NA              ,
     "linear_reg"           , "regression"          , "stan_glmer"       , "multilevelmod" ,

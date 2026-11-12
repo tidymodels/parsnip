@@ -64,6 +64,7 @@ Suggests:
     remotes,
     rmarkdown,
     rpart,
+    robustbase,
     sparklyr (>= 1.0.0),
     survival,
     tensorflow,
@@ -80,4 +81,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1
