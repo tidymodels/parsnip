@@ -570,6 +570,30 @@ check_pred_type_dots <- function(
 }
 
 
+# Give factor (or character) columns in `new_data` the levels seen during
+# training. Novel levels become `NA` with a warning from `hardhat::scream()`.
+relevel_from_ptype <- function(new_data, ptype) {
+  if (is.null(ptype) || !is.data.frame(new_data)) {
+    return(new_data)
+  }
+  factor_cols <- names(ptype)[vapply(ptype, is.factor, logical(1))]
+  factor_cols <- intersect(factor_cols, names(new_data))
+  is_discrete <- vapply(
+    new_data[factor_cols],
+    \(col) is.factor(col) || is.character(col),
+    logical(1)
+  )
+  factor_cols <- factor_cols[is_discrete]
+  if (length(factor_cols) == 0) {
+    return(new_data)
+  }
+  new_data[factor_cols] <- hardhat::scream(
+    new_data[factor_cols],
+    ptype[factor_cols]
+  )
+  new_data
+}
+
 #' Prepare data based on parsnip encoding information
 #' @param object A parsnip model object
 #' @param new_data A data frame
@@ -583,6 +607,8 @@ prepare_data <- function(object, new_data) {
   # For backwards compatibility, only do this if `y_var` is missing and
   # `x_names` is present
   translate_from_xy_to_xy <- any(preproc_names == "x_names", na.rm = TRUE)
+
+  new_data <- relevel_from_ptype(new_data, object$preproc$ptype)
 
   if (translate_from_formula_to_xy) {
     new_data <- .convert_form_to_xy_new(object$preproc, new_data)$x

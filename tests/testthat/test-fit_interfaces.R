@@ -265,3 +265,40 @@ test_that("fitting does not rely on `$` partial matching", {
   )
   expect_equal(xy_fit$lvl, levels(cls_dat$vs))
 })
+
+test_that("fits store a zero-row predictor ptype", {
+  dat <- data.frame(
+    y = c(1.2, 3.4, 2.2, 5.1, 4.0, 2.9),
+    a = factor(c("x", "y", "z", "x", "y", "z")),
+    b = c(1, 5, 2, 8, 3, 4)
+  )
+  spec <- linear_reg()
+
+  form_fit <- fit(spec, y ~ a + b, data = dat)
+  xy_fit <- fit_xy(spec, x = dat[c("a", "b")], y = dat$y)
+  dot_fit <- fit(spec, y ~ ., data = dat)
+
+  expect_identical(form_fit$preproc$ptype, dat[0, c("a", "b")])
+  expect_identical(xy_fit$preproc$ptype, dat[0, c("a", "b")])
+  expect_identical(dot_fit$preproc$ptype, dat[0, c("a", "b")])
+
+  mat_fit <- fit_xy(spec, x = as.matrix(dat["b"]), y = dat$y)
+  expect_null(mat_fit$preproc$ptype)
+})
+
+test_that("form_xy() and xy_xy() fits store a predictor ptype", {
+  skip_if_not_installed("glmnet")
+  dat <- data.frame(
+    y = c(1.2, 3.4, 2.2, 5.1, 4.0, 2.9, 3.3, 1.8),
+    a = factor(c("x", "y", "z", "x", "y", "z", "x", "y")),
+    b = c(1, 5, 2, 8, 3, 4, 7, 6)
+  )
+  spec <- linear_reg(penalty = 0.1) |> set_engine("glmnet")
+
+  form_fit <- fit(spec, y ~ a + b, data = dat)
+  xy_fit <- fit_xy(spec, x = dat["b"] |> transform(c = b^2), y = dat$y)
+
+  expect_identical(form_fit$preproc$ptype, dat[0, c("a", "b")])
+  expect_named(xy_fit$preproc$ptype, c("b", "c"))
+  expect_identical(nrow(xy_fit$preproc$ptype), 0L)
+})

@@ -292,6 +292,12 @@ xgb_train <- function(
 
   n <- nrow(x)
   p <- ncol(x)
+  uses_factors <- has_factor_columns(x)
+  if (uses_factors) {
+    # factor columns only reach here via the xgboost3 engine; xgboost added
+    # support for them in version 3.0
+    rlang::check_installed("xgboost", version = "3.0.0")
+  }
 
   x <-
     as_xgb_data(
@@ -340,6 +346,7 @@ xgb_train <- function(
   )
 
   others <- process_others(others, arg_list)
+  check_xgb_categorical_tree_method(uses_factors, others$tree_method)
 
   if (!is.null(others$monotone_constraints) && num_class == 2) {
     cli::cli_warn(
@@ -465,6 +472,25 @@ process_others <- function(others, arg_list) {
   others
 }
 
+has_factor_columns <- function(x) {
+  is.data.frame(x) && any(vapply(x, is.factor, logical(1)))
+}
+
+check_xgb_categorical_tree_method <- function(uses_factors, tree_method) {
+  if (!uses_factors || !identical(tree_method, "exact")) {
+    return(invisible(NULL))
+  }
+  cli::cli_abort(
+    c(
+      "{.code tree_method = \"exact\"} cannot be used with factor predictors.",
+      "i" = "Use {.val hist} or {.val approx}, or convert the factors to
+             indicator columns (e.g. with the {.val xgboost} engine)."
+    ),
+    class = "xgboost_categorical_tree_method_error",
+    call = call2("xgb_train")
+  )
+}
+
 recalc_param <- function(x, counts, denom) {
   nm <- as.character(match.call()$x)
   if (is.null(x)) {
@@ -528,7 +554,9 @@ check_xgb_supported_objective <- function(object) {
 #' @export
 xgb_predict <- function(object, new_data, ...) {
   if (!inherits(new_data, "xgb.DMatrix")) {
-    new_data <- maybe_matrix(new_data)
+    if (!has_factor_columns(new_data)) {
+      new_data <- maybe_matrix(new_data)
+    }
     new_data <- xgboost::xgb.DMatrix(data = new_data, missing = NA)
   }
 
@@ -561,8 +589,10 @@ as_xgb_data <- function(
   lvls <- levels(y)
   n <- nrow(x)
 
-  if (is.data.frame(x)) {
-    x <- as.matrix(x)
+  # Data frames with factors are kept so that xgboost treats those columns as
+  # categorical features (the xgboost3 engine).
+  if (is.data.frame(x) && !has_factor_columns(x)) {
+    x <- maybe_sparse_matrix(x)
   }
 
   if (is.factor(y)) {
@@ -651,6 +681,39 @@ as_xgb_data <- function(
   list(data = dat, watchlist = watch_list)
 }
 
+# ------------------------------------------------------------------------------
+
+xgb_class_post <- function(x, object) {
+  check_xgb_supported_objective(object)
+  if (is.vector(x)) {
+    event_level <- get_event_level(object$spec)
+    if (event_level == "first") {
+      x <- ifelse(x >= 0.5, object$lvl[1], object$lvl[2])
+    } else {
+      x <- ifelse(x >= 0.5, object$lvl[2], object$lvl[1])
+    }
+  } else {
+    x <- object$lvl[apply(x, 1, which.max)]
+  }
+  x
+}
+
+xgb_prob_post <- function(x, object) {
+  check_xgb_supported_objective(object)
+  if (is.vector(x)) {
+    event_level <- get_event_level(object$spec)
+    if (event_level == "first") {
+      x <- tibble(v1 = x, v2 = 1 - x)
+    } else {
+      x <- tibble(v1 = 1 - x, v2 = x)
+    }
+  } else {
+    x <- as_tibble(x, .name_repair = "minimal")
+  }
+  colnames(x) <- object$lvl
+  x
+}
+
 get_event_level <- function(model_spec) {
   if ("event_level" %in% names(model_spec$eng_args)) {
     event_level <- get_expr(model_spec$eng_args$event_level)
@@ -671,6 +734,7 @@ multi_predict._xgb.Booster <-
       trees <- object$fit$nIter
     }
     trees <- sort(trees)
+    new_data <- prepare_data(object, new_data)
 
     if (is.null(type)) {
       if (object$spec$mode == "classification") {
