@@ -24,6 +24,8 @@ this model are listed below.
 
 - [`spark`](https://parsnip.tidymodels.org/dev/reference/details_boost_tree_spark.md)
 
+- [`xgboost3`](https://parsnip.tidymodels.org/dev/reference/details_boost_tree_xgboost3.md)
+
 ¹ The default engine. ² Requires a parsnip extension package for
 censored regression, classification, and regression.
 
@@ -140,7 +142,8 @@ models](https://www.tidymodels.org/find/parsnip/)
 [`h2o engine details`](https://parsnip.tidymodels.org/dev/reference/details_boost_tree_h2o.md),
 [`lightgbm engine details`](https://parsnip.tidymodels.org/dev/reference/details_boost_tree_lightgbm.md),
 [`mboost engine details`](https://parsnip.tidymodels.org/dev/reference/details_boost_tree_mboost.md),
-[`spark engine details`](https://parsnip.tidymodels.org/dev/reference/details_boost_tree_spark.md)
+[`spark engine details`](https://parsnip.tidymodels.org/dev/reference/details_boost_tree_spark.md),
+[`xgboost3 engine details`](https://parsnip.tidymodels.org/dev/reference/details_boost_tree_xgboost3.md)
 ,
 [`xgb_train()`](https://parsnip.tidymodels.org/dev/reference/xgb_train.md),
 [`C5.0_train()`](https://parsnip.tidymodels.org/dev/reference/C5.0_train.md)
@@ -149,15 +152,18 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ``` r
 show_engines("boost_tree")
-#> # A tibble: 6 × 2
-#>   engine  mode               
-#>   <chr>   <chr>              
-#> 1 xgboost classification     
-#> 2 xgboost regression         
-#> 3 xgboost quantile regression
-#> 4 C5.0    classification     
-#> 5 spark   classification     
-#> 6 spark   regression         
+#> # A tibble: 9 × 2
+#>   engine   mode               
+#>   <chr>    <chr>              
+#> 1 xgboost  classification     
+#> 2 xgboost  regression         
+#> 3 xgboost  quantile regression
+#> 4 xgboost3 classification     
+#> 5 xgboost3 regression         
+#> 6 xgboost3 quantile regression
+#> 7 C5.0     classification     
+#> 8 spark    classification     
+#> 9 spark    regression         
 
 boost_tree(mode = "classification", trees = 20)
 #> Boosted Tree Model Specification (classification)

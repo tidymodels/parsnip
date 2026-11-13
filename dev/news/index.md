@@ -28,6 +28,26 @@
   [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md)
   since their brulee fitting functions do not use it.
 
+- [`boost_tree()`](https://parsnip.tidymodels.org/dev/reference/boost_tree.md)
+  gains an `"xgboost3"` engine that passes factor predictors to xgboost
+  as categorical features instead of converting them to indicator
+  variables. It requires xgboost 3.0.0 or later when factor predictors
+  are used.
+
+- [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+  [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) now
+  save a zero-row copy of the training predictors in the `ptype` element
+  of the fitted object’s `preproc` slot.
+  [`predict()`](https://rdrr.io/r/stats/predict.html) uses it to give
+  factor and character columns in new data the levels seen during
+  training; values with novel levels become `NA` with a warning.
+
+- [`multi_predict()`](https://parsnip.tidymodels.org/dev/reference/multi_predict.md)
+  for xgboost models now prepares `new_data` the same way as
+  [`predict()`](https://rdrr.io/r/stats/predict.html), so models fit
+  with the formula interface can be used with data containing factor
+  predictors.
+
 ## parsnip 1.6.1
 
 CRAN release: 2026-09-27

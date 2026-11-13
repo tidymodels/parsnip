@@ -50,6 +50,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_mboost.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_spark.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_xgboost.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_xgboost3.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_cubist_rules_Cubist.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_C5.0.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_decision_tree_partykit.html</loc></url>
