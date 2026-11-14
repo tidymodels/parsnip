@@ -61,6 +61,7 @@ Suggests:
     nlme,
     prodlim,
     ranger (>= 0.12.0),
+    recipes,
     remotes,
     rmarkdown,
     rpart,
@@ -70,6 +71,7 @@ Suggests:
     tensorflow,
     testthat (>= 3.0.0),
     withr,
+    workflows,
     xgboost (>= 1.5.0.1)
 VignetteBuilder: 
     knitr

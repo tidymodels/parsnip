@@ -138,3 +138,62 @@ test_that("lmrob raw predictions forward prediction options", {
   )
   expect_equal(actual, predict(fitted$fit, mtcars[1:5, ], se.fit = TRUE))
 })
+
+test_that("lmrob predicts a single row for all prediction types", {
+  fitted <- withr::with_seed(
+    123,
+    fit(linear_reg(engine = "lmrob"), mpg ~ wt + hp, data = mtcars)
+  )
+  new_data <- mtcars[1, , drop = FALSE]
+  numeric <- predict(fitted, new_data)
+  reference <- predict(fitted$fit, new_data)
+  expect_equal(nrow(numeric), 1L)
+  expect_named(numeric, ".pred")
+  expect_equal(numeric$.pred, unname(reference))
+  expect_equal(predict(fitted, new_data, type = "raw"), reference)
+
+  intervals <- c(conf_int = "confidence", pred_int = "prediction")
+  for (type in names(intervals)) {
+    actual <- predict(fitted, new_data, type = type, level = 0.95)
+    reference <- predict(
+      fitted$fit, new_data, interval = intervals[[type]], level = 0.95
+    )
+    expect_equal(nrow(actual), 1L)
+    expect_named(actual, c(".pred_lower", ".pred_upper"))
+    expect_equal(
+      as.numeric(actual[1, ]), unname(reference[1, c("lwr", "upr")])
+    )
+  }
+})
+
+test_that("lmrob works with formula workflows", {
+  skip_if_not_installed("workflows")
+
+  spec <- linear_reg(engine = "lmrob")
+  workflow <- workflows::workflow() |>
+    workflows::add_formula(mpg ~ wt + hp) |>
+    workflows::add_model(spec)
+  fitted <- withr::with_seed(123, fit(workflow, data = mtcars))
+  reference <- withr::with_seed(123, fit(spec, mpg ~ wt + hp, data = mtcars))
+  actual <- predict(fitted, mtcars[1:5, ])
+  expect_s3_class(actual, "tbl_df")
+  expect_equal(actual, predict(reference, mtcars[1:5, ]))
+})
+
+test_that("lmrob works with recipe workflows", {
+  skip_if_not_installed("workflows")
+  skip_if_not_installed("recipes")
+
+  spec <- linear_reg(engine = "lmrob")
+  recipe <- recipes::recipe(mpg ~ wt + hp, data = mtcars) |>
+    recipes::step_normalize(recipes::all_numeric_predictors())
+  workflow <- workflows::workflow() |>
+    workflows::add_recipe(recipe) |>
+    workflows::add_model(spec)
+  fitted <- withr::with_seed(123, fit(workflow, data = mtcars))
+  baked <- recipes::bake(recipes::prep(recipe), new_data = mtcars)
+  reference <- withr::with_seed(123, fit(spec, mpg ~ wt + hp, data = baked))
+  actual <- predict(fitted, mtcars[1:5, ])
+  expect_s3_class(actual, "tbl_df")
+  expect_equal(actual, predict(reference, baked[1:5, ]))
+})
