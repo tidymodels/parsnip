@@ -53,15 +53,11 @@ test_that("lmrob confidence and prediction intervals match robustbase", {
     123,
     fit(linear_reg(engine = "lmrob"), mpg ~ wt + hp, data = mtcars)
   )
+  intervals <- c(conf_int = "confidence", pred_int = "prediction")
   for (level in c(0.8, 0.95)) {
-    for (type in c("conf_int", "pred_int")) {
-      if (type == "conf_int") {
-        interval <- "confidence"
-      } else {
-        interval <- "prediction"
-      }
+    for (type in names(intervals)) {
       reference <- predict(
-        fitted$fit, mtcars[1:5, ], interval = interval, level = level
+        fitted$fit, mtcars[1:5, ], interval = intervals[[type]], level = level
       )
       actual <- predict(fitted, mtcars[1:5, ], type = type, level = level)
       expect_named(actual, c(".pred_lower", ".pred_upper"))
