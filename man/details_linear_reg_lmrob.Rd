@@ -70,8 +70,8 @@ the robustbase documentation for their interpretation.
 #>   mode       type
 #>   <chr>      <chr>
 #> 1 regression numeric
-#> 2 regression conf_in
-#> 3 regression pred_in
+#> 2 regression conf_int
+#> 3 regression pred_int
 #> 4 regression raw
 }\if{html}{\out{</div>}}
 
