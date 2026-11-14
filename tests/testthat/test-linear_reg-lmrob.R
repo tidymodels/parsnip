@@ -114,7 +114,7 @@ test_that("lmrob preserves prediction rows with missing predictors", {
   expect_equal(actual$.pred, unname(predict(fitted$fit, new_data)))
 })
 
-test_that("lmrob xy handles factors and rejects novel levels", {
+test_that("lmrob handles factors and warns on novel levels", {
   data <- mtcars
   data$cyl <- factor(data$cyl)
   spec <- linear_reg(engine = "lmrob")
@@ -126,7 +126,10 @@ test_that("lmrob xy handles factors and rejects novel levels", {
   expect_equal(predict(xy, data[1:5, ]), predict(fitted, data[1:5, ]))
   new_data <- data[1, ]
   new_data$cyl <- factor("10")
-  expect_error(predict(fitted, new_data), "new level")
+  for (model in list(fitted, xy)) {
+    expect_warning(prediction <- predict(model, new_data), "Novel level")
+    expect_identical(prediction$.pred, NA_real_)
+  }
 })
 
 test_that("lmrob raw predictions forward prediction options", {
