@@ -37,13 +37,15 @@ test_that("lmrob accepts data frame and matrix xy interfaces", {
   reference <- withr::with_seed(123, fit(spec, mpg ~ wt + hp, data = mtcars))
   xy <- withr::with_seed(123, fit_xy(spec, x = x, y = mtcars$mpg))
   matrix_xy <- withr::with_seed(
-    123, fit_xy(spec, x = as.matrix(x), y = mtcars$mpg)
+    123,
+    fit_xy(spec, x = as.matrix(x), y = mtcars$mpg)
   )
   expect_equal(coef(xy$fit), coef(reference$fit))
   expect_equal(coef(matrix_xy$fit), coef(reference$fit))
   expect_equal(predict(xy, x[1:5, ]), predict(reference, x[1:5, ]))
   expect_equal(
-    predict(matrix_xy, as.matrix(x[1:5, ])), predict(reference, x[1:5, ])
+    predict(matrix_xy, as.matrix(x[1:5, ])),
+    predict(reference, x[1:5, ])
   )
   expect_equal(xy$fit$control$max.it, 100)
 })
@@ -57,7 +59,10 @@ test_that("lmrob confidence and prediction intervals match robustbase", {
   for (level in c(0.8, 0.95)) {
     for (type in names(intervals)) {
       reference <- predict(
-        fitted$fit, mtcars[1:5, ], interval = intervals[[type]], level = level
+        fitted$fit,
+        mtcars[1:5, ],
+        interval = intervals[[type]],
+        level = level
       )
       actual <- predict(fitted, mtcars[1:5, ], type = type, level = level)
       expect_named(actual, c(".pred_lower", ".pred_upper"))
@@ -72,7 +77,9 @@ test_that("lmrob forwards case weights to robustbase", {
   spec <- linear_reg(engine = "lmrob")
   fitted <- withr::with_seed(
     123,
-    fit(spec, mpg ~ wt + hp,
+    fit(
+      spec,
+      mpg ~ wt + hp,
       data = mtcars,
       case_weights = hardhat::importance_weights(weights)
     )
@@ -89,8 +96,10 @@ test_that("lmrob forwards case weights to robustbase", {
   )
   xy <- withr::with_seed(
     123,
-    fit_xy(spec,
-      x = mtcars[, c("wt", "hp")], y = mtcars$mpg,
+    fit_xy(
+      spec,
+      x = mtcars[, c("wt", "hp")],
+      y = mtcars$mpg,
       case_weights = hardhat::importance_weights(weights)
     )
   )
@@ -134,7 +143,10 @@ test_that("lmrob raw predictions forward prediction options", {
     fit(linear_reg(engine = "lmrob"), mpg ~ wt + hp, data = mtcars)
   )
   actual <- predict(
-    fitted, mtcars[1:5, ], type = "raw", opts = list(se.fit = TRUE)
+    fitted,
+    mtcars[1:5, ],
+    type = "raw",
+    opts = list(se.fit = TRUE)
   )
   expect_equal(actual, predict(fitted$fit, mtcars[1:5, ], se.fit = TRUE))
 })
@@ -156,12 +168,16 @@ test_that("lmrob predicts a single row for all prediction types", {
   for (type in names(intervals)) {
     actual <- predict(fitted, new_data, type = type, level = 0.95)
     reference <- predict(
-      fitted$fit, new_data, interval = intervals[[type]], level = 0.95
+      fitted$fit,
+      new_data,
+      interval = intervals[[type]],
+      level = 0.95
     )
     expect_equal(nrow(actual), 1L)
     expect_named(actual, c(".pred_lower", ".pred_upper"))
     expect_equal(
-      as.numeric(actual[1, ]), unname(reference[1, c("lwr", "upr")])
+      as.numeric(actual[1, ]),
+      unname(reference[1, c("lwr", "upr")])
     )
   }
 })
