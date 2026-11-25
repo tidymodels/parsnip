@@ -100,6 +100,3 @@ parsnip:::get_from_env("mlp_predict") |>
 ## References
 
  - Cannon, A.J., 2018. Non-crossing nonlinear regression quantiles by monotone composite quantile regression neural network, with application to rainfall extremes. _Stochastic Environmental Research and Risk Assessment_, 32(11): 3207-3225. doi:10.1007/s00477-018-1573-6
-
-
-
