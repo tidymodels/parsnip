@@ -39,3 +39,19 @@ test_that("tunable parameters for mlp + qrnn", {
     )
   )
 })
+
+test_that("brulee scheduler engine args are tunable", {
+  res <- tunable(mlp() |> set_engine("brulee"))
+  eng_args <- c(
+    initial = "rate_initial",
+    largest = "rate_largest",
+    reduction = "rate_reduction",
+    steps = "rate_steps",
+    step_size = "rate_step_size",
+    decay = "rate_decay"
+  )
+  res <- res[match(names(eng_args), res$name), ]
+  expect_identical(res$name, names(eng_args))
+  expect_identical(purrr::map_chr(res$call_info, "fun"), unname(eng_args))
+  expect_all_equal(res$component_id, "engine")
+})

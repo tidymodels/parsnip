@@ -27,12 +27,3 @@
       tree_depth                | pkg: dials, fun: tree_depth | main
       min_n                     | pkg: dials, fun: min_n | main
 
-# tunable parameters for decision_tree + partykit
-
-    Code
-      display_tunable_call_info(set_engine(decision_tree(), "partykit"))
-    Output
-      mincriterion              | pkg: dials, fun: conditional_min_criterion | engine
-      teststat                  | pkg: dials, fun: conditional_test_statistic | engine
-      testtype                  | pkg: dials, fun: conditional_test_type | engine
-

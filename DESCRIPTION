@@ -52,7 +52,7 @@ Suggests:
     kernlab,
     kknn,
     knitr,
-    LiblineaR,
+    LiblineaR (>= 2.50-2),
     MASS,
     Matrix,
     methods,

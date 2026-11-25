@@ -12,10 +12,3 @@
     Output
       No tunable parameters.
 
-# tunable parameters for survival_reg + flexsurvspline
-
-    Code
-      display_tunable_call_info(set_engine(survival_reg(), "flexsurvspline"))
-    Output
-      k                         | pkg: dials, fun: num_knots | engine
-

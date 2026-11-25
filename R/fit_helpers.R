@@ -62,7 +62,10 @@ form_form <-
       envir = env
     )
     elapsed <- proc.time() - time
-    res$preproc <- list(y_var = all.vars(rlang::f_lhs(env$formula)))
+    res$preproc <- list(
+      y_var = all.vars(rlang::f_lhs(env$formula)),
+      ptype = make_formula_ptype(env$formula, env$data)
+    )
     res$elapsed <- list(elapsed = elapsed, print = control$verbosity > 1L)
 
     res
@@ -131,7 +134,11 @@ xy_xy <- function(
     }
   }
 
-  res$preproc <- list(y_var = y_name, x_names = colnames(env$x))
+  res$preproc <- list(
+    y_var = y_name,
+    x_names = colnames(env$x),
+    ptype = make_predictor_ptype(env$x)
+  )
   res$elapsed <- list(elapsed = elapsed, print = control$verbosity > 1L)
   res
 }
@@ -182,6 +189,7 @@ form_xy <- function(
   data_obj$weights <- NULL
   # TODO: Should we be using the offset that we remove here?
   data_obj$offset <- NULL
+  data_obj$ptype <- make_formula_ptype(env$formula, env$data)
   res$preproc <- data_obj
   res
 }
@@ -196,6 +204,9 @@ xy_form <- function(object, env, control, call = rlang::caller_env(), ...) {
 
   # this way of filtering is intentionally written in the base-R way for speed.
   remove_intercept <- encoding_info$remove_intercept[is_spec_encoding]
+
+  # `form_form()` replaces `env$x`, so take the ptype first
+  ptype <- make_predictor_ptype(env$x)
 
   data_obj <-
     .convert_xy_to_form_fit(
@@ -225,5 +236,30 @@ xy_form <- function(object, env, control, call = rlang::caller_env(), ...) {
   }
 
   res$preproc <- data_obj[c("x_var", "y_var")]
+  res$preproc$ptype <- ptype
   res
+}
+
+# A zero-row slice of the predictors, taken before any dummy variable or sparse
+# conversion, so that `prepare_data()` can give factors in new data the same
+# levels as the training set. Some engines (e.g. xgboost) do not save the levels
+# and silently use the integer codes.
+make_predictor_ptype <- function(x) {
+  if (!is.data.frame(x)) {
+    return(NULL)
+  }
+  vctrs::vec_slice(x, 0)
+}
+
+make_formula_ptype <- function(formula, data) {
+  if (!is.data.frame(data)) {
+    return(NULL)
+  }
+  outcome_vars <- all.vars(rlang::f_lhs(formula))
+  predictor_vars <- all.vars(rlang::f_rhs(formula))
+  if (any(predictor_vars == ".")) {
+    predictor_vars <- c(predictor_vars, setdiff(names(data), outcome_vars))
+  }
+  predictor_vars <- intersect(names(data), predictor_vars)
+  make_predictor_ptype(data[, predictor_vars, drop = FALSE])
 }

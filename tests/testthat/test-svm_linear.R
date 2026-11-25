@@ -187,18 +187,20 @@ test_that('linear svm classification prediction: LiblineaR', {
       control = ctrl
     )
 
-  liblinear_class <-
-    structure(
-      list(
-        .pred_class = structure(
-          c(1L, 1L, 2L),
-          levels = c("VF", "F", "L"),
-          class = "factor"
-        )
-      ),
-      row.names = c(NA, -3L),
-      class = c("tbl_df", "tbl", "data.frame")
-    )
+  set.seed(34562)
+  liblinear_fit <- LiblineaR::LiblineaR(
+    as.matrix(hpc_no_m[, 1:4]),
+    hpc_no_m$class,
+    type = 1,
+    cost = 1 / 8
+  )
+  liblinear_pred <- predict(
+    liblinear_fit,
+    as.matrix(hpc_no_m[ind, 1:4])
+  )$predictions
+  liblinear_class <- tibble::tibble(
+    .pred_class = factor(liblinear_pred, levels = levels(hpc_no_m$class))
+  )
 
   parsnip_class <- predict(cls_form, hpc_no_m[ind, -5])
   expect_equal(liblinear_class, parsnip_class)

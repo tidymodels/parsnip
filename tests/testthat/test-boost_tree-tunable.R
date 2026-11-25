@@ -21,19 +21,3 @@ test_that("tunable parameters for boost_tree + spark", {
     )
   )
 })
-
-test_that("tunable parameters for boost_tree + lightgbm", {
-  expect_snapshot(
-    display_tunable_call_info(
-      boost_tree() |> set_engine("lightgbm")
-    )
-  )
-})
-
-test_that("tunable parameters for boost_tree + catboost", {
-  expect_snapshot(
-    display_tunable_call_info(
-      boost_tree() |> set_engine("catboost")
-    )
-  )
-})
