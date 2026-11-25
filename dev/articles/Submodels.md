@@ -40,7 +40,7 @@ library(tidymodels)
     ## ✔ infer        1.1.0      ✔ tune         2.1.0 
     ## ✔ modeldata    1.6.0      ✔ workflows    1.3.0 
     ## ✔ purrr        1.2.2      ✔ workflowsets 1.1.1 
-    ## ✔ recipes      1.4.0      ✔ yardstick    1.4.0
+    ## ✔ recipes      1.4.0      ✔ yardstick    1.5.0
 
     ## ── Conflicts ──────────────────────────────── tidymodels_conflicts() ──
     ## ✖ purrr::discard() masks scales::discard()
