@@ -231,6 +231,7 @@ keras_mlp <-
     if (penalty > 0 & dropout > 0) {
       cli::cli_abort("Please use either dropout or weight decay.", call = NULL)
     }
+    keras_py_require()
     if (!is.matrix(x)) {
       x <- as.matrix(x)
     }
@@ -410,6 +411,39 @@ keras_activations <- function() {
   allowed_keras_activation
 }
 
+# Since keras 2.16.0, the Python requirements for legacy keras must be declared
+# with `keras::py_require_legacy_keras()` before Python is initialized. parsnip
+# users never attach keras, so we do it for them. The calls are built as
+# expressions so that parsnip does not depend on keras or reticulate.
+keras_py_require <- function() {
+  if (!has_legacy_keras_py_require()) {
+    return(invisible(FALSE))
+  }
+  py_initialized <- rlang::call2(
+    "py_available",
+    initialize = FALSE,
+    .ns = "reticulate"
+  )
+  if (isTRUE(eval_py_call(py_initialized))) {
+    return(invisible(FALSE))
+  }
+  py_req <- rlang::call2(
+    "py_require_legacy_keras",
+    extra_packages = FALSE,
+    .ns = "keras"
+  )
+  eval_py_call(py_req)
+  invisible(TRUE)
+}
+
+has_legacy_keras_py_require <- function() {
+  rlang::is_installed("keras", version = "2.16.0")
+}
+
+eval_py_call <- function(call) {
+  rlang::eval_bare(call, env = rlang::global_env())
+}
+
 get_activation_fn <- function(arg, ...) {
   if (arg == "hardsigmoid") {
     arg <- "hard_sigmoid"
@@ -476,6 +510,7 @@ reformat_torch_num <- function(results, object) {
 #' @export
 #' @keywords internal
 keras_predict_classes <- function(object, x) {
+  keras_py_require()
   if (utils::packageVersion("keras") >= package_version("2.6")) {
     preds <- predict(object$fit, x)
     if (tensorflow::tf_version() <= package_version("2.0.0")) {
@@ -501,6 +536,7 @@ keras_predict_classes <- function(object, x) {
 #' @keywords internal
 set_tf_seed <- function(seed) {
   set.seed(seed)
+  keras_py_require()
   if (tensorflow::tf_version() >= package_version("2.0")) {
     tensorflow::tf$random$set_seed(seed)
   } else {

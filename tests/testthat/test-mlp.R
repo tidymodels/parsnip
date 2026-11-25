@@ -109,3 +109,50 @@ test_that("tunables", {
       tunable()
   )
 })
+
+test_that("keras_py_require() declares legacy keras requirements", {
+  calls <- list()
+  local_mocked_bindings(
+    has_legacy_keras_py_require = function() TRUE,
+    eval_py_call = function(call) {
+      calls[[length(calls) + 1]] <<- call
+      FALSE
+    }
+  )
+  expect_identical(keras_py_require(), TRUE)
+  expect_equal(
+    calls,
+    list(
+      rlang::call2("py_available", initialize = FALSE, .ns = "reticulate"),
+      rlang::call2(
+        "py_require_legacy_keras",
+        extra_packages = FALSE,
+        .ns = "keras"
+      )
+    )
+  )
+})
+
+test_that("keras_py_require() does nothing once Python is initialized", {
+  calls <- list()
+  local_mocked_bindings(
+    has_legacy_keras_py_require = function() TRUE,
+    eval_py_call = function(call) {
+      calls[[length(calls) + 1]] <<- call
+      TRUE
+    }
+  )
+  expect_identical(keras_py_require(), FALSE)
+  expect_equal(
+    calls,
+    list(rlang::call2("py_available", initialize = FALSE, .ns = "reticulate"))
+  )
+})
+
+test_that("keras_py_require() does nothing without keras >= 2.16.0", {
+  local_mocked_bindings(
+    has_legacy_keras_py_require = function() FALSE,
+    eval_py_call = function(call) cli::cli_abort("should not be called")
+  )
+  expect_identical(keras_py_require(), FALSE)
+})

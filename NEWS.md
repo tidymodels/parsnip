@@ -1,5 +1,7 @@
 # parsnip (development version)
 
+* The legacy `"keras"` engine for `linear_reg()`, `logistic_reg()`, `mlp()`, and `multinom_reg()` now declares its Python requirements (via `keras::py_require_legacy_keras()`) before Python is initialized, so reticulate can provision a working TensorFlow/tf-keras environment. parsnip does not take a new dependency on keras or reticulate to do this.
+
 # parsnip 1.6.1
 
 ## Breaking Change
