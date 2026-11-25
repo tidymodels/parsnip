@@ -23,11 +23,11 @@ This engine has no tuning parameters. Arguments to
   set_engine("lmrob") |>
   translate()
 #> Linear Regression Model Specification (regression)
-#>
-#> Computational engine: lmrob
-#>
+#> 
+#> Computational engine: lmrob 
+#> 
 #> Model fit template:
-#> robustbase::lmrob(formula = missing_arg(), data = missing_arg(),
+#> robustbase::lmrob(formula = missing_arg(), data = missing_arg(), 
 #>     weights = missing_arg())
 }\if{html}{\out{</div>}}
 
@@ -67,9 +67,9 @@ the robustbase documentation for their interpretation.
   dplyr::filter(engine == "lmrob") |>
   dplyr::select(mode, type)
 #> # A tibble: 4 x 2
-#>   mode       type
-#>   <chr>      <chr>
-#> 1 regression numeric
+#>   mode       type    
+#>   <chr>      <chr>   
+#> 1 regression numeric 
 #> 2 regression conf_int
 #> 3 regression pred_int
 #> 4 regression raw

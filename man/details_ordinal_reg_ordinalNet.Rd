@@ -29,7 +29,7 @@ The \strong{ordered} extension package is required to fit this model.
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ordered)
 
 ordinal_reg(
-  penalty = double(0),
+  penalty = 1, # An actual number is required; this is just a placeholders
   mixture = double(0),
   ordinal_link = character(0),
   odds_link = character(0)
@@ -44,7 +44,7 @@ ordinal_reg(
 ## Main Arguments:
 ##   ordinal_link = character(0)
 ##   odds_link = character(0)
-##   penalty = numeric(0)
+##   penalty = 1
 ##   mixture = double(0)
 ## 
 ## Computational engine: ordinalNet 
@@ -52,8 +52,7 @@ ordinal_reg(
 ## Model fit template:
 ## ordered::ordinalNet_wrapper(x = missing_arg(), y = missing_arg(), 
 ##     weights = missing_arg(), link = character(0), family = character(0), 
-##     alpha = double(0), nLambda = 120L, lambdaMinRatio = 1e-08, 
-##     includeLambda0 = TRUE)
+##     alpha = double(0))
 }\if{html}{\out{</div>}}
 }
 
@@ -122,11 +121,12 @@ The \code{fit()} and \code{fit_xy()} functions have arguments called
   dplyr::select(mode, type)
 }\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 x 2
-##   mode           type 
-##   <chr>          <chr>
-## 1 classification class
-## 2 classification prob
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 3 x 2
+##   mode           type       
+##   <chr>          <chr>      
+## 1 classification class      
+## 2 classification prob       
+## 3 classification linear_pred
 }\if{html}{\out{</div>}}
 }
 
