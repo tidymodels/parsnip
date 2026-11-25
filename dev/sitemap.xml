@@ -79,6 +79,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lm.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lme.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lmer.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_lmrob.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_quantreg.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_spark.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_linear_reg_stan.html</loc></url>

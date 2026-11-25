@@ -2,6 +2,12 @@
 
 ## parsnip (development version)
 
+- [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md)
+  can now fit robust linear regression models using the `lmrob` engine
+  from robustbase
+  ([@algoria-contributions](https://github.com/algoria-contributions),
+  [\#1287](https://github.com/tidymodels/parsnip/issues/1287)).
+
 - The tunable parameters for engines registered in extension packages
   (lightgbm, catboost, partykit, aorsf, and flexsurvspline) are no
   longer hard-coded in parsnip’s
