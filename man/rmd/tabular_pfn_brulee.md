@@ -9,9 +9,9 @@ For this engine, there are multiple modes: classification and regression
 
 This model has 4 tuning parameters:
 
-- `num_estimators`: # Estimators (type: integer, default: {see below})
+- `num_estimators`: # Estimators (type: integer, default: see below)
 
-- `softmax_temperature`: Softmax Temperature (type: double, default: {see below})
+- `softmax_temperature`: Softmax Temperature (type: double, default: see below)
 
 - `balance_probabilities`: Balance Probabilities? (type: logical, default: FALSE)
 

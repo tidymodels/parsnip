@@ -14,7 +14,7 @@ defaults <-
   tibble::tibble(
     parsnip = c("num_estimators", "softmax_temperature",
                 "balance_probabilities", "average_before_softmax"),
-    default = c("{see below}", "{see below}", "FALSE", "FALSE"))
+    default = c("see below", "see below", "FALSE", "FALSE"))
 
 spec <-
   tabular_pfn(

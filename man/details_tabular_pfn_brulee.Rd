@@ -13,9 +13,9 @@ For this engine, there are multiple modes: classification and regression
 
 This model has 4 tuning parameters:
 \itemize{
-\item \code{num_estimators}: # Estimators (type: integer, default: {see below})
-\item \code{softmax_temperature}: Softmax Temperature (type: double, default:
-{see below})
+\item \code{num_estimators}: # Estimators (type: integer, default: see below)
+\item \code{softmax_temperature}: Softmax Temperature (type: double, default: see
+below)
 \item \code{balance_probabilities}: Balance Probabilities? (type: logical,
 default: FALSE)
 \item \code{average_before_softmax}: Average Before Softmax? (type: logical,
