@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.6.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.7.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,6 +46,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="parsnip-development-version">parsnip (development version)<a class="anchor" aria-label="anchor" href="#parsnip-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.7.0" id="parsnip-170">parsnip 1.7.0<a class="anchor" aria-label="anchor" href="#parsnip-170"></a></h2>
 <ul><li><p>The legacy <code>"keras"</code> engine for <code><a href="../reference/linear_reg.html">linear_reg()</a></code>, <code><a href="../reference/logistic_reg.html">logistic_reg()</a></code>, <code><a href="../reference/mlp.html">mlp()</a></code>, and <code><a href="../reference/multinom_reg.html">multinom_reg()</a></code> now declares its Python requirements (via <code><a href="https://rdrr.io/pkg/keras/man/install_keras.html" class="external-link">keras::py_require_legacy_keras()</a></code>) before Python is initialized, so reticulate can provision a working TensorFlow/tf-keras environment. parsnip does not take a new dependency on keras or reticulate to do this.</p></li>
 <li><p><code><a href="../reference/linear_reg.html">linear_reg()</a></code> can now fit robust linear regression models using the <code>lmrob</code> engine from robustbase (<a href="https://github.com/algoria-contributions" class="external-link">@algoria-contributions</a>, <a href="https://github.com/tidymodels/parsnip/issues/1287" class="external-link">#1287</a>).</p></li>
 <li><p>The tunable parameters for engines registered in extension packages (lightgbm, catboost, partykit, aorsf, and flexsurvspline) are no longer hard-coded in parsnip’s <code><a href="https://generics.r-lib.org/reference/tunable.html" class="external-link">tunable()</a></code> methods; those packages now register them with <code><a href="../reference/set_new_model.html">set_model_arg()</a></code>.</p></li>

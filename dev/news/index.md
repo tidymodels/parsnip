@@ -2,6 +2,8 @@
 
 ## parsnip (development version)
 
+## parsnip 1.7.0
+
 - The legacy `"keras"` engine for
   [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md),
   [`logistic_reg()`](https://parsnip.tidymodels.org/dev/reference/logistic_reg.md),
