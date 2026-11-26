@@ -1,5 +1,8 @@
 # parsnip (development version)
 
+
+* The legacy `"keras"` engine for `linear_reg()`, `logistic_reg()`, `mlp()`, and `multinom_reg()` now declares its Python requirements (via `keras::py_require_legacy_keras()`) before Python is initialized, so reticulate can provision a working TensorFlow/tf-keras environment. parsnip does not take a new dependency on keras or reticulate to do this.
+
 * `linear_reg()` can now fit robust linear regression models using the `lmrob` engine from robustbase (@algoria-contributions, #1287).
 
 * The tunable parameters for engines registered in extension packages (lightgbm, catboost, partykit, aorsf, and flexsurvspline) are no longer hard-coded in parsnip's `tunable()` methods; those packages now register them with `set_model_arg()`.
