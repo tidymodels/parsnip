@@ -35,7 +35,7 @@ The **ordered** extension package is required to fit this model.
     ##
     ## Model fit template:
     ## ordered::VGAM_vgam_wrapper(formula = missing_arg(), data = missing_arg(),
-    ##     weights = missing_arg(), parallel = TRUE)
+    ##     weights = missing_arg())
 
 ### Model fitting
 
@@ -104,11 +104,12 @@ weights.
       dplyr::filter(engine == "vgam") |>
       dplyr::select(mode, type)
 
-    ## # A tibble: 2 x 2
+    ## # A tibble: 3 x 2
     ##   mode           type
     ##   <chr>          <chr>
     ## 1 classification class
     ## 2 classification prob
+    ## 3 classification linear_pred
 
 ### References
 

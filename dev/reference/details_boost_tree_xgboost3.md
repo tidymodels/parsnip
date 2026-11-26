@@ -228,27 +228,27 @@ evaluation metric like this:
 
     # good
     boost_tree() |>
-      set_engine("xgboost", eval_metric = "mae")
+      set_engine("xgboost3", eval_metric = "mae")
 
     ## Boosted Tree Model Specification (unknown mode)
     ##
     ## Engine-Specific Arguments:
     ##   eval_metric = mae
     ##
-    ## Computational engine: xgboost
+    ## Computational engine: xgboost3
 
 …rather than this:
 
     # bad
     boost_tree() |>
-      set_engine("xgboost", params = list(eval_metric = "mae"))
+      set_engine("xgboost3", params = list(eval_metric = "mae"))
 
     ## Boosted Tree Model Specification (unknown mode)
     ##
     ## Engine-Specific Arguments:
     ##   params = list(eval_metric = "mae")
     ##
-    ## Computational engine: xgboost
+    ## Computational engine: xgboost3
 
 parsnip will then route arguments as needed. In the case that arguments
 are passed to `params` via
