@@ -2,6 +2,17 @@
 
 ## parsnip (development version)
 
+- The legacy `"keras"` engine for
+  [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md),
+  [`logistic_reg()`](https://parsnip.tidymodels.org/dev/reference/logistic_reg.md),
+  [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md), and
+  [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md)
+  now declares its Python requirements (via
+  [`keras::py_require_legacy_keras()`](https://rdrr.io/pkg/keras/man/install_keras.html))
+  before Python is initialized, so reticulate can provision a working
+  TensorFlow/tf-keras environment. parsnip does not take a new
+  dependency on keras or reticulate to do this.
+
 - [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md)
   can now fit robust linear regression models using the `lmrob` engine
   from robustbase
