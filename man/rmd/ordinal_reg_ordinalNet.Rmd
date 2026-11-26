@@ -32,7 +32,7 @@ param$item
 library(ordered)
 
 ordinal_reg(
-  penalty = double(0),
+  penalty = 1, # An actual number is required; this is just a placeholders
   mixture = double(0),
   ordinal_link = character(0),
   odds_link = character(0)

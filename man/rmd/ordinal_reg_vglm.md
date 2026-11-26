@@ -38,8 +38,7 @@ ordinal_reg(ordinal_link = character(0), odds_link = character(0)) %>%
 ## 
 ## Model fit template:
 ## ordered::VGAM_vglm_wrapper(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), link = character(0), family = character(0), 
-##     parallel = TRUE)
+##     weights = missing_arg(), link = character(0), family = character(0))
 ```
 
 ## Preprocessing requirements
@@ -68,11 +67,12 @@ parsnip:::get_from_env("ordinal_reg_predict") |>
 ```
 
 ```
-## # A tibble: 2 x 2
-##   mode           type 
-##   <chr>          <chr>
-## 1 classification class
-## 2 classification prob
+## # A tibble: 3 x 2
+##   mode           type       
+##   <chr>          <chr>      
+## 1 classification class      
+## 2 classification prob       
+## 3 classification linear_pred
 ```
 
 

@@ -230,7 +230,7 @@ like this:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# good
 boost_tree() |>
-  set_engine("xgboost", eval_metric = "mae")
+  set_engine("xgboost3", eval_metric = "mae")
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (unknown mode)
@@ -238,14 +238,14 @@ boost_tree() |>
 ## Engine-Specific Arguments:
 ##   eval_metric = mae
 ## 
-## Computational engine: xgboost
+## Computational engine: xgboost3
 }\if{html}{\out{</div>}}
 
 …rather than this:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# bad
 boost_tree() |>
-  set_engine("xgboost", params = list(eval_metric = "mae"))
+  set_engine("xgboost3", params = list(eval_metric = "mae"))
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{## Boosted Tree Model Specification (unknown mode)
@@ -253,7 +253,7 @@ boost_tree() |>
 ## Engine-Specific Arguments:
 ##   params = list(eval_metric = "mae")
 ## 
-## Computational engine: xgboost
+## Computational engine: xgboost3
 }\if{html}{\out{</div>}}
 
 parsnip will then route arguments as needed. In the case that arguments

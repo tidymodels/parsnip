@@ -9,19 +9,19 @@ For this engine, there are multiple modes: classification and regression
 
 This model has 7 tuning parameters:
 
-- `epochs`: # Epochs (type: integer, default: 100L)
-
 - `hidden_units`: # Hidden Units (type: integer, default: 3L)
-
-- `activation`: Activation Function (type: character, default: 'relu')
 
 - `penalty`: Amount of Regularization (type: double, default: 0.001)
 
-- `mixture`: Proportion of Lasso Penalty (type: double, default: 0.0)
+- `epochs`: # Epochs (type: integer, default: 100L)
 
 - `dropout`: Dropout Rate (type: double, default: 0.0)
 
 - `learn_rate`: Learning Rate (type: double, default: 0.01)
+
+- `activation`: Activation Function (type: character, default: 'relu')
+
+- `mixture`: Proportion of Lasso Penalty (type: double, default: 0.0)
 
 The use of the L1 penalty (a.k.a. the lasso penalty) does _not_ force parameters to be strictly zero (as it does in packages such as glmnet). The zeroing out of parameters is a specific feature the optimization method used in those packages.
 

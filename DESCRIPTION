@@ -61,14 +61,17 @@ Suggests:
     nlme,
     prodlim,
     ranger (>= 0.12.0),
+    recipes,
     remotes,
     rmarkdown,
     rpart,
+    robustbase,
     sparklyr (>= 1.0.0),
     survival,
     tensorflow,
     testthat (>= 3.0.0),
     withr,
+    workflows,
     xgboost (>= 1.5.0.1)
 VignetteBuilder: 
     knitr
@@ -80,4 +83,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1
