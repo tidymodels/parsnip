@@ -36,8 +36,7 @@ The **ordered** extension package is required to fit this model.
     ##
     ## Model fit template:
     ## ordered::VGAM_vglm_wrapper(formula = missing_arg(), data = missing_arg(),
-    ##     weights = missing_arg(), link = character(0), family = character(0),
-    ##     parallel = TRUE)
+    ##     weights = missing_arg(), link = character(0), family = character(0))
 
 ### Preprocessing requirements
 
@@ -73,11 +72,12 @@ effectively delete an observation.”
       dplyr::filter(engine == "vglm") |>
       dplyr::select(mode, type)
 
-    ## # A tibble: 2 x 2
+    ## # A tibble: 3 x 2
     ##   mode           type
     ##   <chr>          <chr>
     ## 1 classification class
     ## 2 classification prob
+    ## 3 classification linear_pred
 
 ### References
 

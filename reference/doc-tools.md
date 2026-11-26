@@ -83,6 +83,7 @@ make_engine_list("linear_reg")
 #>   \item \code{\link[parsnip:details_linear_reg_keras3]{keras3}}
 #>   \item \code{\link[parsnip:details_linear_reg_lme]{lme}²}
 #>   \item \code{\link[parsnip:details_linear_reg_lmer]{lmer}²}
+#>   \item \code{\link[parsnip:details_linear_reg_lmrob]{lmrob}}
 #>   \item \code{\link[parsnip:details_linear_reg_quantreg]{quantreg}}
 #>   \item \code{\link[parsnip:details_linear_reg_spark]{spark}}
 #>   \item \code{\link[parsnip:details_linear_reg_stan]{stan}}
@@ -109,6 +110,7 @@ cat(make_engine_list("linear_reg"))
 #>   \item \code{\link[parsnip:details_linear_reg_keras3]{keras3}}
 #>   \item \code{\link[parsnip:details_linear_reg_lme]{lme}²}
 #>   \item \code{\link[parsnip:details_linear_reg_lmer]{lmer}²}
+#>   \item \code{\link[parsnip:details_linear_reg_lmrob]{lmrob}}
 #>   \item \code{\link[parsnip:details_linear_reg_quantreg]{quantreg}}
 #>   \item \code{\link[parsnip:details_linear_reg_spark]{spark}}
 #>   \item \code{\link[parsnip:details_linear_reg_stan]{stan}}

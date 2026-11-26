@@ -11,6 +11,8 @@ this model are listed below.
 
 - [`tabpfn`](https://parsnip.tidymodels.org/reference/details_tabular_pfn_tabpfn.md)`¹²`
 
+- [`brulee`](https://parsnip.tidymodels.org/reference/details_tabular_pfn_brulee.md)`²`
+
 ¹ The default engine. ² Requires a parsnip extension package for
 classification and regression.
 
@@ -88,7 +90,8 @@ preprint* arXiv:2112.10510 (2021).
 [`fit()`](https://parsnip.tidymodels.org/reference/fit.md),
 [`set_engine()`](https://parsnip.tidymodels.org/reference/set_engine.md),
 [`update()`](https://rdrr.io/r/stats/update.html),
-[`tabpfn engine details`](https://parsnip.tidymodels.org/reference/details_tabular_pfn_tabpfn.md)
+[`tabpfn engine details`](https://parsnip.tidymodels.org/reference/details_tabular_pfn_tabpfn.md),
+[`brulee engine details`](https://parsnip.tidymodels.org/reference/details_tabular_pfn_brulee.md)
 , `tabpfn::tab_pfn()`
 
 ## Examples

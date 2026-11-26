@@ -32,6 +32,8 @@ this model are listed below.
 
 - [`lmer`](https://parsnip.tidymodels.org/reference/details_linear_reg_lmer.md)`²`
 
+- [`lmrob`](https://parsnip.tidymodels.org/reference/details_linear_reg_lmrob.md)
+
 - [`quantreg`](https://parsnip.tidymodels.org/reference/details_linear_reg_quantreg.md)
 
 - [`spark`](https://parsnip.tidymodels.org/reference/details_linear_reg_spark.md)
@@ -128,6 +130,7 @@ models](https://www.tidymodels.org/find/parsnip/)
 [`keras3 engine details`](https://parsnip.tidymodels.org/reference/details_linear_reg_keras3.md),
 [`lme engine details`](https://parsnip.tidymodels.org/reference/details_linear_reg_lme.md),
 [`lmer engine details`](https://parsnip.tidymodels.org/reference/details_linear_reg_lmer.md),
+[`lmrob engine details`](https://parsnip.tidymodels.org/reference/details_linear_reg_lmrob.md),
 [`quantreg engine details`](https://parsnip.tidymodels.org/reference/details_linear_reg_quantreg.md),
 [`spark engine details`](https://parsnip.tidymodels.org/reference/details_linear_reg_spark.md),
 [`stan engine details`](https://parsnip.tidymodels.org/reference/details_linear_reg_stan.md),
@@ -137,18 +140,19 @@ models](https://www.tidymodels.org/find/parsnip/)
 
 ``` r
 show_engines("linear_reg")
-#> # A tibble: 9 × 2
-#>   engine   mode               
-#>   <chr>    <chr>              
-#> 1 lm       regression         
-#> 2 glm      regression         
-#> 3 glmnet   regression         
-#> 4 stan     regression         
-#> 5 spark    regression         
-#> 6 keras    regression         
-#> 7 keras3   regression         
-#> 8 brulee   regression         
-#> 9 quantreg quantile regression
+#> # A tibble: 10 × 2
+#>    engine   mode               
+#>    <chr>    <chr>              
+#>  1 lm       regression         
+#>  2 glm      regression         
+#>  3 glmnet   regression         
+#>  4 stan     regression         
+#>  5 spark    regression         
+#>  6 keras    regression         
+#>  7 keras3   regression         
+#>  8 brulee   regression         
+#>  9 quantreg quantile regression
+#> 10 lmrob    regression         
 
 linear_reg()
 #> Linear Regression Model Specification (regression)
