@@ -306,6 +306,54 @@ test_that("na.action default is used, not system option (#548)", {
   expect_equal(nrow(observed$x), n_complete)
 })
 
+test_that("indicators = 'none' respects na.action, subset, and weights", {
+  withr::local_options(na.action = "na.pass")
+
+  observed_default <- .convert_form_to_xy_fit(
+    rate ~ .,
+    data = Puromycin_miss,
+    indicators = "none",
+    remove_intercept = TRUE
+  )
+  n_complete <- sum(complete.cases(Puromycin_miss))
+  expect_equal(nrow(observed_default$x), n_complete)
+  expect_equal(length(observed_default$y), n_complete)
+
+  observed_pass <- withr::with_options(
+    list(na.action = "na.omit"),
+    .convert_form_to_xy_fit(
+      rate ~ .,
+      data = Puromycin_miss,
+      na.action = na.pass,
+      indicators = "none",
+      remove_intercept = TRUE
+    )
+  )
+  expect_equal(nrow(observed_pass$x), nrow(Puromycin_miss))
+  expect_equal(length(observed_pass$y), nrow(Puromycin_miss))
+
+  observed_subset <- .convert_form_to_xy_fit(
+    mpg ~ .,
+    data = mtcars,
+    subset = hp > 170,
+    indicators = "none",
+    remove_intercept = TRUE
+  )
+  expected_subset <- mtcars[mtcars$hp > 170, -1]
+  expect_equal(observed_subset$x, expected_subset)
+  expect_equal(observed_subset$y, mtcars$mpg[mtcars$hp > 170])
+
+  observed_weights <- .convert_form_to_xy_fit(
+    mpg ~ cyl + hp,
+    data = mtcars,
+    weights = disp,
+    indicators = "none",
+    remove_intercept = TRUE
+  )
+  expect_named(observed_weights$x, c("cyl", "hp"))
+  expect_equal(observed_weights$weights, mtcars$disp)
+})
+
 test_that("numeric y and mixed x, no dummies", {
   expected <- model.frame(rate ~ ., data = Puromycin)[, -1]
   observed <-

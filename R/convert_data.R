@@ -110,10 +110,13 @@
     x <- model.matrix(mod_terms, mod_frame)
   } else {
     # this still ignores -vars in formula
-    x <- model.frame(mod_terms, data)
+    x <- mod_frame
     y_cols <- attr(mod_terms, "response")
-    if (length(y_cols) > 0) {
+    if (length(y_cols) > 0 && y_cols > 0) {
       x <- x[, -y_cols, drop = FALSE]
+    }
+    if (!is.null(w)) {
+      x <- x[, colnames(x) != "(weights)", drop = FALSE]
     }
   }
 
