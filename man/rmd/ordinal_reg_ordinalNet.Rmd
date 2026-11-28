@@ -24,6 +24,9 @@ This model has `r nrow(param)` tuning parameters:
 param$item
 ```
 
+`penalty` has no fixed default and a single value is required at fit time.
+For more details, see [`glmnet-details`].
+
 ## Translation from parsnip to the original package
 
 `r uses_extension("ordinal_reg", "ordinalNet", "classification")`
@@ -42,6 +45,24 @@ ordinal_reg(
   translate()
 ```
 
+## Preprocessing requirements
+
+```{r}
+#| child: template-makes-dummies.Rmd
+```
+
+```{r}
+#| child: template-same-scale.Rmd
+```
+
+By default, [ordinalNet::ordinalNet()] uses `standardize = TRUE` to center and scale the data.
+
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
 ## Controlling penalty values
 
 `ordinalNet()`, like `glmnet()`, simultaneously computes a set of parameter estimates for multiple penalty values. Predictions can be made at these penalty values at the same time. However, unlike `glmnet()`, `ordinalNet()` does not interpolate if you want to predict using penalty values not exactly among those it precomputed. Similarly, it cannot predict for models with penalties outside of the range of those precomputed. 
@@ -50,7 +71,7 @@ The \pkg{ordered} package can interpolate between the preset penalty values but 
 
 We suggest that you set the collection of penalty values when fitting the model. This is important when tuning the model. Different data sets and mixture values (a.k.a. `alpha`) will pair best with different sets of penalties and it might be good to set a wide range. 
 
-To do this, you can use `set_engine()` to pass a vector of penalty values as so: 
+To do this, you can use `set_engine()` to pass a vector of penalty values as so:
 
 ```r
 library(ordered)
@@ -63,24 +84,6 @@ ordinal_reg(penalty = tune()) |>
 ```
 
 See [`glmnet-details`] for more background. 
-
-## Preprocessing requirements
-
-```{r}
-#| child: template-makes-dummies.Rmd
-```
-
-```{r}
-#| child: template-same-scale.Rmd
-```
-
-By default, [ordinalNet::ordinalNet()] uses the argument `standardize = TRUE` to center and scale the data. 
-
-## Case weights
-
-```{r}
-#| child: template-uses-case-weights.Rmd
-```
 
 ## Prediction types
 

@@ -1,0 +1,100 @@
+```{r, child="aaa.Rmd", include=FALSE}
+```
+
+`r descr_models("ordinal_reg", "glmnetcr")`
+
+## Tuning Parameters
+
+```{r glmnetcr-param-info, echo=FALSE}
+defaults <-
+  tibble::tibble(
+    parsnip = c("penalty", "mixture"),
+    default = c("see below", "1.0")
+  )
+
+param <-
+  ordinal_reg(
+    penalty = double(1),
+    mixture = double(1)
+  ) |>
+  set_engine("glmnetcr") |>
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r, glmnetcr-param-list, echo=FALSE, results='asis'}
+param$item
+```
+
+`penalty` has no fixed default and a single value is required at fit time.
+For more details, see [`glmnet-details`].
+
+## Translation from parsnip to the original package
+
+`r uses_extension("ordinal_reg", "glmnetcr", "classification")`
+
+```{r glmnetcr-oreg}
+library(ordered)
+
+ordinal_reg(penalty = double(1), mixture = double(1)) |>
+  set_engine("glmnetcr") |>
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r}
+#| child: template-makes-dummies.Rmd
+```
+
+```{r}
+#| child: template-same-scale.Rmd
+```
+
+By default, [glmnetcr::glmnetcr()] uses `standardize = TRUE` to center and scale the data.
+
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
+## Controlling penalty values
+
+`glmnetcr()` computes coefficient estimates over a path of penalty values.
+The \pkg{ordered} package can interpolate probabilities between adjacent path
+values. Penalties outside the fitted path are clamped to the nearest endpoint
+rather than extrapolated.
+
+We suggest setting the penalty path when fitting the model. This is important
+when tuning the model because different data sets and mixture values pair
+best with different penalty ranges.
+
+```r
+library(ordered)
+
+penalties <- 10^seq(-4, 0, length.out = 20)
+
+ordinal_reg(penalty = tune()) |>
+  set_engine("glmnetcr", path_values = !!penalties)
+```
+
+`multi_predict()` can return predictions for the full path. When a penalty is
+not supplied to prediction, `criteria = "bic"` selects a path step;
+`criteria = "aic"` is also available in that case.
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+parsnip:::get_from_env("ordinal_reg_predict") |>
+  dplyr::filter(engine == "glmnetcr") |>
+  dplyr::select(mode, type)
+```
+
+## References
+
+- Archer KJ, Williams AAA. 2012. L1 penalized continuation ratio models for
+  ordinal response prediction using high-dimensional datasets.
+  _Statistics in Medicine_ 31:2632-2642. \doi{10.1002/sim.4484}.

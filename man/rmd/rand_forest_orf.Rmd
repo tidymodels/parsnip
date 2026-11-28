@@ -1,0 +1,98 @@
+```{r, child="aaa.Rmd", include=FALSE}
+```
+
+`r descr_models("rand_forest", "orf")`
+
+## Tuning Parameters
+
+```{r orf-param-info, echo=FALSE}
+defaults <-
+  tibble::tibble(
+    parsnip = c(
+      "mtry", "trees", "min_n", "sample.fraction", "honesty",
+      "honesty.fraction"
+    ),
+    default = c(
+      "see below", "see below", "see below", "see below", "TRUE",
+      "see below"
+    )
+  )
+
+param <-
+  rand_forest(
+    mtry = integer(0),
+    trees = integer(0),
+    min_n = integer(0)
+  ) |>
+  set_engine(
+    "orf",
+    sample.fraction = double(0),
+    honesty = logical(0),
+    honesty.fraction = double(0)
+  ) |>
+  set_mode("classification") |>
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r, orf-param-list, echo=FALSE, results='asis'}
+param$item
+```
+
+`mtry` and `min_n` depend on the data dimensions. `sample.fraction`,
+`honesty`, and `honesty.fraction` are engine-specific arguments that can be
+passed via [set_engine()] and are registered as tunable parameters by
+`ordered`.
+
+## Translation from parsnip to the original package
+
+`r uses_extension("rand_forest", "orf", "classification")`
+
+```{r orf-cls}
+library(ordered)
+
+rand_forest(
+  mtry = integer(1),
+  trees = integer(1),
+  min_n = integer(1)
+) |>
+  set_engine(
+    "orf",
+    sample.fraction = 0.7,
+    honesty = TRUE,
+    honesty.fraction = 0.4
+  ) |>
+  set_mode("classification") |>
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r}
+#| child: template-makes-dummies.Rmd
+```
+
+## Case weights
+
+```{r}
+#| child: template-no-case-weights.Rmd
+```
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "orf") |>
+  dplyr::select(mode, type)
+```
+
+## References
+
+- Lechner M, Okasa G. 2025. Random Forest estimation of the ordered choice
+  model. _Empirical Economics_ 68(1):1-106.
+  \doi{10.1007/s00181-024-02646-4}.
+
+- Okasa G, Lechner M. 2022. _orf: Ordered Random Forests_. R package version
+  0.1.4.

@@ -16,6 +16,8 @@
 
 * `multi_predict()` for xgboost models now prepares `new_data` the same way as `predict()`, so models fit with the formula interface can be used with data containing factor predictors.
 
+* Missing details files are provided for engines added with ordered version 0.2.0.
+
 # parsnip 1.6.1
 
 ## Breaking Change
