@@ -1,9 +1,5 @@
-# keras is pretty tenacious about writing output to the R session. By default
-# this gets inserted into the test results. To make this less hideous, we
-# try to trigger the output here so that it shows up at the top of the testing.
-
-library(testthat)
-
-# setting keras environment
+# Quiet TensorFlow's C++ logging for the keras3 tests (which only run off CRAN).
+# Do not load keras or tensorflow here: their `.onLoad()` hooks ask reticulate
+# to find or provision Python, which prints messages and runs `uv` on machines
+# (like CRAN's) that do not have TensorFlow.
 Sys.setenv(TF_CPP_MIN_LOG_LEVEL = '3')
-k_bk <- try(keras:::backend(), silent = TRUE)

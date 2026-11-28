@@ -118,9 +118,8 @@ bag_tree(
 ## Computational engine: rpart 
 ## 
 ## Model fit template:
-## ipred::bagging(formula = missing_arg(), data = missing_arg(), 
-##     weights = missing_arg(), cp = double(1), maxdepth = integer(1), 
-##     minsplit = integer(1))
+## censored::bagging_surv_train(formula = missing_arg(), data = missing_arg(), 
+##     cp = double(1), maxdepth = integer(1), minsplit = integer(1))
 ```
 
 

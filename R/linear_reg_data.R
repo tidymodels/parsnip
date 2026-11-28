@@ -720,3 +720,108 @@ set_pred(
     )
   )
 )
+
+# ------------------------------------------------------------------------------
+# lmrob
+
+set_model_engine("linear_reg", "regression", "lmrob")
+set_dependency("linear_reg", "lmrob", "robustbase", mode = "regression")
+
+set_fit(
+  model = "linear_reg",
+  eng = "lmrob",
+  mode = "regression",
+  value = list(
+    interface = "formula",
+    protect = c("formula", "data", "weights"),
+    func = c(pkg = "robustbase", fun = "lmrob"),
+    defaults = list()
+  )
+)
+
+set_encoding(
+  model = "linear_reg",
+  eng = "lmrob",
+  mode = "regression",
+  options = list(
+    predictor_indicators = "traditional",
+    compute_intercept = TRUE,
+    remove_intercept = TRUE,
+    allow_sparse_x = FALSE
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "lmrob",
+  mode = "regression",
+  type = "numeric",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data),
+      type = "response"
+    )
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "lmrob",
+  mode = "regression",
+  type = "conf_int",
+  value = list(
+    pre = NULL,
+    post = function(results, object) {
+      tibble::as_tibble(results) |>
+        dplyr::select(-fit) |>
+        setNames(c(".pred_lower", ".pred_upper"))
+    },
+    func = c(fun = "predict"),
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data),
+      interval = "confidence",
+      level = expr(level),
+      type = "response"
+    )
+  )
+)
+set_pred(
+  model = "linear_reg",
+  eng = "lmrob",
+  mode = "regression",
+  type = "pred_int",
+  value = list(
+    pre = NULL,
+    post = function(results, object) {
+      tibble::as_tibble(results) |>
+        dplyr::select(-fit) |>
+        setNames(c(".pred_lower", ".pred_upper"))
+    },
+    func = c(fun = "predict"),
+    args = list(
+      object = expr(object$fit),
+      newdata = expr(new_data),
+      interval = "prediction",
+      level = expr(level),
+      type = "response"
+    )
+  )
+)
+
+set_pred(
+  model = "linear_reg",
+  eng = "lmrob",
+  mode = "regression",
+  type = "raw",
+  value = list(
+    pre = NULL,
+    post = NULL,
+    func = c(fun = "predict"),
+    args = list(object = expr(object$fit), newdata = expr(new_data))
+  )
+)

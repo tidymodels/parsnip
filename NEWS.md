@@ -1,5 +1,11 @@
 # parsnip (development version)
 
+# parsnip 1.7.0
+
+* The legacy `"keras"` engine for `linear_reg()`, `logistic_reg()`, `mlp()`, and `multinom_reg()` now declares its Python requirements (via `keras::py_require_legacy_keras()`) before Python is initialized, so reticulate can provision a working TensorFlow/tf-keras environment. parsnip does not take a new dependency on keras or reticulate to do this.
+
+* `linear_reg()` can now fit robust linear regression models using the `lmrob` engine from robustbase (@algoria-contributions, #1287).
+
 * The tunable parameters for engines registered in extension packages (lightgbm, catboost, partykit, aorsf, and flexsurvspline) are no longer hard-coded in parsnip's `tunable()` methods; those packages now register them with `set_model_arg()`.
 
 * The brulee engines for `linear_reg()`, `logistic_reg()`, `multinom_reg()`, and `mlp()` now register their tunable engine arguments with `set_model_arg()` instead of overriding `tunable()`. As a result, the learning rate scheduler arguments `initial`, `largest`, `reduction`, `steps`, `step_size`, and `decay` are now tunable for the `mlp()` engines, and `rate_schedule` is no longer listed for `linear_reg()`, `logistic_reg()`, and `multinom_reg()` since their brulee fitting functions do not use it.
