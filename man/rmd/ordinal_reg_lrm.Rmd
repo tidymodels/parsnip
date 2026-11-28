@@ -1,0 +1,64 @@
+```{r, child="aaa.Rmd", include=FALSE}
+```
+
+`r descr_models("ordinal_reg", "lrm")`
+
+## Tuning Parameters
+
+```{r lrm-param-info, echo=FALSE}
+defaults <-
+  tibble::tibble(parsnip = "penalty", default = "0")
+
+param <-
+  ordinal_reg(penalty = double(0)) |>
+  set_engine("lrm") |>
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r, lrm-param-list, echo=FALSE, results='asis'}
+param$item
+```
+
+`penalty` is passed directly to the native `penalty` argument.
+
+## Translation from parsnip to the original package
+
+`r uses_extension("ordinal_reg", "lrm", "classification")`
+
+```{r lrm-oreg}
+library(ordered)
+
+ordinal_reg(penalty = double(0)) |>
+  set_engine("lrm") |>
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r}
+#| child: template-makes-dummies.Rmd
+```
+
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
+Case weights require `rms` 7.0-0 or later.
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+parsnip:::get_from_env("ordinal_reg_predict") |>
+  dplyr::filter(engine == "lrm") |>
+  dplyr::select(mode, type)
+```
+
+## References
+
+- Harrell Jr FE. 2026. _rms: Regression Modeling Strategies_. R package
+  version 8.1-1. \doi{10.32614/CRAN.package.rms}.

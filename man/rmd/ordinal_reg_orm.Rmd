@@ -1,0 +1,76 @@
+```{r, child="aaa.Rmd", include=FALSE}
+```
+
+`r descr_models("ordinal_reg", "orm")`
+
+## Tuning Parameters
+
+```{r orm-param-info, echo=FALSE}
+defaults <-
+  tibble::tibble(
+    parsnip = c("ordinal_link", "penalty"),
+    default = c("logistic", "0")
+  )
+
+param <-
+  ordinal_reg(
+    ordinal_link = character(0),
+    penalty = double(0)
+  ) |>
+  set_engine("orm") |>
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r, orm-param-list, echo=FALSE, results='asis'}
+param$item
+```
+
+`ordinal_link` is passed to the native `family` argument and `penalty` is
+passed directly to the native `penalty` argument.
+
+## Translation from parsnip to the original package
+
+`r uses_extension("ordinal_reg", "orm", "classification")`
+
+```{r orm-oreg}
+library(ordered)
+
+ordinal_reg(
+  ordinal_link = character(0),
+  penalty = double(0)
+) |>
+  set_engine("orm") |>
+  translate()
+```
+
+The wrapper checks the installed `rms` version before fitting.
+
+## Preprocessing requirements
+
+```{r}
+#| child: template-makes-dummies.Rmd
+```
+
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
+Case weights and nonzero penalties require `rms` 7.0-0 or later.
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+parsnip:::get_from_env("ordinal_reg_predict") |>
+  dplyr::filter(engine == "orm") |>
+  dplyr::select(mode, type)
+```
+
+## References
+
+- Harrell Jr FE. 2026. _rms: Regression Modeling Strategies_. R package
+  version 8.1-1. \doi{10.32614/CRAN.package.rms}.
