@@ -90,9 +90,9 @@ parsnip:::get_from_env("rand_forest_predict") |>
 
 ## References
 
-- Lechner M, Okasa G. 2019. Random Forest Estimation of the Ordered Choice
-  Model. arXiv:1907.02436.
-  \url{https://arxiv.org/abs/1907.02436}.
+- Lechner M, Okasa G. 2025. Random Forest estimation of the ordered choice
+  model. _Empirical Economics_ 68(1):1-106.
+  \doi{10.1007/s00181-024-02646-4}.
 
 - Okasa G, Lechner M. 2022. _orf: Ordered Random Forests_. R package version
   0.1.4.

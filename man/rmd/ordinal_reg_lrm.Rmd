@@ -60,5 +60,9 @@ parsnip:::get_from_env("ordinal_reg_predict") |>
 
 ## References
 
+- Harrell Jr FE. 2015. _Regression Modeling Strategies: With Applications to
+  Linear Models, Logistic and Ordinal Regression, and Survival Analysis_.
+  Springer International Publishing, Cham. \doi{10.1007/978-3-319-19425-7}.
+
 - Harrell Jr FE. 2026. _rms: Regression Modeling Strategies_. R package
   version 8.1-1. \doi{10.32614/CRAN.package.rms}.

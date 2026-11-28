@@ -102,8 +102,8 @@ The underlying model implementation does not allow for case weights.
 
 \subsection{References}{
 \itemize{
-\item Lechner M, Okasa G. 2019. Random Forest Estimation of the Ordered
-Choice Model. arXiv:1907.02436. .
+\item Lechner M, Okasa G. 2025. Random Forest estimation of the ordered
+choice model. \emph{Empirical Economics} 68(1):1-106. .
 \item Okasa G, Lechner M. 2022. \emph{orf: Ordered Random Forests}. R package
 version 0.1.4.
 }

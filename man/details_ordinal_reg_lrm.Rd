@@ -81,6 +81,9 @@ Case weights require \code{rms} 7.0-0 or later.
 
 \subsection{References}{
 \itemize{
+\item Harrell Jr FE. 2015. \emph{Regression Modeling Strategies: With
+Applications to Linear Models, Logistic and Ordinal Regression, and
+Survival Analysis}. Springer International Publishing, Cham. .
 \item Harrell Jr FE. 2026. \emph{rms: Regression Modeling Strategies}. R package
 version 8.1-1. .
 }
